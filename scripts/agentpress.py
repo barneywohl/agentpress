@@ -356,6 +356,9 @@ def audit_root(root: pathlib.Path, strict: bool = True) -> tuple[int, list[str],
 def validate(args):
     root = pathlib.Path(args.out)
     code, errors, warnings = audit_root(root, strict=False)
+    if getattr(args, "json", False):
+        print(json.dumps({"status": "ok" if code == 0 else "fail", "path": str(root), "errors": errors, "warnings": warnings}, indent=2))
+        return code
     if code:
         for e in errors:
             print(e)
@@ -369,6 +372,9 @@ def validate(args):
 def audit(args):
     root = pathlib.Path(args.out)
     code, errors, warnings = audit_root(root, strict=True)
+    if getattr(args, "json", False):
+        print(json.dumps({"status": "ok" if code == 0 else "fail", "path": str(root), "errors": errors, "warnings": warnings}, indent=2))
+        return code
     for e in errors:
         print(f"error: {e}")
     for w in warnings:
@@ -656,8 +662,6 @@ def package_bundle(args):
 
 def doctor(args):
     root = pathlib.Path(args.root)
-    print("AgentPress doctor")
-    print(f"root: {root}")
     entrypoints = [
         "llms.txt",
         ".well-known/agentpress.json",
@@ -670,36 +674,64 @@ def doctor(args):
         "AGENTS.md",
         "sitemap.xml",
     ]
-    missing = [x for x in entrypoints if not (root/x).exists()]
-    for x in entrypoints:
-        print(("OK      " if (root/x).exists() else "MISSING ") + x)
-    if missing:
-        print("missing required global-agent entrypoints: " + ", ".join(missing), file=sys.stderr)
-        return 1
-    # Validate the primary neutral reference if present.
+    rows = []
+    ok = True
+    for rel in entrypoints:
+        exists = (root/rel).exists()
+        rows.append({"path": rel, "status": "OK" if exists else "MISSING"})
+        if not exists:
+            ok = False
     ref = root/"agentpress/examples/agent-knowledge-sharing"
-    code, errors, warnings = audit_root(ref, strict=True)
-    if code:
-        print(json.dumps({"primary_reference_errors": errors, "warnings": warnings}, indent=2), file=sys.stderr)
-        return code
-    total, detail = score_value(ref)
-    print(f"primary_reference_score: {total}/100")
+    primary_errors = []
+    primary_warnings = []
+    primary_score = None
+    if ref.exists():
+        code, primary_errors, primary_warnings = audit_root(ref, strict=True)
+        if code:
+            ok = False
+        primary_score, detail = score_value(ref)
+        if primary_score < 100:
+            ok = False
+    else:
+        ok = False
+        primary_errors.append("missing primary neutral reference")
+    payload = {
+        "status": "ok" if ok else "fail",
+        "root": str(root),
+        "entrypoints": rows,
+        "primary_reference_score": primary_score,
+        "primary_reference_errors": primary_errors,
+        "primary_reference_warnings": primary_warnings,
+        "canonical_url": "https://barneywohl.github.io/agentpress/",
+        "raw_fallback": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
+    }
+    if getattr(args, "json", False):
+        print(json.dumps(payload, indent=2))
+        return 0 if ok else 1
+    print("AgentPress doctor")
+    print(f"root: {root}")
+    for row in rows:
+        print(f"{row['status']:<7} {row['path']}")
+    if primary_errors:
+        print(json.dumps({"primary_reference_errors": primary_errors, "warnings": primary_warnings}, indent=2), file=sys.stderr)
+    if primary_score is not None:
+        print(f"primary_reference_score: {primary_score}/100")
     print("canonical_url: https://barneywohl.github.io/agentpress/")
     print("raw_fallback: https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/")
-    return 0
+    return 0 if ok else 1
 
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("init"); p.add_argument("out"); p.add_argument("--title", required=True); p.add_argument("--canonical"); p.add_argument("--summary"); p.add_argument("--primary-task"); p.add_argument("--task-type", default="agent_native_publication")
-    p = sub.add_parser("validate"); p.add_argument("out")
-    p = sub.add_parser("audit"); p.add_argument("out")
+    p = sub.add_parser("validate"); p.add_argument("out"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("audit"); p.add_argument("out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
     p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True)
     p = sub.add_parser("list"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("build-all"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", dest="dest", required=True); p.add_argument("--clean", action="store_true")
     p = sub.add_parser("index-articles"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", default="agentpress/articles"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress")
-    p = sub.add_parser("doctor"); p.add_argument("root", nargs="?", default=".")
+    p = sub.add_parser("doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--json", action="store_true")
     p = sub.add_parser("eval"); p.add_argument("root", nargs="?", default="agentpress/examples")
     p = sub.add_parser("check-registry"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--registry", default="agentpress/agentpress-registry.json")
     p = sub.add_parser("check-openapi"); p.add_argument("root", nargs="?", default="."); p.add_argument("--openapi", default="openapi.yaml")
