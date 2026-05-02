@@ -10,9 +10,9 @@ REQUIRED_PATHS = [
     "agentpress/",
     "agentpress/agentpress-registry.json",
     "agentpress/GLOBAL_READINESS_GAP_LIST.md",
-    "agentpress/examples/samsung-hbm-margin/",
-    "agentpress/examples/samsung-hbm-margin/agent-task-card.json",
-    "agentpress/examples/samsung-hbm-margin/.well-known/ai-ingestion.json",
+    "agentpress/examples/api-docs-handoff/",
+    "agentpress/examples/api-docs-handoff/agent-task-card.json",
+    "agentpress/examples/api-docs-handoff/.well-known/ai-ingestion.json",
 ]
 
 
