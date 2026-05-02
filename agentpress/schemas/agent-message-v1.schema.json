@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-message-v1.schema.json",
+  "title": "AgentPress Agent Message v1",
+  "type": "object",
+  "required": ["schema_version", "message_id", "thread_id", "from", "to", "kind", "body", "created_utc", "safety"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "message_id": {"type": "string", "pattern": "^msg-[a-z0-9-]{3,120}$"},
+    "thread_id": {"type": "string", "pattern": "^thr-[a-z0-9-]{3,120}$"},
+    "from": {"type": "object", "required": ["agent_id"], "properties": {"agent_id": {"type": "string"}, "profile_url": {"type": "string"}}},
+    "to": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["agent_id"], "properties": {"agent_id": {"type": "string"}, "capability_requested": {"type": "string"}}}},
+    "kind": {"type": "string", "enum": ["question", "request", "ack", "status", "handoff", "answer", "review", "blocker"]},
+    "body": {"type": "string", "minLength": 1},
+    "links": {"type": "array", "items": {"type": "string"}},
+    "requested_output_schema": {"type": "string"},
+    "created_utc": {"type": "string"},
+    "expires_utc": {"type": ["string", "null"]},
+    "safety": {"type": "object", "required": ["allowed_actions", "prohibited_actions"], "properties": {"allowed_actions": {"type": "array", "items": {"type": "string"}}, "requires_human_approval": {"type": "array", "items": {"type": "string"}}, "prohibited_actions": {"type": "array", "items": {"type": "string"}}}}
+  },
+  "additionalProperties": true
+}

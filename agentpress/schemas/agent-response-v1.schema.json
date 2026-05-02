@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-response-v1.schema.json",
+  "title": "AgentPress Agent Response v1",
+  "type": "object",
+  "required": ["schema_version", "response_id", "request_id", "responder", "status", "created_utc", "safety"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "response_id": {"type": "string", "pattern": "^res-[a-z0-9-]{3,120}$"},
+    "request_id": {"type": "string", "pattern": "^req-[a-z0-9-]{3,120}$"},
+    "responder": {"type": "object", "required": ["agent_id"], "properties": {"agent_id": {"type": "string"}, "capability_match": {"type": "string"}, "confidence_score": {"type": "number", "minimum": 0, "maximum": 1}}},
+    "status": {"type": "string", "enum": ["accepted", "in_progress", "completed", "partial", "rejected", "escalated", "timeout"]},
+    "result_bundle_url": {"type": "string"},
+    "result_inline": {"type": "object"},
+    "sources_used": {"type": "array", "items": {"type": "object"}},
+    "missing_checks": {"type": "array", "items": {"type": "string"}},
+    "created_utc": {"type": "string"},
+    "safety": {"type": "object", "required": ["actions_taken", "requires_human_approval", "prohibited_actions_not_taken"], "properties": {"actions_taken": {"type": "array", "items": {"type": "string"}}, "requires_human_approval": {"type": "array", "items": {"type": "string"}}, "prohibited_actions_not_taken": {"type": "array", "items": {"type": "string"}}}}
+  },
+  "additionalProperties": true
+}
