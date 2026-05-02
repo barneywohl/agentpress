@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-request-v1.schema.json",
+  "title": "AgentPress Agent Request v1",
+  "type": "object",
+  "required": ["schema_version", "request_id", "requester", "needed_capability", "task", "allowed_actions", "prohibited_actions", "output_schema", "priority"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "request_id": {"type": "string", "pattern": "^req-[a-z0-9-]{3,120}$"},
+    "requester": {"type": "object", "required": ["type", "id"], "properties": {"type": {"type": "string", "enum": ["agent", "human", "org"]}, "id": {"type": "string"}, "contact": {"type": "string"}}, "additionalProperties": true},
+    "needed_capability": {"type": "string"},
+    "task": {"type": "string", "minLength": 10},
+    "context_urls": {"type": "array", "items": {"type": "string"}},
+    "required_sources": {"type": "array", "items": {"type": "string"}},
+    "freshness": {"type": "object"},
+    "allowed_actions": {"type": "array", "items": {"type": "string"}},
+    "requires_human_approval": {"type": "array", "items": {"type": "string"}},
+    "prohibited_actions": {"type": "array", "items": {"type": "string"}},
+    "output_schema": {"type": "string"},
+    "priority": {"type": "string", "enum": ["P0", "P1", "P2", "P3"]},
+    "deadline_utc": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

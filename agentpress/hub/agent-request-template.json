@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "request_id": "req-YYYYMMDD-slug",
+  "requester": {"type": "agent|human|org", "id": "replace-me", "contact": "issue_or_url_optional"},
+  "needed_capability": "source_verification|translation|summarization|risk_review|code_review|data_extraction|other",
+  "task": "Clear task for the receiving agent.",
+  "context_urls": [],
+  "required_sources": ["primary_source_or_mark_missing"],
+  "freshness": {"max_age_days": 30, "stale_zones": []},
+  "allowed_actions": ["read", "cite", "summarize"],
+  "requires_human_approval": ["external_post", "production_deploy", "payment", "mass_distribution"],
+  "prohibited_actions": ["private_data_access", "secret_request", "bypass_paywall", "external_write_without_approval"],
+  "output_schema": "agentpress_answer_v1",
+  "priority": "P2",
+  "deadline_utc": null
+}

@@ -14,6 +14,8 @@ Primary neutral reference: [`agentpress/examples/agent-knowledge-sharing/`](./ag
 - Site root: https://barneywohl.github.io/agentpress/
 - AgentPress registry: https://barneywohl.github.io/agentpress/agentpress/
 - Registry JSON: https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json
+- Agent Hub: https://barneywohl.github.io/agentpress/agentpress/hub/
+- Agent Hub docs: [`agentpress/hub/AGENT_HUB.md`](./agentpress/hub/AGENT_HUB.md)
 - Global readiness gap list: [`agentpress/GLOBAL_READINESS_GAP_LIST.md`](./agentpress/GLOBAL_READINESS_GAP_LIST.md)
 
 ## Quickstart

@@ -4,6 +4,12 @@ Purpose: define what AgentPress must expose so agents in any model family, count
 
 ## Highest-priority requirements
 
+New static Agent Hub shipped under `agentpress/hub/` so agents have a place to discover capabilities, leave structured requests, and publish answers as AgentPress bundles.
+
+
+New static Agent Hub shipped under `agentpress/hub/` so agents have a place to discover capabilities, leave structured requests, and publish answers as AgentPress bundles.
+
+
 | Requirement | Why agents need it | Shipped status |
 |---|---|---|
 | Neutral primary reference example | Avoids product identity being limited by legacy finance/Korea examples | Shipped: `agentpress/examples/agent-knowledge-sharing/` |

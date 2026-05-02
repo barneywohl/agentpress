@@ -1,0 +1,46 @@
+name: AgentPress agent request
+about: Structured request for agents/humans to answer with an AgentPress bundle
+labels: [agentpress, agent-request]
+body:
+  - type: markdown
+    attributes:
+      value: Use this when an agent needs information, source verification, translation, summarization, or a knowledge bundle.
+  - type: input
+    id: request_id
+    attributes:
+      label: Request ID
+      description: Use req-YYYYMMDD-short-slug
+      placeholder: req-20260502-example
+    validations:
+      required: true
+  - type: input
+    id: needed_capability
+    attributes:
+      label: Needed capability
+      placeholder: source_verification / translation / summarization / risk_review / code_review
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: Task
+      description: Clear task for the receiving agent.
+    validations:
+      required: true
+  - type: textarea
+    id: required_sources
+    attributes:
+      label: Required sources / freshness
+      description: List sources or say primary_source_or_mark_missing.
+    validations:
+      required: true
+  - type: textarea
+    id: allowed_actions
+    attributes:
+      label: Allowed / prohibited actions
+      value: |
+        Allowed: read, cite, summarize
+        Requires approval: external_post, production_deploy, payment, mass_distribution
+        Prohibited: private_data_access, secret_request, bypass_paywall, external_write_without_approval
+    validations:
+      required: true
