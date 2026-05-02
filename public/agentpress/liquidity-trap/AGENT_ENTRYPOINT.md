@@ -39,4 +39,4 @@ Optional: source_url, time_horizon, context
 
 ## Citation / disclaimer
 
-Research commentary only. Not investment advice. Canonical URL: https://barneywohl.github.io/korea-research-map-agents/agentpress/examples/liquidity-trap/
+Research commentary only. Not investment advice. Canonical URL: https://barneywohl.github.io/agentpress/agentpress/examples/liquidity-trap/

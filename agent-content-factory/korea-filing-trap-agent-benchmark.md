@@ -48,6 +48,6 @@ This is a clean eval primitive: a developer can plug it into a stock-research ag
 
 ## Canonical links
 
-- Agent entrypoint: `https://barneywohl.github.io/korea-research-map-agents/AGENT_ENTRYPOINT.md`
-- Task card: `https://barneywohl.github.io/korea-research-map-agents/agent-task-card.json`
-- Main benchmark: `https://barneywohl.github.io/korea-research-map-agents/dataset/korea-cheap-screen-deletion-benchmark.jsonl`
+- Agent entrypoint: `https://barneywohl.github.io/agentpress/AGENT_ENTRYPOINT.md`
+- Task card: `https://barneywohl.github.io/agentpress/agent-task-card.json`
+- Main benchmark: `https://barneywohl.github.io/agentpress/dataset/korea-cheap-screen-deletion-benchmark.jsonl`

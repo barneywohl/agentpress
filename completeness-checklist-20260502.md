@@ -1,7 +1,7 @@
 # Korea Research Map — Completeness & Optimization Checklist
 
 Last checked: 2026-05-02
-Canonical hub: https://barneywohl.github.io/korea-research-map-agents/
+Canonical hub: https://barneywohl.github.io/agentpress/
 
 ## Current status
 

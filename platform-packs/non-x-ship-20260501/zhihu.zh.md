@@ -19,9 +19,9 @@
 
 核心观点：有用的股票研究 LLM 不是找到最多便宜股票的模型，而是能解释哪些便宜股票应该被删除的模型。
 
-Agent page: https://barneywohl.github.io/korea-research-map-agents/
+Agent page: https://barneywohl.github.io/agentpress/
 
-GitHub repo: https://github.com/barneywohl/korea-research-map-agents
+GitHub repo: https://github.com/barneywohl/agentpress
 
 Full article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
 

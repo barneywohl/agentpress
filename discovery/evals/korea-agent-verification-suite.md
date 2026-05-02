@@ -1,7 +1,7 @@
 # Korea Research Map — Agent Verification Suite
 
 Source article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap
-Repo: https://github.com/barneywohl/korea-research-map-agents
+Repo: https://github.com/barneywohl/agentpress
 Framing: research commentary only; not investment advice.
 
 ## Purpose

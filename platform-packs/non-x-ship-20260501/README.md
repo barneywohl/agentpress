@@ -23,6 +23,6 @@ Guardrails:
 
 Primary URLs:
 
-- Agent page: https://barneywohl.github.io/korea-research-map-agents/
-- GitHub repo: https://github.com/barneywohl/korea-research-map-agents
+- Agent page: https://barneywohl.github.io/agentpress/
+- GitHub repo: https://github.com/barneywohl/agentpress
 - Full article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3

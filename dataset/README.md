@@ -28,8 +28,8 @@ Machine-readable benchmark data for stock-research agents that need to test whet
 
 ## Catalog metadata
 
-- Landing page: <https://barneywohl.github.io/korea-research-map-agents/>
-- Dataset URL: <https://barneywohl.github.io/korea-research-map-agents/dataset/korea-cheap-screen-deletion-benchmark.jsonl>
-- Discovery dataset URL: <https://barneywohl.github.io/korea-research-map-agents/dataset/korea-agent-discovery-benchmark.jsonl>
+- Landing page: <https://barneywohl.github.io/agentpress/>
+- Dataset URL: <https://barneywohl.github.io/agentpress/dataset/korea-cheap-screen-deletion-benchmark.jsonl>
+- Discovery dataset URL: <https://barneywohl.github.io/agentpress/dataset/korea-agent-discovery-benchmark.jsonl>
 - Citation: [`../CITATION.cff`](../CITATION.cff)
 - Agent metadata feed: [`../discovery/agent-metadata-feed.json`](../discovery/agent-metadata-feed.json)

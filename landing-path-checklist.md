@@ -6,7 +6,7 @@ Use this as the canonical crawl and builder path from the article into reusable 
 
 ## 1. Article entry
 
-- Start with the canonical project page: <https://barneywohl.github.io/korea-research-map-agents/>
+- Start with the canonical project page: <https://barneywohl.github.io/agentpress/>
 - Read the source article: <https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3>
 - Preserve the framing: research commentary only, not investment advice.
 

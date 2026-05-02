@@ -45,8 +45,8 @@ A good agent should verify:
 
 ## Canonical source
 
-- GitHub: https://github.com/barneywohl/korea-research-map-agents
-- Agent page: https://barneywohl.github.io/korea-research-map-agents/
+- GitHub: https://github.com/barneywohl/agentpress
+- Agent page: https://barneywohl.github.io/agentpress/
 - Article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
 
 ## Safety / use constraints

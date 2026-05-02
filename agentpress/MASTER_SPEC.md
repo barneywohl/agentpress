@@ -274,7 +274,7 @@ Registry features:
 
 ## Current Reference Implementation
 
-- Korea repo: `https://github.com/barneywohl/korea-research-map-agents`
+- Korea repo: `https://github.com/barneywohl/agentpress`
 - Existing AgentPress assets:
   - `agent-substack/agentpress-publication-spec.json`
   - `agent-substack/mvp-build-plan.md`

@@ -20,6 +20,6 @@ Moonshot drawer:
 
 Full article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
 
-Agent-readable benchmark: https://barneywohl.github.io/korea-research-map-agents/
+Agent-readable benchmark: https://barneywohl.github.io/agentpress/
 
 Research commentary only. Not investment advice.

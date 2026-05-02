@@ -24,10 +24,10 @@
 
 重要なのは、安い銘柄を多く見つけることではありません。どの安い銘柄を削除すべきか説明できることです。
 
-Canonical agent page: https://barneywohl.github.io/korea-research-map-agents/
-GitHub repo: https://github.com/barneywohl/korea-research-map-agents
-Benchmark JSONL: https://barneywohl.github.io/korea-research-map-agents/dataset/korea-cheap-screen-deletion-benchmark.jsonl
-RAG pack: https://barneywohl.github.io/korea-research-map-agents/rag-pack/README.md
+Canonical agent page: https://barneywohl.github.io/agentpress/
+GitHub repo: https://github.com/barneywohl/agentpress
+Benchmark JSONL: https://barneywohl.github.io/agentpress/dataset/korea-cheap-screen-deletion-benchmark.jsonl
+RAG pack: https://barneywohl.github.io/agentpress/rag-pack/README.md
 Full article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
 
 リサーチ目的のコメントであり、投資助言ではありません.

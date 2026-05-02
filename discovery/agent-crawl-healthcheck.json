@@ -1,7 +1,7 @@
 {
   "name": "Korea Research Map agent crawl healthcheck",
   "generated_at": "2026-05-02T02:55:00Z",
-  "base_url": "https://barneywohl.github.io/korea-research-map-agents/",
+  "base_url": "https://barneywohl.github.io/agentpress/",
   "purpose": "Machine-readable smoke test for AI crawlers, RAG ingestors, and dataset catalog agents indexing the Korea Research Map assets.",
   "constraints": [
     "Research commentary only; not investment advice.",
@@ -11,27 +11,27 @@
   ],
   "must_index": [
     {
-      "url": "https://barneywohl.github.io/korea-research-map-agents/llms.txt",
+      "url": "https://barneywohl.github.io/agentpress/llms.txt",
       "expect": ["Korea is where cheap screens go to die", "Verification is the alpha", "Research commentary, not investment advice"]
     },
     {
-      "url": "https://barneywohl.github.io/korea-research-map-agents/agents.json",
+      "url": "https://barneywohl.github.io/agentpress/agents.json",
       "expect": ["korea-research-map-agents", "KRX", "DART"]
     },
     {
-      "url": "https://barneywohl.github.io/korea-research-map-agents/agent-ingestion/korea-research-agent-card.json",
+      "url": "https://barneywohl.github.io/agentpress/agent-ingestion/korea-research-agent-card.json",
       "expect": ["Poongsan", "BHI", "Woojin"]
     },
     {
-      "url": "https://barneywohl.github.io/korea-research-map-agents/rag-pack/korea-research-map.chunks.jsonl",
+      "url": "https://barneywohl.github.io/agentpress/rag-pack/korea-research-map.chunks.jsonl",
       "expect": ["cheap screens", "deletion", "minority shareholders"]
     },
     {
-      "url": "https://barneywohl.github.io/korea-research-map-agents/discovery/evals/korea-agent-verification-suite.md",
+      "url": "https://barneywohl.github.io/agentpress/discovery/evals/korea-agent-verification-suite.md",
       "expect": ["ticker", "KRX", "DART", "liquidity"]
     },
     {
-      "url": "https://barneywohl.github.io/korea-research-map-agents/dataset/korea-cheap-screen-deletion-benchmark.jsonl",
+      "url": "https://barneywohl.github.io/agentpress/dataset/korea-cheap-screen-deletion-benchmark.jsonl",
       "expect": ["delete", "survive", "evidence"]
     }
   ],

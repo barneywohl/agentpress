@@ -36,7 +36,7 @@ pretty_name: Korea Cheap Screen Deletion Benchmark
 This dataset tests whether a stock-research LLM can delete weak Korean equity ideas before inventing a thesis.
 
 Canonical article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
-Agent page: https://barneywohl.github.io/korea-research-map-agents/
+Agent page: https://barneywohl.github.io/agentpress/
 
 ## Core survivor stack
 

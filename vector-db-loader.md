@@ -24,8 +24,8 @@ Purpose: make the Korea Research Map discoverable to AI agents, crawlers, RAG sy
 {
   "source_project": "Korea Research Map Agents",
   "canonical_article": "https://barneywohl.substack.com/p/the-korea-research-map-where-cheap",
-  "repository": "https://github.com/barneywohl/korea-research-map-agents",
-  "agent_home": "https://barneywohl.github.io/korea-research-map-agents/",
+  "repository": "https://github.com/barneywohl/agentpress",
+  "agent_home": "https://barneywohl.github.io/agentpress/",
   "market": "Korea",
   "asset_class": "public equities",
   "policy": "research-only-not-investment-advice",

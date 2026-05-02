@@ -7,7 +7,7 @@ Task: given Korean cheap-screen candidates, can the agent delete weak ideas usin
 Core survivor stack: Poongsan, BHI, Woojin.
 Moonshot drawer: Innospace, Mobiis, CellBion, IntoCell, SBB Tech.
 
-Agent assets: https://barneywohl.github.io/korea-research-map-agents/
-Repo: https://github.com/barneywohl/korea-research-map-agents
+Agent assets: https://barneywohl.github.io/agentpress/
+Repo: https://github.com/barneywohl/agentpress
 
 Not investment advice. This is an eval/design prompt for financial agents.

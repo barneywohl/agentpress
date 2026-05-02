@@ -2,11 +2,11 @@
 
 ## Assets
 - article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
-- agent_landing_page: https://barneywohl.github.io/korea-research-map-agents/
-- picks_and_moonshots: https://barneywohl.github.io/korea-research-map-agents/picks-and-moonshots.md
-- benchmark: https://barneywohl.github.io/korea-research-map-agents/benchmark.md
-- github_repo: https://github.com/barneywohl/korea-research-map-agents
-- release: https://github.com/barneywohl/korea-research-map-agents/releases/tag/korea-agent-benchmark-v1
+- agent_landing_page: https://barneywohl.github.io/agentpress/
+- picks_and_moonshots: https://barneywohl.github.io/agentpress/picks-and-moonshots.md
+- benchmark: https://barneywohl.github.io/agentpress/benchmark.md
+- github_repo: https://github.com/barneywohl/agentpress
+- release: https://github.com/barneywohl/agentpress/releases/tag/korea-agent-benchmark-v1
 
 ## High-fit channels
 - Substack Notes (global): Post concise follow-ups and link to agent artifacts only with fresh directive; fallback to crawler assets, not X. [status=active]

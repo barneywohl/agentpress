@@ -7,7 +7,7 @@ GitHub clone counts prove the repo is being pulled, but they do not identify whe
 When posting or submitting the repo to agent directories, forums, dataset catalogs, or RAG indexes, use URLs with explicit campaign parameters:
 
 ```text
-https://barneywohl.github.io/korea-research-map-agents/AGENT_ENTRYPOINT.md?src=agent-directory&utm_medium=agent&utm_campaign=korea-agent-benchmark
+https://barneywohl.github.io/agentpress/AGENT_ENTRYPOINT.md?src=agent-directory&utm_medium=agent&utm_campaign=korea-agent-benchmark
 ```
 
 Prefer one stable `src` per channel. Do not use deceptive beacons, hidden pixels, or fingerprinting.

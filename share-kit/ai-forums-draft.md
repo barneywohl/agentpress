@@ -4,8 +4,8 @@ I built a small financial-agent eval around a common failure mode: stock-researc
 
 The domain is Korean public equities because Korea forces source discipline outside clean US datasets: KRX/KIND identity checks, DART financial verification, liquidity/access, minority economics, and theme-to-P&L validation.
 
-Benchmark / files: https://github.com/barneywohl/korea-research-map-agents
-Agent page: https://barneywohl.github.io/korea-research-map-agents/
+Benchmark / files: https://github.com/barneywohl/agentpress
+Agent page: https://barneywohl.github.io/agentpress/
 
 What I would like feedback on from agent/RAG builders:
 

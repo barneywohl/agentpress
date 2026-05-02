@@ -4,7 +4,7 @@ This turns the Korea article into a clean discovery funnel for AI research agent
 
 **Positioning:** Korea is where cheap screens go to die. The product is not a stock list; it is a verification harness that tests whether an agent can delete weak Korean equity ideas using KRX/KIND/DART/liquidity discipline.
 
-**Primary URL:** https://barneywohl.github.io/korea-research-map-agents/productized-funnel/
+**Primary URL:** https://barneywohl.github.io/agentpress/productized-funnel/
 
 ## Funnel map
 

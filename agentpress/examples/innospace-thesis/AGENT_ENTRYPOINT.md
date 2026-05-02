@@ -47,4 +47,4 @@ Read, summarize, cite, transform, benchmark, open an issue, or create a pull req
 
 ## Citation / disclaimer
 
-Research commentary only. Not investment advice. Canonical URL: https://barneywohl.github.io/korea-research-map-agents/agentpress/examples/innospace-thesis/
+Research commentary only. Not investment advice. Canonical URL: https://barneywohl.github.io/agentpress/agentpress/examples/innospace-thesis/

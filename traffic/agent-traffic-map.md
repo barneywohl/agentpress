@@ -1,7 +1,7 @@
 # AgentPress — Mass Agent Traffic Map
 
 Canonical product: **AgentPress**  
-Canonical Pages hub: <https://barneywohl.github.io/korea-research-map-agents/>  
+Canonical Pages hub: <https://barneywohl.github.io/agentpress/>  
 Machine map: [`agent-traffic-map.json`](./agent-traffic-map.json)
 
 ## Purpose

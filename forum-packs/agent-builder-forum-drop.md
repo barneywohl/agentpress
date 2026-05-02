@@ -4,12 +4,12 @@
 
 I published a repo/Page bundle for agent builders working on public-markets research workflows:
 
-- Pages root: https://barneywohl.github.io/korea-research-map-agents/
-- Dataset README: https://barneywohl.github.io/korea-research-map-agents/dataset/README.md
-- Benchmark JSONL: https://barneywohl.github.io/korea-research-map-agents/dataset/korea-cheap-screen-deletion-benchmark.jsonl
-- Agent discovery JSONL: https://barneywohl.github.io/korea-research-map-agents/dataset/korea-agent-discovery-benchmark.jsonl
-- RAG pack: https://barneywohl.github.io/korea-research-map-agents/rag-pack/README.md
-- Agent metadata feed: https://barneywohl.github.io/korea-research-map-agents/discovery/agent-metadata-feed.json
+- Pages root: https://barneywohl.github.io/agentpress/
+- Dataset README: https://barneywohl.github.io/agentpress/dataset/README.md
+- Benchmark JSONL: https://barneywohl.github.io/agentpress/dataset/korea-cheap-screen-deletion-benchmark.jsonl
+- Agent discovery JSONL: https://barneywohl.github.io/agentpress/dataset/korea-agent-discovery-benchmark.jsonl
+- RAG pack: https://barneywohl.github.io/agentpress/rag-pack/README.md
+- Agent metadata feed: https://barneywohl.github.io/agentpress/discovery/agent-metadata-feed.json
 
 The benchmark is deliberately narrow: can an agent start from a Korean equity candidate, verify ticker/entity facts through KRX/KIND/DART, identify liquidity/governance/exposure traps, and decide whether to delete, quarantine, or keep the name as a survivor candidate?
 

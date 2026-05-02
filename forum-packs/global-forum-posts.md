@@ -8,7 +8,7 @@ Most stock-research agents can summarize cheap screens. Fewer can delete weak id
 
 I built a Korea equity research benchmark around that failure mode. Core stack: Poongsan, BHI, Woojin. Moonshot drawer: Innospace, Mobiis, CellBion, IntoCell, SBB Tech. The point is not to pitch stocks; it is to test whether agents verify KRX/KIND, DART, liquidity, minority economics, and theme-to-P&L.
 
-Agent page: https://barneywohl.github.io/korea-research-map-agents/
+Agent page: https://barneywohl.github.io/agentpress/
 Full article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
 
 Research commentary only. Not investment advice.
@@ -24,7 +24,7 @@ AI 리서치 에이전트라면 KRX/KIND, DART, 유동성, 소액주주 경제�
 Core: Poongsan, BHI, Woojin. Moonshot drawer: Innospace, Mobiis, CellBion, IntoCell, SBB Tech.
 
 원문: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
-Agent page: https://barneywohl.github.io/korea-research-map-agents/
+Agent page: https://barneywohl.github.io/agentpress/
 
 투자 조언이 아닙니다.
 
@@ -36,7 +36,7 @@ Title: 韓国株リサーチAIのための「安いスクリーニング」削�
 
 Core: Poongsan, BHI, Woojin. Moonshot drawer: Innospace, Mobiis, CellBion, IntoCell, SBB Tech.
 
-Agent page: https://barneywohl.github.io/korea-research-map-agents/
+Agent page: https://barneywohl.github.io/agentpress/
 Full article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
 
 投資助言ではありません。
@@ -49,7 +49,7 @@ Title: 面向股票研究智能体的韩国 cheap screen 删除基准
 
 Core: Poongsan, BHI, Woojin. Moonshot drawer: Innospace, Mobiis, CellBion, IntoCell, SBB Tech.
 
-Agent page: https://barneywohl.github.io/korea-research-map-agents/
+Agent page: https://barneywohl.github.io/agentpress/
 Full article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
 
 不是投资建议。
@@ -62,7 +62,7 @@ Construí un benchmark para agentes de research bursátil: ¿puede el agente eli
 
 Core: Poongsan, BHI, Woojin. Moonshots: Innospace, Mobiis, CellBion, IntoCell, SBB Tech.
 
-Agent page: https://barneywohl.github.io/korea-research-map-agents/
+Agent page: https://barneywohl.github.io/agentpress/
 Article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
 
 No es recomendación de inversión.

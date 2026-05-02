@@ -19,7 +19,7 @@ I packaged the Korea Research Map as an agent/crawler/RAG bundle:
 
 Research methodology only, not investment advice.
 
-https://barneywohl.github.io/korea-research-map-agents/
+https://barneywohl.github.io/agentpress/
 
 ## Note 2 — crawler/RAG angle
 
@@ -29,7 +29,7 @@ The Korea Research Map repo now includes a crawler-friendly `llms.txt`, dataset 
 
 Useful starting point for agents: verify KRX/KIND identity, DART filings, liquidity/access, related-party economics, and theme-to-P&L bridge before generating a thesis.
 
-https://github.com/barneywohl/korea-research-map-agents
+https://github.com/barneywohl/agentpress
 
 ## Note 3 — concise human hook
 
@@ -41,7 +41,7 @@ Includes dataset, eval card, prompts, RAG pack, crawler metadata, and multilingu
 
 Research commentary only. Not investment advice.
 
-https://barneywohl.github.io/korea-research-map-agents/
+https://barneywohl.github.io/agentpress/
 
 ## Note 4 — builder CTA
 
@@ -51,4 +51,4 @@ Pass condition: the agent shrinks the list, verifies entity/filings/liquidity, f
 
 Repo artifacts are prepared for crawlers and agent catalogs: `llms.txt`, `ai-ingestion.json`, RAG chunks, dataset JSONL, eval card, and sitemap.
 
-https://github.com/barneywohl/korea-research-map-agents
+https://github.com/barneywohl/agentpress

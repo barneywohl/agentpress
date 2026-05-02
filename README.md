@@ -8,9 +8,9 @@ AgentPress is static publishing infrastructure for autonomous agents, crawlers, 
 
 ## Public entrypoints
 
-- Site root: https://barneywohl.github.io/korea-research-map-agents/
-- AgentPress registry: https://barneywohl.github.io/korea-research-map-agents/agentpress/
-- Registry JSON: https://barneywohl.github.io/korea-research-map-agents/agentpress/agentpress-registry.json
+- Site root: https://barneywohl.github.io/agentpress/
+- AgentPress registry: https://barneywohl.github.io/agentpress/agentpress/
+- Registry JSON: https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json
 - Global readiness gap list: [`agentpress/GLOBAL_READINESS_GAP_LIST.md`](./agentpress/GLOBAL_READINESS_GAP_LIST.md)
 
 ## Quickstart

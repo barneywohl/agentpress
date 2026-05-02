@@ -14,7 +14,7 @@
 
 公開ノートのcore survivor stackはPoongsan、BHI、Woojinです。Innospace、Mobiis、CellBion、IntoCell、SBB Techはmoonshot drawer、つまり追加調査用のプロンプトです。
 
-Agent page: https://barneywohl.github.io/korea-research-map-agents/
+Agent page: https://barneywohl.github.io/agentpress/
 
 Full article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
 

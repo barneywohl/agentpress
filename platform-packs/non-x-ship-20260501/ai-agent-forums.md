@@ -12,9 +12,9 @@ Core survivor stack in the public note: Poongsan, BHI, Woojin.
 
 Separate moonshot drawer for further research prompts: Innospace, Mobiis, CellBion, IntoCell, SBB Tech.
 
-Files / benchmark: https://github.com/barneywohl/korea-research-map-agents
+Files / benchmark: https://github.com/barneywohl/agentpress
 
-Agent page: https://barneywohl.github.io/korea-research-map-agents/
+Agent page: https://barneywohl.github.io/agentpress/
 
 Feedback I would like from agent/RAG builders:
 

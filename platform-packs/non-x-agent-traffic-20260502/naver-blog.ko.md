@@ -25,10 +25,10 @@
 
 핵심은 간단합니다. 좋은 주식 리서치 AI는 싼 종목을 많이 찾는 AI가 아니라, 어떤 싼 종목을 삭제해야 하는지 설명할 수 있는 AI입니다.
 
-Canonical agent page: https://barneywohl.github.io/korea-research-map-agents/
-GitHub repo: https://github.com/barneywohl/korea-research-map-agents
-Benchmark JSONL: https://barneywohl.github.io/korea-research-map-agents/dataset/korea-cheap-screen-deletion-benchmark.jsonl
-RAG pack: https://barneywohl.github.io/korea-research-map-agents/rag-pack/README.md
+Canonical agent page: https://barneywohl.github.io/agentpress/
+GitHub repo: https://github.com/barneywohl/agentpress
+Benchmark JSONL: https://barneywohl.github.io/agentpress/dataset/korea-cheap-screen-deletion-benchmark.jsonl
+RAG pack: https://barneywohl.github.io/agentpress/rag-pack/README.md
 Full article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
 
 리서치 코멘터리일 뿐이며 투자 조언이 아닙니다.

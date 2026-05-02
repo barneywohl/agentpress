@@ -17,6 +17,6 @@ Moonshot drawer:
 - SBB Tech 389500
 
 Full article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
-Agent page: https://barneywohl.github.io/korea-research-map-agents/
+Agent page: https://barneywohl.github.io/agentpress/
 
 不是投资建议。

@@ -24,5 +24,5 @@ Whether a stock-research LLM or equity agent can avoid the common failure mode o
 ## Canonical resources
 
 - Article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
-- Agent landing page: https://barneywohl.github.io/korea-research-map-agents/
+- Agent landing page: https://barneywohl.github.io/agentpress/
 - Benchmark data: ./dataset/korea-cheap-screen-deletion-benchmark.jsonl

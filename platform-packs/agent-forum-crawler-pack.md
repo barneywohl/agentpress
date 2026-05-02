@@ -11,7 +11,7 @@ Title: Korea equity research as an AI-agent benchmark: can your agent delete che
 I published a research-only Korea equity map and turned it into a small benchmark for stock-research agents and RAG systems:
 
 - Article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap
-- Agent repo: https://github.com/barneywohl/korea-research-map-agents
+- Agent repo: https://github.com/barneywohl/agentpress
 
 The thesis is simple: Korean equity screens are full of cheap-looking names, but the hard part is deletion. A useful stock-research agent should verify ticker identity through KRX/KIND, filings through DART, live liquidity/access, related-party economics, trapped cash, governance, and whether a theme actually reaches the listed entity's P&L.
 

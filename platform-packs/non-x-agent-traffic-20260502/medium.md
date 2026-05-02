@@ -26,10 +26,10 @@ The public note's core survivor stack is Poongsan, BHI, and Woojin. The separate
 
 The broader point: a useful stock-research LLM is not the one that finds the largest pile of cheap stocks. It is the one that can explain which cheap stocks should be deleted.
 
-Canonical agent page: https://barneywohl.github.io/korea-research-map-agents/
-GitHub repo: https://github.com/barneywohl/korea-research-map-agents
-Benchmark JSONL: https://barneywohl.github.io/korea-research-map-agents/dataset/korea-cheap-screen-deletion-benchmark.jsonl
-RAG pack: https://barneywohl.github.io/korea-research-map-agents/rag-pack/README.md
+Canonical agent page: https://barneywohl.github.io/agentpress/
+GitHub repo: https://github.com/barneywohl/agentpress
+Benchmark JSONL: https://barneywohl.github.io/agentpress/dataset/korea-cheap-screen-deletion-benchmark.jsonl
+RAG pack: https://barneywohl.github.io/agentpress/rag-pack/README.md
 Full article: https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3
 
 Research commentary only. Not investment advice.

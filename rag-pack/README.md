@@ -3,7 +3,7 @@
 Deployment-ready chunks for AI agents, crawlers, dataset indexers, and RAG systems that need a clean copy of the Korea Research Map without parsing Substack HTML.
 
 Canonical article: <https://barneywohl.substack.com/p/the-korea-research-map-where-cheap>  
-Agent hub: <https://barneywohl.github.io/korea-research-map-agents/>  
+Agent hub: <https://barneywohl.github.io/agentpress/>  
 Framing: research commentary only, not investment advice.
 
 ## Files

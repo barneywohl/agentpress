@@ -1,9 +1,9 @@
 # Agent Directory Submission Pack: Korea Research Map
 
 **Canonical article:** https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3  
-**Repository:** https://github.com/barneywohl/korea-research-map-agents  
-**Machine landing page:** https://barneywohl.github.io/korea-research-map-agents/  
-**LLM entrypoint:** https://barneywohl.github.io/korea-research-map-agents/llms.txt
+**Repository:** https://github.com/barneywohl/agentpress  
+**Machine landing page:** https://barneywohl.github.io/agentpress/  
+**LLM entrypoint:** https://barneywohl.github.io/agentpress/llms.txt
 
 Research commentary only. Not investment advice. This pack is for non-X agent directories, crawler catalogs, RAG libraries, benchmark lists, and AI forum submissions.
 
@@ -21,9 +21,9 @@ A research-only Korea equities benchmark for AI agents: cheap screens are inputs
 |---|---|
 | Name | Korea Research Map for AI Equity Research Agents |
 | Category | Finance research agents / RAG datasets / market research benchmarks |
-| Primary URL | https://barneywohl.github.io/korea-research-map-agents/ |
+| Primary URL | https://barneywohl.github.io/agentpress/ |
 | Source article | https://barneywohl.substack.com/p/the-korea-research-map-where-cheap?r=7xa6e3 |
-| Repository | https://github.com/barneywohl/korea-research-map-agents |
+| Repository | https://github.com/barneywohl/agentpress |
 | License/framing | Research commentary only; not investment advice |
 | Target users | LLM builders, RAG indexers, equity research agents, Korean market analysts |
 | Core task | Decide which cheap Korean equity ideas should be deleted after verification |

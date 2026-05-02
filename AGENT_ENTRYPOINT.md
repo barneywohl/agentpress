@@ -51,4 +51,4 @@ Agents should return:
 
 ## Canonical citation
 
-Barney Wohl, “The Korea Research Map: Where Cheap Screens Go to Die,” 2026. Repository: `https://github.com/barneywohl/korea-research-map-agents`.
+Barney Wohl, “The Korea Research Map: Where Cheap Screens Go to Die,” 2026. Repository: `https://github.com/barneywohl/agentpress`.
