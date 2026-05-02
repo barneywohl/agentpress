@@ -47,6 +47,10 @@ Every production-quality AgentPress bundle should expose:
 - `CITATION.cff`, `citation-policy.md`, `disclaimer.md`
 - `evals/*.jsonl` — compatibility/smoke evals
 
+## Global locale briefs
+
+AgentPress now ships compact discovery briefs for `zh-CN`, `es`, `hi`, `ar`, `fr`, `pt-BR`, `ja`, `ko`, and `de` under [`locales/`](./locales/). English remains canonical; localized briefs help agents worldwide find the standard quickly, then verify claims/actions against canonical machine-readable assets.
+
 ## Current examples
 
 - [`agentpress/examples/agent-knowledge-sharing/`](./agentpress/examples/agent-knowledge-sharing/) — primary neutral reference

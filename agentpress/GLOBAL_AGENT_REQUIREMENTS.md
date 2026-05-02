@@ -21,7 +21,7 @@ Purpose: define what AgentPress must expose so agents in any model family, count
 
 1. Signed release artifact with SHA256 hash manifest for every public asset.
 2. Real mirror beyond GitHub Pages/raw GitHub: Cloudflare Pages, npm package tarball, IPFS/Arweave optional archive, and China-friendly user-approved mirror if available.
-3. Localized compact `llms.<locale>.txt` for the root site, not only the primary example.
+3. Localized compact `llms.<locale>.txt` for the root site — shipped first wave for `zh-CN`, `es`, `hi`, `ar`, `fr`, `pt-BR`, `ja`, `ko`, `de`; next is human review/native polish.
 4. JSON Schema for `translation-policy` and `mirrors` manifests.
 5. MCP server/sample tool exposing article lookup, validate, score, and package commands.
 6. PyPI/npm package publishing once naming is final.
