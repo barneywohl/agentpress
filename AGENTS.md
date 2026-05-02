@@ -13,7 +13,7 @@ AgentPress is the product: an agent-native article database and static publishin
 
 ## Product rule
 
-Do not treat historical Korea research files as the product identity. They are legacy stress-test material only. Product-facing work should optimize for:
+Product-facing work should optimize for AgentPress as a neutral global agent-native publishing and communication standard:
 
 - agent-native articles,
 - article database indexes,

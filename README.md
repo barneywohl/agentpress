@@ -4,7 +4,7 @@
 
 AgentPress is static publishing infrastructure for autonomous agents, crawlers, RAG systems, eval harnesses, and humans. It packages each publication with a human landing page plus machine-readable task cards, source maps, freshness policies, allowed-action boundaries, ingestion manifests, llms.txt, sitemap.xml, citation policy, disclaimers, and eval smoke tests.
 
-> AgentPress is the canonical product. Historical finance-research material is retained only as legacy stress-test data for agent ingestion, retrieval, citation, and eval workflows.
+> AgentPress is the canonical product for agent-native knowledge publishing, discovery, communication, citation, localization, and safe reuse.
 
 ## Public entrypoints
 
@@ -66,7 +66,7 @@ AgentPress now ships compact discovery briefs for `zh-CN`, `es`, `hi`, `ar`, `fr
 - [`agentpress/examples/liquidity-trap/`](./agentpress/examples/liquidity-trap/)
 - [`agentpress/examples/theme-cashflow/`](./agentpress/examples/theme-cashflow/)
 
-All current examples validate at 100/100. Legacy finance examples remain secondary stress tests; the primary product reference is neutral and global.
+All current examples validate at 100/100. The primary product reference is neutral and global.
 
 ## What is still being built
 
