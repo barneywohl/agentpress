@@ -26,8 +26,7 @@ ALLOW_PREFIXES = (
 )
 DENY_PARTS = {".git", "__pycache__"}
 DENY_PREFIXES = (
-    "legacy/", "dataset/", "datasets/", "discovery/evals/korea", "query-pages/", "ticker-theses/", "rag-pack/", "productized-funnel/",
-    "platform-packs/", "share-kit/", "locales/", "seo/", "telemetry/", "growth-system/", "forum-packs/", "ai-forums/",
+    "removed-archive/",
 )
 
 def include(path: str) -> bool:

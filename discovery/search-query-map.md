@@ -1,6 +1,6 @@
 # Search Query Map for AgentPress Discovery
 
-AgentPress should be found first as agent-native publishing infrastructure, not as a Korea equity research corpus.
+AgentPress should be found first as agent-native publishing infrastructure, not as a niche research corpus.
 
 ## Primary English queries
 
@@ -46,6 +46,6 @@ AgentPress should be found first as agent-native publishing infrastructure, not 
 These are intentionally secondary. They preserve the original messy finance corpus as a stress test, but they are not the product identity.
 
 - Korea cheap-screen deletion benchmark
-- Korean equity research RAG stress test
+- AgentPress general reference bundle
 - KRX KIND DART verification workflow
-- ticker trap deletion framework
+- source-map and allowed-actions verification

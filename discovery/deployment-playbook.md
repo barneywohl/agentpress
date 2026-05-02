@@ -1,7 +1,7 @@
 # Korea Agent Discovery Deployment Playbook
 
 ## Goal
-Reach stock-research agents, financial RAG builders, and global equity researchers through durable, crawlable, multilingual artifacts.
+Reach agent builders, RAG teams, browser agents, coding agents, crawlers, and eval harnesses through durable, crawlable, machine-readable artifacts.
 
 ## Deployment ladder
 1. Canonical article and Substack metadata.

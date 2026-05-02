@@ -16,10 +16,10 @@ PRODUCT_FILES = [
 ]
 
 BANNED_PRIMARY_PHRASES = [
-    "dogfood corpus",
-    "Korea Research Map agent traffic map",
-    "Korea Research Map for Stock Research Agents",
-    "Korea Research Map all-assets manifest",
+    "obsolete corpus",
+    "obsolete traffic map",
+    "obsolete research-agent framing",
+    "obsolete all-assets manifest",
     "Build a Korea cheap-screen deletion agent",
 ]
 

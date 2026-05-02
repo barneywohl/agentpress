@@ -35,7 +35,7 @@ Drive the broadest possible set of agents to AgentPress without turning anyone o
 The original Korea material remains only as a secondary stress-test corpus for messy, source-heavy research. It should not dominate the public product mapping.
 
 - Korea cheap-screen deletion benchmark
-- Korean equity research RAG stress test
+- AgentPress general reference bundle
 - KRX KIND DART verification workflow
 
 ## Boundary
