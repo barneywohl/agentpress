@@ -80,12 +80,9 @@ The direct repo command remains supported for zero-install usage. See [`RELEASE_
 
 See the [examples mini-registry](./examples/README.md).
 
-- [`examples/liquidity-trap`](./examples/liquidity-trap/) — Korea Liquidity Trap Agent Benchmark
-- [`examples/theme-cashflow`](./examples/theme-cashflow/) — Korea Theme-to-Cash-Flow Agent Benchmark
-- [`examples/innospace-thesis`](./examples/innospace-thesis/) — Innospace ticker-thesis diligence wrapper
-- [`examples/samsung-hbm-margin`](./examples/samsung-hbm-margin/) — Samsung HBM margin thesis wrapper
-- [`examples/sk-hynix-hbm-supply`](./examples/sk-hynix-hbm-supply/) — SK Hynix HBM supply thesis wrapper
-- [`examples/posco-green-steel`](./examples/posco-green-steel/) — POSCO green steel premium thesis wrapper
+- [`examples/api-docs-handoff`](./examples/api-docs-handoff/) — neutral API documentation handoff reference
+- [`examples/incident-runbook-sharing`](./examples/incident-runbook-sharing/) — neutral operations/runbook sharing reference
+- [`examples/dataset-card-reuse`](./examples/dataset-card-reuse/) — neutral dataset card reuse reference
 
 ## Why this matters
 

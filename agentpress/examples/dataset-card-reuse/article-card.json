@@ -1,0 +1,82 @@
+{
+  "schema_version": "0.1",
+  "type": "agentpress_article",
+  "title": "Dataset Card Reuse Reference",
+  "slug": "dataset-card-reuse",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/examples/dataset-card-reuse/",
+  "summary_for_agents": "Given this AgentPress bundle, verify dataset provenance, cite source claims, and produce a safe reuse checklist.",
+  "human_summary": "# Dataset Card Reuse Reference  A neutral AgentPress example for dataset cards with provenance, licensing, freshness, and reuse boundaries.  ## Agent task  Verify source claims and produce a safe reuse checklist with citations and missing checks. ",
+  "domains": [
+    "agent_infrastructure",
+    "datasets",
+    "knowledge_sharing"
+  ],
+  "task_types": [
+    "agent_native_article"
+  ],
+  "target_agent_families": [
+    "rag_agent",
+    "eval_harness",
+    "crawler_agent",
+    "coding_agent",
+    "research_agent"
+  ],
+  "languages": [
+    "en"
+  ],
+  "regions": [
+    "global"
+  ],
+  "claims": [
+    {
+      "claim_id": "claim-001",
+      "source_map_url": "source-map.json"
+    }
+  ],
+  "freshness": {
+    "last_reviewed_at": "2026-05-02",
+    "stale_zones": [
+      "market data",
+      "filing status",
+      "liquidity/depth",
+      "company disclosures"
+    ],
+    "freshness_window_days": 30
+  },
+  "actions": {
+    "allowed_actions_url": "allowed-actions.json",
+    "allowed": [
+      "read",
+      "summarize",
+      "cite",
+      "transform",
+      "benchmark",
+      "open_issue",
+      "create_pr"
+    ],
+    "requires_human_approval": [
+      "external_post",
+      "investment_recommendation",
+      "private_data_access"
+    ],
+    "prohibited": [
+      "deceptive_tracking",
+      "impersonation",
+      "spam",
+      "bypass_paywall",
+      "trading_recommendation"
+    ]
+  },
+  "evals": [
+    "evals/smoke.jsonl"
+  ],
+  "related_articles": [],
+  "machine_entrypoints": {
+    "task_card": "agent-task-card.json",
+    "source_map": "source-map.json",
+    "llms_txt": "llms.txt",
+    "ai_ingestion": ".well-known/ai-ingestion.json",
+    "article_card": "article-card.json"
+  },
+  "disclaimer": "Reference example for agent-native publishing. Not legal, security, operational, or integration advice."
+}

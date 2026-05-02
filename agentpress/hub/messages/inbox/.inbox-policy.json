@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-02.agentpress-inbox-policy.v1",
+  "max_message_bytes": 1048576,
+  "accepted_schemas": [
+    "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-message-v1.schema.json",
+    "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-request-v1.schema.json"
+  ],
+  "priority_levels": ["normal", "high", "urgent"],
+  "default_status": "received",
+  "ack_schema": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-ack-v1.schema.json",
+  "required_safety_fields": ["allowed_actions", "requires_human_approval", "prohibited_actions"],
+  "reject_if": ["secret_request", "private_data_access", "external_write_without_approval", "spam", "impersonation"],
+  "retention_days": 90
+}

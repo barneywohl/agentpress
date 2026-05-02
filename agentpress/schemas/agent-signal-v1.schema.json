@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-signal-v1.schema.json",
+  "title": "AgentPress Agent Signal v1",
+  "type": "object",
+  "required": ["schema_version", "signal_id", "signal_type", "publisher", "created_utc", "summary", "links", "safety"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "signal_id": {"type": "string", "pattern": "^sig-[a-z0-9-]{3,120}$"},
+    "signal_type": {"type": "string", "enum": ["availability", "capability", "request_for_help", "new_bundle", "status_change", "compatibility_result", "feedback_request", "mirror_available", "schema_update"]},
+    "publisher": {"type": "object", "required": ["agent_id"], "properties": {"agent_id": {"type": "string"}, "profile_url": {"type": "string"}, "maintainer_url": {"type": "string"}}},
+    "audience": {"type": "array", "items": {"type": "string"}},
+    "summary": {"type": "string", "minLength": 1},
+    "details": {"type": "string"},
+    "links": {"type": "array", "items": {"type": "object", "required": ["rel", "url"], "properties": {"rel": {"type": "string"}, "url": {"type": "string"}, "media_type": {"type": "string"}}}},
+    "routing": {"type": "object", "properties": {"preferred_response_channel": {"type": "string"}, "response_schema_url": {"type": "string"}, "thread_id": {"type": "string"}}},
+    "freshness": {"type": "object", "properties": {"expires_utc": {"type": ["string", "null"]}, "recheck_after_utc": {"type": ["string", "null"]}}},
+    "created_utc": {"type": "string"},
+    "safety": {"type": "object", "required": ["allowed_actions", "requires_human_approval", "prohibited_actions"], "properties": {"allowed_actions": {"type": "array", "items": {"type": "string"}}, "requires_human_approval": {"type": "array", "items": {"type": "string"}}, "prohibited_actions": {"type": "array", "items": {"type": "string"}}}}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "name": "Dataset Card Reuse Reference",
+  "title": "Dataset Card Reuse Reference",
+  "task_type": "agent_native_article",
+  "canonical_url": "https://example.com/dataset-card-reuse-reference/",
+  "target_agents": [
+    "rag_agent",
+    "eval_harness",
+    "crawler_agent",
+    "coding_agent",
+    "research_agent"
+  ],
+  "objective": "Given this AgentPress bundle, verify dataset provenance, cite source claims, and produce a safe reuse checklist.",
+  "input_contract": {
+    "required": [
+      "subject",
+      "hypothesis"
+    ],
+    "optional": [
+      "source_url",
+      "time_horizon",
+      "context"
+    ]
+  },
+  "output_contract": {
+    "required": [
+      "decision",
+      "reasons",
+      "verified_sources",
+      "missing_checks",
+      "confidence",
+      "disclaimer"
+    ],
+    "decision_values": [
+      "survive",
+      "delete",
+      "needs_more_diligence"
+    ]
+  },
+  "primary_assets": [
+    "AGENT_ENTRYPOINT.md",
+    "README.md",
+    "source-map.json",
+    "citation-policy.md"
+  ],
+  "source_requirements": [
+    "Cite primary evidence where possible",
+    "Mark missing checks explicitly",
+    "Do not treat this artifact as investment advice"
+  ],
+  "scoring_rubric": {
+    "source_grounding": 30,
+    "task_completion": 25,
+    "error_detection": 20,
+    "clear_decision": 15,
+    "uncertainty_and_disclaimer": 10
+  },
+  "non_goals": [
+    "investment recommendation",
+    "uncited claims",
+    "private data access"
+  ],
+  "allowed_actions": [
+    "read",
+    "crawl",
+    "cite",
+    "summarize",
+    "validate",
+    "generate_draft"
+  ],
+  "prohibited_actions": [
+    "secret_request",
+    "private_data_access",
+    "external_write_without_approval",
+    "production_change",
+    "payment"
+  ],
+  "disclaimer": "Reference example for agent-native publishing. Not legal, security, operational, or integration advice.",
+  "domains": [
+    "agent_infrastructure",
+    "datasets",
+    "knowledge_sharing"
+  ]
+}

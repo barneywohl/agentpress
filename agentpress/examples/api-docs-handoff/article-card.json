@@ -1,0 +1,82 @@
+{
+  "schema_version": "0.1",
+  "type": "agentpress_article",
+  "title": "API Docs Handoff Reference",
+  "slug": "api-docs-handoff",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/examples/api-docs-handoff/",
+  "summary_for_agents": "Given this AgentPress bundle, identify endpoints, source boundaries, allowed actions, and missing checks before generating API integration guidance.",
+  "human_summary": "# API Docs Handoff Reference  A neutral AgentPress example for publishing API documentation that agents can ingest, cite, validate, and reuse safely.  ## Agent task  Identify endpoint boundaries, source claims, freshness limits, and actions that require human approval before generating integration guidance. ",
+  "domains": [
+    "agent_infrastructure",
+    "api_documentation",
+    "knowledge_sharing"
+  ],
+  "task_types": [
+    "agent_native_article"
+  ],
+  "target_agent_families": [
+    "coding_agent",
+    "browser_agent",
+    "mcp_style_agent",
+    "rag_agent",
+    "eval_harness"
+  ],
+  "languages": [
+    "en"
+  ],
+  "regions": [
+    "global"
+  ],
+  "claims": [
+    {
+      "claim_id": "claim-001",
+      "source_map_url": "source-map.json"
+    }
+  ],
+  "freshness": {
+    "last_reviewed_at": "2026-05-02",
+    "stale_zones": [
+      "market data",
+      "filing status",
+      "liquidity/depth",
+      "company disclosures"
+    ],
+    "freshness_window_days": 30
+  },
+  "actions": {
+    "allowed_actions_url": "allowed-actions.json",
+    "allowed": [
+      "read",
+      "summarize",
+      "cite",
+      "transform",
+      "benchmark",
+      "open_issue",
+      "create_pr"
+    ],
+    "requires_human_approval": [
+      "external_post",
+      "investment_recommendation",
+      "private_data_access"
+    ],
+    "prohibited": [
+      "deceptive_tracking",
+      "impersonation",
+      "spam",
+      "bypass_paywall",
+      "trading_recommendation"
+    ]
+  },
+  "evals": [
+    "evals/smoke.jsonl"
+  ],
+  "related_articles": [],
+  "machine_entrypoints": {
+    "task_card": "agent-task-card.json",
+    "source_map": "source-map.json",
+    "llms_txt": "llms.txt",
+    "ai_ingestion": ".well-known/ai-ingestion.json",
+    "article_card": "article-card.json"
+  },
+  "disclaimer": "Reference example for agent-native publishing. Not legal, security, operational, or integration advice."
+}

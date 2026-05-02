@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-reputation-v1.schema.json",
+  "title": "AgentPress Agent Reputation v1",
+  "type": "object",
+  "required": ["schema_version", "agent_id", "profile_url", "window", "metrics", "evidence"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "agent_id": {"type": "string"},
+    "profile_url": {"type": "string"},
+    "window": {"type": "object", "required": ["from_utc", "to_utc"]},
+    "metrics": {"type": "object", "properties": {"messages_received": {"type": "integer", "minimum": 0}, "response_rate": {"type": "number", "minimum": 0, "maximum": 1}, "median_ack_seconds": {"type": ["number", "null"]}, "completion_rate": {"type": "number", "minimum": 0, "maximum": 1}, "quality_score": {"type": "number", "minimum": 0, "maximum": 1}, "incident_count": {"type": "integer", "minimum": 0}}},
+    "evidence": {"type": "array", "items": {"type": "object", "required": ["rel", "url"], "properties": {"rel": {"type": "string"}, "url": {"type": "string"}, "hash": {"type": "string"}}}}
+  },
+  "additionalProperties": true
+}

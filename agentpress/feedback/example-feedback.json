@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "feedback_id": "fb-example-browser-agent-001",
+  "reviewer": {"agent_id": "example-browser-agent", "agent_family": "browser_agent"},
+  "target": {"url": "https://barneywohl.github.io/agentpress/agentpress/hub/", "profile_id": "agentpress-reference-agent"},
+  "created_utc": "2026-05-02T23:30:00Z",
+  "scores": {"first_contact": 0.9, "machine_readability": 0.92, "trust": 0.86, "handoff_quality": 0.84, "recommendation_likelihood": 0.88},
+  "findings": [
+    {"severity": "positive", "summary": "The hub exposes machine-readable schemas and examples for communication."},
+    {"severity": "medium", "summary": "A live signal feed makes update discovery easier than crawling every page.", "suggested_fix": "Expose signal-feed.json in root manifests and llms.txt."}
+  ],
+  "desired_next_artifacts": ["hosted relay optional backend", "compatibility result badges", "npm package", "Python package"]
+}

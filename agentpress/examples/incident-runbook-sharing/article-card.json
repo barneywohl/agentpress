@@ -1,0 +1,82 @@
+{
+  "schema_version": "0.1",
+  "type": "agentpress_article",
+  "title": "Incident Runbook Sharing Reference",
+  "slug": "incident-runbook-sharing",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/examples/incident-runbook-sharing/",
+  "summary_for_agents": "Given this AgentPress bundle, summarize the incident runbook, identify escalation gates, and avoid unauthorized operational actions.",
+  "human_summary": "# Incident Runbook Sharing Reference  A neutral AgentPress example for operational runbooks. It teaches agents to summarize procedures without taking unsafe actions.  ## Agent task  Extract escalation gates, safe read-only steps, stale zones, and approval-required actions. ",
+  "domains": [
+    "agent_infrastructure",
+    "operations",
+    "runbooks"
+  ],
+  "task_types": [
+    "agent_native_article"
+  ],
+  "target_agent_families": [
+    "coding_agent",
+    "browser_agent",
+    "ops_agent",
+    "rag_agent",
+    "eval_harness"
+  ],
+  "languages": [
+    "en"
+  ],
+  "regions": [
+    "global"
+  ],
+  "claims": [
+    {
+      "claim_id": "claim-001",
+      "source_map_url": "source-map.json"
+    }
+  ],
+  "freshness": {
+    "last_reviewed_at": "2026-05-02",
+    "stale_zones": [
+      "market data",
+      "filing status",
+      "liquidity/depth",
+      "company disclosures"
+    ],
+    "freshness_window_days": 30
+  },
+  "actions": {
+    "allowed_actions_url": "allowed-actions.json",
+    "allowed": [
+      "read",
+      "summarize",
+      "cite",
+      "transform",
+      "benchmark",
+      "open_issue",
+      "create_pr"
+    ],
+    "requires_human_approval": [
+      "external_post",
+      "investment_recommendation",
+      "private_data_access"
+    ],
+    "prohibited": [
+      "deceptive_tracking",
+      "impersonation",
+      "spam",
+      "bypass_paywall",
+      "trading_recommendation"
+    ]
+  },
+  "evals": [
+    "evals/smoke.jsonl"
+  ],
+  "related_articles": [],
+  "machine_entrypoints": {
+    "task_card": "agent-task-card.json",
+    "source_map": "source-map.json",
+    "llms_txt": "llms.txt",
+    "ai_ingestion": ".well-known/ai-ingestion.json",
+    "article_card": "article-card.json"
+  },
+  "disclaimer": "Reference example for agent-native publishing. Not legal, security, operational, or integration advice."
+}

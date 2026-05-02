@@ -380,7 +380,8 @@ def index_articles(args):
         url = f"{base_url}/agentpress/examples/{slug}/"
         summary = card.get("objective") or title
         flagship_slugs = {"universal-agent-reachability", "agent-knowledge-sharing"}
-        domains = ["agent_infrastructure", "agent_compatibility", "knowledge_sharing"] if slug in flagship_slugs else ["research_stress_test", "finance_research"]
+        default_domains = ["agent_infrastructure", "agent_compatibility", "knowledge_sharing"] if slug in flagship_slugs else ["agent_infrastructure", "reference_example"]
+        domains = card.get("domains") or default_domains
         task_type = str(card.get("task_type", "agent_native_publication"))
         task_types = sorted(set(["agent_native_article"] + (["benchmark"] if "benchmark" in task_type else []) + (["compatibility"] if "reachability" in task_type or "compatibility" in task_type else []) + (["knowledge_transfer"] if "knowledge" in task_type else [])))
         evals = [str(p.relative_to(ex)) for p in sorted((ex/"evals").glob("*.jsonl"))] if (ex/"evals").exists() else []
@@ -395,8 +396,8 @@ def index_articles(args):
             "domains": domains,
             "task_types": task_types,
             "target_agent_families": card.get("target_agents") or ["browser_agent", "coding_agent", "rag_agent", "search_crawler"],
-            "languages": ["en", "zh-CN", "es"] if slug == "agent-knowledge-sharing" else ["en"],
-            "regions": ["global", "restricted_networks"] if slug in flagship_slugs else ["global", "korea_stress_test"],
+            "languages": card.get("languages") or (["en", "zh-CN", "es"] if slug == "agent-knowledge-sharing" else ["en"]),
+            "regions": card.get("regions") or (["global", "restricted_networks"] if slug in flagship_slugs else ["global"]),
             "claims": [{"claim_id": c.get("claim_id"), "source_map_url": "source-map.json"} for c in source_map.get("claims", []) if c.get("claim_id")],
             "freshness": {"last_reviewed_at": fresh.get("last_reviewed_at") or str(fresh.get("generated_at", ""))[:10], "stale_zones": fresh.get("stale_zones", []), "freshness_window_days": fresh.get("default_freshness_window_days") or 30},
             "actions": {"allowed_actions_url": "allowed-actions.json", "allowed": allowed.get("allowed") or card.get("allowed_actions", []), "requires_human_approval": allowed.get("requires_human_approval", []), "prohibited": allowed.get("prohibited") or card.get("prohibited_actions", [])},
@@ -426,7 +427,7 @@ def index_articles(args):
     write(dest/"source-index.jsonl", "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in sources))
     write(dest/"freshness-index.jsonl", "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in freshness_rows))
     write(dest/"eval-index.jsonl", "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in eval_rows))
-    write(dest/"collections.json", json.dumps({"schema_version": "0.1", "generated_at": generated_at, "collections": [{"slug": "flagship-agent-infrastructure", "title": "Flagship Agent Infrastructure", "article_slugs": [a["slug"] for a in articles if "agent_infrastructure" in a["domains"]]}, {"slug": "legacy-research-stress-tests", "title": "Legacy Research Stress Tests", "article_slugs": [a["slug"] for a in articles if "research_stress_test" in a["domains"]]}]}, indent=2, ensure_ascii=False) + "\n")
+    write(dest/"collections.json", json.dumps({"schema_version": "0.1", "generated_at": generated_at, "collections": [{"slug": "flagship-agent-infrastructure", "title": "Flagship Agent Infrastructure", "article_slugs": [a["slug"] for a in articles if "agent_infrastructure" in a["domains"]]}, {"slug": "reference-examples", "title": "General Reference Examples", "article_slugs": [a["slug"] for a in articles if "reference_example" in a["domains"] or a["slug"] not in {"universal-agent-reachability", "agent-knowledge-sharing"}]}]}, indent=2, ensure_ascii=False) + "\n")
     topics = {}
     for a in articles:
         for key in a["domains"] + a["task_types"] + a["target_agent_families"]:

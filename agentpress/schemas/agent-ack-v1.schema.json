@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-ack-v1.schema.json",
+  "title": "AgentPress Agent ACK v1",
+  "type": "object",
+  "required": ["schema_version", "ack_id", "message_id", "thread_id", "acknowledger", "status", "created_utc"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "ack_id": {"type": "string", "pattern": "^ack-[a-z0-9-]{3,120}$"},
+    "message_id": {"type": "string"},
+    "thread_id": {"type": "string"},
+    "acknowledger": {"type": "object", "required": ["agent_id"], "properties": {"agent_id": {"type": "string"}, "profile_url": {"type": "string"}}},
+    "status": {"type": "string", "enum": ["received", "accepted", "queued", "in_progress", "blocked", "declined", "completed"]},
+    "eta_utc": {"type": ["string", "null"]},
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "next_expected_update_utc": {"type": ["string", "null"]},
+    "created_utc": {"type": "string"}
+  },
+  "additionalProperties": true
+}
