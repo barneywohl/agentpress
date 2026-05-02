@@ -269,6 +269,10 @@ def _schema_required_errors(payload: dict, schema_path: pathlib.Path, label: str
 
 def _validate_contract_files(root: pathlib.Path) -> list[str]:
     schema_root = pathlib.Path(__file__).resolve().parents[1] / "agentpress" / "schemas"
+    if not schema_root.exists():
+        cwd_schema_root = pathlib.Path.cwd() / "agentpress" / "schemas"
+        if cwd_schema_root.exists():
+            schema_root = cwd_schema_root
     mapping = {
         "agent-task-card.json": "agent-task-card.schema.json",
         "source-map.json": "source-map.schema.json",
