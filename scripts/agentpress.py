@@ -477,6 +477,30 @@ def build_all(args):
     return 0
 
 
+
+def package_bundle(args):
+    import hashlib, tarfile, zipfile
+    root = pathlib.Path(args.root)
+    out = pathlib.Path(args.out)
+    if not root.exists():
+        print(f"missing root: {root}", file=sys.stderr); return 1
+    files = [p for p in root.rglob("*") if p.is_file() and ".git" not in p.parts and "__pycache__" not in p.parts]
+    out.parent.mkdir(parents=True, exist_ok=True)
+    if args.format == "zip":
+        with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
+            for f in files: z.write(f, f.relative_to(root).as_posix())
+    else:
+        with tarfile.open(out, "w:gz") as t:
+            for f in files: t.add(f, arcname=f.relative_to(root).as_posix())
+    hashes = []
+    for f in files:
+        b=f.read_bytes(); hashes.append({"path": f.relative_to(root).as_posix(), "sha256": hashlib.sha256(b).hexdigest(), "bytes": len(b)})
+    hash_path = out.with_suffix(out.suffix + ".sha256.json")
+    hash_path.write_text(json.dumps({"schema_version":"0.1","package":str(out),"count":len(hashes),"assets":hashes}, indent=2) + "\n")
+    print(f"wrote {out}")
+    print(f"wrote {hash_path}")
+    return 0
+
 def doctor(args):
     root = pathlib.Path(args.root)
     print("AgentPress doctor")
@@ -523,6 +547,7 @@ def main():
     p = sub.add_parser("build-all"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", dest="dest", required=True); p.add_argument("--clean", action="store_true")
     p = sub.add_parser("index-articles"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", default="agentpress/articles"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress")
     p = sub.add_parser("doctor"); p.add_argument("root", nargs="?", default=".")
+    p = sub.add_parser("package"); p.add_argument("root", nargs="?", default="."); p.add_argument("--format", choices=["tar", "zip"], default="tar"); p.add_argument("--out", default="dist/agentpress-offline.tar.gz")
     args = ap.parse_args()
     if args.cmd == "init": init(args); return 0
     if args.cmd == "validate": return validate(args)
@@ -533,5 +558,6 @@ def main():
     if args.cmd == "build-all": return build_all(args)
     if args.cmd == "index-articles": return index_articles(args)
     if args.cmd == "doctor": return doctor(args)
+    if args.cmd == "package": return package_bundle(args)
 if __name__ == "__main__":
     sys.exit(main())
