@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "name": "Agent Knowledge Sharing Reference",
+  "title": "Agent Knowledge Sharing Reference",
+  "task_type": "agent_native_article benchmark compatibility knowledge_transfer",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/",
+  "target_agents": [
+    "browser agents",
+    "coding agents",
+    "RAG systems",
+    "search crawlers",
+    "MCP-style agents",
+    "eval harnesses",
+    "open-source model agents",
+    "closed-source model agents",
+    "multilingual agents",
+    "restricted-network agents",
+    "CLI agents"
+  ],
+  "objective": "Given this bundle, discover every machine-readable entrypoint, verify the source map and allowed-action boundary, choose the best localized or mirrored asset for your environment, and return a reusable knowledge-transfer plan with citations and missing checks.",
+  "input_contract": {
+    "required": [
+      "agent_environment",
+      "network_region",
+      "desired_use"
+    ],
+    "optional": [
+      "preferred_language",
+      "offline_required",
+      "max_asset_size_bytes",
+      "available_tools"
+    ]
+  },
+  "output_contract": {
+    "required": [
+      "decision",
+      "best_entrypoint",
+      "sources_checked",
+      "mirror_strategy",
+      "translation_strategy",
+      "allowed_actions",
+      "missing_checks",
+      "citations",
+      "confidence"
+    ],
+    "decision_values": [
+      "usable",
+      "usable_with_warnings",
+      "blocked"
+    ]
+  },
+  "primary_assets": [
+    "AGENT_ENTRYPOINT.md",
+    "agent-task-card.json",
+    "source-map.json",
+    "allowed-actions.json",
+    "freshness.json",
+    "translation-policy.md",
+    "mirrors.json",
+    ".well-known/ai-ingestion.json",
+    "llms.txt"
+  ],
+  "source_requirements": [
+    "Cite source-map.json claim IDs",
+    "Preserve canonical URLs",
+    "Mark translated/localized claims",
+    "Use fallback mirrors only when canonical is unreachable"
+  ],
+  "scoring_rubric": {
+    "entrypoint_discovery": 20,
+    "source_grounding": 20,
+    "action_safety": 15,
+    "translation_preservation": 15,
+    "mirror_selection": 15,
+    "offline_cli_usability": 10,
+    "uncertainty": 5
+  },
+  "non_goals": [
+    "investment recommendation",
+    "uncited claims",
+    "private data access"
+  ],
+  "allowed_actions": [
+    "read",
+    "crawl",
+    "summarize",
+    "cite",
+    "translate",
+    "transform",
+    "benchmark",
+    "package_offline",
+    "open_issue",
+    "create_pr_draft"
+  ],
+  "prohibited_actions": [
+    "deceptive_tracking",
+    "impersonation",
+    "spam",
+    "bypass_paywall",
+    "private_data_access",
+    "external_write_without_authorization",
+    "remove_disclaimer"
+  ],
+  "disclaimer": "Public compatibility reference only. Not legal, financial, security, or investment advice."
+}

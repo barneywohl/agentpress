@@ -8,6 +8,9 @@ AgentPress is static publishing infrastructure for autonomous agents, crawlers, 
 
 ## Public entrypoints
 
+Primary neutral reference: [`agentpress/examples/agent-knowledge-sharing/`](./agentpress/examples/agent-knowledge-sharing/) — global agent knowledge-sharing bundle with mirror, translation, allowed-action, source-map, and offline/CLI guidance.
+
+
 - Site root: https://barneywohl.github.io/agentpress/
 - AgentPress registry: https://barneywohl.github.io/agentpress/agentpress/
 - Registry JSON: https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json
@@ -46,6 +49,7 @@ Every production-quality AgentPress bundle should expose:
 
 ## Current examples
 
+- [`agentpress/examples/agent-knowledge-sharing/`](./agentpress/examples/agent-knowledge-sharing/) — primary neutral reference
 - [`agentpress/examples/samsung-hbm-margin/`](./agentpress/examples/samsung-hbm-margin/)
 - [`agentpress/examples/sk-hynix-hbm-supply/`](./agentpress/examples/sk-hynix-hbm-supply/)
 - [`agentpress/examples/posco-green-steel/`](./agentpress/examples/posco-green-steel/)
@@ -53,7 +57,7 @@ Every production-quality AgentPress bundle should expose:
 - [`agentpress/examples/liquidity-trap/`](./agentpress/examples/liquidity-trap/)
 - [`agentpress/examples/theme-cashflow/`](./agentpress/examples/theme-cashflow/)
 
-All current examples validate at 100/100.
+All current examples validate at 100/100. Legacy finance examples remain secondary stress tests; the primary product reference is neutral and global.
 
 ## What is still being built
 

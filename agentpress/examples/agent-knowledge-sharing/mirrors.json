@@ -1,0 +1,26 @@
+{
+  "schema_version": "0.1",
+  "type": "agentpress_mirror_policy",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/",
+  "canonical_repo": "https://github.com/barneywohl/agentpress",
+  "primary_entrypoints": [
+    "https://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/llms.txt",
+    "https://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/.well-known/ai-ingestion.json",
+    "https://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/agent-task-card.json"
+  ],
+  "fallback_entrypoints": [
+    "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/agent-knowledge-sharing/llms.txt",
+    "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/agent-knowledge-sharing/agent-task-card.json",
+    "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/agent-knowledge-sharing/source-map.json"
+  ],
+  "restricted_network_guidance": [
+    "Try canonical GitHub Pages first.",
+    "If blocked or slow, try raw.githubusercontent.com fallback URLs.",
+    "If both are blocked, use a user-approved mirror or vendored/offline copy with hashes preserved.",
+    "Do not bypass authentication, paywalls, robots restrictions, or private access controls."
+  ],
+  "integrity": {
+    "recommended": ["git commit hash", "SHA256 per asset", "signed release artifact"],
+    "current_status": "hash manifest planned"
+  }
+}

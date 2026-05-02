@@ -1,0 +1,57 @@
+{
+  "schema_version": "0.1",
+  "publication": "Agent Knowledge Sharing Reference",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/",
+  "claims": [
+    {
+      "claim_id": "claim-001",
+      "claim": "Agent-native knowledge sharing requires explicit entrypoints, machine-readable task contracts, source maps, freshness policy, and allowed-action boundaries.",
+      "confidence": "high",
+      "sources": [
+        {
+          "title": "Agent entrypoint",
+          "url_or_path": "AGENT_ENTRYPOINT.md",
+          "retrieved_or_updated_at": "2026-05-02",
+          "evidence_type": "primary"
+        },
+        {
+          "title": "Task card",
+          "url_or_path": "agent-task-card.json",
+          "retrieved_or_updated_at": "2026-05-02",
+          "evidence_type": "primary"
+        }
+      ],
+      "freshness_window_days": 90,
+      "kill_criteria": [
+        "Required files missing",
+        "Task contract not machine-readable",
+        "Allowed-action boundary removed"
+      ]
+    },
+    {
+      "claim_id": "claim-002",
+      "claim": "Global agent reach improves when a bundle provides canonical URLs, raw fallback URLs, translation rules, and offline-friendly CLI validation.",
+      "confidence": "medium",
+      "sources": [
+        {
+          "title": "Mirror policy",
+          "url_or_path": "mirrors.json",
+          "retrieved_or_updated_at": "2026-05-02",
+          "evidence_type": "primary"
+        },
+        {
+          "title": "Translation policy",
+          "url_or_path": "translation-policy.md",
+          "retrieved_or_updated_at": "2026-05-02",
+          "evidence_type": "primary"
+        }
+      ],
+      "freshness_window_days": 60,
+      "kill_criteria": [
+        "Fallback URLs not maintained",
+        "No translation policy",
+        "No offline validation path"
+      ]
+    }
+  ]
+}

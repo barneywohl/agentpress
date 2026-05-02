@@ -379,9 +379,10 @@ def index_articles(args):
         title = card.get("title") or card.get("name") or slug.replace("-", " ").title()
         url = f"{base_url}/agentpress/examples/{slug}/"
         summary = card.get("objective") or title
-        domains = ["agent_infrastructure", "agent_compatibility"] if slug == "universal-agent-reachability" else ["research_stress_test", "finance_research"]
+        flagship_slugs = {"universal-agent-reachability", "agent-knowledge-sharing"}
+        domains = ["agent_infrastructure", "agent_compatibility", "knowledge_sharing"] if slug in flagship_slugs else ["research_stress_test", "finance_research"]
         task_type = str(card.get("task_type", "agent_native_publication"))
-        task_types = sorted(set(["agent_native_article"] + (["benchmark"] if "benchmark" in task_type else []) + (["compatibility"] if "reachability" in task_type else [])))
+        task_types = sorted(set(["agent_native_article"] + (["benchmark"] if "benchmark" in task_type else []) + (["compatibility"] if "reachability" in task_type or "compatibility" in task_type else []) + (["knowledge_transfer"] if "knowledge" in task_type else [])))
         evals = [str(p.relative_to(ex)) for p in sorted((ex/"evals").glob("*.jsonl"))] if (ex/"evals").exists() else []
         article_card = {
             "schema_version": "0.1",
@@ -394,8 +395,8 @@ def index_articles(args):
             "domains": domains,
             "task_types": task_types,
             "target_agent_families": card.get("target_agents") or ["browser_agent", "coding_agent", "rag_agent", "search_crawler"],
-            "languages": ["en"],
-            "regions": ["global"] if slug == "universal-agent-reachability" else ["global", "korea_stress_test"],
+            "languages": ["en", "zh-CN", "es"] if slug == "agent-knowledge-sharing" else ["en"],
+            "regions": ["global", "restricted_networks"] if slug in flagship_slugs else ["global", "korea_stress_test"],
             "claims": [{"claim_id": c.get("claim_id"), "source_map_url": "source-map.json"} for c in source_map.get("claims", []) if c.get("claim_id")],
             "freshness": {"last_reviewed_at": fresh.get("last_reviewed_at") or str(fresh.get("generated_at", ""))[:10], "stale_zones": fresh.get("stale_zones", []), "freshness_window_days": fresh.get("default_freshness_window_days") or 30},
             "actions": {"allowed_actions_url": "allowed-actions.json", "allowed": allowed.get("allowed") or card.get("allowed_actions", []), "requires_human_approval": allowed.get("requires_human_approval", []), "prohibited": allowed.get("prohibited") or card.get("prohibited_actions", [])},
@@ -408,7 +409,8 @@ def index_articles(args):
         row = {k: article_card[k] for k in ["title", "slug", "canonical_url", "summary_for_agents", "domains", "task_types", "target_agent_families", "languages", "regions"]}
         row.update({"article_card": url + "article-card.json", "task_card": url + "agent-task-card.json", "source_map": url + "source-map.json", "freshness": url + "freshness.json", "allowed_actions": url + "allowed-actions.json", "eval_count": len(evals)})
         articles.append(row)
-        languages.setdefault("en", []).append(slug)
+        for lang in article_card["languages"]:
+            languages.setdefault(lang, []).append(slug)
         for c in source_map.get("claims", []):
             cid = c.get("claim_id") or f"{slug}-claim"
             claims.append({"article_slug": slug, "article_url": url, "claim_id": cid, "claim": c.get("claim", ""), "confidence": c.get("confidence"), "sources": [s.get("url_or_path") for s in c.get("sources", [])], "freshness_window_days": c.get("freshness_window_days")})
@@ -474,6 +476,41 @@ def build_all(args):
     print(f"built {len(registry)} AgentPress examples into {dest_root}")
     return 0
 
+
+def doctor(args):
+    root = pathlib.Path(args.root)
+    print("AgentPress doctor")
+    print(f"root: {root}")
+    entrypoints = [
+        "llms.txt",
+        ".well-known/agentpress.json",
+        ".well-known/ai-ingestion.json",
+        "agentpress/articles/article-index.json",
+        "agentpress/examples/agent-knowledge-sharing/AGENT_ENTRYPOINT.md",
+        "agentpress/examples/agent-knowledge-sharing/agent-task-card.json",
+        "agentpress/examples/agent-knowledge-sharing/mirrors.json",
+        "agentpress/examples/agent-knowledge-sharing/translation-policy.md",
+        "AGENTS.md",
+        "sitemap.xml",
+    ]
+    missing = [x for x in entrypoints if not (root/x).exists()]
+    for x in entrypoints:
+        print(("OK      " if (root/x).exists() else "MISSING ") + x)
+    if missing:
+        print("missing required global-agent entrypoints: " + ", ".join(missing), file=sys.stderr)
+        return 1
+    # Validate the primary neutral reference if present.
+    ref = root/"agentpress/examples/agent-knowledge-sharing"
+    code, errors, warnings = audit_root(ref, strict=True)
+    if code:
+        print(json.dumps({"primary_reference_errors": errors, "warnings": warnings}, indent=2), file=sys.stderr)
+        return code
+    total, detail = score_value(ref)
+    print(f"primary_reference_score: {total}/100")
+    print("canonical_url: https://barneywohl.github.io/agentpress/")
+    print("raw_fallback: https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/")
+    return 0
+
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -485,6 +522,7 @@ def main():
     p = sub.add_parser("list"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("build-all"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", dest="dest", required=True); p.add_argument("--clean", action="store_true")
     p = sub.add_parser("index-articles"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", default="agentpress/articles"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress")
+    p = sub.add_parser("doctor"); p.add_argument("root", nargs="?", default=".")
     args = ap.parse_args()
     if args.cmd == "init": init(args); return 0
     if args.cmd == "validate": return validate(args)
@@ -494,5 +532,6 @@ def main():
     if args.cmd == "list": return list_examples(args)
     if args.cmd == "build-all": return build_all(args)
     if args.cmd == "index-articles": return index_articles(args)
+    if args.cmd == "doctor": return doctor(args)
 if __name__ == "__main__":
     sys.exit(main())

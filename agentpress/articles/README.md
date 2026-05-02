@@ -2,4 +2,4 @@
 
 Generated index of agent-native articles.
 
-Current article count: 8.
+Current article count: 9.

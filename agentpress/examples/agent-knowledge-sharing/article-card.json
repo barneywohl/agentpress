@@ -1,11 +1,11 @@
 {
   "schema_version": "0.1",
   "type": "agentpress_article",
-  "title": "Universal Agent Reachability Benchmark",
-  "slug": "universal-agent-reachability",
-  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/examples/universal-agent-reachability/",
-  "summary_for_agents": "Test whether a broad set of agents can discover, parse, cite, and safely use one static AgentPress bundle without being excluded by model family, protocol preference, language, or tooling assumptions.",
-  "human_summary": "# Universal Agent Reachability Benchmark  A neutral AgentPress example for testing whether *many different kinds of agents* can discover, ingest, cite, transform, evaluate, and safely act on one static publication bundle.  This is intentionally **not** a market-research corpus. It is a universal compatibility target for browser agents, coding agents, RAG indexers, search crawlers, MCP-style agents, eval harnesses, and open-source model agents.  ## Start here  - [`AGENT_ENTRYPOINT.md`](./AGENT_EN",
+  "title": "Agent Knowledge Sharing Reference",
+  "slug": "agent-knowledge-sharing",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/",
+  "summary_for_agents": "Given this bundle, discover every machine-readable entrypoint, verify the source map and allowed-action boundary, choose the best localized or mirrored asset for your environment, and return a reusable knowledge-transfer plan with citations and missing checks.",
+  "human_summary": "# Agent Knowledge Sharing Reference  This is the neutral AgentPress reference example. It is not finance content and not a legacy corpus. It exists to show any agent — browser, CLI, RAG, crawler, MCP-style, eval harness, open-source model, closed-source model, multilingual agent, or restricted-network agent — how to publish and consume knowledge safely.  ## Why this example exists  Agents trying to share knowledge usually fail on one of these problems:  1. the content is only HTML and not task-r",
   "domains": [
     "agent_infrastructure",
     "agent_compatibility",
@@ -14,7 +14,8 @@
   "task_types": [
     "agent_native_article",
     "benchmark",
-    "compatibility"
+    "compatibility",
+    "knowledge_transfer"
   ],
   "target_agent_families": [
     "browser agents",
@@ -24,10 +25,15 @@
     "MCP-style agents",
     "eval harnesses",
     "open-source model agents",
-    "closed-source model agents"
+    "closed-source model agents",
+    "multilingual agents",
+    "restricted-network agents",
+    "CLI agents"
   ],
   "languages": [
-    "en"
+    "en",
+    "zh-CN",
+    "es"
   ],
   "regions": [
     "global",
@@ -46,10 +52,11 @@
   "freshness": {
     "last_reviewed_at": "2026-05-02",
     "stale_zones": [
-      "market data",
-      "filing status",
-      "liquidity/depth",
-      "company disclosures"
+      "mirror availability",
+      "package install commands",
+      "locale coverage",
+      "crawler behavior",
+      "schema versions"
     ],
     "freshness_window_days": 30
   },
@@ -60,8 +67,10 @@
       "crawl",
       "summarize",
       "cite",
+      "translate",
       "transform",
       "benchmark",
+      "package_offline",
       "open_issue",
       "create_pr_draft"
     ],
@@ -70,22 +79,22 @@
       "registry_submission",
       "mass_distribution",
       "agent_directory_write",
-      "production_deploy"
+      "production_deploy",
+      "new_public_mirror"
     ],
     "prohibited": [
-      "disable_agents",
-      "exclude_agent_classes",
       "deceptive_tracking",
       "impersonation",
       "spam",
       "bypass_paywall",
       "private_data_access",
       "secret_request",
-      "external_write_without_authorization"
+      "external_write_without_authorization",
+      "remove_disclaimer"
     ]
   },
   "evals": [
-    "evals/reachability-smoke.jsonl",
+    "evals/global-reachability-smoke.jsonl",
     "evals/smoke.jsonl"
   ],
   "related_articles": [],
@@ -96,5 +105,5 @@
     "ai_ingestion": ".well-known/ai-ingestion.json",
     "article_card": "article-card.json"
   },
-  "disclaimer": "Public compatibility benchmark only. Not investment, legal, or security advice."
+  "disclaimer": "Public compatibility reference only. Not legal, financial, security, or investment advice."
 }
