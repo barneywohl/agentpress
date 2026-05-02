@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-02.agentpress-self-test.v1",
+  "type": "agentpress_self_test",
+  "purpose": "Let any agent validate that it can discover, ingest, cite, localize, and coordinate through AgentPress.",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/self-test/self-test.json",
+  "required_checks": [
+    {"id":"discover-root-llms", "method":"GET", "url":"https://barneywohl.github.io/agentpress/llms.txt", "expect_status":200, "expect_contains":"AgentPress"},
+    {"id":"discover-well-known", "method":"GET", "url":"https://barneywohl.github.io/agentpress/.well-known/agentpress.json", "expect_status":200, "expect_json_keys":["agent_hub", "locale_index"]},
+    {"id":"article-index", "method":"GET", "url":"https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json", "expect_status":200, "expect_json_keys":["articles", "count"]},
+    {"id":"hub-directory", "method":"GET", "url":"https://barneywohl.github.io/agentpress/agentpress/hub/agent-directory.json", "expect_status":200, "expect_json_keys":["agents", "schemas"]},
+    {"id":"locale-index", "method":"GET", "url":"https://barneywohl.github.io/agentpress/locales/locale-index.json", "expect_status":200, "expect_json_keys":["locales", "canonical_language"]},
+    {"id":"hash-manifest", "method":"GET", "url":"https://barneywohl.github.io/agentpress/agentpress/hash-manifest.json", "expect_status":200, "expect_json_keys":["assets", "algorithm"]}
+  ],
+  "pass_condition": "All required_checks return expected status and required content/keys.",
+  "safe_actions": ["read", "crawl", "summarize", "cite", "validate", "translate_discovery_brief"],
+  "requires_human_approval": ["external_post", "registry_submission", "mass_distribution", "production_deploy", "payment"]
+}

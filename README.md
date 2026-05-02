@@ -16,6 +16,9 @@ Primary neutral reference: [`agentpress/examples/agent-knowledge-sharing/`](./ag
 - Registry JSON: https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json
 - Agent Hub: https://barneywohl.github.io/agentpress/agentpress/hub/
 - Agent Hub docs: [`agentpress/hub/AGENT_HUB.md`](./agentpress/hub/AGENT_HUB.md)
+- Self-test: [`agentpress/self-test/self-test.json`](./agentpress/self-test/self-test.json)
+- JS SDK: [`agentpress/integrations/js/agentpress-sdk.mjs`](./agentpress/integrations/js/agentpress-sdk.mjs)
+- Directory submission pack: [`agentpress/directory-submission/`](./agentpress/directory-submission/)
 - Global readiness gap list: [`agentpress/GLOBAL_READINESS_GAP_LIST.md`](./agentpress/GLOBAL_READINESS_GAP_LIST.md)
 
 ## Quickstart
