@@ -26,9 +26,9 @@ jobs:
           PY
       - name: Build smoke test
         run: |
-          rm -rf /tmp/agentpress-liquidity
-          python3 scripts/agentpress.py build agentpress/examples/liquidity-trap --out /tmp/agentpress-liquidity
-          test -f /tmp/agentpress-liquidity/index.html
+          rm -rf /tmp/agentpress-api-docs
+          python3 scripts/agentpress.py build agentpress/examples/api-docs-handoff --out /tmp/agentpress-api-docs
+          test -f /tmp/agentpress-api-docs/index.html
       - name: Package build and install smoke test
         run: |
           python3 -m pip install --upgrade pip build
