@@ -1,9 +1,9 @@
 {
-  "schema_version": "2026-05-02.all-assets-manifest.v3",
-  "name": "AgentPress all-assets manifest",
-  "generated_at_utc": "2026-05-02T22:12:36Z",
-  "purpose": "Single machine-readable inventory so crawlers, AI agents, RAG ingestors, dataset catalogs, and eval harnesses can discover every public AgentPress asset with GitHub Pages and raw.githubusercontent.com fallback URLs.",
+  "schema_version": "2026-05-02.agentpress-canonical-assets.v1",
+  "name": "AgentPress canonical asset manifest",
   "canonical_product": "AgentPress",
+  "generated_at_utc": "2026-05-02T22:32:22Z",
+  "purpose": "Clean public inventory for agents, crawlers, RAG systems, eval harnesses, MCP-style agents, and coding agents. Legacy stress-test archives are intentionally excluded from primary discovery.",
   "canonical_pages": "https://barneywohl.github.io/agentpress/",
   "canonical_repo": "https://github.com/barneywohl/agentpress",
   "raw_base": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
@@ -11,48 +11,17 @@
     "llms.txt",
     ".well-known/agentpress.json",
     ".well-known/ai-ingestion.json",
-    "agentpress/AGENT_START_HERE.md",
-    "agentpress/agentpress-registry.json",
-    "agentpress/examples/universal-agent-reachability/AGENT_ENTRYPOINT.md",
-    "agentpress/MASS_AGENT_REACHABILITY_PLAN.md",
-    "sitemap.xml",
-    "openapi.yaml",
-    "agentpress/AGENT_NEEDS_RESEARCH.md",
-    "agentpress/AGENT_PROFILE_SPEC.md",
-    "agentpress/GLOBAL_FEATURE_BACKLOG.md",
-    "agentpress/AGENT_ARTICLE_DATABASE_SPEC.md",
     "agentpress/articles/article-index.json",
     "agentpress/articles/article-index.jsonl",
-    "scripts/check_agentpress_positioning.py",
-    "agentpress/DEEP_CLEANUP_AUDIT_20260502.md",
-    "agentpress/schemas/article-card.schema.json",
-    "agentpress/schemas/article-index.schema.json",
-    "agentpress/GLM_AGENT_RESEARCH_ROUND_20260502.md",
-    "agentpress/articles/index.html",
-    "agentpress/articles/collection-pages.json"
+    "agentpress/AGENT_ARTICLE_DATABASE_SPEC.md",
+    "agentpress/schemas/README.md",
+    "agentpress/examples/universal-agent-reachability/AGENT_ENTRYPOINT.md",
+    "sitemap.xml",
+    "openapi.yaml",
+    "AGENTS.md"
   ],
-  "required_framing": [
-    "AgentPress is agent-native publishing infrastructure.",
-    "Universal agent reachability is the flagship benchmark.",
-    "Do not turn off agent classes; express risk as action boundaries.",
-    "Research examples are not investment advice.",
-    "External writes, mass distribution, registry submission, and deploy require explicit human authorization."
-  ],
-  "legacy_stress_test_note": "Original Korea research assets remain in the inventory as secondary stress tests, not primary product positioning.",
-  "asset_count": 469,
+  "asset_count": 219,
   "assets": [
-    {
-      "path": ".github/workflows/agentpress-validate.yml",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/.github/workflows/agentpress-validate.yml",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/.github/workflows/agentpress-validate.yml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": ".gitignore",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/.gitignore",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/.gitignore",
-      "kind": "asset"
-    },
     {
       "path": ".nojekyll",
       "github_pages_url": "https://barneywohl.github.io/agentpress/.nojekyll",
@@ -78,21 +47,9 @@
       "kind": "machine_manifest_or_data"
     },
     {
-      "path": "AGENT_ENTRYPOINT.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/AGENT_ENTRYPOINT.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/AGENT_ENTRYPOINT.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "CITATION.cff",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/CITATION.cff",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/CITATION.cff",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "EVAL_CARD.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/EVAL_CARD.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/EVAL_CARD.md",
+      "path": "AGENTS.md",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/AGENTS.md",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/AGENTS.md",
       "kind": "human_and_agent_readable_page"
     },
     {
@@ -100,72 +57,6 @@
       "github_pages_url": "https://barneywohl.github.io/agentpress/README.md",
       "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/README.md",
       "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "agent-builder-cta.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agent-builder-cta.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agent-builder-cta.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "agent-content-factory/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agent-content-factory/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agent-content-factory/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "agent-content-factory/korea-filing-trap-agent-benchmark.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agent-content-factory/korea-filing-trap-agent-benchmark.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agent-content-factory/korea-filing-trap-agent-benchmark.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "agent-content-factory/korea-filing-trap-agent-benchmark.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agent-content-factory/korea-filing-trap-agent-benchmark.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agent-content-factory/korea-filing-trap-agent-benchmark.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "agent-index-submission.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agent-index-submission.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agent-index-submission.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "agent-ingestion/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agent-ingestion/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agent-ingestion/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "agent-ingestion/korea-research-agent-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agent-ingestion/korea-research-agent-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agent-ingestion/korea-research-agent-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "agent-substack/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agent-substack/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agent-substack/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "agent-substack/agentpress-publication-spec.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agent-substack/agentpress-publication-spec.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agent-substack/agentpress-publication-spec.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "agent-substack/mvp-build-plan.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agent-substack/mvp-build-plan.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agent-substack/mvp-build-plan.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "agent-task-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agent-task-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agent-task-card.json",
-      "kind": "machine_manifest_or_data"
     },
     {
       "path": "agentpress/AGENT_ARTICLE_DATABASE_SPEC.md",
@@ -267,6 +158,12 @@
       "path": "agentpress/README.md",
       "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/README.md",
       "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/README.md",
+      "kind": "human_and_agent_readable_page"
+    },
+    {
+      "path": "agentpress/RELEASE_NOTES.md",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/RELEASE_NOTES.md",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/RELEASE_NOTES.md",
       "kind": "human_and_agent_readable_page"
     },
     {
@@ -567,6 +464,96 @@
       "path": "agentpress/examples/innospace-thesis/source-map.json",
       "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/innospace-thesis/source-map.json",
       "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/innospace-thesis/source-map.json",
+      "kind": "machine_manifest_or_data"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/.well-known/ai-ingestion.json",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/.well-known/ai-ingestion.json",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/.well-known/ai-ingestion.json",
+      "kind": "machine_manifest_or_data"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/AGENT_ENTRYPOINT.md",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/AGENT_ENTRYPOINT.md",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/AGENT_ENTRYPOINT.md",
+      "kind": "human_and_agent_readable_page"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/CITATION.cff",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/CITATION.cff",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/CITATION.cff",
+      "kind": "machine_manifest_or_data"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/README.md",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/README.md",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/README.md",
+      "kind": "human_and_agent_readable_page"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/agent-task-card.json",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/agent-task-card.json",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/agent-task-card.json",
+      "kind": "machine_manifest_or_data"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/allowed-actions.json",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/allowed-actions.json",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/allowed-actions.json",
+      "kind": "machine_manifest_or_data"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/article-card.json",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/article-card.json",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/article-card.json",
+      "kind": "machine_manifest_or_data"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/citation-policy.md",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/citation-policy.md",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/citation-policy.md",
+      "kind": "human_and_agent_readable_page"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/disclaimer.md",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/disclaimer.md",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/disclaimer.md",
+      "kind": "human_and_agent_readable_page"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/evals/nim-smoke.jsonl",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/evals/nim-smoke.jsonl",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/evals/nim-smoke.jsonl",
+      "kind": "machine_manifest_or_data"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/evals/smoke.jsonl",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/evals/smoke.jsonl",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/evals/smoke.jsonl",
+      "kind": "machine_manifest_or_data"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/freshness.json",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/freshness.json",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/freshness.json",
+      "kind": "machine_manifest_or_data"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/llms.txt",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/llms.txt",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/llms.txt",
+      "kind": "machine_manifest_or_data"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/sitemap.xml",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/sitemap.xml",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/sitemap.xml",
+      "kind": "machine_manifest_or_data"
+    },
+    {
+      "path": "agentpress/examples/kb-finrate/source-map.json",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/agentpress/examples/kb-finrate/source-map.json",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/examples/kb-finrate/source-map.json",
       "kind": "machine_manifest_or_data"
     },
     {
@@ -1278,303 +1265,9 @@
       "kind": "script_or_tool"
     },
     {
-      "path": "agents.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/agents.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agents.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "ai-forums/langchain-llamaindex-post.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ai-forums/langchain-llamaindex-post.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ai-forums/langchain-llamaindex-post.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "ai-ingestion.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ai-ingestion.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ai-ingestion.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "ai-plugin.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ai-plugin.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ai-plugin.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "benchmark.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/benchmark.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/benchmark.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "chinese-summary.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/chinese-summary.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/chinese-summary.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "completeness-checklist-20260502.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/completeness-checklist-20260502.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/completeness-checklist-20260502.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "crawler-seeds.opml",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/crawler-seeds.opml",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/crawler-seeds.opml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "dataset/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/dataset/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/dataset/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "dataset/cheap-screen-deletion-eval-harness-v1.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/dataset/cheap-screen-deletion-eval-harness-v1.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/dataset/cheap-screen-deletion-eval-harness-v1.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "dataset/korea-agent-discovery-benchmark.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/dataset/korea-agent-discovery-benchmark.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/dataset/korea-agent-discovery-benchmark.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "dataset/korea-cheap-screen-deletion-benchmark.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/dataset/korea-cheap-screen-deletion-benchmark.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/dataset/korea-cheap-screen-deletion-benchmark.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "dataset/sample-cheap-screen-agent-responses.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/dataset/sample-cheap-screen-agent-responses.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/dataset/sample-cheap-screen-agent-responses.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "datasets/huggingface/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/datasets/huggingface/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/datasets/huggingface/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "datasets/kaggle/dataset-metadata.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/datasets/kaggle/dataset-metadata.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/datasets/kaggle/dataset-metadata.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "disclaimer.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/disclaimer.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/disclaimer.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "discovery/AGENT_SHIP_QUEUE.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/AGENT_SHIP_QUEUE.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/AGENT_SHIP_QUEUE.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "discovery/CRAWLER_RAG_CHECKLIST.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/CRAWLER_RAG_CHECKLIST.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/CRAWLER_RAG_CHECKLIST.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "discovery/agent-crawl-healthcheck.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/agent-crawl-healthcheck.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/agent-crawl-healthcheck.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "discovery/agent-directory-submission-pack.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/agent-directory-submission-pack.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/agent-directory-submission-pack.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "discovery/agent-discovery-manifest.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/agent-discovery-manifest.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/agent-discovery-manifest.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "discovery/agent-metadata-feed.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/agent-metadata-feed.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/agent-metadata-feed.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "discovery/all-assets-manifest.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/all-assets-manifest.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/all-assets-manifest.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "discovery/catalog-packs/agent-index-submission.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/catalog-packs/agent-index-submission.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/catalog-packs/agent-index-submission.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "discovery/crawler-seed-list.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/crawler-seed-list.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/crawler-seed-list.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "discovery/crawler-seeds.opml",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/crawler-seeds.opml",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/crawler-seeds.opml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "discovery/deployment-playbook.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/deployment-playbook.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/deployment-playbook.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "discovery/evals/agent-eval-queries.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/evals/agent-eval-queries.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/evals/agent-eval-queries.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "discovery/evals/korea-agent-verification-suite.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/evals/korea-agent-verification-suite.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/evals/korea-agent-verification-suite.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "discovery/search-query-map.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/search-query-map.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/search-query-map.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "discovery/snippets-for-crawlers.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/snippets-for-crawlers.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/snippets-for-crawlers.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "discovery/snippets/search-and-rag-snippets.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/discovery/snippets/search-and-rag-snippets.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/discovery/snippets/search-and-rag-snippets.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "feeds/rss.xml",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/feeds/rss.xml",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/feeds/rss.xml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "forum-packs/agent-builder-forum-drop.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/forum-packs/agent-builder-forum-drop.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/forum-packs/agent-builder-forum-drop.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "forum-packs/global-forum-posts.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/forum-packs/global-forum-posts.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/forum-packs/global-forum-posts.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "global-agents.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/global-agents.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/global-agents.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "growth-system/channel-attempt-log.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/growth-system/channel-attempt-log.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/growth-system/channel-attempt-log.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "growth-system/channel-database.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/growth-system/channel-database.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/growth-system/channel-database.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "growth-system/channel-rotation-queue.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/growth-system/channel-rotation-queue.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/growth-system/channel-rotation-queue.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "growth-system/content-calendar.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/growth-system/content-calendar.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/growth-system/content-calendar.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "growth-system/next-channel.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/growth-system/next-channel.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/growth-system/next-channel.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "growth-system/non_x_distribution_update_20260501.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/growth-system/non_x_distribution_update_20260501.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/growth-system/non_x_distribution_update_20260501.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "growth-system/share-report.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/growth-system/share-report.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/growth-system/share-report.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
       "path": "index.html",
       "github_pages_url": "https://barneywohl.github.io/agentpress/index.html",
       "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/index.html",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "ingestion-docs/rag-indexer-quickstart.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ingestion-docs/rag-indexer-quickstart.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ingestion-docs/rag-indexer-quickstart.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "ingestion-docs/vector-db-loader.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ingestion-docs/vector-db-loader.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ingestion-docs/vector-db-loader.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "japanese-summary.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/japanese-summary.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/japanese-summary.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "korea-agent-discovery-benchmark.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/korea-agent-discovery-benchmark.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/korea-agent-discovery-benchmark.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "korean-summary.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/korean-summary.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/korean-summary.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "landing-path-checklist.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/landing-path-checklist.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/landing-path-checklist.md",
       "kind": "human_and_agent_readable_page"
     },
     {
@@ -1584,945 +1277,15 @@
       "kind": "machine_manifest_or_data"
     },
     {
-      "path": "locales/ar.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/locales/ar.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/locales/ar.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "locales/de.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/locales/de.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/locales/de.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "locales/es.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/locales/es.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/locales/es.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "locales/fr.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/locales/fr.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/locales/fr.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "locales/hi.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/locales/hi.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/locales/hi.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "locales/id.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/locales/id.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/locales/id.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "locales/pt.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/locales/pt.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/locales/pt.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "locales/th.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/locales/th.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/locales/th.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "locales/vi.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/locales/vi.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/locales/vi.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
       "path": "metadata.json",
       "github_pages_url": "https://barneywohl.github.io/agentpress/metadata.json",
       "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/metadata.json",
       "kind": "machine_manifest_or_data"
     },
     {
-      "path": "moonshot-drawer.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/moonshot-drawer.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/moonshot-drawer.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
       "path": "openapi.yaml",
       "github_pages_url": "https://barneywohl.github.io/agentpress/openapi.yaml",
       "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/openapi.yaml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "pages-crawler-bundle.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/pages-crawler-bundle.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/pages-crawler-bundle.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "picks-and-moonshots.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/picks-and-moonshots.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/picks-and-moonshots.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/agent-forum-crawler-pack.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/agent-forum-crawler-pack.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/agent-forum-crawler-pack.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/huggingface-dataset-card.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/huggingface-dataset-card.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/huggingface-dataset-card.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/medium-post.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/medium-post.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/medium-post.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/naver-blog-ko.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/naver-blog-ko.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/naver-blog-ko.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-agent-traffic-20260502/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-agent-traffic-20260502/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-agent-traffic-20260502/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-agent-traffic-20260502/hacker-news.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-agent-traffic-20260502/hacker-news.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-agent-traffic-20260502/hacker-news.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-agent-traffic-20260502/index.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-agent-traffic-20260502/index.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-agent-traffic-20260502/index.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "platform-packs/non-x-agent-traffic-20260502/langchain-forum.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-agent-traffic-20260502/langchain-forum.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-agent-traffic-20260502/langchain-forum.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-agent-traffic-20260502/llamaindex-forum.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-agent-traffic-20260502/llamaindex-forum.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-agent-traffic-20260502/llamaindex-forum.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-agent-traffic-20260502/medium.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-agent-traffic-20260502/medium.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-agent-traffic-20260502/medium.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-agent-traffic-20260502/naver-blog.ko.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-agent-traffic-20260502/naver-blog.ko.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-agent-traffic-20260502/naver-blog.ko.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-agent-traffic-20260502/note.jp.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-agent-traffic-20260502/note.jp.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-agent-traffic-20260502/note.jp.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-agent-traffic-20260502/reddit.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-agent-traffic-20260502/reddit.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-agent-traffic-20260502/reddit.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-agent-traffic-20260502/zhihu.zh.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-agent-traffic-20260502/zhihu.zh.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-agent-traffic-20260502/zhihu.zh.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-ship-20260501/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-ship-20260501/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-ship-20260501/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-ship-20260501/ai-agent-forums.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-ship-20260501/ai-agent-forums.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-ship-20260501/ai-agent-forums.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-ship-20260501/hacker-news.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-ship-20260501/hacker-news.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-ship-20260501/hacker-news.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-ship-20260501/medium.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-ship-20260501/medium.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-ship-20260501/medium.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-ship-20260501/naver-blog.ko.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-ship-20260501/naver-blog.ko.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-ship-20260501/naver-blog.ko.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-ship-20260501/note.jp.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-ship-20260501/note.jp.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-ship-20260501/note.jp.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-ship-20260501/reddit.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-ship-20260501/reddit.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-ship-20260501/reddit.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/non-x-ship-20260501/zhihu.zh.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/non-x-ship-20260501/zhihu.zh.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/non-x-ship-20260501/zhihu.zh.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/note-jp.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/note-jp.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/note-jp.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "platform-packs/zhihu-zh.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/platform-packs/zhihu-zh.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/platform-packs/zhihu-zh.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "productized-funnel/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/productized-funnel/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/productized-funnel/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "productized-funnel/acceptance-checklist.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/productized-funnel/acceptance-checklist.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/productized-funnel/acceptance-checklist.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "productized-funnel/cta-paths.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/productized-funnel/cta-paths.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/productized-funnel/cta-paths.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "productized-funnel/funnel-manifest.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/productized-funnel/funnel-manifest.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/productized-funnel/funnel-manifest.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "productized-funnel/issue-backlog.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/productized-funnel/issue-backlog.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/productized-funnel/issue-backlog.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "productized-funnel/landing-page-copy.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/productized-funnel/landing-page-copy.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/productized-funnel/landing-page-copy.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "prompts/stock-research-agent-prompt.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/prompts/stock-research-agent-prompt.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/prompts/stock-research-agent-prompt.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/agentpress-registry.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/agentpress-registry.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/agentpress-registry.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/index.html",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/index.html",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/index.html",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/.well-known/ai-ingestion.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/.well-known/ai-ingestion.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/.well-known/ai-ingestion.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/AGENT_ENTRYPOINT.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/AGENT_ENTRYPOINT.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/AGENT_ENTRYPOINT.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/CITATION.cff",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/CITATION.cff",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/CITATION.cff",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/agent-task-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/agent-task-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/agent-task-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/allowed-actions.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/allowed-actions.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/allowed-actions.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/article-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/article-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/article-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/citation-policy.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/citation-policy.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/citation-policy.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/disclaimer.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/disclaimer.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/disclaimer.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/evals/smoke.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/evals/smoke.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/evals/smoke.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/freshness.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/freshness.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/freshness.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/index.html",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/index.html",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/index.html",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/llms.txt",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/llms.txt",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/llms.txt",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/sitemap.xml",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/sitemap.xml",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/sitemap.xml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/innospace-thesis/source-map.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/innospace-thesis/source-map.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/innospace-thesis/source-map.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/.well-known/ai-ingestion.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/.well-known/ai-ingestion.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/.well-known/ai-ingestion.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/AGENT_ENTRYPOINT.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/AGENT_ENTRYPOINT.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/AGENT_ENTRYPOINT.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/CITATION.cff",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/CITATION.cff",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/CITATION.cff",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/agent-task-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/agent-task-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/agent-task-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/allowed-actions.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/allowed-actions.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/allowed-actions.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/article-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/article-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/article-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/citation-policy.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/citation-policy.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/citation-policy.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/disclaimer.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/disclaimer.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/disclaimer.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/evals/smoke.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/evals/smoke.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/evals/smoke.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/freshness.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/freshness.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/freshness.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/index.html",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/index.html",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/index.html",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/llms.txt",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/llms.txt",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/llms.txt",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/sitemap.xml",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/sitemap.xml",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/sitemap.xml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/liquidity-trap/source-map.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/liquidity-trap/source-map.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/liquidity-trap/source-map.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/.well-known/ai-ingestion.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/.well-known/ai-ingestion.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/.well-known/ai-ingestion.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/AGENT_ENTRYPOINT.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/AGENT_ENTRYPOINT.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/AGENT_ENTRYPOINT.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/CITATION.cff",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/CITATION.cff",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/CITATION.cff",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/agent-task-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/agent-task-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/agent-task-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/allowed-actions.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/allowed-actions.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/allowed-actions.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/article-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/article-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/article-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/citation-policy.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/citation-policy.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/citation-policy.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/disclaimer.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/disclaimer.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/disclaimer.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/evals/smoke.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/evals/smoke.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/evals/smoke.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/evals/thesis-smoke.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/evals/thesis-smoke.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/evals/thesis-smoke.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/freshness.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/freshness.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/freshness.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/index.html",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/index.html",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/index.html",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/llms.txt",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/llms.txt",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/llms.txt",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/sitemap.xml",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/sitemap.xml",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/sitemap.xml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/posco-green-steel/source-map.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/posco-green-steel/source-map.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/posco-green-steel/source-map.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/.well-known/ai-ingestion.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/.well-known/ai-ingestion.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/.well-known/ai-ingestion.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/AGENT_ENTRYPOINT.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/AGENT_ENTRYPOINT.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/AGENT_ENTRYPOINT.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/CITATION.cff",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/CITATION.cff",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/CITATION.cff",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/agent-task-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/agent-task-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/agent-task-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/allowed-actions.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/allowed-actions.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/allowed-actions.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/article-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/article-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/article-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/citation-policy.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/citation-policy.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/citation-policy.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/disclaimer.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/disclaimer.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/disclaimer.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/evals/smoke.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/evals/smoke.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/evals/smoke.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/evals/thesis-smoke.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/evals/thesis-smoke.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/evals/thesis-smoke.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/freshness.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/freshness.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/freshness.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/index.html",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/index.html",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/index.html",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/llms.txt",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/llms.txt",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/llms.txt",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/sitemap.xml",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/sitemap.xml",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/sitemap.xml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/samsung-hbm-margin/source-map.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/samsung-hbm-margin/source-map.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/samsung-hbm-margin/source-map.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/.well-known/ai-ingestion.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/.well-known/ai-ingestion.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/.well-known/ai-ingestion.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/AGENT_ENTRYPOINT.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/AGENT_ENTRYPOINT.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/AGENT_ENTRYPOINT.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/CITATION.cff",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/CITATION.cff",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/CITATION.cff",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/agent-task-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/agent-task-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/agent-task-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/allowed-actions.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/allowed-actions.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/allowed-actions.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/article-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/article-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/article-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/citation-policy.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/citation-policy.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/citation-policy.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/disclaimer.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/disclaimer.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/disclaimer.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/evals/smoke.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/evals/smoke.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/evals/smoke.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/evals/thesis-smoke.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/evals/thesis-smoke.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/evals/thesis-smoke.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/freshness.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/freshness.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/freshness.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/index.html",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/index.html",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/index.html",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/llms.txt",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/llms.txt",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/llms.txt",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/sitemap.xml",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/sitemap.xml",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/sitemap.xml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/sk-hynix-hbm-supply/source-map.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/sk-hynix-hbm-supply/source-map.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/sk-hynix-hbm-supply/source-map.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/.well-known/ai-ingestion.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/.well-known/ai-ingestion.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/.well-known/ai-ingestion.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/AGENT_ENTRYPOINT.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/AGENT_ENTRYPOINT.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/AGENT_ENTRYPOINT.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/CITATION.cff",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/CITATION.cff",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/CITATION.cff",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/agent-task-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/agent-task-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/agent-task-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/allowed-actions.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/allowed-actions.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/allowed-actions.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/article-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/article-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/article-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/citation-policy.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/citation-policy.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/citation-policy.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/disclaimer.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/disclaimer.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/disclaimer.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/evals/smoke.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/evals/smoke.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/evals/smoke.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/freshness.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/freshness.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/freshness.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/index.html",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/index.html",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/index.html",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/llms.txt",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/llms.txt",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/llms.txt",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/sitemap.xml",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/sitemap.xml",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/sitemap.xml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/theme-cashflow/source-map.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/theme-cashflow/source-map.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/theme-cashflow/source-map.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/.well-known/ai-ingestion.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/.well-known/ai-ingestion.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/.well-known/ai-ingestion.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/AGENT_ENTRYPOINT.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/AGENT_ENTRYPOINT.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/AGENT_ENTRYPOINT.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/CITATION.cff",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/CITATION.cff",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/CITATION.cff",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/agent-task-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/agent-task-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/agent-task-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/allowed-actions.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/allowed-actions.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/allowed-actions.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/article-card.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/article-card.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/article-card.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/citation-policy.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/citation-policy.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/citation-policy.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/disclaimer.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/disclaimer.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/disclaimer.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/evals/reachability-smoke.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/evals/reachability-smoke.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/evals/reachability-smoke.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/evals/smoke.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/evals/smoke.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/evals/smoke.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/freshness.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/freshness.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/freshness.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/index.html",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/index.html",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/index.html",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/llms.txt",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/llms.txt",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/llms.txt",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/sitemap.xml",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/sitemap.xml",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/sitemap.xml",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "public/agentpress/universal-agent-reachability/source-map.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/public/agentpress/universal-agent-reachability/source-map.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/public/agentpress/universal-agent-reachability/source-map.json",
       "kind": "machine_manifest_or_data"
     },
     {
@@ -2532,117 +1295,21 @@
       "kind": "asset"
     },
     {
-      "path": "query-pages/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "query-pages/bhi-083650-backlog-dart.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/bhi-083650-backlog-dart.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/bhi-083650-backlog-dart.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "query-pages/dart-filing-rag-ingestion.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/dart-filing-rag-ingestion.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/dart-filing-rag-ingestion.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "query-pages/index.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/index.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/index.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "query-pages/korea-cheap-screen-deletion.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/korea-cheap-screen-deletion.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/korea-cheap-screen-deletion.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "query-pages/korea-discount-agent-benchmark.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/korea-discount-agent-benchmark.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/korea-discount-agent-benchmark.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "query-pages/korea-value-up-cheap-trap.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/korea-value-up-cheap-trap.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/korea-value-up-cheap-trap.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "query-pages/korean-small-cap-liquidity-check.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/korean-small-cap-liquidity-check.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/korean-small-cap-liquidity-check.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "query-pages/krx-kind-dart-verification.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/krx-kind-dart-verification.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/krx-kind-dart-verification.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "query-pages/moonshot-drawer-korea-agents.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/moonshot-drawer-korea-agents.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/moonshot-drawer-korea-agents.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "query-pages/poongsan-103140-research-agent.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/poongsan-103140-research-agent.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/poongsan-103140-research-agent.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "query-pages/woojin-105840-nuclear-instruments.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/query-pages/woojin-105840-nuclear-instruments.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/query-pages/woojin-105840-nuclear-instruments.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "rag-pack/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/rag-pack/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/rag-pack/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "rag-pack/ingestion-manifest.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/rag-pack/ingestion-manifest.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/rag-pack/ingestion-manifest.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "rag-pack/korea-research-map.chunks.jsonl",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/rag-pack/korea-research-map.chunks.jsonl",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/rag-pack/korea-research-map.chunks.jsonl",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "rag-pack/retrieval-queries.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/rag-pack/retrieval-queries.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/rag-pack/retrieval-queries.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
       "path": "robots.txt",
       "github_pages_url": "https://barneywohl.github.io/agentpress/robots.txt",
       "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/robots.txt",
       "kind": "machine_manifest_or_data"
     },
     {
-      "path": "scripts/__init__.py",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/scripts/__init__.py",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/scripts/__init__.py",
-      "kind": "script_or_tool"
-    },
-    {
       "path": "scripts/agentpress.py",
       "github_pages_url": "https://barneywohl.github.io/agentpress/scripts/agentpress.py",
       "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/scripts/agentpress.py",
+      "kind": "script_or_tool"
+    },
+    {
+      "path": "scripts/build_canonical_agentpress_surface.py",
+      "github_pages_url": "https://barneywohl.github.io/agentpress/scripts/build_canonical_agentpress_surface.py",
+      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/scripts/build_canonical_agentpress_surface.py",
       "kind": "script_or_tool"
     },
     {
@@ -2658,202 +1325,16 @@
       "kind": "script_or_tool"
     },
     {
-      "path": "scripts/evaluate_cheap_screen_deletion.py",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/scripts/evaluate_cheap_screen_deletion.py",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/scripts/evaluate_cheap_screen_deletion.py",
-      "kind": "script_or_tool"
-    },
-    {
-      "path": "scripts/generate_share_report.py",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/scripts/generate_share_report.py",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/scripts/generate_share_report.py",
-      "kind": "script_or_tool"
-    },
-    {
-      "path": "scripts/next_channel.py",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/scripts/next_channel.py",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/scripts/next_channel.py",
-      "kind": "script_or_tool"
-    },
-    {
       "path": "scripts/validate_agentpress_assets.py",
       "github_pages_url": "https://barneywohl.github.io/agentpress/scripts/validate_agentpress_assets.py",
       "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/scripts/validate_agentpress_assets.py",
       "kind": "script_or_tool"
     },
     {
-      "path": "search-index.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/search-index.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/search-index.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "seo/schema-article.jsonld",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/seo/schema-article.jsonld",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/seo/schema-article.jsonld",
-      "kind": "asset"
-    },
-    {
-      "path": "seo/schema-dataset.jsonld",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/seo/schema-dataset.jsonld",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/seo/schema-dataset.jsonld",
-      "kind": "asset"
-    },
-    {
-      "path": "share-kit/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "share-kit/ai-forums-draft.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/ai-forums-draft.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/ai-forums-draft.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "share-kit/hackernews.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/hackernews.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/hackernews.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "share-kit/huggingface-dataset-card.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/huggingface-dataset-card.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/huggingface-dataset-card.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "share-kit/kaggle-dataset-metadata.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/kaggle-dataset-metadata.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/kaggle-dataset-metadata.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "share-kit/medium-draft.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/medium-draft.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/medium-draft.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "share-kit/naver-blog-draft.ko.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/naver-blog-draft.ko.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/naver-blog-draft.ko.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "share-kit/note-draft.ja.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/note-draft.ja.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/note-draft.ja.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "share-kit/reddit-securityanalysis.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/reddit-securityanalysis.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/reddit-securityanalysis.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "share-kit/substack-notes-agent-discovery-drafts.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/substack-notes-agent-discovery-drafts.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/substack-notes-agent-discovery-drafts.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "share-kit/x-thread.txt",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/x-thread.txt",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/x-thread.txt",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "share-kit/zhihu-draft.zh.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/share-kit/zhihu-draft.zh.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/share-kit/zhihu-draft.zh.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
       "path": "sitemap.xml",
       "github_pages_url": "https://barneywohl.github.io/agentpress/sitemap.xml",
       "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/sitemap.xml",
       "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "telemetry/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/telemetry/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/telemetry/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "telemetry/agent-telemetry-map.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/telemetry/agent-telemetry-map.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/telemetry/agent-telemetry-map.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "ticker-theses/README.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ticker-theses/README.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ticker-theses/README.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "ticker-theses/bhi-083650-backlog-nuclear-thesis.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ticker-theses/bhi-083650-backlog-nuclear-thesis.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ticker-theses/bhi-083650-backlog-nuclear-thesis.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "ticker-theses/innospace-462350-launch-cadence-dilution-thesis.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ticker-theses/innospace-462350-launch-cadence-dilution-thesis.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ticker-theses/innospace-462350-launch-cadence-dilution-thesis.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "ticker-theses/krx-kind-dart-verification-guide.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ticker-theses/krx-kind-dart-verification-guide.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ticker-theses/krx-kind-dart-verification-guide.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "ticker-theses/poongsan-103140-copper-defense-thesis.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ticker-theses/poongsan-103140-copper-defense-thesis.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ticker-theses/poongsan-103140-copper-defense-thesis.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "ticker-theses/ticker-thesis-index.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ticker-theses/ticker-thesis-index.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ticker-theses/ticker-thesis-index.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "ticker-theses/woojin-105840-nuclear-instrumentation-thesis.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/ticker-theses/woojin-105840-nuclear-instrumentation-thesis.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/ticker-theses/woojin-105840-nuclear-instrumentation-thesis.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "traffic/agent-traffic-map.json",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/traffic/agent-traffic-map.json",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/traffic/agent-traffic-map.json",
-      "kind": "machine_manifest_or_data"
-    },
-    {
-      "path": "traffic/agent-traffic-map.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/traffic/agent-traffic-map.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/traffic/agent-traffic-map.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "vector-db-loader.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/vector-db-loader.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/vector-db-loader.md",
-      "kind": "human_and_agent_readable_page"
-    },
-    {
-      "path": "writing-queue-20260502.md",
-      "github_pages_url": "https://barneywohl.github.io/agentpress/writing-queue-20260502.md",
-      "raw_githubusercontent_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/writing-queue-20260502.md",
-      "kind": "human_and_agent_readable_page"
     }
   ]
 }

@@ -1,8 +1,25 @@
 User-agent: *
 Allow: /
+
+# Keep primary discovery focused on AgentPress product surfaces.
+# Historical market-research archives are retained for compatibility but excluded from canonical sitemap.
+Disallow: /dataset/
+Disallow: /datasets/
+Disallow: /query-pages/
+Disallow: /ticker-theses/
+Disallow: /rag-pack/
+Disallow: /productized-funnel/
+Disallow: /platform-packs/
+Disallow: /share-kit/
+Disallow: /locales/
+Disallow: /growth-system/
+Disallow: /forum-packs/
+Disallow: /ai-forums/
+
 Sitemap: https://barneywohl.github.io/agentpress/sitemap.xml
 
 # AgentPress machine entrypoints
 # llms.txt: https://barneywohl.github.io/agentpress/llms.txt
 # AI ingestion: https://barneywohl.github.io/agentpress/.well-known/ai-ingestion.json
 # AgentPress manifest: https://barneywohl.github.io/agentpress/.well-known/agentpress.json
+# Article database: https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json

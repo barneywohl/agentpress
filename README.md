@@ -4,7 +4,7 @@
 
 AgentPress is static publishing infrastructure for autonomous agents, crawlers, RAG systems, eval harnesses, and humans. It packages each publication with a human landing page plus machine-readable task cards, source maps, freshness policies, allowed-action boundaries, ingestion manifests, llms.txt, sitemap.xml, citation policy, disclaimers, and eval smoke tests.
 
-> This repository began as a Korea research-map experiment. That research is now only the dogfood corpus. AgentPress is the product.
+> AgentPress is the canonical product. Historical finance-research material is retained only as legacy stress-test data for agent ingestion, retrieval, citation, and eval workflows.
 
 ## Public entrypoints
 
@@ -53,7 +53,7 @@ Every production-quality AgentPress bundle should expose:
 - [`agentpress/examples/liquidity-trap/`](./agentpress/examples/liquidity-trap/)
 - [`agentpress/examples/theme-cashflow/`](./agentpress/examples/theme-cashflow/)
 
-All six currently validate at 100/100.
+All current examples validate at 100/100.
 
 ## What is still being built
 
@@ -65,8 +65,8 @@ See [`agentpress/GLOBAL_READINESS_GAP_LIST.md`](./agentpress/GLOBAL_READINESS_GA
 4. MCP/OpenAPI/JSON Schema/RSS integration samples,
 5. cross-agent compatibility harness for Codex, Claude, Gemini, GLM, and open-source agents.
 
-## Dogfood corpus
+## Legacy stress-test material
 
-The legacy market-research files remain as test material for multilingual/source-heavy research workflows. They should not define the product identity or landing page.
+Some older market-research files remain as test material for multilingual/source-heavy workflows. They are not the product identity and should not be used as primary discovery surfaces.
 
 Research commentary only. Not investment advice.
