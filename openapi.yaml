@@ -1,11 +1,16 @@
 openapi: 3.0.3
 info:
   title: AgentPress Static Discovery API
-  version: 0.2.0
-  description: Static HTTPS resources for agent-native publications. No authentication; use these paths to discover, ingest, validate, and cite AgentPress bundles.
+  version: 0.3.0
+  description: Static HTTPS resources for agent-native publications. No authentication; use these paths to discover, ingest, validate, communicate, and cite AgentPress bundles.
 servers:
   - url: https://barneywohl.github.io/agentpress
 paths:
+  /:
+    get:
+      summary: Human and agent landing page
+      responses:
+        '200': {description: OK}
   /llms.txt:
     get:
       summary: Compact LLM and crawler instructions
@@ -21,9 +26,9 @@ paths:
       summary: AgentPress product discovery manifest
       responses:
         '200': {description: OK}
-  /agentpress/AGENT_START_HERE.md:
+  /agentpress/:
     get:
-      summary: Agent-first onboarding file
+      summary: AgentPress registry landing page
       responses:
         '200': {description: OK}
   /agentpress/agentpress-registry.json:
@@ -31,9 +36,19 @@ paths:
       summary: Canonical bundle registry
       responses:
         '200': {description: OK}
+  /agentpress/articles/article-index.json:
+    get:
+      summary: Machine-readable article index
+      responses:
+        '200': {description: OK}
   /agentpress/protocols/mcp-manifest.json:
     get:
-      summary: MCP-style static resource manifest
+      summary: MCP-style static resource and tool contract manifest
+      responses:
+        '200': {description: OK}
+  /agentpress/protocols/executable-contracts.json:
+    get:
+      summary: CLI and eval fixtures for deterministic agent testing
       responses:
         '200': {description: OK}
   /agentpress/feeds/agentpress-feed.json:

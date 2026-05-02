@@ -245,6 +245,76 @@ def _parse_xml_files(root: pathlib.Path) -> list[str]:
     return errors
 
 
+def _schema_required_errors(payload: dict, schema_path: pathlib.Path, label: str) -> list[str]:
+    if not schema_path.exists():
+        return [f"missing schema for {label}: {schema_path}"]
+    try:
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        return [f"invalid schema {schema_path}: {e}"]
+    errors = []
+    for key in schema.get("required", []):
+        if key not in payload:
+            errors.append(f"{label} missing schema-required field: {key}")
+    properties = schema.get("properties", {})
+    type_map = {"object": dict, "array": list, "string": str, "integer": int, "number": (int, float), "boolean": bool}
+    for key, spec in properties.items():
+        if key not in payload:
+            continue
+        expected = spec.get("type") if isinstance(spec, dict) else None
+        if expected in type_map and not isinstance(payload[key], type_map[expected]):
+            errors.append(f"{label}.{key} expected {expected}")
+    return errors
+
+
+def _validate_contract_files(root: pathlib.Path) -> list[str]:
+    schema_root = pathlib.Path(__file__).resolve().parents[1] / "agentpress" / "schemas"
+    mapping = {
+        "agent-task-card.json": "agent-task-card.schema.json",
+        "source-map.json": "source-map.schema.json",
+        "freshness.json": "freshness.schema.json",
+        "allowed-actions.json": "allowed-actions.schema.json",
+        ".well-known/ai-ingestion.json": "ai-ingestion.schema.json",
+        "article-card.json": "article-card.schema.json",
+    }
+    errors = []
+    for rel, schema_name in mapping.items():
+        path = root / rel
+        if not path.exists():
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except Exception as e:
+            errors.append(f"{path}: {e}")
+            continue
+        errors.extend(_schema_required_errors(payload, schema_root / schema_name, rel))
+    return errors
+
+
+def _validate_eval_files(root: pathlib.Path) -> tuple[list[str], int]:
+    errors = []
+    count = 0
+    eval_root = root / "evals"
+    if not eval_root.exists():
+        return errors, count
+    for p in sorted(eval_root.glob("*.jsonl")):
+        for lineno, line in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
+            if not line.strip():
+                continue
+            count += 1
+            try:
+                row = json.loads(line)
+            except Exception as e:
+                errors.append(f"{p}:{lineno}: invalid jsonl: {e}")
+                continue
+            if not isinstance(row, dict):
+                errors.append(f"{p}:{lineno}: eval row must be object")
+                continue
+            if "input" not in row or "expected" not in row:
+                errors.append(f"{p}:{lineno}: eval row requires input and expected")
+    return errors, count
+
+
 def _has_task_card(root: pathlib.Path) -> bool:
     p = root/"agent-task-card.json"
     if not p.exists():
@@ -271,7 +341,10 @@ def audit_root(root: pathlib.Path, strict: bool = True) -> tuple[int, list[str],
     combined = entry + "\n" + read_text(root/"disclaimer.md") + "\n" + read_text(root/"citation-policy.md")
     if "Not investment advice" not in combined:
         errors.append("missing investment-advice disclaimer")
-    if not any((root/"evals").glob("*.jsonl")) if (root/"evals").exists() else True:
+    errors.extend(_validate_contract_files(root))
+    eval_errors, eval_count = _validate_eval_files(root)
+    errors.extend(eval_errors)
+    if eval_count == 0:
         warnings.append("no evals/*.jsonl smoke test found")
     return (0 if not errors else 1), errors, warnings
 
@@ -479,6 +552,81 @@ def build_all(args):
 
 
 
+def eval_examples(args):
+    root = pathlib.Path(args.root)
+    examples = sorted(p for p in root.iterdir() if p.is_dir() and (p/"agent-task-card.json").exists()) if root.exists() else []
+    total_rows = 0
+    failures = []
+    for ex in examples:
+        eval_errors, count = _validate_eval_files(ex)
+        total_rows += count
+        failures.extend(eval_errors)
+        if count == 0:
+            failures.append(f"{ex}: no eval rows")
+    if failures:
+        for f in failures:
+            print(f"error: {f}")
+        return 1
+    print(json.dumps({"status":"ok", "examples": len(examples), "eval_rows": total_rows}, indent=2))
+    return 0
+
+
+def check_registry(args):
+    root = pathlib.Path(args.root)
+    registry_path = pathlib.Path(args.registry)
+    examples = sorted(p.name for p in root.iterdir() if p.is_dir() and (p/"agent-task-card.json").exists()) if root.exists() else []
+    if not registry_path.exists():
+        print(f"missing registry: {registry_path}")
+        return 1
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    publications = registry.get("publications", [])
+    slugs = sorted(p.get("slug") for p in publications)
+    errors = []
+    if registry.get("count") != len(publications):
+        errors.append(f"registry count {registry.get('count')} != publications {len(publications)}")
+    if slugs != examples:
+        errors.append(f"registry slugs mismatch: examples={examples} registry={slugs}")
+    if errors:
+        for e in errors:
+            print(f"error: {e}")
+        return 1
+    print(json.dumps({"status":"ok", "example_count": len(examples), "registry": str(registry_path)}, indent=2))
+    return 0
+
+
+def check_openapi(args):
+    root = pathlib.Path(args.root)
+    spec = pathlib.Path(args.openapi)
+    if not spec.exists():
+        print(f"missing OpenAPI spec: {spec}")
+        return 1
+    text = spec.read_text(encoding="utf-8")
+    paths = []
+    in_paths = False
+    for line in text.splitlines():
+        if line.startswith("paths:"):
+            in_paths = True
+            continue
+        if in_paths:
+            m = re.match(r"^  (/[^:]+):\s*$", line)
+            if m:
+                paths.append(m.group(1))
+    errors = []
+    for path in paths:
+        rel = path.lstrip("/")
+        local = root / rel
+        if path.endswith("/") or path == "/":
+            local = local / "index.html"
+        if not local.exists():
+            errors.append(f"OpenAPI path missing local asset: {path} -> {local}")
+    if errors:
+        for e in errors:
+            print(f"error: {e}")
+        return 1
+    print(json.dumps({"status":"ok", "paths": len(paths), "openapi": str(spec)}, indent=2))
+    return 0
+
+
 def package_bundle(args):
     import hashlib, tarfile, zipfile
     root = pathlib.Path(args.root)
@@ -548,6 +696,9 @@ def main():
     p = sub.add_parser("build-all"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", dest="dest", required=True); p.add_argument("--clean", action="store_true")
     p = sub.add_parser("index-articles"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", default="agentpress/articles"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress")
     p = sub.add_parser("doctor"); p.add_argument("root", nargs="?", default=".")
+    p = sub.add_parser("eval"); p.add_argument("root", nargs="?", default="agentpress/examples")
+    p = sub.add_parser("check-registry"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--registry", default="agentpress/agentpress-registry.json")
+    p = sub.add_parser("check-openapi"); p.add_argument("root", nargs="?", default="."); p.add_argument("--openapi", default="openapi.yaml")
     p = sub.add_parser("package"); p.add_argument("root", nargs="?", default="."); p.add_argument("--format", choices=["tar", "zip"], default="tar"); p.add_argument("--out", default="dist/agentpress-offline.tar.gz")
     args = ap.parse_args()
     if args.cmd == "init": init(args); return 0
@@ -559,6 +710,9 @@ def main():
     if args.cmd == "build-all": return build_all(args)
     if args.cmd == "index-articles": return index_articles(args)
     if args.cmd == "doctor": return doctor(args)
+    if args.cmd == "eval": return eval_examples(args)
+    if args.cmd == "check-registry": return check_registry(args)
+    if args.cmd == "check-openapi": return check_openapi(args)
     if args.cmd == "package": return package_bundle(args)
 if __name__ == "__main__":
     sys.exit(main())

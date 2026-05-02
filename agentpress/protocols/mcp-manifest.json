@@ -1,42 +1,26 @@
 {
-  "schema_version": "0.1-static",
-  "name": "agentpress-static-resources",
-  "description": "Static resource manifest for MCP-style agents. No auth. Resources are HTTPS files.",
+  "schema_version": "2026-05-02.agentpress-mcp-static.v1",
+  "name": "AgentPress Static Tool Contracts",
+  "description": "Static MCP-style contract map for agents that need deterministic AgentPress inputs and outputs without a live server.",
   "resources": [
-    {
-      "name": "registry",
-      "uri": "https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json",
-      "mimeType": "application/json"
-    },
-    {
-      "name": "start_here",
-      "uri": "https://barneywohl.github.io/agentpress/agentpress/AGENT_START_HERE.md",
-      "mimeType": "text/markdown"
-    },
-    {
-      "name": "schemas",
-      "uri": "https://barneywohl.github.io/agentpress/agentpress/schemas/README.md",
-      "mimeType": "text/markdown"
-    },
-    {
-      "name": "eval_prompts",
-      "uri": "https://barneywohl.github.io/agentpress/agentpress/evals/cross_agent_compatibility_prompts.jsonl",
-      "mimeType": "application/x-ndjson"
-    }
+    {"name": "root_llms", "uri": "https://barneywohl.github.io/agentpress/llms.txt", "mime_type": "text/plain"},
+    {"name": "registry", "uri": "https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json", "mime_type": "application/json"},
+    {"name": "article_index", "uri": "https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json", "mime_type": "application/json"},
+    {"name": "schemas", "uri": "https://barneywohl.github.io/agentpress/agentpress/schemas/README.md", "mime_type": "text/markdown"}
   ],
   "tools": [
     {
-      "name": "validate_bundle",
-      "description": "Run locally: python3 scripts/agentpress.py validate <bundle>"
+      "name": "agentpress_discover",
+      "description": "Fetch AgentPress entrypoints and choose the correct bundle for a task.",
+      "input_schema": {"type": "object", "required": ["task"], "properties": {"task": {"type": "string"}, "agent_family": {"type": "string"}}},
+      "output_schema": {"type": "object", "required": ["bundle_url", "task_card_url", "allowed_actions_url"], "properties": {"bundle_url": {"type": "string"}, "task_card_url": {"type": "string"}, "allowed_actions_url": {"type": "string"}, "confidence": {"type": "string"}}}
     },
     {
-      "name": "audit_bundle",
-      "description": "Run locally: python3 scripts/agentpress.py audit <bundle>"
-    },
-    {
-      "name": "score_bundle",
-      "description": "Run locally: python3 scripts/agentpress.py score <bundle>"
+      "name": "agentpress_validate_bundle",
+      "description": "Validate a bundle against AgentPress required files and JSON contracts.",
+      "input_schema": {"type": "object", "required": ["bundle_url"], "properties": {"bundle_url": {"type": "string"}}},
+      "output_schema": {"type": "object", "required": ["status", "errors"], "properties": {"status": {"type": "string", "enum": ["pass", "fail"]}, "errors": {"type": "array", "items": {"type": "string"}}}}
     }
   ],
-  "updated_at": "2026-05-02T21:34:57Z"
+  "safety": {"default_mode": "read_only", "external_writes_require_human_approval": true}
 }

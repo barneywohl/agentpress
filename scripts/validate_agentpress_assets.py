@@ -71,6 +71,9 @@ def main() -> int:
         run(['python3', 'scripts/agentpress.py', 'audit', str(rel)])
         run(['python3', 'scripts/agentpress.py', 'score', str(rel)])
     validate_article_database(examples)
+    run(['python3', 'scripts/agentpress.py', 'eval', 'agentpress/examples'])
+    run(['python3', 'scripts/agentpress.py', 'check-registry'])
+    run(['python3', 'scripts/agentpress.py', 'check-openapi'])
     parse_repo_json_xml()
     print(f'agentpress asset validation ok ({len(examples)} examples)')
     return 0

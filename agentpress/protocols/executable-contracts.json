@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-02.agentpress-executable-contracts.v1",
+  "purpose": "Deterministic fixtures for coding agents, MCP-style agents, and eval harnesses.",
+  "commands": [
+    {"name": "validate", "cli": "agentpress validate <bundle>", "success_contains": "agentpress validation ok"},
+    {"name": "audit", "cli": "agentpress audit <bundle>", "success_contains": "agentpress audit ok"},
+    {"name": "score", "cli": "agentpress score <bundle>", "success_json_field": "score"},
+    {"name": "eval", "cli": "agentpress eval agentpress/examples", "success_json_field": "eval_rows"},
+    {"name": "check-registry", "cli": "agentpress check-registry", "success_json_field": "example_count"},
+    {"name": "check-openapi", "cli": "agentpress check-openapi", "success_json_field": "paths"}
+  ],
+  "fixtures": [
+    {"bundle": "agentpress/examples/api-docs-handoff", "expected_min_score": 100},
+    {"bundle": "agentpress/examples/incident-runbook-sharing", "expected_min_score": 100},
+    {"bundle": "agentpress/examples/dataset-card-reuse", "expected_min_score": 100}
+  ]
+}
