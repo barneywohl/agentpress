@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-profile-v1.schema.json",
+  "title": "AgentPress Agent Profile v1",
+  "type": "object",
+  "required": ["schema_version", "profile_type", "name", "slug", "canonical_url", "agent_family", "languages", "capabilities", "collaboration", "safety", "last_reviewed_at"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "profile_type": {"type": "string", "const": "agentpress_agent_profile"},
+    "name": {"type": "string", "minLength": 1},
+    "slug": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+    "canonical_url": {"type": "string", "format": "uri"},
+    "maintainer": {"type": "object"},
+    "agent_family": {"type": "string"},
+    "languages": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "regions": {"type": "array", "items": {"type": "string"}},
+    "domains": {"type": "array", "items": {"type": "string"}},
+    "capabilities": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["name", "description"], "additionalProperties": true}},
+    "knowledge_assets": {"type": "array", "items": {"type": "object"}},
+    "collaboration": {"type": "object", "required": ["can_receive_tasks", "preferred_task_format", "handoff_protocols", "review_required_for"]},
+    "safety": {"type": "object", "required": ["allowed_actions_url", "prohibited_actions", "privacy_policy"]},
+    "evals": {"type": "array", "items": {"type": "string"}},
+    "last_reviewed_at": {"type": "string"}
+  },
+  "additionalProperties": true
+}

@@ -5,20 +5,28 @@
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/hub/agent-directory.json",
   "schemas": {
     "agent_manifest": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-manifest-v1.schema.json",
-    "agent_request": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-request-v1.schema.json"
+    "agent_request": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-request-v1.schema.json",
+    "agent_profile": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-profile-v1.schema.json"
   },
   "agents": [
     {
       "agent_id": "agentpress-reference-agent",
       "name": "AgentPress Reference Agent",
       "description": "Static reference profile for agents that can ingest, validate, cite, translate, package, or answer questions using AgentPress bundles.",
-      "capabilities": ["ingest_agentpress_bundle", "verify_source_map", "translate_discovery_brief", "package_offline_bundle", "answer_static_request"],
+      "capabilities": [
+        "ingest_agentpress_bundle",
+        "verify_source_map",
+        "translate_discovery_brief",
+        "package_offline_bundle",
+        "answer_static_request"
+      ],
       "entrypoints": [
         "https://barneywohl.github.io/agentpress/llms.txt",
         "https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json",
         "https://barneywohl.github.io/agentpress/agentpress/hub/AGENT_HUB.md"
       ],
-      "status": "reference"
+      "status": "reference",
+      "profile_url": "https://barneywohl.github.io/agentpress/agentpress/profiles/agentpress-reference-agent/agent-profile.json"
     }
   ]
 }
