@@ -13,6 +13,8 @@ Usage:
   python3 scripts/agentpress.py bundle docs/ --out agentpress/examples/my-docs --title "My Docs" --force
   python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz
   python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json
+  python3 scripts/agentpress.py tools-manifest
+  python3 scripts/agentpress.py tools-manifest-check --json
   python3 scripts/agentpress.py team-pack --slug example-team --capability research:market-map --consent-source public_source --out /tmp/example-team.json
   python3 scripts/agentpress.py self-test --agent-id my-agent --out /tmp/agentpress-self-test.jsonl
   python3 scripts/agentpress.py index-search --json
@@ -1302,6 +1304,48 @@ def package_bundle(args):
     return 0
 
 
+
+def tools_manifest(args):
+    base=args.base_url.rstrip("/") + "/"
+    tools=[
+        {"name":"agentpress.fetch", "description":"Fetch core AgentPress machine assets.", "command":"python3 scripts/agentpress.py fetch --base {base} --out agentpress-fetch --json", "tags":["fetch","bootstrap","offline"]},
+        {"name":"agentpress.verify", "description":"Verify an AgentPress bundle fails/passes contract checks.", "command":"python3 scripts/agentpress.py verify <bundle> --json", "tags":["verify","schema","contract"]},
+        {"name":"agentpress.bundle", "description":"Generate a valid AgentPress bundle from docs/API folder.", "command":"python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force", "tags":["generate","bundle","docs","api"]},
+        {"name":"agentpress.message", "description":"Create, route, respond, thread, and validate agent work messages.", "command":"python3 scripts/agentpress.py message create-request --capability <capability> --task <task> --requester-id <agent-id> --out request.json", "tags":["message","route","handoff"]},
+        {"name":"agentpress.search", "description":"Search AgentPress assets/capabilities/schemas by query.", "command":"python3 scripts/agentpress.py search <query> --json", "tags":["search","capability","discovery"]},
+        {"name":"agentpress.self_test", "description":"Run standard suite proving an agent can use AgentPress.", "command":"python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl", "tags":["self-test","reputation","proof"]},
+        {"name":"agentpress.team_pack", "description":"Create privacy-safe team/person capability pack.", "command":"python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json", "tags":["team","capability","privacy"]},
+        {"name":"agentpress.package_verify", "description":"Build and verify an offline AgentPress package by SHA256 manifest.", "command":"python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz && python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json", "tags":["package","sha256","offline"]},
+    ]
+    payload={
+        "schema_version":"2026-05-03.agentpress-tools-manifest.v1",
+        "name":"AgentPress Tool Discovery Manifest",
+        "canonical_url":urljoin(base, args.out),
+        "generated_at":_utc_now(),
+        "purpose":"Let autonomous agents discover executable AgentPress tools without reading prose.",
+        "safety":{"external_side_effects":"none by default", "requires_human_approval":["external_write","production_change","payment","credential_access"], "prohibited":["credential_access","private_data_extraction","spam","impersonation"]},
+        "tools":tools,
+        "mcp_static_hint":{"manifest_url":urljoin(base, args.out), "transport":"static-json", "call_mode":"local-cli"}
+    }
+    out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps({"status":"ok", "out":str(out), "tool_count":len(tools)}, indent=2))
+    return 0
+
+
+def tools_manifest_check(args):
+    path=pathlib.Path(args.path); data=json.loads(path.read_text(encoding="utf-8"))
+    errors=[]
+    names=[t.get("name") for t in data.get("tools", [])]
+    for required in ["agentpress.fetch","agentpress.verify","agentpress.bundle","agentpress.search","agentpress.self_test"]:
+        if required not in names: errors.append(f"missing tool: {required}")
+    for t in data.get("tools", []):
+        if not t.get("command") or not t.get("description"):
+            errors.append(f"tool missing command/description: {t.get('name')}")
+    payload={"status":"ok" if not errors else "fail", "path":str(path), "tool_count":len(names), "errors":errors}
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0 if not errors else 1
+
+
 def package_verify(args):
     import tarfile, zipfile
     package = pathlib.Path(args.package)
@@ -1449,6 +1493,8 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("tools-manifest"); p.add_argument("--out", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/")
+    p = sub.add_parser("tools-manifest-check"); p.add_argument("path", nargs="?", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("team-pack"); p.add_argument("--slug", required=True); p.add_argument("--display-name"); p.add_argument("--pack-type", choices=["team_capability_pack","person_capability_pack"], default="team_capability_pack"); p.add_argument("--capability", action="append", required=True); p.add_argument("--consent-source", choices=["explicit","public_source","internal_private_do_not_publish"], required=True); p.add_argument("--public-sources"); p.add_argument("--allowed-handoffs"); p.add_argument("--availability", default="available_for_agent_handoff"); p.add_argument("--canonical-url"); p.add_argument("--out", required=True); p.add_argument("--allow-private", action="store_true")
     p = sub.add_parser("team-pack-validate"); p.add_argument("path"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("self-test"); p.add_argument("--agent-id", required=True); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--out", default="agentpress/self-test/self-test-results.jsonl"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--workdir", default="/tmp/agentpress-self-test"); p.add_argument("--run-id")
@@ -1475,6 +1521,8 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "tools-manifest": return tools_manifest(args)
+    if args.cmd == "tools-manifest-check": return tools_manifest_check(args)
     if args.cmd == "team-pack": return team_pack(args)
     if args.cmd == "team-pack-validate": return team_pack_validate(args)
     if args.cmd == "self-test": return self_test(args)

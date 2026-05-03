@@ -47,6 +47,8 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 ## Real platform utility built locally
 
+| AP-021 | READY | Static tool discovery manifest for agent attention | `tools-manifest` + `tools-manifest-check`; exposes AgentPress executable CLI primitives as tool-like static JSON so agents can discover/call them. Local only pending directive keyword for deploy. |
+
 | AP-020 | READY | Offline package verification and package index | `package`, `package-verify`, `package-index`; agents can fetch one tarball, verify SHA256 manifest, and work offline. Local only pending directive keyword for deploy. |
 
 | AP-019 | READY | Privacy-safe team capability packs | `agentpress.py team-pack` + `team-pack-validate`; public-source/explicit-consent only, redaction by default, capability/handoff context for agents. Local only pending directive keyword for deploy. |

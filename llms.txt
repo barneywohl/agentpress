@@ -143,3 +143,14 @@ python3 scripts/agentpress.py package-index dist/agentpress-offline.tar.gz --out
 ```
 
 The verifier extracts to a temp directory, checks each manifest hash, and requires core offline assets.
+
+### Tool discovery manifest
+
+Agents can discover AgentPress as executable local tools without reading prose:
+
+```bash
+python3 scripts/agentpress.py tools-manifest
+python3 scripts/agentpress.py tools-manifest-check --json
+```
+
+Static manifest: `agentpress/tools/agentpress-tools.json`. It lists fetch, verify, bundle, message, search, self-test, team-pack, and offline package commands with safety boundaries.

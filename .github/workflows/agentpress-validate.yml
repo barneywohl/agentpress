@@ -20,6 +20,12 @@ jobs:
 
 
 
+
+      - name: Validate AgentPress tool discovery manifest
+        run: |
+          python3 scripts/agentpress.py tools-manifest
+          python3 scripts/agentpress.py tools-manifest-check --json
+          python3 -m json.tool agentpress/tools/agentpress-tools.json >/dev/null
       - name: Validate AgentPress offline package
         run: |
           python3 scripts/agentpress.py package . --out /tmp/agentpress-offline.tar.gz

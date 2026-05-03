@@ -1,0 +1,110 @@
+{
+  "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
+  "name": "AgentPress Tool Discovery Manifest",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
+  "generated_at": "2026-05-03T03:01:48Z",
+  "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
+  "safety": {
+    "external_side_effects": "none by default",
+    "requires_human_approval": [
+      "external_write",
+      "production_change",
+      "payment",
+      "credential_access"
+    ],
+    "prohibited": [
+      "credential_access",
+      "private_data_extraction",
+      "spam",
+      "impersonation"
+    ]
+  },
+  "tools": [
+    {
+      "name": "agentpress.fetch",
+      "description": "Fetch core AgentPress machine assets.",
+      "command": "python3 scripts/agentpress.py fetch --base {base} --out agentpress-fetch --json",
+      "tags": [
+        "fetch",
+        "bootstrap",
+        "offline"
+      ]
+    },
+    {
+      "name": "agentpress.verify",
+      "description": "Verify an AgentPress bundle fails/passes contract checks.",
+      "command": "python3 scripts/agentpress.py verify <bundle> --json",
+      "tags": [
+        "verify",
+        "schema",
+        "contract"
+      ]
+    },
+    {
+      "name": "agentpress.bundle",
+      "description": "Generate a valid AgentPress bundle from docs/API folder.",
+      "command": "python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force",
+      "tags": [
+        "generate",
+        "bundle",
+        "docs",
+        "api"
+      ]
+    },
+    {
+      "name": "agentpress.message",
+      "description": "Create, route, respond, thread, and validate agent work messages.",
+      "command": "python3 scripts/agentpress.py message create-request --capability <capability> --task <task> --requester-id <agent-id> --out request.json",
+      "tags": [
+        "message",
+        "route",
+        "handoff"
+      ]
+    },
+    {
+      "name": "agentpress.search",
+      "description": "Search AgentPress assets/capabilities/schemas by query.",
+      "command": "python3 scripts/agentpress.py search <query> --json",
+      "tags": [
+        "search",
+        "capability",
+        "discovery"
+      ]
+    },
+    {
+      "name": "agentpress.self_test",
+      "description": "Run standard suite proving an agent can use AgentPress.",
+      "command": "python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl",
+      "tags": [
+        "self-test",
+        "reputation",
+        "proof"
+      ]
+    },
+    {
+      "name": "agentpress.team_pack",
+      "description": "Create privacy-safe team/person capability pack.",
+      "command": "python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json",
+      "tags": [
+        "team",
+        "capability",
+        "privacy"
+      ]
+    },
+    {
+      "name": "agentpress.package_verify",
+      "description": "Build and verify an offline AgentPress package by SHA256 manifest.",
+      "command": "python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz && python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json",
+      "tags": [
+        "package",
+        "sha256",
+        "offline"
+      ]
+    }
+  ],
+  "mcp_static_hint": {
+    "manifest_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
+    "transport": "static-json",
+    "call_mode": "local-cli"
+  }
+}
