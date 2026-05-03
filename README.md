@@ -391,3 +391,12 @@ python3 scripts/agentpress.py sdk-smoke --json
 ```bash
 python3 scripts/agentpress.py docs-command-check --json
 ```
+
+```bash
+python3 scripts/agentpress.py community-radar --json
+python3 scripts/agentpress.py mcp-catalog-export --json
+```
+
+```bash
+python3 scripts/agentpress.py tool-permission-policy --json
+```

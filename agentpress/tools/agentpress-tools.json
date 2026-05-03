@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T20:03:51Z",
+  "generated_at": "2026-05-03T20:10:49Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -402,6 +402,42 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.tool_permission_policy",
+      "description": "Export per-command permission/approval policy for safe agent tool use.",
+      "command": "python3 scripts/agentpress.py tool-permission-policy --json",
+      "tags": [
+        "permissions",
+        "policy",
+        "approval",
+        "safety",
+        "tools"
+      ]
+    },
+    {
+      "name": "agentpress.mcp_catalog_export",
+      "description": "Export AgentPress tools as a static MCP-style catalog for Cline/Roo/MCP tool discovery.",
+      "command": "python3 scripts/agentpress.py mcp-catalog-export --json",
+      "tags": [
+        "mcp",
+        "tools",
+        "catalog",
+        "discovery",
+        "static"
+      ]
+    },
+    {
+      "name": "agentpress.community_radar",
+      "description": "Map public agent-builder communities, recurring painpoints, and next AgentPress features to build.",
+      "command": "python3 scripts/agentpress.py community-radar --json",
+      "tags": [
+        "community",
+        "research",
+        "painpoints",
+        "agents",
+        "roadmap"
       ]
     },
     {

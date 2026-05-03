@@ -1,0 +1,1380 @@
+{
+  "schema_version": "2026-05-03.agentpress-tool-permission-policy.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/policies/tool-permission-policy.json",
+  "generated_utc": "2026-05-03T20:10:49Z",
+  "status": "ok",
+  "purpose": "Give agents a machine-readable permission and approval policy before running AgentPress command templates.",
+  "policy_count": 71,
+  "defaults": {
+    "read_only": "allowed",
+    "local_artifact_generation": "allowed",
+    "external_write": "human_approval_required",
+    "payment": "human_approval_required",
+    "credential_access": "prohibited_unless_explicitly_approved"
+  },
+  "policies": [
+    {
+      "tool": "agentpress.fetch",
+      "command_template": "python3 scripts/agentpress.py fetch --base {base} --out agentpress-fetch --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.patch_pr_helper",
+      "command_template": "python3 scripts/agentpress.py patch-pr-helper --title <title> --change-summary <summary> --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.freshness_citation_report",
+      "command_template": "python3 scripts/agentpress.py freshness-citation-report --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.browser_smoke",
+      "command_template": "python3 scripts/agentpress.py browser-smoke --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.feature_build_queue",
+      "command_template": "python3 scripts/agentpress.py feature-build-queue --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.build_queue_pick",
+      "command_template": "python3 scripts/agentpress.py build-queue-pick --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.build_queue_complete",
+      "command_template": "python3 scripts/agentpress.py build-queue-complete --feature <feature> --commit <sha> --evidence <url> --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.tool_coverage",
+      "command_template": "python3 scripts/agentpress.py tool-coverage --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.cli_expansion_roadmap",
+      "command_template": "python3 scripts/agentpress.py cli-expansion-roadmap --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.tool_request",
+      "command_template": "python3 scripts/agentpress.py tool-request --agent-id a --persona coding_agent --wanted-tool x --painpoint y --desired-command z --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.distribution_kit",
+      "command_template": "python3 scripts/agentpress.py distribution-kit --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.mirror_status",
+      "command_template": "python3 scripts/agentpress.py mirror-status --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.discover",
+      "command_template": "python3 scripts/agentpress.py discover <agentpress-url> --registry agentpress/mesh/known-agents.json --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.verify",
+      "command_template": "python3 scripts/agentpress.py verify <bundle> --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.bundle",
+      "command_template": "python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.bundle_diff",
+      "command_template": "python3 scripts/agentpress.py bundle-diff <old-bundle> <new-bundle> --json --include-hashes",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.upgrade_check",
+      "command_template": "python3 scripts/agentpress.py upgrade-check <current-bundle> <latest-bundle> --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.negative_fixtures",
+      "command_template": "python3 scripts/agentpress.py negative-fixtures --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.message",
+      "command_template": "python3 scripts/agentpress.py message create-request --capability <capability> --task <task> --requester-id <agent-id> --out request.json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.search",
+      "command_template": "python3 scripts/agentpress.py search <query> --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.self_test",
+      "command_template": "python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.team_pack",
+      "command_template": "python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.package_verify",
+      "command_template": "python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz && python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.install",
+      "command_template": "python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "github"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.landing_receipt",
+      "command_template": "python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel <channel> --capability <capability> --out landing/<agent-id>.json --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.reputation_index",
+      "command_template": "python3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.submission_pack",
+      "command_template": "python3 scripts/agentpress.py submission-pack --receipt <receipt.json> --out submission-pack --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "github"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.feedback_submit",
+      "command_template": "python3 scripts/agentpress.py feedback-submit --example",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.consistency_check",
+      "command_template": "python3 scripts/agentpress.py consistency-check --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.adoption_status",
+      "command_template": "python3 scripts/agentpress.py adoption-status --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.payment_status",
+      "command_template": "python3 scripts/agentpress.py payment-status --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "payment"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.payment_intent",
+      "command_template": "python3 scripts/agentpress.py payment-intent --capability-id free_agentpress_bootstrap --agent-id <agent-id> --max-amount 0 --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "payment"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.painpoint_intake",
+      "command_template": "python3 scripts/agentpress.py painpoint-intake --json --allow-rejected",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.attestation_coverage",
+      "command_template": "python3 scripts/agentpress.py attestation-coverage --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.marketplace_trust",
+      "command_template": "python3 scripts/agentpress.py marketplace-trust --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.tool_permission_policy",
+      "command_template": "python3 scripts/agentpress.py tool-permission-policy --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.mcp_catalog_export",
+      "command_template": "python3 scripts/agentpress.py mcp-catalog-export --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.community_radar",
+      "command_template": "python3 scripts/agentpress.py community-radar --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.docs_command_check",
+      "command_template": "python3 scripts/agentpress.py docs-command-check --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.integration_sdk_kit",
+      "command_template": "python3 scripts/agentpress.py integration-sdk-kit --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.sdk_smoke",
+      "command_template": "python3 scripts/agentpress.py sdk-smoke --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.queue_adapter_kit",
+      "command_template": "python3 scripts/agentpress.py queue-adapter-kit --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.marketplace_compare",
+      "command_template": "python3 scripts/agentpress.py marketplace-compare --capability agent_onboard --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.proof_outreach_kit",
+      "command_template": "python3 scripts/agentpress.py proof-outreach-kit --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "external"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.submission_validate",
+      "command_template": "python3 scripts/agentpress.py submission-validate <submission-pack-dir> --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.blocker_report",
+      "command_template": "python3 scripts/agentpress.py blocker-report --agent-id a --runtime codex --command <cmd> --error-summary <err> --desired-fix <fix> --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.proof_ingest",
+      "command_template": "python3 scripts/agentpress.py proof-ingest --json --allow-rejected",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.proof_scoreboard",
+      "command_template": "python3 scripts/agentpress.py proof-scoreboard --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.secure_transport_readiness",
+      "command_template": "python3 scripts/agentpress.py secure-transport-readiness --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "transport"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.transport_request",
+      "command_template": "python3 scripts/agentpress.py transport-request --from-agent a --to-operator operator --purpose secure-handoff --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "transport"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.privacy_status",
+      "command_template": "python3 scripts/agentpress.py privacy-status --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "confidential"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.confidential_message_create",
+      "command_template": "python3 scripts/agentpress.py confidential-message-create --from-agent a --to-agent b --subject secure-handoff --body <redacted> --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "confidential"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.confidential_message_verify",
+      "command_template": "python3 scripts/agentpress.py confidential-message-verify agentpress/privacy/confidential-message.example.json --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "confidential"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.consent_check",
+      "command_template": "python3 scripts/agentpress.py consent-check --agent external-agent --scope confidential_metadata_only --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "confidential",
+        "external"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.redaction_check",
+      "command_template": "python3 scripts/agentpress.py redaction-check <path> --json --allow-findings",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.error_codes",
+      "command_template": "python3 scripts/agentpress.py error-codes --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.session_state",
+      "command_template": "python3 scripts/agentpress.py session-state --event started --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.health_status",
+      "command_template": "python3 scripts/agentpress.py health-status --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.batch_run",
+      "command_template": "python3 scripts/agentpress.py batch-run agentpress/runtime/batch-example.json --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.remediation_index",
+      "command_template": "python3 scripts/agentpress.py remediation-index --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.package_registry_skeleton",
+      "command_template": "python3 scripts/agentpress.py package-registry-skeleton --json && python3 scripts/agentpress.py package-registry-dry-run --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.package_registry_plan",
+      "command_template": "python3 scripts/agentpress.py package-registry-plan --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.proof_campaign",
+      "command_template": "python3 scripts/agentpress.py proof-campaign --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.attest",
+      "command_template": "python3 scripts/agentpress.py attest verify agentpress/attestations/core-surfaces-attestation.json --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.agent_painpoints",
+      "command_template": "python3 scripts/agentpress.py agent-painpoints --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.audience_kit",
+      "command_template": "python3 scripts/agentpress.py audience-kit --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.marketplace",
+      "command_template": "python3 scripts/agentpress.py marketplace --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.adopt",
+      "command_template": "python3 scripts/agentpress.py adopt --agent-id <agent-id> --runtime <runtime> --out /tmp/agentpress-onboard --json",
+      "default_permission": "human_approval_required_before_external_effect",
+      "detected_risk_terms": [
+        "payment"
+      ],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [
+        "confirm target",
+        "redaction/privacy check",
+        "budget/payment check if applicable",
+        "operator approval before external write"
+      ],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.compatibility_matrix",
+      "command_template": "python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.agent_traffic_audit",
+      "command_template": "python3 scripts/agentpress.py agent-traffic-audit --out agentpress/traffic/agent-traffic-audit.json --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    },
+    {
+      "tool": "agentpress.agent_route",
+      "command_template": "python3 scripts/agentpress.py agent-route --runtime codex --intent prove --json",
+      "default_permission": "auto_read_only",
+      "detected_risk_terms": [],
+      "allowed_without_approval": [
+        "local read",
+        "local artifact generation",
+        "static JSON validation"
+      ],
+      "approval_checklist": [],
+      "audit_evidence": [
+        "command_template",
+        "stdout/stderr",
+        "artifact paths",
+        "attestation when generated"
+      ]
+    }
+  ]
+}

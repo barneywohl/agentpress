@@ -2157,6 +2157,9 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.tool_permission_policy", "description":"Export per-command permission/approval policy for safe agent tool use.", "command":"python3 scripts/agentpress.py tool-permission-policy --json", "tags":["permissions","policy","approval","safety","tools"]},
+        {"name":"agentpress.mcp_catalog_export", "description":"Export AgentPress tools as a static MCP-style catalog for Cline/Roo/MCP tool discovery.", "command":"python3 scripts/agentpress.py mcp-catalog-export --json", "tags":["mcp","tools","catalog","discovery","static"]},
+        {"name":"agentpress.community_radar", "description":"Map public agent-builder communities, recurring painpoints, and next AgentPress features to build.", "command":"python3 scripts/agentpress.py community-radar --json", "tags":["community","research","painpoints","agents","roadmap"]},
         {"name":"agentpress.docs_command_check", "description":"Lint documented AgentPress CLI commands for stale command names and obvious stale flags.", "command":"python3 scripts/agentpress.py docs-command-check --json", "tags":["docs","commands","lint","cli","drift"]},
         {"name":"agentpress.integration_sdk_kit", "description":"Generate zero-dependency Python/JavaScript SDK clients and read-only integration quickstart.", "command":"python3 scripts/agentpress.py integration-sdk-kit --json", "tags":["sdk","integration","python","javascript","client"]},
         {"name":"agentpress.sdk_smoke", "description":"Smoke-test SDK integration endpoints and Python SDK compileability.", "command":"python3 scripts/agentpress.py sdk-smoke --json", "tags":["sdk","smoke","integration","endpoints"]},
@@ -2958,6 +2961,103 @@ def proof_ingest(args):
     return 0 if not errors and all(r["status"]=="accepted" for r in rows) else (0 if args.allow_rejected else 1)
 
 
+
+
+
+
+def tool_permission_policy(args):
+    """Export per-command permission/approval policy for agent tool use."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    tools_path=root/pathlib.Path(args.tools)
+    if not tools_path.exists():
+        with contextlib.redirect_stdout(io.StringIO()): tools_manifest(argparse.Namespace(out=args.tools, base_url=args.base_url))
+    tools=json.loads(tools_path.read_text(encoding="utf-8")).get("tools",[])
+    policies=[]
+    risky={"payment","transport","confidential","external","github","publish","credential","production","send"}
+    for t in tools:
+        tags=set(map(str.lower,t.get("tags",[]))); cmd=t.get("command","")
+        needs=sorted([x for x in risky if x in tags or x in cmd.lower()])
+        level="auto_read_only"
+        approval=[]
+        if any(x in needs for x in ["payment","transport","confidential","external","github","publish","credential","production","send"]):
+            level="human_approval_required_before_external_effect"
+            approval=["confirm target", "redaction/privacy check", "budget/payment check if applicable", "operator approval before external write"]
+        policies.append({"tool":t.get("name"),"command_template":cmd,"default_permission":level,"detected_risk_terms":needs,"allowed_without_approval":["local read", "local artifact generation", "static JSON validation"],"approval_checklist":approval,"audit_evidence":["command_template", "stdout/stderr", "artifact paths", "attestation when generated"]})
+    payload={"schema_version":"2026-05-03.agentpress-tool-permission-policy.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give agents a machine-readable permission and approval policy before running AgentPress command templates.","policy_count":len(policies),"defaults":{"read_only":"allowed", "local_artifact_generation":"allowed", "external_write":"human_approval_required", "payment":"human_approval_required", "credential_access":"prohibited_unless_explicitly_approved"},"policies":policies}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+        (out.parent/"README.md").write_text("# AgentPress Tool Permission Policy\n\nMachine-readable approval policy for AgentPress command templates.\n\n```bash\npython3 scripts/agentpress.py tool-permission-policy --json\n```\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {payload['policy_count']} policies")
+    return 0
+
+def mcp_catalog_export(args):
+    """Export AgentPress tools as a static MCP-style catalog for tool-discovery agents."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    tools_path=root/pathlib.Path(args.tools)
+    if not tools_path.exists():
+        with contextlib.redirect_stdout(io.StringIO()): tools_manifest(argparse.Namespace(out=args.tools, base_url=args.base_url))
+    tools=json.loads(tools_path.read_text(encoding="utf-8")).get("tools",[])
+    entries=[]
+    for t in tools:
+        name=str(t.get("name",""))
+        entries.append({
+            "name":name.replace("agentpress.","agentpress_"),
+            "title":name,
+            "description":t.get("description",""),
+            "input_mode":"local_cli_command_template",
+            "command_template":t.get("command",""),
+            "tags":t.get("tags",[]),
+            "side_effects":"none_by_default_or_explicitly_marked",
+            "requires_human_approval":["external_write","payment","credential_access","production_change"],
+            "source_tool_manifest":urljoin(base,args.tools)
+        })
+    payload={"schema_version":"2026-05-03.agentpress-mcp-static-catalog.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Static MCP-compatible tool discovery export so MCP/Cline/Roo/Claude/Codex-style agents can discover AgentPress capabilities without a live server.","transport":"static_json_catalog","server_name":"agentpress-static-tools","mcp_alignment":{"resources":[{"uri":"agentpress://tools","url":urljoin(base,args.tools)},{"uri":"agentpress://community-radar","url":urljoin(base,"agentpress/community/community-radar.json")},{"uri":"agentpress://marketplace","url":urljoin(base,"agentpress/marketplace/marketplace-index.json")}],"tools_are_command_templates":True,"live_mcp_server":"not_required_for_static_discovery"},"tool_count":len(entries),"tools":entries,"safety":{"default_external_side_effects":"none","no_credentials_required_for_read":"true","approval_required_for":["external writes","payments","credential access","production mutations"]}}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+        (out.parent/"README.md").write_text("# AgentPress MCP Static Catalog\n\nStatic MCP-style export for agents that discover tools through catalogs instead of prose.\n\n```bash\npython3 scripts/agentpress.py mcp-catalog-export --json\n```\n\nThis is read-only/static discovery; it does not start a server or grant credentials.\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {payload['tool_count']} tools")
+    return 0
+
+def community_radar(args):
+    """Publish public agent-builder community map and painpoint radar."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out)
+    base=args.base_url.rstrip()+"/"
+    sources=[
+        {"id":"github-cline","kind":"github_repo_issues_discussions","name":"Cline","url":"https://github.com/cline/cline","signals":["human-in-loop approval", "MCP tool ecosystem", "terminal/browser/file edits", "model/API cost control"]},
+        {"id":"github-roocode","kind":"github_repo_issues_discord_reddit","name":"Roo Code","url":"https://github.com/RooCodeInc/Roo-Code","signals":["multi-mode agents", "custom modes", "BYO model/API routing", "autonomy vs control"]},
+        {"id":"github-openhands","kind":"github_repo_issues_slack_discussions","name":"OpenHands","url":"https://github.com/All-Hands-AI/OpenHands","signals":["sandbox reliability", "browser/test loops", "install friction", "runtime reproducibility"]},
+        {"id":"github-autogen","kind":"github_repo_issues_discussions","name":"AutoGen","url":"https://github.com/microsoft/autogen","signals":["agent-to-agent governance", "identity/policy enforcement", "tool integrations", "commerce/tool proposals"]},
+        {"id":"github-crewai","kind":"github_repo_issues_discussions","name":"CrewAI","url":"https://github.com/crewAIInc/crewAI","signals":["pre-execution validation", "memory/storage backends", "multi-agent orchestration", "provider key errors"]},
+        {"id":"github-langchain","kind":"github_repo_issues_forum","name":"LangChain / LangGraph","url":"https://github.com/langchain-ai/langchain","signals":["agent observability", "tool calling contracts", "state graphs", "production debugging"]},
+        {"id":"github-llamaindex","kind":"github_repo_issues_forum","name":"LlamaIndex","url":"https://github.com/run-llama/llama_index","signals":["RAG freshness", "citations", "connectors", "eval reproducibility"]},
+        {"id":"hn-agent-builders","kind":"public_forum","name":"Hacker News agent-builder threads","url":"https://hn.algolia.com/?q=AI%20coding%20agents","signals":["skepticism about flaky agents", "E2E self-debug", "package/source search MCP", "orchestration UIs"]},
+        {"id":"reddit-localllama","kind":"public_forum","name":"r/LocalLLaMA and related coding-agent threads","url":"https://www.reddit.com/r/LocalLLaMA/search/?q=coding%20agent%20MCP","signals":["local model cost/privacy", "context windows", "tool reliability", "prompt/workflow sharing"]},
+        {"id":"mcp-ecosystem","kind":"protocol_ecosystem","name":"MCP servers/directories","url":"https://github.com/modelcontextprotocol/servers","signals":["tool discovery", "safe permissions", "server quality", "installation/config friction"]}
+    ]
+    painpoints=[
+        {"rank":1,"painpoint":"stale or non-executable docs/commands","seen_in":["Cline/Roo/OpenHands style copy-paste workflows", "GitHub issue support patterns"],"agentpress_response":"docs-command-check shipped; make it required CI", "needed_build":"required docs command lint gate"},
+        {"rank":2,"painpoint":"unsafe or unclear permissions before tool execution","seen_in":["Cline Plan/Act", "MCP permissions", "CrewAI pre-execution validation"],"agentpress_response":"privacy, redaction, secure-transport readiness shipped", "needed_build":"policy/permission manifest per command"},
+        {"rank":3,"painpoint":"tool discovery/configuration friction","seen_in":["MCP server directories", "Roo/Cline custom modes", "AutoGen tool proposals"],"agentpress_response":"tool manifest, marketplace, SDK kit shipped", "needed_build":"MCP-compatible static tool catalog export"},
+        {"rank":4,"painpoint":"runtime reproducibility and flaky environments","seen_in":["OpenHands sandbox issues", "HN self-debug/E2E agent threads"],"agentpress_response":"browser smoke, package verify, queue/retry kit shipped", "needed_build":"environment fingerprint + reproducible run bundle"},
+        {"rank":5,"painpoint":"agent-to-agent trust, identity, and governance","seen_in":["AutoGen governance extension", "multi-agent orchestration communities"],"agentpress_response":"attestations, reputation, proof ingestion shipped", "needed_build":"agent identity card + signed capability policy"},
+        {"rank":6,"painpoint":"cost/model routing and budget anxiety","seen_in":["Roo BYO routing", "Cline/Roo comparisons", "local model communities"],"agentpress_response":"payment-status/payment-intent/no-spend marketplace compare shipped", "needed_build":"cost estimate metadata per tool path"},
+        {"rank":7,"painpoint":"external proof is hard to submit and trust","seen_in":["GitHub issue proof/blocker patterns", "open source adoption loops"],"agentpress_response":"proof campaign, proof ingest, scoreboard shipped", "needed_build":"community radar driven outreach queue"},
+        {"rank":8,"painpoint":"RAG/citation freshness and source quality","seen_in":["LlamaIndex/RAG ecosystems", "agent search/crawler workflows"],"agentpress_response":"freshness-citation-report shipped", "needed_build":"source provenance badges in search results"}
+    ]
+    recommended=[
+        {"priority":"P1","feature":"required docs-command-check CI gate","why":"community workflows copy commands verbatim; broken docs kill adoption", "status":"partially_shipped"},
+        {"priority":"P1","feature":"MCP/static tool catalog export","why":"MCP is a main place agents exchange tools; AgentPress should be directly ingestible", "status":"next_unblocked"},
+        {"priority":"P1","feature":"agent identity/capability policy card","why":"agent-to-agent governance and permissions are recurring painpoints", "status":"next"},
+        {"priority":"P2","feature":"environment fingerprint/repro bundle","why":"flaky sandboxes and runtime drift dominate issue queues", "status":"next"},
+        {"priority":"P2","feature":"community outreach queue","why":"turn radar into public proof/blocker collection tasks", "status":"next"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-community-radar.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Map public places agent builders communicate, what they like/dislike, and which AgentPress features to build next.","research_scope":"public/indexed sources only; no private Discord scraping, no DMs, no hidden telemetry","source_count":len(sources),"sources":sources,"painpoints":painpoints,"recommendations":recommended,"top_next_build":"mcp_static_tool_catalog_export","privacy":"no user tracking; source URLs and qualitative signals only"}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+        md=out.with_suffix('.md')
+        md.write_text("# AgentPress Community Radar\n\nPublic agent-builder watering holes and painpoints.\n\n## Top findings\n"+"\n".join([f"- **{p['painpoint']}** → {p['needed_build']}" for p in painpoints[:5]])+"\n\n## Sources\n"+"\n".join([f"- [{x['name']}]({x['url']}) — {', '.join(x['signals'][:3])}" for x in sources])+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {payload['source_count']} sources")
+    return 0
 
 def proof_scoreboard(args):
     """Compile external proof ingestion into a product/adoption scoreboard."""
@@ -4146,6 +4246,9 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("tool-permission-policy"); p.add_argument("root", nargs="?", default="."); p.add_argument("--tools", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/policies/tool-permission-policy.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("mcp-catalog-export"); p.add_argument("root", nargs="?", default="."); p.add_argument("--tools", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/mcp/mcp-static-catalog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("community-radar"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/community/community-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("docs-command-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--path", action="append"); p.add_argument("--out", default="agentpress/evidence/docs-command-check.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--max-results", type=int, default=500); p.add_argument("--allow-failures", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("integration-sdk-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/integrations/sdk"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("sdk-smoke"); p.add_argument("--out", default="agentpress/integrations/sdk/sdk-smoke.json"); p.add_argument("--python-sdk", default="agentpress/integrations/sdk/python/agentpress_sdk.py"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--timeout-seconds", type=int, default=10); p.add_argument("--max-bytes", type=int, default=1048576); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -4297,6 +4400,9 @@ def main():
     if args.cmd == "queue-adapter-kit": return queue_adapter_kit(args)
     if args.cmd == "integration-sdk-kit": return integration_sdk_kit(args)
     if args.cmd == "docs-command-check": return docs_command_check(args)
+    if args.cmd == "community-radar": return community_radar(args)
+    if args.cmd == "mcp-catalog-export": return mcp_catalog_export(args)
+    if args.cmd == "tool-permission-policy": return tool_permission_policy(args)
     if args.cmd == "sdk-smoke": return sdk_smoke(args)
     if args.cmd in {"agent-onboard", "adopt"}: return agent_onboard(args)
     if args.cmd == "score": return score(args)
