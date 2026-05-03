@@ -20,6 +20,21 @@ jobs:
         run: python3 scripts/agentpress.py negative-fixtures --json
       - name: AgentPress docs command drift gate
         run: python3 scripts/agentpress.py docs-command-check --json
+      - name: AgentPress native adapter gate
+        run: python3 scripts/agentpress.py native-adapter-check --json
+      - name: AgentPress public schema crawler gate
+        run: python3 scripts/agentpress.py schema-validate-all --json
+      - name: AgentPress fail-closed trust gate
+        run: |
+          python3 scripts/agentpress.py trust-tier-evaluate --json
+          if python3 scripts/agentpress.py trust-tier-evaluate --scoped-report tests/fixtures/trust/bad-global-proof.json --json; then echo "bad global proof trust fixture unexpectedly passed"; exit 1; fi
+          if python3 scripts/agentpress.py trust-tier-evaluate --scoped-report tests/fixtures/trust/bad-missing-receipts.json --json; then echo "bad missing receipts trust fixture unexpectedly passed"; exit 1; fi
+      - name: AgentPress executable approval/reviewer gate
+        run: |
+          python3 scripts/agentpress.py approval-gate-eval tests/fixtures/gates/approval-good.json --json
+          if python3 scripts/agentpress.py approval-gate-eval tests/fixtures/gates/approval-bad.json --json; then echo "bad approval fixture unexpectedly passed"; exit 1; fi
+          python3 scripts/agentpress.py reviewer-gate-eval tests/fixtures/gates/reviewer-good.json --json
+          if python3 scripts/agentpress.py reviewer-gate-eval tests/fixtures/gates/reviewer-bad.json --json; then echo "bad reviewer fixture unexpectedly passed"; exit 1; fi
       - name: AgentPress strict schema gate
         run: |
           python3 scripts/agentpress.py schema-validate tests/fixtures/strict-schema/valid-agent-task-card.json --schema agent-task-card.schema.json --json

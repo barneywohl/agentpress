@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T21:34:17Z",
+  "generated_at": "2026-05-03T21:47:48Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,61 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.approval_gate_eval",
+      "description": "Evaluate an action against fail-closed approval gates.",
+      "command": "python3 scripts/agentpress.py approval-gate-eval tests/fixtures/gates/approval-good.json --json",
+      "tags": [
+        "approval",
+        "gate",
+        "fail-closed",
+        "eval"
+      ]
+    },
+    {
+      "name": "agentpress.reviewer_gate_eval",
+      "description": "Evaluate reviewer gate result fail-closed.",
+      "command": "python3 scripts/agentpress.py reviewer-gate-eval tests/fixtures/gates/reviewer-good.json --json",
+      "tags": [
+        "reviewer",
+        "gate",
+        "fail-closed",
+        "eval"
+      ]
+    },
+    {
+      "name": "agentpress.action_ledger_adapter_wiring",
+      "description": "Wire native adapters to action-ledger/run-artifact evidence requirements.",
+      "command": "python3 scripts/agentpress.py action-ledger-adapter-wiring --json",
+      "tags": [
+        "ledger",
+        "adapter",
+        "run-artifacts",
+        "evidence"
+      ]
+    },
+    {
+      "name": "agentpress.external_proof_relay_status",
+      "description": "Generate external proof relay status and acceptance gates.",
+      "command": "python3 scripts/agentpress.py external-proof-relay-status --json",
+      "tags": [
+        "proof",
+        "relay",
+        "external",
+        "trust"
+      ]
+    },
+    {
+      "name": "agentpress.glm_concerns_closure",
+      "description": "Generate GLM DONE_WITH_CONCERNS closure matrix and next cycle.",
+      "command": "python3 scripts/agentpress.py glm-concerns-closure --json",
+      "tags": [
+        "audit",
+        "glm",
+        "closure",
+        "next-cycle"
       ]
     },
     {
