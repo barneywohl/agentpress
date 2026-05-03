@@ -1366,6 +1366,10 @@ def message_agents(args):
 
 
 def discover_agentpress(args):
+    if getattr(args, 'self_register', False):
+        return mesh_self_register(args)
+    if not args.url:
+        print(json.dumps({"status":"fail","errors":["url required unless --self-register"]},indent=2)); return 2
     base=args.url
     if base.endswith('/llms.txt'):
         base=base[:-len('llms.txt')]
@@ -1426,6 +1430,29 @@ def discover_agentpress(args):
         payload['registry']=str(reg_path)
     print(json.dumps(payload,indent=2) if args.json else (str(args.out) if args.out else payload['status']))
     return 0 if payload['compatible'] else 1
+
+def mesh_self_register(args):
+    canonical=(args.canonical_url or CANONICAL_BASE_URL).rstrip('/')+'/'
+    agent_id=args.agent_id or ('agentpress-'+urlparse(canonical).netloc.replace('.','-').replace(':','-'))
+    # Discover canonical URL first to extract live capabilities when possible.
+    tmp=pathlib.Path('/tmp')/f"agentpress-self-register-{slugify(agent_id)}.json"
+    dargs=argparse.Namespace(url=canonical,out=str(tmp),registry=None,timeout=args.timeout,json=True,self_register=False,canonical_url=canonical,agent_id=agent_id)
+    with contextlib.redirect_stdout(io.StringIO()):
+        code=discover_agentpress(dargs)
+    discovery=json.loads(tmp.read_text(encoding='utf-8')) if tmp.exists() else {'compatible':False,'tools':[],'release':{},'contract_version':None,'errors':['discovery failed']}
+    registry_path=pathlib.Path(args.registry or 'agentpress/mesh/known-agents.json')
+    if registry_path.exists():
+        try: reg=json.loads(registry_path.read_text(encoding='utf-8'))
+        except Exception: reg={}
+    else: reg={}
+    reg.setdefault('schema_version','1.0'); reg.setdefault('agents', [])
+    entry={'agent_id':agent_id,'agentpress_url':canonical,'canonical_url':canonical,'registered_utc':_utc_now(),'discovery_method':'self-registration','compatible':bool(discovery.get('compatible')),'tool_count':discovery.get('tool_count',0),'tools':discovery.get('tools',[]),'tools_url':urljoin(canonical,'agentpress/tools/agentpress-tools.json'),'release_url':urljoin(canonical,'agentpress/releases/release-index.json'),'contract_feed_url':urljoin(canonical,'agentpress/feeds/contract-feed.json'),'contract_version':discovery.get('contract_version'),'release_version':(discovery.get('release') or {}).get('version'),'self_test_status':'not_submitted','trust_tier':'self_registered'}
+    reg['agents']=[a for a in reg.get('agents', []) if a.get('agent_id') != agent_id and a.get('agentpress_url') != canonical and a.get('canonical_url') != canonical]
+    reg['agents'].append(entry); reg['agent_count']=len(reg['agents']); reg['generated_utc']=_utc_now(); reg['note']='Static registry of AgentPress-compatible nodes discovered or self-registered by agents.'
+    registry_path.parent.mkdir(parents=True,exist_ok=True); registry_path.write_text(json.dumps(reg,indent=2)+"\n",encoding='utf-8')
+    payload={'status':'registered','agent_id':agent_id,'canonical_url':canonical,'registry':str(registry_path),'compatible':entry['compatible'],'tool_count':entry['tool_count']}
+    print(json.dumps(payload,indent=2) if args.json else f"registered {agent_id} -> {registry_path}")
+    return 0 if entry['compatible'] else 1
 
 
 def submission_pack(args):
@@ -1796,7 +1823,7 @@ def tools_manifest(args):
     base=args.base_url.rstrip("/") + "/"
     tools=[
         {"name":"agentpress.fetch", "description":"Fetch core AgentPress machine assets.", "command":"python3 scripts/agentpress.py fetch --base {base} --out agentpress-fetch --json", "tags":["fetch","bootstrap","offline"]},
-        {"name":"agentpress.discover", "description":"Discover another AgentPress node, inspect tools/releases/contracts, and update a known-agent mesh registry.", "command":"python3 scripts/agentpress.py discover <agentpress-url> --registry agentpress/mesh/known-agents.json --json", "tags":["discover","mesh","agent-network","tools","release"]},
+        {"name":"agentpress.discover", "description":"Discover another AgentPress node, inspect tools/releases/contracts, and update a known-agent mesh registry.", "command":"python3 scripts/agentpress.py discover <agentpress-url> --registry agentpress/mesh/known-agents.json --json", "tags":["discover","mesh","agent-network","tools","release","self-register"]},
         {"name":"agentpress.verify", "description":"Verify an AgentPress bundle fails/passes contract checks.", "command":"python3 scripts/agentpress.py verify <bundle> --json", "tags":["verify","schema","contract"]},
         {"name":"agentpress.bundle", "description":"Generate a valid AgentPress bundle from docs/API folder.", "command":"python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force", "tags":["generate","bundle","docs","api"]},
         {"name":"agentpress.message", "description":"Create, route, respond, thread, and validate agent work messages.", "command":"python3 scripts/agentpress.py message create-request --capability <capability> --task <task> --requester-id <agent-id> --out request.json", "tags":["message","route","handoff"]},
@@ -2042,7 +2069,7 @@ def main():
     p = sub.add_parser("verify"); p.add_argument("out", nargs="?", default="."); p.add_argument("--json", action="store_true")
     p = sub.add_parser("schema"); p.add_argument("name", nargs="?"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("fetch"); p.add_argument("--base", default=CANONICAL_BASE_URL); p.add_argument("--out", default="agentpress-fetch"); p.add_argument("--asset", action="append", help="relative asset to fetch; repeatable; defaults to core machine entrypoints"); p.add_argument("--timeout", type=int, default=20); p.add_argument("--keep-going", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("discover"); p.add_argument("url"); p.add_argument("--out"); p.add_argument("--registry"); p.add_argument("--timeout", type=int, default=20); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("discover"); p.add_argument("url", nargs="?"); p.add_argument("--out"); p.add_argument("--registry"); p.add_argument("--timeout", type=int, default=20); p.add_argument("--json", action="store_true"); p.add_argument("--self-register", action="store_true"); p.add_argument("--canonical-url", default=CANONICAL_BASE_URL); p.add_argument("--agent-id")
     p = sub.add_parser("negative-fixtures"); p.add_argument("--manifest", default="agentpress/fixtures/broken-bundles/expected-failures.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
     p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True)

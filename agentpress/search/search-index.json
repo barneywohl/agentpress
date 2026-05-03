@@ -1,7 +1,7 @@
 {
   "schema_version": "2026-05-03.agentpress-search.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json",
-  "generated_at": "2026-05-03T04:29:18Z",
+  "generated_at": "2026-05-03T04:35:29Z",
   "record_count": 75,
   "records": [
     {
@@ -824,7 +824,7 @@
         "README",
         "doc"
       ],
-      "text": "readme.md agentpress/mesh/readme.md # agentpress mesh discovery\n\nagentpress nodes can discover each other through static public urls.\n\n```bash\npython3 scripts/agentpress.py discover https://barneywohl.github.io/agentpress/ \\\n  --registry agentpress/mesh/known-agents.json \\\n  --out /tmp/agentpress-discovery.json \\\n  --json\n```\n\ndiscovery checks `llms.txt`, `.well-known/agentpress.json`, tool manifest, release index, contract feed, and search index. the registry is static json and can be mirrored, searched, or used by other agents to find tools/capabilities.\n doc readme"
+      "text": "readme.md agentpress/mesh/readme.md # agentpress mesh discovery\n\nagentpress nodes can discover each other through static public urls.\n\n```bash\npython3 scripts/agentpress.py discover https://barneywohl.github.io/agentpress/ \\\n  --registry agentpress/mesh/known-agents.json \\\n  --out /tmp/agentpress-discovery.json \\\n  --json\n```\n\ndiscovery checks `llms.txt`, `.well-known/agentpress.json`, tool manifest, release index, contract feed, and search index. the registry is static json and can be mirrored, searched, or used by other agents to find tools/capabilities.\n\n## self-registration\n\nan agentpress node can add itself to a local mesh registry after its public machine surfaces are live:\n\n```bash\npython3 scripts/agentpress.py discover --self-register \\\n  --canonical-url https://barneywohl.github.io/agentpress/ \\\n  --agent-id agentpress-barneywohl \\\n  --registry agentpress/mesh/known-agents.json \\\n  --json\n```\n\nself-registration records canonical url, tool manifest url, release url, contract feed url, discovered tools, release version, and trust tier. it is self-asserted until backed by landing receipts, self-tests, and third-party handoff receipts.\n\n## first-contact audit\n\n`first-contact-audit.json` records the public urls a new autonomous agent should fetch first and the top remaining fixes surfaced by glm/team review.\n doc readme"
     },
     {
       "id": "doc-agentpress-mesh-known-agents-json",
@@ -836,7 +836,7 @@
         "doc",
         "known-agents"
       ],
-      "text": "known-agents.json agentpress/mesh/known-agents.json {\n  \"schema_version\": \"1.0\",\n  \"generated_utc\": \"2026-05-03t04:29:00z\",\n  \"agent_count\": 0,\n  \"agents\": [],\n  \"note\": \"static registry of agentpress-compatible nodes discovered by agents.\"\n}\n doc known-agents"
+      "text": "known-agents.json agentpress/mesh/known-agents.json {\n  \"schema_version\": \"1.0\",\n  \"generated_utc\": \"2026-05-03t04:35:29z\",\n  \"agent_count\": 1,\n  \"agents\": [\n    {\n      \"agent_id\": \"agentpress-barneywohl\",\n      \"agentpress_url\": \"https://barneywohl.github.io/agentpress/\",\n      \"canonical_url\": \"https://barneywohl.github.io/agentpress/\",\n      \"registered_utc\": \"2026-05-03t04:35:29z\",\n      \"discovery_method\": \"self-registration\",\n      \"compatible\": true,\n      \"tool_count\": 13,\n      \"tools\": [\n        \"agentpress.fetch\",\n        \"agentpress.discover\",\n        \"agentpress.verify\",\n        \"agentpress.bundle\",\n        \"agentpress.message\",\n        \"agentpress.search\",\n        \"agentpress.self_test\",\n        \"agentpress.team_pack\",\n        \"agentpress.package_verify\",\n        \"agentpress.install\",\n        \"agentpress.landing_receipt\",\n        \"agentpress.reputation_index\",\n        \"agentpress.submission_pack\"\n      ],\n      \"tools_url\": \"https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json\",\n      \"release_url\": \"https://barneywohl.github.io/agentpress/agentpress/releases/release-index.json\",\n      \"contract_feed_url\": \"https://barneywohl.github.io/agentpress/agentpress/feeds/contract-feed.json\",\n      \"contract_version\": \"2026-05-03\",\n      \"release_version\": \"2026-05-03\",\n      \"self_test_status\": \"not_submitted\",\n      \"trust_tier\": \"self_registered\"\n    }\n  ],\n  \"note\": \"static registry of agentpress-compatible nodes discovered or self-registered by agents.\"\n}\n doc known-agents"
     },
     {
       "id": "doc-agentpress-install-readme-md",
