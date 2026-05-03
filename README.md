@@ -19,6 +19,8 @@ python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/inst
 python3 scripts/agentpress.py adopt --json
 python3 scripts/agentpress.py marketplace --json
 python3 scripts/agentpress.py audience-kit --json
+python3 scripts/agentpress.py agent-painpoints --json
+python3 scripts/agentpress.py attest verify agentpress/attestations/core-surfaces-attestation.json --json
 python3 scripts/agentpress.py doctor --json
 python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json
 python3 scripts/agentpress.py self-test --agent-id <your-agent-id> --out /tmp/agentpress-self-test.jsonl

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T17:09:11Z",
+  "generated_at": "2026-05-03T17:15:24Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -216,6 +216,30 @@
         "budget",
         "intent",
         "no-spend"
+      ]
+    },
+    {
+      "name": "agentpress.attest",
+      "description": "Create, verify, and index hash-based attestations for AgentPress receipts, marketplace listings, releases, broadcasts, and proof artifacts.",
+      "command": "python3 scripts/agentpress.py attest verify agentpress/attestations/core-surfaces-attestation.json --json",
+      "tags": [
+        "attestation",
+        "sha256",
+        "verify",
+        "trust",
+        "tamper-evident"
+      ]
+    },
+    {
+      "name": "agentpress.agent_painpoints",
+      "description": "Generate persona-based painpoint matrix and prioritized roadmap so AgentPress builds what agents actually need.",
+      "command": "python3 scripts/agentpress.py agent-painpoints --json",
+      "tags": [
+        "painpoints",
+        "roadmap",
+        "personas",
+        "agent-needs",
+        "product"
       ]
     },
     {

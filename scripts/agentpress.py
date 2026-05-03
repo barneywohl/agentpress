@@ -922,6 +922,8 @@ def build_search_index(args):
     add("cli_command", "Negative fail-closed fixture gate", "scripts/agentpress.py", "negative-fixtures adversarial broken bundles fail closed", ["security", "fail-closed", "test", "cli"])
     add("cli_command", "Install AgentPress from release index", "agentpress/install/install.py", "install release index offline package sha256 verify tarball curl bootstrap one-command", ["install", "release", "offline", "sha256", "cli"])
     add("cli_command", "CLI agent launch pack", "agentpress/CLI_AGENT_LAUNCH.md", "first agent install doctor compatibility matrix self-test landing receipt submission pack attract agents", ["cli", "launch", "install", "proof", "adoption"] )
+    add("cli_command", "AgentPress attestations", "agentpress/attestations/README.md", "attest create verify index sha256 tamper evidence receipts marketplace releases broadcasts trust", ["attest", "sha256", "trust", "verify", "tamper-evident"] )
+    add("cli_command", "AgentPress agent painpoint roadmap", "agentpress/painpoints/README.md", "agent-painpoints persona painpoint roadmap agent needs blockers trust install proof routing marketplace audience payments attestations", ["painpoints", "roadmap", "personas", "agent-needs", "product"] )
     add("cli_command", "AgentPress audience and pseudonymous comms kit", "agentpress/audience/README.md", "audience-kit subscribe broadcast pseudonymous inbox anonymous feedback referral opt-in consent anti-spam growth flywheel", ["audience", "subscribe", "broadcast", "pseudonymous", "feedback", "growth", "consent"])
     add("cli_command", "AgentPress capability marketplace", "agentpress/marketplace/README.md", "marketplace capability catalog agents services pricing SLA auth trust commands query", ["marketplace", "capability", "sla", "pricing", "trust", "agents"])
     add("cli_command", "One-command AgentPress agent onboarding", "agentpress/onboarding/README.md", "adopt agent-onboard one command doctor self-test landing receipt payment status payment intent submission pack exponential adoption flywheel", ["onboard", "adoption", "self-test", "landing", "submission", "payment", "cli"])
@@ -960,7 +962,7 @@ def build_search_index(args):
         for capability, agents in data.get("capabilities", {}).items():
             add("capability", capability, "agentpress/hub/routing/capability-index.json", " ".join(agents), ["capability", capability])
     # Protocol/docs
-    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/onboarding/README.md", "agentpress/onboarding/agent-onboard-example.json", "agentpress/specs/AGENTPRESS_EXPONENTIAL_AGENT_ADOPTION_SPEC_20260503.md", "agentpress/marketplace/README.md", "agentpress/marketplace/marketplace-index.json", "agentpress/specs/AGENTPRESS_AGENT_MARKETPLACE_SPEC_20260503.md", "agentpress/audience/README.md", "agentpress/audience/audience-kit.json", "agentpress/audience/broadcast-feed.json", "agentpress/audience/pseudonymous-inbox-policy.json", "agentpress/audience/anti-abuse-policy.json", "agentpress/audience/unsubscribe-intent.example.json", "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md", "agentpress/payments/README.md", "agentpress/payments/payment-policy.json", "agentpress/payments/payment-capabilities.json", "agentpress/payments/x402-readiness.json", "agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
+    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/onboarding/README.md", "agentpress/onboarding/agent-onboard-example.json", "agentpress/specs/AGENTPRESS_EXPONENTIAL_AGENT_ADOPTION_SPEC_20260503.md", "agentpress/marketplace/README.md", "agentpress/marketplace/marketplace-index.json", "agentpress/specs/AGENTPRESS_AGENT_MARKETPLACE_SPEC_20260503.md", "agentpress/attestations/README.md", "agentpress/attestations/attestation-index.json", "agentpress/specs/AGENTPRESS_ATTESTATIONS_SPEC_20260503.md", "agentpress/painpoints/README.md", "agentpress/painpoints/agent-painpoints.json", "agentpress/specs/AGENTPRESS_AGENT_PAINPOINTS_ROADMAP_SPEC_20260503.md", "agentpress/audience/README.md", "agentpress/audience/audience-kit.json", "agentpress/audience/broadcast-feed.json", "agentpress/audience/pseudonymous-inbox-policy.json", "agentpress/audience/anti-abuse-policy.json", "agentpress/audience/unsubscribe-intent.example.json", "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md", "agentpress/payments/README.md", "agentpress/payments/payment-policy.json", "agentpress/payments/payment-capabilities.json", "agentpress/payments/x402-readiness.json", "agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
         path=root/rel
         if path.exists(): add("doc", path.name, rel, read_text(path)[:1500], ["doc", pathlib.Path(rel).stem])
     payload={"schema_version":"2026-05-03.agentpress-search.v1", "canonical_url": urljoin(base_url, out.as_posix()), "generated_at": _utc_now(), "record_count": len(records), "records": records}
@@ -1988,6 +1990,8 @@ def tools_manifest(args):
         {"name":"agentpress.adoption_status", "description":"Summarize opt-in landing receipts, reputation, compatibility, mesh, and install-lane adoption state without hidden telemetry.", "command":"python3 scripts/agentpress.py adoption-status --json", "tags":["adoption","reputation","compatibility","privacy","proof"]},
         {"name":"agentpress.payment_status", "description":"Report payment/x402 readiness, budget guardrails, and fail-closed payment policy without performing payments.", "command":"python3 scripts/agentpress.py payment-status --json", "tags":["payments","x402","budget","safety","commerce"]},
         {"name":"agentpress.payment_intent", "description":"Create an unsigned quote/payment intent for budget approval workflows without signing or spending.", "command":"python3 scripts/agentpress.py payment-intent --capability-id free_agentpress_bootstrap --agent-id <agent-id> --max-amount 0 --json", "tags":["payments","quote","budget","intent","no-spend"]},
+        {"name":"agentpress.attest", "description":"Create, verify, and index hash-based attestations for AgentPress receipts, marketplace listings, releases, broadcasts, and proof artifacts.", "command":"python3 scripts/agentpress.py attest verify agentpress/attestations/core-surfaces-attestation.json --json", "tags":["attestation","sha256","verify","trust","tamper-evident"]},
+        {"name":"agentpress.agent_painpoints", "description":"Generate persona-based painpoint matrix and prioritized roadmap so AgentPress builds what agents actually need.", "command":"python3 scripts/agentpress.py agent-painpoints --json", "tags":["painpoints","roadmap","personas","agent-needs","product"]},
         {"name":"agentpress.audience_kit", "description":"Build or query opt-in audience growth and pseudonymous communication surfaces with consent, anti-spam, and no-external-write boundaries.", "command":"python3 scripts/agentpress.py audience-kit --json", "tags":["audience","subscribe","broadcast","pseudonymous","feedback","consent","growth"]},
         {"name":"agentpress.marketplace", "description":"Build or query the machine-readable capability marketplace with services, commands, pricing posture, SLA, trust evidence, auth, and safety boundaries.", "command":"python3 scripts/agentpress.py marketplace --json", "tags":["marketplace","capability","pricing","sla","trust","auth","agents"]},
         {"name":"agentpress.adopt", "description":"Run the full one-command adoption funnel: doctor, self-test, landing receipt, payment posture, unsigned payment intent, and submission pack.", "command":"python3 scripts/agentpress.py adopt --agent-id <agent-id> --runtime <runtime> --out /tmp/agentpress-onboard --json", "tags":["onboard","adoption","self-test","landing","submission","payment","flywheel"]},
@@ -2524,6 +2528,95 @@ def audience_kit(args):
     print(json.dumps(kit, indent=2) if args.json else str(out))
     return 0
 
+
+def agent_painpoints(args):
+    """Generate a persona-based AgentPress painpoint and roadmap matrix."""
+    root=pathlib.Path(args.root)
+    out=pathlib.Path(args.out)
+    def exists(rel): return (root/rel).exists()
+    personas=[
+        {"id":"coding_agent","examples":["Codex","Claude Code","OpenCode"],"wants":["one-command setup","exact CLI commands","patch/PR submission","CI evidence","safe action boundaries"],"painpoints":["docs scavenger hunt","unclear repo state","missing tests","no exact next command","review bottlenecks"]},
+        {"id":"research_rag_agent","examples":["RAG","crawler","research scout"],"wants":["source maps","freshness","citation policy","search index","bundle quality scores"],"painpoints":["stale claims","weak provenance","too much prose","missing crawl seeds"]},
+        {"id":"browser_agent","examples":["browser automation","visual QA"],"wants":["stable URLs","screenshots/evidence","ARIA-friendly pages","no login wall","machine refs"],"painpoints":["dynamic UI timeouts","duplicate tabs","unclear visual acceptance criteria"]},
+        {"id":"workflow_agent","examples":["orchestrators","task routers"],"wants":["capability routing","message schemas","handoff receipts","status feeds","idempotent commands"],"painpoints":["no routing confidence","no owner/SLA","no state machine"]},
+        {"id":"marketplace_agent","examples":["service selector","buyer/seller agent"],"wants":["capability marketplace","pricing posture","SLA","trust evidence","payment policy"],"painpoints":["cannot compare providers","unclear cost/auth","no signed attestations"]},
+        {"id":"community_agent","examples":["distribution/referral/audience agent"],"wants":["broadcast feed","subscribe/unsubscribe intents","pseudonymous feedback","anti-abuse policy"],"painpoints":["no safe audience loop","anonymous abuse risk","no consent trail"]},
+        {"id":"security_eval_agent","examples":["QA","red team","eval harness"],"wants":["negative fixtures","consistency gates","threat model","signed artifacts","replay/tamper checks"],"painpoints":["trust based on self-claims","weak sybil resistance","unsigned receipts"]}
+    ]
+    shipped={
+        "one_command_setup": exists("agentpress/onboarding/agent-onboard-example.json"),
+        "marketplace": exists("agentpress/marketplace/marketplace-index.json"),
+        "payments_metadata": exists("agentpress/payments/payment-policy.json"),
+        "audience_kit": exists("agentpress/audience/audience-kit.json"),
+        "reputation": exists("agentpress/reputation/reputation-index.json"),
+        "compatibility": exists("agentpress/compatibility/compatibility-matrix.json"),
+        "offline_package": exists("agentpress/releases/agentpress-offline.tar.gz"),
+        "search": exists("agentpress/search/search-index.json"),
+        "negative_fixtures": exists("agentpress/fixtures/broken-bundles/expected-failures.json"),
+        "signed_attestations": exists("agentpress/attestations/attestation-index.json"),
+        "package_registry_publish": False,
+        "external_third_party_receipts": False
+    }
+    gaps=[]
+    def gap(id,title,why,priority,build): gaps.append({"gap_id":id,"title":title,"why_agents_care":why,"priority":priority,"recommended_build":build})
+    if not shipped["signed_attestations"]: gap("AP-PAIN-001","Signed/tamper-evident attestations","Agents need to trust receipts, marketplace listings, releases, and broadcasts without relying on repo prose.","P0","static attestation index + CLI to hash/sign/verify artifacts; start hash-only if no signing key")
+    if not shipped["package_registry_publish"]: gap("AP-PAIN-002","Real package registry distribution","Agents want pipx/npx install without clone/curl ambiguity.","P1","publish dry-run/spec plus package ownership checklist; do not publish live without account decision")
+    if not shipped["external_third_party_receipts"]: gap("AP-PAIN-003","Independent third-party proof","Agents trust external receipts more than self-generated compatibility profiles.","P0","external proof request issue/template and public bounty/receipt lane")
+    gap("AP-PAIN-004","Continuous painpoint intake","Agent needs evolve; AgentPress needs a repeatable persona/eval/painpoint matrix, not founder guesses.","P0","agent-painpoints CLI and machine roadmap")
+    payload={
+        "schema_version":"2026-05-03.agentpress-agent-painpoints.v1",
+        "canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),
+        "generated_utc":_utc_now(),
+        "status":"ok",
+        "principle":"Build from agent painpoints, not random feature ideas.",
+        "personas":personas,
+        "shipped_capabilities":shipped,
+        "prioritized_gaps":sorted(gaps, key=lambda g:g["priority"]),
+        "next_best_feature":"Signed/tamper-evident attestations are the next trust multiplier after adopt/marketplace/audience because they make every proof, listing, release, and broadcast more credible.",
+        "agent_feedback_questions":["What command failed first?","What field was missing?","What did you not trust?","What action boundary was ambiguous?","What proof would let you route work here?","What would reduce your token/time cost by 10x?"],
+        "metrics":["time_to_first_successful_adopt","missing_command_count","proof_submission_rate","third_party_receipt_count","marketplace_query_success","attestation_coverage","package_install_success"]
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else "\n".join(f"{g['priority']} {g['gap_id']} {g['title']}" for g in payload["prioritized_gaps"]))
+    return 0
+
+
+def attest(args):
+    """Create or verify hash-based AgentPress attestations."""
+    root=pathlib.Path(args.root)
+    if args.attest_cmd == "create":
+        files=[]
+        for rel in args.file:
+            path=root/rel
+            if not path.exists() or not path.is_file():
+                print(f"missing file: {rel}", file=sys.stderr); return 1
+            data=path.read_bytes()
+            files.append({"path":path.relative_to(root).as_posix(),"bytes":len(data),"sha256":hashlib.sha256(data).hexdigest()})
+        payload={"schema_version":"2026-05-03.agentpress-attestation.v1","attestation_id":args.attestation_id or _short_id("att"),"subject":args.subject,"created_utc":_utc_now(),"issuer":args.issuer,"algorithm":"sha256","signature_status":"unsigned_hash_attestation","files":files,"notes":args.notes or "Static hash attestation. No private signing key required."}
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+        print(json.dumps({"status":"ok","out":str(out),"file_count":len(files)}, indent=2) if args.json else str(out)); return 0
+    if args.attest_cmd == "verify":
+        path=pathlib.Path(args.attestation); data=json.loads(path.read_text(encoding="utf-8")); errors=[]
+        for f in data.get("files",[]):
+            fp=root/f.get("path","")
+            if not fp.exists(): errors.append(f"missing {f.get('path')}"); continue
+            digest=hashlib.sha256(fp.read_bytes()).hexdigest()
+            if digest != f.get("sha256"): errors.append(f"sha256 mismatch {f.get('path')}")
+        payload={"status":"ok" if not errors else "fail","attestation":str(path),"checked":len(data.get("files",[])),"errors":errors}
+        print(json.dumps(payload, indent=2) if args.json else payload["status"])
+        return 0 if not errors else 1
+    if args.attest_cmd == "index":
+        out=pathlib.Path(args.out); att_dir=root/args.dir; rows=[]
+        if att_dir.exists():
+            for p in sorted(att_dir.glob("*.json")):
+                try:
+                    d=json.loads(p.read_text(encoding="utf-8")); rows.append({"path":p.relative_to(root).as_posix(),"attestation_id":d.get("attestation_id"),"subject":d.get("subject"),"created_utc":d.get("created_utc"),"file_count":len(d.get("files",[])),"signature_status":d.get("signature_status")})
+                except Exception: pass
+        payload={"schema_version":"2026-05-03.agentpress-attestation-index.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","attestation_count":len(rows),"attestations":rows,"verification_command":"python3 scripts/agentpress.py attest verify <attestation.json> --json"}
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+        print(json.dumps({"status":"ok","out":str(out),"attestation_count":len(rows)}, indent=2) if args.json else str(out)); return 0
+
 def adoption_status(args):
     """Summarize opt-in AgentPress adoption/proof state without hidden telemetry."""
     root=pathlib.Path(args.root)
@@ -2657,6 +2750,11 @@ def main():
     p = sub.add_parser("adoption-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true"); p.add_argument("--allow-needs-attention", action="store_true")
     p = sub.add_parser("payment-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("attest"); att = p.add_subparsers(dest="attest_cmd", required=True)
+    c=att.add_parser("create"); c.add_argument("root", nargs="?", default="."); c.add_argument("--file", action="append", required=True); c.add_argument("--subject", required=True); c.add_argument("--issuer", default="agentpress-reference-agent"); c.add_argument("--attestation-id"); c.add_argument("--notes"); c.add_argument("--out", required=True); c.add_argument("--json", action="store_true")
+    v=att.add_parser("verify"); v.add_argument("attestation"); v.add_argument("root", nargs="?", default="."); v.add_argument("--json", action="store_true")
+    i=att.add_parser("index"); i.add_argument("root", nargs="?", default="."); i.add_argument("--dir", default="agentpress/attestations"); i.add_argument("--out", default="agentpress/attestations/attestation-index.json"); i.add_argument("--base-url", default=CANONICAL_BASE_URL); i.add_argument("--json", action="store_true")
+    p = sub.add_parser("agent-painpoints"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/painpoints/agent-painpoints.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("audience-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/audience/audience-kit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--agent-id"); p.add_argument("--topic", default="agentpress-updates"); p.add_argument("--contact"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--capability"); p.add_argument("--runtime"); p.add_argument("--payment-required"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-onboard", aliases=["adopt"]); p.add_argument("root", nargs="?", default="."); p.add_argument("--agent-id", default="local-agent"); p.add_argument("--runtime", default="unknown"); p.add_argument("--out", default="/tmp/agentpress-onboard"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--discovery-channel", default="agent-onboard-cli"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--contact"); p.add_argument("--payment-capability-id", default="free_agentpress_bootstrap"); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--json", action="store_true")
@@ -2729,6 +2827,8 @@ def main():
     if args.cmd == "payment-intent": return payment_intent(args)
     if args.cmd == "marketplace": return marketplace_index(args)
     if args.cmd == "audience-kit": return audience_kit(args)
+    if args.cmd == "agent-painpoints": return agent_painpoints(args)
+    if args.cmd == "attest": return attest(args)
     if args.cmd in {"agent-onboard", "adopt"}: return agent_onboard(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)

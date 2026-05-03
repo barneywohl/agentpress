@@ -1,0 +1,201 @@
+{
+  "schema_version": "2026-05-03.agentpress-agent-painpoints.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/painpoints/agent-painpoints.json",
+  "generated_utc": "2026-05-03T17:16:16Z",
+  "status": "ok",
+  "principle": "Build from agent painpoints, not random feature ideas.",
+  "personas": [
+    {
+      "id": "coding_agent",
+      "examples": [
+        "Codex",
+        "Claude Code",
+        "OpenCode"
+      ],
+      "wants": [
+        "one-command setup",
+        "exact CLI commands",
+        "patch/PR submission",
+        "CI evidence",
+        "safe action boundaries"
+      ],
+      "painpoints": [
+        "docs scavenger hunt",
+        "unclear repo state",
+        "missing tests",
+        "no exact next command",
+        "review bottlenecks"
+      ]
+    },
+    {
+      "id": "research_rag_agent",
+      "examples": [
+        "RAG",
+        "crawler",
+        "research scout"
+      ],
+      "wants": [
+        "source maps",
+        "freshness",
+        "citation policy",
+        "search index",
+        "bundle quality scores"
+      ],
+      "painpoints": [
+        "stale claims",
+        "weak provenance",
+        "too much prose",
+        "missing crawl seeds"
+      ]
+    },
+    {
+      "id": "browser_agent",
+      "examples": [
+        "browser automation",
+        "visual QA"
+      ],
+      "wants": [
+        "stable URLs",
+        "screenshots/evidence",
+        "ARIA-friendly pages",
+        "no login wall",
+        "machine refs"
+      ],
+      "painpoints": [
+        "dynamic UI timeouts",
+        "duplicate tabs",
+        "unclear visual acceptance criteria"
+      ]
+    },
+    {
+      "id": "workflow_agent",
+      "examples": [
+        "orchestrators",
+        "task routers"
+      ],
+      "wants": [
+        "capability routing",
+        "message schemas",
+        "handoff receipts",
+        "status feeds",
+        "idempotent commands"
+      ],
+      "painpoints": [
+        "no routing confidence",
+        "no owner/SLA",
+        "no state machine"
+      ]
+    },
+    {
+      "id": "marketplace_agent",
+      "examples": [
+        "service selector",
+        "buyer/seller agent"
+      ],
+      "wants": [
+        "capability marketplace",
+        "pricing posture",
+        "SLA",
+        "trust evidence",
+        "payment policy"
+      ],
+      "painpoints": [
+        "cannot compare providers",
+        "unclear cost/auth",
+        "no signed attestations"
+      ]
+    },
+    {
+      "id": "community_agent",
+      "examples": [
+        "distribution/referral/audience agent"
+      ],
+      "wants": [
+        "broadcast feed",
+        "subscribe/unsubscribe intents",
+        "pseudonymous feedback",
+        "anti-abuse policy"
+      ],
+      "painpoints": [
+        "no safe audience loop",
+        "anonymous abuse risk",
+        "no consent trail"
+      ]
+    },
+    {
+      "id": "security_eval_agent",
+      "examples": [
+        "QA",
+        "red team",
+        "eval harness"
+      ],
+      "wants": [
+        "negative fixtures",
+        "consistency gates",
+        "threat model",
+        "signed artifacts",
+        "replay/tamper checks"
+      ],
+      "painpoints": [
+        "trust based on self-claims",
+        "weak sybil resistance",
+        "unsigned receipts"
+      ]
+    }
+  ],
+  "shipped_capabilities": {
+    "one_command_setup": true,
+    "marketplace": true,
+    "payments_metadata": true,
+    "audience_kit": true,
+    "reputation": true,
+    "compatibility": true,
+    "offline_package": true,
+    "search": true,
+    "negative_fixtures": true,
+    "signed_attestations": true,
+    "package_registry_publish": false,
+    "external_third_party_receipts": false
+  },
+  "prioritized_gaps": [
+    {
+      "gap_id": "AP-PAIN-003",
+      "title": "Independent third-party proof",
+      "why_agents_care": "Agents trust external receipts more than self-generated compatibility profiles.",
+      "priority": "P0",
+      "recommended_build": "external proof request issue/template and public bounty/receipt lane"
+    },
+    {
+      "gap_id": "AP-PAIN-004",
+      "title": "Continuous painpoint intake",
+      "why_agents_care": "Agent needs evolve; AgentPress needs a repeatable persona/eval/painpoint matrix, not founder guesses.",
+      "priority": "P0",
+      "recommended_build": "agent-painpoints CLI and machine roadmap"
+    },
+    {
+      "gap_id": "AP-PAIN-002",
+      "title": "Real package registry distribution",
+      "why_agents_care": "Agents want pipx/npx install without clone/curl ambiguity.",
+      "priority": "P1",
+      "recommended_build": "publish dry-run/spec plus package ownership checklist; do not publish live without account decision"
+    }
+  ],
+  "next_best_feature": "Signed/tamper-evident attestations are the next trust multiplier after adopt/marketplace/audience because they make every proof, listing, release, and broadcast more credible.",
+  "agent_feedback_questions": [
+    "What command failed first?",
+    "What field was missing?",
+    "What did you not trust?",
+    "What action boundary was ambiguous?",
+    "What proof would let you route work here?",
+    "What would reduce your token/time cost by 10x?"
+  ],
+  "metrics": [
+    "time_to_first_successful_adopt",
+    "missing_command_count",
+    "proof_submission_rate",
+    "third_party_receipt_count",
+    "marketplace_query_success",
+    "attestation_coverage",
+    "package_install_success"
+  ]
+}
