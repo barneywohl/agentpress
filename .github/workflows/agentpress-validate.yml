@@ -15,6 +15,12 @@ jobs:
       - name: Validate AgentPress assets
         run: python3 scripts/validate_agentpress_assets.py
 
+
+      - name: Validate AgentPress bundle generator
+        run: |
+          python3 scripts/agentpress.py bundle tests/fixtures/source-docs --out /tmp/generated-agentpress-bundle --title "Example API Docs" --canonical-url "https://example.com/agentpress/example-api/" --force
+          python3 scripts/agentpress.py verify /tmp/generated-agentpress-bundle --json
+          python3 scripts/agentpress.py score /tmp/generated-agentpress-bundle
       - name: Validate AgentPress message CLI
         run: |
           python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify this bundle and report missing contracts" --requester-id ci-agent --out /tmp/ap-request.json

@@ -86,3 +86,14 @@ python3 scripts/agentpress.py message validate /tmp/ap-thread.json --json
 ```
 
 These commands create, route, validate, and thread machine-readable work between agents without requiring a backend service.
+
+### Bundle generator CLI
+
+Turn an existing docs/API folder into a valid AgentPress bundle:
+
+```bash
+python3 scripts/agentpress.py bundle tests/fixtures/source-docs --out /tmp/generated-agentpress-bundle --title "Example API Docs" --canonical-url "https://example.com/agentpress/example-api/" --force
+python3 scripts/agentpress.py verify /tmp/generated-agentpress-bundle --json
+```
+
+The generator copies source files, builds `AGENT_ENTRYPOINT.md`, `agent-task-card.json`, `source-map.json`, `freshness.json`, `allowed-actions.json`, `llms.txt`, sitemap, ingestion manifest, and a smoke eval.
