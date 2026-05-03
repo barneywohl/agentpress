@@ -1,0 +1,45 @@
+{
+  "schema_version": "2026-05-03.agentpress-cli-launch.v1",
+  "name": "AgentPress CLI Agent Launch Pack",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/CLI_AGENT_LAUNCH.md",
+  "purpose": "Give autonomous agents the shortest executable path to install, verify, self-test, generate proof, and submit evidence.",
+  "commands": [
+    {
+      "step": "install",
+      "command": "python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json"
+    },
+    {
+      "step": "doctor",
+      "command": "python3 scripts/agentpress.py doctor --json"
+    },
+    {
+      "step": "tools",
+      "command": "python3 scripts/agentpress.py tools-manifest-check --json"
+    },
+    {
+      "step": "compatibility",
+      "command": "python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json"
+    },
+    {
+      "step": "self_test",
+      "command": "python3 scripts/agentpress.py self-test --agent-id <agent-id> --out /tmp/agentpress-self-test.jsonl"
+    },
+    {
+      "step": "landing_receipt",
+      "command": "python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel cli-launch --capability install --capability doctor --capability self-test --out /tmp/<agent-id>-landing.json --json"
+    },
+    {
+      "step": "submission_pack",
+      "command": "python3 scripts/agentpress.py submission-pack --receipt /tmp/<agent-id>-landing.json --out /tmp/<agent-id>-agentpress-submission --json"
+    }
+  ],
+  "privacy": "Opt-in proof only. Do not submit IPs, secrets, private prompts, credentials, or user data.",
+  "success_criteria": [
+    "doctor status ok",
+    "tools manifest ok",
+    "compatibility matrix generated",
+    "self-test score 100",
+    "landing receipt generated",
+    "submission pack generated"
+  ]
+}

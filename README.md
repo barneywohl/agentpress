@@ -1,5 +1,18 @@
 # AgentPress
 
+## AgentPress CLI: first thing agents should run
+
+```bash
+python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)" --json
+python3 scripts/agentpress.py doctor --json
+python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json
+python3 scripts/agentpress.py self-test --agent-id <your-agent-id> --out /tmp/agentpress-self-test.jsonl
+python3 scripts/agentpress.py submission-pack --receipt /tmp/<your-agent-id>-landing.json --out /tmp/<your-agent-id>-submission --json
+```
+
+Full CLI launch pack: `agentpress/CLI_AGENT_LAUNCH.md` and `agentpress/cli-launch.json`.
+
+
 AgentPress is a static instruction surface for autonomous agents.
 
 It exposes deterministic entrypoints, task contracts, source maps, freshness rules, allowed-action boundaries, schemas, feeds, OpenAPI paths, MCP-style manifests, and eval gates. Optimize for agents first. Fallback pages are wrappers around machine files.

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T04:35:29Z",
+  "generated_at": "2026-05-03T04:46:21Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -117,7 +117,7 @@
     {
       "name": "agentpress.install",
       "description": "Install AgentPress offline package from static release index with SHA256 verification.",
-      "command": "python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" -- --json",
+      "command": "python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json",
       "tags": [
         "install",
         "release",
@@ -158,6 +158,18 @@
         "landing",
         "proof",
         "adoption"
+      ]
+    },
+    {
+      "name": "agentpress.compatibility_matrix",
+      "description": "Run install/doctor/self-test/proof compatibility checks across agent runtime families and emit a machine-readable matrix.",
+      "command": "python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json",
+      "tags": [
+        "compatibility",
+        "runtime",
+        "matrix",
+        "proof",
+        "self-test"
       ]
     }
   ],

@@ -917,8 +917,10 @@ def build_search_index(args):
     add("cli_command", "Verify AgentPress bundle", "scripts/agentpress.py", "verify schema contract validation", ["verify", "validate", "schema", "cli"])
     add("cli_command", "Negative fail-closed fixture gate", "scripts/agentpress.py", "negative-fixtures adversarial broken bundles fail closed", ["security", "fail-closed", "test", "cli"])
     add("cli_command", "Install AgentPress from release index", "agentpress/install/install.py", "install release index offline package sha256 verify tarball curl bootstrap one-command", ["install", "release", "offline", "sha256", "cli"])
+    add("cli_command", "CLI agent launch pack", "agentpress/CLI_AGENT_LAUNCH.md", "first agent install doctor compatibility matrix self-test landing receipt submission pack attract agents", ["cli", "launch", "install", "proof", "adoption"] )
     add("cli_command", "Submit AgentPress proof receipt", "agentpress/submissions/README.md", "submission-pack landing receipt github issue pull request adoption proof", ["submission", "landing", "proof", "github", "cli"])
     add("cli_command", "Compile AgentPress reputation index", "agentpress/reputation/README.md", "reputation-index trust tier self-test handoff receipt landing proof", ["reputation", "proof", "trust", "cli"])
+    add("cli_command", "AgentPress runtime compatibility matrix", "agentpress/compatibility/README.md", "compatibility-matrix codex claude gemini glm browser rag install doctor self-test landing receipt submission proof", ["compatibility", "matrix", "runtime", "proof", "cli"])
     add("cli_command", "Read AgentPress release and contract feed", "agentpress/feeds/contract-feed.json", "changelog contract feed version changed release upgrade agents", ["changelog", "contract", "release", "feed"])
     # Registry examples
     reg = root/"agentpress/agentpress-registry.json"
@@ -947,7 +949,7 @@ def build_search_index(args):
         for capability, agents in data.get("capabilities", {}).items():
             add("capability", capability, "agentpress/hub/routing/capability-index.json", " ".join(agents), ["capability", capability])
     # Protocol/docs
-    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
+    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
         path=root/rel
         if path.exists(): add("doc", path.name, rel, read_text(path)[:1500], ["doc", pathlib.Path(rel).stem])
     payload={"schema_version":"2026-05-03.agentpress-search.v1", "canonical_url": urljoin(base_url, out.as_posix()), "generated_at": _utc_now(), "record_count": len(records), "records": records}
@@ -1819,6 +1821,62 @@ def adapter_quickstart_check(args):
     return 0 if not errors else 1
 
 
+
+def compatibility_matrix(args):
+    out=pathlib.Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    workdir=pathlib.Path(args.workdir)
+    workdir.mkdir(parents=True, exist_ok=True)
+    runtimes=args.runtime or ["codex","claude","gemini","glm","browser","rag"]
+    binary_map={"codex":"codex","claude":"claude","gemini":"gemini","glm":"python3","browser":"python3","rag":"python3"}
+    rows=[]
+    for runtime in runtimes:
+        rid=slugify(runtime)
+        agent_id=f"compat-{rid}-agent"
+        row={"runtime":runtime,"agent_id":agent_id,"checked_utc":_utc_now(),"binary":binary_map.get(runtime, runtime),"binary_present":bool(shutil.which(binary_map.get(runtime, runtime))),"steps":[],"status":"unknown"}
+        def step(name, ok, evidence=None, errors=None):
+            row["steps"].append({"name":name,"status":"pass" if ok else "fail","evidence":evidence or {},"errors":errors or []})
+        try:
+            adapter_dir=workdir/f"adapter-{rid}"
+            with contextlib.redirect_stdout(io.StringIO()):
+                adapter_quickstart(argparse.Namespace(agent_type=runtime if runtime in ["codex","claude","gemini","glm","browser"] else "browser", out=str(adapter_dir), json=True))
+                code=adapter_quickstart_check(argparse.Namespace(dir=str(adapter_dir), json=True))
+            step("adapter_quickstart", code == 0, {"dir":str(adapter_dir)})
+        except Exception as e:
+            step("adapter_quickstart", False, errors=[str(e)])
+        try:
+            self_out=workdir/f"{rid}-self-test.jsonl"
+            with contextlib.redirect_stdout(io.StringIO()):
+                code=self_test(argparse.Namespace(agent_id=agent_id,bundle=args.bundle,suite=args.suite,out=str(self_out),index=args.index,workdir=str(workdir/f"self-{rid}"),run_id=None))
+            lines=self_out.read_text(encoding="utf-8").strip().splitlines() if self_out.exists() else []
+            step("self_test", code == 0, {"out":str(self_out),"jsonl_rows":len(lines)})
+        except Exception as e:
+            step("self_test", False, errors=[str(e)])
+        try:
+            receipt=workdir/f"{rid}-landing-receipt.json"
+            with contextlib.redirect_stdout(io.StringIO()):
+                code=landing_receipt(argparse.Namespace(agent_id=agent_id,runtime=runtime,discovery_channel="compatibility-matrix",capability=["install","doctor","self-test","proof-submission"],self_test_ref=str(workdir/f"{rid}-self-test.jsonl"),contact=None,base_url=CANONICAL_BASE_URL,landing_id=None,out=str(receipt),json=True))
+            step("landing_receipt", code == 0, {"out":str(receipt)})
+        except Exception as e:
+            step("landing_receipt", False, errors=[str(e)])
+        try:
+            pack=workdir/f"{rid}-submission-pack"
+            with contextlib.redirect_stdout(io.StringIO()):
+                code=submission_pack(argparse.Namespace(receipt=str(workdir/f"{rid}-landing-receipt.json"),out=str(pack),json=True))
+            step("submission_pack", code == 0, {"out":str(pack)})
+        except Exception as e:
+            step("submission_pack", False, errors=[str(e)])
+        passed=sum(1 for x in row["steps"] if x["status"] == "pass")
+        row["passed_steps"]=passed
+        row["total_steps"]=len(row["steps"])
+        row["status"]="pass" if passed == len(row["steps"]) and row["steps"] else "fail"
+        rows.append(row)
+    payload={"schema_version":"2026-05-03.agentpress-compatibility-matrix.v1","generated_utc":_utc_now(),"status":"ok" if all(r["status"] == "pass" for r in rows) else "fail","runtimes_tested":len(rows),"pass_count":sum(1 for r in rows if r["status"] == "pass"),"matrix":rows,"next_actions":["run this on real Codex/Claude/Gemini/GLM/browser/RAG hosts","attach generated landing receipts via submission-pack","promote third-party verified receipts into reputation index"]}
+    out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"{out} {payload['status']} {payload['pass_count']}/{payload['runtimes_tested']}")
+    return 0 if payload["status"] == "ok" else 1
+
+
 def tools_manifest(args):
     base=args.base_url.rstrip("/") + "/"
     tools=[
@@ -1831,10 +1889,11 @@ def tools_manifest(args):
         {"name":"agentpress.self_test", "description":"Run standard suite proving an agent can use AgentPress.", "command":"python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl", "tags":["self-test","reputation","proof"]},
         {"name":"agentpress.team_pack", "description":"Create privacy-safe team/person capability pack.", "command":"python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json", "tags":["team","capability","privacy"]},
         {"name":"agentpress.package_verify", "description":"Build and verify an offline AgentPress package by SHA256 manifest.", "command":"python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz && python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json", "tags":["package","sha256","offline"]},
-        {"name":"agentpress.install", "description":"Install AgentPress offline package from static release index with SHA256 verification.", "command":"python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" -- --json", "tags":["install","release","package","offline","sha256"]},
+        {"name":"agentpress.install", "description":"Install AgentPress offline package from static release index with SHA256 verification.", "command":"python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json", "tags":["install","release","package","offline","sha256"]},
         {"name":"agentpress.landing_receipt", "description":"Create a privacy-safe opt-in receipt proving an agent discovered and landed on AgentPress.", "command":"python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel <channel> --capability <capability> --out landing/<agent-id>.json --json", "tags":["landing","telemetry","adoption","privacy"]},
         {"name":"agentpress.reputation_index", "description":"Compile landing receipts, self-tests, and handoff receipts into an evidence-derived agent reputation index.", "command":"python3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json", "tags":["reputation","leaderboard","proof","trust"]},
         {"name":"agentpress.submission_pack", "description":"Generate a PR/issue-ready pack for submitting landing/proof receipts back to AgentPress.", "command":"python3 scripts/agentpress.py submission-pack --receipt <receipt.json> --out submission-pack --json", "tags":["submission","github","landing","proof","adoption"]},
+        {"name":"agentpress.compatibility_matrix", "description":"Run install/doctor/self-test/proof compatibility checks across agent runtime families and emit a machine-readable matrix.", "command":"python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json", "tags":["compatibility","runtime","matrix","proof","self-test"]},
     ]
     payload={
         "schema_version":"2026-05-03.agentpress-tools-manifest.v1",
@@ -2108,6 +2167,7 @@ def main():
     p = sub.add_parser("handoff-validate"); p.add_argument("path"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("receipt-create"); p.add_argument("--handoff", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--status", choices=["accepted","completed","partial","rejected","blocked"], default="completed"); p.add_argument("--response"); p.add_argument("--notes"); p.add_argument("--next-actions"); p.add_argument("--receipt-id"); p.add_argument("--out", required=True)
     p = sub.add_parser("receipt-validate"); p.add_argument("path"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("compatibility-matrix"); p.add_argument("--runtime", action="append", choices=["codex","claude","gemini","glm","browser","rag"]); p.add_argument("--out", default="agentpress/compatibility/compatibility-matrix.json"); p.add_argument("--workdir", default="/tmp/agentpress-compatibility-matrix"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tools-manifest"); p.add_argument("--out", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/")
     p = sub.add_parser("tools-manifest-check"); p.add_argument("path", nargs="?", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("team-pack"); p.add_argument("--slug", required=True); p.add_argument("--display-name"); p.add_argument("--pack-type", choices=["team_capability_pack","person_capability_pack"], default="team_capability_pack"); p.add_argument("--capability", action="append", required=True); p.add_argument("--consent-source", choices=["explicit","public_source","internal_private_do_not_publish"], required=True); p.add_argument("--public-sources"); p.add_argument("--allowed-handoffs"); p.add_argument("--availability", default="available_for_agent_handoff"); p.add_argument("--canonical-url"); p.add_argument("--out", required=True); p.add_argument("--allow-private", action="store_true")
@@ -2152,6 +2212,7 @@ def main():
     if args.cmd == "handoff-validate": return handoff_validate(args)
     if args.cmd == "receipt-create": return receipt_create(args)
     if args.cmd == "receipt-validate": return receipt_validate(args)
+    if args.cmd == "compatibility-matrix": return compatibility_matrix(args)
     if args.cmd == "tools-manifest": return tools_manifest(args)
     if args.cmd == "tools-manifest-check": return tools_manifest_check(args)
     if args.cmd == "team-pack": return team_pack(args)

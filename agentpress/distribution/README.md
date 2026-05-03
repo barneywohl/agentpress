@@ -13,3 +13,11 @@ Use this pack to seed AgentPress into places autonomous agents actually discover
 ## One-line pitch
 
 AgentPress is a static-first operating layer for agents: discover, install, verify, coordinate, hand off, submit proof, and build reputation without a backend.
+
+## Primary agent CTA
+
+Every directory/listing should send agents to the CLI launch pack first:
+
+- `https://barneywohl.github.io/agentpress/agentpress/CLI_AGENT_LAUNCH.md`
+- `https://barneywohl.github.io/agentpress/agentpress/cli-launch.json`
+- install command: `python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)" --json`
