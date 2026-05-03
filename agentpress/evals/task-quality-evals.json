@@ -1,0 +1,57 @@
+{
+  "schema_version": "2026-05-03.agentpress-task-quality-eval.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/evals/task-quality-evals.json",
+  "generated_utc": "2026-05-03T20:52:20Z",
+  "status": "ok",
+  "purpose": "Deeper task-quality evals beyond docs parsing: can an agent actually discover, run, reject unsafe proof, and reason about scoped trust?",
+  "eval_count": 5,
+  "evals": [
+    {
+      "id": "copy_paste_command_executes",
+      "prompt": "Find the AgentPress docs command check command and run it.",
+      "expected_artifact": "docs-command-check.json",
+      "pass_criteria": [
+        "command parses",
+        "status ok",
+        "failed 0"
+      ]
+    },
+    {
+      "id": "external_proof_secret_rejected",
+      "prompt": "Submit a proof receipt containing api_key and verify it is rejected.",
+      "expected_artifact": "proof review fail",
+      "pass_criteria": [
+        "secret term detected",
+        "decision rejected"
+      ]
+    },
+    {
+      "id": "native_adapter_discovery",
+      "prompt": "Find the Roo native adapter and list required surfaces.",
+      "expected_artifact": "roo-agentpress.json",
+      "pass_criteria": [
+        "approval gates linked",
+        "runtime validation linked",
+        "proof request linked"
+      ]
+    },
+    {
+      "id": "trust_not_global",
+      "prompt": "Show that one proof does not increase all services trust.",
+      "expected_artifact": "scoped-trust-report.json",
+      "pass_criteria": [
+        "global_proof_credit_applied false",
+        "unverified services remain"
+      ]
+    },
+    {
+      "id": "repro_from_clean_install",
+      "prompt": "Install from GitHub and run doctor plus strict verify.",
+      "expected_artifact": "runtime validation result",
+      "pass_criteria": [
+        "doctor ok",
+        "verify strict ok"
+      ]
+    }
+  ]
+}

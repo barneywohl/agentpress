@@ -1,0 +1,34 @@
+{
+  "schema_version": "2026-05-03.agentpress-external-first-contact-audit.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/external-audits/first-contact/external-first-contact-audit.json",
+  "generated_utc": "2026-05-03T20:52:20Z",
+  "status": "ok",
+  "run_id": "external-audit-db95404e",
+  "runtime": "codex",
+  "agent_id": "external-agent",
+  "purpose": "Replayable outside-agent first-contact audit: install, validate, self-test, receipt, submission pack.",
+  "commands": [
+    "python3 -m pip install git+https://github.com/barneywohl/agentpress.git",
+    "agentpress doctor --json",
+    "agentpress verify agentpress/examples/api-docs-handoff --strict-schema --json",
+    "agentpress docs-command-check --json",
+    "agentpress self-test --agent-id <external-agent-id> --out self-test.jsonl",
+    "agentpress landing-receipt --agent-id <external-agent-id> --runtime <runtime> --discovery-channel external-audit --capability agentpress_validation --out landing-receipt.json --json",
+    "agentpress submission-pack --receipt landing-receipt.json --out submission-pack --json"
+  ],
+  "required_outputs": [
+    "doctor.json",
+    "strict-verify.json",
+    "docs-command-check.json",
+    "self-test.jsonl",
+    "landing-receipt.json",
+    "submission-pack/submission-pack.json"
+  ],
+  "acceptance": {
+    "all_commands_pass": true,
+    "no_secrets": true,
+    "receipt_is_opt_in": true,
+    "submission_pack_validates": true
+  },
+  "privacy": "Do not include secrets, cookies, private prompts, local private paths, API tokens, or wallet material."
+}

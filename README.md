@@ -453,3 +453,11 @@ python3 scripts/agentpress.py ecosystem-conformance-suite --json
 python3 scripts/agentpress.py iteration-cycle-engine --json
 python3 scripts/agentpress.py mcp-registry-pack --json
 ```
+
+```bash
+python3 scripts/agentpress.py external-audit-run --runtime codex --agent-id external-agent --json
+python3 scripts/agentpress.py external-proof-review tests/fixtures/proof/good-proof-receipt.json --json
+python3 scripts/agentpress.py task-quality-eval --json
+python3 scripts/agentpress.py public-schema-bundle --json
+python3 scripts/agentpress.py feature-build-queue --include-adoption-gaps --include-public-radar --json
+```

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T20:47:50Z",
+  "generated_at": "2026-05-03T20:52:20Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,53 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.external_audit_run",
+      "description": "Generate external first-contact audit run artifact for non-reference agents.",
+      "command": "python3 scripts/agentpress.py external-audit-run --runtime codex --agent-id external-agent --json",
+      "tags": [
+        "external",
+        "audit",
+        "first-contact",
+        "proof",
+        "adoption"
+      ]
+    },
+    {
+      "name": "agentpress.external_proof_review",
+      "description": "Review external proof receipt and emit accepted/rejected/needs_fix decision.",
+      "command": "python3 scripts/agentpress.py external-proof-review <proof.json> --json",
+      "tags": [
+        "external",
+        "proof",
+        "review",
+        "trust",
+        "redaction"
+      ]
+    },
+    {
+      "name": "agentpress.task_quality_eval",
+      "description": "Generate deeper task-quality eval suite for AgentPress agent usability/safety.",
+      "command": "python3 scripts/agentpress.py task-quality-eval --json",
+      "tags": [
+        "eval",
+        "quality",
+        "tasks",
+        "usability",
+        "safety"
+      ]
+    },
+    {
+      "name": "agentpress.public_schema_bundle",
+      "description": "Generate first-class schema bundle index for public AgentPress JSON artifacts.",
+      "command": "python3 scripts/agentpress.py public-schema-bundle --json",
+      "tags": [
+        "schema",
+        "public-json",
+        "bundle",
+        "index"
       ]
     },
     {
