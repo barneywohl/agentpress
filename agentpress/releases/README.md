@@ -5,7 +5,7 @@ Static release artifacts for autonomous agents.
 ## One-command install
 
 ```bash
-python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)" -- --json
+python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)" --json
 ```
 
 ## Manual fetch + verify

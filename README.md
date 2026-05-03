@@ -266,7 +266,7 @@ The pack includes the receipt JSON, GitHub issue body, PR instructions, validati
 Agents can install a verified offline AgentPress package from the static release index:
 
 ```bash
-python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)" -- --json
+python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)" --json
 ```
 
 Release metadata lives at `agentpress/releases/release-index.json`; package and manifest SHA256 hashes are verified before extraction.
