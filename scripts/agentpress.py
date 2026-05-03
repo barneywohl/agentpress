@@ -7,10 +7,12 @@ Usage:
   python3 scripts/agentpress.py audit out-dir
   python3 scripts/agentpress.py verify out-dir --json
   python3 scripts/agentpress.py schema --json
+  python3 scripts/agentpress.py fetch --base file:///path/to/agentpress/ --out fetched-agentpress
   python3 scripts/agentpress.py score out-dir
   python3 scripts/agentpress.py build out-dir --out public-dir
 """
 import argparse
+import hashlib
 import json
 import pathlib
 import re
@@ -18,6 +20,8 @@ import shutil
 import sys
 import xml.etree.ElementTree as ET
 from datetime import date, datetime, timezone
+from urllib.parse import urljoin, urlparse
+from urllib.request import urlopen
 
 REQUIRED = [
     "README.md",
@@ -47,6 +51,18 @@ CONTRACT_SCHEMA_MAP = {
     ".well-known/ai-ingestion.json": "ai-ingestion.schema.json",
     "article-card.json": "article-card.schema.json",
 }
+
+FETCH_ASSETS = [
+    "llms.txt",
+    ".well-known/agentpress.json",
+    ".well-known/ai-ingestion.json",
+    "agentpress/agent-instructions.json",
+    "agentpress/schemas/index.json",
+    "agentpress/agentpress-registry.json",
+    "agentpress/articles/article-index.json",
+    "agentpress/hash-manifest.json",
+    "openapi.yaml",
+]
 
 DEFAULT_SCHEMA = {
     "decision": "survive | delete | needs_more_diligence",
@@ -270,6 +286,24 @@ def schema_url(schema_name: str) -> str:
     return canonical_join(CANONICAL_BASE_URL, f"{SCHEMA_REL_ROOT}/{schema_name}")
 
 
+def fetch_url(base: str, asset: str) -> str:
+    if not base.endswith("/"):
+        base += "/"
+    parsed = urlparse(base)
+    if parsed.scheme in {"http", "https", "file"}:
+        return urljoin(base, asset)
+    return (pathlib.Path(base).resolve() / asset).as_uri()
+
+
+def _read_fetch_asset(base: str, asset: str, timeout: int) -> tuple[str, bytes]:
+    url = fetch_url(base, asset)
+    parsed = urlparse(url)
+    if parsed.scheme not in {"http", "https", "file"}:
+        raise ValueError(f"unsupported fetch scheme for {asset}: {parsed.scheme or 'none'}")
+    with urlopen(url, timeout=timeout) as response:
+        return url, response.read()
+
+
 def schema_rows() -> list[dict]:
     root = schema_root()
     rows = []
@@ -447,6 +481,52 @@ def verify(args):
             print(f"agentpress verify ok ({len(checked)} contracts checked)")
             print(f"schema index: {payload['schema_index']}")
     return code
+
+
+def fetch(args):
+    dest = pathlib.Path(args.out)
+    dest.mkdir(parents=True, exist_ok=True)
+    assets = args.asset or FETCH_ASSETS
+    rows = []
+    errors = []
+    for asset in assets:
+        rel = asset.lstrip("/")
+        try:
+            url, data = _read_fetch_asset(args.base, rel, args.timeout)
+        except Exception as e:
+            errors.append({"path": rel, "error": str(e)})
+            if not args.keep_going:
+                break
+            continue
+        out_path = dest / rel
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(data)
+        rows.append({
+            "path": rel,
+            "url": url,
+            "local_path": str(out_path),
+            "bytes": len(data),
+            "sha256": hashlib.sha256(data).hexdigest(),
+        })
+    manifest = {
+        "schema_version": "2026-05-03.agentpress-fetch.v1",
+        "status": "ok" if not errors else "fail",
+        "base": args.base,
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
+        "count": len(rows),
+        "assets": rows,
+        "errors": errors,
+    }
+    manifest_path = dest / ".agentpress-fetch-manifest.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    if args.json:
+        print(json.dumps(manifest, indent=2))
+    else:
+        print(f"fetched {len(rows)} AgentPress assets into {dest}")
+        print(f"manifest: {manifest_path}")
+        for err in errors:
+            print(f"error: {err['path']}: {err['error']}", file=sys.stderr)
+    return 0 if not errors else 1
 
 
 def score_value(root: pathlib.Path) -> tuple[int, dict]:
@@ -793,6 +873,7 @@ def main():
     p = sub.add_parser("audit"); p.add_argument("out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("verify"); p.add_argument("out", nargs="?", default="."); p.add_argument("--json", action="store_true")
     p = sub.add_parser("schema"); p.add_argument("name", nargs="?"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("fetch"); p.add_argument("--base", default=CANONICAL_BASE_URL); p.add_argument("--out", default="agentpress-fetch"); p.add_argument("--asset", action="append", help="relative asset to fetch; repeatable; defaults to core machine entrypoints"); p.add_argument("--timeout", type=int, default=20); p.add_argument("--keep-going", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
     p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True)
     p = sub.add_parser("list"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--json", action="store_true")
@@ -809,6 +890,7 @@ def main():
     if args.cmd == "audit": return audit(args)
     if args.cmd == "verify": return verify(args)
     if args.cmd == "schema": return schema_command(args)
+    if args.cmd == "fetch": return fetch(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)
     if args.cmd == "list": return list_examples(args)

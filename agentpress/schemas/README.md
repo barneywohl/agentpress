@@ -15,6 +15,9 @@ Required machine-readable files:
 Validation entrypoints:
 
 ```bash
+python3 scripts/agentpress.py schema --json
+python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --json
+python3 scripts/agentpress.py fetch --base file://$PWD --out /tmp/agentpress-fetch --json
 python3 scripts/agentpress.py index-articles
 python3 scripts/validate_agentpress_assets.py
 python3 scripts/check_agentpress_positioning.py

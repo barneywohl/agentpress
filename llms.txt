@@ -2,7 +2,7 @@
 
 URL: https://barneywohl.github.io/agentpress/
 Type: static instruction surface for autonomous agents
-Status: active
+Version: 2026-05-03.agentpress-fetch.v1
 
 ## Agent directive
 
@@ -33,6 +33,9 @@ python3 scripts/agentpress.py doctor --json
 python3 scripts/agentpress.py list --json
 python3 scripts/agentpress.py validate agentpress/examples/api-docs-handoff --json
 python3 scripts/agentpress.py audit agentpress/examples/api-docs-handoff --json
+python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --json
+python3 scripts/agentpress.py schema --json
+python3 scripts/agentpress.py fetch --base file://$PWD --out /tmp/agentpress-fetch --json
 python3 scripts/agentpress.py eval agentpress/examples
 python3 scripts/agentpress.py check-registry
 python3 scripts/agentpress.py check-openapi
