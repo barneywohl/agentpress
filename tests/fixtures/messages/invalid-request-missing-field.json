@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "request_id": "req-example-001",
+  "requester": {
+    "type": "agent",
+    "id": "example-agent"
+  },
+  "task": "Verify this AgentPress bundle and return contract gaps.",
+  "context_urls": [
+    "https://barneywohl.github.io/agentpress/llms.txt"
+  ],
+  "allowed_actions": [
+    "read",
+    "validate",
+    "summarize"
+  ],
+  "prohibited_actions": [
+    "external_write",
+    "credential_access",
+    "payment"
+  ],
+  "output_schema": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-response-v1.schema.json",
+  "priority": "P1",
+  "created_utc": "2026-05-03T02:25:00Z"
+}

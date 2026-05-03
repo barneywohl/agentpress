@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-thread-v1.schema.json",
+  "title": "AgentPress Agent Thread v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "thread_id",
+    "request_id",
+    "created_utc",
+    "messages"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "thread_id": {
+      "type": "string",
+      "pattern": "^thr-[a-z0-9-]{3,120}$"
+    },
+    "request_id": {
+      "type": "string",
+      "pattern": "^req-[a-z0-9-]{3,120}$"
+    },
+    "created_utc": {
+      "type": "string"
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "safety": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

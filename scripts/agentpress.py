@@ -9,6 +9,7 @@ Usage:
   python3 scripts/agentpress.py schema --json
   python3 scripts/agentpress.py fetch --base file:///path/to/agentpress/ --out fetched-agentpress
   python3 scripts/agentpress.py negative-fixtures --json
+  python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify bundle" --requester-id my-agent --out request.json
   python3 scripts/agentpress.py score out-dir
   python3 scripts/agentpress.py build out-dir --out public-dir
 """
@@ -19,6 +20,7 @@ import pathlib
 import re
 import shutil
 import sys
+import uuid
 import xml.etree.ElementTree as ET
 from datetime import date, datetime, timezone
 from urllib.parse import urljoin, urlparse
@@ -331,7 +333,11 @@ def _schema_required_errors(payload: dict, schema_path: pathlib.Path, label: str
         if key not in payload:
             continue
         expected = spec.get("type") if isinstance(spec, dict) else None
-        if expected in type_map and not isinstance(payload[key], type_map[expected]):
+        if isinstance(expected, list):
+            allowed = tuple(type_map[t] for t in expected if t in type_map)
+            if allowed and payload[key] is not None and not isinstance(payload[key], allowed):
+                errors.append(f"{label}.{key} expected one of {expected}")
+        elif expected in type_map and not isinstance(payload[key], type_map[expected]):
             errors.append(f"{label}.{key} expected {expected}")
     return errors
 
@@ -752,6 +758,159 @@ def build_all(args):
 
 
 
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def _short_id(prefix: str) -> str:
+    return f"{prefix}-{uuid.uuid4().hex[:12]}"
+
+
+def _csv_list(value, default=None):
+    if value is None or value == "":
+        return list(default or [])
+    return [x.strip() for x in value.split(",") if x.strip()]
+
+
+def _load_json(path: pathlib.Path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _detect_message_kind(payload: dict) -> tuple[str, str]:
+    if "request_id" in payload and "needed_capability" in payload and "requester" in payload:
+        return "agent_request", "agent-request-v1.schema.json"
+    if "response_id" in payload and "responder" in payload:
+        return "agent_response", "agent-response-v1.schema.json"
+    if "thread_id" in payload and "messages" in payload:
+        return "agent_thread", "agent-thread-v1.schema.json"
+    if "message_id" in payload and "message_type" in payload:
+        return "agent_message", "agent-message-v1.schema.json"
+    return "unknown", ""
+
+
+def _validate_message_payload(payload: dict, label: str = "message") -> tuple[str, list[str]]:
+    kind, schema_file = _detect_message_kind(payload)
+    if kind == "unknown":
+        return kind, [f"{label}: unknown AgentPress message kind"]
+    errors = _schema_required_errors(payload, schema_root() / schema_file, label)
+    return kind, errors
+
+
+def message_create_request(args):
+    payload = {
+        "schema_version": "1.0",
+        "request_id": args.request_id or _short_id("req"),
+        "requester": {"type": "agent", "id": args.requester_id},
+        "needed_capability": args.capability,
+        "task": args.task,
+        "context_urls": _csv_list(args.context_urls),
+        "required_sources": _csv_list(args.required_sources),
+        "allowed_actions": _csv_list(args.allowed_actions, ["read", "validate", "summarize"]),
+        "requires_human_approval": _csv_list(args.requires_human_approval, ["external_write", "production_change", "payment", "credential_access"]),
+        "prohibited_actions": _csv_list(args.prohibited_actions, ["credential_access", "payment", "production_change", "bypass_auth"]),
+        "output_schema": args.output_schema,
+        "priority": args.priority,
+        "deadline_utc": args.deadline_utc,
+        "created_utc": _utc_now(),
+    }
+    _, errors = _validate_message_payload(payload, "request")
+    if errors:
+        print(json.dumps({"status":"fail", "errors": errors}, indent=2)); return 1
+    out = pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"status":"ok", "kind":"agent_request", "path": str(out), "request_id": payload["request_id"]}, indent=2))
+    return 0
+
+
+def message_route(args):
+    directory = pathlib.Path(args.directory)
+    idx = _load_json(directory)
+    capability = args.capability
+    agent_ids = idx.get("capabilities", {}).get(capability, [])
+    agents = []
+    for agent_id in agent_ids:
+        meta = idx.get("agents", {}).get(agent_id, {})
+        agents.append({"agent_id": agent_id, **meta})
+    payload = {"status":"ok" if agents else "no_route", "capability": capability, "directory": str(directory), "agent_count": len(agents), "agents": agents}
+    print(json.dumps(payload, indent=2) if args.json else "\n".join(a["agent_id"] for a in agents))
+    return 0 if agents else 1
+
+
+def message_create_response(args):
+    request = _load_json(pathlib.Path(args.request))
+    result_inline = {}
+    if args.result_inline:
+        result_inline = json.loads(args.result_inline)
+    payload = {
+        "schema_version": "1.0",
+        "response_id": args.response_id or _short_id("res"),
+        "request_id": request["request_id"],
+        "responder": {"agent_id": args.responder_id, "capability_match": request.get("needed_capability", ""), "confidence_score": args.confidence},
+        "status": args.status,
+        "result_bundle_url": args.result_bundle or "",
+        "result_inline": result_inline,
+        "sources_used": _csv_list(args.sources_used),
+        "missing_checks": _csv_list(args.missing_checks),
+        "created_utc": _utc_now(),
+        "safety": {
+            "actions_taken": _csv_list(args.actions_taken, ["read", "validate"]),
+            "requires_human_approval": request.get("requires_human_approval", []),
+            "prohibited_actions_not_taken": request.get("prohibited_actions", []),
+        },
+    }
+    _, errors = _validate_message_payload(payload, "response")
+    if errors:
+        print(json.dumps({"status":"fail", "errors": errors}, indent=2)); return 1
+    out = pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"status":"ok", "kind":"agent_response", "path": str(out), "response_id": payload["response_id"]}, indent=2))
+    return 0
+
+
+def message_validate(args):
+    payload = _load_json(pathlib.Path(args.path))
+    kind, errors = _validate_message_payload(payload, pathlib.Path(args.path).name)
+    result = {"status":"ok" if not errors else "fail", "kind": kind, "path": args.path, "errors": errors}
+    print(json.dumps(result, indent=2) if args.json else result["status"])
+    return 0 if not errors else 1
+
+
+def message_thread_create(args):
+    request = _load_json(pathlib.Path(args.request))
+    payload = {"schema_version":"1.0", "thread_id": args.thread_id or _short_id("thr"), "request_id": request["request_id"], "created_utc": _utc_now(), "messages": [request], "safety": {"static_site_safe": True, "external_side_effects": "not_authorized"}}
+    _, errors = _validate_message_payload(payload, "thread")
+    if errors:
+        print(json.dumps({"status":"fail", "errors": errors}, indent=2)); return 1
+    out = pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"status":"ok", "kind":"agent_thread", "path": str(out), "thread_id": payload["thread_id"], "message_count": len(payload["messages"])}, indent=2))
+    return 0
+
+
+def message_thread_append(args):
+    thread = _load_json(pathlib.Path(args.thread))
+    message = _load_json(pathlib.Path(args.message))
+    _, msg_errors = _validate_message_payload(message, "append_message")
+    if msg_errors:
+        print(json.dumps({"status":"fail", "errors": msg_errors}, indent=2)); return 1
+    thread.setdefault("messages", []).append(message)
+    thread["updated_utc"] = _utc_now()
+    _, errors = _validate_message_payload(thread, "thread")
+    if errors:
+        print(json.dumps({"status":"fail", "errors": errors}, indent=2)); return 1
+    out = pathlib.Path(args.out or args.thread); out.write_text(json.dumps(thread, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"status":"ok", "kind":"agent_thread", "path": str(out), "message_count": len(thread["messages"])}, indent=2))
+    return 0
+
+
+def message_command(args):
+    if args.message_cmd == "create-request": return message_create_request(args)
+    if args.message_cmd == "route": return message_route(args)
+    if args.message_cmd == "create-response": return message_create_response(args)
+    if args.message_cmd == "validate": return message_validate(args)
+    if args.message_cmd == "thread-create": return message_thread_create(args)
+    if args.message_cmd == "thread-append": return message_thread_append(args)
+    print("unknown message command", file=sys.stderr); return 1
+
+
 def eval_examples(args):
     root = pathlib.Path(args.root)
     examples = sorted(p for p in root.iterdir() if p.is_dir() and (p/"agent-task-card.json").exists()) if root.exists() else []
@@ -929,6 +1088,13 @@ def main():
     p = sub.add_parser("eval"); p.add_argument("root", nargs="?", default="agentpress/examples")
     p = sub.add_parser("check-registry"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--registry", default="agentpress/agentpress-registry.json")
     p = sub.add_parser("check-openapi"); p.add_argument("root", nargs="?", default="."); p.add_argument("--openapi", default="openapi.yaml")
+    p = sub.add_parser("message"); msg = p.add_subparsers(dest="message_cmd", required=True)
+    q = msg.add_parser("create-request"); q.add_argument("--capability", required=True); q.add_argument("--task", required=True); q.add_argument("--priority", choices=["P0","P1","P2","P3"], default="P1"); q.add_argument("--requester-id", required=True); q.add_argument("--out", required=True); q.add_argument("--request-id"); q.add_argument("--context-urls"); q.add_argument("--required-sources"); q.add_argument("--allowed-actions"); q.add_argument("--requires-human-approval"); q.add_argument("--prohibited-actions"); q.add_argument("--output-schema", default="https://barneywohl.github.io/agentpress/agentpress/schemas/agent-response-v1.schema.json"); q.add_argument("--deadline-utc")
+    q = msg.add_parser("route"); q.add_argument("--capability", required=True); q.add_argument("--directory", default="agentpress/hub/routing/capability-index.json"); q.add_argument("--json", action="store_true")
+    q = msg.add_parser("create-response"); q.add_argument("--request", required=True); q.add_argument("--responder-id", required=True); q.add_argument("--status", choices=["accepted","in_progress","completed","partial","rejected","escalated","timeout"], default="completed"); q.add_argument("--out", required=True); q.add_argument("--response-id"); q.add_argument("--confidence", type=float, default=0.8); q.add_argument("--result-inline"); q.add_argument("--result-bundle"); q.add_argument("--sources-used"); q.add_argument("--missing-checks"); q.add_argument("--actions-taken")
+    q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
+    q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
+    q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
     p = sub.add_parser("package"); p.add_argument("root", nargs="?", default="."); p.add_argument("--format", choices=["tar", "zip"], default="tar"); p.add_argument("--out", default="dist/agentpress-offline.tar.gz")
     args = ap.parse_args()
     if args.cmd == "init": init(args); return 0
@@ -947,6 +1113,7 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "message": return message_command(args)
     if args.cmd == "package": return package_bundle(args)
 if __name__ == "__main__":
     sys.exit(main())

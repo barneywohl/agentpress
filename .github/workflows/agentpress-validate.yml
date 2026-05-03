@@ -14,6 +14,16 @@ jobs:
           python-version: '3.11'
       - name: Validate AgentPress assets
         run: python3 scripts/validate_agentpress_assets.py
+
+      - name: Validate AgentPress message CLI
+        run: |
+          python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify this bundle and report missing contracts" --requester-id ci-agent --out /tmp/ap-request.json
+          python3 scripts/agentpress.py message route --capability validate_agentpress_bundle --json
+          python3 scripts/agentpress.py message create-response --request /tmp/ap-request.json --responder-id agentpress-reference-agent --status completed --result-inline '{"status":"ok"}' --out /tmp/ap-response.json
+          python3 scripts/agentpress.py message thread-create --request /tmp/ap-request.json --out /tmp/ap-thread.json
+          python3 scripts/agentpress.py message thread-append --thread /tmp/ap-thread.json --message /tmp/ap-response.json --out /tmp/ap-thread.json
+          python3 scripts/agentpress.py message validate /tmp/ap-thread.json --json
+          if python3 scripts/agentpress.py message validate tests/fixtures/messages/invalid-request-missing-field.json --json; then echo "invalid request unexpectedly passed"; exit 1; fi
       - name: Parse JSON and XML assets
         run: |
           python3 - <<'PY'

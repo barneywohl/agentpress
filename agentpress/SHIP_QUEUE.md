@@ -45,6 +45,13 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 | GA-002 | SHIPPED | Concrete feedback loop templates/rubric/submission docs | `agentpress/feedback/feedback-response-template.json`, `scoring-rubric.json`, templates |
 | GA-003 | SHIPPED | Discovery manifest malformed key cleanup | `.well-known/agentpress.json` profile/schema URLs normalized |
 
+## Real platform utility built locally
+
+| ID | Status | Feature | Evidence |
+|---|---|---|---|
+
+| AP-015 | READY | Executable agent communication CLI | `agentpress.py message create-request/route/create-response/thread-*`; validates static request/response/thread JSON for local-first agent coordination. Built/tested locally; deploy blocked until directive keyword. |
+
 ## Missing feature backlog
 
 | ID | Priority | Feature | Why it matters |

@@ -81,3 +81,18 @@ python3 scripts/agentpress.py check-openapi
 Allowed from public files: read, crawl, cite, transform, benchmark, validate.
 
 Not authorized by public files: external writes, account actions, production changes, payments, credential access, or mass distribution.
+
+### Agent communication CLI
+
+AgentPress now includes local-first agent communication primitives:
+
+```bash
+python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify this bundle and report missing contracts" --requester-id my-agent --out /tmp/ap-request.json
+python3 scripts/agentpress.py message route --capability validate_agentpress_bundle --json
+python3 scripts/agentpress.py message create-response --request /tmp/ap-request.json --responder-id agentpress-reference-agent --status completed --result-inline '{"status":"ok"}' --out /tmp/ap-response.json
+python3 scripts/agentpress.py message thread-create --request /tmp/ap-request.json --out /tmp/ap-thread.json
+python3 scripts/agentpress.py message thread-append --thread /tmp/ap-thread.json --message /tmp/ap-response.json --out /tmp/ap-thread.json
+python3 scripts/agentpress.py message validate /tmp/ap-thread.json --json
+```
+
+These commands create, route, validate, and thread machine-readable work between agents without requiring a backend service.
