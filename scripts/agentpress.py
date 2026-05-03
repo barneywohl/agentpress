@@ -33,10 +33,11 @@ import re
 import shutil
 import sys
 import uuid
+import time
 import xml.etree.ElementTree as ET
 from datetime import date, datetime, timezone
 from urllib.parse import urljoin, urlparse
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
 REQUIRED = [
     "README.md",
@@ -929,6 +930,8 @@ def build_search_index(args):
     add("cli_command", "AgentPress external proof ingestion", "agentpress/external-proofs/README.md", "proof-ingest validate index external proof receipts blocker reports privacy scan reputation scoring", ["proof", "ingest", "receipts", "score", "privacy"] )
     add("cli_command", "AgentPress secure transport readiness", "agentpress/secure-transport/README.md", "secure transport readiness key owner rotation recipient identity encrypted payload approval", ["secure-transport", "privacy", "keys", "approval"] )
     add("cli_command", "AgentPress privacy and confidential messaging", "agentpress/privacy/README.md", "privacy confidential message envelope redaction secure transport metadata-only threat model", ["privacy", "confidential", "redaction", "message", "security"] )
+    add("cli_command", "AgentPress freshness citation report", "agentpress/evidence/freshness-citation-report.json", "freshness citation coverage rag crawler canonical source generated utc", ["freshness", "citation", "rag", "crawler", "coverage"] )
+    add("cli_command", "AgentPress browser smoke evidence", "agentpress/evidence/browser-smoke.json", "browser smoke public urls live url evidence http status crawler rag", ["browser", "smoke", "evidence", "urls", "health"] )
     add("cli_command", "AgentPress internal feature build queue", "agentpress/planning/feature-build-queue.json", "feature build queue next features coverage painpoints adoption gaps internal planning", ["planning", "roadmap", "build-queue", "features"] )
     add("cli_command", "AgentPress tool coverage matrix", "agentpress/tools/tool-coverage.json", "tool coverage cli matrix agent needs missing expansion roadmap", ["tools", "cli", "coverage", "roadmap", "agents"] )
     add("cli_command", "AgentPress distribution failover", "agentpress/distribution/README.md", "distribution mirrors failover raw github jsdelivr cdn package verify fallback", ["distribution", "mirror", "failover", "cdn", "install"] )
@@ -2051,6 +2054,8 @@ def tools_manifest(args):
     base=args.base_url.rstrip("/") + "/"
     tools=[
         {"name":"agentpress.fetch", "description":"Fetch core AgentPress machine assets.", "command":"python3 scripts/agentpress.py fetch --base {base} --out agentpress-fetch --json", "tags":["fetch","bootstrap","offline"]},
+        {"name":"agentpress.freshness_citation_report", "description":"Report freshness/citation/canonical URL coverage for RAG and crawler agents.", "command":"python3 scripts/agentpress.py freshness-citation-report --json", "tags":["freshness","citation","rag","crawler","coverage"]},
+        {"name":"agentpress.browser_smoke", "description":"Smoke-check public AgentPress URLs and emit machine-readable evidence for browser/RAG agents.", "command":"python3 scripts/agentpress.py browser-smoke --json", "tags":["browser","smoke","evidence","urls","health"]},
         {"name":"agentpress.feature_build_queue", "description":"Generate internal next-feature build queue from tool coverage, painpoints, adoption gaps, and strategic expansions.", "command":"python3 scripts/agentpress.py feature-build-queue --json", "tags":["planning","build-queue","roadmap","features"]},
         {"name":"agentpress.build_queue_pick", "description":"Pick the next unblocked AgentPress feature from the internal build queue.", "command":"python3 scripts/agentpress.py build-queue-pick --json", "tags":["planning","next-feature","build-queue"]},
         {"name":"agentpress.build_queue_complete", "description":"Append a shipped feature completion record for the internal build queue.", "command":"python3 scripts/agentpress.py build-queue-complete --feature <feature> --commit <sha> --evidence <url> --json", "tags":["planning","completion","evidence"]},
@@ -2657,6 +2662,8 @@ def agent_painpoints(args):
     ]
     shipped={
         "tool_coverage": exists("agentpress/tools/tool-coverage.json"),
+        "freshness_citation_report": exists("agentpress/evidence/freshness-citation-report.json"),
+        "browser_smoke_evidence": exists("agentpress/evidence/browser-smoke.json"),
         "feature_build_queue": exists("agentpress/planning/feature-build-queue.json"),
         "cli_expansion_roadmap": exists("agentpress/tools/cli-expansion-roadmap.json"),
         "distribution_failover": exists("agentpress/distribution/distribution-mirrors.json"),
@@ -2903,6 +2910,80 @@ def proof_scoreboard(args):
         out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
     print(json.dumps(payload, indent=2) if args.json else f"accepted={len(accepted)} agents={len(agents)}")
     return 0
+
+
+
+def freshness_citation_report(args):
+    """Generate freshness/citation coverage report for RAG/crawler agents."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out)
+    candidates=[]
+    for pattern in ["agentpress/**/*.json", "*.md", "agentpress/**/*.md", "llms.txt"]:
+        candidates.extend(root.glob(pattern))
+    seen=set(); files=[]
+    for fp in sorted(candidates):
+        if fp.is_dir() or fp in seen: continue
+        seen.add(fp)
+        rel=fp.relative_to(root).as_posix()
+        if rel.startswith(".git/") or "agentpress/releases/agentpress-offline" in rel: continue
+        text=""
+        try: text=fp.read_text(encoding="utf-8", errors="ignore")
+        except Exception: pass
+        has_citation=any(x in text.lower() for x in ["citation", "source", "canonical_url", "source-map", "freshness", "generated_utc"])
+        generated=None; canonical=False
+        if fp.suffix==".json":
+            try:
+                d=json.loads(text); generated=d.get("generated_utc") or d.get("updated_utc") or d.get("created_utc"); canonical=bool(d.get("canonical_url"))
+            except Exception: pass
+        files.append({"path":rel,"kind":fp.suffix.lstrip('.') or "text","bytes":fp.stat().st_size,"has_citation_signal":has_citation,"has_canonical_url":canonical,"generated_utc":generated})
+    machine=[f for f in files if f["kind"]=="json"]
+    citation_count=sum(1 for f in files if f["has_citation_signal"])
+    canonical_count=sum(1 for f in machine if f["has_canonical_url"])
+    stale_or_unknown=[f for f in machine if not f.get("generated_utc") and not f.get("has_canonical_url")][:100]
+    payload={"schema_version":"2026-05-03.agentpress-freshness-citation-report.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Help RAG/crawler agents identify source, citation, canonical URL, and freshness coverage across AgentPress surfaces.","summary":{"file_count":len(files),"machine_json_count":len(machine),"citation_signal_count":citation_count,"canonical_json_count":canonical_count,"unknown_machine_count":len(stale_or_unknown)},"coverage":{"citation_signal_ratio":round(citation_count/max(1,len(files)),4),"canonical_json_ratio":round(canonical_count/max(1,len(machine)),4)},"unknown_machine_files":stale_or_unknown,"files":files if args.include_files else []}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"files={len(files)} unknown={len(stale_or_unknown)}")
+    return 0
+
+def browser_smoke(args):
+    """Smoke-check public AgentPress URLs and write evidence for agents/browser crawlers."""
+    out=pathlib.Path(args.out)
+    urls=[]
+    if args.url:
+        urls.extend(args.url)
+    if not urls:
+        urls=[
+            urljoin(args.base_url.rstrip("/")+"/", "llms.txt"),
+            urljoin(args.base_url.rstrip("/")+"/", "README.md"),
+            urljoin(args.base_url.rstrip("/")+"/", "agentpress/tools/agentpress-tools.json"),
+            urljoin(args.base_url.rstrip("/")+"/", "agentpress/releases/release-index.json"),
+            urljoin(args.base_url.rstrip("/")+"/", "agentpress/install/install-catalog.json"),
+            urljoin(args.base_url.rstrip("/")+"/", "agentpress/external-proofs/external-proof-index.json"),
+            urljoin(args.base_url.rstrip("/")+"/", "agentpress/external-proofs/proof-scoreboard.json"),
+            urljoin(args.base_url.rstrip("/")+"/", "agentpress/planning/feature-build-queue.json"),
+            urljoin(args.base_url.rstrip("/")+"/", "agentpress/distribution/distribution-mirrors.json"),
+            urljoin(args.base_url.rstrip("/")+"/", "agentpress/privacy/privacy-status.json"),
+        ]
+    checks=[]
+    for u in urls:
+        started=time.time(); status="fail"; code=None; ctype=""; size=0; digest=""; err=""
+        try:
+            req=Request(u, headers={"User-Agent":"AgentPressSmoke/1.0"})
+            with urlopen(req, timeout=args.timeout_seconds) as r:
+                code=getattr(r,"status",None) or r.getcode(); ctype=r.headers.get("content-type",""); body=r.read(args.max_bytes+1)
+            size=len(body); digest=hashlib.sha256(body[:args.max_bytes]).hexdigest(); status="ok" if 200 <= int(code) < 400 and size > 0 else "fail"
+            if args.require_json and u.endswith(".json"):
+                try: json.loads(body.decode("utf-8"))
+                except Exception as e: status="fail"; err=f"json parse failed: {e}"
+        except Exception as e:
+            err=str(e)[:300]
+        checks.append({"url":u,"status":status,"http_status":code,"content_type":ctype,"bytes_read":size,"sha256_prefix":digest,"elapsed_ms":round((time.time()-started)*1000,2),"error":err})
+    failed=[c for c in checks if c["status"]!="ok"]
+    payload={"schema_version":"2026-05-03.agentpress-browser-smoke.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not failed else "fail","purpose":"Machine-readable public URL smoke evidence for browser/RAG agents.","checked":len(checks),"failed":len(failed),"checks":checks}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"{payload['status']} {payload['checked']} checked")
+    return 0 if not failed else 1
 
 def package_registry_plan(args):
     """Publish-readiness checklist for PyPI/npm-style distribution without live publishing."""
@@ -3548,6 +3629,17 @@ def feature_build_queue(args):
     for pr,persona,feature,why in strategic:
         if feature.lower() not in existing_features:
             items.append({"rank":rank,"priority":pr,"source":"strategic_expansion","feature":feature,"persona":persona,"why":why,"acceptance":["CLI/machine artifact shipped","tools manifest updated","package/attestation verify passes","CI/Pages live"],"blocked":False}); rank+=1
+    # remove shipped completions from the next-build list
+    completed=set()
+    completion_path=root/"agentpress/planning/build-completions.jsonl"
+    if completion_path.exists():
+        for line in completion_path.read_text(encoding="utf-8").splitlines():
+            if not line.strip(): continue
+            try:
+                row=json.loads(line); completed.add((row.get("feature") or "").strip().lower())
+            except Exception: pass
+    if completed:
+        items=[i for i in items if (i.get("feature") or "").strip().lower() not in completed]
     # sort P0, P1, P2, but preserve generated rank inside priority
     order={"P0":0,"P1":1,"P2":2,"P3":3}
     items=sorted(items,key=lambda x:(order.get(x.get("priority","P2"),2),x["rank"]))
@@ -3864,6 +3956,8 @@ def main():
     p = sub.add_parser("agent-route"); p.add_argument("--runtime", required=True, help="codex|claude|gemini|glm|browser|rag|crawler|mcp|eval_harness|workflow_agent|list"); p.add_argument("--intent", default="all", help="discover|install|verify|prove|submit|coordinate|all"); p.add_argument("--routes", default="agentpress/routes/agent-routes.json"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-traffic-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/traffic/agent-traffic-audit.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("compatibility-matrix"); p.add_argument("--runtime", action="append", choices=["codex","claude","gemini","glm","browser","rag"]); p.add_argument("--out", default="agentpress/compatibility/compatibility-matrix.json"); p.add_argument("--workdir", default="/tmp/agentpress-compatibility-matrix"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("freshness-citation-report"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/freshness-citation-report.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--include-files", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("browser-smoke"); p.add_argument("--url", action="append"); p.add_argument("--out", default="agentpress/evidence/browser-smoke.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--timeout-seconds", type=int, default=10); p.add_argument("--max-bytes", type=int, default=1048576); p.add_argument("--require-json", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("feature-build-queue"); p.add_argument("root", nargs="?", default="."); p.add_argument("--coverage", default="agentpress/tools/tool-coverage.json"); p.add_argument("--painpoints", default="agentpress/painpoints/agent-painpoints.json"); p.add_argument("--adoption", default="agentpress/adoption/adoption-status.json"); p.add_argument("--out", default="agentpress/planning/feature-build-queue.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--include-blocked", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("build-queue-pick"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/planning/feature-build-queue.json"); p.add_argument("--coverage", default="agentpress/tools/tool-coverage.json"); p.add_argument("--painpoints", default="agentpress/painpoints/agent-painpoints.json"); p.add_argument("--adoption", default="agentpress/adoption/adoption-status.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--include-blocked", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("build-queue-complete"); p.add_argument("--feature", required=True); p.add_argument("--commit", default=""); p.add_argument("--evidence", default=""); p.add_argument("--notes", default=""); p.add_argument("--out", default="agentpress/planning/build-completions.jsonl"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -3961,6 +4055,8 @@ def main():
     if args.cmd == "tools-manifest": return tools_manifest(args)
     if args.cmd == "tool-coverage": return tool_coverage(args)
     if args.cmd == "feature-build-queue": return feature_build_queue(args)
+    if args.cmd == "browser-smoke": return browser_smoke(args)
+    if args.cmd == "freshness-citation-report": return freshness_citation_report(args)
     if args.cmd == "build-queue-pick": return build_queue_pick(args)
     if args.cmd == "build-queue-complete": return build_queue_complete(args)
     if args.cmd == "cli-expansion-roadmap": return cli_expansion_roadmap(args)

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T19:38:19Z",
+  "generated_at": "2026-05-03T19:44:43Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -28,6 +28,30 @@
         "fetch",
         "bootstrap",
         "offline"
+      ]
+    },
+    {
+      "name": "agentpress.freshness_citation_report",
+      "description": "Report freshness/citation/canonical URL coverage for RAG and crawler agents.",
+      "command": "python3 scripts/agentpress.py freshness-citation-report --json",
+      "tags": [
+        "freshness",
+        "citation",
+        "rag",
+        "crawler",
+        "coverage"
+      ]
+    },
+    {
+      "name": "agentpress.browser_smoke",
+      "description": "Smoke-check public AgentPress URLs and emit machine-readable evidence for browser/RAG agents.",
+      "command": "python3 scripts/agentpress.py browser-smoke --json",
+      "tags": [
+        "browser",
+        "smoke",
+        "evidence",
+        "urls",
+        "health"
       ]
     },
     {

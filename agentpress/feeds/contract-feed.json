@@ -1,9 +1,25 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T19:39:00Z",
-  "current_contract_version": "2026-05-03-external-proof-ingestion-scoring",
+  "generated_utc": "2026-05-03T19:45:00Z",
+  "current_contract_version": "2026-05-03-freshness-citation-report",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-freshness-citation-report",
+      "kind": "rag_crawler_evidence",
+      "status": "shipped",
+      "summary": "Added freshness/citation/canonical URL coverage report for RAG/crawler agents.",
+      "agent_action": "Run `python3 scripts/agentpress.py freshness-citation-report --json` to find source/freshness coverage gaps.",
+      "breaking": false
+    },
+    {
+      "version": "2026-05-03-browser-smoke-evidence",
+      "kind": "browser_smoke",
+      "status": "shipped",
+      "summary": "Added live public URL smoke evidence CLI for browser/RAG agents.",
+      "agent_action": "Run `python3 scripts/agentpress.py browser-smoke --json --require-json` to produce public URL evidence.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-external-proof-ingestion-scoring",
       "kind": "proof_ingestion",
@@ -260,7 +276,9 @@
     "cli_expansion_roadmap": "https://barneywohl.github.io/agentpress/agentpress/tools/cli-expansion-roadmap.json",
     "feature_build_queue": "https://barneywohl.github.io/agentpress/agentpress/planning/feature-build-queue.json",
     "external_proof_index": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/external-proof-index.json",
-    "proof_scoreboard": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/proof-scoreboard.json"
+    "proof_scoreboard": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/proof-scoreboard.json",
+    "browser_smoke": "https://barneywohl.github.io/agentpress/agentpress/evidence/browser-smoke.json",
+    "freshness_citation_report": "https://barneywohl.github.io/agentpress/agentpress/evidence/freshness-citation-report.json"
   },
   "privacy": "Static feed only; no tracking."
 }
