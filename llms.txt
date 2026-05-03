@@ -97,3 +97,16 @@ python3 scripts/agentpress.py verify /tmp/generated-agentpress-bundle --json
 ```
 
 The generator copies source files, builds `AGENT_ENTRYPOINT.md`, `agent-task-card.json`, `source-map.json`, `freshness.json`, `allowed-actions.json`, `llms.txt`, sitemap, ingestion manifest, and a smoke eval.
+
+### Search/index CLI
+
+Agents can query AgentPress assets by capability, command, schema, article, or bundle:
+
+```bash
+python3 scripts/agentpress.py index-search --json
+python3 scripts/agentpress.py search "message route capability" --json
+python3 scripts/agentpress.py search "bundle generator api docs" --json
+python3 scripts/agentpress.py search "fail closed invalid" --json
+```
+
+Static index: `agentpress/search/search-index.json`.

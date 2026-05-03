@@ -11,6 +11,8 @@ Usage:
   python3 scripts/agentpress.py negative-fixtures --json
   python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify bundle" --requester-id my-agent --out request.json
   python3 scripts/agentpress.py bundle docs/ --out agentpress/examples/my-docs --title "My Docs" --force
+  python3 scripts/agentpress.py index-search --json
+  python3 scripts/agentpress.py search "message route capability" --json
   python3 scripts/agentpress.py score out-dir
   python3 scripts/agentpress.py build out-dir --out public-dir
 """
@@ -774,6 +776,86 @@ def _read_excerpt(path: pathlib.Path, limit: int = 1600) -> str:
     return text.strip()[:limit]
 
 
+
+def build_search_index(args):
+    root = pathlib.Path(args.root)
+    out = pathlib.Path(args.out)
+    base_url = args.base_url.rstrip("/") + "/"
+    records = []
+    def add(kind, title, path, text="", tags=None, url=None):
+        rel = pathlib.Path(path).as_posix()
+        records.append({
+            "id": slugify(f"{kind}-{rel}"),
+            "kind": kind,
+            "title": title,
+            "path": rel,
+            "url": url or urljoin(base_url, rel),
+            "tags": sorted(set(tags or [])),
+            "text": " ".join(str(x) for x in [title, rel, text, " ".join(tags or [])] if x).lower()[:5000],
+        })
+    # Core commands/features
+    add("cli_command", "Create AgentPress bundle from docs/API folder", "scripts/agentpress.py", "bundle source docs api generator valid verify", ["generate", "bundle", "docs", "api", "cli"])
+    add("cli_command", "Agent message create/route/respond/thread/validate", "scripts/agentpress.py", "message create-request route create-response thread validate coordination", ["message", "route", "coordination", "cli"])
+    add("cli_command", "Verify AgentPress bundle", "scripts/agentpress.py", "verify schema contract validation", ["verify", "validate", "schema", "cli"])
+    add("cli_command", "Negative fail-closed fixture gate", "scripts/agentpress.py", "negative-fixtures adversarial broken bundles fail closed", ["security", "fail-closed", "test", "cli"])
+    # Registry examples
+    reg = root/"agentpress/agentpress-registry.json"
+    if reg.exists():
+        data = json.loads(reg.read_text(encoding="utf-8"))
+        for pub in data.get("publications", []):
+            slug = pub.get("slug", "")
+            add("bundle", pub.get("title") or slug, f"agentpress/examples/{slug}/AGENT_ENTRYPOINT.md", json.dumps(pub), ["bundle", "example", "score-"+str(pub.get("score", ""))])
+    # Articles
+    art = root/"agentpress/articles/article-index.json"
+    if art.exists():
+        data=json.loads(art.read_text(encoding="utf-8"))
+        for a in data.get("articles", []):
+            path = a.get("entrypoint") or a.get("path") or f"agentpress/examples/{a.get('slug','')}/AGENT_ENTRYPOINT.md"
+            tags = ["article"] + a.get("domains", []) + a.get("task_types", []) + a.get("target_agent_families", [])
+            add("article", a.get("title") or a.get("slug") or path, path, json.dumps(a), tags)
+    # Schemas
+    for schema in sorted((root/"agentpress/schemas").glob("*.schema.json")):
+        try: data=json.loads(schema.read_text(encoding="utf-8"))
+        except Exception: data={}
+        add("schema", data.get("title") or schema.name, schema.relative_to(root), json.dumps(data)[:1200], ["schema", schema.stem.replace(".schema", "")])
+    # Hub/capabilities
+    cap = root/"agentpress/hub/routing/capability-index.json"
+    if cap.exists():
+        data=json.loads(cap.read_text(encoding="utf-8"))
+        for capability, agents in data.get("capabilities", {}).items():
+            add("capability", capability, "agentpress/hub/routing/capability-index.json", " ".join(agents), ["capability", capability])
+    # Protocol/docs
+    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "openapi.yaml"]:
+        path=root/rel
+        if path.exists(): add("doc", path.name, rel, read_text(path)[:1500], ["doc", pathlib.Path(rel).stem])
+    payload={"schema_version":"2026-05-03.agentpress-search.v1", "canonical_url": urljoin(base_url, out.as_posix()), "generated_at": _utc_now(), "record_count": len(records), "records": records}
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(payload, indent=2, ensure_ascii=False)+"\n", encoding="utf-8")
+    if args.json: print(json.dumps({"status":"ok", "out": str(out), "record_count": len(records)}, indent=2))
+    else: print(f"indexed {len(records)} searchable AgentPress records into {out}")
+    return 0
+
+
+def search_index(args):
+    index_path = pathlib.Path(args.index)
+    if not index_path.exists():
+        print(f"missing search index: {index_path}; run index-search", file=sys.stderr); return 1
+    idx=json.loads(index_path.read_text(encoding="utf-8"))
+    terms=[t.lower() for t in re.findall(r"[a-zA-Z0-9_.-]+", args.query)]
+    rows=[]
+    for rec in idx.get("records", []):
+        hay=rec.get("text", "")
+        score=sum(hay.count(t) for t in terms) + sum(3 for t in terms if t in [x.lower() for x in rec.get("tags", [])])
+        if score:
+            r={k:rec[k] for k in ["kind","title","path","url","tags"] if k in rec}
+            r["score"]=score
+            rows.append(r)
+    rows=sorted(rows, key=lambda r:(-r["score"], r["kind"], r["title"]))[:args.limit]
+    payload={"status":"ok" if rows else "no_results", "query": args.query, "count": len(rows), "results": rows}
+    print(json.dumps(payload, indent=2) if args.json else "\n".join(f"{r['score']} {r['kind']} {r['path']}" for r in rows))
+    return 0 if rows else 1
+
+
 def bundle_from_source(args):
     source = pathlib.Path(args.source)
     out = pathlib.Path(args.out)
@@ -1190,6 +1272,8 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("index-search"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/search/search-index.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("search"); p.add_argument("query"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--limit", type=int, default=10); p.add_argument("--json", action="store_true")
     p = sub.add_parser("bundle"); p.add_argument("source"); p.add_argument("--out", required=True); p.add_argument("--title"); p.add_argument("--canonical-url"); p.add_argument("--primary-task"); p.add_argument("--dry-run", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--force", action="store_true"); p.add_argument("--max-stale-days", type=int, default=30)
     p = sub.add_parser("package"); p.add_argument("root", nargs="?", default="."); p.add_argument("--format", choices=["tar", "zip"], default="tar"); p.add_argument("--out", default="dist/agentpress-offline.tar.gz")
     args = ap.parse_args()
@@ -1209,6 +1293,8 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "index-search": return build_search_index(args)
+    if args.cmd == "search": return search_index(args)
     if args.cmd == "message": return message_command(args)
     if args.cmd == "bundle": return bundle_from_source(args)
     if args.cmd == "package": return package_bundle(args)

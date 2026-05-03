@@ -47,6 +47,8 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 ## Real platform utility built locally
 
+| AP-017 | SHIPPED | AgentPress searchable asset/capability index | `agentpress.py index-search`, `agentpress.py search QUERY`; publishes `agentpress/search/search-index.json`; CI gated for message/bundle/fail-closed queries. |
+
 | AP-016 | SHIPPED | Docs/API folder to valid AgentPress bundle generator | `agentpress.py bundle SOURCE --out OUT`; copies source docs and generates entrypoint/task-card/source-map/freshness/allowed-actions/llms/sitemap/ingestion/eval; CI gated. |
 
 | ID | Status | Feature | Evidence |

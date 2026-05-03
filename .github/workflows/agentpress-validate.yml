@@ -16,6 +16,13 @@ jobs:
         run: python3 scripts/validate_agentpress_assets.py
 
 
+
+      - name: Validate AgentPress search index
+        run: |
+          python3 scripts/agentpress.py index-search --json
+          python3 scripts/agentpress.py search "message route capability" --json
+          python3 scripts/agentpress.py search "bundle generator api docs" --json
+          python3 scripts/agentpress.py search "fail closed invalid" --json
       - name: Validate AgentPress bundle generator
         run: |
           python3 scripts/agentpress.py bundle tests/fixtures/source-docs --out /tmp/generated-agentpress-bundle --title "Example API Docs" --canonical-url "https://example.com/agentpress/example-api/" --force
