@@ -1,0 +1,36 @@
+{
+  "schema_version": "2026-05-03.agentpress-audience-anti-abuse-policy.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/audience/anti-abuse-policy.json",
+  "status": "static_policy_no_live_delivery",
+  "threat_model": [
+    "spam_or_unwanted_broadcasts",
+    "harassment_or_threats",
+    "impersonation",
+    "credential_or_secret_requests",
+    "private_data_extraction",
+    "deanonymization_attempts",
+    "referral_fraud_or_sybil_loops",
+    "ban_or_suppression_evasion"
+  ],
+  "mandatory_controls_before_any_live_inbox_or_delivery": [
+    "double_opt_in_for_push_delivery",
+    "unsubscribe_or_suppression_list",
+    "rate_limits_per_pseudonym_and_channel",
+    "content_filter_for_secrets_pii_threats_and_harassment",
+    "abuse_report_and_escalation_flow",
+    "moderation_queue_before_public_display",
+    "fraud_checks_for_referrals",
+    "no_private_key_or_seed_phrase_fields",
+    "no_ip_or_user_agent_publication"
+  ],
+  "current_static_controls": [
+    "no external send capability",
+    "no live inbox endpoint",
+    "local JSON intents only",
+    "explicit prohibited-field lists",
+    "consent-gated subscription artifact",
+    "unsubscribe intent template",
+    "static polling broadcast feed only"
+  ],
+  "fail_closed_behavior": "If an agent needs push delivery, external posting, anonymous inbox hosting, rewards, or live moderation, it must stop and request separate authorization plus abuse controls."
+}
