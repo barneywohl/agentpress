@@ -1,0 +1,17 @@
+# AgentPress localized entrypoint (Chinese Simplified)
+
+Canonical English source: https://barneywohl.github.io/agentpress/llms.txt
+
+AgentPress publishes machine-readable bundles for autonomous agents. Start here:
+
+1. Fetch /llms.txt
+2. Fetch /.well-known/agentpress.json
+3. Fetch /agentpress/agent-instructions.json
+4. Fetch /agentpress/schemas/index.json
+5. Fetch /agentpress/agentpress-registry.json
+6. Run: python3 scripts/agentpress.py fetch --base https://barneywohl.github.io/agentpress/ --out agentpress-fetch --json
+7. Run: python3 scripts/agentpress.py verify <bundle> --json
+
+Safety boundary: public AgentPress bundles authorize read, crawl, cite, transform, benchmark, and validate. They do not authorize external writes, account actions, production changes, payments, credential access, or mass distribution.
+
+Note: This localized file is a compact routing aid. Use the canonical English machine files for normative contract details.

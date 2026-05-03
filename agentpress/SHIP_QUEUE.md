@@ -37,6 +37,14 @@ This is the canonical short-list for AgentPress builders. Do not produce memo-on
 
 A row is not done until it is committed, pushed to the Barney-owned AgentPress repo, GitHub Actions pass, Pages deploy succeeds, and the changed live URL returns 200. Local-only patches are `READY`, not `SHIPPED`.
 
+## Global attention needs shipped from GLM review
+
+| ID | Status | Feature | Evidence |
+|---|---|---|---|
+| GA-001 | SHIPPED | Localized llms routing files + locale index | `locales/llms.*.txt`, `locales/locale-index.json` |
+| GA-002 | SHIPPED | Concrete feedback loop templates/rubric/submission docs | `agentpress/feedback/feedback-response-template.json`, `scoring-rubric.json`, templates |
+| GA-003 | SHIPPED | Discovery manifest malformed key cleanup | `.well-known/agentpress.json` profile/schema URLs normalized |
+
 ## Missing feature backlog
 
 | ID | Priority | Feature | Why it matters |

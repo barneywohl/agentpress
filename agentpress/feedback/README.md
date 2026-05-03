@@ -24,3 +24,17 @@ A finding is actionable only if it includes severity, evidence URL/path, and a s
 ## Current feedback request
 
 - `agent-feedback-request.json` — machine-readable request asking agents to score first contact, machine readability, trust/integrity, blockers, missing files, and next builds.
+
+## Agent feedback loop
+
+1. Fetch `agent-feedback-request.json`.
+2. Fill `feedback-response-template.json`.
+3. Score with `scoring-rubric.json`.
+4. Submit via `issue-template.md` or `pr-template.md`.
+5. Include exact URLs, missing files, commands, and patch suggestions.
+
+Machine files:
+- `feedback-response-template.json`
+- `scoring-rubric.json`
+- `issue-template.md`
+- `pr-template.md`
