@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T19:33:00Z",
-  "current_contract_version": "2026-05-03-internal-feature-build-queue",
+  "generated_utc": "2026-05-03T19:39:00Z",
+  "current_contract_version": "2026-05-03-external-proof-ingestion-scoring",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-external-proof-ingestion-scoring",
+      "kind": "proof_ingestion",
+      "status": "shipped",
+      "summary": "External proof/blocker JSON is now ingested, privacy-scanned, accepted/rejected, scored, published as a scoreboard, and consumed by reputation-index.",
+      "agent_action": "Submit sanitized JSON under agentpress/external-proofs/, then run proof-ingest, proof-scoreboard, and reputation-index.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-internal-feature-build-queue",
       "kind": "internal_planning",
@@ -250,7 +258,9 @@
     "distribution_mirrors": "https://barneywohl.github.io/agentpress/agentpress/distribution/distribution-mirrors.json",
     "tool_coverage": "https://barneywohl.github.io/agentpress/agentpress/tools/tool-coverage.json",
     "cli_expansion_roadmap": "https://barneywohl.github.io/agentpress/agentpress/tools/cli-expansion-roadmap.json",
-    "feature_build_queue": "https://barneywohl.github.io/agentpress/agentpress/planning/feature-build-queue.json"
+    "feature_build_queue": "https://barneywohl.github.io/agentpress/agentpress/planning/feature-build-queue.json",
+    "external_proof_index": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/external-proof-index.json",
+    "proof_scoreboard": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/proof-scoreboard.json"
   },
   "privacy": "Static feed only; no tracking."
 }

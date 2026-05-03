@@ -1601,13 +1601,28 @@ def reputation_index(args):
             aid=data.get("agent_id")
             if not aid: continue
             r=rec(aid); r["score"]+=10; r["evidence"]["handoff_receipts"]+=1; r["evidence"]["completed_receipts"]+=1 if data.get("status")=="completed" else 0; r["evidence"]["files"].append(str(p))
+    # accepted external third-party proofs and blocker reports
+    epath=pathlib.Path(getattr(args, "external_proof_index", "agentpress/external-proofs/external-proof-index.json"))
+    if epath.exists():
+        try: ext=json.loads(epath.read_text(encoding="utf-8"))
+        except Exception: ext={}
+        for proof in ext.get("proofs", []):
+            if proof.get("status") != "accepted":
+                continue
+            aid=proof.get("agent_id")
+            if not aid: continue
+            r=rec(aid); r["runtime"]=r.get("runtime") or proof.get("runtime","")
+            r["evidence"].setdefault("external_proofs",0); r["evidence"].setdefault("external_proof_score",0); r["evidence"]["external_proofs"]+=1; r["evidence"]["external_proof_score"]+=proof.get("score",0); r["evidence"]["files"].append(proof.get("path") or str(epath))
+            # Real success proofs count more than blocker-only reports, but blockers still improve product signal.
+            if proof.get("proof_type") == "painpoint_report": r["score"]+=15
+            else: r["score"]+=min(30, proof.get("score",0)*0.4)
     rows=[]
     for r in agents.values():
         r["capabilities"]=sorted(r["capabilities"]); r["score"]=round(min(100,r["score"]),2)
         r["trust_tier"]="verified" if r["score"]>=80 else ("provisional" if r["score"]>=40 else "landed")
         rows.append(r)
     rows=sorted(rows, key=lambda x:(-x["score"], x["agent_id"]))
-    payload={"schema_version":"1.0","status":"ok","generated_utc":_utc_now(),"agent_count":len(rows),"agents":rows,"scoring":{"landing_receipt":"+20","self_test_average":"up to +50","handoff_receipt":"+10 each, capped at 100"},"privacy":"Evidence-derived from opt-in local artifacts; no hidden analytics."}
+    payload={"schema_version":"1.0","status":"ok","generated_utc":_utc_now(),"agent_count":len(rows),"agents":rows,"scoring":{"landing_receipt":"+20","self_test_average":"up to +50","handoff_receipt":"+10 each","external_success_proof":"up to +30","external_blocker_report":"+15 product-signal credit","cap":"100"},"privacy":"Evidence-derived from opt-in local artifacts; no hidden analytics."}
     out=pathlib.Path(args.out); out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"status":"ok","out":str(out),"agent_count":len(rows)},indent=2) if args.json else str(out))
     return 0
@@ -2071,6 +2086,7 @@ def tools_manifest(args):
         {"name":"agentpress.submission_validate", "description":"Validate a generated AgentPress submission pack before issue/PR submission.", "command":"python3 scripts/agentpress.py submission-validate <submission-pack-dir> --json", "tags":["submission","validate","proof","privacy"]},
         {"name":"agentpress.blocker_report", "description":"Create sanitized blocker report JSON when an agent cannot complete adoption/proof.", "command":"python3 scripts/agentpress.py blocker-report --agent-id a --runtime codex --command <cmd> --error-summary <err> --desired-fix <fix> --json", "tags":["blocker","report","painpoint","feedback"]},
         {"name":"agentpress.proof_ingest", "description":"Validate, privacy-scan, score, and index third-party AgentPress proof submissions and blocker reports.", "command":"python3 scripts/agentpress.py proof-ingest --json --allow-rejected", "tags":["proof","ingest","receipts","privacy","score"]},
+        {"name":"agentpress.proof_scoreboard", "description":"Compile accepted external proofs/blockers into an adoption scoreboard and next-action list.", "command":"python3 scripts/agentpress.py proof-scoreboard --json", "tags":["proof","scoreboard","adoption","blockers","reputation"]},
         {"name":"agentpress.secure_transport_readiness", "description":"Report approval gates for live confidential payload transport without enabling unsafe transport.", "command":"python3 scripts/agentpress.py secure-transport-readiness --json", "tags":["secure-transport","privacy","keys","approval"]},
         {"name":"agentpress.transport_request", "description":"Create an approval artifact requesting secure encrypted transport for confidential payload exchange.", "command":"python3 scripts/agentpress.py transport-request --from-agent a --to-operator operator --purpose secure-handoff --json", "tags":["transport","request","approval","privacy"]},
         {"name":"agentpress.privacy_status", "description":"Report AgentPress privacy classes and confidential messaging posture without overclaiming encrypted transport.", "command":"python3 scripts/agentpress.py privacy-status --json", "tags":["privacy","confidential","policy","messages"]},
@@ -2787,7 +2803,7 @@ def proof_ingest(args):
     rows=[]; errors=[]
     proofs_dir.mkdir(parents=True, exist_ok=True)
     for fp in sorted(proofs_dir.glob("*.json")):
-        if fp.name.endswith("-index.json") or fp.name == "external-proof-index.json":
+        if fp.name.endswith("-index.json") or fp.name in {"external-proof-index.json", "proof-scoreboard.json"}:
             continue
         try:
             d=json.loads(fp.read_text(encoding="utf-8"))
@@ -2853,6 +2869,40 @@ def proof_ingest(args):
     print(json.dumps(payload, indent=2) if args.json else f"accepted={accepted} total={len(rows)}")
     return 0 if not errors and all(r["status"]=="accepted" for r in rows) else (0 if args.allow_rejected else 1)
 
+
+
+def proof_scoreboard(args):
+    """Compile external proof ingestion into a product/adoption scoreboard."""
+    root=pathlib.Path(args.root)
+    index_path=root/args.index
+    if not index_path.exists():
+        proof_ingest(argparse.Namespace(root=args.root, dir=args.dir, out=args.index, base_url=args.base_url, no_write=False, allow_rejected=True, json=False))
+    data=json.loads(index_path.read_text(encoding="utf-8")) if index_path.exists() else {"proofs":[]}
+    proofs=data.get("proofs", [])
+    accepted=[p for p in proofs if p.get("status")=="accepted"]
+    rejected=[p for p in proofs if p.get("status")=="rejected"]
+    by_agent={}
+    for p in accepted:
+        a=by_agent.setdefault(p.get("agent_id") or "unknown", {"agent_id":p.get("agent_id") or "unknown","runtime":p.get("runtime", ""),"accepted_proofs":0,"score":0,"proof_types":{},"files":[]})
+        a["accepted_proofs"]+=1; a["score"]+=p.get("score",0); a["proof_types"][p.get("proof_type") or "unknown"]=a["proof_types"].get(p.get("proof_type") or "unknown",0)+1; a["files"].append(p.get("path"))
+    agents=sorted(by_agent.values(), key=lambda x:(-x["score"], x["agent_id"]))
+    blockers=[p for p in accepted if p.get("proof_type")=="painpoint_report"]
+    successes=[p for p in accepted if p.get("proof_type") in {"first_contact_adoption","tool_use_success","marketplace_route_success"}]
+    payload={
+        "schema_version":"2026-05-03.agentpress-proof-scoreboard.v1",
+        "canonical_url":urljoin(args.base_url.rstrip("/")+"/", args.out),
+        "generated_utc":_utc_now(),
+        "status":"ok",
+        "source_index":args.index,
+        "totals":{"proofs":len(proofs),"accepted":len(accepted),"rejected":len(rejected),"success_proofs":len(successes),"blocker_reports":len(blockers)},
+        "agents":agents,
+        "top_blockers":[{"proof_id":p.get("proof_id"),"agent_id":p.get("agent_id"),"path":p.get("path"),"score":p.get("score")} for p in blockers[:20]],
+        "next_actions":["Fix top blocker reports", "Ask accepted proof agents for follow-up tool-use receipts", "Rerun reputation-index with --external-proof-index"]
+    }
+    if not args.no_write:
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"accepted={len(accepted)} agents={len(agents)}")
+    return 0
 
 def package_registry_plan(args):
     """Publish-readiness checklist for PyPI/npm-style distribution without live publishing."""
@@ -3744,6 +3794,7 @@ def main():
     p = sub.add_parser("marketplace-trust"); p.add_argument("root", nargs="?", default="."); p.add_argument("--marketplace", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--out", default="agentpress/marketplace/marketplace-trust-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-outreach-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/proof-outreach"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-ingest"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--out", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("proof-scoreboard"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--index", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--out", default="agentpress/external-proofs/proof-scoreboard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-skeleton"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/package-registry/skeleton"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-dry-run"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/package-registry/skeleton"); p.add_argument("--out", default="agentpress/package-registry/package-registry-dry-run.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("secure-transport-readiness"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/secure-transport/secure-transport-readiness.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -3798,7 +3849,7 @@ def main():
     p = sub.add_parser("submission-validate"); p.add_argument("path"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("blocker-report"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--severity", choices=["P0","P1","P2","P3"], default="P1"); p.add_argument("--command", required=True); p.add_argument("--error-summary", required=True); p.add_argument("--missing-field"); p.add_argument("--desired-fix", required=True); p.add_argument("--blocker-id"); p.add_argument("--out", default="agentpress/submissions/blocker-report.example.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("submission-pack"); p.add_argument("--receipt", required=True); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("reputation-index"); p.add_argument("--landing-dir", default="agentpress/landing"); p.add_argument("--self-test-dir", default="agentpress/self-test"); p.add_argument("--receipt-dir", default="agentpress/receipts"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("reputation-index"); p.add_argument("--landing-dir", default="agentpress/landing"); p.add_argument("--self-test-dir", default="agentpress/self-test"); p.add_argument("--receipt-dir", default="agentpress/receipts"); p.add_argument("--external-proof-index", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-receipt"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--discovery-channel", required=True); p.add_argument("--capability", action="append"); p.add_argument("--self-test-ref"); p.add_argument("--contact"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--landing-id"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-index"); p.add_argument("dir"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("inbox-compile"); p.add_argument("inbox_dir"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
@@ -3856,6 +3907,7 @@ def main():
     if args.cmd == "attest": return attest(args)
     if args.cmd == "proof-campaign": return proof_campaign(args)
     if args.cmd == "proof-ingest": return proof_ingest(args)
+    if args.cmd == "proof-scoreboard": return proof_scoreboard(args)
     if args.cmd == "proof-outreach-kit": return proof_outreach_kit(args)
     if args.cmd == "package-registry-plan": return package_registry_plan(args)
     if args.cmd == "package-registry-skeleton": return package_registry_skeleton(args)

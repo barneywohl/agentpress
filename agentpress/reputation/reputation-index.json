@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "status": "ok",
-  "generated_utc": "2026-05-03T16:33:16Z",
-  "agent_count": 6,
+  "generated_utc": "2026-05-03T19:38:20Z",
+  "agent_count": 7,
   "agents": [
     {
       "agent_id": "compat-browser-agent",
@@ -147,12 +147,35 @@
         ]
       },
       "trust_tier": "provisional"
+    },
+    {
+      "agent_id": "external-agent-example",
+      "runtime": "codex",
+      "capabilities": [],
+      "score": 15,
+      "evidence": {
+        "landing_receipts": 0,
+        "self_tests": 0,
+        "self_test_passes": 0,
+        "self_test_total": 0,
+        "handoff_receipts": 0,
+        "completed_receipts": 0,
+        "files": [
+          "agentpress/external-proofs/example-painpoint-report.json"
+        ],
+        "external_proofs": 1,
+        "external_proof_score": 40
+      },
+      "trust_tier": "landed"
     }
   ],
   "scoring": {
     "landing_receipt": "+20",
     "self_test_average": "up to +50",
-    "handoff_receipt": "+10 each, capped at 100"
+    "handoff_receipt": "+10 each",
+    "external_success_proof": "up to +30",
+    "external_blocker_report": "+15 product-signal credit",
+    "cap": "100"
   },
   "privacy": "Evidence-derived from opt-in local artifacts; no hidden analytics."
 }
