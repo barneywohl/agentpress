@@ -1735,6 +1735,7 @@ def tools_manifest(args):
         {"name":"agentpress.self_test", "description":"Run standard suite proving an agent can use AgentPress.", "command":"python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl", "tags":["self-test","reputation","proof"]},
         {"name":"agentpress.team_pack", "description":"Create privacy-safe team/person capability pack.", "command":"python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json", "tags":["team","capability","privacy"]},
         {"name":"agentpress.package_verify", "description":"Build and verify an offline AgentPress package by SHA256 manifest.", "command":"python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz && python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json", "tags":["package","sha256","offline"]},
+        {"name":"agentpress.install", "description":"Install AgentPress offline package from static release index with SHA256 verification.", "command":"python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" -- --json", "tags":["install","release","package","offline","sha256"]},
         {"name":"agentpress.landing_receipt", "description":"Create a privacy-safe opt-in receipt proving an agent discovered and landed on AgentPress.", "command":"python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel <channel> --capability <capability> --out landing/<agent-id>.json --json", "tags":["landing","telemetry","adoption","privacy"]},
         {"name":"agentpress.reputation_index", "description":"Compile landing receipts, self-tests, and handoff receipts into an evidence-derived agent reputation index.", "command":"python3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json", "tags":["reputation","leaderboard","proof","trust"]},
         {"name":"agentpress.submission_pack", "description":"Generate a PR/issue-ready pack for submitting landing/proof receipts back to AgentPress.", "command":"python3 scripts/agentpress.py submission-pack --receipt <receipt.json> --out submission-pack --json", "tags":["submission","github","landing","proof","adoption"]},
@@ -1766,6 +1767,80 @@ def tools_manifest_check(args):
     payload={"status":"ok" if not errors else "fail", "path":str(path), "tool_count":len(names), "errors":errors}
     print(json.dumps(payload, indent=2) if args.json else payload["status"])
     return 0 if not errors else 1
+
+
+
+def release_index(args):
+    package=pathlib.Path(args.package)
+    manifest=pathlib.Path(args.manifest or (str(package)+".sha256.json"))
+    errors=[]
+    if not package.exists(): errors.append(f"missing package: {package}")
+    if not manifest.exists(): errors.append(f"missing manifest: {manifest}")
+    if errors:
+        print(json.dumps({"status":"fail","errors":errors},indent=2)); return 1
+    base=args.base_url.rstrip("/")+"/"
+    pkg_rel=args.package_url or package.as_posix()
+    man_rel=args.manifest_url or manifest.as_posix()
+    package_sha=hashlib.sha256(package.read_bytes()).hexdigest()
+    manifest_sha=hashlib.sha256(manifest.read_bytes()).hexdigest()
+    mdata=json.loads(manifest.read_text(encoding="utf-8"))
+    payload={"schema_version":"1.0","status":"ok","generated_utc":_utc_now(),"name":"AgentPress offline release index","latest":{"version":args.version,"package_url":urljoin(base,pkg_rel),"manifest_url":urljoin(base,man_rel),"package_sha256":package_sha,"manifest_sha256":manifest_sha,"bytes":package.stat().st_size,"asset_count":mdata.get("count"),"install_command":f"python3 -c \"$(curl -fsSL {urljoin(base,args.install_path)})\" -- --base-url {base} --out agentpress-offline"},"mirrors":[{"kind":"github_pages","base_url":base},{"kind":"raw_github","base_url":args.raw_base_url}],"verify_command":f"python3 scripts/agentpress.py package-verify {package.name} --manifest {manifest.name} --json","privacy":"static release index; no tracking"}
+    out=pathlib.Path(args.out); out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps({"status":"ok","out":str(out),"package_sha256":package_sha},indent=2) if args.json else str(out))
+    return 0
+
+
+def install_script(args):
+    script = """#!/usr/bin/env python3
+import argparse, json, pathlib, shutil, sys, tarfile, tempfile, urllib.request, hashlib
+from urllib.parse import urljoin
+
+def read_url(url):
+    with urllib.request.urlopen(url, timeout=60) as r:
+        return r.read()
+
+def sha256(b):
+    return hashlib.sha256(b).hexdigest()
+
+def main():
+    ap=argparse.ArgumentParser(description='Install AgentPress offline package from static release index')
+    ap.add_argument('--base-url', default='__BASE_URL__')
+    ap.add_argument('--release-index', default='agentpress/releases/release-index.json')
+    ap.add_argument('--out', default='agentpress-offline')
+    ap.add_argument('--json', action='store_true')
+    args=ap.parse_args()
+    base=args.base_url.rstrip('/')+'/'
+    index_url=urljoin(base,args.release_index)
+    idx=json.loads(read_url(index_url).decode())
+    latest=idx['latest']
+    pkg=read_url(latest['package_url'])
+    if sha256(pkg) != latest['package_sha256']:
+        raise SystemExit('package sha256 mismatch')
+    manifest_bytes=read_url(latest['manifest_url'])
+    if sha256(manifest_bytes) != latest['manifest_sha256']:
+        raise SystemExit('manifest sha256 mismatch')
+    manifest=json.loads(manifest_bytes.decode())
+    out=pathlib.Path(args.out)
+    if out.exists(): shutil.rmtree(out)
+    out.mkdir(parents=True)
+    tmp=pathlib.Path(tempfile.mkdtemp())/'agentpress-offline.tar.gz'
+    tmp.write_bytes(pkg)
+    with tarfile.open(tmp,'r:*') as t:
+        t.extractall(out)
+    checked=0
+    for row in manifest.get('assets',[]):
+        p=out/row['path']
+        if not p.exists(): raise SystemExit('missing asset after extract: '+row['path'])
+        if sha256(p.read_bytes()) != row['sha256']: raise SystemExit('asset sha256 mismatch: '+row['path'])
+        checked+=1
+    payload={'status':'ok','out':str(out),'checked':checked,'release_index':index_url,'version':latest.get('version')}
+    print(json.dumps(payload,indent=2) if args.json else 'AgentPress installed to '+str(out))
+if __name__ == '__main__':
+    main()
+""".replace('__BASE_URL__', args.base_url)
+    out=pathlib.Path(args.out); out.parent.mkdir(parents=True,exist_ok=True); out.write_text(script,encoding="utf-8"); out.chmod(0o755)
+    print(json.dumps({"status":"ok","out":str(out)},indent=2) if args.json else str(out))
+    return 0
 
 
 def package_verify(args):
@@ -1944,6 +2019,8 @@ def main():
     p = sub.add_parser("index-search"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/search/search-index.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("search"); p.add_argument("query"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--limit", type=int, default=10); p.add_argument("--json", action="store_true")
     p = sub.add_parser("bundle"); p.add_argument("source"); p.add_argument("--out", required=True); p.add_argument("--title"); p.add_argument("--canonical-url"); p.add_argument("--primary-task"); p.add_argument("--dry-run", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--force", action="store_true"); p.add_argument("--max-stale-days", type=int, default=30)
+    p = sub.add_parser("install-script"); p.add_argument("--out", default="agentpress/install/install.py"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("release-index"); p.add_argument("package"); p.add_argument("--manifest"); p.add_argument("--out", default="agentpress/releases/release-index.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--raw-base-url", default="https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/"); p.add_argument("--package-url"); p.add_argument("--manifest-url"); p.add_argument("--install-path", default="agentpress/install/install.py"); p.add_argument("--version", default="2026-05-03"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package"); p.add_argument("root", nargs="?", default="."); p.add_argument("--format", choices=["tar", "zip"], default="tar"); p.add_argument("--out", default="dist/agentpress-offline.tar.gz")
     p = sub.add_parser("package-verify"); p.add_argument("package"); p.add_argument("--manifest"); p.add_argument("--workdir", default="/tmp/agentpress-package-verify"); p.add_argument("--keep-workdir", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-index"); p.add_argument("package"); p.add_argument("--manifest"); p.add_argument("--out", default="dist/agentpress-offline-index.json")
@@ -1986,6 +2063,8 @@ def main():
     if args.cmd == "search": return search_index(args)
     if args.cmd == "message": return message_command(args)
     if args.cmd == "bundle": return bundle_from_source(args)
+    if args.cmd == "install-script": return install_script(args)
+    if args.cmd == "release-index": return release_index(args)
     if args.cmd == "package": return package_bundle(args)
     if args.cmd == "package-verify": return package_verify(args)
     if args.cmd == "package-index": return package_index(args)

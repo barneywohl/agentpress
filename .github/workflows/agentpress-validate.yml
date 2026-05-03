@@ -65,6 +65,17 @@ jobs:
 
 
 
+
+      - name: Validate AgentPress install and release index
+        run: |
+          rm -rf /tmp/ap-release-build /tmp/ap-install-test
+          mkdir -p /tmp/ap-release-build
+          python3 scripts/agentpress.py package . --out /tmp/ap-release-build/agentpress-offline.tar.gz
+          python3 scripts/agentpress.py release-index /tmp/ap-release-build/agentpress-offline.tar.gz --manifest /tmp/ap-release-build/agentpress-offline.tar.gz.sha256.json --base-url file:///tmp/ap-release-build/ --package-url agentpress-offline.tar.gz --manifest-url agentpress-offline.tar.gz.sha256.json --out /tmp/ap-release-build/release-index.json --json
+          python3 scripts/agentpress.py install-script --out /tmp/ap-release-build/install.py --base-url file:///tmp/ap-release-build/ --json
+          python3 /tmp/ap-release-build/install.py --base-url file:///tmp/ap-release-build/ --release-index release-index.json --out /tmp/ap-install-test --json
+          test -f /tmp/ap-install-test/scripts/agentpress.py
+          python3 /tmp/ap-install-test/scripts/agentpress.py doctor /tmp/ap-install-test --json
       - name: Validate AgentPress proof submission pack
         run: |
           rm -rf /tmp/ap-submit

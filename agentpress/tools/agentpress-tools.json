@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T03:53:58Z",
+  "generated_at": "2026-05-03T04:12:03Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -99,6 +99,18 @@
         "package",
         "sha256",
         "offline"
+      ]
+    },
+    {
+      "name": "agentpress.install",
+      "description": "Install AgentPress offline package from static release index with SHA256 verification.",
+      "command": "python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" -- --json",
+      "tags": [
+        "install",
+        "release",
+        "package",
+        "offline",
+        "sha256"
       ]
     },
     {

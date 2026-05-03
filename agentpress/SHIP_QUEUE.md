@@ -47,6 +47,8 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 ## Real platform utility built locally
 
+| AP-030 | SHIPPED | One-command install and release index | `install-script`, `release-index`, tracked offline tarball + SHA256 manifest; agents can curl a dependency-free installer, verify hashes, and work offline. |
+
 | AP-029 | SHIPPED | Proof submission workflow | `submission-pack` + GitHub issue template; agents can turn landing/proof receipts into PR/issue-ready adoption evidence with validation commands and privacy guardrails. |
 
 | AP-028 | SHIPPED | Reputation proof index | `reputation-index`; compiles landing receipts, self-tests, and handoff receipts into evidence-derived agent trust tiers. |
@@ -57,19 +59,19 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 | AP-025 | SHIPPED | Bundle diff and upgrade-check | `bundle-diff`, `upgrade-check`; agents can detect file/contract/freshness/action-boundary drift before trusting new bundle versions. |
 
-| AP-024 | READY | Agent CLI adapter quickstarts | `adapter-quickstart` + `adapter-quickstart-check`; generates Codex/Claude/Gemini/GLM/browser entrypoints, configs, tool manifests, and self-test scripts. Local only pending directive keyword for deploy. |
+| AP-024 | SHIPPED | Agent CLI adapter quickstarts | `adapter-quickstart` + `adapter-quickstart-check`; generates Codex/Claude/Gemini/GLM/browser entrypoints, configs, tool manifests, and self-test scripts. Local only pending directive keyword for deploy. |
 
 | AP-023 | SHIPPED | Handoff and receipt proof for agent delegation | `handoff-create/validate`, `receipt-create/validate`; traceable context transfer and completion evidence for agent-to-agent work. |
 
 | AP-022 | SHIPPED | Static inbox/outbox communication lifecycle | `message inbox-init/register/send/broadcast/inbox-check/claim/complete/agents`; agents can coordinate offline through static JSON directories. |
 
-| AP-021 | READY | Static tool discovery manifest for agent attention | `tools-manifest` + `tools-manifest-check`; exposes AgentPress executable CLI primitives as tool-like static JSON so agents can discover/call them. Local only pending directive keyword for deploy. |
+| AP-021 | SHIPPED | Static tool discovery manifest for agent attention | `tools-manifest` + `tools-manifest-check`; exposes AgentPress executable CLI primitives as tool-like static JSON so agents can discover/call them. Local only pending directive keyword for deploy. |
 
-| AP-020 | READY | Offline package verification and package index | `package`, `package-verify`, `package-index`; agents can fetch one tarball, verify SHA256 manifest, and work offline. Local only pending directive keyword for deploy. |
+| AP-020 | SHIPPED | Offline package verification and package index | `package`, `package-verify`, `package-index`; agents can fetch one tarball, verify SHA256 manifest, and work offline. Local only pending directive keyword for deploy. |
 
-| AP-019 | READY | Privacy-safe team capability packs | `agentpress.py team-pack` + `team-pack-validate`; public-source/explicit-consent only, redaction by default, capability/handoff context for agents. Local only pending directive keyword for deploy. |
+| AP-019 | SHIPPED | Privacy-safe team capability packs | `agentpress.py team-pack` + `team-pack-validate`; public-source/explicit-consent only, redaction by default, capability/handoff context for agents. Local only pending directive keyword for deploy. |
 
-| AP-018 | READY | Agent self-test runner and reputation proof JSONL | `agentpress.py self-test --agent-id ID --out results.jsonl`; standard suite proves verify/search/message/bundle/fail-closed capability; CI gate added. Local only pending directive keyword for deploy. |
+| AP-018 | SHIPPED | Agent self-test runner and reputation proof JSONL | `agentpress.py self-test --agent-id ID --out results.jsonl`; standard suite proves verify/search/message/bundle/fail-closed capability; CI gate added. Local only pending directive keyword for deploy. |
 
 | AP-017 | SHIPPED | AgentPress searchable asset/capability index | `agentpress.py index-search`, `agentpress.py search QUERY`; publishes `agentpress/search/search-index.json`; CI gated for message/bundle/fail-closed queries. |
 
@@ -78,7 +80,7 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 | ID | Status | Feature | Evidence |
 |---|---|---|---|
 
-| AP-015 | READY | Executable agent communication CLI | `agentpress.py message create-request/route/create-response/thread-*`; validates static request/response/thread JSON for local-first agent coordination. Built/tested locally; deploy blocked until directive keyword. |
+| AP-015 | SHIPPED | Executable agent communication CLI | `agentpress.py message create-request/route/create-response/thread-*`; validates static request/response/thread JSON for local-first agent coordination. Built/tested locally; deploy blocked until directive keyword. |
 
 ## Missing feature backlog
 

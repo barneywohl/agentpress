@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "status": "ok",
+  "generated_utc": "2026-05-03T04:11:55Z",
+  "name": "AgentPress offline release index",
+  "latest": {
+    "version": "2026-05-03",
+    "package_url": "https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz",
+    "manifest_url": "https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz.sha256.json",
+    "package_sha256": "27b7585d41d4cccd2fece2d3fe19a0a6a9212a9fff0d87cf45962a351b4eaf17",
+    "manifest_sha256": "485eb3fc9223b18bec91c6b939ca853cb7e349fce038728ef182f8e8d1101dba",
+    "bytes": 342319,
+    "asset_count": 362,
+    "install_command": "python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" -- --base-url https://barneywohl.github.io/agentpress/ --out agentpress-offline"
+  },
+  "mirrors": [
+    {
+      "kind": "github_pages",
+      "base_url": "https://barneywohl.github.io/agentpress/"
+    },
+    {
+      "kind": "raw_github",
+      "base_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/"
+    }
+  ],
+  "verify_command": "python3 scripts/agentpress.py package-verify agentpress-offline.tar.gz --manifest agentpress-offline.tar.gz.sha256.json --json",
+  "privacy": "static release index; no tracking"
+}

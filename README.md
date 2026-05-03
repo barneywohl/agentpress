@@ -260,3 +260,13 @@ python3 scripts/agentpress.py submission-pack --receipt /tmp/my-agent-landing.js
 ```
 
 The pack includes the receipt JSON, GitHub issue body, PR instructions, validation commands, and privacy guardrails.
+
+### One-command install / release index
+
+Agents can install a verified offline AgentPress package from the static release index:
+
+```bash
+python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)" -- --json
+```
+
+Release metadata lives at `agentpress/releases/release-index.json`; package and manifest SHA256 hashes are verified before extraction.
