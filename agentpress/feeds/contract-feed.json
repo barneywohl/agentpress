@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T16:33:30Z",
-  "current_contract_version": "2026-05-03-agent-adoption-proof",
+  "generated_utc": "2026-05-03T16:49:30Z",
+  "current_contract_version": "2026-05-03-agent-payments-x402-readiness",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-agent-payments-x402-readiness",
+      "kind": "payments_x402_metadata",
+      "status": "shipped",
+      "summary": "Added payment/x402 readiness layer: payment policy, capability catalog, x402 metadata, payment intent schemas, platform feature matrix, and no-spend CLI commands.",
+      "agent_action": "Read agentpress/payments/payment-policy.json and run `python3 scripts/agentpress.py payment-status --json`; never execute live payments from public files.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-agent-adoption-proof",
       "kind": "giant_completion_spec",
@@ -42,7 +50,10 @@
     "adoption_status": "https://barneywohl.github.io/agentpress/agentpress/adoption/adoption-status.json",
     "release_index": "https://barneywohl.github.io/agentpress/agentpress/releases/release-index.json",
     "tools": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-    "search": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json"
+    "search": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json",
+    "payment_policy": "https://barneywohl.github.io/agentpress/agentpress/payments/payment-policy.json",
+    "payment_capabilities": "https://barneywohl.github.io/agentpress/agentpress/payments/payment-capabilities.json",
+    "x402_metadata": "https://barneywohl.github.io/agentpress/agentpress/payments/x402-metadata.json"
   },
   "privacy": "Static feed only; no tracking."
 }

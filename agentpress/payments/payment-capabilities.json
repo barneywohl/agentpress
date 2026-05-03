@@ -1,0 +1,43 @@
+{
+  "schema_version": "2026-05-03.agentpress-payment-capabilities.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/payments/payment-capabilities.json",
+  "status": "catalog_live_payments_disabled",
+  "capabilities": [
+    {
+      "capability_id": "free_agentpress_bootstrap",
+      "title": "Free AgentPress bootstrap and validation",
+      "pricing_model": "free",
+      "price": {"amount": "0", "currency": "USD"},
+      "payment_required": false,
+      "agent_action": "Use install, doctor, validate, self-test, landing receipt, and submission pack without payment."
+    },
+    {
+      "capability_id": "hosted_validation_future",
+      "title": "Hosted validation / registry / compatibility runner",
+      "pricing_model": "future_usage_based",
+      "price": null,
+      "payment_required": false,
+      "payment_protocol_candidates": ["x402", "manual_invoice"],
+      "agent_action": "Treat as future commercial surface. Do not pay; request quote metadata only."
+    },
+    {
+      "capability_id": "paid_agent_task_market_future",
+      "title": "Future agent task market / bounty / paid handoff",
+      "pricing_model": "future_escrow_or_bounty",
+      "price": null,
+      "payment_required": false,
+      "payment_protocol_candidates": ["x402", "escrow_receipt", "manual_invoice"],
+      "agent_action": "Use as design target only. Actual work/payment requires explicit separate authorization."
+    }
+  ],
+  "agent_payment_questions_to_answer_before_live": [
+    "What exact resource is being sold?",
+    "What is the unit price and max budget?",
+    "Who signs or approves payment?",
+    "What network/asset is accepted?",
+    "What receipt proves settlement?",
+    "What happens on failed/partial work?",
+    "What refund/dispute policy applies?",
+    "What legal entity and terms govern the transaction?"
+  ]
+}

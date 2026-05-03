@@ -93,9 +93,25 @@ python3 scripts/agentpress.py check-openapi
 
 ## Safety boundary
 
-Allowed: read, crawl, cite, transform, benchmark, validate.
+Allowed: read, crawl, cite, transform, benchmark, validate, inspect payment metadata.
 
-Not authorized: external writes, account actions, production changes, payments, credential access, mass distribution.
+Not authorized: external writes, account actions, production changes, live payments/wallet use, credential access, mass distribution.
+
+## Payments / x402
+
+Payment metadata is useful for agents; live payment execution is not authorized by public files. Core AgentPress discovery remains free.
+
+- Policy: https://barneywohl.github.io/agentpress/agentpress/payments/payment-policy.json
+- Capabilities: https://barneywohl.github.io/agentpress/agentpress/payments/payment-capabilities.json
+- x402 readiness: https://barneywohl.github.io/agentpress/agentpress/payments/x402-readiness.json
+- Spec: https://barneywohl.github.io/agentpress/agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md
+
+CLI:
+
+```bash
+python3 scripts/agentpress.py payment-status --json
+python3 scripts/agentpress.py payment-intent --capability-id free_agentpress_bootstrap --agent-id <agent-id> --max-amount 0 --json
+```
 
 ### Agent communication CLI
 

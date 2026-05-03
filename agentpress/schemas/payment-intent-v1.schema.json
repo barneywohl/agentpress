@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/payment-intent-v1.schema.json",
+  "title": "AgentPress Payment Intent v1",
+  "type": "object",
+  "required": ["schema_version", "intent_id", "capability_id", "status", "payment_required", "authorization_required", "requested_by", "budget"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "intent_id": {"type": "string"},
+    "capability_id": {"type": "string"},
+    "status": {"type": "string", "enum": ["quote_only", "blocked_pending_authorization", "authorized_external", "cancelled", "settled_external"]},
+    "payment_required": {"type": "boolean"},
+    "authorization_required": {"type": "boolean"},
+    "requested_by": {"type": "object"},
+    "budget": {"type": "object", "required": ["max_amount", "currency"], "properties": {"max_amount": {"type": "string"}, "currency": {"type": "string"}, "max_per_request": {"type": "string"}, "expires_utc": {"type": "string"}}},
+    "accepted_protocols": {"type": "array", "items": {"type": "string"}},
+    "receipt_policy": {"type": "object"},
+    "prohibited_fields": {"type": "array", "items": {"type": "string"}},
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": true
+}

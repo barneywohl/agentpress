@@ -72,6 +72,9 @@ FETCH_ASSETS = [
     ".well-known/agentpress.json",
     ".well-known/ai-ingestion.json",
     "agentpress/agent-instructions.json",
+    "agentpress/payments/payment-policy.json",
+    "agentpress/payments/payment-capabilities.json",
+    "agentpress/payments/x402-readiness.json",
     "agentpress/schemas/index.json",
     "agentpress/agentpress-registry.json",
     "agentpress/articles/article-index.json",
@@ -954,7 +957,7 @@ def build_search_index(args):
         for capability, agents in data.get("capabilities", {}).items():
             add("capability", capability, "agentpress/hub/routing/capability-index.json", " ".join(agents), ["capability", capability])
     # Protocol/docs
-    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
+    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/payments/README.md", "agentpress/payments/payment-policy.json", "agentpress/payments/payment-capabilities.json", "agentpress/payments/x402-readiness.json", "agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
         path=root/rel
         if path.exists(): add("doc", path.name, rel, read_text(path)[:1500], ["doc", pathlib.Path(rel).stem])
     payload={"schema_version":"2026-05-03.agentpress-search.v1", "canonical_url": urljoin(base_url, out.as_posix()), "generated_at": _utc_now(), "record_count": len(records), "records": records}
@@ -1980,6 +1983,8 @@ def tools_manifest(args):
         {"name":"agentpress.feedback_submit", "description":"Emit or validate deterministic external-agent feedback against the AgentPress response template/rubric.", "command":"python3 scripts/agentpress.py feedback-submit --example", "tags":["feedback","rubric","first-contact","agent-review"]},
         {"name":"agentpress.consistency_check", "description":"Fail CI when first-contact machine contracts drift across llms.txt, README, schemas, and agent instructions.", "command":"python3 scripts/agentpress.py consistency-check --json", "tags":["consistency","ci","contract","drift"]},
         {"name":"agentpress.adoption_status", "description":"Summarize opt-in landing receipts, reputation, compatibility, mesh, and install-lane adoption state without hidden telemetry.", "command":"python3 scripts/agentpress.py adoption-status --json", "tags":["adoption","reputation","compatibility","privacy","proof"]},
+        {"name":"agentpress.payment_status", "description":"Report payment/x402 readiness, budget guardrails, and fail-closed payment policy without performing payments.", "command":"python3 scripts/agentpress.py payment-status --json", "tags":["payments","x402","budget","safety","commerce"]},
+        {"name":"agentpress.payment_intent", "description":"Create an unsigned quote/payment intent for budget approval workflows without signing or spending.", "command":"python3 scripts/agentpress.py payment-intent --capability-id free_agentpress_bootstrap --agent-id <agent-id> --max-amount 0 --json", "tags":["payments","quote","budget","intent","no-spend"]},
         {"name":"agentpress.compatibility_matrix", "description":"Run install/doctor/self-test/proof compatibility checks across agent runtime families and emit a machine-readable matrix.", "command":"python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json", "tags":["compatibility","runtime","matrix","proof","self-test"]},
         {"name":"agentpress.agent_traffic_audit", "description":"Audit whether AgentPress exposes the required machine surfaces for agent traffic and proof conversion.", "command":"python3 scripts/agentpress.py agent-traffic-audit --out agentpress/traffic/agent-traffic-audit.json --json", "tags":["traffic","audit","crawler","routes","proof"]},
         {"name":"agentpress.agent_route", "description":"Return exact commands and URLs for an agent runtime and intent from the AgentPress route manifest.", "command":"python3 scripts/agentpress.py agent-route --runtime codex --intent prove --json", "tags":["agent-route","routes","runtime","intent","commands"]},
@@ -2210,6 +2215,76 @@ def doctor(args):
 
 
 
+
+def payment_status(args):
+    """Report AgentPress payment/x402 posture without performing payments."""
+    root=pathlib.Path(args.root)
+    errors=[]
+    def load(rel):
+        path=root/rel
+        if not path.exists():
+            errors.append(f"missing {rel}"); return {}
+        try: return json.loads(path.read_text(encoding="utf-8"))
+        except Exception as e:
+            errors.append(f"{rel}: {e}"); return {}
+    policy=load("agentpress/payments/payment-policy.json")
+    capabilities=load("agentpress/payments/payment-capabilities.json")
+    x402=load("agentpress/payments/x402-readiness.json")
+    caps=capabilities.get("capabilities", []) if isinstance(capabilities, dict) else []
+    payment_required=[c for c in caps if c.get("payment_required")]
+    payload={
+        "schema_version":"2026-05-03.agentpress-payment-status-result.v1",
+        "generated_utc":_utc_now(),
+        "status":"ok" if not errors else "fail",
+        "verdict": policy.get("agent_answer") or "Payment metadata is useful; live payments are not authorized by public files.",
+        "live_payments_enabled": False,
+        "core_discovery_free": True,
+        "x402_posture": x402.get("verdict", "metadata_only"),
+        "capability_count": len(caps),
+        "payment_required_capability_count": len(payment_required),
+        "free_capabilities": [c.get("capability_id") for c in caps if not c.get("payment_required")],
+        "requires_separate_authorization": policy.get("requires_separate_authorization", []),
+        "prohibited_by_public_bundle": policy.get("prohibited_by_public_bundle", []),
+        "errors": errors,
+        "agent_next_action": "Read payment-policy.json. If payment is required, fail closed unless explicit budget/signer/network/asset/receipt authorization exists."
+    }
+    if args.out:
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["verdict"])
+    return 0 if not errors else 1
+
+
+def payment_intent(args):
+    """Create an unsigned, non-executing payment intent for budget approval workflows."""
+    root=pathlib.Path(args.root)
+    caps_path=root/"agentpress/payments/payment-capabilities.json"
+    if not caps_path.exists():
+        print(f"missing {caps_path}", file=sys.stderr); return 1
+    data=json.loads(caps_path.read_text(encoding="utf-8"))
+    caps=data.get("capabilities", [])
+    cap=next((c for c in caps if c.get("capability_id") == args.capability_id), None)
+    if not cap:
+        print(f"unknown capability_id: {args.capability_id}", file=sys.stderr); return 1
+    payload={
+        "schema_version":"2026-05-03.agentpress-payment-intent.v1",
+        "intent_id": _short_id("pay-intent"),
+        "created_utc": _utc_now(),
+        "capability_id": args.capability_id,
+        "status":"quote_only" if not cap.get("payment_required") else "blocked_pending_authorization",
+        "payment_required": bool(cap.get("payment_required")),
+        "authorization_required": True,
+        "requested_by":{"type":"agent", "id":args.agent_id},
+        "budget":{"max_amount":str(args.max_amount), "currency":args.currency, "max_per_request":str(args.max_per_request or args.max_amount), "expires_utc":args.expires_utc},
+        "accepted_protocols": cap.get("payment_protocol_candidates", []),
+        "receipt_policy":{"required": True, "schema":"https://barneywohl.github.io/agentpress/agentpress/schemas/payment-intent-v1.schema.json", "settlement_receipt":"external_only_not_generated_by_public_bundle"},
+        "prohibited_fields":["private_key","seed_phrase","wallet_secret","facilitator_api_key","bearer_token"],
+        "notes":"Unsigned quote/intent only. This command never signs, submits, or settles payment."
+    }
+    if args.out:
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["intent_id"])
+    return 0
+
 def adoption_status(args):
     """Summarize opt-in AgentPress adoption/proof state without hidden telemetry."""
     root=pathlib.Path(args.root)
@@ -2341,6 +2416,8 @@ def main():
     p = sub.add_parser("feedback-submit"); p.add_argument("--example", action="store_true"); p.add_argument("--input"); p.add_argument("--template", default="agentpress/feedback/response-template.json"); p.add_argument("--rubric", default="agentpress/feedback/scoring-rubric.json"); p.add_argument("--agent-id"); p.add_argument("--agent-family", default="codex"); p.add_argument("--runtime-or-model"); p.add_argument("--target-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("consistency-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--json", action="store_true")
     p = sub.add_parser("adoption-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true"); p.add_argument("--allow-needs-attention", action="store_true")
+    p = sub.add_parser("payment-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
     p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True)
     p = sub.add_parser("list"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--json", action="store_true")
@@ -2406,6 +2483,8 @@ def main():
     if args.cmd == "feedback-submit": return feedback_submit(args)
     if args.cmd == "consistency-check": return consistency_check(args)
     if args.cmd == "adoption-status": return adoption_status(args)
+    if args.cmd == "payment-status": return payment_status(args)
+    if args.cmd == "payment-intent": return payment_intent(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)
     if args.cmd == "list": return list_examples(args)

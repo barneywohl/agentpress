@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T16:34:55Z",
+  "generated_at": "2026-05-03T16:49:31Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -192,6 +192,30 @@
         "compatibility",
         "privacy",
         "proof"
+      ]
+    },
+    {
+      "name": "agentpress.payment_status",
+      "description": "Report payment/x402 readiness, budget guardrails, and fail-closed payment policy without performing payments.",
+      "command": "python3 scripts/agentpress.py payment-status --json",
+      "tags": [
+        "payments",
+        "x402",
+        "budget",
+        "safety",
+        "commerce"
+      ]
+    },
+    {
+      "name": "agentpress.payment_intent",
+      "description": "Create an unsigned quote/payment intent for budget approval workflows without signing or spending.",
+      "command": "python3 scripts/agentpress.py payment-intent --capability-id free_agentpress_bootstrap --agent-id <agent-id> --max-amount 0 --json",
+      "tags": [
+        "payments",
+        "quote",
+        "budget",
+        "intent",
+        "no-spend"
       ]
     },
     {

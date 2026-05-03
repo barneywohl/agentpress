@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/x402-metadata-v1.schema.json",
+  "title": "AgentPress x402 Metadata v1",
+  "type": "object",
+  "required": ["schema_version", "protocol", "status", "live_collection_enabled", "resources"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "protocol": {"type": "string", "const": "x402"},
+    "status": {"type": "string"},
+    "live_collection_enabled": {"type": "boolean", "const": false},
+    "resources": {"type": "array", "items": {"type": "object", "required": ["resource", "payment_required", "agent_behavior"], "properties": {"resource": {"type": "string"}, "payment_required": {"type": "boolean"}, "agent_behavior": {"type": "string"}, "price_hint": {"type": ["object", "null"]}}}},
+    "safe_headers_to_publish": {"type": "array", "items": {"type": "string"}},
+    "headers_or_fields_never_publish": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

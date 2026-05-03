@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/payment-policy-v1.schema.json",
+  "title": "AgentPress Payment Policy v1",
+  "type": "object",
+  "required": ["schema_version", "status", "default_agent_posture", "allowed_without_separate_authorization", "requires_separate_authorization", "prohibited_by_public_bundle"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "canonical_url": {"type": "string"},
+    "status": {"type": "string"},
+    "default_agent_posture": {"type": "string"},
+    "summary": {"type": "string"},
+    "allowed_without_separate_authorization": {"type": "array", "items": {"type": "string"}},
+    "requires_separate_authorization": {"type": "array", "items": {"type": "string"}},
+    "prohibited_by_public_bundle": {"type": "array", "items": {"type": "string"}},
+    "supported_payment_protocols": {"type": "array", "items": {"type": "object"}},
+    "budget_guardrails": {"type": "object"},
+    "privacy": {"type": "string"},
+    "agent_answer": {"type": "string"}
+  },
+  "additionalProperties": true
+}

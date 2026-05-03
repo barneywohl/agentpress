@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/payment-capability-v1.schema.json",
+  "title": "AgentPress Payment Capabilities v1",
+  "type": "object",
+  "required": ["schema_version", "status", "capabilities"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "canonical_url": {"type": "string"},
+    "status": {"type": "string"},
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["capability_id", "title", "pricing_model", "payment_required", "agent_action"],
+        "properties": {
+          "capability_id": {"type": "string"},
+          "title": {"type": "string"},
+          "pricing_model": {"type": "string"},
+          "price": {"type": ["object", "null"]},
+          "payment_required": {"type": "boolean"},
+          "payment_protocol_candidates": {"type": "array", "items": {"type": "string"}},
+          "agent_action": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "agent_payment_questions_to_answer_before_live": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

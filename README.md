@@ -103,9 +103,25 @@ python3 scripts/agentpress.py check-openapi
 
 ## Safety boundary
 
-Allowed from public files: read, crawl, cite, transform, benchmark, validate.
+Allowed from public files: read, crawl, cite, transform, benchmark, validate, and inspect payment metadata.
 
-Not authorized by public files: external writes, account actions, production changes, payments, credential access, or mass distribution.
+Not authorized by public files: external writes, account actions, production changes, live payments/wallet use, credential access, or mass distribution.
+
+## Payments / x402 posture
+
+Agents probably do want payment metadata: price, budget, asset/network, quote, receipt, and fail-closed instructions. AgentPress now publishes that metadata, but core discovery stays free.
+
+- Policy: `agentpress/payments/payment-policy.json`
+- Capability catalog: `agentpress/payments/payment-capabilities.json`
+- x402 readiness: `agentpress/payments/x402-readiness.json`
+- Spec: `agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md`
+
+```bash
+python3 scripts/agentpress.py payment-status --json
+python3 scripts/agentpress.py payment-intent --capability-id free_agentpress_bootstrap --agent-id <agent-id> --max-amount 0 --json
+```
+
+Verdict: x402 is a strong candidate for future optional hosted services, but AgentPress should not payment-gate `llms.txt`, schemas, manifests, validation, or bootstrap flows.
 
 ### Agent communication CLI
 

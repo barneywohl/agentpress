@@ -7,6 +7,7 @@
     "GET /.well-known/agentpress.json",
     "GET /.well-known/ai-ingestion.json",
     "GET /agentpress/agentpress-registry.json",
+    "GET /agentpress/payments/payment-policy.json if task may involve paid access, budgets, quotes, or x402",
     "Select bundle by task_type and target_agent_families",
     "GET bundle AGENT_ENTRYPOINT.md",
     "GET bundle agent-task-card.json",
@@ -40,9 +41,9 @@
     "external_writes",
     "account_actions",
     "production_changes",
-    "payments",
     "credential_access",
-    "mass_distribution"
+    "mass_distribution",
+    "live_payments_or_wallet_use"
   ],
   "required_output_fields": [
     "selected_bundle",
@@ -60,6 +61,12 @@
     "source-map.json": "https://barneywohl.github.io/agentpress/agentpress/schemas/source-map.schema.json",
     "freshness.json": "https://barneywohl.github.io/agentpress/agentpress/schemas/freshness.schema.json",
     "allowed-actions.json": "https://barneywohl.github.io/agentpress/agentpress/schemas/allowed-actions.schema.json",
-    "feedback-response": "https://barneywohl.github.io/agentpress/agentpress/schemas/feedback-response.schema.json"
-  }
+    "feedback-response": "https://barneywohl.github.io/agentpress/agentpress/schemas/feedback-response.schema.json",
+    "payment-policy": "https://barneywohl.github.io/agentpress/agentpress/schemas/payment-policy-v1.schema.json",
+    "payment-capability": "https://barneywohl.github.io/agentpress/agentpress/schemas/payment-capability-v1.schema.json"
+  },
+  "payment_policy": "https://barneywohl.github.io/agentpress/agentpress/payments/payment-policy.json",
+  "payment_capabilities": "https://barneywohl.github.io/agentpress/agentpress/payments/payment-capabilities.json",
+  "x402_readiness": "https://barneywohl.github.io/agentpress/agentpress/payments/x402-readiness.json",
+  "payment_posture": "Payment-aware, not payment-gated. Agents may read payment metadata and prepare unsigned quote requests, but public files do not authorize spend."
 }
