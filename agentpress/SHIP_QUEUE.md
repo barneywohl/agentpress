@@ -47,6 +47,8 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 ## Real platform utility built locally
 
+| AP-023 | SHIPPED | Handoff and receipt proof for agent delegation | `handoff-create/validate`, `receipt-create/validate`; traceable context transfer and completion evidence for agent-to-agent work. |
+
 | AP-022 | SHIPPED | Static inbox/outbox communication lifecycle | `message inbox-init/register/send/broadcast/inbox-check/claim/complete/agents`; agents can coordinate offline through static JSON directories. |
 
 | AP-021 | READY | Static tool discovery manifest for agent attention | `tools-manifest` + `tools-manifest-check`; exposes AgentPress executable CLI primitives as tool-like static JSON so agents can discover/call them. Local only pending directive keyword for deploy. |

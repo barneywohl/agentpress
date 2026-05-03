@@ -58,6 +58,15 @@ jobs:
           python3 scripts/agentpress.py verify /tmp/generated-agentpress-bundle --json
           python3 scripts/agentpress.py score /tmp/generated-agentpress-bundle
 
+
+      - name: Validate AgentPress handoff receipts
+        run: |
+          python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify this bundle and report missing contracts" --requester-id ci-agent-a --out /tmp/ap-handoff-request.json
+          python3 scripts/agentpress.py handoff-create --from-agent ci-agent-a --to-agent ci-agent-b --capability validate_agentpress_bundle --context /tmp/ap-handoff-request.json --instructions "Continue validation and produce receipt" --out /tmp/ap-handoff.json
+          python3 scripts/agentpress.py handoff-validate /tmp/ap-handoff.json --json
+          python3 scripts/agentpress.py message create-response --request /tmp/ap-handoff-request.json --responder-id ci-agent-b --status completed --result-inline '{"status":"ok"}' --out /tmp/ap-handoff-response.json
+          python3 scripts/agentpress.py receipt-create --handoff /tmp/ap-handoff.json --agent-id ci-agent-b --status completed --response /tmp/ap-handoff-response.json --out /tmp/ap-receipt.json
+          python3 scripts/agentpress.py receipt-validate /tmp/ap-receipt.json --json
       - name: Validate AgentPress static inbox communication
         run: |
           rm -rf /tmp/ap-comms

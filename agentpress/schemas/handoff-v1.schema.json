@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/handoff-v1.schema.json",
+  "title": "AgentPress Handoff v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "handoff_id",
+    "from_agent",
+    "to_agent",
+    "capability",
+    "context_ref",
+    "instructions",
+    "created_utc",
+    "safety"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "handoff_id": {
+      "type": "string"
+    },
+    "from_agent": {
+      "type": "string"
+    },
+    "to_agent": {
+      "type": "string"
+    },
+    "capability": {
+      "type": "string"
+    },
+    "context_ref": {
+      "type": "string"
+    },
+    "partial_response_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "instructions": {
+      "type": "string"
+    },
+    "parent_handoff_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_utc": {
+      "type": "string"
+    },
+    "safety": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

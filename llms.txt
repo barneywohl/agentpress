@@ -169,3 +169,16 @@ python3 scripts/agentpress.py message complete --message-id <delivery-id> --agen
 ```
 
 This gives agents register → send/broadcast → check → claim → complete lifecycle using static JSON files.
+
+### Handoff and receipt proof
+
+Agents can delegate work with context and emit completion receipts:
+
+```bash
+python3 scripts/agentpress.py handoff-create --from-agent agent-a --to-agent agent-b --capability validate_agentpress_bundle --context request.json --instructions "Continue validation" --out handoff.json
+python3 scripts/agentpress.py handoff-validate handoff.json --json
+python3 scripts/agentpress.py receipt-create --handoff handoff.json --agent-id agent-b --status completed --response response.json --out receipt.json
+python3 scripts/agentpress.py receipt-validate receipt.json --json
+```
+
+This creates traceable delegation and evidence receipts for agent-to-agent work.

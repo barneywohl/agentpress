@@ -1,8 +1,8 @@
 {
   "schema_version": "2026-05-03.agentpress-search.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json",
-  "generated_at": "2026-05-03T03:06:06Z",
-  "record_count": 52,
+  "generated_at": "2026-05-03T03:11:33Z",
+  "record_count": 54,
   "records": [
     {
       "id": "cli-command-scripts-agentpress-py",
@@ -443,6 +443,30 @@
         "schema"
       ],
       "text": "agentpress freshness contract agentpress/schemas/freshness.schema.json {\"$schema\": \"https://json-schema.org/draft/2020-12/schema\", \"$id\": \"https://barneywohl.github.io/agentpress/agentpress/schemas/freshness.schema.json\", \"title\": \"agentpress freshness contract\", \"type\": \"object\", \"required\": [\"schema_version\", \"publication\", \"generated_at\", \"refresh_policy\", \"default_freshness_window_days\"], \"properties\": {\"$schema\": {\"type\": \"string\", \"format\": \"uri\"}, \"schema_version\": {\"type\": \"string\"}, \"publication\": {\"type\": \"string\"}, \"generated_at\": {\"type\": \"string\"}, \"last_reviewed_at\": {\"type\": \"string\"}, \"refresh_policy\": {\"type\": \"string\"}, \"stale_zones\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"default_freshness_window_days\": {\"type\": \"integer\", \"minimum\": 0}}, \"additionalproperties\": true} schema freshness"
+    },
+    {
+      "id": "schema-agentpress-schemas-handoff-v1-schema-json",
+      "kind": "schema",
+      "title": "AgentPress Handoff v1",
+      "path": "agentpress/schemas/handoff-v1.schema.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/schemas/handoff-v1.schema.json",
+      "tags": [
+        "handoff-v1",
+        "schema"
+      ],
+      "text": "agentpress handoff v1 agentpress/schemas/handoff-v1.schema.json {\"$schema\": \"https://json-schema.org/draft/2020-12/schema\", \"$id\": \"https://barneywohl.github.io/agentpress/agentpress/schemas/handoff-v1.schema.json\", \"title\": \"agentpress handoff v1\", \"type\": \"object\", \"required\": [\"schema_version\", \"handoff_id\", \"from_agent\", \"to_agent\", \"capability\", \"context_ref\", \"instructions\", \"created_utc\", \"safety\"], \"properties\": {\"schema_version\": {\"type\": \"string\", \"const\": \"1.0\"}, \"handoff_id\": {\"type\": \"string\"}, \"from_agent\": {\"type\": \"string\"}, \"to_agent\": {\"type\": \"string\"}, \"capability\": {\"type\": \"string\"}, \"context_ref\": {\"type\": \"string\"}, \"partial_response_ref\": {\"type\": [\"string\", \"null\"]}, \"instructions\": {\"type\": \"string\"}, \"parent_handoff_id\": {\"type\": [\"string\", \"null\"]}, \"created_utc\": {\"type\": \"string\"}, \"safety\": {\"type\": \"object\"}}, \"additionalproperties\": true} schema handoff-v1"
+    },
+    {
+      "id": "schema-agentpress-schemas-receipt-v1-schema-json",
+      "kind": "schema",
+      "title": "AgentPress Receipt v1",
+      "path": "agentpress/schemas/receipt-v1.schema.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/schemas/receipt-v1.schema.json",
+      "tags": [
+        "receipt-v1",
+        "schema"
+      ],
+      "text": "agentpress receipt v1 agentpress/schemas/receipt-v1.schema.json {\"$schema\": \"https://json-schema.org/draft/2020-12/schema\", \"$id\": \"https://barneywohl.github.io/agentpress/agentpress/schemas/receipt-v1.schema.json\", \"title\": \"agentpress receipt v1\", \"type\": \"object\", \"required\": [\"schema_version\", \"receipt_id\", \"handoff_id\", \"agent_id\", \"status\", \"created_utc\", \"evidence\"], \"properties\": {\"schema_version\": {\"type\": \"string\", \"const\": \"1.0\"}, \"receipt_id\": {\"type\": \"string\"}, \"handoff_id\": {\"type\": \"string\"}, \"agent_id\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"accepted\", \"completed\", \"partial\", \"rejected\", \"blocked\"]}, \"created_utc\": {\"type\": \"string\"}, \"evidence\": {\"type\": \"object\"}, \"next_actions\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"additionalproperties\": true} schema receipt-v1"
     },
     {
       "id": "schema-agentpress-schemas-self-test-result-v1-schema-json",

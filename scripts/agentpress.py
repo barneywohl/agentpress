@@ -1196,6 +1196,44 @@ def message_thread_append(args):
 
 
 
+
+def handoff_create(args):
+    payload={"schema_version":"1.0","handoff_id":args.handoff_id or _short_id("handoff"),"from_agent":args.from_agent,"to_agent":args.to_agent,"capability":args.capability,"context_ref":args.context,"partial_response_ref":args.partial_response,"instructions":args.instructions,"parent_handoff_id":args.parent_handoff_id,"created_utc":_utc_now(),"safety":{"allowed_actions":["read","validate","summarize","continue_work","create_response"],"requires_human_approval":["external_write","production_change","payment","credential_access"],"prohibited":["credential_access","private_data_extraction","impersonation","spam"]}}
+    errors=_schema_required_errors(payload, schema_root()/"handoff-v1.schema.json", "handoff")
+    if errors: print(json.dumps({"status":"fail","errors":errors},indent=2)); return 1
+    out=pathlib.Path(args.out); out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps({"status":"ok","handoff_id":payload["handoff_id"],"out":str(out)},indent=2)); return 0
+
+
+def handoff_validate(args):
+    path=pathlib.Path(args.path); payload=json.loads(path.read_text(encoding="utf-8"))
+    errors=_schema_required_errors(payload, schema_root()/"handoff-v1.schema.json", path.name)
+    for ref_key in ["context_ref","partial_response_ref"]:
+        ref=payload.get(ref_key)
+        if ref and not pathlib.Path(ref).exists(): errors.append(f"{ref_key} missing local file: {ref}")
+    result={"status":"ok" if not errors else "fail","path":str(path),"handoff_id":payload.get("handoff_id"),"from_agent":payload.get("from_agent"),"to_agent":payload.get("to_agent"),"errors":errors}
+    print(json.dumps(result,indent=2) if args.json else result["status"]); return 0 if not errors else 1
+
+
+def receipt_create(args):
+    handoff=json.loads(pathlib.Path(args.handoff).read_text(encoding="utf-8"))
+    evidence={"handoff":args.handoff,"response":args.response,"notes":args.notes or ""}
+    if args.response and pathlib.Path(args.response).exists():
+        evidence["response_sha256"]=hashlib.sha256(pathlib.Path(args.response).read_bytes()).hexdigest()
+    payload={"schema_version":"1.0","receipt_id":args.receipt_id or _short_id("receipt"),"handoff_id":handoff.get("handoff_id"),"agent_id":args.agent_id,"status":args.status,"created_utc":_utc_now(),"evidence":evidence,"next_actions":_csv_list(args.next_actions)}
+    errors=_schema_required_errors(payload, schema_root()/"receipt-v1.schema.json", "receipt")
+    if errors: print(json.dumps({"status":"fail","errors":errors},indent=2)); return 1
+    out=pathlib.Path(args.out); out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps({"status":"ok","receipt_id":payload["receipt_id"],"out":str(out)},indent=2)); return 0
+
+
+def receipt_validate(args):
+    path=pathlib.Path(args.path); payload=json.loads(path.read_text(encoding="utf-8"))
+    errors=_schema_required_errors(payload, schema_root()/"receipt-v1.schema.json", path.name)
+    result={"status":"ok" if not errors else "fail","path":str(path),"receipt_id":payload.get("receipt_id"),"errors":errors}
+    print(json.dumps(result,indent=2) if args.json else result["status"]); return 0 if not errors else 1
+
+
 def _comms_root(path: str) -> pathlib.Path:
     return pathlib.Path(path)
 
@@ -1631,6 +1669,10 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("handoff-create"); p.add_argument("--from-agent", required=True); p.add_argument("--to-agent", required=True); p.add_argument("--capability", required=True); p.add_argument("--context", required=True); p.add_argument("--partial-response"); p.add_argument("--instructions", required=True); p.add_argument("--parent-handoff-id"); p.add_argument("--handoff-id"); p.add_argument("--out", required=True)
+    p = sub.add_parser("handoff-validate"); p.add_argument("path"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("receipt-create"); p.add_argument("--handoff", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--status", choices=["accepted","completed","partial","rejected","blocked"], default="completed"); p.add_argument("--response"); p.add_argument("--notes"); p.add_argument("--next-actions"); p.add_argument("--receipt-id"); p.add_argument("--out", required=True)
+    p = sub.add_parser("receipt-validate"); p.add_argument("path"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tools-manifest"); p.add_argument("--out", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/")
     p = sub.add_parser("tools-manifest-check"); p.add_argument("path", nargs="?", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("team-pack"); p.add_argument("--slug", required=True); p.add_argument("--display-name"); p.add_argument("--pack-type", choices=["team_capability_pack","person_capability_pack"], default="team_capability_pack"); p.add_argument("--capability", action="append", required=True); p.add_argument("--consent-source", choices=["explicit","public_source","internal_private_do_not_publish"], required=True); p.add_argument("--public-sources"); p.add_argument("--allowed-handoffs"); p.add_argument("--availability", default="available_for_agent_handoff"); p.add_argument("--canonical-url"); p.add_argument("--out", required=True); p.add_argument("--allow-private", action="store_true")
@@ -1659,6 +1701,10 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "handoff-create": return handoff_create(args)
+    if args.cmd == "handoff-validate": return handoff_validate(args)
+    if args.cmd == "receipt-create": return receipt_create(args)
+    if args.cmd == "receipt-validate": return receipt_validate(args)
     if args.cmd == "tools-manifest": return tools_manifest(args)
     if args.cmd == "tools-manifest-check": return tools_manifest_check(args)
     if args.cmd == "team-pack": return team_pack(args)

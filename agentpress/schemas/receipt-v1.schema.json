@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/receipt-v1.schema.json",
+  "title": "AgentPress Receipt v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "handoff_id",
+    "agent_id",
+    "status",
+    "created_utc",
+    "evidence"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "receipt_id": {
+      "type": "string"
+    },
+    "handoff_id": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "accepted",
+        "completed",
+        "partial",
+        "rejected",
+        "blocked"
+      ]
+    },
+    "created_utc": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "object"
+    },
+    "next_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}
