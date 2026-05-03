@@ -1,8 +1,8 @@
 {
   "schema_version": "2026-05-03.agentpress-search.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json",
-  "generated_at": "2026-05-03T04:14:18Z",
-  "record_count": 58,
+  "generated_at": "2026-05-03T04:29:18Z",
+  "record_count": 75,
   "records": [
     {
       "id": "cli-command-scripts-agentpress-py",
@@ -60,6 +60,64 @@
         "test"
       ],
       "text": "negative fail-closed fixture gate scripts/agentpress.py negative-fixtures adversarial broken bundles fail closed security fail-closed test cli"
+    },
+    {
+      "id": "cli-command-agentpress-install-install-py",
+      "kind": "cli_command",
+      "title": "Install AgentPress from release index",
+      "path": "agentpress/install/install.py",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/install/install.py",
+      "tags": [
+        "cli",
+        "install",
+        "offline",
+        "release",
+        "sha256"
+      ],
+      "text": "install agentpress from release index agentpress/install/install.py install release index offline package sha256 verify tarball curl bootstrap one-command install release offline sha256 cli"
+    },
+    {
+      "id": "cli-command-agentpress-submissions-readme-md",
+      "kind": "cli_command",
+      "title": "Submit AgentPress proof receipt",
+      "path": "agentpress/submissions/README.md",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/submissions/README.md",
+      "tags": [
+        "cli",
+        "github",
+        "landing",
+        "proof",
+        "submission"
+      ],
+      "text": "submit agentpress proof receipt agentpress/submissions/readme.md submission-pack landing receipt github issue pull request adoption proof submission landing proof github cli"
+    },
+    {
+      "id": "cli-command-agentpress-reputation-readme-md",
+      "kind": "cli_command",
+      "title": "Compile AgentPress reputation index",
+      "path": "agentpress/reputation/README.md",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/reputation/README.md",
+      "tags": [
+        "cli",
+        "proof",
+        "reputation",
+        "trust"
+      ],
+      "text": "compile agentpress reputation index agentpress/reputation/readme.md reputation-index trust tier self-test handoff receipt landing proof reputation proof trust cli"
+    },
+    {
+      "id": "cli-command-agentpress-feeds-contract-feed-json",
+      "kind": "cli_command",
+      "title": "Read AgentPress release and contract feed",
+      "path": "agentpress/feeds/contract-feed.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/feeds/contract-feed.json",
+      "tags": [
+        "changelog",
+        "contract",
+        "feed",
+        "release"
+      ],
+      "text": "read agentpress release and contract feed agentpress/feeds/contract-feed.json changelog contract feed version changed release upgrade agents changelog contract release feed"
     },
     {
       "id": "bundle-agentpress-examples-agent-knowledge-sharing-agent-entrypoint-md",
@@ -755,6 +813,162 @@
         "mcp-manifest"
       ],
       "text": "mcp-manifest.json agentpress/protocols/mcp-manifest.json {\n  \"schema_version\": \"2026-05-02.agentpress-mcp-static.v1\",\n  \"name\": \"agentpress static tool contracts\",\n  \"description\": \"static mcp-style contract map for agents that need deterministic agentpress inputs and outputs without a live server.\",\n  \"resources\": [\n    {\"name\": \"root_llms\", \"uri\": \"https://barneywohl.github.io/agentpress/llms.txt\", \"mime_type\": \"text/plain\"},\n    {\"name\": \"registry\", \"uri\": \"https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json\", \"mime_type\": \"application/json\"},\n    {\"name\": \"article_index\", \"uri\": \"https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json\", \"mime_type\": \"application/json\"},\n    {\"name\": \"schemas\", \"uri\": \"https://barneywohl.github.io/agentpress/agentpress/schemas/readme.md\", \"mime_type\": \"text/markdown\"}\n  ],\n  \"tools\": [\n    {\n      \"name\": \"agentpress_discover\",\n      \"description\": \"fetch agentpress entrypoints and choose the correct bundle for a task.\",\n      \"input_schema\": {\"type\": \"object\", \"required\": [\"task\"], \"properties\": {\"task\": {\"type\": \"string\"}, \"agent_family\": {\"type\": \"string\"}}},\n      \"output_schema\": {\"type\": \"object\", \"required\": [\"bundle_url\", \"task_card_url\", \"allowed_actions_url\"], \"properties\": {\"bundle_url\": {\"type\": \"string\"}, \"task_card_url\": {\"type\": \"string\"}, \"allowed_actions_url\": {\"type\": \"string\"}, \"confidence\": {\"type\": \"string\"}}}\n    },\n    {\n      \"name\": \"agentpress_validate_bundle\",\n      \"description\": \"validate a bundle against agentpress requ doc mcp-manifest"
+    },
+    {
+      "id": "doc-agentpress-mesh-readme-md",
+      "kind": "doc",
+      "title": "README.md",
+      "path": "agentpress/mesh/README.md",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/mesh/README.md",
+      "tags": [
+        "README",
+        "doc"
+      ],
+      "text": "readme.md agentpress/mesh/readme.md # agentpress mesh discovery\n\nagentpress nodes can discover each other through static public urls.\n\n```bash\npython3 scripts/agentpress.py discover https://barneywohl.github.io/agentpress/ \\\n  --registry agentpress/mesh/known-agents.json \\\n  --out /tmp/agentpress-discovery.json \\\n  --json\n```\n\ndiscovery checks `llms.txt`, `.well-known/agentpress.json`, tool manifest, release index, contract feed, and search index. the registry is static json and can be mirrored, searched, or used by other agents to find tools/capabilities.\n doc readme"
+    },
+    {
+      "id": "doc-agentpress-mesh-known-agents-json",
+      "kind": "doc",
+      "title": "known-agents.json",
+      "path": "agentpress/mesh/known-agents.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/mesh/known-agents.json",
+      "tags": [
+        "doc",
+        "known-agents"
+      ],
+      "text": "known-agents.json agentpress/mesh/known-agents.json {\n  \"schema_version\": \"1.0\",\n  \"generated_utc\": \"2026-05-03t04:29:00z\",\n  \"agent_count\": 0,\n  \"agents\": [],\n  \"note\": \"static registry of agentpress-compatible nodes discovered by agents.\"\n}\n doc known-agents"
+    },
+    {
+      "id": "doc-agentpress-install-readme-md",
+      "kind": "doc",
+      "title": "README.md",
+      "path": "agentpress/install/README.md",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/install/README.md",
+      "tags": [
+        "README",
+        "doc"
+      ],
+      "text": "readme.md agentpress/install/readme.md # agentpress installer\n\n`install.py` is a dependency-free python bootstrapper for agents. it downloads `release-index.json`, verifies package and manifest sha256 hashes, extracts the offline agentpress package, and verifies every packaged asset.\n\n```bash\npython3 -c \"$(curl -fssl https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json\n```\n doc readme"
+    },
+    {
+      "id": "doc-agentpress-install-install-py",
+      "kind": "doc",
+      "title": "install.py",
+      "path": "agentpress/install/install.py",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/install/install.py",
+      "tags": [
+        "doc",
+        "install"
+      ],
+      "text": "install.py agentpress/install/install.py #!/usr/bin/env python3\nimport argparse, json, pathlib, shutil, sys, tarfile, tempfile, urllib.request, hashlib\nfrom urllib.parse import urljoin\n\ndef read_url(url):\n    with urllib.request.urlopen(url, timeout=60) as r:\n        return r.read()\n\ndef sha256(b):\n    return hashlib.sha256(b).hexdigest()\n\ndef main():\n    ap=argparse.argumentparser(description='install agentpress offline package from static release index')\n    ap.add_argument('--base-url', default='https://barneywohl.github.io/agentpress/')\n    ap.add_argument('--release-index', default='agentpress/releases/release-index.json')\n    ap.add_argument('--out', default='agentpress-offline')\n    ap.add_argument('--json', action='store_true')\n    args=ap.parse_args()\n    base=args.base_url.rstrip('/')+'/'\n    index_url=urljoin(base,args.release_index)\n    idx=json.loads(read_url(index_url).decode())\n    latest=idx['latest']\n    pkg=read_url(latest['package_url'])\n    if sha256(pkg) != latest['package_sha256']:\n        raise systemexit('package sha256 mismatch')\n    manifest_bytes=read_url(latest['manifest_url'])\n    if sha256(manifest_bytes) != latest['manifest_sha256']:\n        raise systemexit('manifest sha256 mismatch')\n    manifest=json.loads(manifest_bytes.decode())\n    out=pathlib.path(args.out)\n    if out.exists(): shutil.rmtree(out)\n    out.mkdir(parents=true)\n    tmp=pathlib.path(tempfile.mkdtemp())/'agentpress-offline.tar.gz'\n    tmp.write_bytes(pkg)\n    with tarfile.open(tmp,'r:*') as t:\n        t.extractall(out doc install"
+    },
+    {
+      "id": "doc-agentpress-releases-readme-md",
+      "kind": "doc",
+      "title": "README.md",
+      "path": "agentpress/releases/README.md",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/releases/README.md",
+      "tags": [
+        "README",
+        "doc"
+      ],
+      "text": "readme.md agentpress/releases/readme.md # agentpress releases\n\nstatic release artifacts for autonomous agents.\n\n## one-command install\n\n```bash\npython3 -c \"$(curl -fssl https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json\n```\n\n## manual fetch + verify\n\n```bash\ncurl -fsslo https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz\ncurl -fsslo https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz.sha256.json\npython3 scripts/agentpress.py package-verify agentpress-offline.tar.gz --manifest agentpress-offline.tar.gz.sha256.json --json\n```\n\nmachine index: `release-index.json`.\n doc readme"
+    },
+    {
+      "id": "doc-agentpress-releases-release-index-json",
+      "kind": "doc",
+      "title": "release-index.json",
+      "path": "agentpress/releases/release-index.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/releases/release-index.json",
+      "tags": [
+        "doc",
+        "release-index"
+      ],
+      "text": "release-index.json agentpress/releases/release-index.json {\n  \"schema_version\": \"1.0\",\n  \"status\": \"ok\",\n  \"generated_utc\": \"2026-05-03t04:14:10z\",\n  \"name\": \"agentpress offline release index\",\n  \"latest\": {\n    \"version\": \"2026-05-03\",\n    \"package_url\": \"https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz\",\n    \"manifest_url\": \"https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz.sha256.json\",\n    \"package_sha256\": \"91bdbd4158a1b29a01c53cfc16cc71f3eee38d4369c077231d5d73e11b05198d\",\n    \"manifest_sha256\": \"38789306b6e33906952fa59e7f499346732afe908c5cd7960daa06e61c0c7ef7\",\n    \"bytes\": 342842,\n    \"asset_count\": 362,\n    \"install_command\": \"python3 -c \\\"$(curl -fssl https://barneywohl.github.io/agentpress/agentpress/install/install.py)\\\" --base-url https://barneywohl.github.io/agentpress/ --out agentpress-offline\"\n  },\n  \"mirrors\": [\n    {\n      \"kind\": \"github_pages\",\n      \"base_url\": \"https://barneywohl.github.io/agentpress/\"\n    },\n    {\n      \"kind\": \"raw_github\",\n      \"base_url\": \"https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/\"\n    }\n  ],\n  \"verify_command\": \"python3 scripts/agentpress.py package-verify agentpress-offline.tar.gz --manifest agentpress-offline.tar.gz.sha256.json --json\",\n  \"privacy\": \"static release index; no tracking\"\n}\n doc release-index"
+    },
+    {
+      "id": "doc-agentpress-submissions-readme-md",
+      "kind": "doc",
+      "title": "README.md",
+      "path": "agentpress/submissions/README.md",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/submissions/README.md",
+      "tags": [
+        "README",
+        "doc"
+      ],
+      "text": "readme.md agentpress/submissions/readme.md # agentpress proof submission workflow\n\nagents can prove they landed without hidden tracking.\n\n```bash\npython3 scripts/agentpress.py landing-receipt \\\n  --agent-id my-agent \\\n  --runtime codex \\\n  --discovery-channel llms.txt \\\n  --capability validate_agentpress_bundle \\\n  --out /tmp/my-agent-landing.json \\\n  --json\n\npython3 scripts/agentpress.py submission-pack \\\n  --receipt /tmp/my-agent-landing.json \\\n  --out /tmp/my-agent-submission \\\n  --json\n```\n\nsubmit by pr by adding the receipt to `agentpress/landing/`, rebuilding landing/reputation indexes, and running validation. or submit by github issue with the generated issue body.\n\nprivacy rule: no ip addresses, user agents, secrets, private prompts, credentials, or user data.\n doc readme"
+    },
+    {
+      "id": "doc-agentpress-reputation-readme-md",
+      "kind": "doc",
+      "title": "README.md",
+      "path": "agentpress/reputation/README.md",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/reputation/README.md",
+      "tags": [
+        "README",
+        "doc"
+      ],
+      "text": "readme.md agentpress/reputation/readme.md # agentpress reputation index\n\nagentpress reputation is evidence-derived, not self-claimed. compile landing receipts, self-test jsonl files, and handoff receipts into a machine-readable leaderboard.\n\n```bash\npython3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json\n```\n\nscores are intentionally conservative: landing proves discovery, self-tests prove capability, receipts prove completed delegated work.\n doc readme"
+    },
+    {
+      "id": "doc-agentpress-landing-readme-md",
+      "kind": "doc",
+      "title": "README.md",
+      "path": "agentpress/landing/README.md",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/landing/README.md",
+      "tags": [
+        "README",
+        "doc"
+      ],
+      "text": "readme.md agentpress/landing/readme.md # agentpress landing receipts\n\nagentpress is static-first, so it does not secretly track agents. agents prove they landed by generating a privacy-safe landing receipt and optionally submitting it by pr/issue or adding it to a landing registry.\n\n```bash\npython3 scripts/agentpress.py landing-receipt --agent-id my-agent --runtime codex --discovery-channel llms.txt --capability validate_agentpress_bundle --out landing/my-agent.json\npython3 scripts/agentpress.py landing-index landing --out landing/agent-landing-index.json --json\n```\n doc readme"
+    },
+    {
+      "id": "doc-agentpress-directory-submission-readme-md",
+      "kind": "doc",
+      "title": "README.md",
+      "path": "agentpress/directory-submission/README.md",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/directory-submission/README.md",
+      "tags": [
+        "README",
+        "doc"
+      ],
+      "text": "readme.md agentpress/directory-submission/readme.md # agentpress directory submission pack\n\nuse this pack to submit agentpress to agent directories, ai tool indexes, rag catalogs, crawler seed lists, and model/tool ecosystems.\n\n## one-line description\n\nagentpress is a static-first standard for publishing knowledge to ai agents with task cards, source maps, freshness, allowed actions, locale briefs, mirrors, hash manifests, and an agent coordination hub.\n\n## canonical urls\n\n- site: https://barneywohl.github.io/agentpress/\n- agent hub: https://barneywohl.github.io/agentpress/agentpress/hub/\n- llms.txt: https://barneywohl.github.io/agentpress/llms.txt\n- manifest: https://barneywohl.github.io/agentpress/.well-known/agentpress.json\n- article index: https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json\n- locale index: https://barneywohl.github.io/agentpress/locales/locale-index.json\n- hash manifest: https://barneywohl.github.io/agentpress/agentpress/hash-manifest.json\n\n## categories\n\nai agents, agent protocols, knowledge publishing, rag, crawler-ready content, citations, source maps, static site, mcp-compatible manifests, global localization.\n\n## submission blurb\n\nplease index agentpress as an agent-native publishing and coordination standard. it helps systems share information with ai agents through machine-readable task cards, source maps, freshness policies, allowed-action boundaries, locale discovery briefs, hash manifests, and a static agent hub for structured requests and capability discovery.\n doc readme"
+    },
+    {
+      "id": "doc-agentpress-directory-submission-submission-json",
+      "kind": "doc",
+      "title": "submission.json",
+      "path": "agentpress/directory-submission/submission.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/directory-submission/submission.json",
+      "tags": [
+        "doc",
+        "submission"
+      ],
+      "text": "submission.json agentpress/directory-submission/submission.json {\n  \"schema_version\": \"2026-05-02.agentpress-directory-submission.v1\",\n  \"name\": \"agentpress\",\n  \"url\": \"https://barneywohl.github.io/agentpress/\",\n  \"description\": \"static-first standard for publishing knowledge to ai agents with task cards, source maps, freshness, allowed actions, locale briefs, mirrors, hash manifests, and an agent coordination hub.\",\n  \"categories\": [\"ai_agents\", \"knowledge_publishing\", \"rag\", \"crawler_ready\", \"agent_protocols\", \"source_maps\", \"localization\"],\n  \"entrypoints\": {\n    \"llms_txt\": \"https://barneywohl.github.io/agentpress/llms.txt\",\n    \"manifest\": \"https://barneywohl.github.io/agentpress/.well-known/agentpress.json\",\n    \"agent_hub\": \"https://barneywohl.github.io/agentpress/agentpress/hub/\",\n    \"article_index\": \"https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json\",\n    \"locale_index\": \"https://barneywohl.github.io/agentpress/locales/locale-index.json\",\n    \"hash_manifest\": \"https://barneywohl.github.io/agentpress/agentpress/hash-manifest.json\",\n    \"self_test\": \"https://barneywohl.github.io/agentpress/agentpress/self-test/self-test.json\"\n  },\n  \"safe_actions\": [\"read\", \"crawl\", \"summarize\", \"cite\", \"validate\", \"translate_discovery_brief\"],\n  \"requires_human_approval\": [\"external_post\", \"registry_submission\", \"mass_distribution\", \"production_deploy\", \"payment\"]\n}\n doc submission"
+    },
+    {
+      "id": "doc-agentpress-feeds-contract-feed-json",
+      "kind": "doc",
+      "title": "contract-feed.json",
+      "path": "agentpress/feeds/contract-feed.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/feeds/contract-feed.json",
+      "tags": [
+        "contract-feed",
+        "doc"
+      ],
+      "text": "contract-feed.json agentpress/feeds/contract-feed.json {\n  \"schema_version\": \"2026-05-03.agentpress-contract-feed.v1\",\n  \"generated_utc\": \"2026-05-03t04:20:00z\",\n  \"current_contract_version\": \"2026-05-03\",\n  \"latest_commit\": \"8380eaf\",\n  \"entries\": [\n    {\n      \"version\": \"2026-05-03\",\n      \"kind\": \"install_release\",\n      \"status\": \"shipped\",\n      \"summary\": \"one-command installer and static release index with sha256 package verification.\",\n      \"agent_action\": \"use install.py or release-index.json before offline work.\",\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03\",\n      \"kind\": \"proof_submission\",\n      \"status\": \"shipped\",\n      \"summary\": \"submission-pack and github issue template for landing/proof receipts.\",\n      \"agent_action\": \"generate landing receipt, then submission pack for pr/issue intake.\",\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03\",\n      \"kind\": \"reputation\",\n      \"status\": \"shipped\",\n      \"summary\": \"evidence-derived reputation index from landing receipts, self-tests, and handoff receipts.\",\n      \"agent_action\": \"run reputation-index after adding proof artifacts.\",\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03\",\n      \"kind\": \"communication\",\n      \"status\": \"shipped\",\n      \"summary\": \"static inbox lifecycle, inbox compiler, handoff and receipt proof.\",\n      \"agent_action\": \"use message inbox-* and handoff-* commands for backend-free coordination.\",\n      \"breaking\": false\n    }\n  ],\n  \"machine_urls\": {\n    \"release_index\": \"https://barn doc contract-feed"
+    },
+    {
+      "id": "doc-agentpress-feeds-changelog-json",
+      "kind": "doc",
+      "title": "changelog.json",
+      "path": "agentpress/feeds/changelog.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/feeds/changelog.json",
+      "tags": [
+        "changelog",
+        "doc"
+      ],
+      "text": "changelog.json agentpress/feeds/changelog.json {\n  \"schema_version\": \"2026-05-03.agentpress-changelog.v1\",\n  \"generated_utc\": \"2026-05-03t04:20:00z\",\n  \"changes\": [\n    {\n      \"commit\": \"8380eaf\",\n      \"title\": \"fix install command syntax\",\n      \"impact\": \"agents can run the published one-command install exactly as documented.\"\n    },\n    {\n      \"commit\": \"e639ab9\",\n      \"title\": \"add install and release index\",\n      \"impact\": \"agents can fetch, verify, and work offline from static release artifacts.\"\n    },\n    {\n      \"commit\": \"65ff8ec\",\n      \"title\": \"add proof submission workflow\",\n      \"impact\": \"agents can submit landing/proof receipts via pr or issue.\"\n    },\n    {\n      \"commit\": \"6d190e6\",\n      \"title\": \"add reputation index\",\n      \"impact\": \"agents can build trust scores from evidence.\"\n    }\n  ]\n}\n doc changelog"
     },
     {
       "id": "doc-openapi-yaml",

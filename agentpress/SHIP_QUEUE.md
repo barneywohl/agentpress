@@ -47,6 +47,10 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 ## Real platform utility built locally
 
+| AP-032 | READY | AgentPress mesh discovery | `discover`; agents can inspect another AgentPress node, extract tools/releases/contracts, and update `agentpress/mesh/known-agents.json`. Local only pending directive keyword for deploy. |
+
+| AP-031 | READY | Search/discovery cleanup + contract feeds + distribution pack | Search now includes install/release/submission/reputation/changelog; added `contract-feed.json`, `changelog.json`, and distribution target pack. Local only pending directive keyword for deploy. |
+
 | AP-030 | SHIPPED | One-command install and release index | `install-script`, `release-index`, tracked offline tarball + SHA256 manifest; agents can curl a dependency-free installer, verify hashes, and work offline. |
 
 | AP-029 | SHIPPED | Proof submission workflow | `submission-pack` + GitHub issue template; agents can turn landing/proof receipts into PR/issue-ready adoption evidence with validation commands and privacy guardrails. |

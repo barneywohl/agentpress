@@ -916,6 +916,10 @@ def build_search_index(args):
     add("cli_command", "Agent message create/route/respond/thread/validate", "scripts/agentpress.py", "message create-request route create-response thread validate coordination", ["message", "route", "coordination", "cli"])
     add("cli_command", "Verify AgentPress bundle", "scripts/agentpress.py", "verify schema contract validation", ["verify", "validate", "schema", "cli"])
     add("cli_command", "Negative fail-closed fixture gate", "scripts/agentpress.py", "negative-fixtures adversarial broken bundles fail closed", ["security", "fail-closed", "test", "cli"])
+    add("cli_command", "Install AgentPress from release index", "agentpress/install/install.py", "install release index offline package sha256 verify tarball curl bootstrap one-command", ["install", "release", "offline", "sha256", "cli"])
+    add("cli_command", "Submit AgentPress proof receipt", "agentpress/submissions/README.md", "submission-pack landing receipt github issue pull request adoption proof", ["submission", "landing", "proof", "github", "cli"])
+    add("cli_command", "Compile AgentPress reputation index", "agentpress/reputation/README.md", "reputation-index trust tier self-test handoff receipt landing proof", ["reputation", "proof", "trust", "cli"])
+    add("cli_command", "Read AgentPress release and contract feed", "agentpress/feeds/contract-feed.json", "changelog contract feed version changed release upgrade agents", ["changelog", "contract", "release", "feed"])
     # Registry examples
     reg = root/"agentpress/agentpress-registry.json"
     if reg.exists():
@@ -943,7 +947,7 @@ def build_search_index(args):
         for capability, agents in data.get("capabilities", {}).items():
             add("capability", capability, "agentpress/hub/routing/capability-index.json", " ".join(agents), ["capability", capability])
     # Protocol/docs
-    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "openapi.yaml"]:
+    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
         path=root/rel
         if path.exists(): add("doc", path.name, rel, read_text(path)[:1500], ["doc", pathlib.Path(rel).stem])
     payload={"schema_version":"2026-05-03.agentpress-search.v1", "canonical_url": urljoin(base_url, out.as_posix()), "generated_at": _utc_now(), "record_count": len(records), "records": records}
@@ -1360,6 +1364,70 @@ def message_agents(args):
 
 
 
+
+def discover_agentpress(args):
+    base=args.url
+    if base.endswith('/llms.txt'):
+        base=base[:-len('llms.txt')]
+    base=base.rstrip('/')+'/'
+    assets=[
+        'llms.txt',
+        '.well-known/agentpress.json',
+        'agentpress/tools/agentpress-tools.json',
+        'agentpress/releases/release-index.json',
+        'agentpress/feeds/contract-feed.json',
+        'agentpress/search/search-index.json',
+    ]
+    fetched={}; errors=[]
+    for rel in assets:
+        url=urljoin(base, rel)
+        try:
+            with urlopen(url, timeout=args.timeout) as resp:
+                raw=resp.read().decode('utf-8', errors='replace')
+            if rel.endswith('.json'):
+                fetched[rel]=json.loads(raw)
+            else:
+                fetched[rel]={'text_excerpt': raw[:1200], 'bytes': len(raw.encode())}
+        except Exception as e:
+            errors.append({'asset':rel,'url':url,'error':str(e)})
+    tools=[]
+    t=fetched.get('agentpress/tools/agentpress-tools.json')
+    if isinstance(t, dict):
+        tools=[x.get('name') for x in t.get('tools', []) if x.get('name')]
+    release=fetched.get('agentpress/releases/release-index.json') if isinstance(fetched.get('agentpress/releases/release-index.json'), dict) else {}
+    contract=fetched.get('agentpress/feeds/contract-feed.json') if isinstance(fetched.get('agentpress/feeds/contract-feed.json'), dict) else {}
+    payload={
+        'schema_version':'1.0',
+        'status':'ok' if tools else 'partial',
+        'discovered_utc':_utc_now(),
+        'agentpress_url':base,
+        'compatible':bool(tools),
+        'tool_count':len(tools),
+        'tools':tools,
+        'release': release.get('latest', {}),
+        'contract_version': contract.get('current_contract_version'),
+        'assets_found': sorted(fetched.keys()),
+        'errors': errors,
+        'next_actions':['install from release-index','run self-test','generate landing receipt','submit proof pack'] if tools else ['inspect errors','try llms.txt or well-known manifest directly']
+    }
+    if args.out:
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding='utf-8')
+    if args.registry:
+        reg_path=pathlib.Path(args.registry); reg_path.parent.mkdir(parents=True,exist_ok=True)
+        if reg_path.exists():
+            try: reg=json.loads(reg_path.read_text(encoding='utf-8'))
+            except Exception: reg={}
+        else: reg={}
+        reg.setdefault('schema_version','1.0'); reg.setdefault('generated_utc',_utc_now()); reg.setdefault('agents', [])
+        reg['agents']=[a for a in reg.get('agents', []) if a.get('agentpress_url') != base]
+        reg['agents'].append({'agentpress_url':base,'discovered_utc':payload['discovered_utc'],'compatible':payload['compatible'],'tool_count':payload['tool_count'],'contract_version':payload.get('contract_version'),'release_version':payload.get('release',{}).get('version')})
+        reg['generated_utc']=_utc_now(); reg['agent_count']=len(reg['agents'])
+        reg_path.write_text(json.dumps(reg,indent=2)+"\n",encoding='utf-8')
+        payload['registry']=str(reg_path)
+    print(json.dumps(payload,indent=2) if args.json else (str(args.out) if args.out else payload['status']))
+    return 0 if payload['compatible'] else 1
+
+
 def submission_pack(args):
     receipt=pathlib.Path(args.receipt)
     errors=[]
@@ -1728,6 +1796,7 @@ def tools_manifest(args):
     base=args.base_url.rstrip("/") + "/"
     tools=[
         {"name":"agentpress.fetch", "description":"Fetch core AgentPress machine assets.", "command":"python3 scripts/agentpress.py fetch --base {base} --out agentpress-fetch --json", "tags":["fetch","bootstrap","offline"]},
+        {"name":"agentpress.discover", "description":"Discover another AgentPress node, inspect tools/releases/contracts, and update a known-agent mesh registry.", "command":"python3 scripts/agentpress.py discover <agentpress-url> --registry agentpress/mesh/known-agents.json --json", "tags":["discover","mesh","agent-network","tools","release"]},
         {"name":"agentpress.verify", "description":"Verify an AgentPress bundle fails/passes contract checks.", "command":"python3 scripts/agentpress.py verify <bundle> --json", "tags":["verify","schema","contract"]},
         {"name":"agentpress.bundle", "description":"Generate a valid AgentPress bundle from docs/API folder.", "command":"python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force", "tags":["generate","bundle","docs","api"]},
         {"name":"agentpress.message", "description":"Create, route, respond, thread, and validate agent work messages.", "command":"python3 scripts/agentpress.py message create-request --capability <capability> --task <task> --requester-id <agent-id> --out request.json", "tags":["message","route","handoff"]},
@@ -1973,6 +2042,7 @@ def main():
     p = sub.add_parser("verify"); p.add_argument("out", nargs="?", default="."); p.add_argument("--json", action="store_true")
     p = sub.add_parser("schema"); p.add_argument("name", nargs="?"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("fetch"); p.add_argument("--base", default=CANONICAL_BASE_URL); p.add_argument("--out", default="agentpress-fetch"); p.add_argument("--asset", action="append", help="relative asset to fetch; repeatable; defaults to core machine entrypoints"); p.add_argument("--timeout", type=int, default=20); p.add_argument("--keep-going", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("discover"); p.add_argument("url"); p.add_argument("--out"); p.add_argument("--registry"); p.add_argument("--timeout", type=int, default=20); p.add_argument("--json", action="store_true")
     p = sub.add_parser("negative-fixtures"); p.add_argument("--manifest", default="agentpress/fixtures/broken-bundles/expected-failures.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
     p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True)
@@ -2031,6 +2101,7 @@ def main():
     if args.cmd == "verify": return verify(args)
     if args.cmd == "schema": return schema_command(args)
     if args.cmd == "fetch": return fetch(args)
+    if args.cmd == "discover": return discover_agentpress(args)
     if args.cmd == "negative-fixtures": return negative_fixtures(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)

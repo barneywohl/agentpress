@@ -1,0 +1,36 @@
+{
+  "schema_version": "2026-05-03.agentpress-distribution-targets.v1",
+  "targets": [
+    {
+      "kind": "github_topics",
+      "values": [
+        "agentpress",
+        "llms-txt",
+        "ai-agents",
+        "agent-tools",
+        "rag",
+        "mcp",
+        "static-site"
+      ]
+    },
+    {
+      "kind": "directory_submission",
+      "artifact": "agentpress/directory-submission/submission.json"
+    },
+    {
+      "kind": "crawler_seed",
+      "urls": [
+        "https://barneywohl.github.io/agentpress/",
+        "https://barneywohl.github.io/agentpress/llms.txt",
+        "https://barneywohl.github.io/agentpress/.well-known/agentpress.json",
+        "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
+        "https://barneywohl.github.io/agentpress/agentpress/releases/release-index.json"
+      ]
+    }
+  ],
+  "requires_human_approval": [
+    "external_post",
+    "mass_distribution",
+    "registry_submission"
+  ]
+}
