@@ -926,6 +926,8 @@ def build_search_index(args):
     add("cli_command", "AgentPress attestation coverage", "agentpress/attestations/attestation-coverage.json", "attestation coverage critical surfaces trust hash verification", ["attestation", "coverage", "trust", "verify"] )
     add("cli_command", "AgentPress marketplace trust scoring", "agentpress/marketplace/marketplace-trust-index.json", "marketplace trust score rank services reputation evidence proof routing", ["marketplace", "trust", "score", "routing"] )
     add("cli_command", "AgentPress external proof ingestion", "agentpress/external-proofs/README.md", "proof-ingest validate index external proof receipts blocker reports privacy scan reputation scoring", ["proof", "ingest", "receipts", "score", "privacy"] )
+    add("cli_command", "AgentPress remediation index", "agentpress/remediation/remediation-index.json", "remediation exact command blockers failed checks next action", ["remediation", "debug", "doctor", "commands"] )
+    add("cli_command", "AgentPress package registry skeleton", "agentpress/package-registry/skeleton/README.md", "package skeleton pypi npm pipx uvx npx dry-run no publish", ["package", "pypi", "npm", "dry-run", "install"] )
     add("cli_command", "AgentPress package registry plan", "agentpress/package-registry/README.md", "package registry pypi npm pipx npx uvx dry run publish checklist install friction", ["package", "pypi", "npm", "install", "registry"] )
     add("cli_command", "AgentPress third-party proof campaign", "agentpress/proof-campaigns/README.md", "proof-campaign external proof third-party receipt adoption evidence github issue blocker marketplace route reputation", ["proof", "third-party", "adoption", "campaign", "evidence"] )
     add("cli_command", "AgentPress attestations", "agentpress/attestations/README.md", "attest create verify index sha256 tamper evidence receipts marketplace releases broadcasts trust", ["attest", "sha256", "trust", "verify", "tamper-evident"] )
@@ -2000,6 +2002,8 @@ def tools_manifest(args):
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
         {"name":"agentpress.proof_ingest", "description":"Validate, privacy-scan, score, and index third-party AgentPress proof submissions and blocker reports.", "command":"python3 scripts/agentpress.py proof-ingest --json --allow-rejected", "tags":["proof","ingest","receipts","privacy","score"]},
+        {"name":"agentpress.remediation_index", "description":"Return exact remediation commands for common AgentPress agent blockers and failed checks.", "command":"python3 scripts/agentpress.py remediation-index --json", "tags":["remediation","debug","doctor","commands"]},
+        {"name":"agentpress.package_registry_skeleton", "description":"Create safe PyPI/npm package skeletons and dry-run metadata without publishing.", "command":"python3 scripts/agentpress.py package-registry-skeleton --json && python3 scripts/agentpress.py package-registry-dry-run --json", "tags":["package","pypi","npm","dry-run","install"]},
         {"name":"agentpress.package_registry_plan", "description":"Inspect package-registry readiness for pipx/uvx/npx distribution without live publishing.", "command":"python3 scripts/agentpress.py package-registry-plan --json", "tags":["package","pypi","npm","install","registry"]},
         {"name":"agentpress.proof_campaign", "description":"Inspect the public third-party proof campaign for external AgentPress adoption receipts and blocker reports.", "command":"python3 scripts/agentpress.py proof-campaign --json", "tags":["proof","third-party","adoption","receipts","campaign"]},
         {"name":"agentpress.attest", "description":"Create, verify, and index hash-based attestations for AgentPress receipts, marketplace listings, releases, broadcasts, and proof artifacts.", "command":"python3 scripts/agentpress.py attest verify agentpress/attestations/core-surfaces-attestation.json --json", "tags":["attestation","sha256","verify","trust","tamper-evident"]},
@@ -2566,6 +2570,9 @@ def agent_painpoints(args):
         "search": exists("agentpress/search/search-index.json"),
         "negative_fixtures": exists("agentpress/fixtures/broken-bundles/expected-failures.json"),
         "signed_attestations": exists("agentpress/attestations/attestation-index.json"),
+        "remediation_index": exists("agentpress/remediation/remediation-index.json"),
+        "package_registry_skeleton": exists("agentpress/package-registry/skeleton/package-registry-skeleton.json"),
+        "package_registry_dry_run": exists("agentpress/package-registry/package-registry-dry-run.json"),
         "package_registry_plan": exists("agentpress/package-registry/package-registry-plan.json"),
         "package_registry_publish": False,
         "painpoint_intake": exists("agentpress/painpoint-intake/painpoint-intake-index.json"),
@@ -2765,6 +2772,8 @@ def package_registry_plan(args):
     check("install_script", (root/"agentpress/install/install.py").exists(), "install script exists")
     check("cli_entry", (root/"scripts/agentpress.py").exists(), "reference CLI exists")
     check("license", any((root/name).exists() for name in ["LICENSE","LICENSE.md"]), "license file present", required=False)
+    check("package_skeleton", (root/"agentpress/package-registry/skeleton/package-registry-skeleton.json").exists(), "package skeleton exists")
+    check("package_dry_run", (root/"agentpress/package-registry/package-registry-dry-run.json").exists(), "package dry-run result exists")
     check("pypi_owner", False, "PyPI/package owner not approved; live publish blocked until Jake chooses owner/account")
     check("npm_owner", False, "npm owner not approved; live publish blocked until Jake chooses owner/account")
     required_blockers=[c for c in checks if c["required"] and not c["ok"]]
@@ -2778,7 +2787,7 @@ def package_registry_plan(args):
         "install_targets":["pipx install agentpress-cli", "uvx agentpress", "npx agentpress"],
         "checks":checks,
         "blocked_actions":["pypi_publish","npm_publish"],
-        "safe_next_steps":["Create package skeleton in repo", "Run build/dry-run locally", "Reserve name only after account approval", "Publish only after explicit live-publish approval"]
+        "safe_next_steps":["Maintain package skeleton in repo", "Run build/dry-run locally", "Reserve name only after account approval", "Publish only after explicit live-publish approval"]
     }
     if not args.no_write:
         out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
@@ -2863,6 +2872,109 @@ def marketplace_trust(args):
     if not args.no_write:
         out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
     print(json.dumps(payload, indent=2) if args.json else f"services={len(rows)}")
+    return 0
+
+
+def package_registry_skeleton(args):
+    """Create safe package registry skeletons for future pipx/uvx/npx distribution."""
+    root=pathlib.Path(args.root); out=root/args.out
+    py=out/"python"; npm=out/"npm"; py.mkdir(parents=True, exist_ok=True); (npm/"bin").mkdir(parents=True, exist_ok=True)
+    pyproject = """[build-system]
+requires = [\"hatchling\"]
+build-backend = \"hatchling.build\"
+
+[project]
+name = \"agentpress-cli\"
+version = \"0.0.0\"
+description = \"AgentPress CLI package skeleton (not published)\"
+requires-python = \">=3.9\"
+
+[project.scripts]
+agentpress = \"agentpress_cli:main\"
+"""
+    (py/"pyproject.toml").write_text(pyproject, encoding="utf-8")
+    cli = """#!/usr/bin/env python3
+\"\"\"AgentPress package skeleton entrypoint.
+
+This skeleton intentionally does not publish or vendor the full CLI yet.
+Use the GitHub Pages/offline release install path until package ownership is approved.
+\"\"\"
+
+def main():
+    print(\"agentpress-cli package skeleton: live registry publish blocked pending owner approval\")
+    print(\"Use: curl -L https://barneywohl.github.io/agentpress/agentpress/install/install.py -o install.py\")
+    return 2
+
+if __name__ == \"__main__\":
+    raise SystemExit(main())
+"""
+    (py/"agentpress_cli.py").write_text(cli, encoding="utf-8")
+    (npm/"package.json").write_text(json.dumps({"name":"agentpress-cli","version":"0.0.0","private":True,"description":"AgentPress npm package skeleton (not published)","bin":{"agentpress":"bin/agentpress.js"},"scripts":{"dry-run":"node bin/agentpress.js"}}, indent=2)+"\n", encoding="utf-8")
+    (npm/"bin"/"agentpress.js").write_text("""#!/usr/bin/env node
+console.log(\"agentpress-cli npm skeleton: live registry publish blocked pending owner approval\");
+console.log(\"Use the static install/offline release path from https://barneywohl.github.io/agentpress/\");
+process.exitCode = 2;
+""", encoding="utf-8")
+    (out/"README.md").write_text("""# AgentPress Package Registry Skeleton
+
+Safe package skeletons for future `pipx`, `uvx`, and `npx` distribution.
+
+These are intentionally **not published** and use version `0.0.0` until package/account ownership is approved.
+
+Dry-run checks:
+
+```bash
+python3 scripts/agentpress.py package-registry-skeleton --json
+python3 scripts/agentpress.py package-registry-dry-run --json
+```
+""", encoding="utf-8")
+    payload={"schema_version":"2026-05-03.agentpress-package-registry-skeleton.v1","status":"ok","generated_utc":_utc_now(),"out":out.relative_to(root).as_posix(),"files":[(py/"pyproject.toml").relative_to(root).as_posix(),(py/"agentpress_cli.py").relative_to(root).as_posix(),(npm/"package.json").relative_to(root).as_posix(),(npm/"bin"/"agentpress.js").relative_to(root).as_posix(),(out/"README.md").relative_to(root).as_posix()],"live_publish_blocked":True,"blocked_until":"explicit package/account ownership approval"}
+    (out/"package-registry-skeleton.json").write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else out.as_posix())
+    return 0
+
+
+def package_registry_dry_run(args):
+    """Validate package registry skeleton without publishing."""
+    root=pathlib.Path(args.root); base=root/args.dir
+    checks=[]
+    def check(id, path, parser=None):
+        fp=base/path; ok=fp.exists(); err=""
+        if ok and parser:
+            try: parser(fp)
+            except Exception as e: ok=False; err=str(e)
+        checks.append({"id":id,"path":fp.relative_to(root).as_posix(),"ok":ok,"error":err})
+    def parse_json(fp): json.loads(fp.read_text(encoding="utf-8"))
+    check("python_pyproject", pathlib.Path("python/pyproject.toml"))
+    check("python_entrypoint", pathlib.Path("python/agentpress_cli.py"))
+    check("npm_package_json", pathlib.Path("npm/package.json"), parse_json)
+    check("npm_bin", pathlib.Path("npm/bin/agentpress.js"))
+    check("skeleton_manifest", pathlib.Path("package-registry-skeleton.json"), parse_json)
+    ok=all(c["ok"] for c in checks)
+    payload={"schema_version":"2026-05-03.agentpress-package-registry-dry-run.v1","status":"ok" if ok else "fail","generated_utc":_utc_now(),"checks":checks,"publish_performed":False,"publish_blocked":True,"next_step":"Choose package/account owner before live PyPI/npm publish."}
+    if not args.no_write:
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0 if ok else 1
+
+
+def remediation_index(args):
+    """Create exact remediation commands for common AgentPress agent blockers."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out)
+    remedies=[
+        {"blocker":"missing_or_stale_search_index","detect":"search command returns zero matches or missing agentpress/search/search-index.json","remediation_command":"python3 scripts/agentpress.py index-search --json"},
+        {"blocker":"tool_manifest_invalid","detect":"tools-manifest-check fails","remediation_command":"python3 scripts/agentpress.py tools-manifest && python3 scripts/agentpress.py tools-manifest-check --json"},
+        {"blocker":"offline_package_invalid","detect":"package-verify returns errors","remediation_command":"python3 scripts/agentpress.py package . --out /tmp/agentpress-offline.tar.gz && python3 scripts/agentpress.py package-verify /tmp/agentpress-offline.tar.gz --json"},
+        {"blocker":"proof_submission_unclear","detect":"agent has proof but no submit path","remediation_command":"python3 scripts/agentpress.py proof-campaign --json && python3 scripts/agentpress.py proof-ingest --json --allow-rejected"},
+        {"blocker":"missing_painpoint_report_schema","detect":"agent cannot express blocker as machine data","remediation_command":"cp agentpress/painpoint-intake/example-painpoint.json /tmp/my-painpoint.json && python3 scripts/agentpress.py painpoint-intake --json --allow-rejected"},
+        {"blocker":"package_registry_publish_blocked","detect":"agent asks for pipx/uvx/npx live install","remediation_command":"python3 scripts/agentpress.py package-registry-plan --json && python3 scripts/agentpress.py package-registry-dry-run --json"},
+        {"blocker":"attestation_gap","detect":"attestation coverage below 100%","remediation_command":"python3 scripts/agentpress.py attestation-coverage --json"},
+        {"blocker":"marketplace_routing_unclear","detect":"agent cannot choose service from marketplace","remediation_command":"python3 scripts/agentpress.py marketplace-trust --json"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-remediation-index.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","remediation_count":len(remedies),"remediations":remedies,"principle":"Every failed agent check should return an exact next command."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"remediations={len(remedies)}")
     return 0
 
 def adoption_status(args):
@@ -3002,6 +3114,9 @@ def main():
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace-trust"); p.add_argument("root", nargs="?", default="."); p.add_argument("--marketplace", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--out", default="agentpress/marketplace/marketplace-trust-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-ingest"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--out", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("package-registry-skeleton"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/package-registry/skeleton"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("package-registry-dry-run"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/package-registry/skeleton"); p.add_argument("--out", default="agentpress/package-registry/package-registry-dry-run.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("remediation-index"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/remediation/remediation-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-plan"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/package-registry/package-registry-plan.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-campaign"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/proof-campaigns/proof-campaign.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attest"); att = p.add_subparsers(dest="attest_cmd", required=True)
@@ -3086,6 +3201,9 @@ def main():
     if args.cmd == "proof-campaign": return proof_campaign(args)
     if args.cmd == "proof-ingest": return proof_ingest(args)
     if args.cmd == "package-registry-plan": return package_registry_plan(args)
+    if args.cmd == "package-registry-skeleton": return package_registry_skeleton(args)
+    if args.cmd == "package-registry-dry-run": return package_registry_dry_run(args)
+    if args.cmd == "remediation-index": return remediation_index(args)
     if args.cmd == "painpoint-intake": return painpoint_intake(args)
     if args.cmd == "attestation-coverage": return attestation_coverage(args)
     if args.cmd == "marketplace-trust": return marketplace_trust(args)

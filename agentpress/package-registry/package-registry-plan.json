@@ -1,7 +1,7 @@
 {
   "schema_version": "2026-05-03.agentpress-package-registry-plan.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/package-registry/package-registry-plan.json",
-  "generated_utc": "2026-05-03T18:11:04Z",
+  "generated_utc": "2026-05-03T18:15:51Z",
   "status": "blocked_on_owner_decision",
   "principle": "Do not publish packages to PyPI/npm without explicit package/account ownership approval.",
   "recommended_package_names": [
@@ -46,6 +46,18 @@
       "detail": "license file present"
     },
     {
+      "id": "package_skeleton",
+      "ok": true,
+      "required": true,
+      "detail": "package skeleton exists"
+    },
+    {
+      "id": "package_dry_run",
+      "ok": true,
+      "required": true,
+      "detail": "package dry-run result exists"
+    },
+    {
       "id": "pypi_owner",
       "ok": false,
       "required": true,
@@ -63,7 +75,7 @@
     "npm_publish"
   ],
   "safe_next_steps": [
-    "Create package skeleton in repo",
+    "Maintain package skeleton in repo",
     "Run build/dry-run locally",
     "Reserve name only after account approval",
     "Publish only after explicit live-publish approval"

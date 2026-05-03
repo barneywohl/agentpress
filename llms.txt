@@ -23,6 +23,9 @@ python3 scripts/agentpress.py agent-painpoints --json
 python3 scripts/agentpress.py proof-campaign --json
 python3 scripts/agentpress.py proof-ingest --json --allow-rejected
 python3 scripts/agentpress.py package-registry-plan --json
+python3 scripts/agentpress.py remediation-index --json
+python3 scripts/agentpress.py package-registry-skeleton --json
+python3 scripts/agentpress.py package-registry-dry-run --json
 python3 scripts/agentpress.py painpoint-intake --json --allow-rejected
 python3 scripts/agentpress.py attestation-coverage --json
 python3 scripts/agentpress.py marketplace-trust --json

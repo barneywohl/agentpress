@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T18:11:04Z",
+  "generated_at": "2026-05-03T18:15:50Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -260,6 +260,29 @@
         "receipts",
         "privacy",
         "score"
+      ]
+    },
+    {
+      "name": "agentpress.remediation_index",
+      "description": "Return exact remediation commands for common AgentPress agent blockers and failed checks.",
+      "command": "python3 scripts/agentpress.py remediation-index --json",
+      "tags": [
+        "remediation",
+        "debug",
+        "doctor",
+        "commands"
+      ]
+    },
+    {
+      "name": "agentpress.package_registry_skeleton",
+      "description": "Create safe PyPI/npm package skeletons and dry-run metadata without publishing.",
+      "command": "python3 scripts/agentpress.py package-registry-skeleton --json && python3 scripts/agentpress.py package-registry-dry-run --json",
+      "tags": [
+        "package",
+        "pypi",
+        "npm",
+        "dry-run",
+        "install"
       ]
     },
     {
