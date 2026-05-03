@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T20:14:45Z",
+  "generated_at": "2026-05-03T20:18:59Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,18 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.package_manager_bridge",
+      "description": "Generate live pip/npm/git/offline install bridge and registry publish readiness for AgentPress.",
+      "command": "python3 scripts/agentpress.py package-manager-bridge --json",
+      "tags": [
+        "package",
+        "registry",
+        "install",
+        "npm",
+        "pypi"
       ]
     },
     {

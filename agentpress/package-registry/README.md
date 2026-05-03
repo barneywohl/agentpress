@@ -1,9 +1,9 @@
-# AgentPress Package Registry Plan
+# AgentPress Package Manager Bridge
 
-Agents want `pipx`, `uvx`, and `npx` install paths. Live package publishing is intentionally blocked until package/account ownership is approved.
+Live install paths:
 
 ```bash
-python3 scripts/agentpress.py package-registry-plan --json
+python3 -m pip install git+https://github.com/barneywohl/agentpress.git
+npm install github:barneywohl/agentpress
+python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)" --base-url https://barneywohl.github.io/agentpress/ --out agentpress-offline
 ```
-
-Safe scope now: publish-readiness metadata, dry-run checklist, install target plan. Unsafe without approval: live PyPI/npm publish or name reservation.

@@ -405,3 +405,7 @@ python3 scripts/agentpress.py tool-permission-policy --json
 python3 scripts/agentpress.py schema-validate agentpress/examples/api-docs-handoff/agent-task-card.json --schema agent-task-card.schema.json --json
 python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --strict-schema --json
 ```
+
+```bash
+python3 scripts/agentpress.py package-manager-bridge --json
+```

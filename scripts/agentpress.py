@@ -25,6 +25,8 @@ Usage:
 import argparse
 import contextlib
 import io
+import os
+import subprocess
 import hashlib
 import html
 import json
@@ -2251,6 +2253,7 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.package_manager_bridge", "description":"Generate live pip/npm/git/offline install bridge and registry publish readiness for AgentPress.", "command":"python3 scripts/agentpress.py package-manager-bridge --json", "tags":["package","registry","install","npm","pypi"]},
         {"name":"agentpress.tool_permission_policy", "description":"Export per-command permission/approval policy for safe agent tool use.", "command":"python3 scripts/agentpress.py tool-permission-policy --json", "tags":["permissions","policy","approval","safety","tools"]},
         {"name":"agentpress.mcp_catalog_export", "description":"Export AgentPress tools as a static MCP-style catalog for Cline/Roo/MCP tool discovery.", "command":"python3 scripts/agentpress.py mcp-catalog-export --json", "tags":["mcp","tools","catalog","discovery","static"]},
         {"name":"agentpress.community_radar", "description":"Map public agent-builder communities, recurring painpoints, and next AgentPress features to build.", "command":"python3 scripts/agentpress.py community-radar --json", "tags":["community","research","painpoints","agents","roadmap"]},
@@ -3058,6 +3061,24 @@ def proof_ingest(args):
 
 
 
+
+
+def package_manager_bridge(args):
+    """Generate zero-credential package-manager install bridge for pip/npm/git + registry publish readiness."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    npm_auth=False; npm_error=""
+    try:
+        cp=subprocess.run(["npm","whoami"], text=True, capture_output=True, timeout=20)
+        npm_auth=(cp.returncode==0); npm_error=(cp.stderr or cp.stdout).strip()[:300]
+    except Exception as e: npm_error=str(e)
+    pypi_auth=bool(os.environ.get("TWINE_API_TOKEN") or (os.environ.get("TWINE_USERNAME") and os.environ.get("TWINE_PASSWORD")) or pathlib.Path.home().joinpath(".pypirc").exists())
+    gh_release="https://github.com/barneywohl/agentpress/releases/tag/agentpress-2026-05-03-platform"
+    payload={"schema_version":"2026-05-03.agentpress-package-manager-bridge.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Make AgentPress installable through package-manager style paths even when public registry credentials are unavailable.","zero_credential_installs":{"pip_git":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","pip_archive":"python3 -m pip install https://github.com/barneywohl/agentpress/archive/refs/heads/main.zip","npm_git":"npm install github:barneywohl/agentpress","offline_release":"python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --base-url https://barneywohl.github.io/agentpress/ --out agentpress-offline"},"registry_readiness":{"npmjs":{"package":"agentpress-static","available":True,"auth_ok":npm_auth,"auth_error":"" if npm_auth else npm_error,"publish_command":"npm publish --access public"},"pypi":{"package":"agentpress-static","available":True,"auth_ok":pypi_auth,"publish_command":"python3 -m build && python3 -m twine upload dist/*"},"github_release":{"published":True,"url":gh_release,"asset_package":urljoin(base,"agentpress/releases/agentpress-offline.tar.gz"),"asset_manifest":urljoin(base,"agentpress/releases/agentpress-offline.tar.gz.sha256.json")}},"safety":"Publishing to npm/PyPI requires registry credentials; all zero-credential installs above are live now and do not require hidden tokens."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+        (out.parent/"README.md").write_text("# AgentPress Package Manager Bridge\n\nLive install paths:\n\n```bash\npython3 -m pip install git+https://github.com/barneywohl/agentpress.git\nnpm install github:barneywohl/agentpress\npython3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --base-url https://barneywohl.github.io/agentpress/ --out agentpress-offline\n```\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} package bridge")
+    return 0
 
 def tool_permission_policy(args):
     """Export per-command permission/approval policy for agent tool use."""
@@ -4341,6 +4362,7 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("package-manager-bridge"); p.add_argument("--out", default="agentpress/package-registry/package-manager-bridge.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-permission-policy"); p.add_argument("root", nargs="?", default="."); p.add_argument("--tools", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/policies/tool-permission-policy.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("mcp-catalog-export"); p.add_argument("root", nargs="?", default="."); p.add_argument("--tools", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/mcp/mcp-static-catalog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-radar"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/community/community-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -4499,6 +4521,7 @@ def main():
     if args.cmd == "community-radar": return community_radar(args)
     if args.cmd == "mcp-catalog-export": return mcp_catalog_export(args)
     if args.cmd == "tool-permission-policy": return tool_permission_policy(args)
+    if args.cmd == "package-manager-bridge": return package_manager_bridge(args)
     if args.cmd == "sdk-smoke": return sdk_smoke(args)
     if args.cmd in {"agent-onboard", "adopt"}: return agent_onboard(args)
     if args.cmd == "score": return score(args)

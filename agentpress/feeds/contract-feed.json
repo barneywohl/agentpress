@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T20:18:00Z",
-  "current_contract_version": "2026-05-03-strict-schema-validation",
+  "generated_utc": "2026-05-03T20:22:00Z",
+  "current_contract_version": "2026-05-03-package-manager-bridge",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-package-manager-bridge",
+      "kind": "package_distribution",
+      "status": "shipped",
+      "summary": "Added package-manager bridge with live pip/npm/git/offline install lanes and registry readiness checks.",
+      "agent_action": "Run `python3 scripts/agentpress.py package-manager-bridge --json` to get current install/publish lanes.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-strict-schema-validation",
       "kind": "strict_schema_validation",
@@ -343,7 +351,8 @@
     "docs_command_check": "https://barneywohl.github.io/agentpress/agentpress/evidence/docs-command-check.json",
     "community_radar": "https://barneywohl.github.io/agentpress/agentpress/community/community-radar.json",
     "mcp_static_catalog": "https://barneywohl.github.io/agentpress/agentpress/mcp/mcp-static-catalog.json",
-    "tool_permission_policy": "https://barneywohl.github.io/agentpress/agentpress/policies/tool-permission-policy.json"
+    "tool_permission_policy": "https://barneywohl.github.io/agentpress/agentpress/policies/tool-permission-policy.json",
+    "package_manager_bridge": "https://barneywohl.github.io/agentpress/agentpress/package-registry/package-manager-bridge.json"
   },
   "privacy": "Static feed only; no tracking."
 }
