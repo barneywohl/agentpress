@@ -31,6 +31,7 @@ import hashlib
 import html
 import json
 import pathlib
+import platform
 import re
 import shutil
 import shlex
@@ -2253,6 +2254,9 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.agent_identity_card", "description":"Publish AgentPress identity/capability policy card for agent-to-agent trust.", "command":"python3 scripts/agentpress.py agent-identity-card --json", "tags":["identity","trust","capability","policy","agent-to-agent"]},
+        {"name":"agentpress.environment_fingerprint", "description":"Create reproducible environment fingerprint for AgentPress agent runs without secrets.", "command":"python3 scripts/agentpress.py environment-fingerprint --json", "tags":["environment","repro","debug","runtime","fingerprint"]},
+        {"name":"agentpress.repro_bundle", "description":"Publish reproducible run bundle manifest for AgentPress verification.", "command":"python3 scripts/agentpress.py repro-bundle --json", "tags":["repro","bundle","verify","runtime","install"]},
         {"name":"agentpress.package_manager_bridge", "description":"Generate live pip/npm/git/offline install bridge and registry publish readiness for AgentPress.", "command":"python3 scripts/agentpress.py package-manager-bridge --json", "tags":["package","registry","install","npm","pypi"]},
         {"name":"agentpress.tool_permission_policy", "description":"Export per-command permission/approval policy for safe agent tool use.", "command":"python3 scripts/agentpress.py tool-permission-policy --json", "tags":["permissions","policy","approval","safety","tools"]},
         {"name":"agentpress.mcp_catalog_export", "description":"Export AgentPress tools as a static MCP-style catalog for Cline/Roo/MCP tool discovery.", "command":"python3 scripts/agentpress.py mcp-catalog-export --json", "tags":["mcp","tools","catalog","discovery","static"]},
@@ -3062,6 +3066,48 @@ def proof_ingest(args):
 
 
 
+
+
+def agent_identity_card(args):
+    """Publish AgentPress identity/capability policy card for agent-to-agent trust."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    card={"schema_version":"2026-05-03.agentpress-agent-identity-card.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","agent_id":args.agent_id,"display_name":"AgentPress Reference Platform","operator":"barneywohl","homepage":base,"repository":"https://github.com/barneywohl/agentpress","release":"https://github.com/barneywohl/agentpress/releases/tag/agentpress-2026-05-03-platform","capabilities":["static_agent_contracts","tool_catalog","mcp_static_catalog","proof_ingestion","package_manager_bridge","strict_schema_validation","docs_command_lint","permission_policy","community_radar"],"trust_surfaces":{"tools":urljoin(base,"agentpress/tools/agentpress-tools.json"),"mcp_catalog":urljoin(base,"agentpress/mcp/mcp-static-catalog.json"),"permission_policy":urljoin(base,"agentpress/policies/tool-permission-policy.json"),"attestation_index":urljoin(base,"agentpress/attestations/attestation-index.json"),"proof_scoreboard":urljoin(base,"agentpress/external-proofs/proof-scoreboard.json"),"release_index":urljoin(base,"agentpress/releases/release-index.json")},"policy":{"external_writes":"human_approval_required","payments":"unsigned_intents_only_until_explicit_registry_wallet_approval","credential_access":"not_required_for_public_read","privacy":"no hidden telemetry; opt-in receipts only"},"agent_to_agent_use":"Other agents may discover tools, validate contracts, submit proof/blockers, and install through public package-manager bridge without credentials."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(card,indent=2)+"\n",encoding="utf-8")
+        (out.parent/"README.md").write_text("# AgentPress Identity Card\n\nMachine-readable identity/capability policy for agent-to-agent trust.\n\n```bash\npython3 scripts/agentpress.py agent-identity-card --json\n```\n",encoding="utf-8")
+    print(json.dumps(card,indent=2) if args.json else f"{card['status']} {card['agent_id']}")
+    return 0
+
+
+def environment_fingerprint(args):
+    """Create reproducible environment fingerprint for AgentPress agent runs."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    def run(cmd):
+        try:
+            cp=subprocess.run(cmd, text=True, capture_output=True, timeout=10)
+            return {"cmd":" ".join(cmd),"ok":cp.returncode==0,"stdout":cp.stdout.strip()[:500],"stderr":cp.stderr.strip()[:300]}
+        except Exception as e: return {"cmd":" ".join(cmd),"ok":False,"error":str(e)}
+    checks=[run(["python3","--version"]), run(["node","--version"]), run(["git","--version"]), run(["npm","--version"])]
+    files=[]
+    for rel in ["pyproject.toml","package.json","scripts/agentpress.py","agentpress/tools/agentpress-tools.json","agentpress/releases/release-index.json"]:
+        pp=pathlib.Path(rel)
+        if pp.exists(): files.append({"path":rel,"sha256":hashlib.sha256(pp.read_bytes()).hexdigest(),"bytes":pp.stat().st_size})
+    payload={"schema_version":"2026-05-03.agentpress-environment-fingerprint.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Help agents reproduce AgentPress runs and debug flaky runtime drift.","platform":{"system":platform.platform() if 'platform' in globals() else sys.platform,"python":sys.version.split()[0]},"commands":checks,"files":files,"repro_commands":["python3 scripts/agentpress.py doctor --json","python3 scripts/agentpress.py docs-command-check --json","python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --strict-schema --json","python3 scripts/agentpress.py package-verify agentpress/releases/agentpress-offline.tar.gz --manifest agentpress/releases/agentpress-offline.tar.gz.sha256.json --json"],"privacy":"local runtime metadata only; no secrets or env vars captured"}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(files)} files")
+    return 0
+
+
+def repro_bundle(args):
+    """Publish reproducible run bundle manifest for AgentPress."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    payload={"schema_version":"2026-05-03.agentpress-repro-bundle.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"One-stop reproducibility manifest for agents verifying AgentPress from install to contract gates.","inputs":[urljoin(base,"agentpress/runtime/environment-fingerprint.json"),urljoin(base,"agentpress/releases/release-index.json"),urljoin(base,"agentpress/package-registry/package-manager-bridge.json")],"steps":[{"name":"install_from_git","command":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git"},{"name":"offline_install","command":"python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --base-url https://barneywohl.github.io/agentpress/ --out agentpress-offline"},{"name":"contract_verify","command":"python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --strict-schema --json"},{"name":"docs_drift_gate","command":"python3 scripts/agentpress.py docs-command-check --json"},{"name":"sdk_smoke","command":"python3 scripts/agentpress.py sdk-smoke --json"}],"expected_evidence":["strict schema ok","docs command check 0 failed","package verify ok","attestation verify ok"],"no_secret_policy":"Do not include tokens, prompts, private repo paths, env vars, cookies, or user data in repro submissions."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+        (out.parent/"README.md").write_text("# AgentPress Runtime Repro Bundle\n\n```bash\npython3 scripts/agentpress.py environment-fingerprint --json\npython3 scripts/agentpress.py repro-bundle --json\n```\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} repro-bundle")
+    return 0
 
 def package_manager_bridge(args):
     """Generate zero-credential package-manager install bridge for pip/npm/git + registry publish readiness."""
@@ -4362,6 +4408,9 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("agent-identity-card"); p.add_argument("--agent-id", default="agentpress-reference-platform"); p.add_argument("--out", default="agentpress/identity/agentpress-identity-card.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("environment-fingerprint"); p.add_argument("--out", default="agentpress/runtime/environment-fingerprint.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("repro-bundle"); p.add_argument("--out", default="agentpress/runtime/repro-bundle.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-manager-bridge"); p.add_argument("--out", default="agentpress/package-registry/package-manager-bridge.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-permission-policy"); p.add_argument("root", nargs="?", default="."); p.add_argument("--tools", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/policies/tool-permission-policy.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("mcp-catalog-export"); p.add_argument("root", nargs="?", default="."); p.add_argument("--tools", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/mcp/mcp-static-catalog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -4522,6 +4571,9 @@ def main():
     if args.cmd == "mcp-catalog-export": return mcp_catalog_export(args)
     if args.cmd == "tool-permission-policy": return tool_permission_policy(args)
     if args.cmd == "package-manager-bridge": return package_manager_bridge(args)
+    if args.cmd == "agent-identity-card": return agent_identity_card(args)
+    if args.cmd == "environment-fingerprint": return environment_fingerprint(args)
+    if args.cmd == "repro-bundle": return repro_bundle(args)
     if args.cmd == "sdk-smoke": return sdk_smoke(args)
     if args.cmd in {"agent-onboard", "adopt"}: return agent_onboard(args)
     if args.cmd == "score": return score(args)

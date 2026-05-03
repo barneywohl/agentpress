@@ -1,0 +1,71 @@
+{
+  "schema_version": "2026-05-03.agentpress-environment-fingerprint.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/runtime/environment-fingerprint.json",
+  "generated_utc": "2026-05-03T20:23:24Z",
+  "status": "ok",
+  "purpose": "Help agents reproduce AgentPress runs and debug flaky runtime drift.",
+  "platform": {
+    "system": "macOS-15.6-arm64-arm-64bit-Mach-O",
+    "python": "3.14.3"
+  },
+  "commands": [
+    {
+      "cmd": "python3 --version",
+      "ok": true,
+      "stdout": "Python 3.14.3",
+      "stderr": ""
+    },
+    {
+      "cmd": "node --version",
+      "ok": true,
+      "stdout": "v25.8.2",
+      "stderr": ""
+    },
+    {
+      "cmd": "git --version",
+      "ok": true,
+      "stdout": "git version 2.50.1 (Apple Git-155)",
+      "stderr": ""
+    },
+    {
+      "cmd": "npm --version",
+      "ok": true,
+      "stdout": "11.11.1",
+      "stderr": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "pyproject.toml",
+      "sha256": "13b8423aeaa5607ac0a51aaacbf172f3c7c4267d50e12fef59ba516c2e099292",
+      "bytes": 806
+    },
+    {
+      "path": "package.json",
+      "sha256": "b8cf6055b6b9ab4ac7ab1bf1a3c5287ce94e1eb3ff5536b5f54ae9c19d4bcd91",
+      "bytes": 536
+    },
+    {
+      "path": "scripts/agentpress.py",
+      "sha256": "8f718084663dd88f0109abe6cae39d152ac63a748830a947dda7c024fb94e6b7",
+      "bytes": 383288
+    },
+    {
+      "path": "agentpress/tools/agentpress-tools.json",
+      "sha256": "eea0cacd4ed6977bae93e59007d1636dd4fcfbd38afecaaf258c651f6d09ff7d",
+      "bytes": 29659
+    },
+    {
+      "path": "agentpress/releases/release-index.json",
+      "sha256": "3e734b019139e5f0a7f54ded5624c0d3cb13c2a53a620bf160a2e2cfe569a8bb",
+      "bytes": 1323
+    }
+  ],
+  "repro_commands": [
+    "python3 scripts/agentpress.py doctor --json",
+    "python3 scripts/agentpress.py docs-command-check --json",
+    "python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --strict-schema --json",
+    "python3 scripts/agentpress.py package-verify agentpress/releases/agentpress-offline.tar.gz --manifest agentpress/releases/agentpress-offline.tar.gz.sha256.json --json"
+  ],
+  "privacy": "local runtime metadata only; no secrets or env vars captured"
+}

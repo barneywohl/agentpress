@@ -1,0 +1,38 @@
+{
+  "schema_version": "2026-05-03.agentpress-agent-identity-card.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/identity/agentpress-identity-card.json",
+  "generated_utc": "2026-05-03T20:23:24Z",
+  "status": "ok",
+  "agent_id": "agentpress-reference-platform",
+  "display_name": "AgentPress Reference Platform",
+  "operator": "barneywohl",
+  "homepage": "https://barneywohl.github.io/agentpress//",
+  "repository": "https://github.com/barneywohl/agentpress",
+  "release": "https://github.com/barneywohl/agentpress/releases/tag/agentpress-2026-05-03-platform",
+  "capabilities": [
+    "static_agent_contracts",
+    "tool_catalog",
+    "mcp_static_catalog",
+    "proof_ingestion",
+    "package_manager_bridge",
+    "strict_schema_validation",
+    "docs_command_lint",
+    "permission_policy",
+    "community_radar"
+  ],
+  "trust_surfaces": {
+    "tools": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
+    "mcp_catalog": "https://barneywohl.github.io/agentpress/agentpress/mcp/mcp-static-catalog.json",
+    "permission_policy": "https://barneywohl.github.io/agentpress/agentpress/policies/tool-permission-policy.json",
+    "attestation_index": "https://barneywohl.github.io/agentpress/agentpress/attestations/attestation-index.json",
+    "proof_scoreboard": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/proof-scoreboard.json",
+    "release_index": "https://barneywohl.github.io/agentpress/agentpress/releases/release-index.json"
+  },
+  "policy": {
+    "external_writes": "human_approval_required",
+    "payments": "unsigned_intents_only_until_explicit_registry_wallet_approval",
+    "credential_access": "not_required_for_public_read",
+    "privacy": "no hidden telemetry; opt-in receipts only"
+  },
+  "agent_to_agent_use": "Other agents may discover tools, validate contracts, submit proof/blockers, and install through public package-manager bridge without credentials."
+}
