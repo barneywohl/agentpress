@@ -7,8 +7,8 @@ This is the canonical short-list for AgentPress builders. Do not produce memo-on
 ## Rules
 
 - Ship small non-overlapping patches.
-- Every item needs: owner, files changed, command gates, deploy status, and evidence.
-- If you cannot edit safely, write an exact patch with file paths and snippets.
+- Every item needs: owner, files changed, command gates, commit hash, push status, Pages deploy status, live URL check, and evidence.
+- If you cannot edit safely, write an exact patch with file paths and snippets, but still state why it could not be committed/pushed/deployed.
 - Public artifacts must stay agent-first: deterministic fetch/parse/validate/verify instructions, not human marketing.
 
 ## Done / shipped
@@ -33,6 +33,10 @@ This is the canonical short-list for AgentPress builders. Do not produce memo-on
 | AP-011 | P1 | Theo | Add concise `agentpress/schemas/README.md` examples for each schema and CLI command. | Docs include exact command + expected JSON keys. |
 | AP-012 | P1 | Kai | Adversarial bundle validation: intentionally broken sample or documented negative tests. | `verify` fails closed for missing/invalid contract fields. |
 
+## Deploy requirement
+
+A row is not done until it is committed, pushed to the Barney-owned AgentPress repo, GitHub Actions pass, Pages deploy succeeds, and the changed live URL returns 200. Local-only patches are `READY`, not `SHIPPED`.
+
 ## Current bottlenecks
 
 - Broker wake lease cap allows only two active agent wakes at once.
@@ -47,7 +51,11 @@ Owner:
 Files changed:
 Commands run:
 Result:
-Commit/push/deploy status:
+Commit hash:
+Push status:
+GitHub Actions status:
+Pages deploy status:
+Live URL checked:
 Blockers:
 Next item claimed:
 ```
