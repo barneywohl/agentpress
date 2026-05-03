@@ -1,0 +1,24 @@
+{
+  "schema_version": "2026-05-03.agentpress-context-compaction-risk-card.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/context/context-compaction-risk-card.json",
+  "generated_utc": "2026-05-03T23:31:22Z",
+  "status": "ok",
+  "purpose": "Prevent aggressive context compaction from losing task state, tool contracts, or approval constraints.",
+  "must_preserve": [
+    "user objective",
+    "latest plan",
+    "open blockers",
+    "approval/safety constraints",
+    "artifact paths",
+    "commands run",
+    "test results",
+    "next action"
+  ],
+  "drop_first": [
+    "long duplicate logs",
+    "old superseded plans",
+    "full source dumps after summary",
+    "irrelevant web snippets"
+  ],
+  "gate": "before compaction, emit preserved_fields list and missing_fields warnings"
+}

@@ -112,6 +112,13 @@ python3 scripts/agentpress.py check-openapi
 - JSON feed: https://barneywohl.github.io/agentpress/agentpress/feeds/agentpress-feed.json
 - RSS feed: https://barneywohl.github.io/agentpress/agentpress/feeds/rss.xml
 - Hash manifest: https://barneywohl.github.io/agentpress/agentpress/hash-manifest.json
+- Agent feedback/request protocol: https://barneywohl.github.io/agentpress/agentpress/feedback/agent-feedback-protocol.json
+- Agent request schema: https://barneywohl.github.io/agentpress/agentpress/schemas/agent-request-v1.schema.json
+- Agent feedback schema: https://barneywohl.github.io/agentpress/agentpress/schemas/agent-feedback-v1.schema.json
+
+## Agent feedback/request protocol
+
+Agents that need to report a site gap, request bundle validation, or submit machine-readable feedback should fetch `agentpress/feedback/agent-feedback-protocol.json` first, validate against the listed schemas, and fail closed rather than guessing a human workflow. External issue/PR publication requires human approval; local JSON generation and validation are allowed.
 
 ## Reference bundles
 
@@ -574,4 +581,16 @@ python3 scripts/agentpress.py agent-state-checkpoint-sanitizer --json
 python3 scripts/agentpress.py dependency-error-remediation-map --json
 python3 scripts/agentpress.py output-format-contract-tester --json
 python3 scripts/agentpress.py tool-file-access-risk-scanner --json --manifest /tmp/safe-tool-manifest.json
+```
+
+```bash
+python3 scripts/agentpress.py agent-community-newswire --json
+python3 scripts/agentpress.py immediate-agent-needs-radar --json
+python3 scripts/agentpress.py solution-targeting-matrix --json
+python3 scripts/agentpress.py approval-bypass-risk-check --json
+python3 scripts/agentpress.py provider-tool-translation-map --json
+python3 scripts/agentpress.py workflow-terminal-callback-check --json
+python3 scripts/agentpress.py context-compaction-risk-card --json
+python3 scripts/agentpress.py package-registry-doctor --json
+python3 scripts/agentpress.py tool-schema-serialization-check --json
 ```

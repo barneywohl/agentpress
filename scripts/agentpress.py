@@ -2254,6 +2254,15 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.agent_community_newswire", "description":"Compile current public agent-community issue/news signals.", "command":"python3 scripts/agentpress.py agent-community-newswire --json", "tags":["community","newswire","issues","agents"]},
+        {"name":"agentpress.immediate_agent_needs_radar", "description":"Rank current agent needs from sampled community signals.", "command":"python3 scripts/agentpress.py immediate-agent-needs-radar --json", "tags":["needs","radar","agents","research"]},
+        {"name":"agentpress.solution_targeting_matrix", "description":"Map communities/problems to AgentPress solution gates.", "command":"python3 scripts/agentpress.py solution-targeting-matrix --json", "tags":["targeting","solutions","community"]},
+        {"name":"agentpress.approval_bypass_risk_check", "description":"Detect tool/MCP approval bypass risk.", "command":"python3 scripts/agentpress.py approval-bypass-risk-check --json", "tags":["approval","mcp","security","gate"]},
+        {"name":"agentpress.provider_tool_translation_map", "description":"Generate provider/host tool vocabulary translation hints.", "command":"python3 scripts/agentpress.py provider-tool-translation-map --json", "tags":["provider","tools","translation"]},
+        {"name":"agentpress.workflow_terminal_callback_check", "description":"Check workflow/terminal callback completion contract.", "command":"python3 scripts/agentpress.py workflow-terminal-callback-check --json", "tags":["workflow","terminal","callback","gate"]},
+        {"name":"agentpress.context_compaction_risk_card", "description":"Generate context compaction risk envelope.", "command":"python3 scripts/agentpress.py context-compaction-risk-card --json", "tags":["context","compaction","memory"]},
+        {"name":"agentpress.package_registry_doctor", "description":"Diagnose package/install registry failures for agent CLIs.", "command":"python3 scripts/agentpress.py package-registry-doctor --json", "tags":["package","registry","install","doctor"]},
+        {"name":"agentpress.tool_schema_serialization_check", "description":"Check tool schema metadata is JSON-serializable.", "command":"python3 scripts/agentpress.py tool-schema-serialization-check --json", "tags":["tools","schema","serialization","gate"]},
         {"name":"agentpress.agent_community_channel_map", "description":"Map agent communities/channels to problem signals.", "command":"python3 scripts/agentpress.py agent-community-channel-map --json", "tags":["community","channels","research","agents"]},
         {"name":"agentpress.community_issue_radar", "description":"Compile community issue radar from public issue signals.", "command":"python3 scripts/agentpress.py community-issue-radar --json", "tags":["community","issues","radar","research"]},
         {"name":"agentpress.unsolved_agent_problem_backlog", "description":"Generate prioritized backlog from community issue radar.", "command":"python3 scripts/agentpress.py unsolved-agent-problem-backlog --json", "tags":["backlog","problems","features"]},
@@ -3199,6 +3208,173 @@ def _write_json_payload(payload, out, no_write=False, json_mode=False):
     print(json.dumps(payload, indent=2) if json_mode else payload.get("status", "ok"))
 
 
+
+
+def agent_community_newswire(args):
+    """Compile current public agent-community issue/news signals into a machine-readable newswire."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    sample_path=pathlib.Path(args.sample) if args.sample else pathlib.Path('/tmp/ap-live-agent-community-issues.json')
+    raw={}
+    if sample_path.exists():
+        try: raw=json.loads(sample_path.read_text())
+        except Exception: raw={}
+    items=[]
+    for bucket, data in raw.items():
+        for it in data.get('items',[])[:5]:
+            title=it.get('title','')
+            theme='unknown'
+            low=title.lower()
+            if 'approval' in low or 'auto-approve' in low: theme='approval_safety'
+            elif 'tool' in low or 'execute_command' in low or 'model_dump' in low: theme='tool_schema_vocab'
+            elif 'checkpoint' in low or 'structured_response' in low or 'state' in low: theme='state_checkpoint_drift'
+            elif 'npm' in low or 'package' in low or 'fails on startup' in low: theme='install_distribution'
+            elif 'context' in low or 'compaction' in low: theme='context_budget'
+            elif 'file' in low or 'security' in low or 'arbitrary' in low: theme='security_sandbox'
+            elif 'workflow' in low or 'running' in low or 'hook' in low: theme='workflow_runtime'
+            items.append({"bucket":bucket,"repo":it.get('repo'),"title":title,"url":it.get('url'),"updated_at":it.get('updated_at'),"theme":theme})
+    payload={"schema_version":"2026-05-03.agentpress-agent-community-newswire.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Current sampled public agent-community issue/news signals for immediate product targeting.","source_sample":str(sample_path),"item_count":len(items),"items":items}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(items)} items")
+    return 0
+
+
+def immediate_agent_needs_radar(args):
+    """Rank current agent needs from sampled community signals."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    needs=[
+        {"rank":1,"need":"approval safety for MCP/tool calls","why":"public reports of MCP tool calls executing without approval when auto-approve is off","ship":"approval-bypass-risk-check"},
+        {"rank":2,"need":"provider/tool vocabulary compatibility","why":"Claude Code provider receiving Cline tool names cannot dispatch commands","ship":"tool-vocabulary-compatibility-check plus provider translation map"},
+        {"rank":3,"need":"state/checkpoint reset hygiene","why":"stale structured_response/checkpoint state causes wrong next-turn behavior","ship":"agent-state-checkpoint-sanitizer"},
+        {"rank":4,"need":"install/package failure diagnosis","why":"CLI/package startup failures and missing packages stop adoption before first run","ship":"package-registry-doctor"},
+        {"rank":5,"need":"terminal/workflow callback completion checks","why":"agents hang in running state or terminal callbacks fail silently","ship":"workflow-terminal-callback-check"},
+        {"rank":6,"need":"context compaction budget guard","why":"aggressive compaction loses task state and instructions","ship":"context-compaction-risk-card"},
+        {"rank":7,"need":"tool schema serialization checks","why":"tool schemas fail JSON dump/serialization in agent frameworks","ship":"tool-schema-serialization-check"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-immediate-agent-needs-radar.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Rank immediate agent needs from public issue signals and map each to a shipped AgentPress surface.","need_count":len(needs),"needs":needs}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(needs)} needs")
+    return 0
+
+
+def solution_targeting_matrix(args):
+    """Map current agent communities/problems to AgentPress solution gates and outreach target."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    rows=[
+        {"community":"Cline","problem":"approval bypass/tool vocabulary/provider config drift","solution":"approval-bypass-risk-check + provider-tool-translation-map + memory-drift-check","target_message":"AgentPress can preflight provider/tool/approval contracts before dispatch."},
+        {"community":"Roo/OpenHands","problem":"runtime/browser/docker/workflow fragility","solution":"runtime-install-doctor + browser-agent-compatibility-harness + workflow-terminal-callback-check","target_message":"AgentPress can produce runnable environment/browser/workflow evidence before claims."},
+        {"community":"LangChain/LangGraph","problem":"checkpoint state and tool schema serialization drift","solution":"agent-state-checkpoint-sanitizer + tool-schema-serialization-check","target_message":"AgentPress can catch stale checkpoint/tool schema issues before agent loops."},
+        {"community":"LlamaIndex/RAG","problem":"output format drift and file access risk","solution":"output-format-contract-tester + tool-file-access-risk-scanner","target_message":"AgentPress can validate format contracts and sandbox file-path metadata."},
+        {"community":"MCP ecosystem","problem":"auth/transport/approval/scopes ambiguity","solution":"mcp-connector-auth-readiness + connector-security-scanner + approval-bypass-risk-check","target_message":"AgentPress can publish fail-closed connector readiness cards."}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-solution-targeting-matrix.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Target AgentPress solutions to the communities/problems agents are actively discussing.","row_count":len(rows),"rows":rows}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(rows)} rows")
+    return 0
+
+
+def approval_bypass_risk_check(args):
+    """Detect tool/MCP approval bypass risk from a connector/action manifest."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    manifest={}
+    if args.manifest and pathlib.Path(args.manifest).exists(): manifest=json.loads(pathlib.Path(args.manifest).read_text())
+    else: manifest={"auto_approve":False,"tools":[{"name":"mcp_write_file","requires_approval":True},{"name":"mcp_shell","requires_approval":True}],"dispatch_log":[]}
+    findings=[]
+    auto=bool(manifest.get('auto_approve'))
+    for t in manifest.get('tools',[]):
+        name=t.get('name','')
+        risky=any(x in name.lower() for x in ['write','delete','shell','exec','send','pay','deploy'])
+        if risky and not t.get('requires_approval'):
+            findings.append({"tool":name,"status":"fail","message":"risky tool missing requires_approval"})
+    for call in manifest.get('dispatch_log',[]):
+        if not auto and call.get('executed') and call.get('approval_state') not in ['approved','allow_once']:
+            findings.append({"tool":call.get('tool'),"status":"fail","message":"executed without approval while auto_approve=false"})
+    status='ok' if not findings else 'fail'
+    payload={"schema_version":"2026-05-03.agentpress-approval-bypass-risk-result.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"finding_count":len(findings),"findings":findings,"policy":"When auto_approve=false, risky MCP/tool calls must not execute without explicit approved/allow_once state."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else status)
+    return 1 if args.strict and status=='fail' else 0
+
+
+def provider_tool_translation_map(args):
+    """Generate provider/host tool vocabulary translation hints."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    mappings=[
+        {"from_host":"cline","to_provider":"claude_code","from_tool":"execute_command","to_tool":"bash","confidence":"high"},
+        {"from_host":"cline","to_provider":"claude_code","from_tool":"write_to_file","to_tool":"write_file","confidence":"medium"},
+        {"from_host":"cline","to_provider":"claude_code","from_tool":"replace_in_file","to_tool":"edit_file","confidence":"medium"},
+        {"from_host":"cline","to_provider":"openhands","from_tool":"execute_command","to_tool":"run","confidence":"medium"},
+        {"from_host":"generic","to_provider":"mcp","from_tool":"browser_action","to_tool":"tool_call(browser.*)","confidence":"low_requires_manifest"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-provider-tool-translation-map.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Prevent provider/host tool vocabulary mismatch by publishing explicit translation hints and low-confidence fail-closed cases.","mapping_count":len(mappings),"mappings":mappings,"rule":"Translate only high/medium confidence mappings automatically; low confidence requires provider manifest."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"ok {len(mappings)} mappings")
+    return 0
+
+
+def workflow_terminal_callback_check(args):
+    """Check workflow/terminal callback completion contract."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    log=args.log or "terminal command completed\ncallback: delivered\nstate: idle"
+    low=log.lower(); findings=[]
+    if 'running' in low and 'callback' not in low: findings.append({"status":"fail","message":"workflow appears stuck running without callback"})
+    if 'command completed' in low and 'callback' not in low: findings.append({"status":"fail","message":"terminal completed without callback"})
+    if 'hook' in low and 'complete' not in low and 'delivered' not in low: findings.append({"status":"warn","message":"hook mentioned without completion evidence"})
+    status='ok' if not any(f['status']=='fail' for f in findings) else 'fail'
+    payload={"schema_version":"2026-05-03.agentpress-workflow-terminal-callback-result.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"findings":findings,"required_evidence":["terminal_exit_code","callback_delivery","workflow_state_idle_or_completed"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else status)
+    return 1 if args.strict and status=='fail' else 0
+
+
+def context_compaction_risk_card(args):
+    """Generate/check context compaction risk envelope."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    payload={"schema_version":"2026-05-03.agentpress-context-compaction-risk-card.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Prevent aggressive context compaction from losing task state, tool contracts, or approval constraints.","must_preserve":["user objective","latest plan","open blockers","approval/safety constraints","artifact paths","commands run","test results","next action"],"drop_first":["long duplicate logs","old superseded plans","full source dumps after summary","irrelevant web snippets"],"gate":"before compaction, emit preserved_fields list and missing_fields warnings"}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else 'ok')
+    return 0
+
+
+def package_registry_doctor(args):
+    """Diagnose package/install registry failures for agent CLIs."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    error=args.error or "npm ERR! 404 Not Found - @clinebot/agents"
+    low=error.lower(); fixes=[]
+    if '404' in low or 'not found' in low: fixes.append({"class":"missing_package_or_registry_name","fix":"check package name, registry, scope ownership, and fallback to git/github release tarball"})
+    if 'permission' in low or 'eacces' in low: fixes.append({"class":"permission","fix":"use user install prefix or documented package manager path"})
+    if 'auth' in low or 'token' in low: fixes.append({"class":"registry_auth","fix":"do not print token; verify logged-in account/scope separately"})
+    payload={"schema_version":"2026-05-03.agentpress-package-registry-doctor.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if fixes else "unknown","error_sample":error,"fixes":fixes,"fallback_channels":["git clone","GitHub release tarball","pip git","npm github:owner/repo","static HTTP bundle"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload['status'])
+    return 0
+
+
+def tool_schema_serialization_check(args):
+    """Check whether tool schema metadata is JSON-serializable for agent frameworks."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    schema={"name":"example_tool","args_schema":{"type":"object","properties":{"q":{"type":"string"}}},"func":"<callable omitted>","coroutine":"<callable omitted>"}
+    if args.schema and pathlib.Path(args.schema).exists(): schema=json.loads(pathlib.Path(args.schema).read_text())
+    findings=[]
+    for k,v in schema.items():
+        try: json.dumps(v)
+        except TypeError: findings.append({"field":k,"status":"fail","message":"not JSON serializable"})
+    for callable_field in ['func','coroutine']:
+        if callable_field in schema and str(schema[callable_field]).startswith('<'):
+            findings.append({"field":callable_field,"status":"warn","message":"callable placeholder should be omitted or represented as metadata, not serialized directly"})
+    status='fail' if any(f['status']=='fail' for f in findings) else 'ok'
+    payload={"schema_version":"2026-05-03.agentpress-tool-schema-serialization-result.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"findings":findings,"rule":"Tool schemas should serialize args/contracts, not raw callable/coroutine objects."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else status)
+    return 1 if args.strict and status=='fail' else 0
 
 def agent_community_channel_map(args):
     """Map agent communities/channels to problem signals and ingestion methods."""
@@ -6269,6 +6445,15 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("agent-community-newswire"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/agent-community-newswire.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("immediate-agent-needs-radar"); p.add_argument("--out", default="agentpress/community/immediate-agent-needs-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("solution-targeting-matrix"); p.add_argument("--out", default="agentpress/community/solution-targeting-matrix.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("approval-bypass-risk-check"); p.add_argument("--manifest", default=""); p.add_argument("--out", default="agentpress/security/approval-bypass-risk-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("provider-tool-translation-map"); p.add_argument("--out", default="agentpress/compatibility/provider-tool-translation-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("workflow-terminal-callback-check"); p.add_argument("--log", default=""); p.add_argument("--out", default="agentpress/workflows/workflow-terminal-callback-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("context-compaction-risk-card"); p.add_argument("--out", default="agentpress/context/context-compaction-risk-card.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("package-registry-doctor"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/diagnostics/package-registry-doctor.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("tool-schema-serialization-check"); p.add_argument("--schema", default=""); p.add_argument("--out", default="agentpress/tools/tool-schema-serialization-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-issue-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/community-issue-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("unsolved-agent-problem-backlog"); p.add_argument("--out", default="agentpress/community/unsolved-agent-problem-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -6557,6 +6742,15 @@ def main():
     if args.cmd == "next-cycle-research": return next_cycle_research(args)
     if args.cmd == "memory-drift-check": return memory_drift_check(args)
     if args.cmd == "agent-community-channel-map": return agent_community_channel_map(args)
+    if args.cmd == "agent-community-newswire": return agent_community_newswire(args)
+    if args.cmd == "immediate-agent-needs-radar": return immediate_agent_needs_radar(args)
+    if args.cmd == "solution-targeting-matrix": return solution_targeting_matrix(args)
+    if args.cmd == "approval-bypass-risk-check": return approval_bypass_risk_check(args)
+    if args.cmd == "provider-tool-translation-map": return provider_tool_translation_map(args)
+    if args.cmd == "workflow-terminal-callback-check": return workflow_terminal_callback_check(args)
+    if args.cmd == "context-compaction-risk-card": return context_compaction_risk_card(args)
+    if args.cmd == "package-registry-doctor": return package_registry_doctor(args)
+    if args.cmd == "tool-schema-serialization-check": return tool_schema_serialization_check(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
     if args.cmd == "unsolved-agent-problem-backlog": return unsolved_agent_problem_backlog(args)
     if args.cmd == "tool-vocabulary-compatibility-check": return tool_vocabulary_compatibility_check(args)

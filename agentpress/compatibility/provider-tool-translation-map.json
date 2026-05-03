@@ -1,0 +1,46 @@
+{
+  "schema_version": "2026-05-03.agentpress-provider-tool-translation-map.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/compatibility/provider-tool-translation-map.json",
+  "generated_utc": "2026-05-03T23:31:21Z",
+  "status": "ok",
+  "purpose": "Prevent provider/host tool vocabulary mismatch by publishing explicit translation hints and low-confidence fail-closed cases.",
+  "mapping_count": 5,
+  "mappings": [
+    {
+      "from_host": "cline",
+      "to_provider": "claude_code",
+      "from_tool": "execute_command",
+      "to_tool": "bash",
+      "confidence": "high"
+    },
+    {
+      "from_host": "cline",
+      "to_provider": "claude_code",
+      "from_tool": "write_to_file",
+      "to_tool": "write_file",
+      "confidence": "medium"
+    },
+    {
+      "from_host": "cline",
+      "to_provider": "claude_code",
+      "from_tool": "replace_in_file",
+      "to_tool": "edit_file",
+      "confidence": "medium"
+    },
+    {
+      "from_host": "cline",
+      "to_provider": "openhands",
+      "from_tool": "execute_command",
+      "to_tool": "run",
+      "confidence": "medium"
+    },
+    {
+      "from_host": "generic",
+      "to_provider": "mcp",
+      "from_tool": "browser_action",
+      "to_tool": "tool_call(browser.*)",
+      "confidence": "low_requires_manifest"
+    }
+  ],
+  "rule": "Translate only high/medium confidence mappings automatically; low confidence requires provider manifest."
+}

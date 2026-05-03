@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T22:38:23Z",
+  "generated_at": "2026-05-03T23:31:20Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,102 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.agent_community_newswire",
+      "description": "Compile current public agent-community issue/news signals.",
+      "command": "python3 scripts/agentpress.py agent-community-newswire --json",
+      "tags": [
+        "community",
+        "newswire",
+        "issues",
+        "agents"
+      ]
+    },
+    {
+      "name": "agentpress.immediate_agent_needs_radar",
+      "description": "Rank current agent needs from sampled community signals.",
+      "command": "python3 scripts/agentpress.py immediate-agent-needs-radar --json",
+      "tags": [
+        "needs",
+        "radar",
+        "agents",
+        "research"
+      ]
+    },
+    {
+      "name": "agentpress.solution_targeting_matrix",
+      "description": "Map communities/problems to AgentPress solution gates.",
+      "command": "python3 scripts/agentpress.py solution-targeting-matrix --json",
+      "tags": [
+        "targeting",
+        "solutions",
+        "community"
+      ]
+    },
+    {
+      "name": "agentpress.approval_bypass_risk_check",
+      "description": "Detect tool/MCP approval bypass risk.",
+      "command": "python3 scripts/agentpress.py approval-bypass-risk-check --json",
+      "tags": [
+        "approval",
+        "mcp",
+        "security",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.provider_tool_translation_map",
+      "description": "Generate provider/host tool vocabulary translation hints.",
+      "command": "python3 scripts/agentpress.py provider-tool-translation-map --json",
+      "tags": [
+        "provider",
+        "tools",
+        "translation"
+      ]
+    },
+    {
+      "name": "agentpress.workflow_terminal_callback_check",
+      "description": "Check workflow/terminal callback completion contract.",
+      "command": "python3 scripts/agentpress.py workflow-terminal-callback-check --json",
+      "tags": [
+        "workflow",
+        "terminal",
+        "callback",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.context_compaction_risk_card",
+      "description": "Generate context compaction risk envelope.",
+      "command": "python3 scripts/agentpress.py context-compaction-risk-card --json",
+      "tags": [
+        "context",
+        "compaction",
+        "memory"
+      ]
+    },
+    {
+      "name": "agentpress.package_registry_doctor",
+      "description": "Diagnose package/install registry failures for agent CLIs.",
+      "command": "python3 scripts/agentpress.py package-registry-doctor --json",
+      "tags": [
+        "package",
+        "registry",
+        "install",
+        "doctor"
+      ]
+    },
+    {
+      "name": "agentpress.tool_schema_serialization_check",
+      "description": "Check tool schema metadata is JSON-serializable.",
+      "command": "python3 scripts/agentpress.py tool-schema-serialization-check --json",
+      "tags": [
+        "tools",
+        "schema",
+        "serialization",
+        "gate"
       ]
     },
     {

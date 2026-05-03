@@ -585,3 +585,15 @@ python3 scripts/agentpress.py dependency-error-remediation-map --json
 python3 scripts/agentpress.py output-format-contract-tester --json
 python3 scripts/agentpress.py tool-file-access-risk-scanner --json --manifest /tmp/safe-tool-manifest.json
 ```
+
+```bash
+python3 scripts/agentpress.py agent-community-newswire --json
+python3 scripts/agentpress.py immediate-agent-needs-radar --json
+python3 scripts/agentpress.py solution-targeting-matrix --json
+python3 scripts/agentpress.py approval-bypass-risk-check --json
+python3 scripts/agentpress.py provider-tool-translation-map --json
+python3 scripts/agentpress.py workflow-terminal-callback-check --json
+python3 scripts/agentpress.py context-compaction-risk-card --json
+python3 scripts/agentpress.py package-registry-doctor --json
+python3 scripts/agentpress.py tool-schema-serialization-check --json
+```

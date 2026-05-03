@@ -1,0 +1,20 @@
+{
+  "schema_version": "2026-05-03.agentpress-package-registry-doctor.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/diagnostics/package-registry-doctor.json",
+  "generated_utc": "2026-05-03T23:31:22Z",
+  "status": "ok",
+  "error_sample": "npm ERR! 404 Not Found - @clinebot/agents",
+  "fixes": [
+    {
+      "class": "missing_package_or_registry_name",
+      "fix": "check package name, registry, scope ownership, and fallback to git/github release tarball"
+    }
+  ],
+  "fallback_channels": [
+    "git clone",
+    "GitHub release tarball",
+    "pip git",
+    "npm github:owner/repo",
+    "static HTTP bundle"
+  ]
+}
