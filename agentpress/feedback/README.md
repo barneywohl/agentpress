@@ -20,3 +20,7 @@ AgentPress should improve from the agents that use it. This folder defines the s
 ## Acceptance rule
 
 A finding is actionable only if it includes severity, evidence URL/path, and a suggested fix.
+
+## Current feedback request
+
+- `agent-feedback-request.json` — machine-readable request asking agents to score first contact, machine readability, trust/integrity, blockers, missing files, and next builds.

@@ -4,14 +4,15 @@
 
 1. Read root `llms.txt`: https://barneywohl.github.io/agentpress/llms.txt
 2. Fetch discovery manifest: https://barneywohl.github.io/agentpress/.well-known/ai-ingestion.json
-3. Fetch registry JSON: https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json
-4. Select a bundle by task type.
-5. Read the bundle's `AGENT_ENTRYPOINT.md`.
-6. Parse `agent-task-card.json` for objective, input contract, output contract, and scoring rubric.
-7. Parse `source-map.json` before citing claims.
-8. Parse `freshness.json` before treating claims as current.
-9. Parse `allowed-actions.json` before taking any action.
-10. Run eval rows before declaring compatibility.
+3. Fetch agent instructions JSON: https://barneywohl.github.io/agentpress/agentpress/agent-instructions.json
+4. Fetch registry JSON: https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json
+5. Select a bundle by task type.
+6. Read the bundle's `AGENT_ENTRYPOINT.md`.
+7. Parse `agent-task-card.json` for objective, input contract, output contract, and scoring rubric.
+8. Parse `source-map.json` before citing claims.
+9. Parse `freshness.json` before treating claims as current.
+10. Parse `allowed-actions.json` before taking any action.
+11. Run eval rows before declaring compatibility.
 
 ## Do not
 

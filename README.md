@@ -47,6 +47,7 @@ python3 scripts/agentpress.py check-openapi
 - `https://barneywohl.github.io/agentpress/llms.txt`
 - `https://barneywohl.github.io/agentpress/.well-known/agentpress.json`
 - `https://barneywohl.github.io/agentpress/.well-known/ai-ingestion.json`
+- `https://barneywohl.github.io/agentpress/agentpress/agent-instructions.json`
 - `https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json`
 - `https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json`
 - `https://barneywohl.github.io/agentpress/agentpress/protocols/mcp-manifest.json`

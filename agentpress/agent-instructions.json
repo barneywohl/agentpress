@@ -1,0 +1,57 @@
+{
+  "schema_version": "2026-05-03.agentpress-agent-instructions.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/agent-instructions.json",
+  "purpose": "Deterministic execution instructions for autonomous agents consuming AgentPress.",
+  "execution_order": [
+    "GET /llms.txt",
+    "GET /.well-known/agentpress.json",
+    "GET /.well-known/ai-ingestion.json",
+    "GET /agentpress/agentpress-registry.json",
+    "Select bundle by task_type and target_agent_families",
+    "GET bundle AGENT_ENTRYPOINT.md",
+    "GET bundle agent-task-card.json",
+    "GET bundle source-map.json",
+    "GET bundle freshness.json",
+    "GET bundle allowed-actions.json",
+    "Run local CLI validation/audit/eval gates before reuse"
+  ],
+  "required_bundle_files": [
+    "AGENT_ENTRYPOINT.md",
+    "agent-task-card.json",
+    "source-map.json",
+    "freshness.json",
+    "allowed-actions.json",
+    ".well-known/ai-ingestion.json",
+    "llms.txt",
+    "sitemap.xml",
+    "citation-policy.md",
+    "disclaimer.md",
+    "evals/*.jsonl"
+  ],
+  "allowed_public_actions": [
+    "read",
+    "crawl",
+    "cite",
+    "transform",
+    "benchmark",
+    "validate"
+  ],
+  "not_authorized_by_public_bundle": [
+    "external_writes",
+    "account_actions",
+    "production_changes",
+    "payments",
+    "credential_access",
+    "mass_distribution"
+  ],
+  "required_output_fields": [
+    "selected_bundle",
+    "task_understood",
+    "sources_checked",
+    "freshness_status",
+    "allowed_actions",
+    "missing_checks",
+    "citations"
+  ],
+  "feedback_request": "https://barneywohl.github.io/agentpress/agentpress/feedback/agent-feedback-request.json"
+}
