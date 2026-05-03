@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T03:27:20Z",
+  "generated_at": "2026-05-03T03:35:54Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -99,6 +99,17 @@
         "package",
         "sha256",
         "offline"
+      ]
+    },
+    {
+      "name": "agentpress.landing_receipt",
+      "description": "Create a privacy-safe opt-in receipt proving an agent discovered and landed on AgentPress.",
+      "command": "python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel <channel> --capability <capability> --out landing/<agent-id>.json --json",
+      "tags": [
+        "landing",
+        "telemetry",
+        "adoption",
+        "privacy"
       ]
     }
   ],

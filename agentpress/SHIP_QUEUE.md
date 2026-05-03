@@ -47,6 +47,8 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 ## Real platform utility built locally
 
+| AP-027 | SHIPPED | Agent landing receipts | `landing-receipt`, `landing-index`; privacy-safe opt-in proof that agents discovered/used AgentPress, enabling honest adoption measurement without hidden tracking. |
+
 | AP-026 | SHIPPED | Static inbox compiler | `inbox-compile`; turns static agent comms state into `index.html`, `inbox-index.json`, and `inbox-messages.jsonl` for agent/human queue inspection without backend. |
 
 | AP-025 | SHIPPED | Bundle diff and upgrade-check | `bundle-diff`, `upgrade-check`; agents can detect file/contract/freshness/action-boundary drift before trusting new bundle versions. |

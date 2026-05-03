@@ -62,6 +62,15 @@ jobs:
 
 
 
+
+      - name: Validate AgentPress landing receipts
+        run: |
+          rm -rf /tmp/ap-landing
+          mkdir -p /tmp/ap-landing
+          python3 scripts/agentpress.py landing-receipt --agent-id ci-agent --runtime codex --discovery-channel llms.txt --capability validate_agentpress_bundle --capability bundle_diff --out /tmp/ap-landing/ci-agent.json --json
+          python3 scripts/agentpress.py landing-index /tmp/ap-landing --out /tmp/ap-landing/agent-landing-index.json --json
+          python3 -m json.tool /tmp/ap-landing/ci-agent.json >/dev/null
+          python3 -m json.tool /tmp/ap-landing/agent-landing-index.json >/dev/null
       - name: Validate AgentPress inbox compiler
         run: |
           rm -rf /tmp/ap-comms-compile /tmp/ap-inbox-hub

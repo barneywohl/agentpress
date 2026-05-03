@@ -1,8 +1,8 @@
 {
   "schema_version": "2026-05-03.agentpress-search.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json",
-  "generated_at": "2026-05-03T03:27:20Z",
-  "record_count": 56,
+  "generated_at": "2026-05-03T03:35:55Z",
+  "record_count": 57,
   "records": [
     {
       "id": "cli-command-scripts-agentpress-py",
@@ -275,6 +275,18 @@
         "schema"
       ],
       "text": "agentpress agent feedback v1 agentpress/schemas/agent-feedback-v1.schema.json {\"$schema\": \"https://json-schema.org/draft/2020-12/schema\", \"$id\": \"https://barneywohl.github.io/agentpress/agentpress/schemas/agent-feedback-v1.schema.json\", \"title\": \"agentpress agent feedback v1\", \"type\": \"object\", \"required\": [\"schema_version\", \"feedback_id\", \"reviewer\", \"target\", \"created_utc\", \"scores\", \"findings\"], \"properties\": {\"schema_version\": {\"type\": \"string\", \"const\": \"1.0\"}, \"feedback_id\": {\"type\": \"string\", \"pattern\": \"^fb-[a-z0-9-]{3,120}$\"}, \"reviewer\": {\"type\": \"object\", \"required\": [\"agent_family\"], \"properties\": {\"agent_id\": {\"type\": \"string\"}, \"agent_family\": {\"type\": \"string\"}, \"contract profile_url\": {\"type\": \"string\"}}}, \"target\": {\"type\": \"object\", \"required\": [\"url\"], \"properties\": {\"url\": {\"type\": \"string\"}, \"bundle_id\": {\"type\": \"string\"}, \"contract profile_id\": {\"type\": \"string\"}}}, \"created_utc\": {\"type\": \"string\"}, \"scores\": {\"type\": \"object\", \"properties\": {\"first_contact\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"machine_readability\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"trust\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"handoff_quality\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"recommendation_likelihood\": {\"type\": schema agent-feedback-v1"
+    },
+    {
+      "id": "schema-agentpress-schemas-agent-landing-v1-schema-json",
+      "kind": "schema",
+      "title": "AgentPress Agent Landing Receipt v1",
+      "path": "agentpress/schemas/agent-landing-v1.schema.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-landing-v1.schema.json",
+      "tags": [
+        "agent-landing-v1",
+        "schema"
+      ],
+      "text": "agentpress agent landing receipt v1 agentpress/schemas/agent-landing-v1.schema.json {\"$schema\": \"https://json-schema.org/draft/2020-12/schema\", \"$id\": \"https://barneywohl.github.io/agentpress/agentpress/schemas/agent-landing-v1.schema.json\", \"title\": \"agentpress agent landing receipt v1\", \"type\": \"object\", \"required\": [\"schema_version\", \"landing_id\", \"agent_id\", \"runtime\", \"discovery_channel\", \"capabilities\", \"created_utc\", \"privacy\"], \"properties\": {\"schema_version\": {\"type\": \"string\", \"const\": \"1.0\"}, \"landing_id\": {\"type\": \"string\"}, \"agent_id\": {\"type\": \"string\"}, \"runtime\": {\"type\": \"string\"}, \"discovery_channel\": {\"type\": \"string\"}, \"capabilities\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"self_test_ref\": {\"type\": \"string\"}, \"created_utc\": {\"type\": \"string\"}, \"privacy\": {\"type\": \"object\"}}, \"additionalproperties\": true} schema agent-landing-v1"
     },
     {
       "id": "schema-agentpress-schemas-agent-manifest-v1-schema-json",

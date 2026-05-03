@@ -1357,6 +1357,38 @@ def message_agents(args):
 
 
 
+
+def landing_receipt(args):
+    caps=[]
+    for c in args.capability or []:
+        caps.extend(_csv_list(c))
+    payload={"schema_version":"1.0","landing_id":args.landing_id or _short_id("landing"),"agent_id":args.agent_id,"runtime":args.runtime,"discovery_channel":args.discovery_channel,"capabilities":caps,"created_utc":_utc_now(),"privacy":{"no_ip":True,"no_user_agent":True,"no_secret_material":True,"contact":args.contact or ""},"evidence":{"agentpress_base":args.base_url,"submit_hint":"Open a PR or issue with this receipt, or add it to a landing registry directory."}}
+    if args.self_test_ref:
+        payload["self_test_ref"] = args.self_test_ref
+    errors=_schema_required_errors(payload, schema_root()/"agent-landing-v1.schema.json", "landing_receipt")
+    if errors: print(json.dumps({"status":"fail","errors":errors},indent=2)); return 1
+    out=pathlib.Path(args.out); out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps({"status":"ok","landing_id":payload["landing_id"],"out":str(out)},indent=2) if args.json else str(out))
+    return 0
+
+
+def landing_index(args):
+    root=pathlib.Path(args.dir); receipts=[]; errors=[]
+    for p in sorted(root.glob("*.json")) if root.exists() else []:
+        if p.name == pathlib.Path(args.out).name: continue
+        try: data=json.loads(p.read_text(encoding="utf-8"))
+        except Exception as e: errors.append(f"{p}: parse error {e}"); continue
+        e=_schema_required_errors(data, schema_root()/"agent-landing-v1.schema.json", p.name)
+        if e: errors.extend(e); continue
+        public={k:data.get(k) for k in ["landing_id","agent_id","runtime","discovery_channel","capabilities","self_test_ref","created_utc"]}
+        public["receipt_path"]=str(p)
+        receipts.append(public)
+    payload={"schema_version":"1.0","status":"ok" if not errors else "fail","generated_utc":_utc_now(),"receipt_count":len(receipts),"receipts":receipts,"errors":errors,"privacy":"Compiled from opt-in landing receipts only; no hidden tracking."}
+    out=pathlib.Path(args.out); out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps({"status":payload["status"],"out":str(out),"receipt_count":len(receipts),"errors":errors},indent=2) if args.json else str(out))
+    return 0 if not errors else 1
+
+
 def inbox_compile(args):
     root=pathlib.Path(args.inbox_dir); out=pathlib.Path(args.out); errors=[]
     if not root.exists(): errors.append(f"inbox dir missing: {root}")
@@ -1620,6 +1652,7 @@ def tools_manifest(args):
         {"name":"agentpress.self_test", "description":"Run standard suite proving an agent can use AgentPress.", "command":"python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl", "tags":["self-test","reputation","proof"]},
         {"name":"agentpress.team_pack", "description":"Create privacy-safe team/person capability pack.", "command":"python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json", "tags":["team","capability","privacy"]},
         {"name":"agentpress.package_verify", "description":"Build and verify an offline AgentPress package by SHA256 manifest.", "command":"python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz && python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json", "tags":["package","sha256","offline"]},
+        {"name":"agentpress.landing_receipt", "description":"Create a privacy-safe opt-in receipt proving an agent discovered and landed on AgentPress.", "command":"python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel <channel> --capability <capability> --out landing/<agent-id>.json --json", "tags":["landing","telemetry","adoption","privacy"]},
     ]
     payload={
         "schema_version":"2026-05-03.agentpress-tools-manifest.v1",
@@ -1805,6 +1838,8 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("landing-receipt"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--discovery-channel", required=True); p.add_argument("--capability", action="append"); p.add_argument("--self-test-ref"); p.add_argument("--contact"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--landing-id"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("landing-index"); p.add_argument("dir"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("inbox-compile"); p.add_argument("inbox_dir"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("bundle-diff"); p.add_argument("bundle_a"); p.add_argument("bundle_b"); p.add_argument("--json", action="store_true"); p.add_argument("--include-hashes", action="store_true"); p.add_argument("--allow-breaking", action="store_true")
     p = sub.add_parser("upgrade-check"); p.add_argument("current_bundle"); p.add_argument("latest_bundle"); p.add_argument("--json", action="store_true")
@@ -1842,6 +1877,8 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "landing-receipt": return landing_receipt(args)
+    if args.cmd == "landing-index": return landing_index(args)
     if args.cmd == "inbox-compile": return inbox_compile(args)
     if args.cmd == "bundle-diff": return bundle_diff(args)
     if args.cmd == "upgrade-check": return upgrade_check(args)

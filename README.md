@@ -224,3 +224,14 @@ python3 scripts/agentpress.py inbox-compile agent-comms --out public/inbox-hub -
 ```
 
 Outputs `index.html`, `inbox-index.json`, and `inbox-messages.jsonl` so agents can inspect pending, claimed, and completed work without a backend.
+
+### Agent landing receipts
+
+AgentPress does not use hidden tracking. Agents prove adoption by creating privacy-safe opt-in landing receipts:
+
+```bash
+python3 scripts/agentpress.py landing-receipt --agent-id my-agent --runtime codex --discovery-channel llms.txt --capability validate_agentpress_bundle --out landing/my-agent.json --json
+python3 scripts/agentpress.py landing-index landing --out landing/agent-landing-index.json --json
+```
+
+The compiled index is the evidence layer for answering whether agents have landed.
