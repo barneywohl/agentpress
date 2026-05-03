@@ -5,6 +5,8 @@ Usage:
   python3 scripts/agentpress.py init out-dir --title "My Agent Benchmark"
   python3 scripts/agentpress.py validate out-dir
   python3 scripts/agentpress.py audit out-dir
+  python3 scripts/agentpress.py verify out-dir --json
+  python3 scripts/agentpress.py schema --json
   python3 scripts/agentpress.py score out-dir
   python3 scripts/agentpress.py build out-dir --out public-dir
 """
@@ -34,6 +36,17 @@ AGENTPRESS_REQUIRED = REQUIRED + [
     "citation-policy.md",
     ".well-known/ai-ingestion.json",
 ]
+
+CANONICAL_BASE_URL = "https://barneywohl.github.io/agentpress/"
+SCHEMA_REL_ROOT = "agentpress/schemas"
+CONTRACT_SCHEMA_MAP = {
+    "agent-task-card.json": "agent-task-card.schema.json",
+    "source-map.json": "source-map.schema.json",
+    "freshness.json": "freshness.schema.json",
+    "allowed-actions.json": "allowed-actions.schema.json",
+    ".well-known/ai-ingestion.json": "ai-ingestion.schema.json",
+    "article-card.json": "article-card.schema.json",
+}
 
 DEFAULT_SCHEMA = {
     "decision": "survive | delete | needs_more_diligence",
@@ -245,6 +258,27 @@ def _parse_xml_files(root: pathlib.Path) -> list[str]:
     return errors
 
 
+def schema_root() -> pathlib.Path:
+    root = pathlib.Path(__file__).resolve().parents[1] / SCHEMA_REL_ROOT
+    if root.exists():
+        return root
+    cwd_root = pathlib.Path.cwd() / SCHEMA_REL_ROOT
+    return cwd_root
+
+
+def schema_url(schema_name: str) -> str:
+    return canonical_join(CANONICAL_BASE_URL, f"{SCHEMA_REL_ROOT}/{schema_name}")
+
+
+def schema_rows() -> list[dict]:
+    root = schema_root()
+    rows = []
+    for path in sorted(root.glob("*.schema.json")) if root.exists() else []:
+        key = path.name.removesuffix(".schema.json").replace("-", "_")
+        rows.append({"name": key, "file": path.name, "url": schema_url(path.name), "local_path": str(path)})
+    return rows
+
+
 def _schema_required_errors(payload: dict, schema_path: pathlib.Path, label: str) -> list[str]:
     if not schema_path.exists():
         return [f"missing schema for {label}: {schema_path}"]
@@ -268,21 +302,10 @@ def _schema_required_errors(payload: dict, schema_path: pathlib.Path, label: str
 
 
 def _validate_contract_files(root: pathlib.Path) -> list[str]:
-    schema_root = pathlib.Path(__file__).resolve().parents[1] / "agentpress" / "schemas"
-    if not schema_root.exists():
-        cwd_schema_root = pathlib.Path.cwd() / "agentpress" / "schemas"
-        if cwd_schema_root.exists():
-            schema_root = cwd_schema_root
-    mapping = {
-        "agent-task-card.json": "agent-task-card.schema.json",
-        "source-map.json": "source-map.schema.json",
-        "freshness.json": "freshness.schema.json",
-        "allowed-actions.json": "allowed-actions.schema.json",
-        ".well-known/ai-ingestion.json": "ai-ingestion.schema.json",
-        "article-card.json": "article-card.schema.json",
-    }
+    root = root.resolve()
+    schemas = schema_root()
     errors = []
-    for rel, schema_name in mapping.items():
+    for rel, schema_name in CONTRACT_SCHEMA_MAP.items():
         path = root / rel
         if not path.exists():
             continue
@@ -291,7 +314,7 @@ def _validate_contract_files(root: pathlib.Path) -> list[str]:
         except Exception as e:
             errors.append(f"{path}: {e}")
             continue
-        errors.extend(_schema_required_errors(payload, schema_root / schema_name, rel))
+        errors.extend(_schema_required_errors(payload, schemas / schema_name, rel))
     return errors
 
 
@@ -381,6 +404,48 @@ def audit(args):
         print(f"warning: {w}")
     if code == 0:
         print("agentpress audit ok")
+    return code
+
+
+def schema_command(args):
+    rows = schema_rows()
+    if args.name:
+        wanted = args.name.replace("-", "_").removesuffix("_schema_json")
+        rows = [r for r in rows if r["name"] == wanted or r["file"] == args.name or r["file"] == f"{args.name}.schema.json"]
+        if not rows:
+            print(f"unknown schema: {args.name}", file=sys.stderr)
+            return 1
+    payload = {"schema_version": "2026-05-03.agentpress-cli-schema.v1", "canonical_base_url": CANONICAL_BASE_URL, "count": len(rows), "schemas": rows}
+    if args.json:
+        print(json.dumps(payload, indent=2))
+    else:
+        for row in rows:
+            print(f"{row['name']}	{row['url']}	{row['local_path']}")
+    return 0
+
+
+def verify(args):
+    root = pathlib.Path(args.out)
+    code, errors, warnings = audit_root(root, strict=True)
+    checked = sorted(rel for rel in CONTRACT_SCHEMA_MAP if (root / rel).exists())
+    payload = {
+        "status": "ok" if code == 0 else "fail",
+        "path": str(root),
+        "checked_contracts": checked,
+        "schema_index": schema_url("index.json"),
+        "errors": errors,
+        "warnings": warnings,
+    }
+    if args.json:
+        print(json.dumps(payload, indent=2))
+    else:
+        for e in errors:
+            print(f"error: {e}")
+        for w in warnings:
+            print(f"warning: {w}")
+        if code == 0:
+            print(f"agentpress verify ok ({len(checked)} contracts checked)")
+            print(f"schema index: {payload['schema_index']}")
     return code
 
 
@@ -726,6 +791,8 @@ def main():
     p = sub.add_parser("init"); p.add_argument("out"); p.add_argument("--title", required=True); p.add_argument("--canonical"); p.add_argument("--summary"); p.add_argument("--primary-task"); p.add_argument("--task-type", default="agent_native_publication")
     p = sub.add_parser("validate"); p.add_argument("out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("audit"); p.add_argument("out"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("verify"); p.add_argument("out", nargs="?", default="."); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("schema"); p.add_argument("name", nargs="?"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
     p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True)
     p = sub.add_parser("list"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--json", action="store_true")
@@ -740,6 +807,8 @@ def main():
     if args.cmd == "init": init(args); return 0
     if args.cmd == "validate": return validate(args)
     if args.cmd == "audit": return audit(args)
+    if args.cmd == "verify": return verify(args)
+    if args.cmd == "schema": return schema_command(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)
     if args.cmd == "list": return list_examples(args)

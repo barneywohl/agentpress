@@ -23,10 +23,18 @@ python3 scripts/agentpress.py doctor --json
 python3 scripts/agentpress.py list --json
 python3 scripts/agentpress.py validate agentpress/examples/api-docs-handoff --json
 python3 scripts/agentpress.py audit agentpress/examples/api-docs-handoff --json
+python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --json
+python3 scripts/agentpress.py schema --json
 python3 scripts/agentpress.py eval agentpress/examples
 python3 scripts/agentpress.py check-registry
 python3 scripts/agentpress.py check-openapi
 ```
+
+## Agent CLI contract gates
+
+- `python3 scripts/agentpress.py schema --json` lists canonical schema URLs and local schema files.
+- `python3 scripts/agentpress.py schema agent-task-card --json` returns one schema entry.
+- `python3 scripts/agentpress.py verify <bundle> --json` validates required bundle files, JSON/XML parseability, core contract schema-required fields, and eval JSONL shape without external dependencies.
 
 ## Required bundle files
 
