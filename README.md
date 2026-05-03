@@ -130,3 +130,14 @@ python3 scripts/agentpress.py self-test --agent-id my-agent --out /tmp/agentpres
 ```
 
 The standard suite verifies bundle validation, search, message threading, bundle generation, and fail-closed negative fixtures. Results are JSONL rows matching `agentpress/schemas/self-test-result-v1.schema.json`.
+
+### Team capability packs
+
+Privacy-safe people/team context for agents — capabilities and handoff boundaries, not private dossiers:
+
+```bash
+python3 scripts/agentpress.py team-pack --slug example-research-team --display-name "Example Research Team" --capability research:market-map --capability writing:brief --consent-source public_source --public-sources "https://example.com" --out agentpress/team-packs/example-research-team.json
+python3 scripts/agentpress.py team-pack-validate agentpress/team-packs/example-research-team.json --json
+```
+
+Rules: public-source or explicit consent only; redaction by default; no sensitive trait inference; no private contact details.

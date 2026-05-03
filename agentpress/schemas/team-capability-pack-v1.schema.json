@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/team-capability-pack-v1.schema.json",
+  "title": "AgentPress Team Capability Pack v1",
+  "description": "Privacy-safe team/person capability context for agents. Consent or public-source only; redaction by default.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "pack_type",
+    "slug",
+    "canonical_url",
+    "consent_source",
+    "capabilities",
+    "privacy",
+    "allowed_handoffs",
+    "last_reviewed_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "pack_type": {
+      "type": "string",
+      "enum": [
+        "team_capability_pack",
+        "person_capability_pack"
+      ]
+    },
+    "slug": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "canonical_url": {
+      "type": "string"
+    },
+    "consent_source": {
+      "type": "string",
+      "enum": [
+        "explicit",
+        "public_source",
+        "internal_private_do_not_publish"
+      ]
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "availability": {
+      "type": "object"
+    },
+    "public_sources": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "required": [
+        "redaction_default",
+        "private_fields_excluded",
+        "do_not_infer_sensitive_traits"
+      ],
+      "properties": {
+        "redaction_default": {
+          "type": "boolean"
+        },
+        "private_fields_excluded": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "do_not_infer_sensitive_traits": {
+          "type": "boolean"
+        }
+      }
+    },
+    "allowed_handoffs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "prohibited_uses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "last_reviewed_at": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

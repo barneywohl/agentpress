@@ -18,6 +18,12 @@ jobs:
 
 
 
+
+      - name: Validate AgentPress team capability packs
+        run: |
+          python3 scripts/agentpress.py team-pack --slug ci-research-team --display-name "CI Research Team" --capability research:market-map --capability writing:brief --consent-source public_source --public-sources "https://example.com" --out /tmp/ci-team-pack.json
+          python3 scripts/agentpress.py team-pack-validate /tmp/ci-team-pack.json --json
+          python3 scripts/agentpress.py team-pack-validate agentpress/team-packs/example-research-team.json --json
       - name: Validate AgentPress self-test runner
         run: |
           python3 scripts/agentpress.py self-test --agent-id ci-agent --out /tmp/agentpress-self-test.jsonl

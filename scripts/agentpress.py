@@ -11,6 +11,7 @@ Usage:
   python3 scripts/agentpress.py negative-fixtures --json
   python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify bundle" --requester-id my-agent --out request.json
   python3 scripts/agentpress.py bundle docs/ --out agentpress/examples/my-docs --title "My Docs" --force
+  python3 scripts/agentpress.py team-pack --slug example-team --capability research:market-map --consent-source public_source --out /tmp/example-team.json
   python3 scripts/agentpress.py self-test --agent-id my-agent --out /tmp/agentpress-self-test.jsonl
   python3 scripts/agentpress.py index-search --json
   python3 scripts/agentpress.py search "message route capability" --json
@@ -781,6 +782,54 @@ def _read_excerpt(path: pathlib.Path, limit: int = 1600) -> str:
 
 
 
+
+def team_pack(args):
+    capabilities=[]
+    for raw in args.capability or []:
+        if ":" in raw:
+            kind, name = raw.split(":", 1)
+        else:
+            kind, name = "general", raw
+        capabilities.append({"kind": kind.strip(), "name": name.strip(), "confidence": "declared", "evidence": "public_or_consented_source_required"})
+    payload={
+        "schema_version":"1.0",
+        "pack_type":args.pack_type,
+        "slug":slugify(args.slug),
+        "display_name":args.display_name or args.slug,
+        "canonical_url":args.canonical_url or f"https://barneywohl.github.io/agentpress/agentpress/team-packs/{slugify(args.slug)}.json",
+        "consent_source":args.consent_source,
+        "capabilities":capabilities,
+        "availability":{"status":args.availability, "handoff_preference":"agent_message_request"},
+        "public_sources":[{"title":x, "url_or_path":x, "evidence_type":"public_or_consented"} for x in _csv_list(args.public_sources)],
+        "privacy":{"redaction_default":True, "private_fields_excluded":["personal_phone", "home_address", "private_email", "family_details", "sensitive_traits", "credentials", "private_notes"], "do_not_infer_sensitive_traits":True},
+        "allowed_handoffs":_csv_list(args.allowed_handoffs, ["capability_match", "agent_message_request", "public_source_summary", "warm_intro_draft_with_human_review"]),
+        "prohibited_uses":["doxxing", "private_data_extraction", "sensitive_trait_inference", "unsolicited_spam", "credential_access", "impersonation"],
+        "last_reviewed_at":_utc_now()
+    }
+    errors=_schema_required_errors(payload, schema_root()/"team-capability-pack-v1.schema.json", "team_pack")
+    if args.consent_source == "internal_private_do_not_publish" and not args.allow_private:
+        errors.append("internal_private_do_not_publish requires --allow-private and must not be published")
+    if not capabilities:
+        errors.append("at least one --capability is required")
+    if errors:
+        print(json.dumps({"status":"fail", "errors":errors}, indent=2)); return 1
+    out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps({"status":"ok", "out":str(out), "slug":payload["slug"], "capability_count":len(capabilities)}, indent=2))
+    return 0
+
+
+def team_pack_validate(args):
+    path=pathlib.Path(args.path); payload=json.loads(path.read_text(encoding="utf-8"))
+    errors=_schema_required_errors(payload, schema_root()/"team-capability-pack-v1.schema.json", path.name)
+    if payload.get("consent_source") == "internal_private_do_not_publish":
+        errors.append("pack is marked internal_private_do_not_publish; do not publish")
+    if not payload.get("privacy", {}).get("redaction_default"):
+        errors.append("privacy.redaction_default must be true")
+    result={"status":"ok" if not errors else "fail", "path":str(path), "errors":errors, "capabilities":payload.get("capabilities", [])}
+    print(json.dumps(result, indent=2) if args.json else result["status"])
+    return 0 if not errors else 1
+
+
 def self_test(args):
     suite_path = pathlib.Path(args.suite)
     if not suite_path.exists():
@@ -1336,6 +1385,8 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("team-pack"); p.add_argument("--slug", required=True); p.add_argument("--display-name"); p.add_argument("--pack-type", choices=["team_capability_pack","person_capability_pack"], default="team_capability_pack"); p.add_argument("--capability", action="append", required=True); p.add_argument("--consent-source", choices=["explicit","public_source","internal_private_do_not_publish"], required=True); p.add_argument("--public-sources"); p.add_argument("--allowed-handoffs"); p.add_argument("--availability", default="available_for_agent_handoff"); p.add_argument("--canonical-url"); p.add_argument("--out", required=True); p.add_argument("--allow-private", action="store_true")
+    p = sub.add_parser("team-pack-validate"); p.add_argument("path"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("self-test"); p.add_argument("--agent-id", required=True); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--out", default="agentpress/self-test/self-test-results.jsonl"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--workdir", default="/tmp/agentpress-self-test"); p.add_argument("--run-id")
     p = sub.add_parser("index-search"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/search/search-index.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("search"); p.add_argument("query"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--limit", type=int, default=10); p.add_argument("--json", action="store_true")
@@ -1358,6 +1409,8 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "team-pack": return team_pack(args)
+    if args.cmd == "team-pack-validate": return team_pack_validate(args)
     if args.cmd == "self-test": return self_test(args)
     if args.cmd == "index-search": return build_search_index(args)
     if args.cmd == "search": return search_index(args)

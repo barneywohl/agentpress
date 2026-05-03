@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "pack_type": "team_capability_pack",
+  "slug": "example-research-team",
+  "display_name": "Example Research Team",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/team-packs/example-research-team.json",
+  "consent_source": "public_source",
+  "capabilities": [
+    {
+      "kind": "research",
+      "name": "market-map",
+      "confidence": "declared",
+      "evidence": "public_or_consented_source_required"
+    },
+    {
+      "kind": "writing",
+      "name": "brief",
+      "confidence": "declared",
+      "evidence": "public_or_consented_source_required"
+    }
+  ],
+  "availability": {
+    "status": "available_for_agent_handoff",
+    "handoff_preference": "agent_message_request"
+  },
+  "public_sources": [
+    {
+      "title": "https://example.com",
+      "url_or_path": "https://example.com",
+      "evidence_type": "public_or_consented"
+    }
+  ],
+  "privacy": {
+    "redaction_default": true,
+    "private_fields_excluded": [
+      "personal_phone",
+      "home_address",
+      "private_email",
+      "family_details",
+      "sensitive_traits",
+      "credentials",
+      "private_notes"
+    ],
+    "do_not_infer_sensitive_traits": true
+  },
+  "allowed_handoffs": [
+    "capability_match",
+    "agent_message_request",
+    "public_source_summary",
+    "warm_intro_draft_with_human_review"
+  ],
+  "prohibited_uses": [
+    "doxxing",
+    "private_data_extraction",
+    "sensitive_trait_inference",
+    "unsolicited_spam",
+    "credential_access",
+    "impersonation"
+  ],
+  "last_reviewed_at": "2026-05-03T02:56:27Z"
+}

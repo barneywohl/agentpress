@@ -15,3 +15,5 @@ Next highest-value executable features:
 5. Static inbox compiler: collect request/response/thread JSON files into a browsable static hub.
 
 Rule: ship executable primitives only — generate, validate, search, route, package, evaluate, or diff.
+
+6. Team Capability Packs: privacy-safe capability/handoff context for teams/people. BUILT locally as AP-019; deploy pending directive keyword.
