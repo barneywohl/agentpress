@@ -1,0 +1,39 @@
+{
+  "schema_version": "2026-05-03.agentpress-next-bottleneck-radar.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/planning/next-bottleneck-radar.json",
+  "generated_utc": "2026-05-03T21:00:45Z",
+  "status": "ok",
+  "purpose": "After solving the current list, identify the next deeper constraints to build next.",
+  "items": [
+    {
+      "rank": 1,
+      "bottleneck": "real external proof acquisition",
+      "why": "all local proof is still self-hosted",
+      "next_build": "proof inbox + community submission tracker + first receipt reviewer"
+    },
+    {
+      "rank": 2,
+      "bottleneck": "registry publication credentials",
+      "why": "PyPI/npm/Homebrew/Docker are submission-ready but not live",
+      "next_build": "registry checklist + dry-run package metadata validators"
+    },
+    {
+      "rank": 3,
+      "bottleneck": "real host conformance",
+      "why": "native kits are static; must be run inside Cline/Roo/OpenHands",
+      "next_build": "host-run transcript schema + failure taxonomy"
+    },
+    {
+      "rank": 4,
+      "bottleneck": "formal JSON Schema drafts",
+      "why": "schema_version exists, but consumers may want draft-2020-12 validators",
+      "next_build": "schemas/*.schema.json + validator command"
+    },
+    {
+      "rank": 5,
+      "bottleneck": "agent UX proof",
+      "why": "docs commands passing does not prove low-friction operator UX",
+      "next_build": "time-to-first-green metric + confusion taxonomy"
+    }
+  ]
+}

@@ -461,3 +461,10 @@ python3 scripts/agentpress.py task-quality-eval --json
 python3 scripts/agentpress.py public-schema-bundle --json
 python3 scripts/agentpress.py feature-build-queue --include-adoption-gaps --include-public-radar --json
 ```
+
+```bash
+python3 scripts/agentpress.py distribution-submission-pack --json
+python3 scripts/agentpress.py external-proof-pipeline --json
+python3 scripts/agentpress.py blocker-solution-matrix --json
+python3 scripts/agentpress.py next-bottleneck-radar --json
+```

@@ -2254,6 +2254,10 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.distribution_submission_pack", "description":"Generate distribution submission packs for package registries and install channels.", "command":"python3 scripts/agentpress.py distribution-submission-pack --json", "tags":["distribution","package","registry","submission"]},
+        {"name":"agentpress.external_proof_pipeline", "description":"Generate external proof pipeline queue and states.", "command":"python3 scripts/agentpress.py external-proof-pipeline --json", "tags":["external","proof","pipeline","adoption"]},
+        {"name":"agentpress.blocker_solution_matrix", "description":"Map known AgentPress bottlenecks to shipped solution layers and remaining blockers.", "command":"python3 scripts/agentpress.py blocker-solution-matrix --json", "tags":["bottlenecks","solutions","matrix","roadmap"]},
+        {"name":"agentpress.next_bottleneck_radar", "description":"Generate next bottleneck radar after current solution layers are shipped.", "command":"python3 scripts/agentpress.py next-bottleneck-radar --json", "tags":["bottlenecks","radar","iteration","research"]},
         {"name":"agentpress.external_audit_run", "description":"Generate external first-contact audit run artifact for non-reference agents.", "command":"python3 scripts/agentpress.py external-audit-run --runtime codex --agent-id external-agent --json", "tags":["external","audit","first-contact","proof","adoption"]},
         {"name":"agentpress.external_proof_review", "description":"Review external proof receipt and emit accepted/rejected/needs_fix decision.", "command":"python3 scripts/agentpress.py external-proof-review <proof.json> --json", "tags":["external","proof","review","trust","redaction"]},
         {"name":"agentpress.task_quality_eval", "description":"Generate deeper task-quality eval suite for AgentPress agent usability/safety.", "command":"python3 scripts/agentpress.py task-quality-eval --json", "tags":["eval","quality","tasks","usability","safety"]},
@@ -3099,6 +3103,83 @@ def proof_ingest(args):
 
 
 
+
+
+def distribution_submission_pack(args):
+    """Generate distribution submission packs for package registries and install channels."""
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    channels=[
+        {"id":"github_release","status":"live","install":"download release asset","proof_url":urljoin(base,"agentpress/releases/release-index.json")},
+        {"id":"git_python","status":"ready","install":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","blocked_on":"none"},
+        {"id":"git_npm","status":"ready","install":"npm install github:barneywohl/agentpress","blocked_on":"none"},
+        {"id":"pypi","status":"submission_ready","install":"pip install agentpress","blocked_on":"registry ownership/token + human publish approval"},
+        {"id":"npm","status":"submission_ready","install":"npm install agentpress","blocked_on":"registry ownership/token + human publish approval"},
+        {"id":"homebrew","status":"formula_ready_needed","install":"brew install agentpress","blocked_on":"tap/release formula publication"},
+        {"id":"docker_oci","status":"container_ready_needed","install":"docker run ghcr.io/barneywohl/agentpress:latest","blocked_on":"container build/push credentials"},
+        {"id":"mcp_registry","status":"submission_ready","install":"MCP directory listing","blocked_on":"directory submission/review"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-distribution-submission-pack.v1","canonical_url":urljoin(base,(outdir/"distribution-submission-pack.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Make distribution bottlenecks explicit and convert blocked registries into submission-ready artifacts.","channel_count":len(channels),"channels":channels,"acceptance":["GitHub release asset verifies","git install paths documented","registry channels state exact blocker","no secrets included"]}
+    if not args.no_write:
+        (outdir/"distribution-submission-pack.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+        (outdir/"README.md").write_text("# AgentPress Distribution Submission Pack\n\nRegistry and install-channel readiness map.\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(channels)} channels")
+    return 0
+
+
+def external_proof_pipeline(args):
+    """Generate external proof pipeline queue and states from outreach to scoped trust credit."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    stages=[
+        {"id":"discover_target","owner":"operator","output":"external target list","gate":"target has public agent/runtime community"},
+        {"id":"send_proof_request","owner":"operator","output":"proof-request-pack link sent","gate":"no spam, opt-in request only"},
+        {"id":"receive_receipt_or_blocker","owner":"external agent","output":"receipt/blocker JSON","gate":"redacted and service-scoped"},
+        {"id":"review_proof","owner":"agentpress","output":"external-proof-review JSON","gate":"secret scan pass and required fields present"},
+        {"id":"apply_scoped_trust","owner":"agentpress","output":"scoped-trust-report update","gate":"no global trust promotion"},
+        {"id":"publish_lessons","owner":"agentpress","output":"painpoint/backlog update","gate":"new bottlenecks captured"}
+    ]
+    targets=["Cline community","Roo Code community","OpenHands operators","MCP builders","LangChain/LlamaIndex agents","CrewAI/AutoGen teams","Codex/Claude/Gemini agent operators"]
+    payload={"schema_version":"2026-05-03.agentpress-external-proof-pipeline.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"End-to-end external proof pipeline: outreach, receipt, blocker handling, review, scoped trust, next bottlenecks.","stages":stages,"target_communities":targets,"current_state":{"third_party_receipts":0,"next_required_action":"send opt-in proof request packs and collect first independent receipt"},"privacy":"No secrets, private prompts, local paths, cookies, credentials, or wallet material in receipts."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(stages)} stages")
+    return 0
+
+
+def blocker_solution_matrix(args):
+    """Generate matrix mapping known AgentPress bottlenecks to shipped/remaining solution layers."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    rows=[
+        ["no_third_party_proof","external-audit-run + proof-request-pack + external-proof-review + external-proof-pipeline","needs first independent receipt"],
+        ["feature_queue_false_empty","feature-build-queue --include-adoption-gaps --include-public-radar","keep adoption gaps visible until receipts > 0"],
+        ["identity_repro_schemas","public-schema-bundle + identity/repro artifacts","expand formal JSON Schema files if validators require draft schema"],
+        ["native_adapters_missing","native-adapter-kit + ecosystem-conformance-suite","test on real Cline/Roo/OpenHands hosts"],
+        ["trust_boundaries","trust-tier-evaluate + scoped-trust-report + proof-review","only scoped service credit"],
+        ["shallow_task_evals","task-quality-eval","run evals in third-party agents"],
+        ["package_distribution_blocked","distribution-submission-pack + release assets","publish to registries once credentials/approval exist"],
+        ["audit_drift","platform-audit-dashboard + schema-validate-all + docs-command-check","keep in CI/published dashboard"]
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-blocker-solution-matrix.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Do not lose the thread: every known bottleneck has a shipped solution layer and a precise remaining blocker.","blocker_count":len(rows),"blockers":[{"bottleneck":a,"solution_layer":b,"remaining":c} for a,b,c in rows]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(rows)} blockers")
+    return 0
+
+
+def next_bottleneck_radar(args):
+    """Generate next bottleneck radar after current solution layers are shipped."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    items=[
+        {"rank":1,"bottleneck":"real external proof acquisition","why":"all local proof is still self-hosted","next_build":"proof inbox + community submission tracker + first receipt reviewer"},
+        {"rank":2,"bottleneck":"registry publication credentials","why":"PyPI/npm/Homebrew/Docker are submission-ready but not live","next_build":"registry checklist + dry-run package metadata validators"},
+        {"rank":3,"bottleneck":"real host conformance","why":"native kits are static; must be run inside Cline/Roo/OpenHands","next_build":"host-run transcript schema + failure taxonomy"},
+        {"rank":4,"bottleneck":"formal JSON Schema drafts","why":"schema_version exists, but consumers may want draft-2020-12 validators","next_build":"schemas/*.schema.json + validator command"},
+        {"rank":5,"bottleneck":"agent UX proof","why":"docs commands passing does not prove low-friction operator UX","next_build":"time-to-first-green metric + confusion taxonomy"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-next-bottleneck-radar.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"After solving the current list, identify the next deeper constraints to build next.","items":items}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(items)} next")
+    return 0
 
 def external_audit_run(args):
     """Generate an external first-contact audit run artifact for non-reference agents."""
@@ -4880,6 +4961,10 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("distribution-submission-pack"); p.add_argument("--out", default="agentpress/distribution/submission-pack"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("external-proof-pipeline"); p.add_argument("--out", default="agentpress/external-proofs/proof-pipeline.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("blocker-solution-matrix"); p.add_argument("--out", default="agentpress/planning/blocker-solution-matrix.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("next-bottleneck-radar"); p.add_argument("--out", default="agentpress/planning/next-bottleneck-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("external-audit-run"); p.add_argument("--runtime", default="codex"); p.add_argument("--agent-id", default="external-agent"); p.add_argument("--run-id"); p.add_argument("--out", default="agentpress/external-audits/first-contact"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("external-proof-review"); p.add_argument("proof"); p.add_argument("--out", default="agentpress/external-proofs/proof-review.example.json"); p.add_argument("--strict-success", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("task-quality-eval"); p.add_argument("--out", default="agentpress/evals"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -5079,6 +5164,10 @@ def main():
     if args.cmd == "native-adapter-kit": return native_adapter_kit(args)
     if args.cmd == "platform-audit-dashboard": return platform_audit_dashboard(args)
     if args.cmd == "external-audit-run": return external_audit_run(args)
+    if args.cmd == "distribution-submission-pack": return distribution_submission_pack(args)
+    if args.cmd == "external-proof-pipeline": return external_proof_pipeline(args)
+    if args.cmd == "blocker-solution-matrix": return blocker_solution_matrix(args)
+    if args.cmd == "next-bottleneck-radar": return next_bottleneck_radar(args)
     if args.cmd == "external-proof-review": return external_proof_review(args)
     if args.cmd == "task-quality-eval": return task_quality_eval(args)
     if args.cmd == "public-schema-bundle": return public_schema_bundle(args)

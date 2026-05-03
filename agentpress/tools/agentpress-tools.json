@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T20:52:20Z",
+  "generated_at": "2026-05-03T21:00:44Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,50 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.distribution_submission_pack",
+      "description": "Generate distribution submission packs for package registries and install channels.",
+      "command": "python3 scripts/agentpress.py distribution-submission-pack --json",
+      "tags": [
+        "distribution",
+        "package",
+        "registry",
+        "submission"
+      ]
+    },
+    {
+      "name": "agentpress.external_proof_pipeline",
+      "description": "Generate external proof pipeline queue and states.",
+      "command": "python3 scripts/agentpress.py external-proof-pipeline --json",
+      "tags": [
+        "external",
+        "proof",
+        "pipeline",
+        "adoption"
+      ]
+    },
+    {
+      "name": "agentpress.blocker_solution_matrix",
+      "description": "Map known AgentPress bottlenecks to shipped solution layers and remaining blockers.",
+      "command": "python3 scripts/agentpress.py blocker-solution-matrix --json",
+      "tags": [
+        "bottlenecks",
+        "solutions",
+        "matrix",
+        "roadmap"
+      ]
+    },
+    {
+      "name": "agentpress.next_bottleneck_radar",
+      "description": "Generate next bottleneck radar after current solution layers are shipped.",
+      "command": "python3 scripts/agentpress.py next-bottleneck-radar --json",
+      "tags": [
+        "bottlenecks",
+        "radar",
+        "iteration",
+        "research"
       ]
     },
     {
