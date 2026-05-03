@@ -41,6 +41,23 @@ jobs:
           agentpress score /tmp/agentpress-package-smoke
           agentpress build /tmp/agentpress-package-smoke --out /tmp/agentpress-package-smoke-public
           test -f /tmp/agentpress-package-smoke-public/index.html
+      - name: AgentPress machine contract CLI gates
+        run: |
+          python3 scripts/agentpress.py doctor --json
+          python3 scripts/agentpress.py schema --json
+          python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --json
+          rm -rf /tmp/agentpress-fetch-ci
+          python3 scripts/agentpress.py fetch --base file://$PWD --out /tmp/agentpress-fetch-ci --json > /tmp/agentpress-fetch-ci.json
+          python3 - <<'PY'
+          import json, pathlib
+          data = json.loads(pathlib.Path('/tmp/agentpress-fetch-ci.json').read_text())
+          assert data['status'] == 'ok', data
+          assert data['count'] >= 9, data
+          for row in data['assets']:
+              assert row.get('sha256') and len(row['sha256']) == 64, row
+              assert pathlib.Path(row['local_path']).exists(), row
+          print(f"fetch gate ok: {data['count']} assets")
+          PY
       - name: Local availability gate
         run: python3 scripts/check_agentpress_availability.py --root .
       - name: Cross-agent eval prompt parse gate

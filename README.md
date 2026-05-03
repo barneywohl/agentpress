@@ -26,6 +26,7 @@ python3 scripts/agentpress.py audit agentpress/examples/api-docs-handoff --json
 python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --json
 python3 scripts/agentpress.py schema --json
 python3 scripts/agentpress.py fetch --base file://$PWD --out /tmp/agentpress-fetch --json
+python3 scripts/agentpress.py package --out /tmp/agentpress-offline.tar.gz
 python3 scripts/agentpress.py eval agentpress/examples
 python3 scripts/agentpress.py check-registry
 python3 scripts/agentpress.py check-openapi
@@ -37,6 +38,7 @@ python3 scripts/agentpress.py check-openapi
 - `python3 scripts/agentpress.py schema agent-task-card --json` returns one schema entry.
 - `python3 scripts/agentpress.py verify <bundle> --json` validates required bundle files, JSON/XML parseability, core contract schema-required fields, and eval JSONL shape without external dependencies.
 - `python3 scripts/agentpress.py fetch --base <url-or-path> --out <dir> --json` downloads or copies core machine entrypoints and writes `.agentpress-fetch-manifest.json` with bytes and SHA256 for each asset.
+- `python3 scripts/agentpress.py package --out <file.tar.gz>` creates an offline bundle plus SHA256 manifest for restricted-network agents.
 
 ## Required bundle files
 

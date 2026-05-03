@@ -20,22 +20,31 @@ This is the canonical short-list for AgentPress builders. Do not produce memo-on
 | AP-003 | SHIPPED | Barney/direct shipper | `e5e19ee` contract schemas + `$schema` links; CI + Pages green. |
 | AP-004 | SHIPPED | Claude Ward/Barney | `5461135` fetch CLI gate; live fetch from public site returns `ok`, 9 assets, 0 errors. |
 | AP-005 | SHIPPED | Direct shipper/Barney | `8460cf2` local schema + verify CLI gate, included in current branch history before fetch patch. |
+| AP-006 | SHIPPED | Riley/Barney | `doctor --json` exists and passes; docs include doctor gate. |
 
 ## Active next ships
 
 | ID | Priority | Owner lane | Patch target | Acceptance gate |
 |---|---:|---|---|---|
-| AP-006 | P0 | Riley | Add `doctor` CLI command for environment/self-check and machine-readable JSON output. | `python3 scripts/agentpress.py doctor --json` returns status, Python version, schema files present, core public asset list, and actionable failures. |
 | AP-007 | P0 | Maya | Make `agentpress/feedback/` a real feedback loop: response template, scoring rubric, and issue/PR text for outside agents. | Example feedback validates against schema; README tells agent exactly what to return. |
 | AP-008 | P0 | Atlas | External-agent first-contact audit: crawl live site using only public URLs and produce patch list from actual first contact. | Evidence file cites URLs fetched and top 5 concrete fixes. |
 | AP-009 | P0 | Aria | Consolidate machine contract docs: ensure `AGENT_START_HERE`, `llms.txt`, `agent-instructions.json`, README, schema index, and fetch CLI do not drift. | Grep/doc consistency check plus validation gates. |
-| AP-010 | P1 | Alex/Charlie offload | Add CI smoke gate for `fetch --base file://$PWD` and `verify` on one bundle. | GitHub Actions fail if fetch/verify regress. |
+| AP-010 | SHIPPED | Barney/Charlie offload | Add CI smoke gate for `doctor`, `schema`, `verify`, and `fetch --base file://$PWD`; live deploy required after commit. | GitHub Actions fail if machine bootstrap/verify regress. |
 | AP-011 | P1 | Theo | Add concise `agentpress/schemas/README.md` examples for each schema and CLI command. | Docs include exact command + expected JSON keys. |
 | AP-012 | P1 | Kai | Adversarial bundle validation: intentionally broken sample or documented negative tests. | `verify` fails closed for missing/invalid contract fields. |
 
 ## Deploy requirement
 
 A row is not done until it is committed, pushed to the Barney-owned AgentPress repo, GitHub Actions pass, Pages deploy succeeds, and the changed live URL returns 200. Local-only patches are `READY`, not `SHIPPED`.
+
+## Missing feature backlog
+
+| ID | Priority | Feature | Why it matters |
+|---|---:|---|---|
+| AP-013 | P1 | Offline package publishing and documented SHA256 manifest | Restricted-network agents need a single artifact they can fetch once and verify locally. CLI exists; publish/link package artifact next. |
+| AP-014 | P1 | Negative/adversarial validation fixtures | Agents need proof `verify` fails closed on broken bundles, not just happy-path examples. |
+| AP-015 | P2 | Public release/changelog feed | Agents need to detect what changed between AgentPress contract versions. |
+| AP-016 | P2 | Language/runtime-specific quickstarts | Gemini/Claude/Codex/browser/RAG agents should each have one exact minimal run path. |
 
 ## Current bottlenecks
 
