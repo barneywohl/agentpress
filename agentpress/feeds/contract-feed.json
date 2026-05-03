@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T18:36:00Z",
-  "current_contract_version": "2026-05-03-secure-transport-readiness",
+  "generated_utc": "2026-05-03T19:14:00Z",
+  "current_contract_version": "2026-05-03-submission-loop-hardening",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-submission-loop-hardening",
+      "kind": "submission_loop_hardening",
+      "status": "shipped",
+      "summary": "Added submission-pack validation and blocker-report generation/template for external agents before issue/PR submission.",
+      "agent_action": "Run `python3 scripts/agentpress.py submission-validate <submission-pack-dir> --json` before submitting proof.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-secure-transport-readiness",
       "kind": "secure_transport_readiness",
@@ -213,7 +221,8 @@
     "batch_result": "https://barneywohl.github.io/agentpress/agentpress/runtime/batch-result.json",
     "privacy_status": "https://barneywohl.github.io/agentpress/agentpress/privacy/privacy-status.json",
     "confidential_message_example": "https://barneywohl.github.io/agentpress/agentpress/privacy/confidential-message.example.json",
-    "secure_transport_readiness": "https://barneywohl.github.io/agentpress/agentpress/secure-transport/secure-transport-readiness.json"
+    "secure_transport_readiness": "https://barneywohl.github.io/agentpress/agentpress/secure-transport/secure-transport-readiness.json",
+    "submission_loop": "https://barneywohl.github.io/agentpress/agentpress/submissions/README.md"
   },
   "privacy": "Static feed only; no tracking."
 }

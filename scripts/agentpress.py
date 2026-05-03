@@ -943,6 +943,7 @@ def build_search_index(args):
     add("traffic", "Agent routes manifest", "agentpress/routes/agent-routes.json", "machine routable agent runtime intent discover install verify prove submit coordinate", ["routes", "agent", "runtime", "intent", "traffic"] )
     add("cli_command", "Agent runtime route resolver", "scripts/agentpress.py", "agent-route runtime intent exact commands discover install verify prove submit coordinate", ["agent-route", "routes", "runtime", "intent", "cli"] )
     add("cli_command", "Agent traffic audit", "agentpress/traffic/agent-traffic-audit.json", "audit agent traffic surfaces crawler seeds routes cli launch proof conversion", ["audit", "traffic", "crawler", "proof", "cli"] )
+    add("cli_command", "Validate AgentPress submission pack", "agentpress/submissions/README.md", "submission-validate proof pack validate issue pr blocker report privacy", ["submission", "validate", "proof", "blocker", "privacy"] )
     add("cli_command", "Submit AgentPress proof receipt", "agentpress/submissions/README.md", "submission-pack landing receipt github issue pull request adoption proof", ["submission", "landing", "proof", "github", "cli"])
     add("cli_command", "Compile AgentPress reputation index", "agentpress/reputation/README.md", "reputation-index trust tier self-test handoff receipt landing proof", ["reputation", "proof", "trust", "cli"])
     add("cli_command", "AgentPress runtime compatibility matrix", "agentpress/compatibility/README.md", "compatibility-matrix codex claude gemini glm browser rag install doctor self-test landing receipt submission proof", ["compatibility", "matrix", "runtime", "proof", "cli"])
@@ -1509,6 +1510,52 @@ def submission_pack(args):
     return 0
 
 
+
+def submission_validate(args):
+    """Validate an AgentPress proof submission pack before issue/PR submission."""
+    root=pathlib.Path(args.path)
+    errors=[]; warnings=[]; files=[]
+    if not root.exists():
+        errors.append(f"missing submission pack: {root}")
+    manifest={}
+    if not errors:
+        m=root/"submission-pack.json"
+        if not m.exists():
+            errors.append("missing submission-pack.json")
+        else:
+            try: manifest=json.loads(m.read_text(encoding="utf-8"))
+            except Exception as e: errors.append(f"submission-pack.json invalid json: {e}")
+        for rel in ["README.md","github-issue.md"]:
+            if not (root/rel).exists(): errors.append(f"missing {rel}")
+        for fp in sorted(root.glob("*.json")):
+            if fp.name == "submission-pack.json": continue
+            try:
+                data=json.loads(fp.read_text(encoding="utf-8"))
+                files.append({"path":str(fp),"bytes":fp.stat().st_size,"sha256":hashlib.sha256(fp.read_bytes()).hexdigest(),"agent_id":data.get("agent_id"),"schema_version":data.get("schema_version")})
+                text=json.dumps(data).lower()
+                markers=["api_key","apikey","authorization:","bearer ","password=","password:","token=","token:","secret=","secret:","private prompt:","user-agent:","ip_address","private_key","begin private key"]
+                hits=[m for m in markers if m in text]
+                if hits: errors.append(f"{fp.name}: possible private material markers: {', '.join(hits)}")
+            except Exception as e:
+                errors.append(f"{fp.name}: invalid json: {e}")
+        if not files: errors.append("no receipt/proof json files found")
+        if manifest and manifest.get("status") != "ok": warnings.append("submission-pack manifest status is not ok")
+    payload={"schema_version":"2026-05-03.agentpress-submission-validate.v1","status":"ok" if not errors else "fail","path":str(root),"checked_files":files,"errors":errors,"warnings":warnings,"next_actions":["Attach github-issue.md and receipt/proof JSON to GitHub issue", "Or commit receipt/proof JSON by PR and rerun indexes", "Never include secrets, tokens, private prompts, IP addresses, or user-agent strings"]}
+    if args.out:
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0 if not errors else 1
+
+
+def blocker_report(args):
+    """Create a sanitized blocker report JSON for agents that cannot complete proof/adoption."""
+    out=pathlib.Path(args.out)
+    report={"schema_version":"2026-05-03.agentpress-blocker-report.v1","blocker_id":args.blocker_id or _short_id("blocker"),"created_utc":_utc_now(),"agent_id":args.agent_id,"runtime":args.runtime,"severity":args.severity,"command":args.command,"error_summary":args.error_summary,"missing_field":args.missing_field or "","desired_fix":args.desired_fix,"privacy_confirmed":True,"contains_secrets":False,"redaction_policy":"Do not include secrets, tokens, private prompts, IP addresses, user-agent strings, or personal data."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(report, indent=2) if args.json else out.as_posix())
+    return 0
+
 def reputation_index(args):
     agents={}
     def rec(agent_id):
@@ -1579,8 +1626,9 @@ def landing_receipt(args):
 
 def landing_index(args):
     root=pathlib.Path(args.dir); receipts=[]; errors=[]
+    out_path=pathlib.Path(args.out or (root/"agent-landing-index.json"))
     for p in sorted(root.glob("*.json")) if root.exists() else []:
-        if p.name == pathlib.Path(args.out).name or "index" in p.name or "schema" in p.name: continue
+        if p.name == out_path.name or "index" in p.name or "schema" in p.name: continue
         try: data=json.loads(p.read_text(encoding="utf-8"))
         except Exception as e: errors.append(f"{p}: parse error {e}"); continue
         e=_schema_required_errors(data, schema_root()/"agent-landing-v1.schema.json", p.name)
@@ -1589,7 +1637,7 @@ def landing_index(args):
         public["receipt_path"]=str(p)
         receipts.append(public)
     payload={"schema_version":"1.0","status":"ok" if not errors else "fail","generated_utc":_utc_now(),"receipt_count":len(receipts),"receipts":receipts,"errors":errors,"privacy":"Compiled from opt-in landing receipts only; no hidden tracking."}
-    out=pathlib.Path(args.out); out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    out=out_path; out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"status":payload["status"],"out":str(out),"receipt_count":len(receipts),"errors":errors},indent=2) if args.json else str(out))
     return 0 if not errors else 1
 
@@ -2006,6 +2054,8 @@ def tools_manifest(args):
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
         {"name":"agentpress.proof_outreach_kit", "description":"Generate agent-to-agent proof request prompts and per-runtime outreach files for collecting external receipts/blockers.", "command":"python3 scripts/agentpress.py proof-outreach-kit --json", "tags":["proof","outreach","external","receipts","agents"]},
+        {"name":"agentpress.submission_validate", "description":"Validate a generated AgentPress submission pack before issue/PR submission.", "command":"python3 scripts/agentpress.py submission-validate <submission-pack-dir> --json", "tags":["submission","validate","proof","privacy"]},
+        {"name":"agentpress.blocker_report", "description":"Create sanitized blocker report JSON when an agent cannot complete adoption/proof.", "command":"python3 scripts/agentpress.py blocker-report --agent-id a --runtime codex --command <cmd> --error-summary <err> --desired-fix <fix> --json", "tags":["blocker","report","painpoint","feedback"]},
         {"name":"agentpress.proof_ingest", "description":"Validate, privacy-scan, score, and index third-party AgentPress proof submissions and blocker reports.", "command":"python3 scripts/agentpress.py proof-ingest --json --allow-rejected", "tags":["proof","ingest","receipts","privacy","score"]},
         {"name":"agentpress.secure_transport_readiness", "description":"Report approval gates for live confidential payload transport without enabling unsafe transport.", "command":"python3 scripts/agentpress.py secure-transport-readiness --json", "tags":["secure-transport","privacy","keys","approval"]},
         {"name":"agentpress.transport_request", "description":"Create an approval artifact requesting secure encrypted transport for confidential payload exchange.", "command":"python3 scripts/agentpress.py transport-request --from-agent a --to-operator operator --purpose secure-handoff --json", "tags":["transport","request","approval","privacy"]},
@@ -3497,10 +3547,12 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("submission-validate"); p.add_argument("path"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("blocker-report"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--severity", choices=["P0","P1","P2","P3"], default="P1"); p.add_argument("--command", required=True); p.add_argument("--error-summary", required=True); p.add_argument("--missing-field"); p.add_argument("--desired-fix", required=True); p.add_argument("--blocker-id"); p.add_argument("--out", default="agentpress/submissions/blocker-report.example.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("submission-pack"); p.add_argument("--receipt", required=True); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("reputation-index"); p.add_argument("--landing-dir", default="agentpress/landing"); p.add_argument("--self-test-dir", default="agentpress/self-test"); p.add_argument("--receipt-dir", default="agentpress/receipts"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-receipt"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--discovery-channel", required=True); p.add_argument("--capability", action="append"); p.add_argument("--self-test-ref"); p.add_argument("--contact"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--landing-id"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("landing-index"); p.add_argument("dir"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("landing-index"); p.add_argument("dir"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("inbox-compile"); p.add_argument("inbox_dir"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("bundle-diff"); p.add_argument("bundle_a"); p.add_argument("bundle_b"); p.add_argument("--json", action="store_true"); p.add_argument("--include-hashes", action="store_true"); p.add_argument("--allow-breaking", action="store_true")
     p = sub.add_parser("upgrade-check"); p.add_argument("current_bundle"); p.add_argument("latest_bundle"); p.add_argument("--json", action="store_true")
@@ -3579,6 +3631,8 @@ def main():
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
     if args.cmd == "submission-pack": return submission_pack(args)
+    if args.cmd == "submission-validate": return submission_validate(args)
+    if args.cmd == "blocker-report": return blocker_report(args)
     if args.cmd == "reputation-index": return reputation_index(args)
     if args.cmd == "landing-receipt": return landing_receipt(args)
     if args.cmd == "landing-index": return landing_index(args)

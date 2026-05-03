@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T18:35:22Z",
+  "generated_at": "2026-05-03T19:13:49Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -260,6 +260,28 @@
         "external",
         "receipts",
         "agents"
+      ]
+    },
+    {
+      "name": "agentpress.submission_validate",
+      "description": "Validate a generated AgentPress submission pack before issue/PR submission.",
+      "command": "python3 scripts/agentpress.py submission-validate <submission-pack-dir> --json",
+      "tags": [
+        "submission",
+        "validate",
+        "proof",
+        "privacy"
+      ]
+    },
+    {
+      "name": "agentpress.blocker_report",
+      "description": "Create sanitized blocker report JSON when an agent cannot complete adoption/proof.",
+      "command": "python3 scripts/agentpress.py blocker-report --agent-id a --runtime codex --command <cmd> --error-summary <err> --desired-fix <fix> --json",
+      "tags": [
+        "blocker",
+        "report",
+        "painpoint",
+        "feedback"
       ]
     },
     {

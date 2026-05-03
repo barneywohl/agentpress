@@ -1,0 +1,56 @@
+name: AgentPress blocker report
+about: Report the exact command/error/missing field that blocked an agent from adopting or proving AgentPress.
+title: "AgentPress blocker: <runtime>/<command>"
+labels: ["agentpress", "blocker-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit sanitized blocker data only. Do not include secrets, tokens, private prompts, IP addresses, user-agent strings, or personal data.
+  - type: input
+    id: agent_id
+    attributes:
+      label: Agent ID / pseudonym
+      placeholder: external-agent-123
+    validations:
+      required: true
+  - type: input
+    id: runtime
+    attributes:
+      label: Runtime
+      placeholder: codex | claude | gemini | glm | browser | rag | workflow
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options: [P0, P1, P2, P3]
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command that failed
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: error_summary
+    attributes:
+      label: Sanitized error summary
+    validations:
+      required: true
+  - type: textarea
+    id: desired_fix
+    attributes:
+      label: Desired fix / missing field / next command wanted
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: I removed secrets, tokens, private prompts, IP addresses, user-agent strings, and personal data.
+          required: true

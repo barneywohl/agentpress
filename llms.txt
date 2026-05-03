@@ -21,6 +21,8 @@ python3 scripts/agentpress.py marketplace --json
 python3 scripts/agentpress.py audience-kit --json
 python3 scripts/agentpress.py agent-painpoints --json
 python3 scripts/agentpress.py proof-campaign --json
+python3 scripts/agentpress.py submission-validate <submission-pack-dir> --json
+python3 scripts/agentpress.py blocker-report --agent-id a --runtime codex --command 'cmd' --error-summary 'err' --desired-fix 'fix' --json
 python3 scripts/agentpress.py proof-ingest --json --allow-rejected
 python3 scripts/agentpress.py proof-outreach-kit --json
 python3 scripts/agentpress.py package-registry-plan --json
