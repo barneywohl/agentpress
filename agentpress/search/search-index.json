@@ -1,8 +1,8 @@
 {
   "schema_version": "2026-05-03.agentpress-search.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json",
-  "generated_at": "2026-05-03T03:16:05Z",
-  "record_count": 55,
+  "generated_at": "2026-05-03T03:20:17Z",
+  "record_count": 56,
   "records": [
     {
       "id": "cli-command-scripts-agentpress-py",
@@ -431,6 +431,18 @@
         "schema"
       ],
       "text": "agentpress article index agentpress/schemas/article-index.schema.json {\"$schema\": \"https://json-schema.org/draft/2020-12/schema\", \"title\": \"agentpress article index\", \"type\": \"object\", \"required\": [\"schema_version\", \"type\", \"generated_at\", \"count\", \"articles\"], \"properties\": {\"schema_version\": {\"type\": \"string\"}, \"type\": {\"const\": \"agentpress_article_index\"}, \"generated_at\": {\"type\": \"string\"}, \"count\": {\"type\": \"number\"}, \"articles\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"title\", \"slug\", \"canonical_url\", \"summary_for_agents\", \"domains\", \"task_types\", \"target_agent_families\", \"languages\", \"regions\", \"article_card\", \"task_card\", \"source_map\", \"freshness\", \"allowed_actions\"], \"properties\": {\"title\": {\"type\": \"string\"}, \"slug\": {\"type\": \"string\"}, \"canonical_url\": {\"type\": \"string\"}, \"summary_for_agents\": {\"type\": \"string\"}, \"domains\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"task_types\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"target_agent_families\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"languages\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"regions\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"article_card\": {\"type\": \"string\"}, \"task_card\": {\"type\": \"string\"}, \"source_map\": {\"type\": \"string\"} schema article-index"
+    },
+    {
+      "id": "schema-agentpress-schemas-bundle-diff-v1-schema-json",
+      "kind": "schema",
+      "title": "AgentPress Bundle Diff v1",
+      "path": "agentpress/schemas/bundle-diff-v1.schema.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/schemas/bundle-diff-v1.schema.json",
+      "tags": [
+        "bundle-diff-v1",
+        "schema"
+      ],
+      "text": "agentpress bundle diff v1 agentpress/schemas/bundle-diff-v1.schema.json {\"$schema\": \"https://json-schema.org/draft/2020-12/schema\", \"$id\": \"https://barneywohl.github.io/agentpress/agentpress/schemas/bundle-diff-v1.schema.json\", \"title\": \"agentpress bundle diff v1\", \"type\": \"object\", \"required\": [\"schema_version\", \"bundle_a\", \"bundle_b\", \"generated_utc\", \"changes\", \"summary\", \"verdict\"], \"properties\": {\"schema_version\": {\"type\": \"string\", \"const\": \"1.0\"}, \"bundle_a\": {\"type\": \"string\"}, \"bundle_b\": {\"type\": \"string\"}, \"generated_utc\": {\"type\": \"string\"}, \"changes\": {\"type\": \"object\"}, \"summary\": {\"type\": \"object\"}, \"verdict\": {\"type\": \"string\", \"enum\": [\"identical\", \"changed_non_breaking\", \"breaking_change\"]}}, \"additionalproperties\": true} schema bundle-diff-v1"
     },
     {
       "id": "schema-agentpress-schemas-feedback-response-schema-json",

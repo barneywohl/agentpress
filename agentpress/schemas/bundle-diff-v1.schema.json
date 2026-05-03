@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/bundle-diff-v1.schema.json",
+  "title": "AgentPress Bundle Diff v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "bundle_a",
+    "bundle_b",
+    "generated_utc",
+    "changes",
+    "summary",
+    "verdict"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "bundle_a": {
+      "type": "string"
+    },
+    "bundle_b": {
+      "type": "string"
+    },
+    "generated_utc": {
+      "type": "string"
+    },
+    "changes": {
+      "type": "object"
+    },
+    "summary": {
+      "type": "object"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "identical",
+        "changed_non_breaking",
+        "breaking_change"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

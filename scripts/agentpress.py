@@ -1484,6 +1484,61 @@ def _adapter_config(agent_type: str) -> dict:
     return {"schema_version":"1.0", "agent_type":agent_type, "agentpress_root":".", "default_commands":{"search":"python3 scripts/agentpress.py search <query> --json", "self_test":f"python3 scripts/agentpress.py self-test --agent-id {agent_type}-agent --out /tmp/{agent_type}-self-test.jsonl", "verify":"python3 scripts/agentpress.py verify <bundle> --json"}, "safety":{"requires_human_approval":["external_write","production_change","payment","credential_access"], "prohibited":["private_data_extraction","spam","impersonation"]}}
 
 
+
+def _bundle_files(root: pathlib.Path) -> dict:
+    return {p.relative_to(root).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob("*") if p.is_file() and ".git" not in p.parts and "__pycache__" not in p.parts}
+
+
+def _json_or_none(path: pathlib.Path):
+    try:
+        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+    except Exception:
+        return None
+
+
+def bundle_diff(args):
+    a=pathlib.Path(args.bundle_a); b=pathlib.Path(args.bundle_b); errors=[]
+    if not a.is_dir(): errors.append(f"bundle_a missing/not dir: {a}")
+    if not b.is_dir(): errors.append(f"bundle_b missing/not dir: {b}")
+    if errors:
+        print(json.dumps({"status":"fail","errors":errors},indent=2)); return 1
+    fa=_bundle_files(a); fb=_bundle_files(b)
+    added=sorted(set(fb)-set(fa)); removed=sorted(set(fa)-set(fb)); modified=sorted(k for k in set(fa)&set(fb) if fa[k]!=fb[k])
+    breaking=[]
+    for required in AGENTPRESS_REQUIRED:
+        if required in removed: breaking.append(f"required file removed: {required}")
+    # contract-level checks
+    card_a=_json_or_none(a/"agent-task-card.json") or {}; card_b=_json_or_none(b/"agent-task-card.json") or {}
+    actions_a=_json_or_none(a/"allowed-actions.json") or {}; actions_b=_json_or_none(b/"allowed-actions.json") or {}
+    fresh_a=_json_or_none(a/"freshness.json") or {}; fresh_b=_json_or_none(b/"freshness.json") or {}
+    source_a=_json_or_none(a/"source-map.json") or {}; source_b=_json_or_none(b/"source-map.json") or {}
+    contract_changes={}
+    for name, va, vb in [("task_type", card_a.get("task_type"), card_b.get("task_type")), ("objective", card_a.get("objective"), card_b.get("objective")), ("output_contract", card_a.get("output_contract"), card_b.get("output_contract"))]:
+        if va != vb: contract_changes[name]={"from":va,"to":vb}
+    prohibited_a=set(actions_a.get("prohibited", actions_a.get("prohibited_actions", []))); prohibited_b=set(actions_b.get("prohibited", actions_b.get("prohibited_actions", [])))
+    if prohibited_a != prohibited_b:
+        contract_changes["prohibited_actions"]={"from":sorted(prohibited_a),"to":sorted(prohibited_b)}
+        if not prohibited_b.issuperset(prohibited_a): breaking.append("prohibited action boundary loosened")
+    claim_count_a=len(source_a.get("claims", [])); claim_count_b=len(source_b.get("claims", []))
+    freshness_changed=fresh_a != fresh_b
+    diff={"added_files":added,"removed_files":removed,"modified_files":modified,"contract_changes":contract_changes,"claim_count":{"from":claim_count_a,"to":claim_count_b},"freshness_changed":freshness_changed,"hashes":{"bundle_a":fa,"bundle_b":fb} if args.include_hashes else {}}
+    total=len(added)+len(removed)+len(modified)+len(contract_changes)+(1 if freshness_changed else 0)
+    verdict="identical" if total==0 else ("breaking_change" if breaking else "changed_non_breaking")
+    payload={"schema_version":"1.0","status":"ok","bundle_a":str(a),"bundle_b":str(b),"generated_utc":_utc_now(),"changes":diff,"summary":{"total_changes":total,"breaking":bool(breaking),"breaking_reasons":breaking},"verdict":verdict}
+    print(json.dumps(payload,indent=2) if args.json else verdict)
+    return 0 if verdict != "breaking_change" or args.allow_breaking else 2
+
+
+def upgrade_check(args):
+    code_buf=io.StringIO()
+    with contextlib.redirect_stdout(code_buf):
+        code=bundle_diff(argparse.Namespace(bundle_a=args.current_bundle,bundle_b=args.latest_bundle,json=True,include_hashes=False,allow_breaking=True))
+    payload=json.loads(code_buf.getvalue())
+    payload["upgrade"]={"safe": payload.get("verdict") != "breaking_change", "recommendation": "upgrade" if payload.get("verdict") in ["identical","changed_non_breaking"] else "review_breaking_changes"}
+    print(json.dumps(payload,indent=2) if args.json else payload["upgrade"]["recommendation"])
+    return 0 if payload["upgrade"]["safe"] else 2
+
+
 def adapter_quickstart(args):
     types = ADAPTER_TYPES if args.agent_type == "all" else [args.agent_type]
     out=pathlib.Path(args.out); out.mkdir(parents=True, exist_ok=True)
@@ -1719,6 +1774,8 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("bundle-diff"); p.add_argument("bundle_a"); p.add_argument("bundle_b"); p.add_argument("--json", action="store_true"); p.add_argument("--include-hashes", action="store_true"); p.add_argument("--allow-breaking", action="store_true")
+    p = sub.add_parser("upgrade-check"); p.add_argument("current_bundle"); p.add_argument("latest_bundle"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("adapter-quickstart"); p.add_argument("--agent-type", choices=["codex","claude","gemini","glm","browser","all"], default="all"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("adapter-quickstart-check"); p.add_argument("dir"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("handoff-create"); p.add_argument("--from-agent", required=True); p.add_argument("--to-agent", required=True); p.add_argument("--capability", required=True); p.add_argument("--context", required=True); p.add_argument("--partial-response"); p.add_argument("--instructions", required=True); p.add_argument("--parent-handoff-id"); p.add_argument("--handoff-id"); p.add_argument("--out", required=True)
@@ -1753,6 +1810,8 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "bundle-diff": return bundle_diff(args)
+    if args.cmd == "upgrade-check": return upgrade_check(args)
     if args.cmd == "adapter-quickstart": return adapter_quickstart(args)
     if args.cmd == "adapter-quickstart-check": return adapter_quickstart_check(args)
     if args.cmd == "handoff-create": return handoff_create(args)

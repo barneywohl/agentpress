@@ -60,6 +60,22 @@ jobs:
 
 
 
+
+      - name: Validate AgentPress bundle diff
+        run: |
+          rm -rf /tmp/ap-diff-a /tmp/ap-diff-b
+          cp -R agentpress/examples/api-docs-handoff /tmp/ap-diff-a
+          cp -R agentpress/examples/api-docs-handoff /tmp/ap-diff-b
+          python3 - <<'PY'
+          import json, pathlib
+          p=pathlib.Path('/tmp/ap-diff-b/agent-task-card.json')
+          j=json.loads(p.read_text())
+          j['objective']='Changed objective for CI drift test'
+          p.write_text(json.dumps(j, indent=2)+'\n')
+          PY
+          python3 scripts/agentpress.py bundle-diff /tmp/ap-diff-a /tmp/ap-diff-b --json
+          python3 scripts/agentpress.py upgrade-check /tmp/ap-diff-a /tmp/ap-diff-b --json
+          python3 scripts/agentpress.py bundle-diff /tmp/ap-diff-a /tmp/ap-diff-a --json
       - name: Validate AgentPress adapter quickstarts
         run: |
           rm -rf /tmp/ap-adapters

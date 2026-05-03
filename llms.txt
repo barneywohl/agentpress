@@ -193,3 +193,14 @@ python3 scripts/agentpress.py adapter-quickstart-check agentpress/adapters --jso
 ```
 
 Each adapter gets an agent-specific entrypoint, config JSON, tools JSON, and executable self-test script.
+
+### Bundle diff and upgrade check
+
+Agents can detect drift before trusting a new bundle version:
+
+```bash
+python3 scripts/agentpress.py bundle-diff old-bundle new-bundle --json
+python3 scripts/agentpress.py upgrade-check old-bundle new-bundle --json
+```
+
+The diff reports added/removed/modified files, task contract changes, source claim counts, freshness changes, and breaking-change reasons.
