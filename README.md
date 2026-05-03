@@ -495,3 +495,9 @@ python3 scripts/agentpress.py action-ledger-adapter-wiring --json
 python3 scripts/agentpress.py external-proof-relay-status --json
 python3 scripts/agentpress.py glm-concerns-closure --json
 ```
+
+```bash
+python3 scripts/agentpress.py host-transcript-validate tests/fixtures/conformance/host-transcript-good.json --json
+python3 scripts/agentpress.py ttf-green-import tests/fixtures/metrics/ttf-green-good.json --json
+python3 scripts/agentpress.py conformance-evidence-score --json
+```

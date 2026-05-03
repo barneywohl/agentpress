@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T21:47:48Z",
+  "generated_at": "2026-05-03T21:50:46Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,39 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.host_transcript_validate",
+      "description": "Validate native host-run transcript evidence fail-closed.",
+      "command": "python3 scripts/agentpress.py host-transcript-validate tests/fixtures/conformance/host-transcript-good.json --json",
+      "tags": [
+        "host",
+        "transcript",
+        "conformance",
+        "validate"
+      ]
+    },
+    {
+      "name": "agentpress.ttf_green_import",
+      "description": "Import time-to-first-green telemetry into adoption friction summary.",
+      "command": "python3 scripts/agentpress.py ttf-green-import tests/fixtures/metrics/ttf-green-good.json --json",
+      "tags": [
+        "ttf",
+        "ux",
+        "telemetry",
+        "adoption"
+      ]
+    },
+    {
+      "name": "agentpress.conformance_evidence_score",
+      "description": "Score host transcript + TTF evidence into conformance summary.",
+      "command": "python3 scripts/agentpress.py conformance-evidence-score --json",
+      "tags": [
+        "conformance",
+        "score",
+        "evidence",
+        "host"
       ]
     },
     {

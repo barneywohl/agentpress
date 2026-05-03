@@ -1,0 +1,22 @@
+{
+  "schema_version": "2026-05-03.agentpress-conformance-evidence-score.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/conformance/conformance-evidence-score.json",
+  "generated_utc": "2026-05-03T21:50:47Z",
+  "status": "ok",
+  "purpose": "Combine host transcript validation and TTF-green telemetry into scored conformance evidence.",
+  "score": 0,
+  "max_score": 100,
+  "inputs": [
+    {
+      "name": "host",
+      "path": "agentpress/evidence/host-transcript-validation.json",
+      "status": "fail"
+    },
+    {
+      "name": "ttf",
+      "path": "agentpress/evidence/ttf-green-import.json",
+      "status": "fail"
+    }
+  ],
+  "next_cycle": "Use missing/failing host+TTF evidence to prioritize native adapter fixes and UX improvements."
+}

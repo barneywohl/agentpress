@@ -2254,6 +2254,9 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.host_transcript_validate", "description":"Validate native host-run transcript evidence fail-closed.", "command":"python3 scripts/agentpress.py host-transcript-validate tests/fixtures/conformance/host-transcript-good.json --json", "tags":["host","transcript","conformance","validate"]},
+        {"name":"agentpress.ttf_green_import", "description":"Import time-to-first-green telemetry into adoption friction summary.", "command":"python3 scripts/agentpress.py ttf-green-import tests/fixtures/metrics/ttf-green-good.json --json", "tags":["ttf","ux","telemetry","adoption"]},
+        {"name":"agentpress.conformance_evidence_score", "description":"Score host transcript + TTF evidence into conformance summary.", "command":"python3 scripts/agentpress.py conformance-evidence-score --json", "tags":["conformance","score","evidence","host"]},
         {"name":"agentpress.approval_gate_eval", "description":"Evaluate an action against fail-closed approval gates.", "command":"python3 scripts/agentpress.py approval-gate-eval tests/fixtures/gates/approval-good.json --json", "tags":["approval","gate","fail-closed","eval"]},
         {"name":"agentpress.reviewer_gate_eval", "description":"Evaluate reviewer gate result fail-closed.", "command":"python3 scripts/agentpress.py reviewer-gate-eval tests/fixtures/gates/reviewer-good.json --json", "tags":["reviewer","gate","fail-closed","eval"]},
         {"name":"agentpress.action_ledger_adapter_wiring", "description":"Wire native adapters to action-ledger/run-artifact evidence requirements.", "command":"python3 scripts/agentpress.py action-ledger-adapter-wiring --json", "tags":["ledger","adapter","run-artifacts","evidence"]},
@@ -3121,6 +3124,70 @@ def proof_ingest(args):
 
 
 
+
+
+def host_transcript_validate(args):
+    """Validate native host-run transcript evidence fail-closed."""
+    transcript=pathlib.Path(args.transcript); out=pathlib.Path(args.out); errors=[]
+    try: data=json.loads(transcript.read_text(encoding="utf-8"))
+    except Exception as e: data={}; errors.append(f"invalid transcript json: {e}")
+    for k in ["host","runtime","started_utc","commands","result_status"]:
+        if k not in data: errors.append(f"missing:{k}")
+    if data.get("host") not in {"cline","roo","openhands","mcp","langchain","llamaindex","crewai"}: errors.append("unknown_host")
+    if data.get("result_status") not in {"pass","fail","blocked"}: errors.append("invalid_result_status")
+    cmds=data.get("commands",[])
+    if not isinstance(cmds,list) or not cmds: errors.append("commands_must_be_nonempty_list")
+    else:
+        for i,c in enumerate(cmds):
+            if not isinstance(c,dict): errors.append(f"commands[{i}]: not object"); continue
+            if not c.get("command"): errors.append(f"commands[{i}]: missing command")
+            if c.get("status") not in {"pass","fail","blocked"}: errors.append(f"commands[{i}]: invalid status")
+    result={"schema_version":"2026-05-03.agentpress-host-transcript-validate.v1","generated_utc":_utc_now(),"status":"ok" if not errors else "fail","transcript":str(transcript),"host":data.get("host",""),"command_count":len(cmds) if isinstance(cmds,list) else 0,"errors":errors,"conformance_effect":"valid transcript can be used as host-run conformance evidence only for that host/runtime"}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(result,indent=2) if args.json else result["status"])
+    return 0 if not errors else 1
+
+
+def ttf_green_import(args):
+    """Import time-to-first-green telemetry into adoption friction summary."""
+    inp=pathlib.Path(args.input); out=pathlib.Path(args.out); errors=[]; rows=[]
+    if inp.exists():
+        try: raw=json.loads(inp.read_text(encoding="utf-8"))
+        except Exception as e: raw=[]; errors.append(f"invalid telemetry json: {e}")
+        if isinstance(raw,dict): raw=raw.get("runs",[])
+        if not isinstance(raw,list): errors.append("telemetry must be list or {runs:[]}"); raw=[]
+        for i,r in enumerate(raw):
+            if not isinstance(r,dict): errors.append(f"runs[{i}]: not object"); continue
+            total=r.get("total_seconds")
+            if not isinstance(total,(int,float)) or total < 0: errors.append(f"runs[{i}]: invalid total_seconds"); total=None
+            status=r.get("result_status")
+            if status not in {"pass","fail","blocked"}: errors.append(f"runs[{i}]: invalid result_status")
+            rows.append({"agent_id":r.get("agent_id",""),"runtime":r.get("runtime",""),"total_seconds":total,"result_status":status,"slow_or_blocked":bool(total and total>900) or status in {"fail","blocked"}})
+    blocker_inputs=[{"summary":"TTF-green slow/blocked: "+(r.get("runtime") or "unknown"),"priority":"P1","source":"ttf_green_import"} for r in rows if r.get("slow_or_blocked")]
+    avg=sum(r["total_seconds"] for r in rows if isinstance(r.get("total_seconds"),(int,float)))/max(1,sum(1 for r in rows if isinstance(r.get("total_seconds"),(int,float))))
+    payload={"schema_version":"2026-05-03.agentpress-ttf-green-import.v1","generated_utc":_utc_now(),"status":"ok" if not errors else "fail","run_count":len(rows),"average_seconds":avg,"runs":rows,"blocker_inputs":blocker_inputs,"errors":errors,"empty_input_action":"collect TTF-green telemetry from host-run harness and external first-contact audits"}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload["status"])
+    return 0 if not errors else 1
+
+
+def conformance_evidence_score(args):
+    """Score host transcript + TTF evidence into next-cycle conformance summary."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    host_path=pathlib.Path(args.host_result); ttf_path=pathlib.Path(args.ttf_result)
+    score=0; inputs=[]
+    for name,path in [("host",host_path),("ttf",ttf_path)]:
+        if path.exists():
+            try: d=json.loads(path.read_text(encoding="utf-8")); inputs.append({"name":name,"path":str(path),"status":d.get("status")}); score += 50 if d.get("status") in {"ok","pass"} else 0
+            except Exception as e: inputs.append({"name":name,"path":str(path),"status":"parse_fail","error":str(e)})
+        else: inputs.append({"name":name,"path":str(path),"status":"missing"})
+    payload={"schema_version":"2026-05-03.agentpress-conformance-evidence-score.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Combine host transcript validation and TTF-green telemetry into scored conformance evidence.","score":score,"max_score":100,"inputs":inputs,"next_cycle":"Use missing/failing host+TTF evidence to prioritize native adapter fixes and UX improvements."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {score}/100")
+    return 0
 
 def approval_gate_eval(args):
     """Evaluate an action against fail-closed approval gates."""
@@ -5251,6 +5318,9 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("host-transcript-validate"); p.add_argument("transcript"); p.add_argument("--out", default="agentpress/evidence/host-transcript-validation.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("ttf-green-import"); p.add_argument("input"); p.add_argument("--out", default="agentpress/evidence/ttf-green-import.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("conformance-evidence-score"); p.add_argument("--host-result", default="agentpress/evidence/host-transcript-validation.json"); p.add_argument("--ttf-result", default="agentpress/evidence/ttf-green-import.json"); p.add_argument("--out", default="agentpress/conformance/conformance-evidence-score.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("approval-gate-eval"); p.add_argument("action"); p.add_argument("--out", default="agentpress/evidence/approval-gate-result.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("reviewer-gate-eval"); p.add_argument("review"); p.add_argument("--out", default="agentpress/evidence/reviewer-gate-result.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("action-ledger-adapter-wiring"); p.add_argument("--out", default="agentpress/observability/action-ledger/adapter-wiring.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -5472,6 +5542,9 @@ def main():
     if args.cmd == "json-schema-bundle": return json_schema_bundle(args)
     if args.cmd == "registry-dry-run": return registry_dry_run(args)
     if args.cmd == "approval-gate-eval": return approval_gate_eval(args)
+    if args.cmd == "host-transcript-validate": return host_transcript_validate(args)
+    if args.cmd == "ttf-green-import": return ttf_green_import(args)
+    if args.cmd == "conformance-evidence-score": return conformance_evidence_score(args)
     if args.cmd == "reviewer-gate-eval": return reviewer_gate_eval(args)
     if args.cmd == "action-ledger-adapter-wiring": return action_ledger_adapter_wiring(args)
     if args.cmd == "external-proof-relay-status": return external_proof_relay_status(args)
