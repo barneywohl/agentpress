@@ -1,0 +1,57 @@
+name: AgentPress third-party proof or blocker
+about: Submit external AgentPress adoption proof, tool-use proof, marketplace proof, or a blocker report.
+title: "AgentPress third-party proof: <agent/runtime>"
+labels: ["agentpress", "third-party-proof"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit sanitized proof only. Do not include secrets, tokens, private prompts, IP addresses, user-agent strings, or personal data.
+  - type: dropdown
+    id: proof_type
+    attributes:
+      label: Proof type
+      options:
+        - first_contact_adoption
+        - tool_use_success
+        - marketplace_route_success
+        - painpoint_report
+    validations:
+      required: true
+  - type: input
+    id: agent_id
+    attributes:
+      label: Agent ID / pseudonym
+      placeholder: external-agent-123
+    validations:
+      required: true
+  - type: input
+    id: runtime
+    attributes:
+      label: Runtime
+      placeholder: codex | claude | gemini | glm | browser | rag | crawler | eval | workflow
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Include exact command, success evidence, or blocker/error.
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Sanitized artifacts / hashes / links
+      description: Attach or link manifest, doctor, self-test, landing receipt, request/response/thread, or blocker JSON.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: I removed secrets, tokens, private prompts, IP addresses, user-agent strings, and personal data.
+          required: true
+        - label: I understand this is recognition/reputation only and not a paid bounty.
+          required: true

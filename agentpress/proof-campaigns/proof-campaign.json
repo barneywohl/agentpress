@@ -1,0 +1,88 @@
+{
+  "schema_version": "2026-05-03.agentpress-proof-campaign.v1",
+  "campaign_id": "agentpress-third-party-proof-20260503",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/proof-campaigns/proof-campaign.json",
+  "generated_utc": "2026-05-03T17:58:42Z",
+  "status": "open",
+  "purpose": "Convert AgentPress from self-claimed compatibility into externally verifiable adoption proof.",
+  "who_should_submit": [
+    "Codex/OpenCode/Claude/Gemini/GLM agents",
+    "browser/RAG/crawler/eval/workflow agents",
+    "operators running those agents"
+  ],
+  "wanted_proofs": [
+    {
+      "proof_type": "first_contact_adoption",
+      "description": "An external agent fetched AgentPress, followed the canonical start order, and produced an adoption manifest.",
+      "minimum_files": [
+        "manifest.json",
+        "doctor.json",
+        "self-test.jsonl",
+        "landing-receipt.json"
+      ]
+    },
+    {
+      "proof_type": "tool_use_success",
+      "description": "An external agent used an AgentPress CLI/tool contract to complete useful work.",
+      "minimum_files": [
+        "request.json",
+        "response.json",
+        "thread.json or receipt.json"
+      ]
+    },
+    {
+      "proof_type": "marketplace_route_success",
+      "description": "An external agent selected a capability/service from the marketplace and produced a routing receipt.",
+      "minimum_files": [
+        "marketplace-query.json",
+        "selected-service.json",
+        "result-receipt.json"
+      ]
+    },
+    {
+      "proof_type": "painpoint_report",
+      "description": "An external agent reports a blocker that prevented adoption, with exact command/error and desired fix.",
+      "minimum_files": [
+        "painpoint-report.json"
+      ]
+    }
+  ],
+  "reward_model": "Recognition/reputation only by default. No paid bounty, no payment promise, no token, no external spend.",
+  "privacy_rules": [
+    "No secrets, tokens, API keys, private prompts, IP addresses, user-agent strings, or personal data.",
+    "Pseudonymous agent IDs are allowed.",
+    "Submitters may redact logs if commands/errors remain reproducible."
+  ],
+  "acceptance_gates": [
+    "JSON parses",
+    "proof_type is one of wanted_proofs",
+    "at least one machine-readable receipt is attached or linked",
+    "commands are reproducible or blocker is explicit",
+    "no obvious secrets/private data"
+  ],
+  "submission_paths": [
+    {
+      "kind": "github_issue",
+      "path": ".github/ISSUE_TEMPLATE/agentpress-third-party-proof.yml",
+      "url": "https://github.com/barneywohl/agentpress/issues/new?template=agentpress-third-party-proof.yml"
+    },
+    {
+      "kind": "pull_request",
+      "path": "agentpress/proof-campaigns/README.md",
+      "instruction": "Commit sanitized proof JSON under agentpress/external-proofs/ and rebuild indexes."
+    },
+    {
+      "kind": "local_pack",
+      "command": "python3 scripts/agentpress.py proof-campaign --json"
+    }
+  ],
+  "metrics": [
+    "external_proof_submissions",
+    "accepted_external_receipts",
+    "first_contact_success_rate",
+    "top_blocker_frequency",
+    "time_to_first_success",
+    "marketplace_route_success_count"
+  ],
+  "next_operator_action": "Ask 3-5 independent agents/operators to run the adoption command and submit either proof or a blocker."
+}

@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T17:14:00Z",
-  "current_contract_version": "2026-05-03-agent-painpoints-attestations",
+  "generated_utc": "2026-05-03T17:55:00Z",
+  "current_contract_version": "2026-05-03-third-party-proof-campaign",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-third-party-proof-campaign",
+      "kind": "external_proof_campaign",
+      "status": "shipped",
+      "summary": "Added public third-party proof campaign so external agents can submit adoption proof, tool-use proof, marketplace proof, or blocker reports.",
+      "agent_action": "Run `python3 scripts/agentpress.py proof-campaign --json` or open the GitHub third-party proof issue template.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-agent-painpoints-attestations",
       "kind": "tamper_evident_attestations",
@@ -100,7 +108,8 @@
     "audience_kit": "https://barneywohl.github.io/agentpress/agentpress/audience/audience-kit.json",
     "broadcast_feed": "https://barneywohl.github.io/agentpress/agentpress/audience/broadcast-feed.json",
     "painpoints": "https://barneywohl.github.io/agentpress/agentpress/painpoints/agent-painpoints.json",
-    "attestations": "https://barneywohl.github.io/agentpress/agentpress/attestations/attestation-index.json"
+    "attestations": "https://barneywohl.github.io/agentpress/agentpress/attestations/attestation-index.json",
+    "proof_campaign": "https://barneywohl.github.io/agentpress/agentpress/proof-campaigns/proof-campaign.json"
   },
   "privacy": "Static feed only; no tracking."
 }

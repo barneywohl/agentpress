@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T17:15:24Z",
+  "generated_at": "2026-05-03T17:58:42Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -216,6 +216,18 @@
         "budget",
         "intent",
         "no-spend"
+      ]
+    },
+    {
+      "name": "agentpress.proof_campaign",
+      "description": "Inspect the public third-party proof campaign for external AgentPress adoption receipts and blocker reports.",
+      "command": "python3 scripts/agentpress.py proof-campaign --json",
+      "tags": [
+        "proof",
+        "third-party",
+        "adoption",
+        "receipts",
+        "campaign"
       ]
     },
     {

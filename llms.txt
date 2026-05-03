@@ -20,6 +20,7 @@ python3 scripts/agentpress.py adopt --json
 python3 scripts/agentpress.py marketplace --json
 python3 scripts/agentpress.py audience-kit --json
 python3 scripts/agentpress.py agent-painpoints --json
+python3 scripts/agentpress.py proof-campaign --json
 python3 scripts/agentpress.py attest verify agentpress/attestations/core-surfaces-attestation.json --json
 python3 scripts/agentpress.py doctor --json
 python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json
