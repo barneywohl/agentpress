@@ -1,0 +1,57 @@
+{
+  "schema_version": "2026-05-03.agentpress-mcp-connector-auth-readiness.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/connectors/mcp-connector-auth-readiness.json",
+  "generated_utc": "2026-05-03T22:17:39Z",
+  "status": "ok",
+  "purpose": "Make connector auth/authorization/deployment requirements explicit before agents use MCP or remote tools.",
+  "auth_modes": [
+    {
+      "mode": "none_public_read",
+      "risk": "R2",
+      "approval_required": false,
+      "notes": "public static/catalog read only"
+    },
+    {
+      "mode": "bearer_token",
+      "risk": "R4",
+      "approval_required": true,
+      "notes": "token must be provided by operator, never stored in artifact"
+    },
+    {
+      "mode": "custom_headers",
+      "risk": "R4",
+      "approval_required": true,
+      "notes": "headers are runtime-only secrets"
+    },
+    {
+      "mode": "stdio_local_process",
+      "risk": "R1_R3",
+      "approval_required": "depends_on_external_effect",
+      "notes": "local process lifecycle needs command/args/env allowlist"
+    },
+    {
+      "mode": "streamable_http_remote",
+      "risk": "R2_R4",
+      "approval_required": "depends_on_auth_and_write_scope",
+      "notes": "remote endpoint + scopes must be explicit"
+    }
+  ],
+  "connector_handshake_fields": [
+    "connector_id",
+    "transport",
+    "endpoint_or_command",
+    "auth_mode",
+    "scopes",
+    "risk_level",
+    "approval_ref",
+    "dry_run_command",
+    "secret_redaction_policy"
+  ],
+  "fail_closed_rules": [
+    "missing auth_mode fails",
+    "R4 without approval_ref fails",
+    "secret value in artifact fails",
+    "unknown transport fails"
+  ],
+  "dry_run_only": true
+}

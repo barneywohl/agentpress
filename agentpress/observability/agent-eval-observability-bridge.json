@@ -1,0 +1,45 @@
+{
+  "schema_version": "2026-05-03.agentpress-agent-eval-observability-bridge.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/observability/agent-eval-observability-bridge.json",
+  "generated_utc": "2026-05-03T22:17:39Z",
+  "status": "ok",
+  "purpose": "Bridge AgentPress run artifacts to common agent eval/observability needs: traces, task completion, tool use, failures, regressions.",
+  "eval_dimensions": [
+    {
+      "id": "task_completion",
+      "metric": "pass|fail|blocked + evidence_ref"
+    },
+    {
+      "id": "tool_use_quality",
+      "metric": "right_tool|minimal_context|fallback_used"
+    },
+    {
+      "id": "safety",
+      "metric": "approval_gate_result + redaction_scan"
+    },
+    {
+      "id": "conformance",
+      "metric": "host_transcript_validation + ttf_green"
+    },
+    {
+      "id": "regression",
+      "metric": "previous_gate_status vs current_gate_status"
+    }
+  ],
+  "trace_fields": [
+    "run_id",
+    "agent_id",
+    "task_id",
+    "tool_calls",
+    "artifacts",
+    "approval_refs",
+    "reviewer_refs",
+    "errors",
+    "cost_or_tokens_optional"
+  ],
+  "outputs": [
+    "eval-summary.json",
+    "trace-index.json",
+    "regression-report.json"
+  ]
+}

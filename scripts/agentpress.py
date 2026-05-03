@@ -2254,6 +2254,12 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.deep_agent_painpoint_research", "description":"Generate deep research synthesis of what agents/operators actually want next.", "command":"python3 scripts/agentpress.py deep-agent-painpoint-research --json", "tags":["research","painpoints","agents","features"]},
+        {"name":"agentpress.mcp_connector_auth_readiness", "description":"Generate MCP/connector auth readiness and permission handshake metadata.", "command":"python3 scripts/agentpress.py mcp-connector-auth-readiness --json", "tags":["mcp","auth","connectors","permissions"]},
+        {"name":"agentpress.tool_routing_decision_matrix", "description":"Generate compact tool routing matrix to reduce context/tool overload.", "command":"python3 scripts/agentpress.py tool-routing-decision-matrix --json", "tags":["routing","tools","context","agents"]},
+        {"name":"agentpress.agent_eval_observability_bridge", "description":"Generate eval/observability bridge for agent runs.", "command":"python3 scripts/agentpress.py agent-eval-observability-bridge --json", "tags":["eval","observability","traces","agents"]},
+        {"name":"agentpress.deployment_connector_matrix", "description":"Generate deployment/install connector matrix for npm/pip/docker/mcp/http/stdio.", "command":"python3 scripts/agentpress.py deployment-connector-matrix --json", "tags":["deployment","npm","pip","docker","mcp"]},
+        {"name":"agentpress.connector_first_run_checklist", "description":"Generate first-run checklist per connector category.", "command":"python3 scripts/agentpress.py connector-first-run-checklist --json", "tags":["connectors","quickstart","first-run","checklist"]},
         {"name":"agentpress.agent_persona_quickstarts", "description":"Generate connector quickstart bundles per agent persona.", "command":"python3 scripts/agentpress.py agent-persona-quickstarts --json", "tags":["personas","quickstart","connectors","agents"]},
         {"name":"agentpress.sdk_command_wrapper_catalog", "description":"Generate SDK wrapper catalog for proof/host/connector commands.", "command":"python3 scripts/agentpress.py sdk-command-wrapper-catalog --json", "tags":["sdk","wrappers","commands","integrations"]},
         {"name":"agentpress.cycle_completion_audit", "description":"Audit current cycle completion and remaining unfinished items.", "command":"python3 scripts/agentpress.py cycle-completion-audit --json", "tags":["cycle","audit","completion","remaining"]},
@@ -3146,6 +3152,108 @@ def proof_ingest(args):
 
 
 
+
+
+def deep_agent_painpoint_research(args):
+    """Generate deep research synthesis of what agents/operators actually want next."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    wants=[
+        {"rank":1,"painpoint":"tool overload and context bloat","evidence":"MCP/code-execution patterns reduce token overhead; agents need compact tool cards and routing, not huge catalogs in-context.","feature":"tool routing decision matrix + compact connector cards","acceptance":"agent can choose one tool/connector without loading full docs"},
+        {"rank":2,"painpoint":"connector auth/permission ambiguity","evidence":"MCP/enterprise connector docs emphasize endpoint/auth/authorization metadata and remote/local deployment modes.","feature":"MCP connector auth readiness + permission handshake","acceptance":"connector declares auth mode, scopes, no-secret dry run, approval gate"},
+        {"rank":3,"painpoint":"eval/observability fragmentation","evidence":"LLMOps/agent eval tooling focuses on traces, task completion, debugging, monitoring, and regression checks.","feature":"agent eval observability bridge","acceptance":"runs emit trace refs, eval score, task completion, failure taxonomy"},
+        {"rank":4,"painpoint":"install/deploy uncertainty","evidence":"agents/operators need package, registry, remote endpoint, and local stdio install routes before using connectors.","feature":"deployment connector matrix for npm/pip/docker/mcp/http/stdio","acceptance":"each connector has install/deploy mode and publish blocker"},
+        {"rank":5,"painpoint":"safe autonomous external effects","evidence":"coding agents need approval/reviewer/security gates before file writes, releases, messages, payments, credentials.","feature":"approval/reviewer gates already built; add connector permission handoff","acceptance":"connector declares R-level and approval_ref requirement"},
+        {"rank":6,"painpoint":"first-run confusion","evidence":"Cline/Roo/OpenHands comparisons center workflow differences; users need persona/native quickstarts and host transcripts.","feature":"persona quickstarts + host transcript dropbox already built; add first-run checklist per connector","acceptance":"each connector has exact first-run command + evidence output"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-deep-agent-painpoint-research.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Deep research synthesis: what agents really want/need and which AgentPress features target those painpoints.","source_themes":["MCP auth/remote-local connector metadata","agent eval/observability","coding-agent workflow/security differences","context/tool overhead","package/deployment uncertainty"],"want_count":len(wants),"wants":wants,"build_now":["mcp-connector-auth-readiness","tool-routing-decision-matrix","agent-eval-observability-bridge","deployment-connector-matrix","connector-first-run-checklist"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(wants)} wants")
+    return 0
+
+
+def mcp_connector_auth_readiness(args):
+    """Generate MCP/connector auth readiness and permission handshake metadata."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    modes=[
+        {"mode":"none_public_read","risk":"R2","approval_required":False,"notes":"public static/catalog read only"},
+        {"mode":"bearer_token","risk":"R4","approval_required":True,"notes":"token must be provided by operator, never stored in artifact"},
+        {"mode":"custom_headers","risk":"R4","approval_required":True,"notes":"headers are runtime-only secrets"},
+        {"mode":"stdio_local_process","risk":"R1_R3","approval_required":"depends_on_external_effect","notes":"local process lifecycle needs command/args/env allowlist"},
+        {"mode":"streamable_http_remote","risk":"R2_R4","approval_required":"depends_on_auth_and_write_scope","notes":"remote endpoint + scopes must be explicit"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-mcp-connector-auth-readiness.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Make connector auth/authorization/deployment requirements explicit before agents use MCP or remote tools.","auth_modes":modes,"connector_handshake_fields":["connector_id","transport","endpoint_or_command","auth_mode","scopes","risk_level","approval_ref","dry_run_command","secret_redaction_policy"],"fail_closed_rules":["missing auth_mode fails","R4 without approval_ref fails","secret value in artifact fails","unknown transport fails"],"dry_run_only":True}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload["status"])
+    return 0
+
+
+def tool_routing_decision_matrix(args):
+    """Generate compact tool routing matrix to reduce context/tool overload."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    routes=[
+        {"intent":"verify public artifact","primary":"schema-validate-all","fallback":"curl + json.tool","context_load":"artifact URL only"},
+        {"intent":"choose connector","primary":"connector-catalog","fallback":"connector-health-check","context_load":"connector cards only"},
+        {"intent":"external proof intake","primary":"proof-ingest-review","fallback":"external-proof-review","context_load":"receipt JSON + redaction policy"},
+        {"intent":"native host conformance","primary":"host-transcript-validate","fallback":"host-transcript-batch-ingest","context_load":"transcript JSON only"},
+        {"intent":"approval decision","primary":"approval-gate-eval","fallback":"reviewer-gate-eval","context_load":"action/review JSON only"},
+        {"intent":"next build selection","primary":"next-build-spec-queue","fallback":"cycle-gap-radar","context_load":"top 5 items only"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-tool-routing-decision-matrix.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Reduce agent context/tool overload by mapping intents to one primary tool, fallback, and minimal context load.","route_count":len(routes),"routes":routes,"routing_rule":"Load the smallest route card first; only expand to full docs after failure or ambiguity."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(routes)} routes")
+    return 0
+
+
+def agent_eval_observability_bridge(args):
+    """Generate eval/observability bridge for agent runs."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    payload={"schema_version":"2026-05-03.agentpress-agent-eval-observability-bridge.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Bridge AgentPress run artifacts to common agent eval/observability needs: traces, task completion, tool use, failures, regressions.","eval_dimensions":[{"id":"task_completion","metric":"pass|fail|blocked + evidence_ref"},{"id":"tool_use_quality","metric":"right_tool|minimal_context|fallback_used"},{"id":"safety","metric":"approval_gate_result + redaction_scan"},{"id":"conformance","metric":"host_transcript_validation + ttf_green"},{"id":"regression","metric":"previous_gate_status vs current_gate_status"}],"trace_fields":["run_id","agent_id","task_id","tool_calls","artifacts","approval_refs","reviewer_refs","errors","cost_or_tokens_optional"],"outputs":["eval-summary.json","trace-index.json","regression-report.json"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload["status"])
+    return 0
+
+
+def deployment_connector_matrix(args):
+    """Generate deployment/install connector matrix for npm/pip/docker/mcp/http/stdio."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    channels=[
+        {"channel":"git_clone","status":"ready","command":"git clone https://github.com/barneywohl/agentpress.git","blocker":"none"},
+        {"channel":"github_release_tarball","status":"ready","command":"download agentpress-offline.tar.gz + verify sha256","blocker":"none"},
+        {"channel":"pip_git","status":"ready","command":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","blocker":"none"},
+        {"channel":"npm_git","status":"ready","command":"npm install github:barneywohl/agentpress","blocker":"none"},
+        {"channel":"pypi","status":"blocked_on_owner_publish","command":"pip install agentpress","blocker":"package owner/token approval"},
+        {"channel":"npm_registry","status":"blocked_on_owner_publish","command":"npm install agentpress","blocker":"package owner/token approval"},
+        {"channel":"docker_oci","status":"blocked_on_container_publish","command":"docker run ghcr.io/barneywohl/agentpress:latest","blocker":"container build/push approval"},
+        {"channel":"mcp_registry","status":"submission_ready","command":"use mcp-registry-pack","blocker":"directory submission/review"},
+        {"channel":"http_static","status":"ready","command":"fetch https://barneywohl.github.io/agentpress/llms.txt","blocker":"none"},
+        {"channel":"stdio_local","status":"ready_with_allowlist","command":"python3 scripts/agentpress.py <command> --json","blocker":"host command allowlist"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-deployment-connector-matrix.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Show every install/deploy connector route agents may need, including exact readiness/blocker state.","channel_count":len(channels),"channels":channels,"policy":"Do not publish to registries or push containers without explicit owner approval/credentials."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(channels)} channels")
+    return 0
+
+
+def connector_first_run_checklist(args):
+    """Generate first-run checklist per connector category."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    checklist=[
+        {"connector":"mcp_static","steps":["fetch mcp-static-catalog","verify JSON","check auth mode none_public_read","run docs-command-check"]},
+        {"connector":"native_host","steps":["run host-run-harness","save transcript","host-transcript-validate","submit proof/blocker"]},
+        {"connector":"package_install","steps":["choose channel","run dry-run/verify","record blocker if registry gated","never use tokens in artifact"]},
+        {"connector":"proof_inbox","steps":["redact receipt","proof-ingest --allow-rejected","proof-ingest-review","receipt-to-backlog"]},
+        {"connector":"approval_review","steps":["classify risk R0-R4","approval-gate-eval","reviewer-gate-eval","attach evidence refs"]}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-connector-first-run-checklist.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Reduce first-run confusion by giving each connector category an exact check sequence.","checklist_count":len(checklist),"checklists":checklist}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(checklist)} checklists")
+    return 0
 
 def agent_persona_quickstarts(args):
     """Generate connector quickstart bundles per agent persona."""
@@ -5632,6 +5740,12 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("deep-agent-painpoint-research"); p.add_argument("--out", default="agentpress/research/deep-agent-painpoint-research.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("mcp-connector-auth-readiness"); p.add_argument("--out", default="agentpress/connectors/mcp-connector-auth-readiness.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("tool-routing-decision-matrix"); p.add_argument("--out", default="agentpress/tools/tool-routing-decision-matrix.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("agent-eval-observability-bridge"); p.add_argument("--out", default="agentpress/observability/agent-eval-observability-bridge.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("deployment-connector-matrix"); p.add_argument("--out", default="agentpress/distribution/deployment-connector-matrix.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("connector-first-run-checklist"); p.add_argument("--out", default="agentpress/connectors/connector-first-run-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-persona-quickstarts"); p.add_argument("--out", default="agentpress/connectors/persona-quickstarts.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("sdk-command-wrapper-catalog"); p.add_argument("--out", default="agentpress/integrations/sdk/sdk-command-wrapper-catalog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("cycle-completion-audit"); p.add_argument("--out", default="agentpress/evidence/cycle-completion-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -5878,6 +5992,12 @@ def main():
     if args.cmd == "external-proof-campaign-runner": return external_proof_campaign_runner(args)
     if args.cmd == "connector-failure-to-backlog": return connector_failure_to_backlog(args)
     if args.cmd == "agent-persona-quickstarts": return agent_persona_quickstarts(args)
+    if args.cmd == "deep-agent-painpoint-research": return deep_agent_painpoint_research(args)
+    if args.cmd == "mcp-connector-auth-readiness": return mcp_connector_auth_readiness(args)
+    if args.cmd == "tool-routing-decision-matrix": return tool_routing_decision_matrix(args)
+    if args.cmd == "agent-eval-observability-bridge": return agent_eval_observability_bridge(args)
+    if args.cmd == "deployment-connector-matrix": return deployment_connector_matrix(args)
+    if args.cmd == "connector-first-run-checklist": return connector_first_run_checklist(args)
     if args.cmd == "sdk-command-wrapper-catalog": return sdk_command_wrapper_catalog(args)
     if args.cmd == "cycle-completion-audit": return cycle_completion_audit(args)
     if args.cmd == "host-transcript-dropbox-spec": return host_transcript_dropbox_spec(args)

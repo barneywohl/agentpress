@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T22:12:03Z",
+  "generated_at": "2026-05-03T22:17:39Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,73 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.deep_agent_painpoint_research",
+      "description": "Generate deep research synthesis of what agents/operators actually want next.",
+      "command": "python3 scripts/agentpress.py deep-agent-painpoint-research --json",
+      "tags": [
+        "research",
+        "painpoints",
+        "agents",
+        "features"
+      ]
+    },
+    {
+      "name": "agentpress.mcp_connector_auth_readiness",
+      "description": "Generate MCP/connector auth readiness and permission handshake metadata.",
+      "command": "python3 scripts/agentpress.py mcp-connector-auth-readiness --json",
+      "tags": [
+        "mcp",
+        "auth",
+        "connectors",
+        "permissions"
+      ]
+    },
+    {
+      "name": "agentpress.tool_routing_decision_matrix",
+      "description": "Generate compact tool routing matrix to reduce context/tool overload.",
+      "command": "python3 scripts/agentpress.py tool-routing-decision-matrix --json",
+      "tags": [
+        "routing",
+        "tools",
+        "context",
+        "agents"
+      ]
+    },
+    {
+      "name": "agentpress.agent_eval_observability_bridge",
+      "description": "Generate eval/observability bridge for agent runs.",
+      "command": "python3 scripts/agentpress.py agent-eval-observability-bridge --json",
+      "tags": [
+        "eval",
+        "observability",
+        "traces",
+        "agents"
+      ]
+    },
+    {
+      "name": "agentpress.deployment_connector_matrix",
+      "description": "Generate deployment/install connector matrix for npm/pip/docker/mcp/http/stdio.",
+      "command": "python3 scripts/agentpress.py deployment-connector-matrix --json",
+      "tags": [
+        "deployment",
+        "npm",
+        "pip",
+        "docker",
+        "mcp"
+      ]
+    },
+    {
+      "name": "agentpress.connector_first_run_checklist",
+      "description": "Generate first-run checklist per connector category.",
+      "command": "python3 scripts/agentpress.py connector-first-run-checklist --json",
+      "tags": [
+        "connectors",
+        "quickstart",
+        "first-run",
+        "checklist"
       ]
     },
     {

@@ -1,0 +1,66 @@
+{
+  "schema_version": "2026-05-03.agentpress-deep-agent-painpoint-research.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/research/deep-agent-painpoint-research.json",
+  "generated_utc": "2026-05-03T22:17:39Z",
+  "status": "ok",
+  "purpose": "Deep research synthesis: what agents really want/need and which AgentPress features target those painpoints.",
+  "source_themes": [
+    "MCP auth/remote-local connector metadata",
+    "agent eval/observability",
+    "coding-agent workflow/security differences",
+    "context/tool overhead",
+    "package/deployment uncertainty"
+  ],
+  "want_count": 6,
+  "wants": [
+    {
+      "rank": 1,
+      "painpoint": "tool overload and context bloat",
+      "evidence": "MCP/code-execution patterns reduce token overhead; agents need compact tool cards and routing, not huge catalogs in-context.",
+      "feature": "tool routing decision matrix + compact connector cards",
+      "acceptance": "agent can choose one tool/connector without loading full docs"
+    },
+    {
+      "rank": 2,
+      "painpoint": "connector auth/permission ambiguity",
+      "evidence": "MCP/enterprise connector docs emphasize endpoint/auth/authorization metadata and remote/local deployment modes.",
+      "feature": "MCP connector auth readiness + permission handshake",
+      "acceptance": "connector declares auth mode, scopes, no-secret dry run, approval gate"
+    },
+    {
+      "rank": 3,
+      "painpoint": "eval/observability fragmentation",
+      "evidence": "LLMOps/agent eval tooling focuses on traces, task completion, debugging, monitoring, and regression checks.",
+      "feature": "agent eval observability bridge",
+      "acceptance": "runs emit trace refs, eval score, task completion, failure taxonomy"
+    },
+    {
+      "rank": 4,
+      "painpoint": "install/deploy uncertainty",
+      "evidence": "agents/operators need package, registry, remote endpoint, and local stdio install routes before using connectors.",
+      "feature": "deployment connector matrix for npm/pip/docker/mcp/http/stdio",
+      "acceptance": "each connector has install/deploy mode and publish blocker"
+    },
+    {
+      "rank": 5,
+      "painpoint": "safe autonomous external effects",
+      "evidence": "coding agents need approval/reviewer/security gates before file writes, releases, messages, payments, credentials.",
+      "feature": "approval/reviewer gates already built; add connector permission handoff",
+      "acceptance": "connector declares R-level and approval_ref requirement"
+    },
+    {
+      "rank": 6,
+      "painpoint": "first-run confusion",
+      "evidence": "Cline/Roo/OpenHands comparisons center workflow differences; users need persona/native quickstarts and host transcripts.",
+      "feature": "persona quickstarts + host transcript dropbox already built; add first-run checklist per connector",
+      "acceptance": "each connector has exact first-run command + evidence output"
+    }
+  ],
+  "build_now": [
+    "mcp-connector-auth-readiness",
+    "tool-routing-decision-matrix",
+    "agent-eval-observability-bridge",
+    "deployment-connector-matrix",
+    "connector-first-run-checklist"
+  ]
+}
