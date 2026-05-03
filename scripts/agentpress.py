@@ -2254,6 +2254,11 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.json_schema_bundle", "description":"Generate draft-2020-12 JSON Schemas for key AgentPress public artifacts.", "command":"python3 scripts/agentpress.py json-schema-bundle --json", "tags":["schema","json-schema","validation","draft2020-12"]},
+        {"name":"agentpress.schema_validator", "description":"Validate known AgentPress example artifacts against required schema fields.", "command":"python3 scripts/agentpress.py schema-validator --json", "tags":["schema","validation","proof","blocker"]},
+        {"name":"agentpress.proof_inbox_tracker", "description":"Generate proof inbox tracker for external receipts and blocker reports.", "command":"python3 scripts/agentpress.py proof-inbox-tracker --json", "tags":["proof","inbox","external","adoption"]},
+        {"name":"agentpress.host_run_harness", "description":"Generate host-run harness transcript templates for real native ecosystem conformance.", "command":"python3 scripts/agentpress.py host-run-harness --json", "tags":["host","conformance","native","transcript"]},
+        {"name":"agentpress.ttf_green_metric", "description":"Generate time-to-first-green UX metric pack for AgentPress adoption loops.", "command":"python3 scripts/agentpress.py ttf-green-metric --json", "tags":["ux","metrics","adoption","friction"]},
         {"name":"agentpress.distribution_submission_pack", "description":"Generate distribution submission packs for package registries and install channels.", "command":"python3 scripts/agentpress.py distribution-submission-pack --json", "tags":["distribution","package","registry","submission"]},
         {"name":"agentpress.external_proof_pipeline", "description":"Generate external proof pipeline queue and states.", "command":"python3 scripts/agentpress.py external-proof-pipeline --json", "tags":["external","proof","pipeline","adoption"]},
         {"name":"agentpress.blocker_solution_matrix", "description":"Map known AgentPress bottlenecks to shipped solution layers and remaining blockers.", "command":"python3 scripts/agentpress.py blocker-solution-matrix --json", "tags":["bottlenecks","solutions","matrix","roadmap"]},
@@ -3104,6 +3109,92 @@ def proof_ingest(args):
 
 
 
+
+
+def json_schema_bundle(args):
+    """Generate draft-2020-12 JSON Schemas for key AgentPress public artifacts."""
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    schemas={
+        "proof_receipt.schema.json": {"$schema":"https://json-schema.org/draft/2020-12/schema","$id":urljoin(base,"agentpress/schemas/draft2020-12/proof_receipt.schema.json"),"title":"AgentPress Proof Receipt","type":"object","required":["agent_id","runtime","service_id","capability_id","commands_run","artifacts","result_status","redaction_attestation"],"properties":{"agent_id":{"type":"string","minLength":1},"runtime":{"type":"string","minLength":1},"service_id":{"type":"string","minLength":1},"capability_id":{"type":"string","minLength":1},"commands_run":{"type":"array","items":{"type":"string"}},"artifacts":{"type":"array","items":{"type":"string"}},"result_status":{"enum":["success","blocked","failed"]},"redaction_attestation":{"type":"boolean"}},"additionalProperties":True},
+        "blocker_report.schema.json": {"$schema":"https://json-schema.org/draft/2020-12/schema","$id":urljoin(base,"agentpress/schemas/draft2020-12/blocker_report.schema.json"),"title":"AgentPress Blocker Report","type":"object","required":["agent_id","runtime","severity","summary","contains_secrets"],"properties":{"agent_id":{"type":"string"},"runtime":{"type":"string"},"severity":{"enum":["P0","P1","P2","P3"]},"summary":{"type":"string","minLength":1},"contains_secrets":{"type":"boolean"}},"additionalProperties":True},
+        "host_run_transcript.schema.json": {"$schema":"https://json-schema.org/draft/2020-12/schema","$id":urljoin(base,"agentpress/schemas/draft2020-12/host_run_transcript.schema.json"),"title":"AgentPress Host Run Transcript","type":"object","required":["host","runtime","started_utc","commands","result_status"],"properties":{"host":{"type":"string"},"runtime":{"type":"string"},"started_utc":{"type":"string"},"commands":{"type":"array","items":{"type":"object","required":["command","status"],"properties":{"command":{"type":"string"},"status":{"enum":["pass","fail","blocked"]},"duration_ms":{"type":"integer","minimum":0},"artifact":{"type":"string"}}}},"result_status":{"enum":["pass","fail","blocked"]}},"additionalProperties":True},
+        "time_to_first_green.schema.json": {"$schema":"https://json-schema.org/draft/2020-12/schema","$id":urljoin(base,"agentpress/schemas/draft2020-12/time_to_first_green.schema.json"),"title":"AgentPress Time To First Green","type":"object","required":["agent_id","runtime","steps","total_seconds","result_status"],"properties":{"agent_id":{"type":"string"},"runtime":{"type":"string"},"steps":{"type":"array","items":{"type":"object","required":["name","seconds","status"],"properties":{"name":{"type":"string"},"seconds":{"type":"number","minimum":0},"status":{"enum":["pass","fail","blocked"]}}}},"total_seconds":{"type":"number","minimum":0},"result_status":{"enum":["pass","fail","blocked"]}},"additionalProperties":True}
+    }
+    manifest={"schema_version":"2026-05-03.agentpress-json-schema-bundle.v1","canonical_url":urljoin(base,(outdir/"schema-bundle-manifest.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Draft-2020-12 schemas for external proof, blocker, host-run, and UX metric artifacts.","schema_count":len(schemas),"schemas":[]}
+    if not args.no_write:
+        outdir.mkdir(parents=True,exist_ok=True)
+    for name,body in schemas.items():
+        manifest["schemas"].append({"name":name,"url":urljoin(base,(outdir/name).as_posix()),"title":body["title"]})
+        if not args.no_write: (outdir/name).write_text(json.dumps(body,indent=2)+"\n",encoding="utf-8")
+    if not args.no_write:
+        (outdir/"schema-bundle-manifest.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(manifest,indent=2) if args.json else f"{manifest['status']} {len(schemas)} schemas")
+    return 0
+
+
+def schema_validator(args):
+    """Validate known example artifacts against lightweight built-in schema requirements."""
+    out=pathlib.Path(args.out); checks=[]
+    def check(path, required):
+        p=pathlib.Path(path); errors=[]
+        if not p.exists(): errors.append("missing")
+        else:
+            try: data=json.loads(p.read_text(encoding="utf-8"))
+            except Exception as e: data={}; errors.append(f"parse_fail:{e}")
+            for k in required:
+                if k not in data: errors.append(f"missing:{k}")
+        checks.append({"path":path,"status":"pass" if not errors else "fail","errors":errors})
+    check("tests/fixtures/proof/good-proof-receipt.json", ["agent_id","runtime","service_id","capability_id"])
+    check("agentpress/planning/blocker-solution-matrix.json", ["schema_version","blockers"])
+    check("agentpress/planning/next-bottleneck-radar.json", ["schema_version","items"])
+    check("agentpress/external-proofs/proof-pipeline.json", ["schema_version","stages"])
+    payload={"schema_version":"2026-05-03.agentpress-schema-validator.v1","generated_utc":_utc_now(),"status":"ok" if all(c['status']=='pass' for c in checks) else "fail","checked":len(checks),"failed":sum(1 for c in checks if c['status']!='pass'),"checks":checks}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {payload['checked']} checked {payload['failed']} failed")
+    return 0 if payload["status"]=="ok" else 1
+
+
+def proof_inbox_tracker(args):
+    """Generate proof inbox tracker for external receipts/blockers and next actions."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    rows=[]
+    inbox=pathlib.Path(args.inbox)
+    if inbox.exists():
+        for f in sorted(inbox.glob("*.json")):
+            try: data=json.loads(f.read_text(encoding="utf-8")); status=data.get("result_status") or data.get("status") or "unknown"
+            except Exception: data={}; status="parse_fail"
+            rows.append({"file":str(f),"agent_id":data.get("agent_id",""),"runtime":data.get("runtime",""),"status":status,"next_action":"review_proof" if status in {"success","blocked"} else "repair_or_reject"})
+    payload={"schema_version":"2026-05-03.agentpress-proof-inbox-tracker.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Track external proof/blocker receipts through review without inflating trust globally.","inbox":args.inbox,"receipt_count":len(rows),"receipts":rows,"empty_inbox_action":"send proof-request-pack to target communities and collect first independent receipt","privacy":"Reject secrets/private prompts/cookies/tokens/local private paths."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(rows)} receipts")
+    return 0
+
+
+def host_run_harness(args):
+    """Generate host-run harness transcript template for real Cline/Roo/OpenHands/etc conformance runs."""
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    hosts=["cline","roo","openhands","mcp","langchain","llamaindex","crewai"]
+    template={"schema_version":"2026-05-03.agentpress-host-run-transcript.v1","host":"<host>","runtime":"<runtime>","started_utc":"<iso8601>","commands":[{"command":"agentpress doctor --json","status":"blocked","duration_ms":0,"artifact":"doctor.json"},{"command":"agentpress external-audit-run --runtime <runtime> --agent-id <agent> --json","status":"blocked","duration_ms":0,"artifact":"external-first-contact-audit.json"}],"result_status":"blocked","blocker_taxonomy":["install_failure","command_not_found","schema_failure","network_blocked","docs_confusion","permission_required","other"]}
+    payload={"schema_version":"2026-05-03.agentpress-host-run-harness.v1","canonical_url":urljoin(base,(outdir/"host-run-harness.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Convert native adapter readiness into real host-run evidence from Cline/Roo/OpenHands/MCP/LangChain/LlamaIndex/CrewAI.","host_count":len(hosts),"hosts":[{"host":h,"transcript_template":urljoin(base,(outdir/f"{h}-transcript.template.json").as_posix())} for h in hosts],"failure_taxonomy":template["blocker_taxonomy"]}
+    if not args.no_write:
+        (outdir/"host-run-harness.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+        for h in hosts:
+            t=dict(template); t["host"]=h; (outdir/f"{h}-transcript.template.json").write_text(json.dumps(t,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(hosts)} hosts")
+    return 0
+
+
+def ttf_green_metric(args):
+    """Generate time-to-first-green UX metric pack for AgentPress adoption loops."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    steps=["discover","install","doctor","strict_verify","external_audit_run","submission_pack","proof_review"]
+    payload={"schema_version":"2026-05-03.agentpress-time-to-first-green.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Measure external agent UX friction from first discovery to first valid green proof/blocker submission.","metric":"time_to_first_green_seconds","target_thresholds":{"excellent_seconds":300,"acceptable_seconds":900,"needs_work_seconds":1800},"steps":[{"name":s,"capture":"duration_seconds + status + confusion_note"} for s in steps],"confusion_taxonomy":["install_command_unclear","missing_dependency","schema_error_unclear","too_many_steps","privacy_uncertainty","proof_submission_unclear","other"],"next_action":"Use failed/slow steps to prioritize next build queue."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(steps)} steps")
+    return 0
 
 def distribution_submission_pack(args):
     """Generate distribution submission packs for package registries and install channels."""
@@ -4961,6 +5052,11 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("json-schema-bundle"); p.add_argument("--out", default="agentpress/schemas/draft2020-12"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("schema-validator"); p.add_argument("--out", default="agentpress/evidence/schema-validator.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("proof-inbox-tracker"); p.add_argument("--inbox", default="agentpress/external-proofs/inbox"); p.add_argument("--out", default="agentpress/external-proofs/proof-inbox-tracker.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("host-run-harness"); p.add_argument("--out", default="agentpress/conformance/host-run-harness"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("ttf-green-metric"); p.add_argument("--out", default="agentpress/metrics/time-to-first-green.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("distribution-submission-pack"); p.add_argument("--out", default="agentpress/distribution/submission-pack"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("external-proof-pipeline"); p.add_argument("--out", default="agentpress/external-proofs/proof-pipeline.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("blocker-solution-matrix"); p.add_argument("--out", default="agentpress/planning/blocker-solution-matrix.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -5165,6 +5261,11 @@ def main():
     if args.cmd == "platform-audit-dashboard": return platform_audit_dashboard(args)
     if args.cmd == "external-audit-run": return external_audit_run(args)
     if args.cmd == "distribution-submission-pack": return distribution_submission_pack(args)
+    if args.cmd == "json-schema-bundle": return json_schema_bundle(args)
+    if args.cmd == "schema-validator": return schema_validator(args)
+    if args.cmd == "proof-inbox-tracker": return proof_inbox_tracker(args)
+    if args.cmd == "host-run-harness": return host_run_harness(args)
+    if args.cmd == "ttf-green-metric": return ttf_green_metric(args)
     if args.cmd == "external-proof-pipeline": return external_proof_pipeline(args)
     if args.cmd == "blocker-solution-matrix": return blocker_solution_matrix(args)
     if args.cmd == "next-bottleneck-radar": return next_bottleneck_radar(args)

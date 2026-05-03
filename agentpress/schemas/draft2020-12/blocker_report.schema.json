@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/draft2020-12/blocker_report.schema.json",
+  "title": "AgentPress Blocker Report",
+  "type": "object",
+  "required": [
+    "agent_id",
+    "runtime",
+    "severity",
+    "summary",
+    "contains_secrets"
+  ],
+  "properties": {
+    "agent_id": {
+      "type": "string"
+    },
+    "runtime": {
+      "type": "string"
+    },
+    "severity": {
+      "enum": [
+        "P0",
+        "P1",
+        "P2",
+        "P3"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contains_secrets": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}

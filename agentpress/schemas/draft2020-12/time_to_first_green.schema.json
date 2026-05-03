@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/draft2020-12/time_to_first_green.schema.json",
+  "title": "AgentPress Time To First Green",
+  "type": "object",
+  "required": [
+    "agent_id",
+    "runtime",
+    "steps",
+    "total_seconds",
+    "result_status"
+  ],
+  "properties": {
+    "agent_id": {
+      "type": "string"
+    },
+    "runtime": {
+      "type": "string"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "seconds",
+          "status"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "seconds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "blocked"
+            ]
+          }
+        }
+      }
+    },
+    "total_seconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "result_status": {
+      "enum": [
+        "pass",
+        "fail",
+        "blocked"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

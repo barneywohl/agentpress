@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/draft2020-12/host_run_transcript.schema.json",
+  "title": "AgentPress Host Run Transcript",
+  "type": "object",
+  "required": [
+    "host",
+    "runtime",
+    "started_utc",
+    "commands",
+    "result_status"
+  ],
+  "properties": {
+    "host": {
+      "type": "string"
+    },
+    "runtime": {
+      "type": "string"
+    },
+    "started_utc": {
+      "type": "string"
+    },
+    "commands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "command",
+          "status"
+        ],
+        "properties": {
+          "command": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "blocked"
+            ]
+          },
+          "duration_ms": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "artifact": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "result_status": {
+      "enum": [
+        "pass",
+        "fail",
+        "blocked"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

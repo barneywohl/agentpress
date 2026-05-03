@@ -1,0 +1,53 @@
+{
+  "schema_version": "2026-05-03.agentpress-time-to-first-green.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/metrics/time-to-first-green.json",
+  "generated_utc": "2026-05-03T21:04:48Z",
+  "status": "ok",
+  "purpose": "Measure external agent UX friction from first discovery to first valid green proof/blocker submission.",
+  "metric": "time_to_first_green_seconds",
+  "target_thresholds": {
+    "excellent_seconds": 300,
+    "acceptable_seconds": 900,
+    "needs_work_seconds": 1800
+  },
+  "steps": [
+    {
+      "name": "discover",
+      "capture": "duration_seconds + status + confusion_note"
+    },
+    {
+      "name": "install",
+      "capture": "duration_seconds + status + confusion_note"
+    },
+    {
+      "name": "doctor",
+      "capture": "duration_seconds + status + confusion_note"
+    },
+    {
+      "name": "strict_verify",
+      "capture": "duration_seconds + status + confusion_note"
+    },
+    {
+      "name": "external_audit_run",
+      "capture": "duration_seconds + status + confusion_note"
+    },
+    {
+      "name": "submission_pack",
+      "capture": "duration_seconds + status + confusion_note"
+    },
+    {
+      "name": "proof_review",
+      "capture": "duration_seconds + status + confusion_note"
+    }
+  ],
+  "confusion_taxonomy": [
+    "install_command_unclear",
+    "missing_dependency",
+    "schema_error_unclear",
+    "too_many_steps",
+    "privacy_uncertainty",
+    "proof_submission_unclear",
+    "other"
+  ],
+  "next_action": "Use failed/slow steps to prioritize next build queue."
+}

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T21:00:44Z",
+  "generated_at": "2026-05-03T21:04:47Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,61 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.json_schema_bundle",
+      "description": "Generate draft-2020-12 JSON Schemas for key AgentPress public artifacts.",
+      "command": "python3 scripts/agentpress.py json-schema-bundle --json",
+      "tags": [
+        "schema",
+        "json-schema",
+        "validation",
+        "draft2020-12"
+      ]
+    },
+    {
+      "name": "agentpress.schema_validator",
+      "description": "Validate known AgentPress example artifacts against required schema fields.",
+      "command": "python3 scripts/agentpress.py schema-validator --json",
+      "tags": [
+        "schema",
+        "validation",
+        "proof",
+        "blocker"
+      ]
+    },
+    {
+      "name": "agentpress.proof_inbox_tracker",
+      "description": "Generate proof inbox tracker for external receipts and blocker reports.",
+      "command": "python3 scripts/agentpress.py proof-inbox-tracker --json",
+      "tags": [
+        "proof",
+        "inbox",
+        "external",
+        "adoption"
+      ]
+    },
+    {
+      "name": "agentpress.host_run_harness",
+      "description": "Generate host-run harness transcript templates for real native ecosystem conformance.",
+      "command": "python3 scripts/agentpress.py host-run-harness --json",
+      "tags": [
+        "host",
+        "conformance",
+        "native",
+        "transcript"
+      ]
+    },
+    {
+      "name": "agentpress.ttf_green_metric",
+      "description": "Generate time-to-first-green UX metric pack for AgentPress adoption loops.",
+      "command": "python3 scripts/agentpress.py ttf-green-metric --json",
+      "tags": [
+        "ux",
+        "metrics",
+        "adoption",
+        "friction"
       ]
     },
     {
