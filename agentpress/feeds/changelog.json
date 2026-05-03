@@ -1,7 +1,18 @@
 {
   "schema_version": "2026-05-03.agentpress-changelog.v1",
-  "generated_utc": "2026-05-03T22:10:00Z",
+  "generated_utc": "2026-05-03T22:18:00Z",
   "changes": [
+    {
+      "version": "2026-05-03-edge-case-gap-closure",
+      "summary": "Fixed native no-write/unknown-target gaps and added adversarial edge-case scan CI gate.",
+      "files": [
+        "scripts/agentpress.py",
+        ".github/workflows/ci.yml",
+        "agentpress/evidence/edge-case-gap-scan.json",
+        "agentpress/specs/AGENTPRESS_EDGE_CASE_GAP_CLOSURE_SPEC_20260503.md"
+      ],
+      "breaking": false
+    },
     {
       "version": "2026-05-03-connector-coverage-research-cycle",
       "summary": "Added connector catalog/health, agent wants research, and missing connector backlog.",

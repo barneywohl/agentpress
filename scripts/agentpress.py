@@ -2254,6 +2254,7 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.edge_case_gap_scan", "description":"Run adversarial edge-case checks for missed fail-open/no-write gaps.", "command":"python3 scripts/agentpress.py edge-case-gap-scan --json", "tags":["audit","edge-cases","fail-closed","no-write"]},
         {"name":"agentpress.connector_catalog", "description":"Generate connector catalog for the tools/connectors agents need.", "command":"python3 scripts/agentpress.py connector-catalog --json", "tags":["connectors","tools","catalog","agents"]},
         {"name":"agentpress.connector_health_check", "description":"Check connector catalog completeness and command coverage.", "command":"python3 scripts/agentpress.py connector-health-check --json", "tags":["connectors","health","tools","gates"]},
         {"name":"agentpress.agent_wants_research", "description":"Generate research-cycle list of agent wants/painpoints and build status.", "command":"python3 scripts/agentpress.py agent-wants-research --json", "tags":["research","painpoints","agents","wants"]},
@@ -3131,6 +3132,32 @@ def proof_ingest(args):
 
 
 
+
+def edge_case_gap_scan(args):
+    """Run adversarial edge-case checks for gaps that previous audits missed."""
+    out=pathlib.Path(args.out); checks=[]
+    def run(name, cmd, expect_code=None, expect_path_absent=None):
+        cp=subprocess.run(cmd, cwd=pathlib.Path.cwd(), text=True, capture_output=True)
+        ok=True; errors=[]
+        if expect_code is not None and cp.returncode != expect_code:
+            ok=False; errors.append(f"exit {cp.returncode} != {expect_code}")
+        if expect_path_absent and pathlib.Path(expect_path_absent).exists():
+            ok=False; errors.append(f"path unexpectedly exists: {expect_path_absent}")
+        checks.append({"name":name,"status":"pass" if ok else "fail","exit_code":cp.returncode,"errors":errors,"stderr":cp.stderr[-500:]})
+    tmp="/tmp/agentpress-edge-nowrite"
+    shutil.rmtree(tmp, ignore_errors=True)
+    run("native_adapter_no_write_no_dir", [sys.executable,"scripts/agentpress.py","native-adapter-kit","--out",tmp,"--no-write","--json"], expect_code=0, expect_path_absent=tmp)
+    run("native_adapter_unknown_target_fails", [sys.executable,"scripts/agentpress.py","native-adapter-kit","--target","nonexistent","--no-write","--json"], expect_code=1)
+    run("trust_missing_report_fails", [sys.executable,"scripts/agentpress.py","trust-tier-evaluate","--scoped-report","missing.json","--json"], expect_code=1)
+    run("trust_global_proof_fails", [sys.executable,"scripts/agentpress.py","trust-tier-evaluate","--scoped-report","tests/fixtures/trust/bad-global-proof.json","--json"], expect_code=1)
+    run("approval_bad_fails", [sys.executable,"scripts/agentpress.py","approval-gate-eval","tests/fixtures/gates/approval-bad.json","--json"], expect_code=1)
+    run("host_bad_fails", [sys.executable,"scripts/agentpress.py","host-transcript-validate","tests/fixtures/conformance/host-transcript-bad.json","--json"], expect_code=1)
+    payload={"schema_version":"2026-05-03.agentpress-edge-case-gap-scan.v1","generated_utc":_utc_now(),"status":"ok" if all(c["status"]=="pass" for c in checks) else "fail","purpose":"Adversarial scan for missed fail-open/no-write/unknown-target gaps.","checked":len(checks),"failed":sum(1 for c in checks if c["status"]!="pass"),"checks":checks,"next_gap_hypotheses":["batch host transcript ingestion","external proof acquisition runner","connector failure taxonomy"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {payload['checked']} checked {payload['failed']} failed")
+    return 0 if payload["status"]=="ok" else 1
+
 def connector_catalog(args):
     """Generate connector catalog for the tools/connectors agents need."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
@@ -3751,9 +3778,7 @@ def mcp_registry_pack(args):
 
 def native_adapter_kit(args):
     """Generate native adapter kits for popular agent ecosystems."""
-    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
-    targets=["cline","roo","openhands","mcp","langchain","llamaindex","crewai"] if args.target == "all" else [args.target]
-    catalog=[]
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
     config_templates={
         "cline":{"file":"cline-agentpress.json","install":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","entry":"Use AgentPress tools via local CLI command templates; run docs-command-check and runtime-validation-harness before claiming support."},
         "roo":{"file":"roo-agentpress.json","install":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","entry":"Create a Roo custom mode that reads mcp-static-catalog.json and follows approval-gates.json before execution."},
@@ -3763,20 +3788,28 @@ def native_adapter_kit(args):
         "llamaindex":{"file":"llamaindex-agentpress.json","install":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","entry":"Index AgentPress llms.txt/search/source/freshness artifacts for RAG agents."},
         "crewai":{"file":"crewai-agentpress.json","install":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","entry":"Use AgentPress reviewer gates as CrewAI tasks before closeout."}
     }
+    targets=list(config_templates) if args.target == "all" else [args.target]
+    errors=[]; catalog=[]
+    unknown=[t for t in targets if t not in config_templates]
+    if unknown:
+        errors.append("unknown target(s): "+", ".join(unknown))
+    if not errors and not args.no_write:
+        outdir.mkdir(parents=True,exist_ok=True)
     for t in targets:
         tpl=config_templates.get(t)
         if not tpl: continue
-        d=outdir/t; d.mkdir(parents=True,exist_ok=True)
+        d=outdir/t
         cfg={"schema_version":"2026-05-03.agentpress-native-adapter.v1","target":t,"status":"ok","install_command":tpl["install"],"entrypoint_guidance":tpl["entry"],"required_agentpress_surfaces":{"tools":urljoin(base,"agentpress/tools/agentpress-tools.json"),"mcp_catalog":urljoin(base,"agentpress/mcp/mcp-static-catalog.json"),"approval_gates":urljoin(base,"agentpress/approvals/approval-gates.json"),"permission_policy":urljoin(base,"agentpress/policies/tool-permission-policy.json"),"runtime_validation":urljoin(base,"agentpress/runtime-validation/runtime-validation-harness.json"),"proof_request":urljoin(base,"agentpress/proof-outreach/proof-request-pack.json")},"smoke_commands":["agentpress doctor --json","agentpress docs-command-check --json","agentpress verify agentpress/examples/api-docs-handoff --strict-schema --json"],"safety":"Follow approval gates before external effects; emit action ledger and proof receipts."}
         if not args.no_write:
+            d.mkdir(parents=True,exist_ok=True)
             (d/tpl["file"]).write_text(json.dumps(cfg,indent=2)+"\n",encoding="utf-8")
             (d/"README.md").write_text(f"# AgentPress native adapter: {t}\n\nInstall:\n\n```bash\n{tpl['install']}\n```\n\n{tpl['entry']}\n",encoding="utf-8")
         catalog.append({"target":t,"config":urljoin(base,(d/tpl["file"]).as_posix()),"readme":urljoin(base,(d/"README.md").as_posix())})
-    manifest={"schema_version":"2026-05-03.agentpress-native-adapter-kit.v1","canonical_url":urljoin(base,(outdir/"manifest.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Native integration kits for ecosystems where agents already work.","target_count":len(catalog),"targets":catalog}
-    if not args.no_write: (outdir/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
+    manifest={"schema_version":"2026-05-03.agentpress-native-adapter-kit.v2","canonical_url":urljoin(base,(outdir/"manifest.json").as_posix()),"generated_utc":_utc_now(),"status":"ok" if not errors else "fail","purpose":"Native integration kits for ecosystems where agents already work. --no-write must not create files/directories; unknown targets fail closed.","target_count":len(catalog),"targets":catalog,"errors":errors}
+    if not args.no_write and not errors:
+        (outdir/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(manifest,indent=2) if args.json else f"{manifest['status']} {len(catalog)} targets")
-    return 0
-
+    return 0 if not errors else 1
 
 def native_adapter_check(args):
     root=pathlib.Path(args.dir); errors=[]; checked=0; targets=[]
@@ -5400,6 +5433,7 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("edge-case-gap-scan"); p.add_argument("--out", default="agentpress/evidence/edge-case-gap-scan.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("connector-catalog"); p.add_argument("--out", default="agentpress/connectors/connector-catalog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("connector-health-check"); p.add_argument("--catalog", default="agentpress/connectors/connector-catalog.json"); p.add_argument("--out", default="agentpress/evidence/connector-health-check.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-wants-research"); p.add_argument("--out", default="agentpress/research/agent-wants-research.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -5630,6 +5664,7 @@ def main():
     if args.cmd == "approval-gate-eval": return approval_gate_eval(args)
     if args.cmd == "host-transcript-validate": return host_transcript_validate(args)
     if args.cmd == "connector-catalog": return connector_catalog(args)
+    if args.cmd == "edge-case-gap-scan": return edge_case_gap_scan(args)
     if args.cmd == "connector-health-check": return connector_health_check(args)
     if args.cmd == "agent-wants-research": return agent_wants_research(args)
     if args.cmd == "missing-connector-backlog": return missing_connector_backlog(args)

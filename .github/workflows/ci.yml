@@ -21,7 +21,15 @@ jobs:
       - name: AgentPress docs command drift gate
         run: python3 scripts/agentpress.py docs-command-check --json
       - name: AgentPress native adapter gate
-        run: python3 scripts/agentpress.py native-adapter-check --json
+        run: |
+          python3 scripts/agentpress.py native-adapter-check --json
+          TMP=/tmp/agentpress-ci-native-nowrite
+          rm -rf "$TMP"
+          python3 scripts/agentpress.py native-adapter-kit --out "$TMP" --no-write --json
+          test ! -e "$TMP"
+          if python3 scripts/agentpress.py native-adapter-kit --target nonexistent --no-write --json; then echo "bad native adapter target unexpectedly passed"; exit 1; fi
+      - name: AgentPress adversarial edge-case gap scan
+        run: python3 scripts/agentpress.py edge-case-gap-scan --json
       - name: AgentPress public schema crawler gate
         run: python3 scripts/agentpress.py schema-validate-all --json
       - name: AgentPress fail-closed trust gate

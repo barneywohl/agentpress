@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T21:57:44Z",
+  "generated_at": "2026-05-03T22:02:08Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,17 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.edge_case_gap_scan",
+      "description": "Run adversarial edge-case checks for missed fail-open/no-write gaps.",
+      "command": "python3 scripts/agentpress.py edge-case-gap-scan --json",
+      "tags": [
+        "audit",
+        "edge-cases",
+        "fail-closed",
+        "no-write"
       ]
     },
     {

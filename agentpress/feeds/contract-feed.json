@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T22:10:00Z",
-  "current_contract_version": "2026-05-03-connector-coverage-research-cycle",
+  "generated_utc": "2026-05-03T22:18:00Z",
+  "current_contract_version": "2026-05-03-edge-case-gap-closure",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-edge-case-gap-closure",
+      "kind": "edge_case_gap_closure",
+      "status": "shipped",
+      "summary": "Fixed native-adapter-kit --no-write and unknown target fail-open behavior; added adversarial edge-case gap scan and CI gate.",
+      "agent_action": "Run edge-case-gap-scan after every cycle to catch missed fail-open/no-write/unknown-target gaps.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-connector-coverage-research-cycle",
       "kind": "connector_coverage_research_cycle",
@@ -507,7 +515,8 @@
     "connector_catalog": "https://barneywohl.github.io/agentpress/agentpress/connectors/connector-catalog.json",
     "connector_health_check": "https://barneywohl.github.io/agentpress/agentpress/evidence/connector-health-check.json",
     "agent_wants_research": "https://barneywohl.github.io/agentpress/agentpress/research/agent-wants-research.json",
-    "missing_connector_backlog": "https://barneywohl.github.io/agentpress/agentpress/planning/missing-connector-backlog.json"
+    "missing_connector_backlog": "https://barneywohl.github.io/agentpress/agentpress/planning/missing-connector-backlog.json",
+    "edge_case_gap_scan": "https://barneywohl.github.io/agentpress/agentpress/evidence/edge-case-gap-scan.json"
   },
   "privacy": "Static feed only; no tracking."
 }

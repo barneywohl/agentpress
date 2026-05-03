@@ -1,10 +1,16 @@
 {
   "schema_version": "2026-05-03.agentpress-host-transcript-validate.v1",
-  "generated_utc": "2026-05-03T21:53:04Z",
-  "status": "ok",
-  "transcript": "tests/fixtures/conformance/host-transcript-good.json",
-  "host": "cline",
-  "command_count": 1,
-  "errors": [],
+  "generated_utc": "2026-05-03T22:02:09Z",
+  "status": "fail",
+  "transcript": "tests/fixtures/conformance/host-transcript-bad.json",
+  "host": "unknown",
+  "command_count": 0,
+  "errors": [
+    "missing:runtime",
+    "missing:started_utc",
+    "unknown_host",
+    "invalid_result_status",
+    "commands_must_be_nonempty_list"
+  ],
   "conformance_effect": "valid transcript can be used as host-run conformance evidence only for that host/runtime"
 }
