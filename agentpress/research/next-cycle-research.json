@@ -1,0 +1,61 @@
+{
+  "schema_version": "2026-05-03.agentpress-next-cycle-research.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/research/next-cycle-research.json",
+  "generated_utc": "2026-05-03T22:30:30Z",
+  "status": "ok",
+  "purpose": "Second research cycle after readiness layer: remaining operational painpoints to convert into shipped surfaces.",
+  "gap_count": 7,
+  "gaps": [
+    {
+      "rank": 1,
+      "gap": "memory/version drift",
+      "feature": "agent-memory-drift-detector",
+      "why": "agents reuse stale docs, old CLI names, and outdated connector assumptions"
+    },
+    {
+      "rank": 2,
+      "gap": "handoff ambiguity",
+      "feature": "task-handoff-contract",
+      "why": "multi-agent work fails when owner/evidence/acceptance/dependencies are implicit"
+    },
+    {
+      "rank": 3,
+      "gap": "PR/reviewer friction",
+      "feature": "pr-review-readiness-pack",
+      "why": "agents need reviewable patch summaries, tests, risks, rollback notes"
+    },
+    {
+      "rank": 4,
+      "gap": "flaky CI/test loops",
+      "feature": "ci-flake-triage-report",
+      "why": "agents waste loops rerunning without classifying infra/test/code flakes"
+    },
+    {
+      "rank": 5,
+      "gap": "secret/permission uncertainty",
+      "feature": "secret-permission-preflight",
+      "why": "connectors fail or leak when required scopes/env vars are unclear"
+    },
+    {
+      "rank": 6,
+      "gap": "cost/token blowups",
+      "feature": "agent-cost-budget-card",
+      "why": "agents need budget envelopes and context compression rules"
+    },
+    {
+      "rank": 7,
+      "gap": "multi-agent coordination drift",
+      "feature": "multi-agent-coordination-ledger",
+      "why": "parallel agents duplicate work or miss dependencies without a shared ledger"
+    }
+  ],
+  "build_now": [
+    "agent-memory-drift-detector",
+    "task-handoff-contract",
+    "pr-review-readiness-pack",
+    "ci-flake-triage-report",
+    "secret-permission-preflight",
+    "agent-cost-budget-card",
+    "multi-agent-coordination-ledger"
+  ]
+}

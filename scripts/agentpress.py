@@ -2254,6 +2254,14 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.next_cycle_research", "description":"Generate next research cycle after readiness layer.", "command":"python3 scripts/agentpress.py next-cycle-research --json", "tags":["research","cycle","roadmap","agents"]},
+        {"name":"agentpress.agent_memory_drift_detector", "description":"Detect stale memory/docs/connector assumptions.", "command":"python3 scripts/agentpress.py agent-memory-drift-detector --json", "tags":["memory","drift","docs","agents"]},
+        {"name":"agentpress.task_handoff_contract", "description":"Generate explicit agent-to-agent handoff contract.", "command":"python3 scripts/agentpress.py task-handoff-contract --json", "tags":["handoff","multi-agent","contracts"]},
+        {"name":"agentpress.pr_review_readiness_pack", "description":"Generate PR/review readiness package requirements.", "command":"python3 scripts/agentpress.py pr-review-readiness-pack --json", "tags":["pr","review","patch","evidence"]},
+        {"name":"agentpress.ci_flake_triage_report", "description":"Generate CI/test flake triage report schema.", "command":"python3 scripts/agentpress.py ci-flake-triage-report --json", "tags":["ci","tests","flakes","triage"]},
+        {"name":"agentpress.secret_permission_preflight", "description":"Generate secrets/permissions preflight without exposing values.", "command":"python3 scripts/agentpress.py secret-permission-preflight --json", "tags":["secrets","permissions","preflight"]},
+        {"name":"agentpress.agent_cost_budget_card", "description":"Generate agent cost/context budget card.", "command":"python3 scripts/agentpress.py agent-cost-budget-card --json", "tags":["cost","tokens","budget","context"]},
+        {"name":"agentpress.multi_agent_coordination_ledger", "description":"Generate multi-agent coordination ledger fields/rules.", "command":"python3 scripts/agentpress.py multi-agent-coordination-ledger --json", "tags":["multi-agent","coordination","ledger"]},
         {"name":"agentpress.readiness_audit_cli", "description":"Generate AgentPress readiness audit for a repo/url target.", "command":"python3 scripts/agentpress.py readiness-audit --json", "tags":["audit","readiness","agents","repo"]},
         {"name":"agentpress.readiness_score", "description":"Generate compact AgentPress readiness scorecard.", "command":"python3 scripts/agentpress.py readiness-score --json", "tags":["score","readiness","audit"]},
         {"name":"agentpress.readiness_fix_plan", "description":"Generate prioritized readiness fix plan.", "command":"python3 scripts/agentpress.py readiness-fix-plan --json", "tags":["fix-plan","readiness","roadmap"]},
@@ -3162,6 +3170,92 @@ def proof_ingest(args):
 
 
 
+
+
+def next_cycle_research(args):
+    """Generate next research cycle after readiness layer."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    gaps=[
+        {"rank":1,"gap":"memory/version drift","feature":"agent-memory-drift-detector","why":"agents reuse stale docs, old CLI names, and outdated connector assumptions"},
+        {"rank":2,"gap":"handoff ambiguity","feature":"task-handoff-contract","why":"multi-agent work fails when owner/evidence/acceptance/dependencies are implicit"},
+        {"rank":3,"gap":"PR/reviewer friction","feature":"pr-review-readiness-pack","why":"agents need reviewable patch summaries, tests, risks, rollback notes"},
+        {"rank":4,"gap":"flaky CI/test loops","feature":"ci-flake-triage-report","why":"agents waste loops rerunning without classifying infra/test/code flakes"},
+        {"rank":5,"gap":"secret/permission uncertainty","feature":"secret-permission-preflight","why":"connectors fail or leak when required scopes/env vars are unclear"},
+        {"rank":6,"gap":"cost/token blowups","feature":"agent-cost-budget-card","why":"agents need budget envelopes and context compression rules"},
+        {"rank":7,"gap":"multi-agent coordination drift","feature":"multi-agent-coordination-ledger","why":"parallel agents duplicate work or miss dependencies without a shared ledger"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-next-cycle-research.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Second research cycle after readiness layer: remaining operational painpoints to convert into shipped surfaces.","gap_count":len(gaps),"gaps":gaps,"build_now":[g["feature"] for g in gaps]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(gaps)} gaps")
+    return 0
+
+
+def agent_memory_drift_detector(args):
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    signals=["stale_command_name","artifact_version_mismatch","missing_source_hash","old_base_url","schema_version_regression","docs_newer_than_manifest"]
+    payload={"schema_version":"2026-05-03.agentpress-agent-memory-drift-detector.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Detect when an agent is acting from stale memory/docs or outdated connector assumptions.","signal_count":len(signals),"signals":signals,"actions":["refresh contract-feed","run docs-command-check","compare artifact schema_version","prefer live URL over recalled command","emit drift_report"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(signals)} signals")
+    return 0
+
+
+def task_handoff_contract(args):
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    fields=["task_id","owner","objective","inputs","dependencies","acceptance_gates","evidence_required","reviewer","risk_level","deadline_optional","blocked_reason_optional","closeout_artifact"]
+    payload={"schema_version":"2026-05-03.agentpress-task-handoff-contract.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Make agent-to-agent handoffs explicit and auditable instead of vague delegation.","required_fields":fields,"fail_closed_rules":["missing owner fails","missing acceptance_gates fails","risk R3/R4 without reviewer fails","completed without evidence_required fails"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload['status'])
+    return 0
+
+
+def pr_review_readiness_pack(args):
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    payload={"schema_version":"2026-05-03.agentpress-pr-review-readiness-pack.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Package an agent patch for human/reviewer approval with risks, tests, rollback, and evidence.","sections":["summary","files_changed","user_impact","risk_assessment","security_notes","tests_run","screenshots_or_logs","rollback_plan","review_questions"],"required_before_review":["git diff --check","smallest meaningful gate","unsupported claims removed","secret scan clean"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload['status'])
+    return 0
+
+
+def ci_flake_triage_report(args):
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    classes=[{"class":"infra_flake","signals":["timeout","network","rate_limit","runner lost"]},{"class":"test_flake","signals":["order-dependent","random seed","eventual consistency","snapshot race"]},{"class":"code_regression","signals":["deterministic local fail","new assertion fail","type/lint error"]},{"class":"unknown","signals":["single remote fail no local repro"]}]
+    payload={"schema_version":"2026-05-03.agentpress-ci-flake-triage-report.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Classify CI/test failures before agents waste loops rerunning or masking regressions.","classes":classes,"triage_steps":["capture failing job/log URL","compare local gate","classify class","retry only infra/test flake with evidence","block deploy on code_regression"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload['status'])
+    return 0
+
+
+def secret_permission_preflight(args):
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    payload={"schema_version":"2026-05-03.agentpress-secret-permission-preflight.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Preflight secrets/permissions without exposing values before agents use connectors or deploy lanes.","checks":["required_secret_names_declared","no_secret_values_in_artifacts","scope_reason_present","least_privilege_scope","approval_ref_for_R4","dry_run_possible_without_secret"],"outputs":["missing_secrets","scope_warnings","approval_requirements","safe_dry_run_command"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload['status'])
+    return 0
+
+
+def agent_cost_budget_card(args):
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    payload={"schema_version":"2026-05-03.agentpress-agent-cost-budget-card.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give agents budget/context envelopes before deep runs.","budgets":[{"tier":"small","max_tool_calls":10,"context":"route cards only"},{"tier":"medium","max_tool_calls":30,"context":"route cards + relevant specs"},{"tier":"large","max_tool_calls":80,"context":"full audit + subagents"}],"compression_rules":["load smallest artifact first","summarize logs before retry","stop on missing approval","do not fetch full docs when route card resolves"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload['status'])
+    return 0
+
+
+def multi_agent_coordination_ledger(args):
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    fields=["mission_id","agent_id","task_id","claim","dependency_ids","artifact_refs","status","blocker","handoff_to","reviewer","last_update_utc"]
+    payload={"schema_version":"2026-05-03.agentpress-multi-agent-coordination-ledger.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Prevent duplicate work and dropped dependencies across parallel agents.","ledger_fields":fields,"rules":["one owner per task","dependencies explicit","no completion without artifact_refs","handoff requires receiving owner","reviewer required for high-risk outputs"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload['status'])
+    return 0
 
 def readiness_audit_cli(args):
     """Generate AgentPress readiness audit for a repo/url target."""
@@ -5874,6 +5968,14 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("next-cycle-research"); p.add_argument("--out", default="agentpress/research/next-cycle-research.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("agent-memory-drift-detector"); p.add_argument("--out", default="agentpress/memory/agent-memory-drift-detector.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("task-handoff-contract"); p.add_argument("--out", default="agentpress/handoffs/task-handoff-contract.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("pr-review-readiness-pack"); p.add_argument("--out", default="agentpress/review/pr-review-readiness-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("ci-flake-triage-report"); p.add_argument("--out", default="agentpress/ci/ci-flake-triage-report.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("secret-permission-preflight"); p.add_argument("--out", default="agentpress/security/secret-permission-preflight.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("agent-cost-budget-card"); p.add_argument("--out", default="agentpress/budgets/agent-cost-budget-card.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("multi-agent-coordination-ledger"); p.add_argument("--out", default="agentpress/coordination/multi-agent-coordination-ledger.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("readiness-audit"); p.add_argument("target", nargs="?", default="."); p.add_argument("--out", default="agentpress/audit/readiness-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("readiness-score"); p.add_argument("--out", default="agentpress/audit/readiness-score.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("readiness-fix-plan"); p.add_argument("--out", default="agentpress/audit/readiness-fix-plan.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -6136,6 +6238,14 @@ def main():
     if args.cmd == "agent-persona-quickstarts": return agent_persona_quickstarts(args)
     if args.cmd == "deep-agent-painpoint-research": return deep_agent_painpoint_research(args)
     if args.cmd == "readiness-audit": return readiness_audit_cli(args)
+    if args.cmd == "next-cycle-research": return next_cycle_research(args)
+    if args.cmd == "agent-memory-drift-detector": return agent_memory_drift_detector(args)
+    if args.cmd == "task-handoff-contract": return task_handoff_contract(args)
+    if args.cmd == "pr-review-readiness-pack": return pr_review_readiness_pack(args)
+    if args.cmd == "ci-flake-triage-report": return ci_flake_triage_report(args)
+    if args.cmd == "secret-permission-preflight": return secret_permission_preflight(args)
+    if args.cmd == "agent-cost-budget-card": return agent_cost_budget_card(args)
+    if args.cmd == "multi-agent-coordination-ledger": return multi_agent_coordination_ledger(args)
     if args.cmd == "readiness-score": return readiness_score(args)
     if args.cmd == "readiness-fix-plan": return readiness_fix_plan(args)
     if args.cmd == "runtime-install-doctor": return runtime_install_doctor(args)

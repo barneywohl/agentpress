@@ -1,0 +1,24 @@
+{
+  "schema_version": "2026-05-03.agentpress-pr-review-readiness-pack.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/review/pr-review-readiness-pack.json",
+  "generated_utc": "2026-05-03T22:30:30Z",
+  "status": "ok",
+  "purpose": "Package an agent patch for human/reviewer approval with risks, tests, rollback, and evidence.",
+  "sections": [
+    "summary",
+    "files_changed",
+    "user_impact",
+    "risk_assessment",
+    "security_notes",
+    "tests_run",
+    "screenshots_or_logs",
+    "rollback_plan",
+    "review_questions"
+  ],
+  "required_before_review": [
+    "git diff --check",
+    "smallest meaningful gate",
+    "unsupported claims removed",
+    "secret scan clean"
+  ]
+}

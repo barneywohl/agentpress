@@ -1,0 +1,27 @@
+{
+  "schema_version": "2026-05-03.agentpress-multi-agent-coordination-ledger.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/coordination/multi-agent-coordination-ledger.json",
+  "generated_utc": "2026-05-03T22:30:31Z",
+  "status": "ok",
+  "purpose": "Prevent duplicate work and dropped dependencies across parallel agents.",
+  "ledger_fields": [
+    "mission_id",
+    "agent_id",
+    "task_id",
+    "claim",
+    "dependency_ids",
+    "artifact_refs",
+    "status",
+    "blocker",
+    "handoff_to",
+    "reviewer",
+    "last_update_utc"
+  ],
+  "rules": [
+    "one owner per task",
+    "dependencies explicit",
+    "no completion without artifact_refs",
+    "handoff requires receiving owner",
+    "reviewer required for high-risk outputs"
+  ]
+}

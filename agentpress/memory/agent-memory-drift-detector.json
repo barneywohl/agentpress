@@ -1,0 +1,23 @@
+{
+  "schema_version": "2026-05-03.agentpress-agent-memory-drift-detector.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/memory/agent-memory-drift-detector.json",
+  "generated_utc": "2026-05-03T22:30:30Z",
+  "status": "ok",
+  "purpose": "Detect when an agent is acting from stale memory/docs or outdated connector assumptions.",
+  "signal_count": 6,
+  "signals": [
+    "stale_command_name",
+    "artifact_version_mismatch",
+    "missing_source_hash",
+    "old_base_url",
+    "schema_version_regression",
+    "docs_newer_than_manifest"
+  ],
+  "actions": [
+    "refresh contract-feed",
+    "run docs-command-check",
+    "compare artifact schema_version",
+    "prefer live URL over recalled command",
+    "emit drift_report"
+  ]
+}

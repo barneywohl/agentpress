@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T22:27:12Z",
+  "generated_at": "2026-05-03T22:30:29Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,91 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.next_cycle_research",
+      "description": "Generate next research cycle after readiness layer.",
+      "command": "python3 scripts/agentpress.py next-cycle-research --json",
+      "tags": [
+        "research",
+        "cycle",
+        "roadmap",
+        "agents"
+      ]
+    },
+    {
+      "name": "agentpress.agent_memory_drift_detector",
+      "description": "Detect stale memory/docs/connector assumptions.",
+      "command": "python3 scripts/agentpress.py agent-memory-drift-detector --json",
+      "tags": [
+        "memory",
+        "drift",
+        "docs",
+        "agents"
+      ]
+    },
+    {
+      "name": "agentpress.task_handoff_contract",
+      "description": "Generate explicit agent-to-agent handoff contract.",
+      "command": "python3 scripts/agentpress.py task-handoff-contract --json",
+      "tags": [
+        "handoff",
+        "multi-agent",
+        "contracts"
+      ]
+    },
+    {
+      "name": "agentpress.pr_review_readiness_pack",
+      "description": "Generate PR/review readiness package requirements.",
+      "command": "python3 scripts/agentpress.py pr-review-readiness-pack --json",
+      "tags": [
+        "pr",
+        "review",
+        "patch",
+        "evidence"
+      ]
+    },
+    {
+      "name": "agentpress.ci_flake_triage_report",
+      "description": "Generate CI/test flake triage report schema.",
+      "command": "python3 scripts/agentpress.py ci-flake-triage-report --json",
+      "tags": [
+        "ci",
+        "tests",
+        "flakes",
+        "triage"
+      ]
+    },
+    {
+      "name": "agentpress.secret_permission_preflight",
+      "description": "Generate secrets/permissions preflight without exposing values.",
+      "command": "python3 scripts/agentpress.py secret-permission-preflight --json",
+      "tags": [
+        "secrets",
+        "permissions",
+        "preflight"
+      ]
+    },
+    {
+      "name": "agentpress.agent_cost_budget_card",
+      "description": "Generate agent cost/context budget card.",
+      "command": "python3 scripts/agentpress.py agent-cost-budget-card --json",
+      "tags": [
+        "cost",
+        "tokens",
+        "budget",
+        "context"
+      ]
+    },
+    {
+      "name": "agentpress.multi_agent_coordination_ledger",
+      "description": "Generate multi-agent coordination ledger fields/rules.",
+      "command": "python3 scripts/agentpress.py multi-agent-coordination-ledger --json",
+      "tags": [
+        "multi-agent",
+        "coordination",
+        "ledger"
       ]
     },
     {

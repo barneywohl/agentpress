@@ -1,0 +1,48 @@
+{
+  "schema_version": "2026-05-03.agentpress-ci-flake-triage-report.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/ci/ci-flake-triage-report.json",
+  "generated_utc": "2026-05-03T22:30:30Z",
+  "status": "ok",
+  "purpose": "Classify CI/test failures before agents waste loops rerunning or masking regressions.",
+  "classes": [
+    {
+      "class": "infra_flake",
+      "signals": [
+        "timeout",
+        "network",
+        "rate_limit",
+        "runner lost"
+      ]
+    },
+    {
+      "class": "test_flake",
+      "signals": [
+        "order-dependent",
+        "random seed",
+        "eventual consistency",
+        "snapshot race"
+      ]
+    },
+    {
+      "class": "code_regression",
+      "signals": [
+        "deterministic local fail",
+        "new assertion fail",
+        "type/lint error"
+      ]
+    },
+    {
+      "class": "unknown",
+      "signals": [
+        "single remote fail no local repro"
+      ]
+    }
+  ],
+  "triage_steps": [
+    "capture failing job/log URL",
+    "compare local gate",
+    "classify class",
+    "retry only infra/test flake with evidence",
+    "block deploy on code_regression"
+  ]
+}
