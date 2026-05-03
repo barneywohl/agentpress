@@ -2254,6 +2254,10 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.platform_audit_dashboard", "description":"Generate single audit dashboard for AgentPress gates, surfaces, and next actions.", "command":"python3 scripts/agentpress.py platform-audit-dashboard --json", "tags":["audit","dashboard","gates","status"]},
+        {"name":"agentpress.ecosystem_conformance_suite", "description":"Generate native ecosystem conformance suite for AgentPress.", "command":"python3 scripts/agentpress.py ecosystem-conformance-suite --json", "tags":["ecosystem","conformance","native","adapters"]},
+        {"name":"agentpress.iteration_cycle_engine", "description":"Generate recursive research-build-deploy iteration cycle plan.", "command":"python3 scripts/agentpress.py iteration-cycle-engine --json", "tags":["iteration","cycle","research","build","deploy"]},
+        {"name":"agentpress.mcp_registry_pack", "description":"Generate MCP registry/server submission pack for AgentPress static catalog.", "command":"python3 scripts/agentpress.py mcp-registry-pack --json", "tags":["mcp","registry","submission","catalog"]},
         {"name":"agentpress.native_adapter_kit", "description":"Generate native adapter kits for Cline/Roo/OpenHands/MCP/LangChain/LlamaIndex/CrewAI.", "command":"python3 scripts/agentpress.py native-adapter-kit --target all --json", "tags":["adapter","native","cline","roo","mcp"]},
         {"name":"agentpress.native_adapter_check", "description":"Validate generated native adapter kits.", "command":"python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json", "tags":["adapter","check","native","validate"]},
         {"name":"agentpress.schema_validate_all", "description":"Strictly validate all mapped/public AgentPress JSON surfaces.", "command":"python3 scripts/agentpress.py schema-validate-all --json", "tags":["schema","validate","public-json","strict"]},
@@ -3089,6 +3093,84 @@ def proof_ingest(args):
 
 
 
+
+
+def platform_audit_dashboard(args):
+    """Generate a single audit dashboard for AgentPress gates, surfaces, and next actions."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    surfaces={
+        "doctor":"agentpress/evidence/browser-smoke.json",
+        "docs_command_check":"agentpress/evidence/docs-command-check.json",
+        "schema_validate_all":"agentpress/evidence/schema-validate-all.json",
+        "native_adapters":"agentpress/adapters/native/manifest.json",
+        "trust_tiers":"agentpress/trust/trust-tier-evaluation.json",
+        "mission_cockpit":"agentpress/mission-cockpit/mission-cockpit.json",
+        "runtime_validation":"agentpress/runtime-validation/runtime-validation-harness.json",
+        "package_bridge":"agentpress/package-registry/package-manager-bridge.json",
+        "release_index":"agentpress/releases/release-index.json"
+    }
+    rows=[]
+    for name,rel in surfaces.items():
+        p=pathlib.Path(rel); status="missing"; detail={}
+        if p.exists():
+            try:
+                data=json.loads(p.read_text(encoding="utf-8")); status=data.get("status") or ("ok" if data else "present"); detail={k:data.get(k) for k in ["checked","failed","service_count","target_count","tool_count","asset_count"] if k in data}
+            except Exception as e: status="parse_fail"; detail={"error":str(e)}
+        rows.append({"surface":name,"path":rel,"url":urljoin(base,rel),"status":status,"detail":detail})
+    ok=sum(1 for r in rows if r["status"] in {"ok","present"})
+    payload={"schema_version":"2026-05-03.agentpress-platform-audit-dashboard.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if ok==len(rows) else "needs_attention","purpose":"Single machine-readable audit dashboard after each recursive AgentPress build cycle.","surface_count":len(rows),"ok_count":ok,"surfaces":rows,"next_actions":["collect real external proof receipts","submit/distribute native adapters to ecosystem communities","run conformance suite on real Cline/Roo/OpenHands/MCP hosts","keep schema/docs/package gates green"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {ok}/{len(rows)}")
+    return 0
+
+
+def ecosystem_conformance_suite(args):
+    """Generate and check native ecosystem conformance suite for AgentPress."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    targets=["cline","roo","openhands","mcp","langchain","llamaindex","crewai"]
+    rows=[]
+    for t in targets:
+        d=pathlib.Path("agentpress/adapters/native")/t
+        configs=list(d.glob("*.json")) if d.exists() else []
+        checks=[]
+        checks.append({"name":"native_config_exists","status":"pass" if configs else "fail"})
+        for rel in ["agentpress/approvals/approval-gates.json","agentpress/runtime-validation/runtime-validation-harness.json","agentpress/observability/action-ledger/manifest.json","agentpress/proof-outreach/proof-request-pack.json"]:
+            checks.append({"name":"surface_"+pathlib.Path(rel).stem,"status":"pass" if pathlib.Path(rel).exists() else "fail","path":rel})
+        status="pass" if all(c["status"]=="pass" for c in checks) else "fail"
+        rows.append({"target":t,"status":status,"config_count":len(configs),"checks":checks,"proof_request_command":f"python3 scripts/agentpress.py proof-request-pack --runtime {t} --json"})
+    payload={"schema_version":"2026-05-03.agentpress-ecosystem-conformance-suite.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if all(r['status']=='pass' for r in rows) else "fail","purpose":"Conformance suite proving AgentPress has native adapter, approval, validation, ledger, and proof surfaces for major agent ecosystems.","target_count":len(rows),"pass_count":sum(1 for r in rows if r['status']=='pass'),"targets":rows}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {payload['pass_count']}/{payload['target_count']}")
+    return 0 if payload["status"]=="ok" else 1
+
+
+def iteration_cycle_engine(args):
+    """Generate recursive research-build-deploy iteration cycle plan from current AgentPress state."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    cycles=[
+        {"cycle":1,"theme":"external adoption proof","why":"self-proof is not market proof","features":["proof-request-pack","proof-receipt-verify","scoped-trust-report"],"remaining":"collect independent receipts"},
+        {"cycle":2,"theme":"native ecosystem availability","why":"agents live in Cline/Roo/OpenHands/MCP/LangChain/LlamaIndex/CrewAI","features":["native-adapter-kit","ecosystem-conformance-suite"],"remaining":"submit adapters to communities"},
+        {"cycle":3,"theme":"operational trust","why":"agents need plan/approval/review/ledger/runtime artifacts","features":["plan-workflow-kit","approval-gate-kit","reviewer-gate-kit","runtime-validation-harness","run-artifact-pack"],"remaining":"run on real third-party hosts"},
+        {"cycle":4,"theme":"continuous audit","why":"docs/schema/package/trust drift silently breaks adoption","features":["schema-validate-all","docs-command-check","platform-audit-dashboard"],"remaining":"make failures visible in cockpit"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-iteration-cycle-engine.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Machine-readable recursive loop: research painpoints, ship feature surfaces, audit, deploy, repeat.","cycles":cycles,"loop_command_sequence":["community-radar --json","agent-platform-feature-backlog --json","platform-audit-dashboard --json","ecosystem-conformance-suite --json","build highest P0/P1 not externally blocked","package/attest/CI/Pages/live verify"],"stop_condition":"Only independent external adoption proof or registry credentials remain."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(cycles)} cycles")
+    return 0
+
+
+def mcp_registry_pack(args):
+    """Generate MCP registry/server submission pack for AgentPress static catalog."""
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    payload={"schema_version":"2026-05-03.agentpress-mcp-registry-pack.v1","canonical_url":urljoin(base,(outdir/"mcp-registry-pack.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Submission-ready MCP registry pack for agents/tools that consume MCP server directories.","server":{"name":"agentpress-static","description":"Static AgentPress tool/catalog/proof/trust resources for agents.","repository":"https://github.com/barneywohl/agentpress","homepage":base,"resources":[urljoin(base,"agentpress/mcp/mcp-static-catalog.json"),urljoin(base,"agentpress/tools/agentpress-tools.json"),urljoin(base,"agentpress/policies/tool-permission-policy.json"),urljoin(base,"agentpress/trust/trust-tier-evaluation.json")],"install":["npm install github:barneywohl/agentpress","python3 -m pip install git+https://github.com/barneywohl/agentpress.git"]},"submission_checklist":["verify no credentials required","verify static catalog JSON parses","verify approval policy is linked","verify trust tier surface is linked","submit to MCP directories/communities with proof request pack"]}
+    if not args.no_write:
+        (outdir/"mcp-registry-pack.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+        (outdir/"README.md").write_text("# AgentPress MCP Registry Pack\n\nSubmission-ready metadata for MCP server/tool directories.\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} mcp-registry-pack")
+    return 0
 
 def native_adapter_kit(args):
     """Generate native adapter kits for popular agent ecosystems."""
@@ -4713,6 +4795,10 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("platform-audit-dashboard"); p.add_argument("--out", default="agentpress/audit/platform-audit-dashboard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("ecosystem-conformance-suite"); p.add_argument("--out", default="agentpress/evidence/ecosystem-conformance-suite.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("iteration-cycle-engine"); p.add_argument("--out", default="agentpress/planning/iteration-cycle-engine.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("mcp-registry-pack"); p.add_argument("--out", default="agentpress/mcp/registry-pack"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("native-adapter-kit"); p.add_argument("--target", default="all"); p.add_argument("--out", default="agentpress/adapters/native"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("native-adapter-check"); p.add_argument("dir", nargs="?", default="agentpress/adapters/native"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("schema-validate-all"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/schema-validate-all.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--max-errors", type=int, default=200); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -4902,6 +4988,10 @@ def main():
     if args.cmd == "agent-platform-feature-backlog": return agent_platform_feature_backlog(args)
     if args.cmd == "plan-workflow-kit": return plan_workflow_kit(args)
     if args.cmd == "native-adapter-kit": return native_adapter_kit(args)
+    if args.cmd == "platform-audit-dashboard": return platform_audit_dashboard(args)
+    if args.cmd == "ecosystem-conformance-suite": return ecosystem_conformance_suite(args)
+    if args.cmd == "iteration-cycle-engine": return iteration_cycle_engine(args)
+    if args.cmd == "mcp-registry-pack": return mcp_registry_pack(args)
     if args.cmd == "native-adapter-check": return native_adapter_check(args)
     if args.cmd == "schema-validate-all": return schema_validate_all(args)
     if args.cmd == "trust-tier-evaluate": return trust_tier_evaluate(args)

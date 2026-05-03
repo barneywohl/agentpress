@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T20:38:29Z",
+  "generated_at": "2026-05-03T20:47:50Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,51 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.platform_audit_dashboard",
+      "description": "Generate single audit dashboard for AgentPress gates, surfaces, and next actions.",
+      "command": "python3 scripts/agentpress.py platform-audit-dashboard --json",
+      "tags": [
+        "audit",
+        "dashboard",
+        "gates",
+        "status"
+      ]
+    },
+    {
+      "name": "agentpress.ecosystem_conformance_suite",
+      "description": "Generate native ecosystem conformance suite for AgentPress.",
+      "command": "python3 scripts/agentpress.py ecosystem-conformance-suite --json",
+      "tags": [
+        "ecosystem",
+        "conformance",
+        "native",
+        "adapters"
+      ]
+    },
+    {
+      "name": "agentpress.iteration_cycle_engine",
+      "description": "Generate recursive research-build-deploy iteration cycle plan.",
+      "command": "python3 scripts/agentpress.py iteration-cycle-engine --json",
+      "tags": [
+        "iteration",
+        "cycle",
+        "research",
+        "build",
+        "deploy"
+      ]
+    },
+    {
+      "name": "agentpress.mcp_registry_pack",
+      "description": "Generate MCP registry/server submission pack for AgentPress static catalog.",
+      "command": "python3 scripts/agentpress.py mcp-registry-pack --json",
+      "tags": [
+        "mcp",
+        "registry",
+        "submission",
+        "catalog"
       ]
     },
     {

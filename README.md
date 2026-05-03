@@ -446,3 +446,10 @@ python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --
 python3 scripts/agentpress.py schema-validate-all --json
 python3 scripts/agentpress.py trust-tier-evaluate --json
 ```
+
+```bash
+python3 scripts/agentpress.py platform-audit-dashboard --json
+python3 scripts/agentpress.py ecosystem-conformance-suite --json
+python3 scripts/agentpress.py iteration-cycle-engine --json
+python3 scripts/agentpress.py mcp-registry-pack --json
+```

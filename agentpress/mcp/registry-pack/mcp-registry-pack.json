@@ -1,0 +1,30 @@
+{
+  "schema_version": "2026-05-03.agentpress-mcp-registry-pack.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/mcp/registry-pack/mcp-registry-pack.json",
+  "generated_utc": "2026-05-03T20:47:50Z",
+  "status": "ok",
+  "purpose": "Submission-ready MCP registry pack for agents/tools that consume MCP server directories.",
+  "server": {
+    "name": "agentpress-static",
+    "description": "Static AgentPress tool/catalog/proof/trust resources for agents.",
+    "repository": "https://github.com/barneywohl/agentpress",
+    "homepage": "https://barneywohl.github.io/agentpress//",
+    "resources": [
+      "https://barneywohl.github.io/agentpress/agentpress/mcp/mcp-static-catalog.json",
+      "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
+      "https://barneywohl.github.io/agentpress/agentpress/policies/tool-permission-policy.json",
+      "https://barneywohl.github.io/agentpress/agentpress/trust/trust-tier-evaluation.json"
+    ],
+    "install": [
+      "npm install github:barneywohl/agentpress",
+      "python3 -m pip install git+https://github.com/barneywohl/agentpress.git"
+    ]
+  },
+  "submission_checklist": [
+    "verify no credentials required",
+    "verify static catalog JSON parses",
+    "verify approval policy is linked",
+    "verify trust tier surface is linked",
+    "submit to MCP directories/communities with proof request pack"
+  ]
+}
