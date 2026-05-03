@@ -2254,6 +2254,10 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.native_adapter_kit", "description":"Generate native adapter kits for Cline/Roo/OpenHands/MCP/LangChain/LlamaIndex/CrewAI.", "command":"python3 scripts/agentpress.py native-adapter-kit --target all --json", "tags":["adapter","native","cline","roo","mcp"]},
+        {"name":"agentpress.native_adapter_check", "description":"Validate generated native adapter kits.", "command":"python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json", "tags":["adapter","check","native","validate"]},
+        {"name":"agentpress.schema_validate_all", "description":"Strictly validate all mapped/public AgentPress JSON surfaces.", "command":"python3 scripts/agentpress.py schema-validate-all --json", "tags":["schema","validate","public-json","strict"]},
+        {"name":"agentpress.trust_tier_evaluate", "description":"Evaluate service trust tiers without self-proof/global proof inflation.", "command":"python3 scripts/agentpress.py trust-tier-evaluate --json", "tags":["trust","tier","proof","marketplace"]},
         {"name":"agentpress.plan_workflow_kit", "description":"Generate Plan.md-native workflow templates for agent execution.", "command":"python3 scripts/agentpress.py plan-workflow-kit --json", "tags":["plan","workflow","approval","verify","closeout"]},
         {"name":"agentpress.approval_gate_kit", "description":"Generate risk-based approval gates for agent actions.", "command":"python3 scripts/agentpress.py approval-gate-kit --json", "tags":["approval","risk","safety","external-effects"]},
         {"name":"agentpress.reviewer_gate_kit", "description":"Generate built-in reviewer gate templates before agents claim done.", "command":"python3 scripts/agentpress.py reviewer-gate-kit --json", "tags":["review","security","product","docs","runtime"]},
@@ -3084,6 +3088,105 @@ def proof_ingest(args):
 
 
 
+
+
+def native_adapter_kit(args):
+    """Generate native adapter kits for popular agent ecosystems."""
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    targets=["cline","roo","openhands","mcp","langchain","llamaindex","crewai"] if args.target == "all" else [args.target]
+    catalog=[]
+    config_templates={
+        "cline":{"file":"cline-agentpress.json","install":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","entry":"Use AgentPress tools via local CLI command templates; run docs-command-check and runtime-validation-harness before claiming support."},
+        "roo":{"file":"roo-agentpress.json","install":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","entry":"Create a Roo custom mode that reads mcp-static-catalog.json and follows approval-gates.json before execution."},
+        "openhands":{"file":"openhands-agentpress.json","install":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","entry":"Run AgentPress runtime validation inside sandbox before submitting external proof receipts."},
+        "mcp":{"file":"mcp-agentpress-static-server.json","install":"npm install github:barneywohl/agentpress","entry":"Expose static AgentPress catalog as MCP resources/tools; no credentials required."},
+        "langchain":{"file":"langchain-agentpress.json","install":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","entry":"Wrap AgentPress CLI commands as LangChain tools with approval and ledger middleware."},
+        "llamaindex":{"file":"llamaindex-agentpress.json","install":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","entry":"Index AgentPress llms.txt/search/source/freshness artifacts for RAG agents."},
+        "crewai":{"file":"crewai-agentpress.json","install":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","entry":"Use AgentPress reviewer gates as CrewAI tasks before closeout."}
+    }
+    for t in targets:
+        tpl=config_templates.get(t)
+        if not tpl: continue
+        d=outdir/t; d.mkdir(parents=True,exist_ok=True)
+        cfg={"schema_version":"2026-05-03.agentpress-native-adapter.v1","target":t,"status":"ok","install_command":tpl["install"],"entrypoint_guidance":tpl["entry"],"required_agentpress_surfaces":{"tools":urljoin(base,"agentpress/tools/agentpress-tools.json"),"mcp_catalog":urljoin(base,"agentpress/mcp/mcp-static-catalog.json"),"approval_gates":urljoin(base,"agentpress/approvals/approval-gates.json"),"permission_policy":urljoin(base,"agentpress/policies/tool-permission-policy.json"),"runtime_validation":urljoin(base,"agentpress/runtime-validation/runtime-validation-harness.json"),"proof_request":urljoin(base,"agentpress/proof-outreach/proof-request-pack.json")},"smoke_commands":["agentpress doctor --json","agentpress docs-command-check --json","agentpress verify agentpress/examples/api-docs-handoff --strict-schema --json"],"safety":"Follow approval gates before external effects; emit action ledger and proof receipts."}
+        if not args.no_write:
+            (d/tpl["file"]).write_text(json.dumps(cfg,indent=2)+"\n",encoding="utf-8")
+            (d/"README.md").write_text(f"# AgentPress native adapter: {t}\n\nInstall:\n\n```bash\n{tpl['install']}\n```\n\n{tpl['entry']}\n",encoding="utf-8")
+        catalog.append({"target":t,"config":urljoin(base,(d/tpl["file"]).as_posix()),"readme":urljoin(base,(d/"README.md").as_posix())})
+    manifest={"schema_version":"2026-05-03.agentpress-native-adapter-kit.v1","canonical_url":urljoin(base,(outdir/"manifest.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Native integration kits for ecosystems where agents already work.","target_count":len(catalog),"targets":catalog}
+    if not args.no_write: (outdir/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(manifest,indent=2) if args.json else f"{manifest['status']} {len(catalog)} targets")
+    return 0
+
+
+def native_adapter_check(args):
+    root=pathlib.Path(args.dir); errors=[]; checked=0
+    for d in sorted(root.iterdir()) if root.exists() else []:
+        if not d.is_dir(): continue
+        files=list(d.glob("*.json"));
+        if not files: errors.append(f"{d.name}: missing json config"); continue
+        for f in files:
+            checked+=1
+            try:
+                data=json.loads(f.read_text(encoding="utf-8"))
+                for k in ["target","install_command","required_agentpress_surfaces","smoke_commands"]:
+                    if k not in data: errors.append(f"{f}: missing {k}")
+            except Exception as e: errors.append(f"{f}: {e}")
+    payload={"schema_version":"2026-05-03.agentpress-native-adapter-check.v1","status":"ok" if not errors else "fail","checked":checked,"errors":errors}
+    print(json.dumps(payload,indent=2) if args.json else payload["status"])
+    return 0 if not errors else 1
+
+
+def schema_validate_all(args):
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out); errors=[]; checked=0; mapped=[]
+    # Validate known public artifacts where schemas exist or structural checks are available.
+    for rel, schema_name in CONTRACT_SCHEMA_MAP.items():
+        p=root/rel
+        if p.exists():
+            checked+=1
+            try:
+                data=json.loads(p.read_text(encoding="utf-8")); _,schema=_load_schema_ref(schema_name); es=_strict_json_schema_errors(data,schema); errors.extend([f"{rel}: {e}" for e in es]); mapped.append(rel)
+            except Exception as e: errors.append(f"{rel}: {e}")
+    # Generic parse + required machine metadata for public AgentPress json surfaces.
+    public_dirs=["agentpress/identity","agentpress/runtime","agentpress/mission-cockpit","agentpress/approvals","agentpress/reviewers","agentpress/providers","agentpress/runtime-validation","agentpress/run-artifacts","agentpress/mission-keeper","agentpress/observability","agentpress/context","agentpress/mcp","agentpress/package-registry"]
+    for rel_dir in public_dirs:
+        for p in sorted((root/rel_dir).rglob("*.json")) if (root/rel_dir).exists() else []:
+            checked+=1
+            rel=p.relative_to(root).as_posix()
+            try:
+                data=json.loads(p.read_text(encoding="utf-8"))
+                if p.name == "package.json":
+                    continue
+                if isinstance(data,dict) and not data.get("schema_version"):
+                    errors.append(f"{rel}: missing schema_version")
+                if isinstance(data,dict) and data.get("status") not in {"ok","fail","blocked","needs_attention","approval_required","ready","blocked_on_owner_decision","blocked_on_security_approval",None}:
+                    errors.append(f"{rel}: unusual status {data.get('status')}")
+            except Exception as e: errors.append(f"{rel}: {e}")
+    payload={"schema_version":"2026-05-03.agentpress-schema-validate-all.v1","canonical_url":urljoin(args.base_url.rstrip()+"/",out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not errors else "fail","checked":checked,"failed":len(errors),"mapped_contracts":mapped,"errors":errors[:args.max_errors]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {checked} checked {len(errors)} failed")
+    return 0 if not errors else 1
+
+
+def trust_tier_evaluate(args):
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    scoped={}
+    try: scoped=json.loads((root/args.scoped_report).read_text(encoding="utf-8"))
+    except Exception: scoped={}
+    tiers=[]
+    for row in scoped.get("services",[]):
+        proofs=row.get("scoped_external_proofs",0)
+        tier="T3_unverified"
+        if proofs>=3: tier="T0_independently_verified"
+        elif proofs>=1: tier="T1_partially_verified"
+        elif row.get("trust_tier") == "provisional": tier="T2_provisional"
+        tiers.append({"service_id":row.get("service_id"),"trust_tier":tier,"scoped_external_proofs":proofs,"requirements_to_upgrade":["accepted service-scoped proof receipts","runtime validation result","reviewer gate pass"]})
+    payload={"schema_version":"2026-05-03.agentpress-trust-tier-evaluate.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Evaluate trust tiers without counting self-proof or global proof inflation.","tier_policy":{"T0":"3+ independent service-scoped proofs","T1":"1-2 scoped proofs","T2":"provisional/internal proof only","T3":"unverified"},"service_count":len(tiers),"tiers":tiers}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(tiers)} tiers")
+    return 0
 
 def plan_workflow_kit(args):
     outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
@@ -4610,6 +4713,10 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("native-adapter-kit"); p.add_argument("--target", default="all"); p.add_argument("--out", default="agentpress/adapters/native"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("native-adapter-check"); p.add_argument("dir", nargs="?", default="agentpress/adapters/native"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("schema-validate-all"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/schema-validate-all.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--max-errors", type=int, default=200); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("trust-tier-evaluate"); p.add_argument("root", nargs="?", default="."); p.add_argument("--scoped-report", default="agentpress/marketplace/scoped-trust-report.json"); p.add_argument("--out", default="agentpress/trust/trust-tier-evaluation.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("plan-workflow-kit"); p.add_argument("--out", default="agentpress/workflows/plan-workflow"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("approval-gate-kit"); p.add_argument("--out", default="agentpress/approvals"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("reviewer-gate-kit"); p.add_argument("--out", default="agentpress/reviewers"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -4794,6 +4901,10 @@ def main():
     if args.cmd == "agent-identity-card": return agent_identity_card(args)
     if args.cmd == "agent-platform-feature-backlog": return agent_platform_feature_backlog(args)
     if args.cmd == "plan-workflow-kit": return plan_workflow_kit(args)
+    if args.cmd == "native-adapter-kit": return native_adapter_kit(args)
+    if args.cmd == "native-adapter-check": return native_adapter_check(args)
+    if args.cmd == "schema-validate-all": return schema_validate_all(args)
+    if args.cmd == "trust-tier-evaluate": return trust_tier_evaluate(args)
     if args.cmd == "approval-gate-kit": return approval_gate_kit(args)
     if args.cmd == "reviewer-gate-kit": return reviewer_gate_kit(args)
     if args.cmd == "provider-compatibility-kit": return provider_compatibility_kit(args)

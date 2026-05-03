@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T20:34:43Z",
+  "generated_at": "2026-05-03T20:38:29Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,51 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.native_adapter_kit",
+      "description": "Generate native adapter kits for Cline/Roo/OpenHands/MCP/LangChain/LlamaIndex/CrewAI.",
+      "command": "python3 scripts/agentpress.py native-adapter-kit --target all --json",
+      "tags": [
+        "adapter",
+        "native",
+        "cline",
+        "roo",
+        "mcp"
+      ]
+    },
+    {
+      "name": "agentpress.native_adapter_check",
+      "description": "Validate generated native adapter kits.",
+      "command": "python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json",
+      "tags": [
+        "adapter",
+        "check",
+        "native",
+        "validate"
+      ]
+    },
+    {
+      "name": "agentpress.schema_validate_all",
+      "description": "Strictly validate all mapped/public AgentPress JSON surfaces.",
+      "command": "python3 scripts/agentpress.py schema-validate-all --json",
+      "tags": [
+        "schema",
+        "validate",
+        "public-json",
+        "strict"
+      ]
+    },
+    {
+      "name": "agentpress.trust_tier_evaluate",
+      "description": "Evaluate service trust tiers without self-proof/global proof inflation.",
+      "command": "python3 scripts/agentpress.py trust-tier-evaluate --json",
+      "tags": [
+        "trust",
+        "tier",
+        "proof",
+        "marketplace"
       ]
     },
     {
