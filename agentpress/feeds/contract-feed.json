@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T19:58:00Z",
-  "current_contract_version": "2026-05-03-integration-sdk-kit",
+  "generated_utc": "2026-05-03T20:01:00Z",
+  "current_contract_version": "2026-05-03-docs-command-check",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-docs-command-check",
+      "kind": "docs_command_lint",
+      "status": "shipped",
+      "summary": "Added docs command lint that catches stale AgentPress CLI command names/flags before agents copy broken examples.",
+      "agent_action": "Run `python3 scripts/agentpress.py docs-command-check --json` before publishing docs/spec command examples.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-integration-sdk-kit",
       "kind": "sdk_integration",
@@ -315,7 +323,8 @@
     "marketplace_compare": "https://barneywohl.github.io/agentpress/agentpress/marketplace/marketplace-compare.example.json",
     "queue_adapter_kit": "https://barneywohl.github.io/agentpress/agentpress/queue/manifest.json",
     "integration_sdk_kit": "https://barneywohl.github.io/agentpress/agentpress/integrations/sdk/manifest.json",
-    "sdk_smoke": "https://barneywohl.github.io/agentpress/agentpress/integrations/sdk/sdk-smoke.json"
+    "sdk_smoke": "https://barneywohl.github.io/agentpress/agentpress/integrations/sdk/sdk-smoke.json",
+    "docs_command_check": "https://barneywohl.github.io/agentpress/agentpress/evidence/docs-command-check.json"
   },
   "privacy": "Static feed only; no tracking."
 }

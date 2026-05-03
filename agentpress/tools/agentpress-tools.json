@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T19:57:19Z",
+  "generated_at": "2026-05-03T20:03:51Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -402,6 +402,18 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.docs_command_check",
+      "description": "Lint documented AgentPress CLI commands for stale command names and obvious stale flags.",
+      "command": "python3 scripts/agentpress.py docs-command-check --json",
+      "tags": [
+        "docs",
+        "commands",
+        "lint",
+        "cli",
+        "drift"
       ]
     },
     {

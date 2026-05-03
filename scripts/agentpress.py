@@ -31,6 +31,7 @@ import json
 import pathlib
 import re
 import shutil
+import shlex
 import sys
 import uuid
 import time
@@ -930,6 +931,7 @@ def build_search_index(args):
     add("cli_command", "AgentPress external proof ingestion", "agentpress/external-proofs/README.md", "proof-ingest validate index external proof receipts blocker reports privacy scan reputation scoring", ["proof", "ingest", "receipts", "score", "privacy"] )
     add("cli_command", "AgentPress secure transport readiness", "agentpress/secure-transport/README.md", "secure transport readiness key owner rotation recipient identity encrypted payload approval", ["secure-transport", "privacy", "keys", "approval"] )
     add("cli_command", "AgentPress privacy and confidential messaging", "agentpress/privacy/README.md", "privacy confidential message envelope redaction secure transport metadata-only threat model", ["privacy", "confidential", "redaction", "message", "security"] )
+    add("cli_command", "AgentPress docs command check", "agentpress/evidence/docs-command-check.json", "docs command lint stale flags cli parser documentation", ["docs", "commands", "lint", "cli", "drift"] )
     add("cli_command", "AgentPress integration SDK kit", "agentpress/integrations/sdk/manifest.json", "sdk integration python javascript client smoke endpoints copy paste", ["sdk", "integration", "python", "javascript", "client"] )
     add("cli_command", "AgentPress queue adapter kit", "agentpress/queue/manifest.json", "queue adapter retry policy idempotency lease dead letter workflow", ["queue", "retry", "workflow", "handoff", "idempotency"] )
     add("cli_command", "AgentPress marketplace compare", "agentpress/marketplace/marketplace-compare.example.json", "marketplace compare service quote simulation no spend routing", ["marketplace", "compare", "quote", "routing", "no-spend"] )
@@ -2155,6 +2157,7 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.docs_command_check", "description":"Lint documented AgentPress CLI commands for stale command names and obvious stale flags.", "command":"python3 scripts/agentpress.py docs-command-check --json", "tags":["docs","commands","lint","cli","drift"]},
         {"name":"agentpress.integration_sdk_kit", "description":"Generate zero-dependency Python/JavaScript SDK clients and read-only integration quickstart.", "command":"python3 scripts/agentpress.py integration-sdk-kit --json", "tags":["sdk","integration","python","javascript","client"]},
         {"name":"agentpress.sdk_smoke", "description":"Smoke-test SDK integration endpoints and Python SDK compileability.", "command":"python3 scripts/agentpress.py sdk-smoke --json", "tags":["sdk","smoke","integration","endpoints"]},
         {"name":"agentpress.queue_adapter_kit", "description":"Generate static/local durable queue adapter schema, retry policy, idempotency, health, and dead-letter examples.", "command":"python3 scripts/agentpress.py queue-adapter-kit --json", "tags":["queue","retry","workflow","handoff","idempotency"]},
@@ -2734,6 +2737,7 @@ def agent_painpoints(args):
     ]
     shipped={
         "tool_coverage": exists("agentpress/tools/tool-coverage.json"),
+        "docs_command_check": exists("agentpress/evidence/docs-command-check.json"),
         "integration_sdk_kit": exists("agentpress/integrations/sdk/manifest.json"),
         "sdk_smoke": exists("agentpress/integrations/sdk/sdk-smoke.json"),
         "queue_adapter_kit": exists("agentpress/queue/manifest.json"),
@@ -3149,6 +3153,63 @@ def attestation_coverage(args):
 
 
 
+
+
+def docs_command_check(args):
+    """Lint documented AgentPress CLI commands for stale command names and obvious stale flags."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out)
+    script=pathlib.Path(__file__).read_text(encoding="utf-8")
+    commands=set(re.findall(r'sub\.add_parser\("([^"]+)"', script))
+    for aliases in re.findall(r'aliases=\[([^\]]+)\]', script):
+        for a in re.findall(r'"([^"]+)"', aliases): commands.add(a)
+    # Best-effort flag extraction per one-line parser blocks.
+    flags={cmd:set() for cmd in commands}
+    for line in script.splitlines():
+        m=re.search(r'sub\.add_parser\("([^"]+)"', line)
+        if not m: continue
+        cmd=m.group(1)
+        for fl in re.findall(r'add_argument\("(--[^"]+)"', line):
+            flags.setdefault(cmd,set()).add(fl)
+    paths=[pathlib.Path(x) for x in (args.path or [])]
+    if not paths:
+        paths=[pathlib.Path("README.md"), pathlib.Path("llms.txt"), pathlib.Path("agentpress/CLI_AGENT_LAUNCH.md"), pathlib.Path("agentpress/AGENT_START_HERE.md")]
+        paths += list(pathlib.Path("agentpress/adapters").glob("**/*.md"))
+        paths += list(pathlib.Path("agentpress/specs").glob("*.md"))
+    rows=[]; errors=[]
+    pattern=re.compile(r'python3\s+scripts/agentpress\.py\s+([^`\n]+)')
+    for rel in paths:
+        fp=root/rel
+        if not fp.exists() or fp.is_dir(): continue
+        text=fp.read_text(encoding="utf-8", errors="ignore")
+        for m in pattern.finditer(text):
+            raw="python3 scripts/agentpress.py "+m.group(1).strip()
+            raw=raw.replace("\\\n", " ").rstrip(" \\")
+            try: parts=shlex.split(raw)
+            except Exception as e:
+                row={"path":rel.as_posix(),"command":raw,"status":"fail","errors":[f"shlex parse failed: {e}"]}; rows.append(row); errors.append(row); continue
+            for sep in ["&&", "||", ";", "|"]:
+                if sep in parts: parts=parts[:parts.index(sep)]
+            if len(parts)<3: continue
+            if "..." in parts: continue
+            cmd=parts[2]
+            row={"path":rel.as_posix(),"command":raw,"cmd":cmd,"status":"ok","errors":[],"warnings":[]}
+            if cmd not in commands:
+                row["status"]="fail"; row["errors"].append(f"unknown command: {cmd}")
+            else:
+                allowed=flags.get(cmd,set())
+                # If we could not infer flags, do not overfail.
+                for tok in parts[3:]:
+                    if tok.startswith("--") and allowed and tok.split("=",1)[0] not in allowed:
+                        row["status"]="fail"; row["errors"].append(f"unknown/stale flag for {cmd}: {tok.split('=',1)[0]}")
+                if "<" in raw or "..." in raw:
+                    row["warnings"].append("contains placeholder; parser execution skipped")
+            rows.append(row)
+            if row["status"]=="fail": errors.append(row)
+    payload={"schema_version":"2026-05-03.agentpress-docs-command-check.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not errors else "fail","checked":len(rows),"failed":len(errors),"commands_known":len(commands),"results":rows[:args.max_results],"principle":"Documented commands must not drift from parser command names or obvious flags."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"{payload['status']} {payload['checked']} checked")
+    return 0 if not errors or args.allow_failures else 1
 
 def integration_sdk_kit(args):
     """Generate zero-dependency SDK clients for external agents."""
@@ -4085,6 +4146,7 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("docs-command-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--path", action="append"); p.add_argument("--out", default="agentpress/evidence/docs-command-check.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--max-results", type=int, default=500); p.add_argument("--allow-failures", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("integration-sdk-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/integrations/sdk"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("sdk-smoke"); p.add_argument("--out", default="agentpress/integrations/sdk/sdk-smoke.json"); p.add_argument("--python-sdk", default="agentpress/integrations/sdk/python/agentpress_sdk.py"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--timeout-seconds", type=int, default=10); p.add_argument("--max-bytes", type=int, default=1048576); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("queue-adapter-kit"); p.add_argument("--out", default="agentpress/queue"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -4234,6 +4296,7 @@ def main():
     if args.cmd == "marketplace-compare": return marketplace_compare(args)
     if args.cmd == "queue-adapter-kit": return queue_adapter_kit(args)
     if args.cmd == "integration-sdk-kit": return integration_sdk_kit(args)
+    if args.cmd == "docs-command-check": return docs_command_check(args)
     if args.cmd == "sdk-smoke": return sdk_smoke(args)
     if args.cmd in {"agent-onboard", "adopt"}: return agent_onboard(args)
     if args.cmd == "score": return score(args)
