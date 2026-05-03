@@ -22,6 +22,7 @@ python3 scripts/agentpress.py audience-kit --json
 python3 scripts/agentpress.py agent-painpoints --json
 python3 scripts/agentpress.py proof-campaign --json
 python3 scripts/agentpress.py proof-ingest --json --allow-rejected
+python3 scripts/agentpress.py proof-outreach-kit --json
 python3 scripts/agentpress.py package-registry-plan --json
 python3 scripts/agentpress.py remediation-index --json
 python3 scripts/agentpress.py package-registry-skeleton --json

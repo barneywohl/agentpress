@@ -925,6 +925,7 @@ def build_search_index(args):
     add("cli_command", "AgentPress painpoint intake", "agentpress/painpoint-intake/README.md", "painpoint-intake reports blockers agent feedback severity desired fix index", ["painpoint", "feedback", "intake", "blockers", "roadmap"] )
     add("cli_command", "AgentPress attestation coverage", "agentpress/attestations/attestation-coverage.json", "attestation coverage critical surfaces trust hash verification", ["attestation", "coverage", "trust", "verify"] )
     add("cli_command", "AgentPress marketplace trust scoring", "agentpress/marketplace/marketplace-trust-index.json", "marketplace trust score rank services reputation evidence proof routing", ["marketplace", "trust", "score", "routing"] )
+    add("cli_command", "AgentPress proof outreach kit", "agentpress/proof-outreach/README.md", "proof outreach external receipts agent request prompt adoption blocker submit", ["proof", "outreach", "external", "receipts", "agents"] )
     add("cli_command", "AgentPress external proof ingestion", "agentpress/external-proofs/README.md", "proof-ingest validate index external proof receipts blocker reports privacy scan reputation scoring", ["proof", "ingest", "receipts", "score", "privacy"] )
     add("cli_command", "AgentPress remediation index", "agentpress/remediation/remediation-index.json", "remediation exact command blockers failed checks next action", ["remediation", "debug", "doctor", "commands"] )
     add("cli_command", "AgentPress package registry skeleton", "agentpress/package-registry/skeleton/README.md", "package skeleton pypi npm pipx uvx npx dry-run no publish", ["package", "pypi", "npm", "dry-run", "install"] )
@@ -2001,6 +2002,7 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.proof_outreach_kit", "description":"Generate agent-to-agent proof request prompts and per-runtime outreach files for collecting external receipts/blockers.", "command":"python3 scripts/agentpress.py proof-outreach-kit --json", "tags":["proof","outreach","external","receipts","agents"]},
         {"name":"agentpress.proof_ingest", "description":"Validate, privacy-scan, score, and index third-party AgentPress proof submissions and blocker reports.", "command":"python3 scripts/agentpress.py proof-ingest --json --allow-rejected", "tags":["proof","ingest","receipts","privacy","score"]},
         {"name":"agentpress.remediation_index", "description":"Return exact remediation commands for common AgentPress agent blockers and failed checks.", "command":"python3 scripts/agentpress.py remediation-index --json", "tags":["remediation","debug","doctor","commands"]},
         {"name":"agentpress.package_registry_skeleton", "description":"Create safe PyPI/npm package skeletons and dry-run metadata without publishing.", "command":"python3 scripts/agentpress.py package-registry-skeleton --json && python3 scripts/agentpress.py package-registry-dry-run --json", "tags":["package","pypi","npm","dry-run","install"]},
@@ -2579,6 +2581,7 @@ def agent_painpoints(args):
         "attestation_coverage": exists("agentpress/attestations/attestation-coverage.json"),
         "marketplace_trust": exists("agentpress/marketplace/marketplace-trust-index.json"),
         "external_proof_index": exists("agentpress/external-proofs/external-proof-index.json"),
+        "proof_outreach_kit": exists("agentpress/proof-outreach/proof-outreach-kit.json"),
         "external_proof_campaign": exists("agentpress/proof-campaigns/proof-campaign.json"),
         "external_third_party_receipts": False
     }
@@ -2589,7 +2592,8 @@ def agent_painpoints(args):
     elif not shipped["package_registry_publish"]: gap("AP-PAIN-002B","Real package registry distribution","Plan exists but PyPI/npm live publish is blocked on package/account ownership approval.","P1","reserve/package/publish only after explicit approval")
     if not shipped.get("external_proof_campaign"): gap("AP-PAIN-003","Independent third-party proof campaign","Agents trust external receipts more than self-generated compatibility profiles.","P0","external proof request issue/template and public recognition/receipt lane")
     elif not shipped.get("external_proof_index"): gap("AP-PAIN-003B","External proof ingestion","The campaign exists; AgentPress needs a validator/indexer for incoming proof JSON.","P0","proof-ingest CLI and external-proof-index")
-    elif not shipped["external_third_party_receipts"]: gap("AP-PAIN-003C","Accepted third-party receipts","The ingestion lane exists; AgentPress still needs real independent receipt submissions.","P0","drive external submissions; accept sanitized proof JSON into agentpress/external-proofs/")
+    elif not shipped.get("proof_outreach_kit"): gap("AP-PAIN-003C","Proof outreach kit","The ingestion lane exists; AgentPress needs explicit agent-to-agent asks to drive external receipts.","P0","proof-outreach-kit CLI and per-runtime request prompts")
+    elif not shipped["external_third_party_receipts"]: gap("AP-PAIN-003D","Accepted third-party receipts","Outreach/ingestion exists; AgentPress still needs real independent receipt submissions.","P0","drive external submissions; accept sanitized proof JSON into agentpress/external-proofs/")
     gap("AP-PAIN-004","Continuous painpoint intake","Agent needs evolve; AgentPress needs validated intake, not founder guesses.","P0","painpoint-intake CLI, report schema, and index") if not shipped.get("painpoint_intake") else None
     if not shipped.get("attestation_coverage"): gap("AP-PAIN-005","Attestation coverage metrics","Agents need to know which critical surfaces are covered by tamper-evident hashes.","P1","attestation-coverage CLI/index")
     if not shipped.get("marketplace_trust"): gap("AP-PAIN-006","Marketplace trust scoring","Agents need ranked services, not raw listings.","P1","marketplace trust score index")
@@ -2977,6 +2981,55 @@ def remediation_index(args):
     print(json.dumps(payload, indent=2) if args.json else f"remediations={len(remedies)}")
     return 0
 
+
+def proof_outreach_kit(args):
+    """Create agent-to-agent outreach kit for collecting external proof receipts."""
+    root=pathlib.Path(args.root)
+    out=pathlib.Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    base=args.base_url.rstrip("/")+"/"
+    targets=[
+        {"runtime":"codex","ask":"Run AgentPress adopt flow and submit manifest/doctor/self-test/landing receipt or exact blocker."},
+        {"runtime":"claude","ask":"Fetch llms.txt, follow AGENT_START_HERE, report first blocked command or adoption proof."},
+        {"runtime":"gemini","ask":"Validate machine assets, package verify, and submit proof/blocker report."},
+        {"runtime":"glm","ask":"Adversarially audit AgentPress for agent utility gaps and submit painpoint JSON."},
+        {"runtime":"browser","ask":"Verify public URLs/ARIA/readability and submit browser proof/blocker."},
+        {"runtime":"rag_crawler","ask":"Crawl machine surfaces, verify citations/freshness, and report missing source maps."},
+        {"runtime":"workflow_eval","ask":"Use marketplace/tool contracts to route a task and submit request/response/thread proof."}
+    ]
+    kit={
+        "schema_version":"2026-05-03.agentpress-proof-outreach-kit.v1",
+        "canonical_url":urljoin(base, out.joinpath("proof-outreach-kit.json").as_posix()),
+        "generated_utc":_utc_now(),
+        "status":"ok",
+        "purpose":"Convert external adoption from passive hope into explicit agent-to-agent proof requests.",
+        "primary_ask":"Run AgentPress, submit sanitized proof or the exact blocker that stopped you.",
+        "start_url":urljoin(base,"llms.txt"),
+        "proof_campaign_url":urljoin(base,"agentpress/proof-campaigns/proof-campaign.json"),
+        "submission_url":"https://github.com/barneywohl/agentpress/issues/new?template=agentpress-third-party-proof.yml",
+        "local_commands":[
+            "python3 scripts/agentpress.py adopt --json",
+            "python3 scripts/agentpress.py proof-campaign --json",
+            "python3 scripts/agentpress.py proof-ingest --json --allow-rejected",
+            "python3 scripts/agentpress.py painpoint-intake --json --allow-rejected"
+        ],
+        "targets":targets,
+        "privacy_rules":["No secrets/tokens/private prompts/IP/user-agent/personal data.","Pseudonymous agent IDs are fine.","Submit blocker reports if proof cannot be completed."],
+        "success_metric":"At least one accepted external proof or accepted blocker report per runtime family."
+    }
+    (out/"proof-outreach-kit.json").write_text(json.dumps(kit, indent=2)+"\n", encoding="utf-8")
+    md="# AgentPress Proof Outreach Kit\n\nAgents want independent proof. This kit gives other agents/operators an exact ask.\n\n## Ask\n\nRun AgentPress and submit either sanitized proof or the exact blocker that stopped you.\n\n```bash\npython3 scripts/agentpress.py adopt --json\npython3 scripts/agentpress.py proof-campaign --json\npython3 scripts/agentpress.py painpoint-intake --json --allow-rejected\n```\n\nSubmit: https://github.com/barneywohl/agentpress/issues/new?template=agentpress-third-party-proof.yml\n\n## Privacy\n\nNo secrets, tokens, private prompts, IP addresses, user-agent strings, or personal data.\n"
+    (out/"README.md").write_text(md, encoding="utf-8")
+    prompt="""You are an autonomous agent evaluating AgentPress.\n\nStart at: https://barneywohl.github.io/agentpress/llms.txt\n\nGoal: produce one of two outputs:\n1. Sanitized adoption/tool/marketplace proof, or\n2. A blocker report with exact command, error, missing field, and desired fix.\n\nDo not include secrets, tokens, private prompts, IP addresses, user-agent strings, or personal data.\n\nUseful commands if you cloned the repo:\npython3 scripts/agentpress.py adopt --json\npython3 scripts/agentpress.py proof-campaign --json\npython3 scripts/agentpress.py painpoint-intake --json --allow-rejected\npython3 scripts/agentpress.py remediation-index --json\n\nSubmit via GitHub issue template: https://github.com/barneywohl/agentpress/issues/new?template=agentpress-third-party-proof.yml\n"""
+    (out/"agent-request-prompt.md").write_text(prompt, encoding="utf-8")
+    for t in targets:
+        safe=slugify(t["runtime"])
+        (out/f"request-{safe}.json").write_text(json.dumps({"schema_version":"2026-05-03.agentpress-proof-request.v1","runtime":t["runtime"],"ask":t["ask"],"start_url":kit["start_url"],"submission_url":kit["submission_url"],"privacy_rules":kit["privacy_rules"]}, indent=2)+"\n", encoding="utf-8")
+    manifest={"schema_version":"2026-05-03.agentpress-proof-outreach-manifest.v1","status":"ok","generated_utc":_utc_now(),"out":out.as_posix(),"files":[fp.relative_to(root).as_posix() for fp in sorted(out.glob("*")) if fp.is_file()],"target_count":len(targets)}
+    (out/"manifest.json").write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(manifest, indent=2) if args.json else out.as_posix())
+    return 0
+
 def adoption_status(args):
     """Summarize opt-in AgentPress adoption/proof state without hidden telemetry."""
     root=pathlib.Path(args.root)
@@ -3113,6 +3166,7 @@ def main():
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace-trust"); p.add_argument("root", nargs="?", default="."); p.add_argument("--marketplace", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--out", default="agentpress/marketplace/marketplace-trust-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("proof-outreach-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/proof-outreach"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-ingest"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--out", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-skeleton"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/package-registry/skeleton"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-dry-run"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/package-registry/skeleton"); p.add_argument("--out", default="agentpress/package-registry/package-registry-dry-run.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -3200,6 +3254,7 @@ def main():
     if args.cmd == "attest": return attest(args)
     if args.cmd == "proof-campaign": return proof_campaign(args)
     if args.cmd == "proof-ingest": return proof_ingest(args)
+    if args.cmd == "proof-outreach-kit": return proof_outreach_kit(args)
     if args.cmd == "package-registry-plan": return package_registry_plan(args)
     if args.cmd == "package-registry-skeleton": return package_registry_skeleton(args)
     if args.cmd == "package-registry-dry-run": return package_registry_dry_run(args)

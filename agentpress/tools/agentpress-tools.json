@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T18:15:50Z",
+  "generated_at": "2026-05-03T18:21:07Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -248,6 +248,18 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.proof_outreach_kit",
+      "description": "Generate agent-to-agent proof request prompts and per-runtime outreach files for collecting external receipts/blockers.",
+      "command": "python3 scripts/agentpress.py proof-outreach-kit --json",
+      "tags": [
+        "proof",
+        "outreach",
+        "external",
+        "receipts",
+        "agents"
       ]
     },
     {
