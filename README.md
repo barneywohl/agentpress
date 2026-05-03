@@ -574,3 +574,14 @@ python3 scripts/agentpress.py secret-permission-preflight-run --json
 python3 scripts/agentpress.py budget-check --json
 python3 scripts/agentpress.py coordination-ledger-check --json
 ```
+
+```bash
+python3 scripts/agentpress.py agent-community-channel-map --json
+python3 scripts/agentpress.py community-issue-radar --json
+python3 scripts/agentpress.py unsolved-agent-problem-backlog --json
+python3 scripts/agentpress.py tool-vocabulary-compatibility-check --json --provider cline --tools execute_command,read_file
+python3 scripts/agentpress.py agent-state-checkpoint-sanitizer --json
+python3 scripts/agentpress.py dependency-error-remediation-map --json
+python3 scripts/agentpress.py output-format-contract-tester --json
+python3 scripts/agentpress.py tool-file-access-risk-scanner --json --manifest /tmp/safe-tool-manifest.json
+```

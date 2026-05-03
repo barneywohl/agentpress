@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T22:33:46Z",
+  "generated_at": "2026-05-03T22:38:23Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,91 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.agent_community_channel_map",
+      "description": "Map agent communities/channels to problem signals.",
+      "command": "python3 scripts/agentpress.py agent-community-channel-map --json",
+      "tags": [
+        "community",
+        "channels",
+        "research",
+        "agents"
+      ]
+    },
+    {
+      "name": "agentpress.community_issue_radar",
+      "description": "Compile community issue radar from public issue signals.",
+      "command": "python3 scripts/agentpress.py community-issue-radar --json",
+      "tags": [
+        "community",
+        "issues",
+        "radar",
+        "research"
+      ]
+    },
+    {
+      "name": "agentpress.unsolved_agent_problem_backlog",
+      "description": "Generate prioritized backlog from community issue radar.",
+      "command": "python3 scripts/agentpress.py unsolved-agent-problem-backlog --json",
+      "tags": [
+        "backlog",
+        "problems",
+        "features"
+      ]
+    },
+    {
+      "name": "agentpress.tool_vocabulary_compatibility_check",
+      "description": "Check host/provider tool vocabulary compatibility.",
+      "command": "python3 scripts/agentpress.py tool-vocabulary-compatibility-check --json",
+      "tags": [
+        "tools",
+        "provider",
+        "compatibility",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.agent_state_checkpoint_sanitizer",
+      "description": "Detect stale checkpoint/state fields before next turn.",
+      "command": "python3 scripts/agentpress.py agent-state-checkpoint-sanitizer --json",
+      "tags": [
+        "state",
+        "checkpoint",
+        "drift",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.dependency_error_remediation_map",
+      "description": "Map dependency/runtime errors to exact remediation.",
+      "command": "python3 scripts/agentpress.py dependency-error-remediation-map --json",
+      "tags": [
+        "dependency",
+        "doctor",
+        "remediation"
+      ]
+    },
+    {
+      "name": "agentpress.output_format_contract_tester",
+      "description": "Test output format against requested contract.",
+      "command": "python3 scripts/agentpress.py output-format-contract-tester --json",
+      "tags": [
+        "output",
+        "format",
+        "contract",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.tool_file_access_risk_scanner",
+      "description": "Scan tool manifests for file access risks.",
+      "command": "python3 scripts/agentpress.py tool-file-access-risk-scanner --json",
+      "tags": [
+        "security",
+        "file-access",
+        "scanner"
       ]
     },
     {

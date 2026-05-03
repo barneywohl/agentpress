@@ -1,0 +1,166 @@
+{
+  "schema_version": "2026-05-03.agentpress-community-issue-radar.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/community/community-issue-radar.json",
+  "generated_utc": "2026-05-03T22:38:23Z",
+  "status": "ok",
+  "purpose": "Translate public agent community issue signals into AgentPress build themes.",
+  "sample_source": "/tmp/ap-community-github-research.json",
+  "sampled_repos": {
+    "cline": {
+      "total_count": 427,
+      "items": [
+        {
+          "title": "Cline Kanban MiniMax provider config not synced across state/secrets; stale provider causes invalid API key errors",
+          "url": "https://github.com/cline/cline/issues/10520",
+          "state": "open",
+          "updated_at": "2026-05-03T21:32:56Z"
+        },
+        {
+          "title": "Cline Bias Claude",
+          "url": "https://github.com/cline/cline/issues/10531",
+          "state": "open",
+          "updated_at": "2026-05-03T21:31:34Z"
+        },
+        {
+          "title": "OpenSpec workflows do not appear",
+          "url": "https://github.com/cline/cline/issues/10532",
+          "state": "open",
+          "updated_at": "2026-05-03T21:14:56Z"
+        },
+        {
+          "title": "Claude Code provider: model uses Cline tool vocabulary (execute_command) which Claude Code cannot dispatch",
+          "url": "https://github.com/cline/cline/issues/10336",
+          "state": "open",
+          "updated_at": "2026-05-03T20:22:25Z"
+        },
+        {
+          "title": "Claude Code provider fails with \"Command failed with exit code 1\" when using claude-opus-4-7[1m] (PhpStorm plugin, subscription login)",
+          "url": "https://github.com/cline/cline/issues/10502",
+          "state": "open",
+          "updated_at": "2026-05-03T18:18:28Z"
+        }
+      ]
+    },
+    "roo_code": {
+      "error": "HTTP Error 422: Unprocessable Entity"
+    },
+    "openhands": {
+      "error": "HTTP Error 422: Unprocessable Entity"
+    },
+    "langchain": {
+      "total_count": 180,
+      "items": [
+        {
+          "title": "`create_agent`: stale `structured_response` from checkpoint causes premature exit on next turn",
+          "url": "https://github.com/langchain-ai/langchain/issues/36957",
+          "state": "open",
+          "updated_at": "2026-05-03T20:37:06Z"
+        },
+        {
+          "title": "Validation order in NLTKTextSplitter raises misleading error when NLTK is missing",
+          "url": "https://github.com/langchain-ai/langchain/issues/37075",
+          "state": "open",
+          "updated_at": "2026-05-03T10:40:11Z"
+        },
+        {
+          "title": "Bug bounty",
+          "url": "https://github.com/langchain-ai/langchain/issues/36952",
+          "state": "open",
+          "updated_at": "2026-05-03T02:50:51Z"
+        },
+        {
+          "title": "[langchain-deepseek] Missing `reasoning_content` in request payload when using deepseek-reasoner with tool calling",
+          "url": "https://github.com/langchain-ai/langchain/issues/34166",
+          "state": "open",
+          "updated_at": "2026-05-02T18:43:32Z"
+        },
+        {
+          "title": "Missing await in async similarity_search example",
+          "url": "https://github.com/langchain-ai/langchain/issues/37058",
+          "state": "open",
+          "updated_at": "2026-05-02T13:11:36Z"
+        }
+      ]
+    },
+    "llamaindex": {
+      "total_count": 68,
+      "items": [
+        {
+          "title": "[Bug]: MultiModalLLMCompletionProgram (Ollama:Llava) raises AttributeError: 'GenerateResponse' object has no attribute 'items'",
+          "url": "https://github.com/run-llama/llama_index/issues/17105",
+          "state": "open",
+          "updated_at": "2026-05-03T14:52:55Z"
+        },
+        {
+          "title": "[Bug]: LlamaParse v2 outputs HTML tables even with output_tables_as_markdown=true",
+          "url": "https://github.com/run-llama/llama_index/issues/20525",
+          "state": "open",
+          "updated_at": "2026-05-03T02:20:19Z"
+        },
+        {
+          "title": "Arbitrary file read via ImageDocument.metadata[\"file_path\"] in image_documents_to_base64",
+          "url": "https://github.com/run-llama/llama_index/issues/21512",
+          "state": "open",
+          "updated_at": "2026-05-03T02:13:14Z"
+        },
+        {
+          "title": "[Bug]: PydanticUserError: The `__modify_schema__` method is not supported in Pydantic v2. Use `__get_pydantic_json_schema__` instead in class `SecretStr`.",
+          "url": "https://github.com/run-llama/llama_index/issues/16540",
+          "state": "open",
+          "updated_at": "2026-05-02T16:04:31Z"
+        },
+        {
+          "title": "[Bug]: Breaking Image/Index node fetching behavior after refactor",
+          "url": "https://github.com/run-llama/llama_index/issues/19499",
+          "state": "open",
+          "updated_at": "2026-05-02T16:04:30Z"
+        }
+      ]
+    }
+  },
+  "theme_count": 6,
+  "themes": [
+    {
+      "theme": "provider/tool vocabulary mismatch",
+      "evidence": [
+        "Cline issue: Claude Code provider using Cline tool vocabulary"
+      ],
+      "feature": "tool-vocabulary-compatibility-check"
+    },
+    {
+      "theme": "state/checkpoint drift",
+      "evidence": [
+        "LangChain issue: stale structured_response causes premature exit"
+      ],
+      "feature": "agent-state-checkpoint-sanitizer"
+    },
+    {
+      "theme": "install/missing dependency confusion",
+      "evidence": [
+        "LangChain issue: misleading NLTK missing error"
+      ],
+      "feature": "dependency-error-remediation-map"
+    },
+    {
+      "theme": "parser/output format drift",
+      "evidence": [
+        "LlamaIndex issue: tables emitted as HTML despite markdown flag"
+      ],
+      "feature": "output-format-contract-tester"
+    },
+    {
+      "theme": "security/file access risk",
+      "evidence": [
+        "LlamaIndex issue: arbitrary file read via image metadata path"
+      ],
+      "feature": "tool-file-access-risk-scanner"
+    },
+    {
+      "theme": "registry/community visibility gaps",
+      "evidence": [
+        "Roo/OpenHands API lookup returned repo query errors; ingestion needs robust repo alias resolution"
+      ],
+      "feature": "community-repo-alias-resolver"
+    }
+  ]
+}
