@@ -1,9 +1,25 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T17:55:00Z",
-  "current_contract_version": "2026-05-03-third-party-proof-campaign",
+  "generated_utc": "2026-05-03T18:08:00Z",
+  "current_contract_version": "2026-05-03-proof-ingest-package-plan",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-package-registry-plan",
+      "kind": "package_registry_plan",
+      "status": "shipped",
+      "summary": "Added package-registry readiness plan for pipx/uvx/npx distribution without live publishing.",
+      "agent_action": "Run `python3 scripts/agentpress.py package-registry-plan --json`.",
+      "breaking": false
+    },
+    {
+      "version": "2026-05-03-proof-ingest",
+      "kind": "external_proof_ingestion",
+      "status": "shipped",
+      "summary": "Added validation, privacy scanning, scoring, and indexing for external AgentPress proof submissions and blocker reports.",
+      "agent_action": "Run `python3 scripts/agentpress.py proof-ingest --json --allow-rejected`.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-third-party-proof-campaign",
       "kind": "external_proof_campaign",
@@ -109,7 +125,9 @@
     "broadcast_feed": "https://barneywohl.github.io/agentpress/agentpress/audience/broadcast-feed.json",
     "painpoints": "https://barneywohl.github.io/agentpress/agentpress/painpoints/agent-painpoints.json",
     "attestations": "https://barneywohl.github.io/agentpress/agentpress/attestations/attestation-index.json",
-    "proof_campaign": "https://barneywohl.github.io/agentpress/agentpress/proof-campaigns/proof-campaign.json"
+    "proof_campaign": "https://barneywohl.github.io/agentpress/agentpress/proof-campaigns/proof-campaign.json",
+    "external_proofs": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/external-proof-index.json",
+    "package_registry_plan": "https://barneywohl.github.io/agentpress/agentpress/package-registry/package-registry-plan.json"
   },
   "privacy": "Static feed only; no tracking."
 }

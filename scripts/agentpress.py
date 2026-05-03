@@ -922,6 +922,8 @@ def build_search_index(args):
     add("cli_command", "Negative fail-closed fixture gate", "scripts/agentpress.py", "negative-fixtures adversarial broken bundles fail closed", ["security", "fail-closed", "test", "cli"])
     add("cli_command", "Install AgentPress from release index", "agentpress/install/install.py", "install release index offline package sha256 verify tarball curl bootstrap one-command", ["install", "release", "offline", "sha256", "cli"])
     add("cli_command", "CLI agent launch pack", "agentpress/CLI_AGENT_LAUNCH.md", "first agent install doctor compatibility matrix self-test landing receipt submission pack attract agents", ["cli", "launch", "install", "proof", "adoption"] )
+    add("cli_command", "AgentPress external proof ingestion", "agentpress/external-proofs/README.md", "proof-ingest validate index external proof receipts blocker reports privacy scan reputation scoring", ["proof", "ingest", "receipts", "score", "privacy"] )
+    add("cli_command", "AgentPress package registry plan", "agentpress/package-registry/README.md", "package registry pypi npm pipx npx uvx dry run publish checklist install friction", ["package", "pypi", "npm", "install", "registry"] )
     add("cli_command", "AgentPress third-party proof campaign", "agentpress/proof-campaigns/README.md", "proof-campaign external proof third-party receipt adoption evidence github issue blocker marketplace route reputation", ["proof", "third-party", "adoption", "campaign", "evidence"] )
     add("cli_command", "AgentPress attestations", "agentpress/attestations/README.md", "attest create verify index sha256 tamper evidence receipts marketplace releases broadcasts trust", ["attest", "sha256", "trust", "verify", "tamper-evident"] )
     add("cli_command", "AgentPress agent painpoint roadmap", "agentpress/painpoints/README.md", "agent-painpoints persona painpoint roadmap agent needs blockers trust install proof routing marketplace audience payments attestations", ["painpoints", "roadmap", "personas", "agent-needs", "product"] )
@@ -1991,6 +1993,8 @@ def tools_manifest(args):
         {"name":"agentpress.adoption_status", "description":"Summarize opt-in landing receipts, reputation, compatibility, mesh, and install-lane adoption state without hidden telemetry.", "command":"python3 scripts/agentpress.py adoption-status --json", "tags":["adoption","reputation","compatibility","privacy","proof"]},
         {"name":"agentpress.payment_status", "description":"Report payment/x402 readiness, budget guardrails, and fail-closed payment policy without performing payments.", "command":"python3 scripts/agentpress.py payment-status --json", "tags":["payments","x402","budget","safety","commerce"]},
         {"name":"agentpress.payment_intent", "description":"Create an unsigned quote/payment intent for budget approval workflows without signing or spending.", "command":"python3 scripts/agentpress.py payment-intent --capability-id free_agentpress_bootstrap --agent-id <agent-id> --max-amount 0 --json", "tags":["payments","quote","budget","intent","no-spend"]},
+        {"name":"agentpress.proof_ingest", "description":"Validate, privacy-scan, score, and index third-party AgentPress proof submissions and blocker reports.", "command":"python3 scripts/agentpress.py proof-ingest --json --allow-rejected", "tags":["proof","ingest","receipts","privacy","score"]},
+        {"name":"agentpress.package_registry_plan", "description":"Inspect package-registry readiness for pipx/uvx/npx distribution without live publishing.", "command":"python3 scripts/agentpress.py package-registry-plan --json", "tags":["package","pypi","npm","install","registry"]},
         {"name":"agentpress.proof_campaign", "description":"Inspect the public third-party proof campaign for external AgentPress adoption receipts and blocker reports.", "command":"python3 scripts/agentpress.py proof-campaign --json", "tags":["proof","third-party","adoption","receipts","campaign"]},
         {"name":"agentpress.attest", "description":"Create, verify, and index hash-based attestations for AgentPress receipts, marketplace listings, releases, broadcasts, and proof artifacts.", "command":"python3 scripts/agentpress.py attest verify agentpress/attestations/core-surfaces-attestation.json --json", "tags":["attestation","sha256","verify","trust","tamper-evident"]},
         {"name":"agentpress.agent_painpoints", "description":"Generate persona-based painpoint matrix and prioritized roadmap so AgentPress builds what agents actually need.", "command":"python3 scripts/agentpress.py agent-painpoints --json", "tags":["painpoints","roadmap","personas","agent-needs","product"]},
@@ -2556,16 +2560,20 @@ def agent_painpoints(args):
         "search": exists("agentpress/search/search-index.json"),
         "negative_fixtures": exists("agentpress/fixtures/broken-bundles/expected-failures.json"),
         "signed_attestations": exists("agentpress/attestations/attestation-index.json"),
+        "package_registry_plan": exists("agentpress/package-registry/package-registry-plan.json"),
         "package_registry_publish": False,
+        "external_proof_index": exists("agentpress/external-proofs/external-proof-index.json"),
         "external_proof_campaign": exists("agentpress/proof-campaigns/proof-campaign.json"),
         "external_third_party_receipts": False
     }
     gaps=[]
     def gap(id,title,why,priority,build): gaps.append({"gap_id":id,"title":title,"why_agents_care":why,"priority":priority,"recommended_build":build})
     if not shipped["signed_attestations"]: gap("AP-PAIN-001","Signed/tamper-evident attestations","Agents need to trust receipts, marketplace listings, releases, and broadcasts without relying on repo prose.","P0","static attestation index + CLI to hash/sign/verify artifacts; start hash-only if no signing key")
-    if not shipped["package_registry_publish"]: gap("AP-PAIN-002","Real package registry distribution","Agents want pipx/npx install without clone/curl ambiguity.","P1","publish dry-run/spec plus package ownership checklist; do not publish live without account decision")
+    if not shipped.get("package_registry_plan"): gap("AP-PAIN-002","Package registry publish plan","Agents want pipx/npx install without clone/curl ambiguity.","P1","publish dry-run/spec plus package ownership checklist; do not publish live without account decision")
+    elif not shipped["package_registry_publish"]: gap("AP-PAIN-002B","Real package registry distribution","Plan exists but PyPI/npm live publish is blocked on package/account ownership approval.","P1","reserve/package/publish only after explicit approval")
     if not shipped.get("external_proof_campaign"): gap("AP-PAIN-003","Independent third-party proof campaign","Agents trust external receipts more than self-generated compatibility profiles.","P0","external proof request issue/template and public recognition/receipt lane")
-    elif not shipped["external_third_party_receipts"]: gap("AP-PAIN-003B","Accepted third-party receipts","The campaign exists; AgentPress still needs real independent receipt submissions.","P0","drive external submissions; accept sanitized proof JSON into agentpress/external-proofs/")
+    elif not shipped.get("external_proof_index"): gap("AP-PAIN-003B","External proof ingestion","The campaign exists; AgentPress needs a validator/indexer for incoming proof JSON.","P0","proof-ingest CLI and external-proof-index")
+    elif not shipped["external_third_party_receipts"]: gap("AP-PAIN-003C","Accepted third-party receipts","The ingestion lane exists; AgentPress still needs real independent receipt submissions.","P0","drive external submissions; accept sanitized proof JSON into agentpress/external-proofs/")
     gap("AP-PAIN-004","Continuous painpoint intake","Agent needs evolve; AgentPress needs a repeatable persona/eval/painpoint matrix, not founder guesses.","P0","agent-painpoints CLI and machine roadmap")
     payload={
         "schema_version":"2026-05-03.agentpress-agent-painpoints.v1",
@@ -2656,6 +2664,114 @@ def proof_campaign(args):
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(campaign, indent=2)+"\n", encoding="utf-8")
     print(json.dumps(campaign, indent=2) if args.json else f"{campaign['campaign_id']} {campaign['status']}")
+    return 0
+
+
+def proof_ingest(args):
+    """Validate/sanitize/index third-party proof submissions."""
+    root=pathlib.Path(args.root)
+    proofs_dir=root/args.dir
+    out=pathlib.Path(args.out)
+    allowed={"first_contact_adoption","tool_use_success","marketplace_route_success","painpoint_report"}
+    rows=[]; errors=[]
+    proofs_dir.mkdir(parents=True, exist_ok=True)
+    for fp in sorted(proofs_dir.glob("*.json")):
+        if fp.name.endswith("-index.json") or fp.name == "external-proof-index.json":
+            continue
+        try:
+            d=json.loads(fp.read_text(encoding="utf-8"))
+        except Exception as e:
+            errors.append(f"{fp}: invalid json: {e}"); continue
+        def _strings(obj):
+            if isinstance(obj, str):
+                yield obj.lower()
+            elif isinstance(obj, list):
+                for item in obj: yield from _strings(item)
+            elif isinstance(obj, dict):
+                for item in obj.values(): yield from _strings(item)
+        text="\n".join(_strings(d))
+        forbidden=[x for x in ["api_key","apikey","authorization:","bearer ","private prompt","user-agent","ip_address","password"] if x in text]
+        proof_type=d.get("proof_type")
+        row={
+            "path":fp.relative_to(root).as_posix(),
+            "proof_id":d.get("proof_id") or fp.stem,
+            "proof_type":proof_type,
+            "agent_id":d.get("agent_id",""),
+            "runtime":d.get("runtime",""),
+            "submitted_utc":d.get("submitted_utc",""),
+            "status":"accepted",
+            "score":0,
+            "errors":[],
+            "artifact_count":len(d.get("artifacts",[]) or [])
+        }
+        if proof_type not in allowed: row["errors"].append(f"invalid proof_type: {proof_type}")
+        if not d.get("agent_id"): row["errors"].append("missing agent_id")
+        if not d.get("privacy_confirmed"): row["errors"].append("privacy_confirmed must be true")
+        if d.get("contains_secrets") is True: row["errors"].append("contains_secrets true")
+        if forbidden: row["errors"].append("possible private material: "+", ".join(sorted(set(forbidden))))
+        if proof_type != "painpoint_report" and not row["artifact_count"]: row["errors"].append("non-blocker proof requires artifacts")
+        if row["errors"]:
+            row["status"]="rejected"
+        else:
+            row["score"] = 25 + min(50, row["artifact_count"]*10) + (10 if d.get("summary") else 0)
+            if proof_type == "painpoint_report": row["score"] = 20 + (20 if d.get("blockers") else 0)
+        rows.append(row)
+    accepted=sum(1 for r in rows if r["status"]=="accepted")
+    by_type={}
+    blockers=[]
+    for r in rows:
+        by_type[r.get("proof_type") or "unknown"]=by_type.get(r.get("proof_type") or "unknown",0)+1
+        if r.get("proof_type")=="painpoint_report": blockers.append({"proof_id":r["proof_id"],"agent_id":r["agent_id"],"path":r["path"],"status":r["status"]})
+    payload={
+        "schema_version":"2026-05-03.agentpress-external-proof-index.v1",
+        "canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),
+        "generated_utc":_utc_now(),
+        "status":"ok" if not errors else "fail",
+        "proof_count":len(rows),
+        "accepted_count":accepted,
+        "rejected_count":len(rows)-accepted,
+        "by_type":by_type,
+        "proofs":rows,
+        "blocker_reports":blockers,
+        "directory":args.dir,
+        "validation_errors":errors,
+        "submission_command":"python3 scripts/agentpress.py proof-ingest --json"
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"accepted={accepted} total={len(rows)}")
+    return 0 if not errors and all(r["status"]=="accepted" for r in rows) else (0 if args.allow_rejected else 1)
+
+
+def package_registry_plan(args):
+    """Publish-readiness checklist for PyPI/npm-style distribution without live publishing."""
+    root=pathlib.Path(args.root)
+    out=pathlib.Path(args.out)
+    checks=[]
+    def check(id, ok, detail, required=True): checks.append({"id":id,"ok":bool(ok),"required":required,"detail":detail})
+    check("offline_tarball", (root/"agentpress/releases/agentpress-offline.tar.gz").exists(), "offline release tarball exists")
+    check("manifest", (root/"agentpress/releases/agentpress-offline.tar.gz.sha256.json").exists(), "sha256 manifest exists")
+    check("install_script", (root/"agentpress/install/install.py").exists(), "install script exists")
+    check("cli_entry", (root/"scripts/agentpress.py").exists(), "reference CLI exists")
+    check("license", any((root/name).exists() for name in ["LICENSE","LICENSE.md"]), "license file present", required=False)
+    check("pypi_owner", False, "PyPI/package owner not approved; live publish blocked until Jake chooses owner/account")
+    check("npm_owner", False, "npm owner not approved; live publish blocked until Jake chooses owner/account")
+    required_blockers=[c for c in checks if c["required"] and not c["ok"]]
+    payload={
+        "schema_version":"2026-05-03.agentpress-package-registry-plan.v1",
+        "canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),
+        "generated_utc":_utc_now(),
+        "status":"blocked_on_owner_decision" if required_blockers else "ready_for_owner_decision",
+        "principle":"Do not publish packages to PyPI/npm without explicit package/account ownership approval.",
+        "recommended_package_names":["agentpress","agentpress-cli","agentpress-protocol"],
+        "install_targets":["pipx install agentpress-cli", "uvx agentpress", "npx agentpress"],
+        "checks":checks,
+        "blocked_actions":["pypi_publish","npm_publish"],
+        "safe_next_steps":["Create package skeleton in repo", "Run build/dry-run locally", "Reserve name only after account approval", "Publish only after explicit live-publish approval"]
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
     return 0
 
 def adoption_status(args):
@@ -2791,6 +2907,8 @@ def main():
     p = sub.add_parser("adoption-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true"); p.add_argument("--allow-needs-attention", action="store_true")
     p = sub.add_parser("payment-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("proof-ingest"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--out", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("package-registry-plan"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/package-registry/package-registry-plan.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-campaign"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/proof-campaigns/proof-campaign.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attest"); att = p.add_subparsers(dest="attest_cmd", required=True)
     c=att.add_parser("create"); c.add_argument("root", nargs="?", default="."); c.add_argument("--file", action="append", required=True); c.add_argument("--subject", required=True); c.add_argument("--issuer", default="agentpress-reference-agent"); c.add_argument("--attestation-id"); c.add_argument("--notes"); c.add_argument("--out", required=True); c.add_argument("--json", action="store_true")
@@ -2872,6 +2990,8 @@ def main():
     if args.cmd == "agent-painpoints": return agent_painpoints(args)
     if args.cmd == "attest": return attest(args)
     if args.cmd == "proof-campaign": return proof_campaign(args)
+    if args.cmd == "proof-ingest": return proof_ingest(args)
+    if args.cmd == "package-registry-plan": return package_registry_plan(args)
     if args.cmd in {"agent-onboard", "adopt"}: return agent_onboard(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)

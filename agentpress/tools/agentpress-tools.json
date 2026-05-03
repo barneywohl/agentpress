@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T17:58:42Z",
+  "generated_at": "2026-05-03T18:06:57Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -216,6 +216,30 @@
         "budget",
         "intent",
         "no-spend"
+      ]
+    },
+    {
+      "name": "agentpress.proof_ingest",
+      "description": "Validate, privacy-scan, score, and index third-party AgentPress proof submissions and blocker reports.",
+      "command": "python3 scripts/agentpress.py proof-ingest --json --allow-rejected",
+      "tags": [
+        "proof",
+        "ingest",
+        "receipts",
+        "privacy",
+        "score"
+      ]
+    },
+    {
+      "name": "agentpress.package_registry_plan",
+      "description": "Inspect package-registry readiness for pipx/uvx/npx distribution without live publishing.",
+      "command": "python3 scripts/agentpress.py package-registry-plan --json",
+      "tags": [
+        "package",
+        "pypi",
+        "npm",
+        "install",
+        "registry"
       ]
     },
     {
