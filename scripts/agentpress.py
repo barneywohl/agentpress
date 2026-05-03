@@ -11,6 +11,8 @@ Usage:
   python3 scripts/agentpress.py negative-fixtures --json
   python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify bundle" --requester-id my-agent --out request.json
   python3 scripts/agentpress.py bundle docs/ --out agentpress/examples/my-docs --title "My Docs" --force
+  python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz
+  python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json
   python3 scripts/agentpress.py team-pack --slug example-team --capability research:market-map --consent-source public_source --out /tmp/example-team.json
   python3 scripts/agentpress.py self-test --agent-id my-agent --out /tmp/agentpress-self-test.jsonl
   python3 scripts/agentpress.py index-search --json
@@ -1299,6 +1301,68 @@ def package_bundle(args):
     print(f"wrote {hash_path}")
     return 0
 
+
+def package_verify(args):
+    import tarfile, zipfile
+    package = pathlib.Path(args.package)
+    manifest = pathlib.Path(args.manifest or (str(package) + ".sha256.json"))
+    errors=[]
+    if not package.exists(): errors.append(f"missing package: {package}")
+    if not manifest.exists(): errors.append(f"missing manifest: {manifest}")
+    if errors:
+        print(json.dumps({"status":"fail", "errors":errors}, indent=2)); return 1
+    data=json.loads(manifest.read_text(encoding="utf-8"))
+    rows=data.get("assets", [])
+    tmp=pathlib.Path(args.workdir)
+    if tmp.exists(): shutil.rmtree(tmp)
+    tmp.mkdir(parents=True, exist_ok=True)
+    try:
+        if package.suffix == ".zip":
+            with zipfile.ZipFile(package) as z: z.extractall(tmp)
+        else:
+            with tarfile.open(package, "r:*") as t: t.extractall(tmp)
+    except Exception as e:
+        print(json.dumps({"status":"fail", "errors":[f"extract failed: {e}"]}, indent=2)); return 1
+    checked=[]
+    for row in rows:
+        rel=row.get("path")
+        if not rel: continue
+        f=tmp/rel
+        if not f.exists():
+            errors.append(f"missing packaged asset: {rel}"); continue
+        b=f.read_bytes(); sha=hashlib.sha256(b).hexdigest()
+        if sha != row.get("sha256"):
+            errors.append(f"sha256 mismatch: {rel}")
+        checked.append({"path":rel, "bytes":len(b), "sha256":sha})
+    required=["llms.txt", ".well-known/agentpress.json", "agentpress/schemas/index.json", "scripts/agentpress.py"]
+    for rel in required:
+        if not (tmp/rel).exists(): errors.append(f"missing required offline asset: {rel}")
+    payload={"status":"ok" if not errors else "fail", "package":str(package), "manifest":str(manifest), "checked":len(checked), "errors":errors}
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    if not args.keep_workdir and tmp.exists(): shutil.rmtree(tmp)
+    return 0 if not errors else 1
+
+
+def package_index(args):
+    package=pathlib.Path(args.package)
+    manifest=pathlib.Path(args.manifest or (str(package)+".sha256.json"))
+    if not package.exists() or not manifest.exists():
+        print(json.dumps({"status":"fail", "errors":["package and manifest required"]}, indent=2)); return 1
+    data=json.loads(manifest.read_text(encoding="utf-8"))
+    pkg_sha=hashlib.sha256(package.read_bytes()).hexdigest()
+    payload={
+        "schema_version":"2026-05-03.agentpress-offline-package-index.v1",
+        "generated_at":_utc_now(),
+        "package":{"path":str(package), "bytes":package.stat().st_size, "sha256":pkg_sha},
+        "manifest":{"path":str(manifest), "asset_count":data.get("count"), "sha256":hashlib.sha256(manifest.read_bytes()).hexdigest()},
+        "verify_command":f"python3 scripts/agentpress.py package-verify {package} --manifest {manifest} --json",
+        "core_assets":["llms.txt", ".well-known/agentpress.json", "agentpress/schemas/index.json", "scripts/agentpress.py"]
+    }
+    out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps({"status":"ok", "out":str(out), "package_sha256":pkg_sha}, indent=2))
+    return 0
+
+
 def doctor(args):
     root = pathlib.Path(args.root)
     entrypoints = [
@@ -1392,6 +1456,8 @@ def main():
     p = sub.add_parser("search"); p.add_argument("query"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--limit", type=int, default=10); p.add_argument("--json", action="store_true")
     p = sub.add_parser("bundle"); p.add_argument("source"); p.add_argument("--out", required=True); p.add_argument("--title"); p.add_argument("--canonical-url"); p.add_argument("--primary-task"); p.add_argument("--dry-run", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--force", action="store_true"); p.add_argument("--max-stale-days", type=int, default=30)
     p = sub.add_parser("package"); p.add_argument("root", nargs="?", default="."); p.add_argument("--format", choices=["tar", "zip"], default="tar"); p.add_argument("--out", default="dist/agentpress-offline.tar.gz")
+    p = sub.add_parser("package-verify"); p.add_argument("package"); p.add_argument("--manifest"); p.add_argument("--workdir", default="/tmp/agentpress-package-verify"); p.add_argument("--keep-workdir", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("package-index"); p.add_argument("package"); p.add_argument("--manifest"); p.add_argument("--out", default="dist/agentpress-offline-index.json")
     args = ap.parse_args()
     if args.cmd == "init": init(args); return 0
     if args.cmd == "validate": return validate(args)
@@ -1417,5 +1483,7 @@ def main():
     if args.cmd == "message": return message_command(args)
     if args.cmd == "bundle": return bundle_from_source(args)
     if args.cmd == "package": return package_bundle(args)
+    if args.cmd == "package-verify": return package_verify(args)
+    if args.cmd == "package-index": return package_index(args)
 if __name__ == "__main__":
     sys.exit(main())

@@ -19,6 +19,13 @@ jobs:
 
 
 
+
+      - name: Validate AgentPress offline package
+        run: |
+          python3 scripts/agentpress.py package . --out /tmp/agentpress-offline.tar.gz
+          python3 scripts/agentpress.py package-verify /tmp/agentpress-offline.tar.gz --json
+          python3 scripts/agentpress.py package-index /tmp/agentpress-offline.tar.gz --out /tmp/agentpress-offline-index.json
+          python3 -m json.tool /tmp/agentpress-offline-index.json >/dev/null
       - name: Validate AgentPress team capability packs
         run: |
           python3 scripts/agentpress.py team-pack --slug ci-research-team --display-name "CI Research Team" --capability research:market-map --capability writing:brief --consent-source public_source --public-sources "https://example.com" --out /tmp/ci-team-pack.json

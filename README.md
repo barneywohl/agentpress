@@ -141,3 +141,15 @@ python3 scripts/agentpress.py team-pack-validate agentpress/team-packs/example-r
 ```
 
 Rules: public-source or explicit consent only; redaction by default; no sensitive trait inference; no private contact details.
+
+### Offline package verification
+
+Agents can fetch one package, verify every file by SHA256, and work offline:
+
+```bash
+python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz
+python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json
+python3 scripts/agentpress.py package-index dist/agentpress-offline.tar.gz --out dist/agentpress-offline-index.json
+```
+
+The verifier extracts to a temp directory, checks each manifest hash, and requires core offline assets.

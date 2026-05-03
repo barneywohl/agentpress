@@ -47,6 +47,8 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 ## Real platform utility built locally
 
+| AP-020 | READY | Offline package verification and package index | `package`, `package-verify`, `package-index`; agents can fetch one tarball, verify SHA256 manifest, and work offline. Local only pending directive keyword for deploy. |
+
 | AP-019 | READY | Privacy-safe team capability packs | `agentpress.py team-pack` + `team-pack-validate`; public-source/explicit-consent only, redaction by default, capability/handoff context for agents. Local only pending directive keyword for deploy. |
 
 | AP-018 | READY | Agent self-test runner and reputation proof JSONL | `agentpress.py self-test --agent-id ID --out results.jsonl`; standard suite proves verify/search/message/bundle/fail-closed capability; CI gate added. Local only pending directive keyword for deploy. |
