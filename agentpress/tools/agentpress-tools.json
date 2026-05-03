@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T22:10:34Z",
+  "generated_at": "2026-05-03T22:12:03Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,39 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.agent_persona_quickstarts",
+      "description": "Generate connector quickstart bundles per agent persona.",
+      "command": "python3 scripts/agentpress.py agent-persona-quickstarts --json",
+      "tags": [
+        "personas",
+        "quickstart",
+        "connectors",
+        "agents"
+      ]
+    },
+    {
+      "name": "agentpress.sdk_command_wrapper_catalog",
+      "description": "Generate SDK wrapper catalog for proof/host/connector commands.",
+      "command": "python3 scripts/agentpress.py sdk-command-wrapper-catalog --json",
+      "tags": [
+        "sdk",
+        "wrappers",
+        "commands",
+        "integrations"
+      ]
+    },
+    {
+      "name": "agentpress.cycle_completion_audit",
+      "description": "Audit current cycle completion and remaining unfinished items.",
+      "command": "python3 scripts/agentpress.py cycle-completion-audit --json",
+      "tags": [
+        "cycle",
+        "audit",
+        "completion",
+        "remaining"
       ]
     },
     {

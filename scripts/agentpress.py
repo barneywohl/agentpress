@@ -2254,6 +2254,9 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.agent_persona_quickstarts", "description":"Generate connector quickstart bundles per agent persona.", "command":"python3 scripts/agentpress.py agent-persona-quickstarts --json", "tags":["personas","quickstart","connectors","agents"]},
+        {"name":"agentpress.sdk_command_wrapper_catalog", "description":"Generate SDK wrapper catalog for proof/host/connector commands.", "command":"python3 scripts/agentpress.py sdk-command-wrapper-catalog --json", "tags":["sdk","wrappers","commands","integrations"]},
+        {"name":"agentpress.cycle_completion_audit", "description":"Audit current cycle completion and remaining unfinished items.", "command":"python3 scripts/agentpress.py cycle-completion-audit --json", "tags":["cycle","audit","completion","remaining"]},
         {"name":"agentpress.connector_failure_to_backlog", "description":"Convert connector failure events/taxonomy into prioritized backlog items.", "command":"python3 scripts/agentpress.py connector-failure-to-backlog --json", "tags":["connectors","failures","backlog","automation"]},
         {"name":"agentpress.host_transcript_dropbox_spec", "description":"Generate drop-folder/upload convention for real host transcript ingestion.", "command":"python3 scripts/agentpress.py host-transcript-dropbox-spec --json", "tags":["host","transcript","dropbox","ingest"]},
         {"name":"agentpress.proof_request_queue", "description":"Generate opt-in proof request queue from campaign targets.", "command":"python3 scripts/agentpress.py proof-request-queue --json", "tags":["proof","queue","external","adoption"]},
@@ -3142,6 +3145,57 @@ def proof_ingest(args):
 
 
 
+
+
+def agent_persona_quickstarts(args):
+    """Generate connector quickstart bundles per agent persona."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    personas=[
+        {"persona":"coding_agent","commands":["connector-catalog --json","approval-gate-eval tests/fixtures/gates/approval-good.json --json","host-transcript-validate tests/fixtures/conformance/host-transcript-good.json --json"],"painpoint":"needs safe build/review/deploy gates"},
+        {"persona":"research_agent","commands":["agent-wants-research --json","cycle-gap-radar --json","next-build-spec-queue --json"],"painpoint":"needs fresh painpoint/backlog surfaces"},
+        {"persona":"browser_agent","commands":["docs-command-check --json","schema-validate-all --json","edge-case-gap-scan --json"],"painpoint":"needs live/docs/schema proof before claiming success"},
+        {"persona":"rag_agent","commands":["connector-catalog --json","index-search --json","public-schema-bundle --json"],"painpoint":"needs source/index/schema discovery"},
+        {"persona":"proof_agent","commands":["proof-request-queue --json","proof-ingest --json --allow-rejected","proof-ingest-review --json","receipt-to-backlog --json"],"painpoint":"needs external proof/blocker intake without leaking secrets"},
+        {"persona":"ops_agent","commands":["platform-audit-dashboard --json","conformance-evidence-score --json","connector-health-check --json"],"painpoint":"needs cockpit-grade status and next actions"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-agent-persona-quickstarts.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"One-command-ish quickstart bundles that map agent personas to connector commands and gates.","persona_count":len(personas),"personas":personas}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(personas)} personas")
+    return 0
+
+
+def sdk_command_wrapper_catalog(args):
+    """Generate SDK wrapper catalog for proof/host/connector commands."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    wrappers=[
+        {"sdk":"python","function":"agentpress.proof.request_queue()","cli":"python3 scripts/agentpress.py proof-request-queue --json"},
+        {"sdk":"python","function":"agentpress.proof.ingest_review()","cli":"python3 scripts/agentpress.py proof-ingest-review --json"},
+        {"sdk":"python","function":"agentpress.host.batch_ingest(dir)","cli":"python3 scripts/agentpress.py host-transcript-batch-ingest <dir> --json"},
+        {"sdk":"python","function":"agentpress.connectors.health_check()","cli":"python3 scripts/agentpress.py connector-health-check --json"},
+        {"sdk":"javascript","function":"agentpress.proof.requestQueue()","cli":"python3 scripts/agentpress.py proof-request-queue --json"},
+        {"sdk":"javascript","function":"agentpress.host.batchIngest(dir)","cli":"python3 scripts/agentpress.py host-transcript-batch-ingest <dir> --json"},
+        {"sdk":"javascript","function":"agentpress.connectors.failureToBacklog()","cli":"python3 scripts/agentpress.py connector-failure-to-backlog --json"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-sdk-command-wrapper-catalog.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Map high-value CLI flows into SDK wrapper names so Python/JS integrations can expand beyond read-only fetch/check.","wrapper_count":len(wrappers),"wrappers":wrappers,"next_action":"Implement wrappers in language SDKs if/when package distribution is finalized."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(wrappers)} wrappers")
+    return 0
+
+
+def cycle_completion_audit(args):
+    """Audit current cycle completion and remaining unfinished items."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    surfaces=["agentpress/proof-outreach/proof-request-queue.json","agentpress/conformance/host-transcript-dropbox.json","agentpress/planning/connector-failure-backlog.json","agentpress/planning/next-build-spec-queue.json","agentpress/connectors/persona-quickstarts.json","agentpress/integrations/sdk/sdk-command-wrapper-catalog.json"]
+    rows=[]
+    for rel in surfaces:
+        rows.append({"path":rel,"status":"present" if pathlib.Path(rel).exists() else "missing","url":urljoin(base,rel)})
+    payload={"schema_version":"2026-05-03.agentpress-cycle-completion-audit.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if all(r["status"]=="present" for r in rows) else "needs_attention","purpose":"Audit that the repeated cycle produced proof, host, connector, persona, SDK, and next-spec surfaces.","surfaces":rows,"remaining_unfinished":["actual independent external receipts require outside operators","official PyPI/npm/Homebrew/Docker publishing requires owner credentials/approval"],"next_cycle":["execute opt-in proof requests externally","implement SDK wrappers if package owner approved","ingest first real host transcript dropbox"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload["status"])
+    return 0 if payload["status"] in {"ok","needs_attention"} else 1
 
 def connector_failure_to_backlog(args):
     """Convert connector failure events/taxonomy into prioritized backlog items."""
@@ -5578,6 +5632,9 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("agent-persona-quickstarts"); p.add_argument("--out", default="agentpress/connectors/persona-quickstarts.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("sdk-command-wrapper-catalog"); p.add_argument("--out", default="agentpress/integrations/sdk/sdk-command-wrapper-catalog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("cycle-completion-audit"); p.add_argument("--out", default="agentpress/evidence/cycle-completion-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("connector-failure-to-backlog"); p.add_argument("--input", default="agentpress/connectors/connector-failure-taxonomy.json"); p.add_argument("--out", default="agentpress/planning/connector-failure-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("host-transcript-dropbox-spec"); p.add_argument("--out", default="agentpress/conformance/host-transcript-dropbox.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-request-queue"); p.add_argument("--out", default="agentpress/proof-outreach/proof-request-queue.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -5820,6 +5877,9 @@ def main():
     if args.cmd == "edge-case-gap-scan": return edge_case_gap_scan(args)
     if args.cmd == "external-proof-campaign-runner": return external_proof_campaign_runner(args)
     if args.cmd == "connector-failure-to-backlog": return connector_failure_to_backlog(args)
+    if args.cmd == "agent-persona-quickstarts": return agent_persona_quickstarts(args)
+    if args.cmd == "sdk-command-wrapper-catalog": return sdk_command_wrapper_catalog(args)
+    if args.cmd == "cycle-completion-audit": return cycle_completion_audit(args)
     if args.cmd == "host-transcript-dropbox-spec": return host_transcript_dropbox_spec(args)
     if args.cmd == "proof-request-queue": return proof_request_queue(args)
     if args.cmd == "next-build-spec-queue": return next_build_spec_queue(args)

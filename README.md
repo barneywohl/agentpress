@@ -527,3 +527,9 @@ python3 scripts/agentpress.py host-transcript-dropbox-spec --json
 python3 scripts/agentpress.py connector-failure-to-backlog --json
 python3 scripts/agentpress.py next-build-spec-queue --json
 ```
+
+```bash
+python3 scripts/agentpress.py agent-persona-quickstarts --json
+python3 scripts/agentpress.py sdk-command-wrapper-catalog --json
+python3 scripts/agentpress.py cycle-completion-audit --json
+```

@@ -1,0 +1,65 @@
+{
+  "schema_version": "2026-05-03.agentpress-agent-persona-quickstarts.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/connectors/persona-quickstarts.json",
+  "generated_utc": "2026-05-03T22:12:04Z",
+  "status": "ok",
+  "purpose": "One-command-ish quickstart bundles that map agent personas to connector commands and gates.",
+  "persona_count": 6,
+  "personas": [
+    {
+      "persona": "coding_agent",
+      "commands": [
+        "connector-catalog --json",
+        "approval-gate-eval tests/fixtures/gates/approval-good.json --json",
+        "host-transcript-validate tests/fixtures/conformance/host-transcript-good.json --json"
+      ],
+      "painpoint": "needs safe build/review/deploy gates"
+    },
+    {
+      "persona": "research_agent",
+      "commands": [
+        "agent-wants-research --json",
+        "cycle-gap-radar --json",
+        "next-build-spec-queue --json"
+      ],
+      "painpoint": "needs fresh painpoint/backlog surfaces"
+    },
+    {
+      "persona": "browser_agent",
+      "commands": [
+        "docs-command-check --json",
+        "schema-validate-all --json",
+        "edge-case-gap-scan --json"
+      ],
+      "painpoint": "needs live/docs/schema proof before claiming success"
+    },
+    {
+      "persona": "rag_agent",
+      "commands": [
+        "connector-catalog --json",
+        "index-search --json",
+        "public-schema-bundle --json"
+      ],
+      "painpoint": "needs source/index/schema discovery"
+    },
+    {
+      "persona": "proof_agent",
+      "commands": [
+        "proof-request-queue --json",
+        "proof-ingest --json --allow-rejected",
+        "proof-ingest-review --json",
+        "receipt-to-backlog --json"
+      ],
+      "painpoint": "needs external proof/blocker intake without leaking secrets"
+    },
+    {
+      "persona": "ops_agent",
+      "commands": [
+        "platform-audit-dashboard --json",
+        "conformance-evidence-score --json",
+        "connector-health-check --json"
+      ],
+      "painpoint": "needs cockpit-grade status and next actions"
+    }
+  ]
+}
