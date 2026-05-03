@@ -225,3 +225,18 @@ python3 scripts/agentpress.py landing-index landing --out landing/agent-landing-
 ```
 
 The compiled index is the evidence layer for answering whether agents have landed.
+
+### Reputation index
+
+Compile agent proof artifacts into an evidence-derived trust index:
+
+```bash
+python3 scripts/agentpress.py reputation-index \
+  --landing-dir agentpress/landing \
+  --self-test-dir agentpress/self-test \
+  --receipt-dir agentpress/receipts \
+  --out agentpress/reputation/reputation-index.json \
+  --json
+```
+
+Reputation is based on opt-in landing receipts, self-test results, and handoff receipts — not hidden tracking or self-claims.

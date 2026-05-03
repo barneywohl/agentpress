@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/reputation-index-v1.schema.json",
+  "title": "AgentPress Reputation Index v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_utc",
+    "agent_count",
+    "agents"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "generated_utc": {
+      "type": "string"
+    },
+    "agent_count": {
+      "type": "integer"
+    },
+    "agents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "agent_id",
+          "score",
+          "evidence"
+        ],
+        "properties": {
+          "agent_id": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
+          },
+          "runtime": {
+            "type": "string"
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

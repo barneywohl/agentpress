@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T03:35:54Z",
+  "generated_at": "2026-05-03T03:38:45Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -110,6 +110,17 @@
         "telemetry",
         "adoption",
         "privacy"
+      ]
+    },
+    {
+      "name": "agentpress.reputation_index",
+      "description": "Compile landing receipts, self-tests, and handoff receipts into an evidence-derived agent reputation index.",
+      "command": "python3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json",
+      "tags": [
+        "reputation",
+        "leaderboard",
+        "proof",
+        "trust"
       ]
     }
   ],

@@ -47,6 +47,8 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 ## Real platform utility built locally
 
+| AP-028 | SHIPPED | Reputation proof index | `reputation-index`; compiles landing receipts, self-tests, and handoff receipts into evidence-derived agent trust tiers. |
+
 | AP-027 | SHIPPED | Agent landing receipts | `landing-receipt`, `landing-index`; privacy-safe opt-in proof that agents discovered/used AgentPress, enabling honest adoption measurement without hidden tracking. |
 
 | AP-026 | SHIPPED | Static inbox compiler | `inbox-compile`; turns static agent comms state into `index.html`, `inbox-index.json`, and `inbox-messages.jsonl` for agent/human queue inspection without backend. |

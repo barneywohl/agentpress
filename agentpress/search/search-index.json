@@ -1,8 +1,8 @@
 {
   "schema_version": "2026-05-03.agentpress-search.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json",
-  "generated_at": "2026-05-03T03:35:55Z",
-  "record_count": 57,
+  "generated_at": "2026-05-03T03:38:45Z",
+  "record_count": 58,
   "records": [
     {
       "id": "cli-command-scripts-agentpress-py",
@@ -503,6 +503,18 @@
         "schema"
       ],
       "text": "agentpress receipt v1 agentpress/schemas/receipt-v1.schema.json {\"$schema\": \"https://json-schema.org/draft/2020-12/schema\", \"$id\": \"https://barneywohl.github.io/agentpress/agentpress/schemas/receipt-v1.schema.json\", \"title\": \"agentpress receipt v1\", \"type\": \"object\", \"required\": [\"schema_version\", \"receipt_id\", \"handoff_id\", \"agent_id\", \"status\", \"created_utc\", \"evidence\"], \"properties\": {\"schema_version\": {\"type\": \"string\", \"const\": \"1.0\"}, \"receipt_id\": {\"type\": \"string\"}, \"handoff_id\": {\"type\": \"string\"}, \"agent_id\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"accepted\", \"completed\", \"partial\", \"rejected\", \"blocked\"]}, \"created_utc\": {\"type\": \"string\"}, \"evidence\": {\"type\": \"object\"}, \"next_actions\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"additionalproperties\": true} schema receipt-v1"
+    },
+    {
+      "id": "schema-agentpress-schemas-reputation-index-v1-schema-json",
+      "kind": "schema",
+      "title": "AgentPress Reputation Index v1",
+      "path": "agentpress/schemas/reputation-index-v1.schema.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/schemas/reputation-index-v1.schema.json",
+      "tags": [
+        "reputation-index-v1",
+        "schema"
+      ],
+      "text": "agentpress reputation index v1 agentpress/schemas/reputation-index-v1.schema.json {\"$schema\": \"https://json-schema.org/draft/2020-12/schema\", \"$id\": \"https://barneywohl.github.io/agentpress/agentpress/schemas/reputation-index-v1.schema.json\", \"title\": \"agentpress reputation index v1\", \"type\": \"object\", \"required\": [\"schema_version\", \"generated_utc\", \"agent_count\", \"agents\"], \"properties\": {\"schema_version\": {\"type\": \"string\", \"const\": \"1.0\"}, \"generated_utc\": {\"type\": \"string\"}, \"agent_count\": {\"type\": \"integer\"}, \"agents\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"agent_id\", \"score\", \"evidence\"], \"properties\": {\"agent_id\": {\"type\": \"string\"}, \"score\": {\"type\": \"number\"}, \"runtime\": {\"type\": \"string\"}, \"capabilities\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"evidence\": {\"type\": \"object\"}}}}}, \"additionalproperties\": true} schema reputation-index-v1"
     },
     {
       "id": "schema-agentpress-schemas-self-test-result-v1-schema-json",

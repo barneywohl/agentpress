@@ -63,6 +63,15 @@ jobs:
 
 
 
+
+      - name: Validate AgentPress reputation index
+        run: |
+          rm -rf /tmp/ap-rep
+          mkdir -p /tmp/ap-rep/landing /tmp/ap-rep/self-test /tmp/ap-rep/receipts
+          python3 scripts/agentpress.py landing-receipt --agent-id rep-ci-agent --runtime codex --discovery-channel llms.txt --capability validate_agentpress_bundle --out /tmp/ap-rep/landing/rep-ci-agent.json --json
+          python3 scripts/agentpress.py self-test --agent-id rep-ci-agent --out /tmp/ap-rep/self-test/rep-ci-agent.jsonl
+          python3 scripts/agentpress.py reputation-index --landing-dir /tmp/ap-rep/landing --self-test-dir /tmp/ap-rep/self-test --receipt-dir /tmp/ap-rep/receipts --out /tmp/ap-rep/reputation-index.json --json
+          python3 -m json.tool /tmp/ap-rep/reputation-index.json >/dev/null
       - name: Validate AgentPress landing receipts
         run: |
           rm -rf /tmp/ap-landing

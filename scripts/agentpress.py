@@ -1358,6 +1358,61 @@ def message_agents(args):
 
 
 
+
+def reputation_index(args):
+    agents={}
+    def rec(agent_id):
+        return agents.setdefault(agent_id, {"agent_id":agent_id,"runtime":"","capabilities":set(),"score":0,"evidence":{"landing_receipts":0,"self_tests":0,"self_test_passes":0,"self_test_total":0,"handoff_receipts":0,"completed_receipts":0,"files":[]}})
+    # landing receipts
+    ldir=pathlib.Path(args.landing_dir)
+    if ldir.exists():
+        for p in sorted(ldir.glob("*.json")):
+            if "index" in p.name: continue
+            try: data=json.loads(p.read_text(encoding="utf-8"))
+            except Exception: continue
+            aid=data.get("agent_id")
+            if not aid: continue
+            r=rec(aid); r["runtime"]=r.get("runtime") or data.get("runtime",""); r["capabilities"].update(data.get("capabilities",[])); r["score"]+=20; r["evidence"]["landing_receipts"]+=1; r["evidence"]["files"].append(str(p))
+    # self-test json/jsonl
+    sdir=pathlib.Path(args.self_test_dir)
+    if sdir.exists():
+        paths=list(sdir.glob("*.jsonl"))+list(sdir.glob("*.json"))
+        for p in sorted(paths):
+            rows=[]
+            try:
+                text=p.read_text(encoding="utf-8")
+                if p.suffix == ".jsonl": rows=[json.loads(line) for line in text.splitlines() if line.strip()]
+                else:
+                    data=json.loads(text); rows=data if isinstance(data,list) else data.get("results", [])
+            except Exception: continue
+            by_agent={}
+            for row in rows:
+                aid=row.get("agent_id");
+                if aid: by_agent.setdefault(aid, []).append(row)
+            for aid, ars in by_agent.items():
+                r=rec(aid); total=len(ars); passed=sum(1 for x in ars if x.get("status")=="pass"); avg=sum(float(x.get("score",0)) for x in ars)/total if total else 0
+                r["score"]+=min(50, avg*0.5); r["evidence"]["self_tests"]+=1; r["evidence"]["self_test_passes"]+=passed; r["evidence"]["self_test_total"]+=total; r["evidence"]["files"].append(str(p))
+    # handoff receipts
+    rdir=pathlib.Path(args.receipt_dir)
+    if rdir.exists():
+        for p in sorted(rdir.glob("*.json")):
+            try: data=json.loads(p.read_text(encoding="utf-8"))
+            except Exception: continue
+            aid=data.get("agent_id")
+            if not aid: continue
+            r=rec(aid); r["score"]+=10; r["evidence"]["handoff_receipts"]+=1; r["evidence"]["completed_receipts"]+=1 if data.get("status")=="completed" else 0; r["evidence"]["files"].append(str(p))
+    rows=[]
+    for r in agents.values():
+        r["capabilities"]=sorted(r["capabilities"]); r["score"]=round(min(100,r["score"]),2)
+        r["trust_tier"]="verified" if r["score"]>=80 else ("provisional" if r["score"]>=40 else "landed")
+        rows.append(r)
+    rows=sorted(rows, key=lambda x:(-x["score"], x["agent_id"]))
+    payload={"schema_version":"1.0","status":"ok","generated_utc":_utc_now(),"agent_count":len(rows),"agents":rows,"scoring":{"landing_receipt":"+20","self_test_average":"up to +50","handoff_receipt":"+10 each, capped at 100"},"privacy":"Evidence-derived from opt-in local artifacts; no hidden analytics."}
+    out=pathlib.Path(args.out); out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps({"status":"ok","out":str(out),"agent_count":len(rows)},indent=2) if args.json else str(out))
+    return 0
+
+
 def landing_receipt(args):
     caps=[]
     for c in args.capability or []:
@@ -1653,6 +1708,7 @@ def tools_manifest(args):
         {"name":"agentpress.team_pack", "description":"Create privacy-safe team/person capability pack.", "command":"python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json", "tags":["team","capability","privacy"]},
         {"name":"agentpress.package_verify", "description":"Build and verify an offline AgentPress package by SHA256 manifest.", "command":"python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz && python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json", "tags":["package","sha256","offline"]},
         {"name":"agentpress.landing_receipt", "description":"Create a privacy-safe opt-in receipt proving an agent discovered and landed on AgentPress.", "command":"python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel <channel> --capability <capability> --out landing/<agent-id>.json --json", "tags":["landing","telemetry","adoption","privacy"]},
+        {"name":"agentpress.reputation_index", "description":"Compile landing receipts, self-tests, and handoff receipts into an evidence-derived agent reputation index.", "command":"python3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json", "tags":["reputation","leaderboard","proof","trust"]},
     ]
     payload={
         "schema_version":"2026-05-03.agentpress-tools-manifest.v1",
@@ -1838,6 +1894,7 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("reputation-index"); p.add_argument("--landing-dir", default="agentpress/landing"); p.add_argument("--self-test-dir", default="agentpress/self-test"); p.add_argument("--receipt-dir", default="agentpress/receipts"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-receipt"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--discovery-channel", required=True); p.add_argument("--capability", action="append"); p.add_argument("--self-test-ref"); p.add_argument("--contact"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--landing-id"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-index"); p.add_argument("dir"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("inbox-compile"); p.add_argument("inbox_dir"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
@@ -1877,6 +1934,7 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "reputation-index": return reputation_index(args)
     if args.cmd == "landing-receipt": return landing_receipt(args)
     if args.cmd == "landing-index": return landing_index(args)
     if args.cmd == "inbox-compile": return inbox_compile(args)
