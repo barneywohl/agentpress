@@ -1,21 +1,28 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "AgentPress Task Card",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-task-card.schema.json",
+  "title": "AgentPress Agent Task Card",
   "type": "object",
-  "required": ["schema_version", "name", "task_type", "canonical_url", "target_agents", "objective", "input_contract", "output_contract", "scoring_rubric", "allowed_actions", "prohibited_actions", "disclaimer"],
+  "required": ["schema_version", "title", "task_type", "target_agents", "objective", "input_contract", "output_contract", "allowed_actions", "prohibited_actions"],
   "properties": {
+    "$schema": {"type": "string", "format": "uri"},
     "schema_version": {"type": "string"},
     "name": {"type": "string"},
-    "title": {"type": "string"},
-    "task_type": {"type": "string"},
+    "title": {"type": "string", "minLength": 1},
+    "task_type": {"type": "string", "minLength": 1},
     "canonical_url": {"type": "string"},
-    "target_agents": {"type": "array", "items": {"type": "string"}},
-    "objective": {"type": "string"},
-    "input_contract": {"type": "object"},
-    "output_contract": {"type": "object"},
-    "scoring_rubric": {"type": "object"},
+    "target_agents": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "objective": {"type": "string", "minLength": 1},
+    "input_contract": {"type": "object", "properties": {"required": {"type": "array", "items": {"type": "string"}}, "optional": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": true},
+    "output_contract": {"type": "object", "properties": {"required": {"type": "array", "items": {"type": "string"}}, "decision_values": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": true},
+    "primary_assets": {"type": "array", "items": {"type": "string"}},
+    "source_requirements": {"type": "array", "items": {"type": "string"}},
+    "scoring_rubric": {"type": "object", "additionalProperties": {"type": "number"}},
+    "non_goals": {"type": "array", "items": {"type": "string"}},
     "allowed_actions": {"type": "array", "items": {"type": "string"}},
     "prohibited_actions": {"type": "array", "items": {"type": "string"}},
-    "disclaimer": {"type": "string"}
-  }
+    "disclaimer": {"type": "string"},
+    "domains": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
 }

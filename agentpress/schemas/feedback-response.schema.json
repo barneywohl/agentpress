@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/feedback-response.schema.json",
+  "title": "AgentPress Agent Feedback Response",
+  "type": "object",
+  "required": ["agent_family", "first_contact_score_0_10", "machine_readability_score_0_10", "trust_integrity_score_0_10", "top_blockers", "missing_machine_files", "recommended_next_builds"],
+  "properties": {
+    "agent_family": {"type": "string"},
+    "runtime_or_model": {"type": "string"},
+    "first_contact_score_0_10": {"type": "integer", "minimum": 0, "maximum": 10},
+    "machine_readability_score_0_10": {"type": "integer", "minimum": 0, "maximum": 10},
+    "trust_integrity_score_0_10": {"type": "integer", "minimum": 0, "maximum": 10},
+    "top_blockers": {"type": "array", "items": {"type": "string"}},
+    "missing_machine_files": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_builds": {"type": "array", "items": {"type": "string"}},
+    "evidence_urls": {"type": "array", "items": {"type": "string"}},
+    "patch_suggestions": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

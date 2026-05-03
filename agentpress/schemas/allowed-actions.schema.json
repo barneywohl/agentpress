@@ -1,12 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "AgentPress Allowed Actions",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/allowed-actions.schema.json",
+  "title": "AgentPress Allowed Actions Contract",
   "type": "object",
   "required": ["schema_version", "allowed", "requires_human_approval", "prohibited"],
   "properties": {
+    "$schema": {"type": "string", "format": "uri"},
     "schema_version": {"type": "string"},
     "allowed": {"type": "array", "items": {"type": "string"}},
     "requires_human_approval": {"type": "array", "items": {"type": "string"}},
     "prohibited": {"type": "array", "items": {"type": "string"}}
-  }
+  },
+  "additionalProperties": true
 }

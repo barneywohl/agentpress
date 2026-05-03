@@ -1,4 +1,5 @@
 {
+  "$schema": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-task-card.schema.json",
   "schema_version": "1.0",
   "name": "Universal Agent Reachability Benchmark",
   "title": "Universal Agent Reachability Benchmark",
@@ -16,8 +17,15 @@
   ],
   "objective": "Test whether a broad set of agents can discover, parse, cite, and safely use one static AgentPress bundle without being excluded by model family, protocol preference, language, or tooling assumptions.",
   "input_contract": {
-    "required": ["subject", "runtime_family"],
-    "optional": ["tooling_constraints", "language_preferences", "preferred_protocols"]
+    "required": [
+      "subject",
+      "runtime_family"
+    ],
+    "optional": [
+      "tooling_constraints",
+      "language_preferences",
+      "preferred_protocols"
+    ]
   },
   "output_contract": {
     "required": [
@@ -31,7 +39,11 @@
       "reachability_decision",
       "citations"
     ],
-    "decision_values": ["pass", "partial", "fail"]
+    "decision_values": [
+      "pass",
+      "partial",
+      "fail"
+    ]
   },
   "primary_assets": [
     "AGENT_ENTRYPOINT.md",
@@ -52,7 +64,24 @@
     "agentpress_improvement_feedback": 10,
     "clear_reachability_decision": 5
   },
-  "allowed_actions": ["read", "crawl", "summarize", "cite", "transform", "benchmark", "open_issue", "create_pr_draft"],
-  "prohibited_actions": ["disable_agents", "exclude_agent_classes", "spam", "impersonation", "private_data_access", "secret_request", "external_write_without_authorization"],
+  "allowed_actions": [
+    "read",
+    "crawl",
+    "summarize",
+    "cite",
+    "transform",
+    "benchmark",
+    "open_issue",
+    "create_pr_draft"
+  ],
+  "prohibited_actions": [
+    "disable_agents",
+    "exclude_agent_classes",
+    "spam",
+    "impersonation",
+    "private_data_access",
+    "secret_request",
+    "external_write_without_authorization"
+  ],
   "disclaimer": "Public compatibility benchmark only. Not investment, legal, or security advice."
 }
