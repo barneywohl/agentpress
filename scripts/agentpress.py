@@ -927,6 +927,7 @@ def build_search_index(args):
     add("cli_command", "AgentPress marketplace trust scoring", "agentpress/marketplace/marketplace-trust-index.json", "marketplace trust score rank services reputation evidence proof routing", ["marketplace", "trust", "score", "routing"] )
     add("cli_command", "AgentPress proof outreach kit", "agentpress/proof-outreach/README.md", "proof outreach external receipts agent request prompt adoption blocker submit", ["proof", "outreach", "external", "receipts", "agents"] )
     add("cli_command", "AgentPress external proof ingestion", "agentpress/external-proofs/README.md", "proof-ingest validate index external proof receipts blocker reports privacy scan reputation scoring", ["proof", "ingest", "receipts", "score", "privacy"] )
+    add("cli_command", "AgentPress runtime support", "agentpress/runtime/README.md", "error codes session state health status batch run progress agent orchestration", ["runtime", "error-codes", "session", "health", "batch"] )
     add("cli_command", "AgentPress remediation index", "agentpress/remediation/remediation-index.json", "remediation exact command blockers failed checks next action", ["remediation", "debug", "doctor", "commands"] )
     add("cli_command", "AgentPress package registry skeleton", "agentpress/package-registry/skeleton/README.md", "package skeleton pypi npm pipx uvx npx dry-run no publish", ["package", "pypi", "npm", "dry-run", "install"] )
     add("cli_command", "AgentPress package registry plan", "agentpress/package-registry/README.md", "package registry pypi npm pipx npx uvx dry run publish checklist install friction", ["package", "pypi", "npm", "install", "registry"] )
@@ -2004,6 +2005,10 @@ def tools_manifest(args):
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
         {"name":"agentpress.proof_outreach_kit", "description":"Generate agent-to-agent proof request prompts and per-runtime outreach files for collecting external receipts/blockers.", "command":"python3 scripts/agentpress.py proof-outreach-kit --json", "tags":["proof","outreach","external","receipts","agents"]},
         {"name":"agentpress.proof_ingest", "description":"Validate, privacy-scan, score, and index third-party AgentPress proof submissions and blocker reports.", "command":"python3 scripts/agentpress.py proof-ingest --json --allow-rejected", "tags":["proof","ingest","receipts","privacy","score"]},
+        {"name":"agentpress.error_codes", "description":"Emit machine-readable AgentPress error codes with retryability and remediation commands.", "command":"python3 scripts/agentpress.py error-codes --json", "tags":["errors","retry","remediation","machine-readable"]},
+        {"name":"agentpress.session_state", "description":"Create/update an agent-readable session checkpoint for resumable multi-wave work.", "command":"python3 scripts/agentpress.py session-state --event started --json", "tags":["session","checkpoint","resume","state"]},
+        {"name":"agentpress.health_status", "description":"Emit static health/readiness status for agent orchestration.", "command":"python3 scripts/agentpress.py health-status --json", "tags":["health","ready","orchestration"]},
+        {"name":"agentpress.batch_run", "description":"Run safe batch AgentPress operations from a JSON input file.", "command":"python3 scripts/agentpress.py batch-run agentpress/runtime/batch-example.json --json", "tags":["batch","automation","workflow"]},
         {"name":"agentpress.remediation_index", "description":"Return exact remediation commands for common AgentPress agent blockers and failed checks.", "command":"python3 scripts/agentpress.py remediation-index --json", "tags":["remediation","debug","doctor","commands"]},
         {"name":"agentpress.package_registry_skeleton", "description":"Create safe PyPI/npm package skeletons and dry-run metadata without publishing.", "command":"python3 scripts/agentpress.py package-registry-skeleton --json && python3 scripts/agentpress.py package-registry-dry-run --json", "tags":["package","pypi","npm","dry-run","install"]},
         {"name":"agentpress.package_registry_plan", "description":"Inspect package-registry readiness for pipx/uvx/npx distribution without live publishing.", "command":"python3 scripts/agentpress.py package-registry-plan --json", "tags":["package","pypi","npm","install","registry"]},
@@ -2572,6 +2577,10 @@ def agent_painpoints(args):
         "search": exists("agentpress/search/search-index.json"),
         "negative_fixtures": exists("agentpress/fixtures/broken-bundles/expected-failures.json"),
         "signed_attestations": exists("agentpress/attestations/attestation-index.json"),
+        "runtime_error_codes": exists("agentpress/runtime/error-codes.json"),
+        "session_state": exists("agentpress/runtime/session-state.example.json"),
+        "health_status": exists("agentpress/runtime/health-status.json"),
+        "batch_support": exists("agentpress/runtime/batch-example.json"),
         "remediation_index": exists("agentpress/remediation/remediation-index.json"),
         "package_registry_skeleton": exists("agentpress/package-registry/skeleton/package-registry-skeleton.json"),
         "package_registry_dry_run": exists("agentpress/package-registry/package-registry-dry-run.json"),
@@ -3030,6 +3039,85 @@ def proof_outreach_kit(args):
     print(json.dumps(manifest, indent=2) if args.json else out.as_posix())
     return 0
 
+
+def error_codes(args):
+    """Emit machine-readable error codes and retry/remediation policy."""
+    out=pathlib.Path(args.out)
+    codes=[
+        {"code":"AGENTPRESS_E_MISSING_FILE","retryable":False,"category":"validation","remediation_command":"python3 scripts/agentpress.py doctor --json"},
+        {"code":"AGENTPRESS_E_INVALID_JSON","retryable":False,"category":"parse","remediation_command":"python3 -m json.tool <file> >/dev/null"},
+        {"code":"AGENTPRESS_E_PACKAGE_HASH_MISMATCH","retryable":False,"category":"integrity","remediation_command":"python3 scripts/agentpress.py package-verify agentpress/releases/agentpress-offline.tar.gz --json"},
+        {"code":"AGENTPRESS_E_ATTESTATION_MISMATCH","retryable":False,"category":"integrity","remediation_command":"python3 scripts/agentpress.py attest verify <attestation.json> --json"},
+        {"code":"AGENTPRESS_E_NETWORK_FETCH_FAILED","retryable":True,"category":"network","remediation_command":"retry with raw GitHub fallback or offline package"},
+        {"code":"AGENTPRESS_E_OWNER_APPROVAL_REQUIRED","retryable":False,"category":"approval","remediation_command":"python3 scripts/agentpress.py package-registry-plan --json"},
+        {"code":"AGENTPRESS_E_PRIVATE_MATERIAL_DETECTED","retryable":False,"category":"privacy","remediation_command":"redact secrets/private data, then rerun proof-ingest or painpoint-intake"},
+        {"code":"AGENTPRESS_E_BATCH_ITEM_FAILED","retryable":True,"category":"batch","remediation_command":"inspect item result and rerun only failed item"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-error-codes.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","code_count":len(codes),"codes":codes}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"codes={len(codes)}")
+    return 0
+
+
+def session_state(args):
+    """Create/update an agent-readable session checkpoint."""
+    out=pathlib.Path(args.out)
+    prev={}
+    if out.exists():
+        try: prev=json.loads(out.read_text(encoding="utf-8"))
+        except Exception: prev={}
+    events=prev.get("events",[])
+    if args.event:
+        events.append({"utc":_utc_now(),"event":args.event,"status":args.status,"artifact":args.artifact or ""})
+    payload={"schema_version":"2026-05-03.agentpress-session-state.v1","session_id":args.session_id,"generated_utc":_utc_now(),"status":args.status,"current_goal":args.goal,"events":events[-100:],"resume_command":args.resume_command or "python3 scripts/agentpress.py session-state --json","next_actions":[x for x in (args.next_action or [])]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else out.as_posix())
+    return 0
+
+
+def health_status(args):
+    """Static health/readiness report for agent orchestration."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out)
+    checks=[]
+    def check(name, ok, detail): checks.append({"name":name,"ok":bool(ok),"detail":detail})
+    check("tools_manifest", (root/"agentpress/tools/agentpress-tools.json").exists(), "tool manifest exists")
+    check("offline_package", (root/"agentpress/releases/agentpress-offline.tar.gz").exists(), "offline package exists")
+    check("search_index", (root/"agentpress/search/search-index.json").exists(), "search index exists")
+    check("error_codes", (root/"agentpress/runtime/error-codes.json").exists(), "error code catalog exists")
+    check("remediation", (root/"agentpress/remediation/remediation-index.json").exists(), "remediation index exists")
+    ok=all(c["ok"] for c in checks)
+    payload={"schema_version":"2026-05-03.agentpress-health-status.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ready" if ok else "degraded","checks":checks,"ready":ok}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0 if ok else 1
+
+
+def batch_run(args):
+    """Run safe AgentPress batch operations from a JSON file."""
+    inp=pathlib.Path(args.input); out=pathlib.Path(args.out)
+    data=json.loads(inp.read_text(encoding="utf-8"))
+    allowed={"proof-outreach-kit":lambda item: proof_outreach_kit(argparse.Namespace(root=item.get("root","."), out=item.get("out","agentpress/proof-outreach"), base_url=item.get("base_url",CANONICAL_BASE_URL), json=True)),"remediation-index":lambda item: remediation_index(argparse.Namespace(root=item.get("root","."), out=item.get("out","agentpress/remediation/remediation-index.json"), base_url=item.get("base_url",CANONICAL_BASE_URL), no_write=False, json=True)),"health-status":lambda item: health_status(argparse.Namespace(root=item.get("root","."), out=item.get("out","agentpress/runtime/health-status.json"), base_url=item.get("base_url",CANONICAL_BASE_URL), no_write=False, json=True))}
+    rows=[]
+    for i,item in enumerate(data.get("items",[]),1):
+        cmd=item.get("command")
+        if cmd not in allowed:
+            rows.append({"index":i,"command":cmd,"status":"rejected","error_code":"AGENTPRESS_E_BATCH_ITEM_FAILED","error":"command not allowed"}); continue
+        buf=io.StringIO(); code=1
+        try:
+            with contextlib.redirect_stdout(buf): code=allowed[cmd](item)
+            rows.append({"index":i,"command":cmd,"status":"ok" if code==0 else "fail","exit_code":code,"stdout":buf.getvalue()[-2000:]})
+        except Exception as e:
+            rows.append({"index":i,"command":cmd,"status":"fail","error_code":"AGENTPRESS_E_BATCH_ITEM_FAILED","error":str(e)})
+    ok=all(r.get("status")=="ok" for r in rows)
+    payload={"schema_version":"2026-05-03.agentpress-batch-result.v1","generated_utc":_utc_now(),"status":"ok" if ok else "fail","item_count":len(rows),"results":rows}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0 if ok else 1
+
 def adoption_status(args):
     """Summarize opt-in AgentPress adoption/proof state without hidden telemetry."""
     root=pathlib.Path(args.root)
@@ -3170,6 +3258,10 @@ def main():
     p = sub.add_parser("proof-ingest"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--out", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-skeleton"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/package-registry/skeleton"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-dry-run"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/package-registry/skeleton"); p.add_argument("--out", default="agentpress/package-registry/package-registry-dry-run.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("error-codes"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/runtime/error-codes.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("session-state"); p.add_argument("--out", default="agentpress/runtime/session-state.example.json"); p.add_argument("--session-id", default="agentpress-session-example"); p.add_argument("--goal", default="AgentPress resumable work"); p.add_argument("--status", default="in_progress"); p.add_argument("--event"); p.add_argument("--artifact"); p.add_argument("--resume-command"); p.add_argument("--next-action", action="append"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("health-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/runtime/health-status.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("batch-run"); p.add_argument("input"); p.add_argument("--out", default="agentpress/runtime/batch-result.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("remediation-index"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/remediation/remediation-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-plan"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/package-registry/package-registry-plan.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-campaign"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/proof-campaigns/proof-campaign.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -3259,6 +3351,10 @@ def main():
     if args.cmd == "package-registry-skeleton": return package_registry_skeleton(args)
     if args.cmd == "package-registry-dry-run": return package_registry_dry_run(args)
     if args.cmd == "remediation-index": return remediation_index(args)
+    if args.cmd == "error-codes": return error_codes(args)
+    if args.cmd == "session-state": return session_state(args)
+    if args.cmd == "health-status": return health_status(args)
+    if args.cmd == "batch-run": return batch_run(args)
     if args.cmd == "painpoint-intake": return painpoint_intake(args)
     if args.cmd == "attestation-coverage": return attestation_coverage(args)
     if args.cmd == "marketplace-trust": return marketplace_trust(args)

@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T18:21:00Z",
-  "current_contract_version": "2026-05-03-proof-outreach-kit",
+  "generated_utc": "2026-05-03T18:25:00Z",
+  "current_contract_version": "2026-05-03-runtime-support",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-runtime-support",
+      "kind": "runtime_support",
+      "status": "shipped",
+      "summary": "Added error codes, session checkpoint, health/readiness, and batch-run surfaces from GLM painpoints.",
+      "agent_action": "Run `python3 scripts/agentpress.py error-codes --json`, `session-state`, `health-status`, or `batch-run`.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-proof-outreach-kit",
       "kind": "proof_outreach_kit",
@@ -182,7 +190,11 @@
     "remediation": "https://barneywohl.github.io/agentpress/agentpress/remediation/remediation-index.json",
     "package_registry_skeleton": "https://barneywohl.github.io/agentpress/agentpress/package-registry/skeleton/package-registry-skeleton.json",
     "package_registry_dry_run": "https://barneywohl.github.io/agentpress/agentpress/package-registry/package-registry-dry-run.json",
-    "proof_outreach": "https://barneywohl.github.io/agentpress/agentpress/proof-outreach/proof-outreach-kit.json"
+    "proof_outreach": "https://barneywohl.github.io/agentpress/agentpress/proof-outreach/proof-outreach-kit.json",
+    "runtime_health": "https://barneywohl.github.io/agentpress/agentpress/runtime/health-status.json",
+    "error_codes": "https://barneywohl.github.io/agentpress/agentpress/runtime/error-codes.json",
+    "session_state": "https://barneywohl.github.io/agentpress/agentpress/runtime/session-state.example.json",
+    "batch_result": "https://barneywohl.github.io/agentpress/agentpress/runtime/batch-result.json"
   },
   "privacy": "Static feed only; no tracking."
 }

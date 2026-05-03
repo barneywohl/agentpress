@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T18:21:07Z",
+  "generated_at": "2026-05-03T18:24:20Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -272,6 +272,48 @@
         "receipts",
         "privacy",
         "score"
+      ]
+    },
+    {
+      "name": "agentpress.error_codes",
+      "description": "Emit machine-readable AgentPress error codes with retryability and remediation commands.",
+      "command": "python3 scripts/agentpress.py error-codes --json",
+      "tags": [
+        "errors",
+        "retry",
+        "remediation",
+        "machine-readable"
+      ]
+    },
+    {
+      "name": "agentpress.session_state",
+      "description": "Create/update an agent-readable session checkpoint for resumable multi-wave work.",
+      "command": "python3 scripts/agentpress.py session-state --event started --json",
+      "tags": [
+        "session",
+        "checkpoint",
+        "resume",
+        "state"
+      ]
+    },
+    {
+      "name": "agentpress.health_status",
+      "description": "Emit static health/readiness status for agent orchestration.",
+      "command": "python3 scripts/agentpress.py health-status --json",
+      "tags": [
+        "health",
+        "ready",
+        "orchestration"
+      ]
+    },
+    {
+      "name": "agentpress.batch_run",
+      "description": "Run safe batch AgentPress operations from a JSON input file.",
+      "command": "python3 scripts/agentpress.py batch-run agentpress/runtime/batch-example.json --json",
+      "tags": [
+        "batch",
+        "automation",
+        "workflow"
       ]
     },
     {

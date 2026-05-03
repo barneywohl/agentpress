@@ -1,0 +1,57 @@
+{
+  "schema_version": "2026-05-03.agentpress-error-codes.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/runtime/error-codes.json",
+  "generated_utc": "2026-05-03T18:24:34Z",
+  "status": "ok",
+  "code_count": 8,
+  "codes": [
+    {
+      "code": "AGENTPRESS_E_MISSING_FILE",
+      "retryable": false,
+      "category": "validation",
+      "remediation_command": "python3 scripts/agentpress.py doctor --json"
+    },
+    {
+      "code": "AGENTPRESS_E_INVALID_JSON",
+      "retryable": false,
+      "category": "parse",
+      "remediation_command": "python3 -m json.tool <file> >/dev/null"
+    },
+    {
+      "code": "AGENTPRESS_E_PACKAGE_HASH_MISMATCH",
+      "retryable": false,
+      "category": "integrity",
+      "remediation_command": "python3 scripts/agentpress.py package-verify agentpress/releases/agentpress-offline.tar.gz --json"
+    },
+    {
+      "code": "AGENTPRESS_E_ATTESTATION_MISMATCH",
+      "retryable": false,
+      "category": "integrity",
+      "remediation_command": "python3 scripts/agentpress.py attest verify <attestation.json> --json"
+    },
+    {
+      "code": "AGENTPRESS_E_NETWORK_FETCH_FAILED",
+      "retryable": true,
+      "category": "network",
+      "remediation_command": "retry with raw GitHub fallback or offline package"
+    },
+    {
+      "code": "AGENTPRESS_E_OWNER_APPROVAL_REQUIRED",
+      "retryable": false,
+      "category": "approval",
+      "remediation_command": "python3 scripts/agentpress.py package-registry-plan --json"
+    },
+    {
+      "code": "AGENTPRESS_E_PRIVATE_MATERIAL_DETECTED",
+      "retryable": false,
+      "category": "privacy",
+      "remediation_command": "redact secrets/private data, then rerun proof-ingest or painpoint-intake"
+    },
+    {
+      "code": "AGENTPRESS_E_BATCH_ITEM_FAILED",
+      "retryable": true,
+      "category": "batch",
+      "remediation_command": "inspect item result and rerun only failed item"
+    }
+  ]
+}

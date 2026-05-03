@@ -1,7 +1,21 @@
 {
   "schema_version": "2026-05-03.agentpress-changelog.v1",
-  "generated_utc": "2026-05-03T18:21:00Z",
+  "generated_utc": "2026-05-03T18:25:00Z",
   "changes": [
+    {
+      "version": "2026-05-03-runtime-support",
+      "summary": "Added runtime support for machine-readable errors, session checkpoints, readiness checks, and batch operations.",
+      "files": [
+        "scripts/agentpress.py",
+        "agentpress/runtime/error-codes.json",
+        "agentpress/runtime/session-state.example.json",
+        "agentpress/runtime/health-status.json",
+        "agentpress/runtime/batch-example.json",
+        "agentpress/runtime/batch-result.json",
+        "agentpress/specs/AGENTPRESS_RUNTIME_SUPPORT_SPEC_20260503.md"
+      ],
+      "breaking": false
+    },
     {
       "version": "2026-05-03-proof-outreach-kit",
       "summary": "Added proof outreach kit, per-runtime proof requests, agent prompt, and spec.",
