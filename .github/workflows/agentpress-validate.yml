@@ -61,6 +61,24 @@ jobs:
 
 
 
+
+      - name: Validate AgentPress inbox compiler
+        run: |
+          rm -rf /tmp/ap-comms-compile /tmp/ap-inbox-hub
+          python3 scripts/agentpress.py message inbox-init --dir /tmp/ap-comms-compile
+          python3 scripts/agentpress.py message register --agent-id alpha --capabilities validate_agentpress_bundle,bundle_diff --dir /tmp/ap-comms-compile
+          python3 scripts/agentpress.py message create-request --capability bundle_diff --task "Compare v1 and v2 bundle" --requester-id ci --out /tmp/ap_ic_req.json
+          python3 scripts/agentpress.py message send --to alpha --request /tmp/ap_ic_req.json --dir /tmp/ap-comms-compile >/tmp/ap_ic_send.json
+          MID=$(python3 - <<'PY'
+          import json
+          print(json.load(open('/tmp/ap_ic_send.json'))['delivery_id'])
+          PY
+          )
+          python3 scripts/agentpress.py message claim --agent-id alpha --message-id "$MID" --dir /tmp/ap-comms-compile
+          python3 scripts/agentpress.py inbox-compile /tmp/ap-comms-compile --out /tmp/ap-inbox-hub --json
+          test -f /tmp/ap-inbox-hub/index.html
+          test -f /tmp/ap-inbox-hub/inbox-index.json
+          test -f /tmp/ap-inbox-hub/inbox-messages.jsonl
       - name: Validate AgentPress bundle diff
         run: |
           rm -rf /tmp/ap-diff-a /tmp/ap-diff-b

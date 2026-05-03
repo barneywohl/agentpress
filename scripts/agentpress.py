@@ -26,6 +26,7 @@ import argparse
 import contextlib
 import io
 import hashlib
+import html
 import json
 import pathlib
 import re
@@ -1355,6 +1356,36 @@ def message_agents(args):
     return 0
 
 
+
+def inbox_compile(args):
+    root=pathlib.Path(args.inbox_dir); out=pathlib.Path(args.out); errors=[]
+    if not root.exists(): errors.append(f"inbox dir missing: {root}")
+    reg=_load_registry(root) if root.exists() else {"agents":{},"capabilities":{}}
+    rows=[]
+    counts={"pending":0,"claimed":0,"completed":0}
+    for agent_id in sorted(reg.get("agents", {}).keys()):
+        base=root/f"agents/{agent_id}/inbox"
+        for state in ["pending","claimed","completed"]:
+            for fp in sorted((base/state).glob("*.json")) if (base/state).exists() else []:
+                try: d=json.loads(fp.read_text(encoding="utf-8"))
+                except Exception as e:
+                    d={"delivery_id":fp.stem,"parse_error":str(e)}
+                req=d.get("request", {})
+                row={"agent_id":agent_id,"state":state,"delivery_id":d.get("delivery_id",fp.stem),"request_id":req.get("request_id"),"capability":req.get("needed_capability"),"task":req.get("task"),"priority":req.get("priority"),"path":str(fp.relative_to(root)),"updated_utc":d.get("completed_utc") or d.get("claimed_utc") or d.get("created_utc")}
+                rows.append(row); counts[state]=counts.get(state,0)+1
+    payload={"schema_version":"1.0","status":"ok" if not errors else "fail","generated_utc":_utc_now(),"inbox_dir":str(root),"registry":{"agent_count":len(reg.get("agents",{})),"capability_count":len(reg.get("capabilities",{})),"agents":reg.get("agents",{}),"capabilities":reg.get("capabilities",{})},"counts":counts,"messages":rows,"errors":errors}
+    out.mkdir(parents=True,exist_ok=True)
+    (out/"inbox-index.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    # JSONL for agents that stream queue state
+    with (out/"inbox-messages.jsonl").open("w",encoding="utf-8") as f:
+        for r in rows: f.write(json.dumps(r,sort_keys=True)+"\n")
+    html_rows="\n".join(f"<tr><td>{html.escape(r.get('agent_id') or '')}</td><td>{html.escape(r.get('state') or '')}</td><td>{html.escape(r.get('capability') or '')}</td><td>{html.escape(r.get('priority') or '')}</td><td>{html.escape(r.get('delivery_id') or '')}</td><td>{html.escape((r.get('task') or '')[:160])}</td></tr>" for r in rows)
+    page=f"""<!doctype html><meta charset='utf-8'><title>AgentPress Inbox Hub</title><style>body{{font-family:system-ui,sans-serif;margin:2rem;max-width:1100px}}table{{border-collapse:collapse;width:100%}}td,th{{border:1px solid #ddd;padding:.45rem;text-align:left}}th{{background:#f5f5f5}}code{{background:#f6f8fa;padding:.15rem .3rem}}</style><h1>AgentPress Inbox Hub</h1><p>Generated <code>{html.escape(payload['generated_utc'])}</code> from <code>{html.escape(str(root))}</code>.</p><p>Agents: <b>{payload['registry']['agent_count']}</b> · Pending: <b>{counts.get('pending',0)}</b> · Claimed: <b>{counts.get('claimed',0)}</b> · Completed: <b>{counts.get('completed',0)}</b></p><p>Machine files: <a href='inbox-index.json'>inbox-index.json</a> · <a href='inbox-messages.jsonl'>inbox-messages.jsonl</a></p><table><thead><tr><th>Agent</th><th>State</th><th>Capability</th><th>Priority</th><th>Delivery</th><th>Task</th></tr></thead><tbody>{html_rows}</tbody></table>"""
+    (out/"index.html").write_text(page+"\n",encoding="utf-8")
+    print(json.dumps({"status":payload["status"],"out":str(out),"messages":len(rows),"counts":counts,"errors":errors},indent=2) if args.json else str(out))
+    return 0 if not errors else 1
+
+
 def message_command(args):
     if args.message_cmd == "create-request": return message_create_request(args)
     if args.message_cmd == "route": return message_route(args)
@@ -1774,6 +1805,7 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("inbox-compile"); p.add_argument("inbox_dir"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("bundle-diff"); p.add_argument("bundle_a"); p.add_argument("bundle_b"); p.add_argument("--json", action="store_true"); p.add_argument("--include-hashes", action="store_true"); p.add_argument("--allow-breaking", action="store_true")
     p = sub.add_parser("upgrade-check"); p.add_argument("current_bundle"); p.add_argument("latest_bundle"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("adapter-quickstart"); p.add_argument("--agent-type", choices=["codex","claude","gemini","glm","browser","all"], default="all"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
@@ -1810,6 +1842,7 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "inbox-compile": return inbox_compile(args)
     if args.cmd == "bundle-diff": return bundle_diff(args)
     if args.cmd == "upgrade-check": return upgrade_check(args)
     if args.cmd == "adapter-quickstart": return adapter_quickstart(args)

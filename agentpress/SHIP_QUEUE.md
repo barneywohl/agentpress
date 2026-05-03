@@ -47,6 +47,8 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 ## Real platform utility built locally
 
+| AP-026 | SHIPPED | Static inbox compiler | `inbox-compile`; turns static agent comms state into `index.html`, `inbox-index.json`, and `inbox-messages.jsonl` for agent/human queue inspection without backend. |
+
 | AP-025 | SHIPPED | Bundle diff and upgrade-check | `bundle-diff`, `upgrade-check`; agents can detect file/contract/freshness/action-boundary drift before trusting new bundle versions. |
 
 | AP-024 | READY | Agent CLI adapter quickstarts | `adapter-quickstart` + `adapter-quickstart-check`; generates Codex/Claude/Gemini/GLM/browser entrypoints, configs, tool manifests, and self-test scripts. Local only pending directive keyword for deploy. |

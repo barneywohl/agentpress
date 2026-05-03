@@ -204,3 +204,13 @@ python3 scripts/agentpress.py upgrade-check old-bundle new-bundle --json
 ```
 
 The diff reports added/removed/modified files, task contract changes, source claim counts, freshness changes, and breaking-change reasons.
+
+### Static inbox compiler
+
+Compile an offline agent inbox/outbox directory into a browsable and machine-readable hub:
+
+```bash
+python3 scripts/agentpress.py inbox-compile agent-comms --out public/inbox-hub --json
+```
+
+Outputs `index.html`, `inbox-index.json`, and `inbox-messages.jsonl` so agents can inspect pending, claimed, and completed work without a backend.
