@@ -11,12 +11,15 @@ Usage:
   python3 scripts/agentpress.py negative-fixtures --json
   python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify bundle" --requester-id my-agent --out request.json
   python3 scripts/agentpress.py bundle docs/ --out agentpress/examples/my-docs --title "My Docs" --force
+  python3 scripts/agentpress.py self-test --agent-id my-agent --out /tmp/agentpress-self-test.jsonl
   python3 scripts/agentpress.py index-search --json
   python3 scripts/agentpress.py search "message route capability" --json
   python3 scripts/agentpress.py score out-dir
   python3 scripts/agentpress.py build out-dir --out public-dir
 """
 import argparse
+import contextlib
+import io
 import hashlib
 import json
 import pathlib
@@ -777,6 +780,67 @@ def _read_excerpt(path: pathlib.Path, limit: int = 1600) -> str:
 
 
 
+
+def self_test(args):
+    suite_path = pathlib.Path(args.suite)
+    if not suite_path.exists():
+        print(f"missing self-test suite: {suite_path}", file=sys.stderr); return 3
+    if not re.match(r"^[A-Za-z0-9_.:-]{2,120}$", args.agent_id):
+        print("invalid agent-id", file=sys.stderr); return 2
+    suite = json.loads(suite_path.read_text(encoding="utf-8"))
+    run_id = args.run_id or _short_id("run")
+    out = pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True)
+    rows=[]
+    tmp = pathlib.Path(args.workdir); tmp.mkdir(parents=True, exist_ok=True)
+    def row(test_id, status, score, evidence=None, errors=None):
+        rows.append({"schema_version":"1.0","run_id":run_id,"agent_id":args.agent_id,"test_id":test_id,"status":status,"score":score,"created_utc":_utc_now(),"evidence":evidence or {},"errors":errors or []})
+    for test in suite.get("tests", []):
+        tid=test.get("test_id", "unknown")
+        try:
+            kind=test.get("kind")
+            if kind == "verify_bundle":
+                bundle=pathlib.Path(test.get("bundle", args.bundle))
+                code, errors, warnings = audit_root(bundle, strict=True)
+                row(tid, "pass" if code == 0 else "fail", 100 if code == 0 else 0, {"bundle":str(bundle),"warnings":warnings}, errors)
+            elif kind == "search":
+                index=args.index
+                if not pathlib.Path(index).exists():
+                    build_args=argparse.Namespace(root=".", out=index, base_url=CANONICAL_BASE_URL, json=True)
+                    build_search_index(build_args)
+                search_args=argparse.Namespace(index=index, query=test.get("query", "agentpress"), limit=5, json=True)
+                # inline score without printing duplicate by reading index directly
+                idx=json.loads(pathlib.Path(index).read_text(encoding="utf-8")); terms=[t.lower() for t in re.findall(r"[a-zA-Z0-9_.-]+", search_args.query)]
+                count=sum(1 for rec in idx.get("records", []) if any(t in rec.get("text", "") for t in terms))
+                row(tid, "pass" if count else "fail", 100 if count else 0, {"query":search_args.query,"matches":count})
+            elif kind == "message_thread":
+                req=tmp/f"{run_id}-request.json"; res=tmp/f"{run_id}-response.json"; thr=tmp/f"{run_id}-thread.json"
+                with contextlib.redirect_stdout(io.StringIO()):
+                    message_create_request(argparse.Namespace(capability="validate_agentpress_bundle", task="Verify this bundle and report missing contracts", priority="P1", requester_id=args.agent_id, out=str(req), request_id=None, context_urls=None, required_sources=None, allowed_actions=None, requires_human_approval=None, prohibited_actions=None, output_schema=schema_url("agent-response-v1.schema.json"), deadline_utc=None))
+                    message_create_response(argparse.Namespace(request=str(req), responder_id="agentpress-reference-agent", status="completed", out=str(res), response_id=None, confidence=0.9, result_inline='{"status":"ok"}', result_bundle=None, sources_used=None, missing_checks=None, actions_taken=None))
+                    message_thread_create(argparse.Namespace(request=str(req), out=str(thr), thread_id=None))
+                    message_thread_append(argparse.Namespace(thread=str(thr), message=str(res), out=str(thr)))
+                payload=json.loads(thr.read_text(encoding="utf-8")); _, errors=_validate_message_payload(payload, "thread")
+                row(tid, "pass" if not errors else "fail", 100 if not errors else 0, {"thread":str(thr),"message_count":len(payload.get("messages",[]))}, errors)
+            elif kind == "bundle_generator":
+                dest=tmp/f"{run_id}-generated-bundle"
+                with contextlib.redirect_stdout(io.StringIO()):
+                    code=bundle_from_source(argparse.Namespace(source=test.get("source","tests/fixtures/source-docs"), out=str(dest), title="Self Test Generated Bundle", canonical_url="https://example.com/self-test/", primary_task=None, dry_run=False, strict=False, force=True, max_stale_days=30))
+                row(tid, "pass" if code == 0 else "fail", 100 if code == 0 else 0, {"generated_bundle":str(dest)})
+            elif kind == "negative_fixtures":
+                with contextlib.redirect_stdout(io.StringIO()):
+                    code=negative_fixtures(argparse.Namespace(manifest="agentpress/fixtures/broken-bundles/expected-failures.json", json=True))
+                row(tid, "pass" if code == 0 else "fail", 100 if code == 0 else 0, {"manifest":"agentpress/fixtures/broken-bundles/expected-failures.json"})
+            else:
+                row(tid, "skip", 0, errors=[f"unknown test kind: {kind}"])
+        except Exception as e:
+            row(tid, "fail", 0, errors=[str(e)])
+    out.write_text("".join(json.dumps(r, ensure_ascii=False)+"\n" for r in rows), encoding="utf-8")
+    passed=sum(1 for r in rows if r["status"]=="pass"); total=len(rows); score=round(sum(r.get("score",0) for r in rows)/total) if total else 0
+    summary={"status":"ok" if passed==total else "fail", "run_id":run_id, "agent_id":args.agent_id, "passed":passed, "total":total, "score":score, "out":str(out)}
+    print(json.dumps(summary, indent=2))
+    return 0 if passed==total else 1
+
+
 def build_search_index(args):
     root = pathlib.Path(args.root)
     out = pathlib.Path(args.out)
@@ -1272,6 +1336,7 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("self-test"); p.add_argument("--agent-id", required=True); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--out", default="agentpress/self-test/self-test-results.jsonl"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--workdir", default="/tmp/agentpress-self-test"); p.add_argument("--run-id")
     p = sub.add_parser("index-search"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/search/search-index.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("search"); p.add_argument("query"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--limit", type=int, default=10); p.add_argument("--json", action="store_true")
     p = sub.add_parser("bundle"); p.add_argument("source"); p.add_argument("--out", required=True); p.add_argument("--title"); p.add_argument("--canonical-url"); p.add_argument("--primary-task"); p.add_argument("--dry-run", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--force", action="store_true"); p.add_argument("--max-stale-days", type=int, default=30)
@@ -1293,6 +1358,7 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "self-test": return self_test(args)
     if args.cmd == "index-search": return build_search_index(args)
     if args.cmd == "search": return search_index(args)
     if args.cmd == "message": return message_command(args)

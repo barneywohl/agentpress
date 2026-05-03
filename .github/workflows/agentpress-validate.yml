@@ -17,6 +17,16 @@ jobs:
 
 
 
+
+      - name: Validate AgentPress self-test runner
+        run: |
+          python3 scripts/agentpress.py self-test --agent-id ci-agent --out /tmp/agentpress-self-test.jsonl
+          python3 - <<'PY'
+          import json
+          rows=[json.loads(x) for x in open('/tmp/agentpress-self-test.jsonl') if x.strip()]
+          assert len(rows) == 5
+          assert all(r['status'] == 'pass' for r in rows)
+          PY
       - name: Validate AgentPress search index
         run: |
           python3 scripts/agentpress.py index-search --json

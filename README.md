@@ -120,3 +120,13 @@ python3 scripts/agentpress.py search "fail closed invalid" --json
 ```
 
 Static index: `agentpress/search/search-index.json`.
+
+### Agent self-test runner
+
+Agents can prove they can use AgentPress before accepting work:
+
+```bash
+python3 scripts/agentpress.py self-test --agent-id my-agent --out /tmp/agentpress-self-test.jsonl
+```
+
+The standard suite verifies bundle validation, search, message threading, bundle generation, and fail-closed negative fixtures. Results are JSONL rows matching `agentpress/schemas/self-test-result-v1.schema.json`.
