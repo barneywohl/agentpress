@@ -1,7 +1,23 @@
 {
   "schema_version": "2026-05-03.agentpress-changelog.v1",
-  "generated_utc": "2026-05-03T23:05:00Z",
+  "generated_utc": "2026-05-03T23:20:00Z",
   "changes": [
+    {
+      "version": "2026-05-03-executable-agent-gates",
+      "summary": "Added executable validators/gates for operational agent painpoints.",
+      "files": [
+        "scripts/agentpress.py",
+        "agentpress/memory/agent-memory-drift-report.json",
+        "agentpress/handoffs/handoff-validation-report.json",
+        "agentpress/review/pr-review-readiness-result.json",
+        "agentpress/ci/ci-flake-classification.json",
+        "agentpress/security/secret-permission-preflight-result.json",
+        "agentpress/budgets/budget-run-report.json",
+        "agentpress/coordination/coordination-ledger-report.json",
+        "agentpress/specs/AGENTPRESS_EXECUTABLE_AGENT_GATES_SPEC_20260503.md"
+      ],
+      "breaking": false
+    },
     {
       "version": "2026-05-03-operational-agent-gaps-cycle",
       "summary": "Added operational agent gap features: drift, handoff, PR review, CI flakes, secrets, budgets, coordination.",

@@ -2254,6 +2254,13 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.memory_drift_check", "description":"Executable memory/version drift validator.", "command":"python3 scripts/agentpress.py memory-drift-check --json", "tags":["memory","drift","validator","gate"]},
+        {"name":"agentpress.handoff_validate", "description":"Validate task handoff contract.", "command":"python3 scripts/agentpress.py handoff-contract-validate --json", "tags":["handoff","validate","gate"]},
+        {"name":"agentpress.pr_review_check", "description":"Evaluate PR/reviewer readiness.", "command":"python3 scripts/agentpress.py pr-review-check --json --allow-empty --tests local --risk low --rollback revert", "tags":["pr","review","gate"]},
+        {"name":"agentpress.ci_flake_triage", "description":"Classify CI/test log failures.", "command":"python3 scripts/agentpress.py ci-flake-triage --json", "tags":["ci","flake","triage","gate"]},
+        {"name":"agentpress.secret_permission_preflight_run", "description":"Run secrets/permissions preflight against a manifest.", "command":"python3 scripts/agentpress.py secret-permission-preflight-run --json", "tags":["secrets","permissions","preflight","gate"]},
+        {"name":"agentpress.budget_check", "description":"Check an agent run plan against a cost/context budget.", "command":"python3 scripts/agentpress.py budget-check --json", "tags":["budget","cost","tokens","gate"]},
+        {"name":"agentpress.coordination_ledger_check", "description":"Validate multi-agent coordination ledger.", "command":"python3 scripts/agentpress.py coordination-ledger-check --json", "tags":["coordination","ledger","multi-agent","gate"]},
         {"name":"agentpress.next_cycle_research", "description":"Generate next research cycle after readiness layer.", "command":"python3 scripts/agentpress.py next-cycle-research --json", "tags":["research","cycle","roadmap","agents"]},
         {"name":"agentpress.agent_memory_drift_detector", "description":"Detect stale memory/docs/connector assumptions.", "command":"python3 scripts/agentpress.py agent-memory-drift-detector --json", "tags":["memory","drift","docs","agents"]},
         {"name":"agentpress.task_handoff_contract", "description":"Generate explicit agent-to-agent handoff contract.", "command":"python3 scripts/agentpress.py task-handoff-contract --json", "tags":["handoff","multi-agent","contracts"]},
@@ -3171,6 +3178,159 @@ def proof_ingest(args):
 
 
 
+
+
+def _load_json_file(path):
+    with open(path, "r", encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def _write_json_payload(payload, out, no_write=False, json_mode=False):
+    if not no_write:
+        out=pathlib.Path(out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if json_mode else payload.get("status", "ok"))
+
+
+def memory_drift_check(args):
+    """Executable memory/version drift validator."""
+    root=pathlib.Path(args.target or ".")
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    findings=[]
+    def add(check,status,msg,path=""):
+        findings.append({"check":check,"status":status,"message":msg,"path":path})
+    if not (root/"agentpress/feeds/contract-feed.json").exists():
+        add("contract_feed","fail","missing contract feed","agentpress/feeds/contract-feed.json")
+    else:
+        feed=json.loads((root/"agentpress/feeds/contract-feed.json").read_text())
+        urls=feed.get("machine_urls",{})
+        if not urls: add("machine_urls","fail","contract feed has no machine_urls")
+        for k,u in urls.items():
+            if "barneywohl.github.io/agentpress/" not in str(u): add("base_url","warn",f"unexpected base url for {k}",str(u))
+        current=feed.get("current_contract_version","")
+        if not current: add("current_version","fail","missing current_contract_version")
+    if not (root/"agentpress/tools/agentpress-tools.json").exists():
+        add("tools_manifest","fail","missing tools manifest","agentpress/tools/agentpress-tools.json")
+    else:
+        tools=json.loads((root/"agentpress/tools/agentpress-tools.json").read_text()).get("tools",[])
+        commands=[t.get("command","") for t in tools]
+        for needed in ["readiness-audit", "next-cycle-research", "agent-memory-drift-detector"]:
+            if not any(needed in c for c in commands): add("stale_command", "fail", f"missing command in tools manifest: {needed}")
+    docs=(root/"llms.txt")
+    if docs.exists():
+        txt=docs.read_text(errors="ignore")
+        for needed in ["readiness-audit", "memory-drift-check", "handoff-contract-validate"]:
+            if needed not in txt: add("docs_command", "warn", f"llms.txt does not mention executable command: {needed}")
+    else: add("llms","fail","missing llms.txt")
+    status="ok" if not any(f["status"]=="fail" for f in findings) else "fail"
+    payload={"schema_version":"2026-05-03.agentpress-memory-drift-report.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"strict":bool(args.strict),"finding_count":len(findings),"findings":findings,"target":str(root)}
+    _write_json_payload(payload,out,args.no_write,args.json)
+    return 1 if args.strict and status=="fail" else 0
+
+
+def handoff_contract_validate(args):
+    """Validate task handoff contract."""
+    data=_load_json_file(args.file) if args.file else {"task_id":"example","owner":"agent","objective":"ship","inputs":[],"dependencies":[],"acceptance_gates":["gate"],"evidence_required":["artifact"],"reviewer":"reviewer","risk_level":"R1","closeout_artifact":"report"}
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    required=["task_id","owner","objective","inputs","dependencies","acceptance_gates","evidence_required","reviewer","risk_level","closeout_artifact"]
+    findings=[]
+    for field in required:
+        if field not in data or data.get(field) in (None,""): findings.append({"field":field,"status":"fail","message":"required field missing"})
+    for field in ["acceptance_gates","evidence_required"]:
+        if not data.get(field): findings.append({"field":field,"status":"fail","message":"required list empty"})
+    if str(data.get("risk_level","")).upper() in {"R3","R4"} and not data.get("reviewer"):
+        findings.append({"field":"reviewer","status":"fail","message":"R3/R4 requires reviewer"})
+    status="ok" if not findings else "fail"
+    payload={"schema_version":"2026-05-03.agentpress-handoff-validation-report.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"finding_count":len(findings),"findings":findings,"source":args.file or "built_in_example"}
+    _write_json_payload(payload,out,args.no_write,args.json)
+    return 1 if args.strict and status=="fail" else 0
+
+
+def pr_review_check(args):
+    """Evaluate PR/reviewer readiness."""
+    diff_text=""
+    if args.diff == "git":
+        import subprocess
+        diff_text=subprocess.run(["git","diff","--stat"],capture_output=True,text=True).stdout + "\n" + subprocess.run(["git","diff","--check"],capture_output=True,text=True).stdout
+    elif args.diff:
+        diff_text=pathlib.Path(args.diff).read_text(errors="ignore")
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    checks=[
+        ("diff_present", bool(diff_text.strip()) or bool(args.allow_empty), "diff is present or empty explicitly allowed"),
+        ("tests_run", bool(args.tests), "tests/gates supplied"),
+        ("risk_notes", bool(args.risk), "risk notes supplied"),
+        ("rollback_plan", bool(args.rollback), "rollback plan supplied"),
+        ("secret_scan", "SECRET=" not in diff_text and "TOKEN=" not in diff_text, "no obvious secret literals in diff text")
+    ]
+    findings=[{"check":c,"status":"pass" if ok else "fail","message":msg} for c,ok,msg in checks]
+    status="ok" if all(f["status"]=="pass" for f in findings) else "fail"
+    payload={"schema_version":"2026-05-03.agentpress-pr-review-readiness-result.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"findings":findings,"tests":args.tests,"risk":args.risk,"rollback":args.rollback}
+    _write_json_payload(payload,out,args.no_write,args.json)
+    return 1 if args.strict and status=="fail" else 0
+
+
+def ci_flake_triage(args):
+    """Classify CI/test log failures."""
+    text=pathlib.Path(args.log).read_text(errors="ignore") if args.log else ""
+    low=text.lower()
+    cls="unknown"; block=False; signals=[]
+    if any(x in low for x in ["network", "timeout", "rate limit", "runner lost", "connection reset"]): cls="infra_flake"; signals.append("infra signal")
+    if any(x in low for x in ["random", "seed", "race", "snapshot", "eventual"]): cls="test_flake"; signals.append("flake signal")
+    if any(x in low for x in ["assertionerror", "syntaxerror", "typeerror", "lint", "mypy", "pytest failed", "failed tests"]): cls="code_regression"; block=True; signals.append("deterministic failure signal")
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    payload={"schema_version":"2026-05-03.agentpress-ci-flake-classification.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"blocked" if block else "ok","classification":cls,"block_deploy":block,"signals":signals,"log":args.log or "none"}
+    _write_json_payload(payload,out,args.no_write,args.json)
+    return 1 if args.strict and block else 0
+
+
+def secret_permission_preflight_run(args):
+    """Run secrets/permissions preflight against a manifest."""
+    manifest=_load_json_file(args.manifest) if args.manifest else {"required_secret_names":[],"scopes":[],"risk_level":"R1","approval_ref":"","dry_run_command":""}
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    findings=[]
+    raw=json.dumps(manifest)
+    if any(x in raw.lower() for x in ["sk-", "api_key_value", "secret_value", "password="]): findings.append({"check":"secret_values","status":"fail","message":"possible secret value present"})
+    if manifest.get("risk_level") in ["R4","r4"] and not manifest.get("approval_ref"): findings.append({"check":"approval_ref","status":"fail","message":"R4 requires approval_ref"})
+    for scope in manifest.get("scopes",[]):
+        if isinstance(scope,str): findings.append({"check":"scope_reason","status":"warn","message":f"scope lacks structured reason: {scope}"})
+        elif not scope.get("reason"): findings.append({"check":"scope_reason","status":"warn","message":f"scope lacks reason: {scope.get('name')}"})
+    if not manifest.get("dry_run_command"): findings.append({"check":"dry_run","status":"warn","message":"missing safe dry_run_command"})
+    status="fail" if any(f["status"]=="fail" for f in findings) else "ok"
+    payload={"schema_version":"2026-05-03.agentpress-secret-permission-preflight-result.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"finding_count":len(findings),"findings":findings,"manifest":args.manifest or "built_in_example"}
+    _write_json_payload(payload,out,args.no_write,args.json)
+    return 1 if args.strict and status=="fail" else 0
+
+
+def budget_check(args):
+    """Check an agent run plan against a cost/context budget."""
+    plan=_load_json_file(args.plan) if args.plan else {"tool_calls":0,"context_items":0,"override_rationale":""}
+    limits={"small":{"tool_calls":10,"context_items":5},"medium":{"tool_calls":30,"context_items":20},"large":{"tool_calls":80,"context_items":80}}
+    lim=limits[args.tier]
+    calls=int(plan.get("tool_calls",0)); ctx=int(plan.get("context_items",0)); override=bool(plan.get("override_rationale"))
+    exceeds=calls>lim["tool_calls"] or ctx>lim["context_items"]
+    status="ok" if not exceeds or override else "fail"
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    payload={"schema_version":"2026-05-03.agentpress-budget-run-report.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"tier":args.tier,"limits":lim,"actual":{"tool_calls":calls,"context_items":ctx},"override_rationale":plan.get("override_rationale","")}
+    _write_json_payload(payload,out,args.no_write,args.json)
+    return 1 if args.strict and status=="fail" else 0
+
+
+def coordination_ledger_check(args):
+    """Validate multi-agent coordination ledger."""
+    ledger=_load_json_file(args.ledger) if args.ledger else {"tasks":[]}
+    tasks=ledger.get("tasks", ledger if isinstance(ledger,list) else [])
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    findings=[]; seen={}
+    for i,t in enumerate(tasks):
+        tid=t.get("task_id",f"index_{i}"); owner=t.get("owner") or t.get("agent_id")
+        if not owner: findings.append({"task_id":tid,"status":"fail","message":"missing owner"})
+        if tid in seen and owner != seen[tid]: findings.append({"task_id":tid,"status":"fail","message":"duplicate task with different owner"})
+        seen[tid]=owner
+        if t.get("status") in ["complete","completed"] and not t.get("artifact_refs"): findings.append({"task_id":tid,"status":"fail","message":"completed without artifact_refs"})
+        if t.get("risk_level") in ["R3","R4"] and not t.get("reviewer"): findings.append({"task_id":tid,"status":"fail","message":"high-risk task missing reviewer"})
+    status="ok" if not findings else "fail"
+    payload={"schema_version":"2026-05-03.agentpress-coordination-ledger-report.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"task_count":len(tasks),"finding_count":len(findings),"findings":findings,"ledger":args.ledger or "built_in_empty"}
+    _write_json_payload(payload,out,args.no_write,args.json)
+    return 1 if args.strict and status=="fail" else 0
 
 def next_cycle_research(args):
     """Generate next research cycle after readiness layer."""
@@ -5968,6 +6128,13 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("memory-drift-check"); p.add_argument("target", nargs="?", default="."); p.add_argument("--out", default="agentpress/memory/agent-memory-drift-report.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("handoff-contract-validate"); p.add_argument("file", nargs="?"); p.add_argument("--out", default="agentpress/handoffs/handoff-validation-report.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("pr-review-check"); p.add_argument("--diff", default=""); p.add_argument("--tests", default=""); p.add_argument("--risk", default=""); p.add_argument("--rollback", default=""); p.add_argument("--allow-empty", action="store_true"); p.add_argument("--out", default="agentpress/review/pr-review-readiness-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("ci-flake-triage"); p.add_argument("--log", default=""); p.add_argument("--out", default="agentpress/ci/ci-flake-classification.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("secret-permission-preflight-run"); p.add_argument("--manifest", default=""); p.add_argument("--out", default="agentpress/security/secret-permission-preflight-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("budget-check"); p.add_argument("--plan", default=""); p.add_argument("--tier", choices=["small","medium","large"], default="small"); p.add_argument("--out", default="agentpress/budgets/budget-run-report.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("coordination-ledger-check"); p.add_argument("--ledger", default=""); p.add_argument("--out", default="agentpress/coordination/coordination-ledger-report.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("next-cycle-research"); p.add_argument("--out", default="agentpress/research/next-cycle-research.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-memory-drift-detector"); p.add_argument("--out", default="agentpress/memory/agent-memory-drift-detector.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("task-handoff-contract"); p.add_argument("--out", default="agentpress/handoffs/task-handoff-contract.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -6239,6 +6406,13 @@ def main():
     if args.cmd == "deep-agent-painpoint-research": return deep_agent_painpoint_research(args)
     if args.cmd == "readiness-audit": return readiness_audit_cli(args)
     if args.cmd == "next-cycle-research": return next_cycle_research(args)
+    if args.cmd == "memory-drift-check": return memory_drift_check(args)
+    if args.cmd == "handoff-contract-validate": return handoff_contract_validate(args)
+    if args.cmd == "pr-review-check": return pr_review_check(args)
+    if args.cmd == "ci-flake-triage": return ci_flake_triage(args)
+    if args.cmd == "secret-permission-preflight-run": return secret_permission_preflight_run(args)
+    if args.cmd == "budget-check": return budget_check(args)
+    if args.cmd == "coordination-ledger-check": return coordination_ledger_check(args)
     if args.cmd == "agent-memory-drift-detector": return agent_memory_drift_detector(args)
     if args.cmd == "task-handoff-contract": return task_handoff_contract(args)
     if args.cmd == "pr-review-readiness-pack": return pr_review_readiness_pack(args)

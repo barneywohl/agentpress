@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-03.agentpress-docs-command-check.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/evidence/docs-command-check.json",
-  "generated_utc": "2026-05-03T22:30:32Z",
+  "generated_utc": "2026-05-03T22:33:48Z",
   "status": "ok",
-  "checked": 630,
+  "checked": 651,
   "failed": 0,
-  "commands_known": 197,
+  "commands_known": 204,
   "results": [
     {
       "path": "README.md",
@@ -1722,6 +1722,62 @@
       "warnings": []
     },
     {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py memory-drift-check --json",
+      "cmd": "memory-drift-check",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py handoff-contract-validate --json",
+      "cmd": "handoff-contract-validate",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py pr-review-check --json --allow-empty --tests local-gates --risk low --rollback revert-commit",
+      "cmd": "pr-review-check",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py ci-flake-triage --json",
+      "cmd": "ci-flake-triage",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py secret-permission-preflight-run --json",
+      "cmd": "secret-permission-preflight-run",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py budget-check --json",
+      "cmd": "budget-check",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py coordination-ledger-check --json",
+      "cmd": "coordination-ledger-check",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
       "path": "llms.txt",
       "command": "python3 scripts/agentpress.py adopt --json",
       "cmd": "adopt",
@@ -3390,6 +3446,62 @@
       "warnings": []
     },
     {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py memory-drift-check --json",
+      "cmd": "memory-drift-check",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py handoff-contract-validate --json",
+      "cmd": "handoff-contract-validate",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py pr-review-check --json --allow-empty --tests local-gates --risk low --rollback revert-commit",
+      "cmd": "pr-review-check",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py ci-flake-triage --json",
+      "cmd": "ci-flake-triage",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py secret-permission-preflight-run --json",
+      "cmd": "secret-permission-preflight-run",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py budget-check --json",
+      "cmd": "budget-check",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py coordination-ledger-check --json",
+      "cmd": "coordination-ledger-check",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
       "path": "agentpress/CLI_AGENT_LAUNCH.md",
       "command": "python3 scripts/agentpress.py doctor --json",
       "cmd": "doctor",
@@ -3931,118 +4043,6 @@
       "path": "agentpress/specs/AGENTPRESS_DISTRIBUTION_FAILOVER_SPEC_20260503.md",
       "command": "python3 scripts/agentpress.py distribution-mirrors --json",
       "cmd": "distribution-mirrors",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_DISTRIBUTION_FAILOVER_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py mirror-status --json",
-      "cmd": "mirror-status",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_DISTRIBUTION_FAILOVER_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py failover-plan --json",
-      "cmd": "failover-plan",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_NATIVE_ADAPTERS_SCHEMA_TRUST_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py native-adapter-kit --target all --json",
-      "cmd": "native-adapter-kit",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_NATIVE_ADAPTERS_SCHEMA_TRUST_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json",
-      "cmd": "native-adapter-check",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_NATIVE_ADAPTERS_SCHEMA_TRUST_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py schema-validate-all --json",
-      "cmd": "schema-validate-all",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_NATIVE_ADAPTERS_SCHEMA_TRUST_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py trust-tier-evaluate --json",
-      "cmd": "trust-tier-evaluate",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_INTERNAL_FEATURE_BUILD_QUEUE_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py feature-build-queue --json",
-      "cmd": "feature-build-queue",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_INTERNAL_FEATURE_BUILD_QUEUE_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py build-queue-pick --json",
-      "cmd": "build-queue-pick",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_AUDIT_CONFORMANCE_ITERATION_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py platform-audit-dashboard --json",
-      "cmd": "platform-audit-dashboard",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_AUDIT_CONFORMANCE_ITERATION_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py ecosystem-conformance-suite --json",
-      "cmd": "ecosystem-conformance-suite",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_AUDIT_CONFORMANCE_ITERATION_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py iteration-cycle-engine --json",
-      "cmd": "iteration-cycle-engine",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_AUDIT_CONFORMANCE_ITERATION_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py mcp-registry-pack --json",
-      "cmd": "mcp-registry-pack",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_PERSONA_SDK_COMPLETION_CYCLE_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py agent-persona-quickstarts --json",
-      "cmd": "agent-persona-quickstarts",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_PERSONA_SDK_COMPLETION_CYCLE_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py sdk-command-wrapper-catalog --json",
-      "cmd": "sdk-command-wrapper-catalog",
       "status": "ok",
       "errors": [],
       "warnings": []

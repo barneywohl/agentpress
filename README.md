@@ -564,3 +564,13 @@ python3 scripts/agentpress.py secret-permission-preflight --json
 python3 scripts/agentpress.py agent-cost-budget-card --json
 python3 scripts/agentpress.py multi-agent-coordination-ledger --json
 ```
+
+```bash
+python3 scripts/agentpress.py memory-drift-check --json
+python3 scripts/agentpress.py handoff-contract-validate --json
+python3 scripts/agentpress.py pr-review-check --json --allow-empty --tests local-gates --risk low --rollback revert-commit
+python3 scripts/agentpress.py ci-flake-triage --json
+python3 scripts/agentpress.py secret-permission-preflight-run --json
+python3 scripts/agentpress.py budget-check --json
+python3 scripts/agentpress.py coordination-ledger-check --json
+```

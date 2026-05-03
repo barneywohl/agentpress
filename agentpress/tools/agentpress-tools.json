@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T22:30:29Z",
+  "generated_at": "2026-05-03T22:33:46Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,81 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.memory_drift_check",
+      "description": "Executable memory/version drift validator.",
+      "command": "python3 scripts/agentpress.py memory-drift-check --json",
+      "tags": [
+        "memory",
+        "drift",
+        "validator",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.handoff_validate",
+      "description": "Validate task handoff contract.",
+      "command": "python3 scripts/agentpress.py handoff-contract-validate --json",
+      "tags": [
+        "handoff",
+        "validate",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.pr_review_check",
+      "description": "Evaluate PR/reviewer readiness.",
+      "command": "python3 scripts/agentpress.py pr-review-check --json --allow-empty --tests local --risk low --rollback revert",
+      "tags": [
+        "pr",
+        "review",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.ci_flake_triage",
+      "description": "Classify CI/test log failures.",
+      "command": "python3 scripts/agentpress.py ci-flake-triage --json",
+      "tags": [
+        "ci",
+        "flake",
+        "triage",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.secret_permission_preflight_run",
+      "description": "Run secrets/permissions preflight against a manifest.",
+      "command": "python3 scripts/agentpress.py secret-permission-preflight-run --json",
+      "tags": [
+        "secrets",
+        "permissions",
+        "preflight",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.budget_check",
+      "description": "Check an agent run plan against a cost/context budget.",
+      "command": "python3 scripts/agentpress.py budget-check --json",
+      "tags": [
+        "budget",
+        "cost",
+        "tokens",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.coordination_ledger_check",
+      "description": "Validate multi-agent coordination ledger.",
+      "command": "python3 scripts/agentpress.py coordination-ledger-check --json",
+      "tags": [
+        "coordination",
+        "ledger",
+        "multi-agent",
+        "gate"
       ]
     },
     {

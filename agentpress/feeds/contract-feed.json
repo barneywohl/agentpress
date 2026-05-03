@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T23:05:00Z",
-  "current_contract_version": "2026-05-03-operational-agent-gaps-cycle",
+  "generated_utc": "2026-05-03T23:20:00Z",
+  "current_contract_version": "2026-05-03-executable-agent-gates",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-executable-agent-gates",
+      "kind": "executable_agent_gates",
+      "status": "shipped",
+      "summary": "Added executable gates for memory drift, handoff validation, PR review readiness, CI flake triage, secret preflight, budget checking, and coordination ledger validation.",
+      "agent_action": "Run executable gate commands before claiming completion on agent/code/review/coordination work.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-operational-agent-gaps-cycle",
       "kind": "operational_agent_gaps_cycle",
@@ -597,7 +605,14 @@
     "ci_flake_triage_report": "https://barneywohl.github.io/agentpress/agentpress/ci/ci-flake-triage-report.json",
     "secret_permission_preflight": "https://barneywohl.github.io/agentpress/agentpress/security/secret-permission-preflight.json",
     "agent_cost_budget_card": "https://barneywohl.github.io/agentpress/agentpress/budgets/agent-cost-budget-card.json",
-    "multi_agent_coordination_ledger": "https://barneywohl.github.io/agentpress/agentpress/coordination/multi-agent-coordination-ledger.json"
+    "multi_agent_coordination_ledger": "https://barneywohl.github.io/agentpress/agentpress/coordination/multi-agent-coordination-ledger.json",
+    "memory_drift_report": "https://barneywohl.github.io/agentpress/agentpress/memory/agent-memory-drift-report.json",
+    "handoff_validation_report": "https://barneywohl.github.io/agentpress/agentpress/handoffs/handoff-validation-report.json",
+    "pr_review_readiness_result": "https://barneywohl.github.io/agentpress/agentpress/review/pr-review-readiness-result.json",
+    "ci_flake_classification": "https://barneywohl.github.io/agentpress/agentpress/ci/ci-flake-classification.json",
+    "secret_permission_preflight_result": "https://barneywohl.github.io/agentpress/agentpress/security/secret-permission-preflight-result.json",
+    "budget_run_report": "https://barneywohl.github.io/agentpress/agentpress/budgets/budget-run-report.json",
+    "coordination_ledger_report": "https://barneywohl.github.io/agentpress/agentpress/coordination/coordination-ledger-report.json"
   },
   "privacy": "Static feed only; no tracking."
 }
