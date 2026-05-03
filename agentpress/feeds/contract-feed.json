@@ -1,9 +1,33 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T18:08:00Z",
-  "current_contract_version": "2026-05-03-proof-ingest-package-plan",
+  "generated_utc": "2026-05-03T18:11:00Z",
+  "current_contract_version": "2026-05-03-painpoint-trust-coverage",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-marketplace-trust",
+      "kind": "marketplace_trust_scoring",
+      "status": "shipped",
+      "summary": "Added static marketplace trust scoring so agents can rank service listings.",
+      "agent_action": "Run `python3 scripts/agentpress.py marketplace-trust --json`.",
+      "breaking": false
+    },
+    {
+      "version": "2026-05-03-attestation-coverage",
+      "kind": "attestation_coverage",
+      "status": "shipped",
+      "summary": "Added attestation coverage index for critical AgentPress machine surfaces.",
+      "agent_action": "Run `python3 scripts/agentpress.py attestation-coverage --json`.",
+      "breaking": false
+    },
+    {
+      "version": "2026-05-03-painpoint-intake",
+      "kind": "painpoint_intake",
+      "status": "shipped",
+      "summary": "Added validated painpoint intake reports so agent blockers become ranked machine data.",
+      "agent_action": "Run `python3 scripts/agentpress.py painpoint-intake --json --allow-rejected`.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-package-registry-plan",
       "kind": "package_registry_plan",
@@ -127,7 +151,10 @@
     "attestations": "https://barneywohl.github.io/agentpress/agentpress/attestations/attestation-index.json",
     "proof_campaign": "https://barneywohl.github.io/agentpress/agentpress/proof-campaigns/proof-campaign.json",
     "external_proofs": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/external-proof-index.json",
-    "package_registry_plan": "https://barneywohl.github.io/agentpress/agentpress/package-registry/package-registry-plan.json"
+    "package_registry_plan": "https://barneywohl.github.io/agentpress/agentpress/package-registry/package-registry-plan.json",
+    "painpoint_intake": "https://barneywohl.github.io/agentpress/agentpress/painpoint-intake/painpoint-intake-index.json",
+    "attestation_coverage": "https://barneywohl.github.io/agentpress/agentpress/attestations/attestation-coverage.json",
+    "marketplace_trust": "https://barneywohl.github.io/agentpress/agentpress/marketplace/marketplace-trust-index.json"
   },
   "privacy": "Static feed only; no tracking."
 }

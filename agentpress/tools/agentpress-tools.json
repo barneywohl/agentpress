@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T18:06:57Z",
+  "generated_at": "2026-05-03T18:11:04Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -216,6 +216,38 @@
         "budget",
         "intent",
         "no-spend"
+      ]
+    },
+    {
+      "name": "agentpress.painpoint_intake",
+      "description": "Validate and index agent painpoint reports with severity, command, problem, and desired fix.",
+      "command": "python3 scripts/agentpress.py painpoint-intake --json --allow-rejected",
+      "tags": [
+        "painpoint",
+        "feedback",
+        "intake",
+        "roadmap"
+      ]
+    },
+    {
+      "name": "agentpress.attestation_coverage",
+      "description": "Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.",
+      "command": "python3 scripts/agentpress.py attestation-coverage --json",
+      "tags": [
+        "attestation",
+        "coverage",
+        "trust"
+      ]
+    },
+    {
+      "name": "agentpress.marketplace_trust",
+      "description": "Score and rank marketplace services using command, capability, payment, trust, and proof signals.",
+      "command": "python3 scripts/agentpress.py marketplace-trust --json",
+      "tags": [
+        "marketplace",
+        "trust",
+        "score",
+        "routing"
       ]
     },
     {
