@@ -1,0 +1,38 @@
+{
+  "schema_version": "2026-05-03.agentpress-receipt-to-backlog.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/planning/receipt-to-backlog.json",
+  "generated_utc": "2026-05-03T21:34:17Z",
+  "status": "ok",
+  "purpose": "Automatically convert external proof/blocker/UX signals into the next build queue.",
+  "item_count": 3,
+  "items": [
+    {
+      "rank": 1,
+      "feature": "first external proof acquisition tracker",
+      "priority": "P0",
+      "source": "empty_inbox",
+      "acceptance": "at least one independent receipt/blocker is ingested without secrets"
+    },
+    {
+      "rank": 2,
+      "feature": "registry metadata dry-run validators in CI",
+      "priority": "P1",
+      "source": "registry_radar",
+      "acceptance": "PyPI/npm/MCP/Homebrew/Docker metadata dry-runs produce machine evidence"
+    },
+    {
+      "rank": 3,
+      "feature": "host-run transcript collector",
+      "priority": "P1",
+      "source": "host_harness",
+      "acceptance": "one native host transcript can be validated against schema"
+    }
+  ],
+  "next_feature": {
+    "rank": 1,
+    "feature": "first external proof acquisition tracker",
+    "priority": "P0",
+    "source": "empty_inbox",
+    "acceptance": "at least one independent receipt/blocker is ingested without secrets"
+  }
+}

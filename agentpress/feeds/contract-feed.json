@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T21:10:00Z",
-  "current_contract_version": "2026-05-03-schema-proof-host-ux-exponential",
+  "generated_utc": "2026-05-03T21:40:00Z",
+  "current_contract_version": "2026-05-03-registry-proof-ingest-exponential",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-registry-proof-ingest-exponential",
+      "kind": "registry_proof_ingest_exponential",
+      "status": "shipped",
+      "summary": "Added registry dry-run, proof-ingest review, receipt-to-backlog automation, and exponential improvement radar.",
+      "agent_action": "Run registry-dry-run, proof-ingest, proof-ingest-review, receipt-to-backlog, and exponential-improvement-radar to convert external signals into the next build queue.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-schema-proof-host-ux-exponential",
       "kind": "schema_proof_host_ux_exponential",
@@ -461,7 +469,11 @@
     "schema_validator": "https://barneywohl.github.io/agentpress/agentpress/evidence/schema-validator.json",
     "proof_inbox_tracker": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/proof-inbox-tracker.json",
     "host_run_harness": "https://barneywohl.github.io/agentpress/agentpress/conformance/host-run-harness/host-run-harness.json",
-    "time_to_first_green": "https://barneywohl.github.io/agentpress/agentpress/metrics/time-to-first-green.json"
+    "time_to_first_green": "https://barneywohl.github.io/agentpress/agentpress/metrics/time-to-first-green.json",
+    "registry_dry_run": "https://barneywohl.github.io/agentpress/agentpress/distribution/registry-dry-run.json",
+    "proof_ingest_review": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/proof-ingest-review.json",
+    "receipt_to_backlog": "https://barneywohl.github.io/agentpress/agentpress/planning/receipt-to-backlog.json",
+    "exponential_improvement_radar": "https://barneywohl.github.io/agentpress/agentpress/planning/exponential-improvement-radar.json"
   },
   "privacy": "Static feed only; no tracking."
 }

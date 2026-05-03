@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T21:04:47Z",
+  "generated_at": "2026-05-03T21:34:17Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,50 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.registry_dry_run",
+      "description": "Generate safe registry dry-run validators without publishing or using credentials.",
+      "command": "python3 scripts/agentpress.py registry-dry-run --json",
+      "tags": [
+        "registry",
+        "package",
+        "dry-run",
+        "distribution"
+      ]
+    },
+    {
+      "name": "agentpress.proof_ingest_review",
+      "description": "Ingest external proof/blocker receipts into review, scoped trust, and backlog inputs.",
+      "command": "python3 scripts/agentpress.py proof-ingest-review --json",
+      "tags": [
+        "proof",
+        "ingest",
+        "trust",
+        "backlog"
+      ]
+    },
+    {
+      "name": "agentpress.receipt_to_backlog",
+      "description": "Generate backlog items from proof ingest blockers and UX friction metrics.",
+      "command": "python3 scripts/agentpress.py receipt-to-backlog --json",
+      "tags": [
+        "backlog",
+        "proof",
+        "blockers",
+        "automation"
+      ]
+    },
+    {
+      "name": "agentpress.exponential_improvement_radar",
+      "description": "Generate exponential improvement radar from adoption/proof/package/UX loops.",
+      "command": "python3 scripts/agentpress.py exponential-improvement-radar --json",
+      "tags": [
+        "exponential",
+        "radar",
+        "adoption",
+        "improvements"
       ]
     },
     {

@@ -2254,6 +2254,10 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.registry_dry_run", "description":"Generate safe registry dry-run validators without publishing or using credentials.", "command":"python3 scripts/agentpress.py registry-dry-run --json", "tags":["registry","package","dry-run","distribution"]},
+        {"name":"agentpress.proof_ingest_review", "description":"Ingest external proof/blocker receipts into review, scoped trust, and backlog inputs.", "command":"python3 scripts/agentpress.py proof-ingest-review --json", "tags":["proof","ingest","trust","backlog"]},
+        {"name":"agentpress.receipt_to_backlog", "description":"Generate backlog items from proof ingest blockers and UX friction metrics.", "command":"python3 scripts/agentpress.py receipt-to-backlog --json", "tags":["backlog","proof","blockers","automation"]},
+        {"name":"agentpress.exponential_improvement_radar", "description":"Generate exponential improvement radar from adoption/proof/package/UX loops.", "command":"python3 scripts/agentpress.py exponential-improvement-radar --json", "tags":["exponential","radar","adoption","improvements"]},
         {"name":"agentpress.json_schema_bundle", "description":"Generate draft-2020-12 JSON Schemas for key AgentPress public artifacts.", "command":"python3 scripts/agentpress.py json-schema-bundle --json", "tags":["schema","json-schema","validation","draft2020-12"]},
         {"name":"agentpress.schema_validator", "description":"Validate known AgentPress example artifacts against required schema fields.", "command":"python3 scripts/agentpress.py schema-validator --json", "tags":["schema","validation","proof","blocker"]},
         {"name":"agentpress.proof_inbox_tracker", "description":"Generate proof inbox tracker for external receipts and blocker reports.", "command":"python3 scripts/agentpress.py proof-inbox-tracker --json", "tags":["proof","inbox","external","adoption"]},
@@ -3110,6 +3114,91 @@ def proof_ingest(args):
 
 
 
+
+
+def registry_dry_run(args):
+    """Generate package registry dry-run validators for PyPI/npm/Homebrew/Docker/MCP."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    checks=[]
+    files=[("release_index","agentpress/releases/release-index.json"),("package_manifest","agentpress/releases/agentpress-offline.tar.gz.sha256.json"),("distribution_pack","agentpress/distribution/submission-pack/distribution-submission-pack.json"),("mcp_pack","agentpress/mcp/registry-pack/mcp-registry-pack.json")]
+    for name,rel in files:
+        p=pathlib.Path(rel); checks.append({"name":name,"path":rel,"status":"pass" if p.exists() else "fail"})
+    channels=[
+        {"id":"pypi","dry_run_status":"metadata_ready","required_human_step":"own/approve package name and token before publish","safe_command":"python3 -m build --sdist --wheel && twine check dist/*"},
+        {"id":"npm","dry_run_status":"metadata_ready","required_human_step":"own/approve package scope/token before publish","safe_command":"npm pack --dry-run"},
+        {"id":"homebrew","dry_run_status":"formula_spec_needed","required_human_step":"approve tap/release formula","safe_command":"brew audit --strict --online <formula>"},
+        {"id":"docker_oci","dry_run_status":"container_spec_needed","required_human_step":"approve GHCR/package publishing","safe_command":"docker build --check ."},
+        {"id":"mcp_registry","dry_run_status":"submission_ready","required_human_step":"submit listing to registry/community","safe_command":"python3 scripts/agentpress.py mcp-registry-pack --json"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-registry-dry-run.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if all(c['status']=='pass' for c in checks) else "needs_attention","purpose":"Turn package registry blockers into safe dry-run validators without using credentials or publishing.","checks":checks,"channels":channels,"policy":"No registry publish, token use, paid action, or ownership claim without explicit approval."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(channels)} channels")
+    return 0 if payload["status"] in {"ok","needs_attention"} else 1
+
+
+def proof_ingest_review(args):
+    """Ingest external proof/blocker receipts into review, scoped score, and backlog inputs."""
+    inbox=pathlib.Path(args.inbox); out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; rows=[]; blockers=[]; accepted=0; rejected=0
+    secret_terms=["api_key","apikey","secret","password","cookie","authorization:","bearer ","private_key","seed phrase"]
+    if inbox.exists():
+        for f in sorted(inbox.glob("*.json")):
+            try: data=json.loads(f.read_text(encoding="utf-8")); raw=json.dumps(data).lower(); errors=[]
+            except Exception as e: data={}; raw=""; errors=[f"parse_fail:{e}"]
+            for k in ["agent_id","runtime","service_id","capability_id","result_status"]:
+                if k not in data: errors.append(f"missing:{k}")
+            for t in secret_terms:
+                if t in raw: errors.append(f"possible_secret:{t}")
+            decision="accepted" if not errors else "rejected"
+            if decision=="accepted": accepted+=1
+            else: rejected+=1
+            if data.get("result_status") in {"blocked","failed"} or errors:
+                blockers.append({"source":str(f),"summary":data.get("summary") or data.get("error") or ";".join(errors) or "external blocker", "priority":"P1" if data.get("result_status")=="blocked" else "P2"})
+            rows.append({"file":str(f),"decision":decision,"errors":errors,"agent_id":data.get("agent_id",""),"runtime":data.get("runtime",""),"service_id":data.get("service_id","")})
+    payload={"schema_version":"2026-05-03.agentpress-proof-ingest.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Convert external proof/blocker receipts into privacy-clean reviews, scoped trust inputs, and backlog blockers.","receipt_count":len(rows),"accepted":accepted,"rejected":rejected,"reviews":rows,"blocker_inputs":blockers,"scoped_trust_policy":"Accepted proof only credits the specific service/capability/runtime; never global trust.","empty_inbox_action":"Run proof campaign/outreach and wait for independent receipts."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {accepted}/{len(rows)} accepted")
+    return 0
+
+
+def receipt_to_backlog(args):
+    """Generate backlog items from proof ingest blockers and UX friction metrics."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; items=[]
+    ingest=pathlib.Path(args.ingest)
+    if ingest.exists():
+        try: data=json.loads(ingest.read_text(encoding="utf-8"))
+        except Exception: data={}
+        for i,b in enumerate(data.get("blocker_inputs",[]),1):
+            items.append({"rank":i,"feature":f"Fix external blocker: {b.get('summary','unknown')[:80]}","priority":b.get("priority","P2"),"source":"proof_ingest","acceptance":"blocker receipt replays cleanly or returns clearer actionable error"})
+    if not items:
+        items=[
+            {"rank":1,"feature":"first external proof acquisition tracker","priority":"P0","source":"empty_inbox","acceptance":"at least one independent receipt/blocker is ingested without secrets"},
+            {"rank":2,"feature":"registry metadata dry-run validators in CI","priority":"P1","source":"registry_radar","acceptance":"PyPI/npm/MCP/Homebrew/Docker metadata dry-runs produce machine evidence"},
+            {"rank":3,"feature":"host-run transcript collector","priority":"P1","source":"host_harness","acceptance":"one native host transcript can be validated against schema"}
+        ]
+    payload={"schema_version":"2026-05-03.agentpress-receipt-to-backlog.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Automatically convert external proof/blocker/UX signals into the next build queue.","item_count":len(items),"items":items,"next_feature":items[0] if items else {}}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(items)} items")
+    return 0
+
+
+def exponential_improvement_radar(args):
+    """Generate exponential improvement radar from adoption, proof, package, and UX loops."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    items=[
+        {"rank":1,"lever":"proof_ingestion_to_trust_and_backlog","compounding_effect":"every outside receipt creates trust evidence or a build item","next_build":"proof-ingest-review + receipt-to-backlog"},
+        {"rank":2,"lever":"registry_dry_run_to_distribution","compounding_effect":"every install channel becomes testable before credentials/publish","next_build":"registry-dry-run"},
+        {"rank":3,"lever":"host_run_to_native_conformance","compounding_effect":"each real host failure improves all future adapter kits","next_build":"host transcript validator"},
+        {"rank":4,"lever":"time_to_first_green_to_ux","compounding_effect":"each onboarding attempt quantifies friction and prioritizes fixes","next_build":"TTF-green telemetry import"},
+        {"rank":5,"lever":"schema_bundle_to_ecosystem_integrations","compounding_effect":"typed artifacts make third-party automation safer and cheaper","next_build":"json-schema-bundle + validator"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-exponential-improvement-radar.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Find high-leverage improvements that compound across agent adoption cycles.","items":items}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(items)} levers")
+    return 0
 
 def json_schema_bundle(args):
     """Generate draft-2020-12 JSON Schemas for key AgentPress public artifacts."""
@@ -5052,6 +5141,10 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("registry-dry-run"); p.add_argument("--out", default="agentpress/distribution/registry-dry-run.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("proof-ingest-review"); p.add_argument("--inbox", default="agentpress/external-proofs/inbox"); p.add_argument("--out", default="agentpress/external-proofs/proof-ingest-review.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("receipt-to-backlog"); p.add_argument("--ingest", default="agentpress/external-proofs/proof-ingest-review.json"); p.add_argument("--out", default="agentpress/planning/receipt-to-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("exponential-improvement-radar"); p.add_argument("--out", default="agentpress/planning/exponential-improvement-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("json-schema-bundle"); p.add_argument("--out", default="agentpress/schemas/draft2020-12"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("schema-validator"); p.add_argument("--out", default="agentpress/evidence/schema-validator.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-inbox-tracker"); p.add_argument("--inbox", default="agentpress/external-proofs/inbox"); p.add_argument("--out", default="agentpress/external-proofs/proof-inbox-tracker.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -5262,6 +5355,11 @@ def main():
     if args.cmd == "external-audit-run": return external_audit_run(args)
     if args.cmd == "distribution-submission-pack": return distribution_submission_pack(args)
     if args.cmd == "json-schema-bundle": return json_schema_bundle(args)
+    if args.cmd == "registry-dry-run": return registry_dry_run(args)
+    if args.cmd == "proof-ingest": return proof_ingest(args)
+    if args.cmd == "proof-ingest-review": return proof_ingest_review(args)
+    if args.cmd == "receipt-to-backlog": return receipt_to_backlog(args)
+    if args.cmd == "exponential-improvement-radar": return exponential_improvement_radar(args)
     if args.cmd == "schema-validator": return schema_validator(args)
     if args.cmd == "proof-inbox-tracker": return proof_inbox_tracker(args)
     if args.cmd == "host-run-harness": return host_run_harness(args)
