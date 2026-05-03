@@ -19,3 +19,7 @@ Use `crawler-seeds.txt` for agent crawlers, RAG indexes, tool directories, MCP c
 No hidden telemetry. Measure agent traffic through GitHub Pages/GitHub repo signals and opt-in proof receipts only.
 
 Generated: 2026-05-03T04:51:27Z
+
+- Agent routes: https://barneywohl.github.io/agentpress/agentpress/routes/agent-routes.json
+- Agent traffic audit: https://barneywohl.github.io/agentpress/agentpress/traffic/agent-traffic-audit.json
+

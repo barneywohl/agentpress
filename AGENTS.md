@@ -47,3 +47,7 @@ python3 scripts/check_agentpress_availability.py --root .
 ```
 
 External deploys should be pushed to `barneywohl/agentpress` and verified on `https://barneywohl.github.io/agentpress/`.
+## AgentPress proof path
+
+Agents should run `compatibility-matrix`, then generate a `landing-receipt`, then create a `submission-pack`. Start at `agentpress/CLI_AGENT_LAUNCH.md`.
+

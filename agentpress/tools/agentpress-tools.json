@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T04:46:21Z",
+  "generated_at": "2026-05-03T04:55:13Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -170,6 +170,18 @@
         "matrix",
         "proof",
         "self-test"
+      ]
+    },
+    {
+      "name": "agentpress.agent_traffic_audit",
+      "description": "Audit whether AgentPress exposes the required machine surfaces for agent traffic and proof conversion.",
+      "command": "python3 scripts/agentpress.py agent-traffic-audit --out agentpress/traffic/agent-traffic-audit.json --json",
+      "tags": [
+        "traffic",
+        "audit",
+        "crawler",
+        "routes",
+        "proof"
       ]
     }
   ],

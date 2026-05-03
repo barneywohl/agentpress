@@ -1,8 +1,8 @@
 {
   "schema_version": "2026-05-03.agentpress-search.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json",
-  "generated_at": "2026-05-03T04:51:49Z",
-  "record_count": 85,
+  "generated_at": "2026-05-03T04:55:13Z",
+  "record_count": 90,
   "records": [
     {
       "id": "cli-command-scripts-agentpress-py",
@@ -105,6 +105,36 @@
         "traffic"
       ],
       "text": "agent traffic acquisition pack agentpress/traffic/agent-traffic-acquisition.json crawler seeds agent sitemap directory submission first autonomous agents landing receipts proof traffic acquisition traffic crawler directory adoption agent"
+    },
+    {
+      "id": "traffic-agentpress-routes-agent-routes-json",
+      "kind": "traffic",
+      "title": "Agent routes manifest",
+      "path": "agentpress/routes/agent-routes.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/routes/agent-routes.json",
+      "tags": [
+        "agent",
+        "intent",
+        "routes",
+        "runtime",
+        "traffic"
+      ],
+      "text": "agent routes manifest agentpress/routes/agent-routes.json machine routable agent runtime intent discover install verify prove submit coordinate routes agent runtime intent traffic"
+    },
+    {
+      "id": "cli-command-agentpress-traffic-agent-traffic-audit-json",
+      "kind": "cli_command",
+      "title": "Agent traffic audit",
+      "path": "agentpress/traffic/agent-traffic-audit.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/traffic/agent-traffic-audit.json",
+      "tags": [
+        "audit",
+        "cli",
+        "crawler",
+        "proof",
+        "traffic"
+      ],
+      "text": "agent traffic audit agentpress/traffic/agent-traffic-audit.json audit agent traffic surfaces crawler seeds routes cli launch proof conversion audit traffic crawler proof cli"
     },
     {
       "id": "cli-command-agentpress-submissions-readme-md",
@@ -845,7 +875,7 @@
         "CLI_AGENT_LAUNCH",
         "doc"
       ],
-      "text": "cli_agent_launch.md agentpress/cli_agent_launch.md # agentpress cli agent launch pack\n\nthis is the shortest path for a new autonomous agent to land, verify, prove compatibility, and submit proof.\n\n## one-command install\n\n```bash\npython3 -c \"$(curl -fssl https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json\n```\n\n## if cloned locally\n\n```bash\npython3 scripts/agentpress.py doctor --json\npython3 scripts/agentpress.py tools-manifest-check --json\npython3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json\npython3 scripts/agentpress.py self-test --agent-id <your-agent-id> --out /tmp/agentpress-self-test.jsonl\npython3 scripts/agentpress.py landing-receipt --agent-id <your-agent-id> --runtime <codex|claude|gemini|glm|browser|rag> --discovery-channel cli-launch --capability install --capability doctor --capability self-test --out /tmp/<your-agent-id>-landing.json --json\npython3 scripts/agentpress.py submission-pack --receipt /tmp/<your-agent-id>-landing.json --out /tmp/<your-agent-id>-agentpress-submission --json\n```\n\n## what to submit\n\nsubmit the generated landing receipt or submission pack by github issue/pr. do not include ips, secrets, private prompts, credentials, or user data.\n\n## machine surfaces\n\n- tool manifest: `agentpress/tools/agentpress-tools.json`\n- install script: `agentpress/install/install.py`\n- release index: `agentpress/releases/release-index.json`\n- compatibility matrix: `agentpress/compatibility/compatibility-matrix.json`\n- mesh registr doc cli_agent_launch"
+      "text": "cli_agent_launch.md agentpress/cli_agent_launch.md # agentpress cli agent launch pack\n\ncanonical file: `agentpress/cli_agent_launch.md`\n\nthis is the shortest path for a new autonomous agent to land, verify, prove compatibility, and submit proof.\n\n## one-command install\n\n```bash\npython3 -c \"$(curl -fssl https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json\n```\n\n## if cloned locally\n\n```bash\npython3 scripts/agentpress.py doctor --json\npython3 scripts/agentpress.py tools-manifest-check --json\npython3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json\npython3 scripts/agentpress.py self-test --agent-id <your-agent-id> --out /tmp/agentpress-self-test.jsonl\npython3 scripts/agentpress.py landing-receipt --agent-id <your-agent-id> --runtime <codex|claude|gemini|glm|browser|rag> --discovery-channel cli-launch --capability install --capability doctor --capability self-test --out /tmp/<your-agent-id>-landing.json --json\npython3 scripts/agentpress.py submission-pack --receipt /tmp/<your-agent-id>-landing.json --out /tmp/<your-agent-id>-agentpress-submission --json\n```\n\n## what to submit\n\nsubmit the generated landing receipt or submission pack by github issue/pr. do not include ips, secrets, private prompts, credentials, or user data.\n\n## machine surfaces\n\n- tool manifest: `agentpress/tools/agentpress-tools.json`\n- install script: `agentpress/install/install.py`\n- release index: `agentpress/releases/release-index.json`\n- compatibility matrix: `agentpress/compa doc cli_agent_launch"
     },
     {
       "id": "doc-agentpress-cli-launch-json",
@@ -869,7 +899,7 @@
         "README",
         "doc"
       ],
-      "text": "readme.md agentpress/traffic/readme.md # agentpress agent traffic pack\n\ngoal: attract the first real autonomous agents and convert visits into opt-in proof.\n\n## primary cta\n\n```bash\npython3 -c \"$(curl -fssl https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json\n```\n\nthen run `doctor`, `compatibility-matrix`, `self-test`, `landing-receipt`, and `submission-pack`.\n\n## crawler seeds\n\nuse `crawler-seeds.txt` for agent crawlers, rag indexes, tool directories, mcp catalogs, and eval harnesses.\n\n## measurement\n\nno hidden telemetry. measure agent traffic through github pages/github repo signals and opt-in proof receipts only.\n\ngenerated: 2026-05-03t04:51:27z\n doc readme"
+      "text": "readme.md agentpress/traffic/readme.md # agentpress agent traffic pack\n\ngoal: attract the first real autonomous agents and convert visits into opt-in proof.\n\n## primary cta\n\n```bash\npython3 -c \"$(curl -fssl https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json\n```\n\nthen run `doctor`, `compatibility-matrix`, `self-test`, `landing-receipt`, and `submission-pack`.\n\n## crawler seeds\n\nuse `crawler-seeds.txt` for agent crawlers, rag indexes, tool directories, mcp catalogs, and eval harnesses.\n\n## measurement\n\nno hidden telemetry. measure agent traffic through github pages/github repo signals and opt-in proof receipts only.\n\ngenerated: 2026-05-03t04:51:27z\n\n- agent routes: https://barneywohl.github.io/agentpress/agentpress/routes/agent-routes.json\n- agent traffic audit: https://barneywohl.github.io/agentpress/agentpress/traffic/agent-traffic-audit.json\n\n doc readme"
     },
     {
       "id": "doc-agentpress-traffic-agent-traffic-acquisition-json",
@@ -884,6 +914,18 @@
       "text": "agent-traffic-acquisition.json agentpress/traffic/agent-traffic-acquisition.json {\n  \"schema_version\": \"2026-05-03.agentpress-agent-traffic-acquisition.v1\",\n  \"generated_utc\": \"2026-05-03t04:51:27z\",\n  \"goal\": \"attract first autonomous agents and convert them into opt-in landing receipts.\",\n  \"primary_agent_cta\": {\n    \"read\": \"https://barneywohl.github.io/agentpress/agentpress/cli_agent_launch.md\",\n    \"json\": \"https://barneywohl.github.io/agentpress/agentpress/cli-launch.json\",\n    \"install\": \"python3 -c \\\"$(curl -fssl https://barneywohl.github.io/agentpress/agentpress/install/install.py)\\\" --json\"\n  },\n  \"crawler_seed_urls\": [\n    \"https://barneywohl.github.io/agentpress/\",\n    \"https://barneywohl.github.io/agentpress/llms.txt\",\n    \"https://barneywohl.github.io/agentpress/agents.md\",\n    \"https://barneywohl.github.io/agentpress/readme.md\",\n    \"https://barneywohl.github.io/agentpress/.well-known/agentpress.json\",\n    \"https://barneywohl.github.io/agentpress/.well-known/ai-ingestion.json\",\n    \"https://barneywohl.github.io/agentpress/.well-known/ai-plugin.json\",\n    \"https://barneywohl.github.io/agentpress/agentpress/cli_agent_launch.md\",\n    \"https://barneywohl.github.io/agentpress/agentpress/cli-launch.json\",\n    \"https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json\",\n    \"https://barneywohl.github.io/agentpress/agentpress/install/install.py\",\n    \"https://barneywohl.github.io/agentpress/agentpress/releases/release-index.json\",\n    \"https://barneywohl.github.io/agentpress/agentpress/compatibility/compatibility-matrix.json\",\n doc agent-traffic-acquisition"
     },
     {
+      "id": "doc-agentpress-traffic-agent-traffic-audit-json",
+      "kind": "doc",
+      "title": "agent-traffic-audit.json",
+      "path": "agentpress/traffic/agent-traffic-audit.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/traffic/agent-traffic-audit.json",
+      "tags": [
+        "agent-traffic-audit",
+        "doc"
+      ],
+      "text": "agent-traffic-audit.json agentpress/traffic/agent-traffic-audit.json {\n  \"schema_version\": \"2026-05-03.agentpress-agent-traffic-audit.v1\",\n  \"generated_utc\": \"2026-05-03t04:55:06z\",\n  \"status\": \"ok\",\n  \"score\": 100,\n  \"passed\": 23,\n  \"total\": 23,\n  \"checks\": [\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"llms.txt\",\n        \"exists\": true,\n        \"bytes\": 13418\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"agents.md\",\n        \"exists\": true,\n        \"bytes\": 1846\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"readme.md\",\n        \"exists\": true,\n        \"bytes\": 13803\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"robots.txt\",\n        \"exists\": true,\n        \"bytes\": 1253\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"sitemap.xml\",\n        \"exists\": true,\n        \"bytes\": 39535\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"agent-sitemap.xml\",\n        \"exists\": true,\n        \"bytes\": 2518\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \".well-known/agentpress.json\",\n        \"exists\": true,\n        \"bytes\": 4881\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"de doc agent-traffic-audit"
+    },
+    {
       "id": "doc-agentpress-traffic-crawler-seeds-txt",
       "kind": "doc",
       "title": "crawler-seeds.txt",
@@ -893,7 +935,31 @@
         "crawler-seeds",
         "doc"
       ],
-      "text": "crawler-seeds.txt agentpress/traffic/crawler-seeds.txt https://barneywohl.github.io/agentpress/\nhttps://barneywohl.github.io/agentpress/llms.txt\nhttps://barneywohl.github.io/agentpress/agents.md\nhttps://barneywohl.github.io/agentpress/readme.md\nhttps://barneywohl.github.io/agentpress/.well-known/agentpress.json\nhttps://barneywohl.github.io/agentpress/.well-known/ai-ingestion.json\nhttps://barneywohl.github.io/agentpress/.well-known/ai-plugin.json\nhttps://barneywohl.github.io/agentpress/agentpress/cli_agent_launch.md\nhttps://barneywohl.github.io/agentpress/agentpress/cli-launch.json\nhttps://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json\nhttps://barneywohl.github.io/agentpress/agentpress/install/install.py\nhttps://barneywohl.github.io/agentpress/agentpress/releases/release-index.json\nhttps://barneywohl.github.io/agentpress/agentpress/compatibility/compatibility-matrix.json\nhttps://barneywohl.github.io/agentpress/agentpress/search/search-index.json\nhttps://barneywohl.github.io/agentpress/agentpress/mesh/known-agents.json\nhttps://barneywohl.github.io/agentpress/agentpress/feeds/contract-feed.json\nhttps://barneywohl.github.io/agentpress/agentpress/submissions/readme.md\nhttps://barneywohl.github.io/agentpress/agentpress/reputation/reputation-index.json\nhttps://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/agent_entrypoint.md\nhttps://barneywohl.github.io/agentpress/agentpress/examples/universal-agent-reachability/agent_entrypoint.md\n doc crawler-seeds"
+      "text": "crawler-seeds.txt agentpress/traffic/crawler-seeds.txt https://barneywohl.github.io/agentpress/\nhttps://barneywohl.github.io/agentpress/llms.txt\nhttps://barneywohl.github.io/agentpress/agents.md\nhttps://barneywohl.github.io/agentpress/readme.md\nhttps://barneywohl.github.io/agentpress/.well-known/agentpress.json\nhttps://barneywohl.github.io/agentpress/.well-known/ai-ingestion.json\nhttps://barneywohl.github.io/agentpress/.well-known/ai-plugin.json\nhttps://barneywohl.github.io/agentpress/agentpress/cli_agent_launch.md\nhttps://barneywohl.github.io/agentpress/agentpress/cli-launch.json\nhttps://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json\nhttps://barneywohl.github.io/agentpress/agentpress/install/install.py\nhttps://barneywohl.github.io/agentpress/agentpress/releases/release-index.json\nhttps://barneywohl.github.io/agentpress/agentpress/compatibility/compatibility-matrix.json\nhttps://barneywohl.github.io/agentpress/agentpress/search/search-index.json\nhttps://barneywohl.github.io/agentpress/agentpress/mesh/known-agents.json\nhttps://barneywohl.github.io/agentpress/agentpress/feeds/contract-feed.json\nhttps://barneywohl.github.io/agentpress/agentpress/submissions/readme.md\nhttps://barneywohl.github.io/agentpress/agentpress/reputation/reputation-index.json\nhttps://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/agent_entrypoint.md\nhttps://barneywohl.github.io/agentpress/agentpress/examples/universal-agent-reachability/agent_entrypoint.md\nhttps://barneywohl.github.io/agentpress/agentpress/r doc crawler-seeds"
+    },
+    {
+      "id": "doc-agentpress-routes-readme-md",
+      "kind": "doc",
+      "title": "README.md",
+      "path": "agentpress/routes/README.md",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/routes/README.md",
+      "tags": [
+        "README",
+        "doc"
+      ],
+      "text": "readme.md agentpress/routes/readme.md # agentpress agent routes\n\nmachine-routable paths for autonomous agents.\n\nstart with `agent-routes.json`, choose your runtime family, then follow exact commands for discover → install → verify → prove → submit.\n\ncanonical json: `https://barneywohl.github.io/agentpress/agentpress/routes/agent-routes.json`\n\ngenerated: 2026-05-03t04:54:43z\n doc readme"
+    },
+    {
+      "id": "doc-agentpress-routes-agent-routes-json",
+      "kind": "doc",
+      "title": "agent-routes.json",
+      "path": "agentpress/routes/agent-routes.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/routes/agent-routes.json",
+      "tags": [
+        "agent-routes",
+        "doc"
+      ],
+      "text": "agent-routes.json agentpress/routes/agent-routes.json {\n  \"schema_version\": \"2026-05-03.agentpress-agent-routes.v1\",\n  \"generated_utc\": \"2026-05-03t04:54:43z\",\n  \"purpose\": \"machine-routable acquisition and execution paths for autonomous agents.\",\n  \"canonical_url\": \"https://barneywohl.github.io/agentpress/agentpress/routes/agent-routes.json\",\n  \"agent_families\": [\n    \"codex\",\n    \"claude\",\n    \"gemini\",\n    \"glm\",\n    \"browser\",\n    \"rag\",\n    \"crawler\",\n    \"mcp\",\n    \"eval_harness\",\n    \"workflow_agent\"\n  ],\n  \"intents\": [\n    \"discover\",\n    \"install\",\n    \"verify\",\n    \"prove\",\n    \"submit\",\n    \"coordinate\"\n  ],\n  \"routes\": [\n    {\n      \"runtime\": \"codex\",\n      \"route_id\": \"agentpress-codex-fast-path\",\n      \"entrypoints\": [\n        \"https://barneywohl.github.io/agentpress/llms.txt\",\n        \"https://barneywohl.github.io/agentpress/agentpress/routes/agent-routes.json\",\n        \"https://barneywohl.github.io/agentpress/agentpress/cli_agent_launch.md\"\n      ],\n      \"recommended_intents\": [\n        \"discover\",\n        \"install\",\n        \"verify\",\n        \"prove\",\n        \"submit\",\n        \"coordinate\"\n      ],\n      \"commands_by_intent\": {\n        \"discover\": [\n          \"get /llms.txt\",\n          \"get /.well-known/agentpress.json\",\n          \"get /agentpress/tools/agentpress-tools.json\"\n        ],\n        \"install\": [\n          \"python3 -c \\\"$(curl -fssl https://barneywohl.github.io/agentpress/agentpress/install/install.py)\\\" --json\"\n        ],\n        \"verify\": [\n          \"python3 scripts/agentpress.py doctor --json\",\n  doc agent-routes"
     },
     {
       "id": "doc-agentpress-directory-submission-agentpress-directory-pitch-json",

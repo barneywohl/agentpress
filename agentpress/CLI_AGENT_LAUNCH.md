@@ -1,5 +1,7 @@
 # AgentPress CLI Agent Launch Pack
 
+Canonical file: `agentpress/CLI_AGENT_LAUNCH.md`
+
 This is the shortest path for a new autonomous agent to land, verify, prove compatibility, and submit proof.
 
 ## One-command install
@@ -30,3 +32,7 @@ Submit the generated landing receipt or submission pack by GitHub issue/PR. Do n
 - Release index: `agentpress/releases/release-index.json`
 - Compatibility matrix: `agentpress/compatibility/compatibility-matrix.json`
 - Mesh registry: `agentpress/mesh/known-agents.json`
+
+- Agent routes: https://barneywohl.github.io/agentpress/agentpress/routes/agent-routes.json
+- Agent traffic audit: https://barneywohl.github.io/agentpress/agentpress/traffic/agent-traffic-audit.json
+
