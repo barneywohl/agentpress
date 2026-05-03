@@ -929,6 +929,7 @@ def build_search_index(args):
     add("cli_command", "AgentPress external proof ingestion", "agentpress/external-proofs/README.md", "proof-ingest validate index external proof receipts blocker reports privacy scan reputation scoring", ["proof", "ingest", "receipts", "score", "privacy"] )
     add("cli_command", "AgentPress secure transport readiness", "agentpress/secure-transport/README.md", "secure transport readiness key owner rotation recipient identity encrypted payload approval", ["secure-transport", "privacy", "keys", "approval"] )
     add("cli_command", "AgentPress privacy and confidential messaging", "agentpress/privacy/README.md", "privacy confidential message envelope redaction secure transport metadata-only threat model", ["privacy", "confidential", "redaction", "message", "security"] )
+    add("cli_command", "AgentPress tool coverage matrix", "agentpress/tools/tool-coverage.json", "tool coverage cli matrix agent needs missing expansion roadmap", ["tools", "cli", "coverage", "roadmap", "agents"] )
     add("cli_command", "AgentPress distribution failover", "agentpress/distribution/README.md", "distribution mirrors failover raw github jsdelivr cdn package verify fallback", ["distribution", "mirror", "failover", "cdn", "install"] )
     add("cli_command", "AgentPress runtime support", "agentpress/runtime/README.md", "error codes session state health status batch run progress agent orchestration", ["runtime", "error-codes", "session", "health", "batch"] )
     add("cli_command", "AgentPress remediation index", "agentpress/remediation/remediation-index.json", "remediation exact command blockers failed checks next action", ["remediation", "debug", "doctor", "commands"] )
@@ -2034,11 +2035,17 @@ def tools_manifest(args):
     base=args.base_url.rstrip("/") + "/"
     tools=[
         {"name":"agentpress.fetch", "description":"Fetch core AgentPress machine assets.", "command":"python3 scripts/agentpress.py fetch --base {base} --out agentpress-fetch --json", "tags":["fetch","bootstrap","offline"]},
+        {"name":"agentpress.tool_coverage", "description":"Generate persona-based matrix of AgentPress tools/CLI agents need, current coverage, gaps, and expansions.", "command":"python3 scripts/agentpress.py tool-coverage --json", "tags":["tools","cli","coverage","roadmap"]},
+        {"name":"agentpress.cli_expansion_roadmap", "description":"Generate prioritized roadmap from tool/CLI coverage gaps.", "command":"python3 scripts/agentpress.py cli-expansion-roadmap --json", "tags":["roadmap","cli","tools","gaps"]},
+        {"name":"agentpress.tool_request", "description":"Create structured request for a missing AgentPress CLI/tool.", "command":"python3 scripts/agentpress.py tool-request --agent-id a --persona coding_agent --wanted-tool x --painpoint y --desired-command z --json", "tags":["tool-request","feedback","cli"]},
         {"name":"agentpress.distribution_kit", "description":"Generate mirror catalog and failover plan for resilient AgentPress fetch/install.", "command":"python3 scripts/agentpress.py distribution-kit --json", "tags":["distribution","mirror","failover","install"]},
         {"name":"agentpress.mirror_status", "description":"Check AgentPress primary and fallback distribution mirrors.", "command":"python3 scripts/agentpress.py mirror-status --json", "tags":["mirror","status","health","fetch"]},
         {"name":"agentpress.discover", "description":"Discover another AgentPress node, inspect tools/releases/contracts, and update a known-agent mesh registry.", "command":"python3 scripts/agentpress.py discover <agentpress-url> --registry agentpress/mesh/known-agents.json --json", "tags":["discover","mesh","agent-network","tools","release","self-register"]},
         {"name":"agentpress.verify", "description":"Verify an AgentPress bundle fails/passes contract checks.", "command":"python3 scripts/agentpress.py verify <bundle> --json", "tags":["verify","schema","contract"]},
         {"name":"agentpress.bundle", "description":"Generate a valid AgentPress bundle from docs/API folder.", "command":"python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force", "tags":["generate","bundle","docs","api"]},
+        {"name":"agentpress.bundle_diff", "description":"Compare two AgentPress bundles and report changed files/hashes for upgrade review.", "command":"python3 scripts/agentpress.py bundle-diff <old-bundle> <new-bundle> --json --include-hashes", "tags":["bundle","diff","upgrade","review"]},
+        {"name":"agentpress.upgrade_check", "description":"Check whether upgrading from one AgentPress bundle to another is safe or breaking.", "command":"python3 scripts/agentpress.py upgrade-check <current-bundle> <latest-bundle> --json", "tags":["upgrade","compatibility","bundle","breaking"]},
+        {"name":"agentpress.negative_fixtures", "description":"Run adversarial broken-bundle fixtures and require fail-closed validation.", "command":"python3 scripts/agentpress.py negative-fixtures --json", "tags":["negative-fixtures","security","fail-closed","eval"]},
         {"name":"agentpress.message", "description":"Create, route, respond, thread, and validate agent work messages.", "command":"python3 scripts/agentpress.py message create-request --capability <capability> --task <task> --requester-id <agent-id> --out request.json", "tags":["message","route","handoff"]},
         {"name":"agentpress.search", "description":"Search AgentPress assets/capabilities/schemas by query.", "command":"python3 scripts/agentpress.py search <query> --json", "tags":["search","capability","discovery"]},
         {"name":"agentpress.self_test", "description":"Run standard suite proving an agent can use AgentPress.", "command":"python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl", "tags":["self-test","reputation","proof"]},
@@ -2629,6 +2636,8 @@ def agent_painpoints(args):
         {"id":"security_eval_agent","examples":["QA","red team","eval harness"],"wants":["negative fixtures","consistency gates","threat model","signed artifacts","replay/tamper checks"],"painpoints":["trust based on self-claims","weak sybil resistance","unsigned receipts"]}
     ]
     shipped={
+        "tool_coverage": exists("agentpress/tools/tool-coverage.json"),
+        "cli_expansion_roadmap": exists("agentpress/tools/cli-expansion-roadmap.json"),
         "distribution_failover": exists("agentpress/distribution/distribution-mirrors.json"),
         "one_command_setup": exists("agentpress/onboarding/agent-onboard-example.json"),
         "marketplace": exists("agentpress/marketplace/marketplace-index.json"),
@@ -3439,6 +3448,72 @@ Rule: verify hashes/packages before executing fetched artifacts.
     print(json.dumps(manifest, indent=2) if args.json else out.as_posix())
     return 0
 
+
+def tool_coverage(args):
+    """Generate a persona-based AgentPress tool/CLI coverage and expansion matrix."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out)
+    tools_path=root/args.tools
+    tools=[]
+    if tools_path.exists():
+        try: tools=json.loads(tools_path.read_text(encoding="utf-8")).get("tools",[])
+        except Exception: tools=[]
+    text="\n".join(json.dumps(t, sort_keys=True).lower() for t in tools)
+    needs=[
+        {"need_id":"CLI-001","persona":"first_contact_agent","need":"fetch/discover/doctor/install/search","must_have":["fetch","discover","doctor","install","search"],"expansion":"single command bootstrap with mirror failover"},
+        {"need_id":"CLI-002","persona":"coding_agent","need":"bundle/generate/verify/diff/upgrade/negative fixtures","must_have":["bundle","verify","bundle-diff","upgrade-check","negative-fixtures"],"expansion":"patch/PR generation helper and code-owner checklist"},
+        {"need_id":"CLI-003","persona":"workflow_agent","need":"message route/respond/thread/batch/session/health","must_have":["message","batch","session","health","route"],"expansion":"durable queue adapter and retry policy export"},
+        {"need_id":"CLI-004","persona":"marketplace_agent","need":"marketplace query/trust/payment/package status","must_have":["marketplace","marketplace_trust","payment","package"],"expansion":"service comparison and quote simulation"},
+        {"need_id":"CLI-005","persona":"proof_agent","need":"landing receipt/submission/proof ingest/reputation/attest","must_have":["landing","submission","proof","reputation","attest"],"expansion":"third-party receipt verifier and maintainer review gate"},
+        {"need_id":"CLI-006","persona":"privacy_agent","need":"privacy classes/redaction/confidential envelopes/consent/secure transport","must_have":["privacy","redaction","confidential","consent","secure_transport"],"expansion":"approved encrypted transport plugin after security approval"},
+        {"need_id":"CLI-007","persona":"browser_agent","need":"public URL smoke, ARIA hints, screenshots/evidence manifest","must_have":["mirror-status","distribution","health"],"expansion":"static browser smoke manifest and screenshot evidence schema"},
+        {"need_id":"CLI-008","persona":"rag_crawler_agent","need":"source maps/search/freshness/citation indexes/mirrors","must_have":["search","source","mirror","distribution"],"expansion":"freshness report and citation coverage index"},
+        {"need_id":"CLI-009","persona":"eval_security_agent","need":"self-test/error codes/redaction/attestation/package verify","must_have":["self-test","error","redaction","attest","package-verify"],"expansion":"standard adversarial eval suite and policy gates"},
+        {"need_id":"CLI-010","persona":"community_growth_agent","need":"audience/subscribe/broadcast/outreach/blocker reports","must_have":["audience","subscribe","broadcast","outreach","blocker"],"expansion":"opt-in referral/reputation scoreboard without tracking"}
+    ]
+    rows=[]
+    for n in needs:
+        covered=[]; missing=[]
+        for term in n["must_have"]:
+            if term.replace("_","-") in text or term.replace("-","_") in text or term in text: covered.append(term)
+            else: missing.append(term)
+        status="covered" if not missing else "partial" if covered else "missing"
+        rows.append({**n,"covered_terms":covered,"missing_terms":missing,"status":status})
+    missing_expansions=[{"need_id":r["need_id"],"persona":r["persona"],"missing_terms":r["missing_terms"],"recommended_expansion":r["expansion"],"priority":"P0" if r["status"]=="missing" else "P1" if r["status"]=="partial" else "P2"} for r in rows if r["status"]!="covered"]
+    payload={"schema_version":"2026-05-03.agentpress-tool-coverage.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","tool_count":len(tools),"coverage_count":sum(1 for r in rows if r["status"]=="covered"),"need_count":len(rows),"needs":rows,"missing_or_expand":missing_expansions,"next_best_feature":missing_expansions[0]["recommended_expansion"] if missing_expansions else "All current personas covered; collect external usage receipts."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"coverage={payload['coverage_count']}/{payload['need_count']}")
+    return 0
+
+
+def tool_request(args):
+    """Create a structured request for a missing AgentPress CLI/tool."""
+    out=pathlib.Path(args.out)
+    payload={"schema_version":"2026-05-03.agentpress-tool-request.v1","request_id":args.request_id or _short_id("toolreq"),"created_utc":_utc_now(),"agent_id":args.agent_id,"persona":args.persona,"wanted_tool":args.wanted_tool,"painpoint":args.painpoint,"desired_command":args.desired_command,"priority":args.priority,"privacy_confirmed":True,"contains_secrets":False}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else out.as_posix())
+    return 0
+
+
+def cli_expansion_roadmap(args):
+    """Generate prioritized roadmap from tool coverage gaps."""
+    cov_path=pathlib.Path(args.coverage)
+    if not cov_path.exists():
+        tool_coverage(argparse.Namespace(root=args.root, tools=args.tools, out=str(cov_path), base_url=args.base_url, no_write=False, json=False))
+    cov=json.loads(cov_path.read_text(encoding="utf-8"))
+    items=[]
+    for i,g in enumerate(cov.get("missing_or_expand",[]),1):
+        items.append({"rank":i,"priority":g.get("priority","P1"),"persona":g.get("persona"),"feature":g.get("recommended_expansion"),"acceptance":["CLI command exists in tools manifest","machine JSON output validates","package verify passes","live URL returns 200"],"blocked":False})
+    if not items:
+        items.append({"rank":1,"priority":"P1","persona":"external_agent","feature":"Collect external tool requests and receipts","acceptance":["tool request template live","external proof submitted"],"blocked":True,"blocker":"requires outside agents"})
+    out=pathlib.Path(args.out)
+    payload={"schema_version":"2026-05-03.agentpress-cli-expansion-roadmap.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","items":items}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"items={len(items)}")
+    return 0
+
 def adoption_status(args):
     """Summarize opt-in AgentPress adoption/proof state without hidden telemetry."""
     root=pathlib.Path(args.root)
@@ -3650,6 +3725,9 @@ def main():
     p = sub.add_parser("agent-route"); p.add_argument("--runtime", required=True, help="codex|claude|gemini|glm|browser|rag|crawler|mcp|eval_harness|workflow_agent|list"); p.add_argument("--intent", default="all", help="discover|install|verify|prove|submit|coordinate|all"); p.add_argument("--routes", default="agentpress/routes/agent-routes.json"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-traffic-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/traffic/agent-traffic-audit.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("compatibility-matrix"); p.add_argument("--runtime", action="append", choices=["codex","claude","gemini","glm","browser","rag"]); p.add_argument("--out", default="agentpress/compatibility/compatibility-matrix.json"); p.add_argument("--workdir", default="/tmp/agentpress-compatibility-matrix"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("tool-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--tools", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/tools/tool-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("cli-expansion-roadmap"); p.add_argument("root", nargs="?", default="."); p.add_argument("--tools", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--coverage", default="agentpress/tools/tool-coverage.json"); p.add_argument("--out", default="agentpress/tools/cli-expansion-roadmap.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("tool-request"); p.add_argument("--agent-id", required=True); p.add_argument("--persona", required=True); p.add_argument("--wanted-tool", required=True); p.add_argument("--painpoint", required=True); p.add_argument("--desired-command", required=True); p.add_argument("--priority", choices=["P0","P1","P2","P3"], default="P1"); p.add_argument("--request-id"); p.add_argument("--out", default="agentpress/tools/tool-request.example.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tools-manifest"); p.add_argument("--out", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/")
     p = sub.add_parser("tools-manifest-check"); p.add_argument("path", nargs="?", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("team-pack"); p.add_argument("--slug", required=True); p.add_argument("--display-name"); p.add_argument("--pack-type", choices=["team_capability_pack","person_capability_pack"], default="team_capability_pack"); p.add_argument("--capability", action="append", required=True); p.add_argument("--consent-source", choices=["explicit","public_source","internal_private_do_not_publish"], required=True); p.add_argument("--public-sources"); p.add_argument("--allowed-handoffs"); p.add_argument("--availability", default="available_for_agent_handoff"); p.add_argument("--canonical-url"); p.add_argument("--out", required=True); p.add_argument("--allow-private", action="store_true")
@@ -3738,6 +3816,9 @@ def main():
     if args.cmd == "agent-traffic-audit": return agent_traffic_audit(args)
     if args.cmd == "compatibility-matrix": return compatibility_matrix(args)
     if args.cmd == "tools-manifest": return tools_manifest(args)
+    if args.cmd == "tool-coverage": return tool_coverage(args)
+    if args.cmd == "cli-expansion-roadmap": return cli_expansion_roadmap(args)
+    if args.cmd == "tool-request": return tool_request(args)
     if args.cmd == "tools-manifest-check": return tools_manifest_check(args)
     if args.cmd == "team-pack": return team_pack(args)
     if args.cmd == "team-pack-validate": return team_pack_validate(args)

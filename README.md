@@ -232,6 +232,9 @@ Agents can discover AgentPress as executable local tools without reading prose:
 ```bash
 python3 scripts/agentpress.py tools-manifest
 python3 scripts/agentpress.py tools-manifest-check --json
+python3 scripts/agentpress.py tool-coverage --json
+python3 scripts/agentpress.py cli-expansion-roadmap --json
+python3 scripts/agentpress.py tool-request --agent-id a --persona coding_agent --wanted-tool x --painpoint y --desired-command z --json
 ```
 
 Static manifest: `agentpress/tools/agentpress-tools.json`. It lists fetch, verify, bundle, message, search, self-test, team-pack, and offline package commands with safety boundaries.

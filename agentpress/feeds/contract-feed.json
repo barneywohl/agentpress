@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T19:18:00Z",
-  "current_contract_version": "2026-05-03-distribution-failover",
+  "generated_utc": "2026-05-03T19:22:00Z",
+  "current_contract_version": "2026-05-03-tool-cli-coverage",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-tool-cli-coverage",
+      "kind": "tool_cli_coverage",
+      "status": "shipped",
+      "summary": "Added persona-based tool/CLI coverage matrix, CLI expansion roadmap, and structured tool request artifact.",
+      "agent_action": "Run `python3 scripts/agentpress.py tool-coverage --json` to see tools agents need, coverage, and gaps.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-distribution-failover",
       "kind": "distribution_failover",
@@ -231,7 +239,9 @@
     "confidential_message_example": "https://barneywohl.github.io/agentpress/agentpress/privacy/confidential-message.example.json",
     "secure_transport_readiness": "https://barneywohl.github.io/agentpress/agentpress/secure-transport/secure-transport-readiness.json",
     "submission_loop": "https://barneywohl.github.io/agentpress/agentpress/submissions/README.md",
-    "distribution_mirrors": "https://barneywohl.github.io/agentpress/agentpress/distribution/distribution-mirrors.json"
+    "distribution_mirrors": "https://barneywohl.github.io/agentpress/agentpress/distribution/distribution-mirrors.json",
+    "tool_coverage": "https://barneywohl.github.io/agentpress/agentpress/tools/tool-coverage.json",
+    "cli_expansion_roadmap": "https://barneywohl.github.io/agentpress/agentpress/tools/cli-expansion-roadmap.json"
   },
   "privacy": "Static feed only; no tracking."
 }

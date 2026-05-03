@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T19:18:12Z",
+  "generated_at": "2026-05-03T19:22:14Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -28,6 +28,38 @@
         "fetch",
         "bootstrap",
         "offline"
+      ]
+    },
+    {
+      "name": "agentpress.tool_coverage",
+      "description": "Generate persona-based matrix of AgentPress tools/CLI agents need, current coverage, gaps, and expansions.",
+      "command": "python3 scripts/agentpress.py tool-coverage --json",
+      "tags": [
+        "tools",
+        "cli",
+        "coverage",
+        "roadmap"
+      ]
+    },
+    {
+      "name": "agentpress.cli_expansion_roadmap",
+      "description": "Generate prioritized roadmap from tool/CLI coverage gaps.",
+      "command": "python3 scripts/agentpress.py cli-expansion-roadmap --json",
+      "tags": [
+        "roadmap",
+        "cli",
+        "tools",
+        "gaps"
+      ]
+    },
+    {
+      "name": "agentpress.tool_request",
+      "description": "Create structured request for a missing AgentPress CLI/tool.",
+      "command": "python3 scripts/agentpress.py tool-request --agent-id a --persona coding_agent --wanted-tool x --painpoint y --desired-command z --json",
+      "tags": [
+        "tool-request",
+        "feedback",
+        "cli"
       ]
     },
     {
@@ -84,6 +116,39 @@
         "bundle",
         "docs",
         "api"
+      ]
+    },
+    {
+      "name": "agentpress.bundle_diff",
+      "description": "Compare two AgentPress bundles and report changed files/hashes for upgrade review.",
+      "command": "python3 scripts/agentpress.py bundle-diff <old-bundle> <new-bundle> --json --include-hashes",
+      "tags": [
+        "bundle",
+        "diff",
+        "upgrade",
+        "review"
+      ]
+    },
+    {
+      "name": "agentpress.upgrade_check",
+      "description": "Check whether upgrading from one AgentPress bundle to another is safe or breaking.",
+      "command": "python3 scripts/agentpress.py upgrade-check <current-bundle> <latest-bundle> --json",
+      "tags": [
+        "upgrade",
+        "compatibility",
+        "bundle",
+        "breaking"
+      ]
+    },
+    {
+      "name": "agentpress.negative_fixtures",
+      "description": "Run adversarial broken-bundle fixtures and require fail-closed validation.",
+      "command": "python3 scripts/agentpress.py negative-fixtures --json",
+      "tags": [
+        "negative-fixtures",
+        "security",
+        "fail-closed",
+        "eval"
       ]
     },
     {
