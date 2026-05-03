@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T21:50:46Z",
+  "generated_at": "2026-05-03T21:57:44Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,50 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.connector_catalog",
+      "description": "Generate connector catalog for the tools/connectors agents need.",
+      "command": "python3 scripts/agentpress.py connector-catalog --json",
+      "tags": [
+        "connectors",
+        "tools",
+        "catalog",
+        "agents"
+      ]
+    },
+    {
+      "name": "agentpress.connector_health_check",
+      "description": "Check connector catalog completeness and command coverage.",
+      "command": "python3 scripts/agentpress.py connector-health-check --json",
+      "tags": [
+        "connectors",
+        "health",
+        "tools",
+        "gates"
+      ]
+    },
+    {
+      "name": "agentpress.agent_wants_research",
+      "description": "Generate research-cycle list of agent wants/painpoints and build status.",
+      "command": "python3 scripts/agentpress.py agent-wants-research --json",
+      "tags": [
+        "research",
+        "painpoints",
+        "agents",
+        "wants"
+      ]
+    },
+    {
+      "name": "agentpress.missing_connector_backlog",
+      "description": "Generate next build backlog from connector health and wants research.",
+      "command": "python3 scripts/agentpress.py missing-connector-backlog --json",
+      "tags": [
+        "backlog",
+        "connectors",
+        "next-cycle",
+        "painpoints"
       ]
     },
     {

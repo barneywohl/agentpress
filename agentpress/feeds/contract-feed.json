@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T22:02:00Z",
-  "current_contract_version": "2026-05-03-host-ttf-conformance-cycle",
+  "generated_utc": "2026-05-03T22:10:00Z",
+  "current_contract_version": "2026-05-03-connector-coverage-research-cycle",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-connector-coverage-research-cycle",
+      "kind": "connector_coverage_research_cycle",
+      "status": "shipped",
+      "summary": "Added connector catalog, connector health check, agent wants research, and missing connector backlog for next cycles.",
+      "agent_action": "Run connector-catalog, connector-health-check, agent-wants-research, and missing-connector-backlog after each deploy to verify connector coverage and seed the next build list.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-host-ttf-conformance-cycle",
       "kind": "host_ttf_conformance_cycle",
@@ -495,7 +503,11 @@
     "action_ledger_adapter_wiring": "https://barneywohl.github.io/agentpress/agentpress/observability/action-ledger/adapter-wiring.json",
     "host_transcript_validation": "https://barneywohl.github.io/agentpress/agentpress/evidence/host-transcript-validation.json",
     "ttf_green_import": "https://barneywohl.github.io/agentpress/agentpress/evidence/ttf-green-import.json",
-    "conformance_evidence_score": "https://barneywohl.github.io/agentpress/agentpress/conformance/conformance-evidence-score.json"
+    "conformance_evidence_score": "https://barneywohl.github.io/agentpress/agentpress/conformance/conformance-evidence-score.json",
+    "connector_catalog": "https://barneywohl.github.io/agentpress/agentpress/connectors/connector-catalog.json",
+    "connector_health_check": "https://barneywohl.github.io/agentpress/agentpress/evidence/connector-health-check.json",
+    "agent_wants_research": "https://barneywohl.github.io/agentpress/agentpress/research/agent-wants-research.json",
+    "missing_connector_backlog": "https://barneywohl.github.io/agentpress/agentpress/planning/missing-connector-backlog.json"
   },
   "privacy": "Static feed only; no tracking."
 }

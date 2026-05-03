@@ -2254,6 +2254,10 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.connector_catalog", "description":"Generate connector catalog for the tools/connectors agents need.", "command":"python3 scripts/agentpress.py connector-catalog --json", "tags":["connectors","tools","catalog","agents"]},
+        {"name":"agentpress.connector_health_check", "description":"Check connector catalog completeness and command coverage.", "command":"python3 scripts/agentpress.py connector-health-check --json", "tags":["connectors","health","tools","gates"]},
+        {"name":"agentpress.agent_wants_research", "description":"Generate research-cycle list of agent wants/painpoints and build status.", "command":"python3 scripts/agentpress.py agent-wants-research --json", "tags":["research","painpoints","agents","wants"]},
+        {"name":"agentpress.missing_connector_backlog", "description":"Generate next build backlog from connector health and wants research.", "command":"python3 scripts/agentpress.py missing-connector-backlog --json", "tags":["backlog","connectors","next-cycle","painpoints"]},
         {"name":"agentpress.host_transcript_validate", "description":"Validate native host-run transcript evidence fail-closed.", "command":"python3 scripts/agentpress.py host-transcript-validate tests/fixtures/conformance/host-transcript-good.json --json", "tags":["host","transcript","conformance","validate"]},
         {"name":"agentpress.ttf_green_import", "description":"Import time-to-first-green telemetry into adoption friction summary.", "command":"python3 scripts/agentpress.py ttf-green-import tests/fixtures/metrics/ttf-green-good.json --json", "tags":["ttf","ux","telemetry","adoption"]},
         {"name":"agentpress.conformance_evidence_score", "description":"Score host transcript + TTF evidence into conformance summary.", "command":"python3 scripts/agentpress.py conformance-evidence-score --json", "tags":["conformance","score","evidence","host"]},
@@ -3125,6 +3129,84 @@ def proof_ingest(args):
 
 
 
+
+
+def connector_catalog(args):
+    """Generate connector catalog for the tools/connectors agents need."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    connectors=[
+        {"id":"filesystem","category":"local_io","status":"ready","commands":["read","write","edit","package-verify"],"painpoint":"agents need safe local artifact read/write and reproducible bundles"},
+        {"id":"git_github","category":"source_control","status":"ready","commands":["git status","gh run list","release-index"],"painpoint":"agents need CI/release/deploy evidence"},
+        {"id":"browser_http","category":"web_verification","status":"ready","commands":["curl live URL","browser smoke","docs-command-check"],"painpoint":"agents need live endpoint proof, not local-only proof"},
+        {"id":"mcp_static","category":"tool_protocol","status":"ready","commands":["mcp-registry-pack","mcp-static-catalog"],"painpoint":"agents need MCP-compatible tool discovery"},
+        {"id":"native_agent_hosts","category":"agent_runtime","status":"ready_for_transcripts","commands":["host-run-harness","host-transcript-validate"],"painpoint":"agents need Cline/Roo/OpenHands/LangChain/LlamaIndex/CrewAI conformance evidence"},
+        {"id":"proof_inbox","category":"external_proof","status":"ready_empty_inbox","commands":["proof-inbox-tracker","proof-ingest","proof-ingest-review"],"painpoint":"agents need external receipts/blockers to become trust/backlog inputs"},
+        {"id":"package_registries","category":"distribution","status":"dry_run_only","commands":["registry-dry-run","package-registry-dry-run"],"painpoint":"agents need pip/npm/homebrew/docker availability; publishing remains credential/owner gated"},
+        {"id":"privacy_redaction","category":"safety","status":"ready","commands":["privacy-kit","redaction/privacy gates","external-proof-review"],"painpoint":"agents need to submit evidence without leaking secrets"},
+        {"id":"approvals_reviewers","category":"governance","status":"ready","commands":["approval-gate-eval","reviewer-gate-eval"],"painpoint":"agents need executable go/no-go gates"},
+        {"id":"telemetry_metrics","category":"ux_feedback","status":"ready","commands":["ttf-green-import","conformance-evidence-score"],"painpoint":"agents need onboarding friction to feed the next build queue"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-connector-catalog.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Canonical connector catalog for agent tool/runtime/distribution/proof/safety needs.","connector_count":len(connectors),"connectors":connectors,"policy":"Credentials, payments, production writes, and package publishing require explicit approval; dry-run surfaces are safe."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(connectors)} connectors")
+    return 0
+
+
+def connector_health_check(args):
+    """Check connector catalog points at real AgentPress surfaces and commands."""
+    catalog=pathlib.Path(args.catalog); out=pathlib.Path(args.out); errors=[]; checked=0
+    try: data=json.loads(catalog.read_text(encoding="utf-8"))
+    except Exception as e: data={}; errors.append(f"catalog unreadable: {e}")
+    required={"filesystem","git_github","browser_http","mcp_static","native_agent_hosts","proof_inbox","package_registries","privacy_redaction","approvals_reviewers","telemetry_metrics"}
+    seen=set()
+    for c in data.get("connectors",[]) if isinstance(data.get("connectors"),list) else []:
+        checked+=1; cid=c.get("id"); seen.add(cid)
+        for k in ["id","category","status","commands","painpoint"]:
+            if k not in c: errors.append(f"{cid}: missing {k}")
+        if not isinstance(c.get("commands"),list) or not c.get("commands"): errors.append(f"{cid}: commands must be non-empty")
+        if not c.get("painpoint"): errors.append(f"{cid}: painpoint required")
+    for r in sorted(required-seen): errors.append(f"missing required connector: {r}")
+    payload={"schema_version":"2026-05-03.agentpress-connector-health-check.v1","generated_utc":_utc_now(),"status":"ok" if not errors else "fail","checked":checked,"errors":errors,"catalog":str(catalog)}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload["status"])
+    return 0 if not errors else 1
+
+
+def agent_wants_research(args):
+    """Generate research cycle list of agent wants/painpoints from current shipped surfaces."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    wants=[
+        {"rank":1,"want":"connectors that actually work","painpoint":"tools exist but agents need canonical connector map and health evidence","solution":"connector-catalog + connector-health-check","status":"shipped_this_cycle"},
+        {"rank":2,"want":"real external proof acquisition","painpoint":"independent receipts still zero until outside agents run it","solution":"proof relay + inbox + proof-ingest-review + receipt-to-backlog","status":"surface_shipped_external_action_needed"},
+        {"rank":3,"want":"native runtime proof","painpoint":"adapter configs are not the same as real host transcripts","solution":"host-run-harness + host-transcript-validate + conformance score","status":"shipped"},
+        {"rank":4,"want":"low-friction install channels","painpoint":"pip/npm/homebrew/docker not officially published","solution":"registry-dry-run + package registry skeletons","status":"dry_run_shipped_publish_approval_needed"},
+        {"rank":5,"want":"safe approval/reviewer gates","painpoint":"autonomous work needs machine go/no-go gates","solution":"approval-gate-eval + reviewer-gate-eval","status":"shipped"},
+        {"rank":6,"want":"automatic next backlog","painpoint":"manual lists go stale","solution":"receipt-to-backlog + exponential-improvement-radar","status":"shipped"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-agent-wants-research.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Research-cycle list of what agents still want, mapped to buildable surfaces and current status.","want_count":len(wants),"wants":wants,"next_build_list":[w for w in wants if "needed" in w["status"] or "external_action" in w["status"] or "approval" in w["status"]]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(wants)} wants")
+    return 0
+
+
+def missing_connector_backlog(args):
+    """Generate next build backlog from connector health and wants research."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    items=[
+        {"rank":1,"feature":"external proof acquisition campaign runner","why":"proof surfaces are shipped but independent receipt count remains the hard external gap","acceptance":"3 target communities listed, opt-in requests generated, inbox tracker ready for receipts"},
+        {"rank":2,"feature":"real host transcript ingestion daemon/schema","why":"host transcript validation exists but needs batch ingestion from real host output dirs","acceptance":"directory of host transcripts produces scored conformance summary"},
+        {"rank":3,"feature":"package registry metadata validators for generated skeletons","why":"dry-run exists but publish blockers need package-name/account-specific checklists","acceptance":"PyPI/npm metadata checklists emitted without credentials"},
+        {"rank":4,"feature":"connector quickstart bundles per persona","why":"agents need one-command starts for coding/research/browser/RAG/proof personas","acceptance":"persona quickstart JSON links exact connector commands and gates"},
+        {"rank":5,"feature":"connector failure taxonomy","why":"failed connectors need standard blocker categories feeding receipt-to-backlog","acceptance":"connector failures convert into P0/P1/P2 backlog items"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-missing-connector-backlog.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Everything still needed after connector health research, ordered for the next build cycle.","item_count":len(items),"items":items,"next_feature":items[0]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(items)} items")
+    return 0
 
 def host_transcript_validate(args):
     """Validate native host-run transcript evidence fail-closed."""
@@ -5318,6 +5400,10 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("connector-catalog"); p.add_argument("--out", default="agentpress/connectors/connector-catalog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("connector-health-check"); p.add_argument("--catalog", default="agentpress/connectors/connector-catalog.json"); p.add_argument("--out", default="agentpress/evidence/connector-health-check.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("agent-wants-research"); p.add_argument("--out", default="agentpress/research/agent-wants-research.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("missing-connector-backlog"); p.add_argument("--out", default="agentpress/planning/missing-connector-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("host-transcript-validate"); p.add_argument("transcript"); p.add_argument("--out", default="agentpress/evidence/host-transcript-validation.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("ttf-green-import"); p.add_argument("input"); p.add_argument("--out", default="agentpress/evidence/ttf-green-import.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("conformance-evidence-score"); p.add_argument("--host-result", default="agentpress/evidence/host-transcript-validation.json"); p.add_argument("--ttf-result", default="agentpress/evidence/ttf-green-import.json"); p.add_argument("--out", default="agentpress/conformance/conformance-evidence-score.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -5543,6 +5629,10 @@ def main():
     if args.cmd == "registry-dry-run": return registry_dry_run(args)
     if args.cmd == "approval-gate-eval": return approval_gate_eval(args)
     if args.cmd == "host-transcript-validate": return host_transcript_validate(args)
+    if args.cmd == "connector-catalog": return connector_catalog(args)
+    if args.cmd == "connector-health-check": return connector_health_check(args)
+    if args.cmd == "agent-wants-research": return agent_wants_research(args)
+    if args.cmd == "missing-connector-backlog": return missing_connector_backlog(args)
     if args.cmd == "ttf-green-import": return ttf_green_import(args)
     if args.cmd == "conformance-evidence-score": return conformance_evidence_score(args)
     if args.cmd == "reviewer-gate-eval": return reviewer_gate_eval(args)

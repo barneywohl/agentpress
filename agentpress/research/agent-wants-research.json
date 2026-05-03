@@ -1,0 +1,68 @@
+{
+  "schema_version": "2026-05-03.agentpress-agent-wants-research.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/research/agent-wants-research.json",
+  "generated_utc": "2026-05-03T21:57:44Z",
+  "status": "ok",
+  "purpose": "Research-cycle list of what agents still want, mapped to buildable surfaces and current status.",
+  "want_count": 6,
+  "wants": [
+    {
+      "rank": 1,
+      "want": "connectors that actually work",
+      "painpoint": "tools exist but agents need canonical connector map and health evidence",
+      "solution": "connector-catalog + connector-health-check",
+      "status": "shipped_this_cycle"
+    },
+    {
+      "rank": 2,
+      "want": "real external proof acquisition",
+      "painpoint": "independent receipts still zero until outside agents run it",
+      "solution": "proof relay + inbox + proof-ingest-review + receipt-to-backlog",
+      "status": "surface_shipped_external_action_needed"
+    },
+    {
+      "rank": 3,
+      "want": "native runtime proof",
+      "painpoint": "adapter configs are not the same as real host transcripts",
+      "solution": "host-run-harness + host-transcript-validate + conformance score",
+      "status": "shipped"
+    },
+    {
+      "rank": 4,
+      "want": "low-friction install channels",
+      "painpoint": "pip/npm/homebrew/docker not officially published",
+      "solution": "registry-dry-run + package registry skeletons",
+      "status": "dry_run_shipped_publish_approval_needed"
+    },
+    {
+      "rank": 5,
+      "want": "safe approval/reviewer gates",
+      "painpoint": "autonomous work needs machine go/no-go gates",
+      "solution": "approval-gate-eval + reviewer-gate-eval",
+      "status": "shipped"
+    },
+    {
+      "rank": 6,
+      "want": "automatic next backlog",
+      "painpoint": "manual lists go stale",
+      "solution": "receipt-to-backlog + exponential-improvement-radar",
+      "status": "shipped"
+    }
+  ],
+  "next_build_list": [
+    {
+      "rank": 2,
+      "want": "real external proof acquisition",
+      "painpoint": "independent receipts still zero until outside agents run it",
+      "solution": "proof relay + inbox + proof-ingest-review + receipt-to-backlog",
+      "status": "surface_shipped_external_action_needed"
+    },
+    {
+      "rank": 4,
+      "want": "low-friction install channels",
+      "painpoint": "pip/npm/homebrew/docker not officially published",
+      "solution": "registry-dry-run + package registry skeletons",
+      "status": "dry_run_shipped_publish_approval_needed"
+    }
+  ]
+}

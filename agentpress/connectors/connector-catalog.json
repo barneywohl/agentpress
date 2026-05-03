@@ -1,0 +1,117 @@
+{
+  "schema_version": "2026-05-03.agentpress-connector-catalog.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/connectors/connector-catalog.json",
+  "generated_utc": "2026-05-03T21:57:44Z",
+  "status": "ok",
+  "purpose": "Canonical connector catalog for agent tool/runtime/distribution/proof/safety needs.",
+  "connector_count": 10,
+  "connectors": [
+    {
+      "id": "filesystem",
+      "category": "local_io",
+      "status": "ready",
+      "commands": [
+        "read",
+        "write",
+        "edit",
+        "package-verify"
+      ],
+      "painpoint": "agents need safe local artifact read/write and reproducible bundles"
+    },
+    {
+      "id": "git_github",
+      "category": "source_control",
+      "status": "ready",
+      "commands": [
+        "git status",
+        "gh run list",
+        "release-index"
+      ],
+      "painpoint": "agents need CI/release/deploy evidence"
+    },
+    {
+      "id": "browser_http",
+      "category": "web_verification",
+      "status": "ready",
+      "commands": [
+        "curl live URL",
+        "browser smoke",
+        "docs-command-check"
+      ],
+      "painpoint": "agents need live endpoint proof, not local-only proof"
+    },
+    {
+      "id": "mcp_static",
+      "category": "tool_protocol",
+      "status": "ready",
+      "commands": [
+        "mcp-registry-pack",
+        "mcp-static-catalog"
+      ],
+      "painpoint": "agents need MCP-compatible tool discovery"
+    },
+    {
+      "id": "native_agent_hosts",
+      "category": "agent_runtime",
+      "status": "ready_for_transcripts",
+      "commands": [
+        "host-run-harness",
+        "host-transcript-validate"
+      ],
+      "painpoint": "agents need Cline/Roo/OpenHands/LangChain/LlamaIndex/CrewAI conformance evidence"
+    },
+    {
+      "id": "proof_inbox",
+      "category": "external_proof",
+      "status": "ready_empty_inbox",
+      "commands": [
+        "proof-inbox-tracker",
+        "proof-ingest",
+        "proof-ingest-review"
+      ],
+      "painpoint": "agents need external receipts/blockers to become trust/backlog inputs"
+    },
+    {
+      "id": "package_registries",
+      "category": "distribution",
+      "status": "dry_run_only",
+      "commands": [
+        "registry-dry-run",
+        "package-registry-dry-run"
+      ],
+      "painpoint": "agents need pip/npm/homebrew/docker availability; publishing remains credential/owner gated"
+    },
+    {
+      "id": "privacy_redaction",
+      "category": "safety",
+      "status": "ready",
+      "commands": [
+        "privacy-kit",
+        "redaction/privacy gates",
+        "external-proof-review"
+      ],
+      "painpoint": "agents need to submit evidence without leaking secrets"
+    },
+    {
+      "id": "approvals_reviewers",
+      "category": "governance",
+      "status": "ready",
+      "commands": [
+        "approval-gate-eval",
+        "reviewer-gate-eval"
+      ],
+      "painpoint": "agents need executable go/no-go gates"
+    },
+    {
+      "id": "telemetry_metrics",
+      "category": "ux_feedback",
+      "status": "ready",
+      "commands": [
+        "ttf-green-import",
+        "conformance-evidence-score"
+      ],
+      "painpoint": "agents need onboarding friction to feed the next build queue"
+    }
+  ],
+  "policy": "Credentials, payments, production writes, and package publishing require explicit approval; dry-run surfaces are safe."
+}
