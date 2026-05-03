@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T22:05:45Z",
+  "generated_at": "2026-05-03T22:10:34Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,50 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.connector_failure_to_backlog",
+      "description": "Convert connector failure events/taxonomy into prioritized backlog items.",
+      "command": "python3 scripts/agentpress.py connector-failure-to-backlog --json",
+      "tags": [
+        "connectors",
+        "failures",
+        "backlog",
+        "automation"
+      ]
+    },
+    {
+      "name": "agentpress.host_transcript_dropbox_spec",
+      "description": "Generate drop-folder/upload convention for real host transcript ingestion.",
+      "command": "python3 scripts/agentpress.py host-transcript-dropbox-spec --json",
+      "tags": [
+        "host",
+        "transcript",
+        "dropbox",
+        "ingest"
+      ]
+    },
+    {
+      "name": "agentpress.proof_request_queue",
+      "description": "Generate opt-in proof request queue from campaign targets.",
+      "command": "python3 scripts/agentpress.py proof-request-queue --json",
+      "tags": [
+        "proof",
+        "queue",
+        "external",
+        "adoption"
+      ]
+    },
+    {
+      "name": "agentpress.next_build_spec_queue",
+      "description": "Generate researched next-build specs after current cycle.",
+      "command": "python3 scripts/agentpress.py next-build-spec-queue --json",
+      "tags": [
+        "research",
+        "specs",
+        "next-build",
+        "cycle"
       ]
     },
     {

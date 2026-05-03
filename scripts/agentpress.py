@@ -2254,6 +2254,10 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.connector_failure_to_backlog", "description":"Convert connector failure events/taxonomy into prioritized backlog items.", "command":"python3 scripts/agentpress.py connector-failure-to-backlog --json", "tags":["connectors","failures","backlog","automation"]},
+        {"name":"agentpress.host_transcript_dropbox_spec", "description":"Generate drop-folder/upload convention for real host transcript ingestion.", "command":"python3 scripts/agentpress.py host-transcript-dropbox-spec --json", "tags":["host","transcript","dropbox","ingest"]},
+        {"name":"agentpress.proof_request_queue", "description":"Generate opt-in proof request queue from campaign targets.", "command":"python3 scripts/agentpress.py proof-request-queue --json", "tags":["proof","queue","external","adoption"]},
+        {"name":"agentpress.next_build_spec_queue", "description":"Generate researched next-build specs after current cycle.", "command":"python3 scripts/agentpress.py next-build-spec-queue --json", "tags":["research","specs","next-build","cycle"]},
         {"name":"agentpress.external_proof_campaign_runner", "description":"Generate opt-in external proof acquisition campaign run plan.", "command":"python3 scripts/agentpress.py external-proof-campaign-runner --json", "tags":["external","proof","campaign","adoption"]},
         {"name":"agentpress.host_transcript_batch_ingest", "description":"Batch ingest host transcript JSON files and summarize conformance.", "command":"python3 scripts/agentpress.py host-transcript-batch-ingest tests/fixtures/conformance --json", "tags":["host","transcript","batch","conformance"]},
         {"name":"agentpress.connector_failure_taxonomy", "description":"Generate connector failure taxonomy and backlog conversion rules.", "command":"python3 scripts/agentpress.py connector-failure-taxonomy --json", "tags":["connectors","failures","taxonomy","backlog"]},
@@ -3137,6 +3141,69 @@ def proof_ingest(args):
 
 
 
+
+
+def connector_failure_to_backlog(args):
+    """Convert connector failure events/taxonomy into prioritized backlog items."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; items=[]; errors=[]
+    src=pathlib.Path(args.input)
+    if src.exists():
+        try: data=json.loads(src.read_text(encoding="utf-8"))
+        except Exception as e: data={}; errors.append(f"input unreadable: {e}")
+        if "categories" in data:
+            for i,c in enumerate(data.get("categories",[]),1):
+                items.append({"rank":i,"feature":f"Handle connector failure {c.get('code')}","priority":c.get("priority","P2"),"source":str(src),"acceptance":c.get("backlog_action","")})
+        elif "failures" in data:
+            for i,c in enumerate(data.get("failures",[]),1):
+                items.append({"rank":i,"feature":f"Fix connector failure: {c.get('code','unknown')}","priority":c.get("priority","P2"),"source":str(src),"acceptance":c.get("remediation_command","")})
+    if not items:
+        items=[{"rank":1,"feature":"Collect connector failure events from real agent runs","priority":"P1","source":"empty_failure_input","acceptance":"at least one failure event converts to backlog with code/evidence/remediation"}]
+    payload={"schema_version":"2026-05-03.agentpress-connector-failure-to-backlog.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not errors else "fail","purpose":"Convert connector failures into prioritized, buildable backlog instead of free-form complaints.","item_count":len(items),"items":items,"errors":errors}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(items)} items")
+    return 0 if not errors else 1
+
+
+def host_transcript_dropbox_spec(args):
+    """Generate drop-folder/upload convention for real host transcript ingestion."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    payload={"schema_version":"2026-05-03.agentpress-host-transcript-dropbox.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Define exactly how external agents/operators submit host transcripts for batch ingestion.","dropbox_layout":{"root":"agentpress/conformance/inbox/","filename":"<host>-<runtime>-<agent_id>-<yyyymmddhhmmss>.json","required_schema":"agentpress/schemas/draft2020-12/host_run_transcript.schema.json"},"submit_steps":["Run host-run-harness for your host","Save transcript JSON using filename convention","Redact secrets/private prompts/local paths","Run host-transcript-validate locally if possible","Submit via proof campaign/blocker report"],"ingest_command":"python3 scripts/agentpress.py host-transcript-batch-ingest agentpress/conformance/inbox --json","privacy":"No secrets, cookies, private prompts, credentials, wallet data, or IP/user-agent details."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload["status"])
+    return 0
+
+
+def proof_request_queue(args):
+    """Generate opt-in proof request queue from campaign runner targets."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    targets=["cline_roo_users","openhands_operators","mcp_builders","langchain_llamaindex_crewai_builders"]
+    requests=[]
+    for i,t in enumerate(targets,1):
+        requests.append({"rank":i,"target_id":t,"status":"ready_not_sent","request_url":urljoin(base,"agentpress/proof-outreach/proof-request-pack.json"),"ask":"Run install/doctor/host transcript/proof receipt flow and submit either success or blocker evidence.","guardrails":["opt-in only","no secrets","no paid bounty promise","service-scoped proof only"]})
+    payload={"schema_version":"2026-05-03.agentpress-proof-request-queue.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Operational queue for first independent proof acquisition while keeping sends opt-in/manual.","request_count":len(requests),"requests":requests,"next_action":"Manually send/submit opt-in requests to public communities; ingest receipts with proof-ingest-review."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(requests)} requests")
+    return 0
+
+
+def next_build_spec_queue(args):
+    """Generate researched next-build specs after current cycle."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    specs=[
+        {"rank":1,"spec":"external proof receipt acquisition execution","files":["proof-request-queue","external-proof-campaign-runner","proof-ingest-review"],"acceptance":"one independent receipt/blocker can be ingested without secrets"},
+        {"rank":2,"spec":"host transcript dropbox + batch ingest","files":["host-transcript-dropbox","host-transcript-batch-ingest"],"acceptance":"directory of submitted host transcripts produces conformance/backlog summary"},
+        {"rank":3,"spec":"connector failure to backlog automation","files":["connector-failure-taxonomy","connector-failure-to-backlog"],"acceptance":"failure event becomes prioritized backlog item"},
+        {"rank":4,"spec":"persona quickstart connector bundles","files":["agent-persona-quickstarts"],"acceptance":"coding/research/browser/RAG/proof agents get exact command pack"},
+        {"rank":5,"spec":"SDK command wrappers","files":["sdk-command-wrapper-catalog"],"acceptance":"Python/JS SDKs expose proof/host/connector helper commands"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-next-build-spec-queue.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Research output: next build specs after audit/fix/deploy cycle.","spec_count":len(specs),"specs":specs,"next_feature":specs[0]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(specs)} specs")
+    return 0
 
 def external_proof_campaign_runner(args):
     """Generate opt-in external proof acquisition campaign run plan."""
@@ -5511,6 +5578,10 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("connector-failure-to-backlog"); p.add_argument("--input", default="agentpress/connectors/connector-failure-taxonomy.json"); p.add_argument("--out", default="agentpress/planning/connector-failure-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("host-transcript-dropbox-spec"); p.add_argument("--out", default="agentpress/conformance/host-transcript-dropbox.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("proof-request-queue"); p.add_argument("--out", default="agentpress/proof-outreach/proof-request-queue.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("next-build-spec-queue"); p.add_argument("--out", default="agentpress/planning/next-build-spec-queue.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("external-proof-campaign-runner"); p.add_argument("--out", default="agentpress/proof-outreach/external-proof-campaign-runner.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("host-transcript-batch-ingest"); p.add_argument("dir"); p.add_argument("--out", default="agentpress/conformance/host-transcript-batch-ingest.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("connector-failure-taxonomy"); p.add_argument("--out", default="agentpress/connectors/connector-failure-taxonomy.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -5748,6 +5819,10 @@ def main():
     if args.cmd == "connector-catalog": return connector_catalog(args)
     if args.cmd == "edge-case-gap-scan": return edge_case_gap_scan(args)
     if args.cmd == "external-proof-campaign-runner": return external_proof_campaign_runner(args)
+    if args.cmd == "connector-failure-to-backlog": return connector_failure_to_backlog(args)
+    if args.cmd == "host-transcript-dropbox-spec": return host_transcript_dropbox_spec(args)
+    if args.cmd == "proof-request-queue": return proof_request_queue(args)
+    if args.cmd == "next-build-spec-queue": return next_build_spec_queue(args)
     if args.cmd == "host-transcript-batch-ingest": return host_transcript_batch_ingest(args)
     if args.cmd == "connector-failure-taxonomy": return connector_failure_taxonomy(args)
     if args.cmd == "cycle-gap-radar": return cycle_gap_radar(args)

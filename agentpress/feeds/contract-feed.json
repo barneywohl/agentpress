@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T22:25:00Z",
-  "current_contract_version": "2026-05-03-proof-host-connector-cycle",
+  "generated_utc": "2026-05-03T22:35:00Z",
+  "current_contract_version": "2026-05-03-receipt-host-failure-backlog-cycle",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-receipt-host-failure-backlog-cycle",
+      "kind": "receipt_host_failure_backlog_cycle",
+      "status": "shipped",
+      "summary": "Added proof request queue, host transcript dropbox spec, connector-failure-to-backlog, and next-build spec queue.",
+      "agent_action": "Run proof-request-queue, host-transcript-dropbox-spec, connector-failure-to-backlog, and next-build-spec-queue after each cycle.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-proof-host-connector-cycle",
       "kind": "proof_host_connector_cycle",
@@ -528,7 +536,11 @@
     "external_proof_campaign_runner": "https://barneywohl.github.io/agentpress/agentpress/proof-outreach/external-proof-campaign-runner.json",
     "host_transcript_batch_ingest": "https://barneywohl.github.io/agentpress/agentpress/conformance/host-transcript-batch-ingest.json",
     "connector_failure_taxonomy": "https://barneywohl.github.io/agentpress/agentpress/connectors/connector-failure-taxonomy.json",
-    "cycle_gap_radar": "https://barneywohl.github.io/agentpress/agentpress/planning/cycle-gap-radar.json"
+    "cycle_gap_radar": "https://barneywohl.github.io/agentpress/agentpress/planning/cycle-gap-radar.json",
+    "proof_request_queue": "https://barneywohl.github.io/agentpress/agentpress/proof-outreach/proof-request-queue.json",
+    "host_transcript_dropbox": "https://barneywohl.github.io/agentpress/agentpress/conformance/host-transcript-dropbox.json",
+    "connector_failure_backlog": "https://barneywohl.github.io/agentpress/agentpress/planning/connector-failure-backlog.json",
+    "next_build_spec_queue": "https://barneywohl.github.io/agentpress/agentpress/planning/next-build-spec-queue.json"
   },
   "privacy": "Static feed only; no tracking."
 }
