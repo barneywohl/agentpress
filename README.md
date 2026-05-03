@@ -513,3 +513,10 @@ python3 scripts/agentpress.py missing-connector-backlog --json
 python3 scripts/agentpress.py edge-case-gap-scan --json
 python3 scripts/agentpress.py native-adapter-kit --target nonexistent --no-write --json
 ```
+
+```bash
+python3 scripts/agentpress.py external-proof-campaign-runner --json
+python3 scripts/agentpress.py host-transcript-batch-ingest tests/fixtures/conformance --json
+python3 scripts/agentpress.py connector-failure-taxonomy --json
+python3 scripts/agentpress.py cycle-gap-radar --json
+```

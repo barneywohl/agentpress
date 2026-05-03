@@ -2254,6 +2254,10 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.external_proof_campaign_runner", "description":"Generate opt-in external proof acquisition campaign run plan.", "command":"python3 scripts/agentpress.py external-proof-campaign-runner --json", "tags":["external","proof","campaign","adoption"]},
+        {"name":"agentpress.host_transcript_batch_ingest", "description":"Batch ingest host transcript JSON files and summarize conformance.", "command":"python3 scripts/agentpress.py host-transcript-batch-ingest tests/fixtures/conformance --json", "tags":["host","transcript","batch","conformance"]},
+        {"name":"agentpress.connector_failure_taxonomy", "description":"Generate connector failure taxonomy and backlog conversion rules.", "command":"python3 scripts/agentpress.py connector-failure-taxonomy --json", "tags":["connectors","failures","taxonomy","backlog"]},
+        {"name":"agentpress.cycle_gap_radar", "description":"Generate post-cycle missed-gap radar.", "command":"python3 scripts/agentpress.py cycle-gap-radar --json", "tags":["cycle","radar","gaps","next"]},
         {"name":"agentpress.edge_case_gap_scan", "description":"Run adversarial edge-case checks for missed fail-open/no-write gaps.", "command":"python3 scripts/agentpress.py edge-case-gap-scan --json", "tags":["audit","edge-cases","fail-closed","no-write"]},
         {"name":"agentpress.connector_catalog", "description":"Generate connector catalog for the tools/connectors agents need.", "command":"python3 scripts/agentpress.py connector-catalog --json", "tags":["connectors","tools","catalog","agents"]},
         {"name":"agentpress.connector_health_check", "description":"Check connector catalog completeness and command coverage.", "command":"python3 scripts/agentpress.py connector-health-check --json", "tags":["connectors","health","tools","gates"]},
@@ -3132,6 +3136,80 @@ def proof_ingest(args):
 
 
 
+
+
+def external_proof_campaign_runner(args):
+    """Generate opt-in external proof acquisition campaign run plan."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    targets=[
+        {"community":"Cline/Roo Code users","ask":"Run AgentPress external-audit-run and submit proof/blocker receipt","channel":"public community post/manual DM only with consent"},
+        {"community":"OpenHands operators","ask":"Run sandbox host transcript and TTF-green capture","channel":"GitHub discussion/issue"},
+        {"community":"MCP builders","ask":"Review MCP registry pack and submit blocker/proof","channel":"MCP directory/community"},
+        {"community":"LangChain/LlamaIndex/CrewAI builders","ask":"Try native adapter kit and submit host transcript","channel":"public repo discussion"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-external-proof-campaign-runner.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Operationalize first independent proof acquisition without spam, payments, or fake proof.","target_count":len(targets),"targets":targets,"proof_request_url":urljoin(base,"agentpress/proof-outreach/proof-request-pack.json"),"submission_urls":[urljoin(base,"agentpress/proof-campaigns/proof-campaign.json"),urljoin(base,"agentpress/external-proofs/proof-inbox-tracker.json")],"outreach_template":"AgentPress is looking for independent proof/blocker receipts from external agents. Please run the proof request pack, redact private material, and submit success or blocker evidence.","anti_abuse":"opt-in only; no scraping, no spam, no paid bounty promise, no secrets/private prompts"}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(targets)} targets")
+    return 0
+
+
+def host_transcript_batch_ingest(args):
+    """Batch ingest host transcript JSON files and summarize conformance."""
+    indir=pathlib.Path(args.dir); out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; rows=[]; errors=[]
+    if not indir.exists():
+        errors.append(f"input dir missing: {indir}")
+    else:
+        for f in sorted(indir.glob("*.json")):
+            try: data=json.loads(f.read_text(encoding="utf-8")); row_errors=[]
+            except Exception as e: data={}; row_errors=[f"parse_fail:{e}"]
+            for k in ["host","runtime","commands","result_status"]:
+                if k not in data: row_errors.append(f"missing:{k}")
+            if data.get("host") not in {"cline","roo","openhands","mcp","langchain","llamaindex","crewai"}: row_errors.append("unknown_host")
+            if data.get("result_status") not in {"pass","fail","blocked"}: row_errors.append("invalid_result_status")
+            rows.append({"file":str(f),"host":data.get("host",""),"runtime":data.get("runtime",""),"status":"ok" if not row_errors else "fail","result_status":data.get("result_status",""),"errors":row_errors})
+    passed=sum(1 for r in rows if r.get("result_status")=="pass" and r["status"]=="ok")
+    blocked=[r for r in rows if r.get("result_status") in {"blocked","fail"} or r["status"]=="fail"]
+    payload={"schema_version":"2026-05-03.agentpress-host-transcript-batch-ingest.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not errors and all(r["status"]=="ok" for r in rows) else "needs_attention","purpose":"Batch ingest real native-host transcripts into conformance evidence and backlog blockers.","input_dir":str(indir),"transcript_count":len(rows),"passed_count":passed,"blocked_count":len(blocked),"transcripts":rows,"blocker_inputs":[{"summary":f"Host transcript blocked/fail: {r.get('host')} {r.get('errors')}","priority":"P1","source":r.get("file")} for r in blocked],"errors":errors}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(rows)} transcripts")
+    return 0 if payload["status"] in {"ok","needs_attention"} else 1
+
+
+def connector_failure_taxonomy(args):
+    """Generate connector failure taxonomy and backlog conversion rules."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    cats=[
+        {"code":"CONNECTOR_MISSING_AUTH","priority":"P1","meaning":"connector requires credential/token/ownership not available","backlog_action":"create approval/account checklist, do not bypass"},
+        {"code":"CONNECTOR_COMMAND_MISSING","priority":"P0","meaning":"documented command not installed or not routed","backlog_action":"add install/adapter shim or remove stale command"},
+        {"code":"CONNECTOR_SCHEMA_FAIL","priority":"P1","meaning":"connector output does not match schema","backlog_action":"fix serializer or schema"},
+        {"code":"CONNECTOR_NETWORK_BLOCKED","priority":"P2","meaning":"network/live endpoint unavailable","backlog_action":"use mirror/failover and record live check"},
+        {"code":"CONNECTOR_PRIVACY_RISK","priority":"P0","meaning":"connector may leak secrets/private prompts","backlog_action":"halt, redact, add privacy gate"},
+        {"code":"CONNECTOR_HOST_INCOMPATIBLE","priority":"P1","meaning":"native host cannot run adapter flow","backlog_action":"add host-specific adapter fix and transcript fixture"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-connector-failure-taxonomy.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Standardize connector failures so every failed tool/connector run becomes a prioritized backlog item.","category_count":len(cats),"categories":cats,"conversion_rule":"Each connector failure emits {code, priority, source, evidence_ref, remediation_command} into receipt-to-backlog/missing-connector-backlog."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(cats)} categories")
+    return 0
+
+
+def cycle_gap_radar(args):
+    """Generate post-cycle missed-gap radar after proof/host/connector cycle."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    items=[
+        {"rank":1,"gap":"actual external receipt count still zero until people run it","next_fix":"execute proof campaign externally and ingest first receipt"},
+        {"rank":2,"gap":"batch host transcript ingestion needs real host output dirs","next_fix":"wire upload/drop-folder convention for Cline/Roo/OpenHands transcripts"},
+        {"rank":3,"gap":"connector failures need automatic issue/backlog creation","next_fix":"connector-failure-to-backlog command"},
+        {"rank":4,"gap":"registry publish remains credential/account gated","next_fix":"owner decision checklist + dry-run metadata expansion"},
+        {"rank":5,"gap":"SDKs still shallow for some language/native hosts","next_fix":"expand SDK wrappers for proof/host/connector commands"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-cycle-gap-radar.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Post-cycle radar: identify what this cycle still cannot honestly claim done and seed the next build cycle.","items":items}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(items)} gaps")
+    return 0
 
 def edge_case_gap_scan(args):
     """Run adversarial edge-case checks for gaps that previous audits missed."""
@@ -5433,6 +5511,10 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("external-proof-campaign-runner"); p.add_argument("--out", default="agentpress/proof-outreach/external-proof-campaign-runner.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("host-transcript-batch-ingest"); p.add_argument("dir"); p.add_argument("--out", default="agentpress/conformance/host-transcript-batch-ingest.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("connector-failure-taxonomy"); p.add_argument("--out", default="agentpress/connectors/connector-failure-taxonomy.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("cycle-gap-radar"); p.add_argument("--out", default="agentpress/planning/cycle-gap-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("edge-case-gap-scan"); p.add_argument("--out", default="agentpress/evidence/edge-case-gap-scan.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("connector-catalog"); p.add_argument("--out", default="agentpress/connectors/connector-catalog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("connector-health-check"); p.add_argument("--catalog", default="agentpress/connectors/connector-catalog.json"); p.add_argument("--out", default="agentpress/evidence/connector-health-check.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -5665,6 +5747,10 @@ def main():
     if args.cmd == "host-transcript-validate": return host_transcript_validate(args)
     if args.cmd == "connector-catalog": return connector_catalog(args)
     if args.cmd == "edge-case-gap-scan": return edge_case_gap_scan(args)
+    if args.cmd == "external-proof-campaign-runner": return external_proof_campaign_runner(args)
+    if args.cmd == "host-transcript-batch-ingest": return host_transcript_batch_ingest(args)
+    if args.cmd == "connector-failure-taxonomy": return connector_failure_taxonomy(args)
+    if args.cmd == "cycle-gap-radar": return cycle_gap_radar(args)
     if args.cmd == "connector-health-check": return connector_health_check(args)
     if args.cmd == "agent-wants-research": return agent_wants_research(args)
     if args.cmd == "missing-connector-backlog": return missing_connector_backlog(args)
