@@ -1,0 +1,37 @@
+{
+  "schema_version": "2026-05-03.agentpress-loop-guard-policy.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/runtime/loop-guard-policy.json",
+  "generated_utc": "2026-05-03T20:28:57Z",
+  "status": "ok",
+  "purpose": "Stop agents from wasting cycles or causing damage when stuck.",
+  "retry_budget": {
+    "same_action_same_error": 2,
+    "stale_browser_ref": 1,
+    "network_or_registry_error": 2,
+    "test_failure_without_code_change": 1
+  },
+  "stuck_signatures": [
+    {
+      "name": "same_tool_same_error",
+      "trigger": "same command/tool fails with same error beyond retry budget",
+      "action": "change strategy or escalate"
+    },
+    {
+      "name": "stale_browser_refs",
+      "trigger": "browser action fails on stale/missing refs twice",
+      "action": "fresh snapshot; then switch to direct evidence route"
+    },
+    {
+      "name": "no_new_evidence",
+      "trigger": "three consecutive turns produce no new artifact/test/evidence",
+      "action": "stop and pick smaller verifiable task"
+    },
+    {
+      "name": "approval_boundary",
+      "trigger": "external write/payment/credential/production effect without approval_ref",
+      "action": "halt before action"
+    }
+  ],
+  "required_ledger_event": "Every circuit breaker must append action-ledger event with phase=escalate.",
+  "safety": "Fail closed; do not bypass approvals, secrets, or production safeguards."
+}

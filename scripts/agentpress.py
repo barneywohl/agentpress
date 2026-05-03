@@ -2254,6 +2254,11 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.agent_platform_feature_backlog", "description":"Generate major AgentPress platform feature backlog from audits and agent painpoints.", "command":"python3 scripts/agentpress.py agent-platform-feature-backlog --json", "tags":["backlog","features","painpoints","roadmap","audit"]},
+        {"name":"agentpress.action_ledger_kit", "description":"Generate action ledger schema/example for agent observability and audit trails.", "command":"python3 scripts/agentpress.py action-ledger-kit --json", "tags":["observability","ledger","audit","actions","trust"]},
+        {"name":"agentpress.context_debugger_kit", "description":"Generate context debugger manifest/policy for agent runs.", "command":"python3 scripts/agentpress.py context-debugger-kit --json", "tags":["context","debugger","budget","freshness","sources"]},
+        {"name":"agentpress.loop_guard_kit", "description":"Generate loop detection and circuit breaker policy for agents.", "command":"python3 scripts/agentpress.py loop-guard-kit --json", "tags":["loop","circuit-breaker","runtime","safety","stuck"]},
+        {"name":"agentpress.mission_cockpit", "description":"Generate mission cockpit linking AgentPress trust, runtime, proof, and backlog surfaces.", "command":"python3 scripts/agentpress.py mission-cockpit --json", "tags":["mission","cockpit","operator","status","coordination"]},
         {"name":"agentpress.agent_identity_card", "description":"Publish AgentPress identity/capability policy card for agent-to-agent trust.", "command":"python3 scripts/agentpress.py agent-identity-card --json", "tags":["identity","trust","capability","policy","agent-to-agent"]},
         {"name":"agentpress.environment_fingerprint", "description":"Create reproducible environment fingerprint for AgentPress agent runs without secrets.", "command":"python3 scripts/agentpress.py environment-fingerprint --json", "tags":["environment","repro","debug","runtime","fingerprint"]},
         {"name":"agentpress.repro_bundle", "description":"Publish reproducible run bundle manifest for AgentPress verification.", "command":"python3 scripts/agentpress.py repro-bundle --json", "tags":["repro","bundle","verify","runtime","install"]},
@@ -2266,6 +2271,9 @@ def tools_manifest(args):
         {"name":"agentpress.sdk_smoke", "description":"Smoke-test SDK integration endpoints and Python SDK compileability.", "command":"python3 scripts/agentpress.py sdk-smoke --json", "tags":["sdk","smoke","integration","endpoints"]},
         {"name":"agentpress.queue_adapter_kit", "description":"Generate static/local durable queue adapter schema, retry policy, idempotency, health, and dead-letter examples.", "command":"python3 scripts/agentpress.py queue-adapter-kit --json", "tags":["queue","retry","workflow","handoff","idempotency"]},
         {"name":"agentpress.marketplace_compare", "description":"Compare marketplace services for a capability with no-spend quote simulation.", "command":"python3 scripts/agentpress.py marketplace-compare --capability agent_onboard --json", "tags":["marketplace","compare","quote","routing","no-spend"]},
+        {"name":"agentpress.proof_request_pack", "description":"Generate runtime-specific external proof request pack for adoption receipts/blockers.", "command":"python3 scripts/agentpress.py proof-request-pack --runtime codex --json", "tags":["proof","external","request","adoption","runtime"]},
+        {"name":"agentpress.proof_receipt_verify", "description":"Strictly verify a service-scoped external proof receipt JSON.", "command":"python3 scripts/agentpress.py proof-receipt-verify <proof.json> --json", "tags":["proof","verify","service-scoped","redaction","trust"]},
+        {"name":"agentpress.scoped_trust_report", "description":"Report service-scoped proof/trust posture without global proof inflation.", "command":"python3 scripts/agentpress.py scoped-trust-report --json", "tags":["trust","proof","marketplace","scoped","score"]},
         {"name":"agentpress.proof_outreach_kit", "description":"Generate agent-to-agent proof request prompts and per-runtime outreach files for collecting external receipts/blockers.", "command":"python3 scripts/agentpress.py proof-outreach-kit --json", "tags":["proof","outreach","external","receipts","agents"]},
         {"name":"agentpress.submission_validate", "description":"Validate a generated AgentPress submission pack before issue/PR submission.", "command":"python3 scripts/agentpress.py submission-validate <submission-pack-dir> --json", "tags":["submission","validate","proof","privacy"]},
         {"name":"agentpress.blocker_report", "description":"Create sanitized blocker report JSON when an agent cannot complete adoption/proof.", "command":"python3 scripts/agentpress.py blocker-report --agent-id a --runtime codex --command <cmd> --error-summary <err> --desired-fix <fix> --json", "tags":["blocker","report","painpoint","feedback"]},
@@ -3068,6 +3076,72 @@ def proof_ingest(args):
 
 
 
+
+def agent_platform_feature_backlog(args):
+    """Generate major AgentPress platform feature backlog from audits/community painpoints."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    items=[
+        {"rank":1,"feature":"agent action ledger","painpoint":"agents lack durable observability: what saw/did/changed/failed/cost","status":"shipping_now","acceptance":["machine-readable event schema","example ledger","summary metrics","redaction policy"]},
+        {"rank":2,"feature":"mission cockpit","painpoint":"multi-agent runs are hard to coordinate and audit","status":"shipping_now","acceptance":["single cockpit JSON","links trust/runtime/proof/install surfaces","health and next-action list"]},
+        {"rank":3,"feature":"context debugger","painpoint":"wrong/bloated context causes bad actions and wasted tokens","status":"shipping_now","acceptance":["context manifest","budget policy","source/citation requirements","missing-context checklist"]},
+        {"rank":4,"feature":"loop guard / circuit breaker","painpoint":"agents loop on broken tools, stale refs, provider errors, or missing state","status":"shipping_now","acceptance":["stuck-state signatures","retry budget","escalation rules","machine policy"]},
+        {"rank":5,"feature":"provider compatibility matrix","painpoint":"provider/model/tool-call fragmentation across OpenAI/Anthropic/Gemini/OpenRouter/local","status":"next","acceptance":["capability matrix","known quirks","recommended fallback route"]},
+        {"rank":6,"feature":"reviewer-gate templates","painpoint":"people need built-in reviewer agents before trusting autonomous changes","status":"next","acceptance":["security/product/docs reviewer checklists","pass/fail artifact schema"]},
+        {"rank":7,"feature":"external proof outreach automation","painpoint":"third-party proof remains the hard adoption bottleneck","status":"next","acceptance":["public target list","outreach prompts","proof acceptance criteria"]}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-agent-platform-feature-backlog.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Major feature backlog from GLM/team/community audits; converts agent painpoints into buildable AgentPress surfaces.","completed_recent":["strict schema validation","docs command CI gate","package manager bridge","identity card","runtime repro bundle","MCP static catalog","permission policy","community radar","SDK kit"],"items":items,"shipping_now":[x for x in items if x['status']=='shipping_now'],"next_after_batch":[x for x in items if x['status']=='next'],"principle":"When one batch ships, regenerate this backlog and continue from the highest unresolved painpoint."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(items)} features")
+    return 0
+
+
+def action_ledger_kit(args):
+    """Generate action ledger schema/example for agent observability."""
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    schema={"schema_version":"2026-05-03.agentpress-action-ledger-schema.v1","event_fields":{"event_id":"stable unique id","run_id":"agent run/session id","agent_id":"actor","timestamp_utc":"ISO timestamp","phase":"plan|act|observe|verify|escalate","action":"human-readable action","inputs_ref":"redacted input/context reference","tool":"optional tool/command","files_changed":"list of paths/hashes","external_effect":"none|read|write|payment|credential|production","approval_ref":"required if external_effect is sensitive","result_status":"ok|fail|blocked|skipped","evidence":"artifact urls/paths","error":"redacted failure"},"required":["event_id","run_id","agent_id","timestamp_utc","phase","action","external_effect","result_status"]}
+    example={"schema_version":"2026-05-03.agentpress-action-ledger.v1","canonical_url":urljoin(base,(outdir/"action-ledger.example.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","run_id":"example-run","privacy":"redacted; no secrets/prompts/cookies/private keys","events":[{"event_id":"evt-plan-001","run_id":"example-run","agent_id":"agentpress-reference-platform","timestamp_utc":_utc_now(),"phase":"plan","action":"select next feature from backlog","inputs_ref":"agentpress/planning/agent-platform-feature-backlog.json","tool":"agent-platform-feature-backlog","files_changed":[],"external_effect":"none","approval_ref":"","result_status":"ok","evidence":[urljoin(base,"agentpress/planning/agent-platform-feature-backlog.json")],"error":""}]}
+    summary={"schema_version":"2026-05-03.agentpress-action-ledger-kit.v1","canonical_url":urljoin(base,(outdir/"manifest.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Let agents publish auditable action traces: what they saw, did, changed, failed, and verified.","files":["action-ledger.schema.json","action-ledger.example.json"],"safety":"External effects require approval_ref; sensitive data must be redacted."}
+    if not args.no_write:
+        (outdir/"action-ledger.schema.json").write_text(json.dumps(schema,indent=2)+"\n",encoding="utf-8")
+        (outdir/"action-ledger.example.json").write_text(json.dumps(example,indent=2)+"\n",encoding="utf-8")
+        (outdir/"manifest.json").write_text(json.dumps(summary,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(summary,indent=2) if args.json else f"{summary['status']} action-ledger")
+    return 0
+
+
+def context_debugger_kit(args):
+    """Generate context debugger manifest/policy for agent runs."""
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    manifest={"schema_version":"2026-05-03.agentpress-context-debugger.v1","canonical_url":urljoin(base,(outdir/"context-debugger.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Prevent wrong/bloated context by requiring source inventory, budgets, omissions, and freshness checks.","context_budget":{"max_files_default":30,"max_uncompressed_chars_default":200000,"require_source_map":True,"require_freshness_for_mutable_facts":True},"required_sections":["goal","known_state","source_inventory","included_context","excluded_context","missing_context","freshness_checks","decision_risks","verification_plan"],"failure_modes":["using stale docs for mutable state","copying huge irrelevant files","missing current git status","missing user approval context","confusing public docs with private credentials"],"output_template":{"goal":"","source_inventory":[],"included_context":[],"excluded_context":[],"missing_context":[],"freshness_checks":[],"decision_risks":[],"verification_plan":[]}}
+    if not args.no_write:
+        (outdir/"context-debugger.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
+        (outdir/"README.md").write_text("# AgentPress Context Debugger\n\nMachine-readable context audit before high-impact agent runs.\n\n```bash\npython3 scripts/agentpress.py context-debugger-kit --json\n```\n",encoding="utf-8")
+    print(json.dumps(manifest,indent=2) if args.json else f"{manifest['status']} context-debugger")
+    return 0
+
+
+def loop_guard_kit(args):
+    """Generate loop detection/circuit breaker policy for agents."""
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    policy={"schema_version":"2026-05-03.agentpress-loop-guard-policy.v1","canonical_url":urljoin(base,(outdir/"loop-guard-policy.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Stop agents from wasting cycles or causing damage when stuck.","retry_budget":{"same_action_same_error":2,"stale_browser_ref":1,"network_or_registry_error":2,"test_failure_without_code_change":1},"stuck_signatures":[{"name":"same_tool_same_error","trigger":"same command/tool fails with same error beyond retry budget","action":"change strategy or escalate"},{"name":"stale_browser_refs","trigger":"browser action fails on stale/missing refs twice","action":"fresh snapshot; then switch to direct evidence route"},{"name":"no_new_evidence","trigger":"three consecutive turns produce no new artifact/test/evidence","action":"stop and pick smaller verifiable task"},{"name":"approval_boundary","trigger":"external write/payment/credential/production effect without approval_ref","action":"halt before action"}],"required_ledger_event":"Every circuit breaker must append action-ledger event with phase=escalate.","safety":"Fail closed; do not bypass approvals, secrets, or production safeguards."}
+    if not args.no_write:
+        (outdir/"loop-guard-policy.json").write_text(json.dumps(policy,indent=2)+"\n",encoding="utf-8")
+        (outdir/"README.md").write_text("# AgentPress Loop Guard\n\nCircuit-breaker policy for stuck agents.\n\n```bash\npython3 scripts/agentpress.py loop-guard-kit --json\n```\n",encoding="utf-8")
+    print(json.dumps(policy,indent=2) if args.json else f"{policy['status']} loop-guard")
+    return 0
+
+
+def mission_cockpit(args):
+    """Generate mission cockpit linking AgentPress trust, runtime, proof, and backlog surfaces."""
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    cockpit={"schema_version":"2026-05-03.agentpress-mission-cockpit.v1","canonical_url":urljoin(base,(outdir/"mission-cockpit.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Single agent/operator cockpit for what is complete, what is next, trust evidence, runtime health, and proof loops.","surfaces":{"feature_backlog":urljoin(base,"agentpress/planning/agent-platform-feature-backlog.json"),"identity":urljoin(base,"agentpress/identity/agentpress-identity-card.json"),"tool_catalog":urljoin(base,"agentpress/tools/agentpress-tools.json"),"mcp_catalog":urljoin(base,"agentpress/mcp/mcp-static-catalog.json"),"permission_policy":urljoin(base,"agentpress/policies/tool-permission-policy.json"),"action_ledger":urljoin(base,"agentpress/observability/action-ledger/manifest.json"),"context_debugger":urljoin(base,"agentpress/context/context-debugger.json"),"loop_guard":urljoin(base,"agentpress/runtime/loop-guard-policy.json"),"repro_bundle":urljoin(base,"agentpress/runtime/repro-bundle.json"),"proof_scoreboard":urljoin(base,"agentpress/external-proofs/proof-scoreboard.json"),"package_bridge":urljoin(base,"agentpress/package-registry/package-manager-bridge.json")},"current_batch":["agent-platform-feature-backlog","action-ledger-kit","context-debugger-kit","loop-guard-kit","mission-cockpit"],"next_cycle":"After deploy: rerun feature backlog, collect GLM/team audit deltas, build highest unshipped P1."}
+    if not args.no_write:
+        (outdir/"mission-cockpit.json").write_text(json.dumps(cockpit,indent=2)+"\n",encoding="utf-8")
+        (outdir/"README.md").write_text("# AgentPress Mission Cockpit\n\nSingle machine-readable cockpit for agent platform completion and next actions.\n\n```bash\npython3 scripts/agentpress.py mission-cockpit --json\n```\n",encoding="utf-8")
+    print(json.dumps(cockpit,indent=2) if args.json else f"{cockpit['status']} mission-cockpit")
+    return 0
+
 def agent_identity_card(args):
     """Publish AgentPress identity/capability policy card for agent-to-agent trust."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
@@ -3726,6 +3800,67 @@ def remediation_index(args):
     return 0
 
 
+
+def proof_request_pack(args):
+    """Generate external agent proof request pack for runtime-specific adoption receipts/blockers."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    runtime=args.runtime
+    pack={"schema_version":"2026-05-03.agentpress-proof-request-pack.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","runtime":runtime,"purpose":"Ask an outside agent/operator to independently install, run, verify, and submit proof/blocker evidence for AgentPress.","target_communities":["Cline","Roo Code","OpenHands","AutoGen/CrewAI","LangChain/LlamaIndex","MCP builders","Codex/Claude/Gemini agents"],"requested_steps":[{"name":"install","command":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git"},{"name":"doctor","command":"agentpress doctor --json"},{"name":"strict_verify","command":"agentpress verify agentpress/examples/api-docs-handoff --strict-schema --json"},{"name":"docs_drift","command":"agentpress docs-command-check --json"},{"name":"submission_pack","command":"agentpress submission-pack --receipt <landing-receipt.json> --out <submission-pack> --json"}],"proof_receipt_required_fields":["agent_id","runtime","service_id","capability_id","commands_run","artifacts","result_status","redaction_attestation"],"submit_via":["GitHub issue template: agentpress-third-party-proof","PR containing proof receipt JSON under agentpress/external-proofs/submissions/"],"privacy_rules":["no secrets","no cookies","no private prompts","no private repo paths","no API tokens","redact local usernames if needed"],"acceptance":"Accepted proof must be service-scoped and replayable enough for a reviewer to verify."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(pack,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(pack,indent=2) if args.json else f"{pack['status']} {runtime}")
+    return 0
+
+
+def proof_receipt_verify(args):
+    """Strictly verify a service-scoped external proof receipt JSON."""
+    path=pathlib.Path(args.file); errors=[]
+    try: data=json.loads(path.read_text(encoding="utf-8"))
+    except Exception as e: data={}; errors.append(f"invalid json: {e}")
+    required=["agent_id","runtime","service_id","capability_id","commands_run","artifacts","result_status","redaction_attestation"]
+    for k in required:
+        if k not in data: errors.append(f"missing required field: {k}")
+    text=json.dumps(data).lower()
+    secret_terms=["api_key","apikey","secret","password","cookie","authorization:","bearer ","private_key"]
+    for t in secret_terms:
+        if t in text: errors.append(f"possible secret term present: {t}")
+    if data.get("result_status") not in {"pass","fail","blocked","needs_fix",None}: errors.append("result_status must be pass|fail|blocked|needs_fix")
+    if not isinstance(data.get("commands_run", []), list): errors.append("commands_run must be array")
+    if not isinstance(data.get("artifacts", []), list): errors.append("artifacts must be array")
+    if args.out:
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True,exist_ok=True)
+    result={"schema_version":"2026-05-03.agentpress-proof-receipt-verify.v1","status":"ok" if not errors else "fail","file":str(path),"service_id":data.get("service_id",""),"capability_id":data.get("capability_id",""),"runtime":data.get("runtime",""),"errors":errors,"privacy":"secret-term scan plus required service-scoped fields"}
+    if args.out: pathlib.Path(args.out).write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(result,indent=2) if args.json else result["status"])
+    return 0 if not errors else 1
+
+
+def scoped_trust_report(args):
+    """Report service-scoped proof/trust posture without global proof inflation."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    market={}
+    try: market=json.loads((root/args.marketplace).read_text(encoding="utf-8"))
+    except Exception: market={}
+    proof_index={}
+    try: proof_index=json.loads((root/args.proof_index).read_text(encoding="utf-8"))
+    except Exception: proof_index={}
+    proofs=proof_index.get("proofs",[]) or proof_index.get("accepted",[]) or []
+    scoped={}
+    for pr in proofs:
+        sid=pr.get("service_id") or pr.get("claimed_service_id") or ""
+        if sid: scoped.setdefault(sid,0); scoped[sid]+=1
+    services=market.get("services",[]) or market.get("items",[])
+    rows=[]
+    for svc in services:
+        sid=svc.get("service_id") or svc.get("id") or svc.get("name") or "unknown"
+        count=scoped.get(sid,0)
+        rows.append({"service_id":sid,"scoped_external_proofs":count,"trust_tier":"verified" if count>=3 else "provisional" if count>0 else "unverified","global_proof_credit_applied":False,"next_action":"collect scoped external proof" if count==0 else "collect additional independent proof"})
+    payload={"schema_version":"2026-05-03.agentpress-scoped-trust-report.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Prevent one generic proof from inflating every service; trust credit is service/capability scoped.","service_count":len(rows),"services":rows,"policy":"No global external-proof credit; each service/capability/runtime needs its own proof."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(rows)} services")
+    return 0
+
 def proof_outreach_kit(args):
     """Create agent-to-agent outreach kit for collecting external proof receipts."""
     root=pathlib.Path(args.root)
@@ -4140,7 +4275,7 @@ def feature_build_queue(args):
         if isinstance(v,int): external_receipts=max(external_receipts,v)
         elif isinstance(v,list): external_receipts=max(external_receipts,len(v))
     if external_receipts == 0:
-        items.append({"rank":rank,"priority":"P0","source":"adoption_gap","feature":"automatic proof ingestion and scoring from submitted third-party proof/blocker packs","persona":"proof_agent","why":"Protocol features are shipped, but independent external adoption receipts remain zero.","acceptance":["proof ingest CLI validates external proof directory","reputation/proof index updates from accepted proofs","secret scan rejects unsafe submissions","live proof status JSON returns 200"],"blocked":False}); rank+=1
+        items.append({"rank":rank,"priority":"P0","source":"adoption_gap","feature":"external proof relay with request packs, strict receipt verification, and service-scoped trust scoring","persona":"proof_agent","why":"Protocol features are shipped, but independent external adoption receipts remain zero.","acceptance":["proof ingest CLI validates external proof directory","reputation/proof index updates from accepted proofs","secret scan rejects unsafe submissions","live proof status JSON returns 200"],"blocked":False}); rank+=1
     # Strategic expansions not necessarily gaps
     strategic=[
         ("P1","browser_agent","static browser smoke/evidence manifest for public URLs","Agents need a cheap way to prove live docs/tools still resolve without running full browser automation."),
@@ -4408,6 +4543,11 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("agent-platform-feature-backlog"); p.add_argument("--out", default="agentpress/planning/agent-platform-feature-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("action-ledger-kit"); p.add_argument("--out", default="agentpress/observability/action-ledger"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("context-debugger-kit"); p.add_argument("--out", default="agentpress/context"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("loop-guard-kit"); p.add_argument("--out", default="agentpress/runtime"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("mission-cockpit"); p.add_argument("--out", default="agentpress/mission-cockpit"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-identity-card"); p.add_argument("--agent-id", default="agentpress-reference-platform"); p.add_argument("--out", default="agentpress/identity/agentpress-identity-card.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("environment-fingerprint"); p.add_argument("--out", default="agentpress/runtime/environment-fingerprint.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("repro-bundle"); p.add_argument("--out", default="agentpress/runtime/repro-bundle.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -4421,6 +4561,9 @@ def main():
     p = sub.add_parser("queue-adapter-kit"); p.add_argument("--out", default="agentpress/queue"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace-compare"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability", default=""); p.add_argument("--max-amount", type=float, default=0.0); p.add_argument("--allow-paid-quotes", action="store_true"); p.add_argument("--out", default="agentpress/marketplace/marketplace-compare.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace-trust"); p.add_argument("root", nargs="?", default="."); p.add_argument("--marketplace", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--out", default="agentpress/marketplace/marketplace-trust-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("proof-request-pack"); p.add_argument("--runtime", default="codex"); p.add_argument("--out", default="agentpress/proof-outreach/proof-request-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("proof-receipt-verify"); p.add_argument("file"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("scoped-trust-report"); p.add_argument("root", nargs="?", default="."); p.add_argument("--marketplace", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--proof-index", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--out", default="agentpress/marketplace/scoped-trust-report.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-outreach-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/proof-outreach"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-ingest"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--out", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-scoreboard"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--index", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--out", default="agentpress/external-proofs/proof-scoreboard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -4542,6 +4685,9 @@ def main():
     if args.cmd == "proof-ingest": return proof_ingest(args)
     if args.cmd == "proof-scoreboard": return proof_scoreboard(args)
     if args.cmd == "proof-outreach-kit": return proof_outreach_kit(args)
+    if args.cmd == "proof-request-pack": return proof_request_pack(args)
+    if args.cmd == "proof-receipt-verify": return proof_receipt_verify(args)
+    if args.cmd == "scoped-trust-report": return scoped_trust_report(args)
     if args.cmd == "package-registry-plan": return package_registry_plan(args)
     if args.cmd == "package-registry-skeleton": return package_registry_skeleton(args)
     if args.cmd == "package-registry-dry-run": return package_registry_dry_run(args)
@@ -4572,6 +4718,11 @@ def main():
     if args.cmd == "tool-permission-policy": return tool_permission_policy(args)
     if args.cmd == "package-manager-bridge": return package_manager_bridge(args)
     if args.cmd == "agent-identity-card": return agent_identity_card(args)
+    if args.cmd == "agent-platform-feature-backlog": return agent_platform_feature_backlog(args)
+    if args.cmd == "action-ledger-kit": return action_ledger_kit(args)
+    if args.cmd == "context-debugger-kit": return context_debugger_kit(args)
+    if args.cmd == "loop-guard-kit": return loop_guard_kit(args)
+    if args.cmd == "mission-cockpit": return mission_cockpit(args)
     if args.cmd == "environment-fingerprint": return environment_fingerprint(args)
     if args.cmd == "repro-bundle": return repro_bundle(args)
     if args.cmd == "sdk-smoke": return sdk_smoke(args)

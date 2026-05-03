@@ -415,3 +415,17 @@ python3 scripts/agentpress.py agent-identity-card --json
 python3 scripts/agentpress.py environment-fingerprint --json
 python3 scripts/agentpress.py repro-bundle --json
 ```
+
+```bash
+python3 scripts/agentpress.py agent-platform-feature-backlog --json
+python3 scripts/agentpress.py action-ledger-kit --json
+python3 scripts/agentpress.py context-debugger-kit --json
+python3 scripts/agentpress.py loop-guard-kit --json
+python3 scripts/agentpress.py mission-cockpit --json
+```
+
+```bash
+python3 scripts/agentpress.py proof-request-pack --runtime codex --json
+python3 scripts/agentpress.py proof-receipt-verify tests/fixtures/proof/good-proof-receipt.json --json
+python3 scripts/agentpress.py scoped-trust-report --json
+```

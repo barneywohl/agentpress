@@ -1,7 +1,34 @@
 {
   "schema_version": "2026-05-03.agentpress-changelog.v1",
-  "generated_utc": "2026-05-03T20:27:00Z",
+  "generated_utc": "2026-05-03T20:35:00Z",
   "changes": [
+    {
+      "version": "2026-05-03-external-proof-relay-scoped-trust",
+      "summary": "Added external proof request pack, receipt verifier, and scoped trust report.",
+      "files": [
+        "scripts/agentpress.py",
+        "agentpress/proof-outreach/proof-request-pack.json",
+        "agentpress/marketplace/scoped-trust-report.json",
+        "tests/fixtures/proof/good-proof-receipt.json",
+        "tests/fixtures/proof/bad-proof-receipt-secret.json",
+        "agentpress/specs/AGENTPRESS_EXTERNAL_PROOF_RELAY_SCOPED_TRUST_SPEC_20260503.md"
+      ],
+      "breaking": false
+    },
+    {
+      "version": "2026-05-03-mission-cockpit-observability",
+      "summary": "Added feature backlog, action ledger, context debugger, loop guard, and mission cockpit.",
+      "files": [
+        "scripts/agentpress.py",
+        "agentpress/planning/agent-platform-feature-backlog.json",
+        "agentpress/observability/action-ledger/manifest.json",
+        "agentpress/context/context-debugger.json",
+        "agentpress/runtime/loop-guard-policy.json",
+        "agentpress/mission-cockpit/mission-cockpit.json",
+        "agentpress/specs/AGENTPRESS_MISSION_COCKPIT_OBSERVABILITY_SPEC_20260503.md"
+      ],
+      "breaking": false
+    },
     {
       "version": "2026-05-03-identity-repro-bundle",
       "summary": "Added identity/capability card and reproducibility bundle.",

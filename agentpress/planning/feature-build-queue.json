@@ -1,7 +1,7 @@
 {
   "schema_version": "2026-05-03.agentpress-feature-build-queue.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/planning/feature-build-queue.json",
-  "generated_utc": "2026-05-03T20:21:55Z",
+  "generated_utc": "2026-05-03T20:31:05Z",
   "status": "ok",
   "purpose": "Internal AgentPress planning engine: use coverage and adoption gaps to choose the next features to build.",
   "inputs": {
@@ -14,6 +14,36 @@
     "coverage_count": 10,
     "missing_count": 0
   },
-  "next_feature": {},
-  "items": []
+  "next_feature": {
+    "rank": 1,
+    "priority": "P0",
+    "source": "adoption_gap",
+    "feature": "external proof relay with request packs, strict receipt verification, and service-scoped trust scoring",
+    "persona": "proof_agent",
+    "why": "Protocol features are shipped, but independent external adoption receipts remain zero.",
+    "acceptance": [
+      "proof ingest CLI validates external proof directory",
+      "reputation/proof index updates from accepted proofs",
+      "secret scan rejects unsafe submissions",
+      "live proof status JSON returns 200"
+    ],
+    "blocked": false
+  },
+  "items": [
+    {
+      "rank": 1,
+      "priority": "P0",
+      "source": "adoption_gap",
+      "feature": "external proof relay with request packs, strict receipt verification, and service-scoped trust scoring",
+      "persona": "proof_agent",
+      "why": "Protocol features are shipped, but independent external adoption receipts remain zero.",
+      "acceptance": [
+        "proof ingest CLI validates external proof directory",
+        "reputation/proof index updates from accepted proofs",
+        "secret scan rejects unsafe submissions",
+        "live proof status JSON returns 200"
+      ],
+      "blocked": false
+    }
+  ]
 }

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T20:23:24Z",
+  "generated_at": "2026-05-03T20:31:05Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -417,6 +417,66 @@
       ]
     },
     {
+      "name": "agentpress.agent_platform_feature_backlog",
+      "description": "Generate major AgentPress platform feature backlog from audits and agent painpoints.",
+      "command": "python3 scripts/agentpress.py agent-platform-feature-backlog --json",
+      "tags": [
+        "backlog",
+        "features",
+        "painpoints",
+        "roadmap",
+        "audit"
+      ]
+    },
+    {
+      "name": "agentpress.action_ledger_kit",
+      "description": "Generate action ledger schema/example for agent observability and audit trails.",
+      "command": "python3 scripts/agentpress.py action-ledger-kit --json",
+      "tags": [
+        "observability",
+        "ledger",
+        "audit",
+        "actions",
+        "trust"
+      ]
+    },
+    {
+      "name": "agentpress.context_debugger_kit",
+      "description": "Generate context debugger manifest/policy for agent runs.",
+      "command": "python3 scripts/agentpress.py context-debugger-kit --json",
+      "tags": [
+        "context",
+        "debugger",
+        "budget",
+        "freshness",
+        "sources"
+      ]
+    },
+    {
+      "name": "agentpress.loop_guard_kit",
+      "description": "Generate loop detection and circuit breaker policy for agents.",
+      "command": "python3 scripts/agentpress.py loop-guard-kit --json",
+      "tags": [
+        "loop",
+        "circuit-breaker",
+        "runtime",
+        "safety",
+        "stuck"
+      ]
+    },
+    {
+      "name": "agentpress.mission_cockpit",
+      "description": "Generate mission cockpit linking AgentPress trust, runtime, proof, and backlog surfaces.",
+      "command": "python3 scripts/agentpress.py mission-cockpit --json",
+      "tags": [
+        "mission",
+        "cockpit",
+        "operator",
+        "status",
+        "coordination"
+      ]
+    },
+    {
       "name": "agentpress.agent_identity_card",
       "description": "Publish AgentPress identity/capability policy card for agent-to-agent trust.",
       "command": "python3 scripts/agentpress.py agent-identity-card --json",
@@ -557,6 +617,42 @@
         "quote",
         "routing",
         "no-spend"
+      ]
+    },
+    {
+      "name": "agentpress.proof_request_pack",
+      "description": "Generate runtime-specific external proof request pack for adoption receipts/blockers.",
+      "command": "python3 scripts/agentpress.py proof-request-pack --runtime codex --json",
+      "tags": [
+        "proof",
+        "external",
+        "request",
+        "adoption",
+        "runtime"
+      ]
+    },
+    {
+      "name": "agentpress.proof_receipt_verify",
+      "description": "Strictly verify a service-scoped external proof receipt JSON.",
+      "command": "python3 scripts/agentpress.py proof-receipt-verify <proof.json> --json",
+      "tags": [
+        "proof",
+        "verify",
+        "service-scoped",
+        "redaction",
+        "trust"
+      ]
+    },
+    {
+      "name": "agentpress.scoped_trust_report",
+      "description": "Report service-scoped proof/trust posture without global proof inflation.",
+      "command": "python3 scripts/agentpress.py scoped-trust-report --json",
+      "tags": [
+        "trust",
+        "proof",
+        "marketplace",
+        "scoped",
+        "score"
       ]
     },
     {

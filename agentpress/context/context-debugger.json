@@ -1,0 +1,41 @@
+{
+  "schema_version": "2026-05-03.agentpress-context-debugger.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/context/context-debugger.json",
+  "generated_utc": "2026-05-03T20:28:57Z",
+  "status": "ok",
+  "purpose": "Prevent wrong/bloated context by requiring source inventory, budgets, omissions, and freshness checks.",
+  "context_budget": {
+    "max_files_default": 30,
+    "max_uncompressed_chars_default": 200000,
+    "require_source_map": true,
+    "require_freshness_for_mutable_facts": true
+  },
+  "required_sections": [
+    "goal",
+    "known_state",
+    "source_inventory",
+    "included_context",
+    "excluded_context",
+    "missing_context",
+    "freshness_checks",
+    "decision_risks",
+    "verification_plan"
+  ],
+  "failure_modes": [
+    "using stale docs for mutable state",
+    "copying huge irrelevant files",
+    "missing current git status",
+    "missing user approval context",
+    "confusing public docs with private credentials"
+  ],
+  "output_template": {
+    "goal": "",
+    "source_inventory": [],
+    "included_context": [],
+    "excluded_context": [],
+    "missing_context": [],
+    "freshness_checks": [],
+    "decision_risks": [],
+    "verification_plan": []
+  }
+}

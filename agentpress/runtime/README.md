@@ -1,6 +1,7 @@
-# AgentPress Runtime Repro Bundle
+# AgentPress Loop Guard
+
+Circuit-breaker policy for stuck agents.
 
 ```bash
-python3 scripts/agentpress.py environment-fingerprint --json
-python3 scripts/agentpress.py repro-bundle --json
+python3 scripts/agentpress.py loop-guard-kit --json
 ```

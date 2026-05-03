@@ -1,9 +1,25 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T20:27:00Z",
-  "current_contract_version": "2026-05-03-identity-repro-bundle",
+  "generated_utc": "2026-05-03T20:35:00Z",
+  "current_contract_version": "2026-05-03-external-proof-relay-scoped-trust",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-external-proof-relay-scoped-trust",
+      "kind": "external_proof_trust",
+      "status": "shipped",
+      "summary": "Added external proof request pack, strict proof receipt verifier, and scoped trust report with no global proof inflation.",
+      "agent_action": "Run proof-request-pack, proof-receipt-verify, and scoped-trust-report to collect/review external adoption proof.",
+      "breaking": false
+    },
+    {
+      "version": "2026-05-03-mission-cockpit-observability",
+      "kind": "mission_observability",
+      "status": "shipped",
+      "summary": "Added major platform feature backlog, action ledger kit, context debugger, loop guard policy, and mission cockpit.",
+      "agent_action": "Run agent-platform-feature-backlog, action-ledger-kit, context-debugger-kit, loop-guard-kit, and mission-cockpit to inspect/operate AgentPress.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-identity-repro-bundle",
       "kind": "identity_reproducibility",
@@ -363,7 +379,14 @@
     "package_manager_bridge": "https://barneywohl.github.io/agentpress/agentpress/package-registry/package-manager-bridge.json",
     "agent_identity_card": "https://barneywohl.github.io/agentpress/agentpress/identity/agentpress-identity-card.json",
     "environment_fingerprint": "https://barneywohl.github.io/agentpress/agentpress/runtime/environment-fingerprint.json",
-    "repro_bundle": "https://barneywohl.github.io/agentpress/agentpress/runtime/repro-bundle.json"
+    "repro_bundle": "https://barneywohl.github.io/agentpress/agentpress/runtime/repro-bundle.json",
+    "mission_cockpit": "https://barneywohl.github.io/agentpress/agentpress/mission-cockpit/mission-cockpit.json",
+    "agent_platform_feature_backlog": "https://barneywohl.github.io/agentpress/agentpress/planning/agent-platform-feature-backlog.json",
+    "action_ledger": "https://barneywohl.github.io/agentpress/agentpress/observability/action-ledger/manifest.json",
+    "context_debugger": "https://barneywohl.github.io/agentpress/agentpress/context/context-debugger.json",
+    "loop_guard": "https://barneywohl.github.io/agentpress/agentpress/runtime/loop-guard-policy.json",
+    "proof_request_pack": "https://barneywohl.github.io/agentpress/agentpress/proof-outreach/proof-request-pack.json",
+    "scoped_trust_report": "https://barneywohl.github.io/agentpress/agentpress/marketplace/scoped-trust-report.json"
   },
   "privacy": "Static feed only; no tracking."
 }

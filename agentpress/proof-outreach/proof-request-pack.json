@@ -1,0 +1,62 @@
+{
+  "schema_version": "2026-05-03.agentpress-proof-request-pack.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/proof-outreach/proof-request-pack.json",
+  "generated_utc": "2026-05-03T20:31:05Z",
+  "status": "ok",
+  "runtime": "codex",
+  "purpose": "Ask an outside agent/operator to independently install, run, verify, and submit proof/blocker evidence for AgentPress.",
+  "target_communities": [
+    "Cline",
+    "Roo Code",
+    "OpenHands",
+    "AutoGen/CrewAI",
+    "LangChain/LlamaIndex",
+    "MCP builders",
+    "Codex/Claude/Gemini agents"
+  ],
+  "requested_steps": [
+    {
+      "name": "install",
+      "command": "python3 -m pip install git+https://github.com/barneywohl/agentpress.git"
+    },
+    {
+      "name": "doctor",
+      "command": "agentpress doctor --json"
+    },
+    {
+      "name": "strict_verify",
+      "command": "agentpress verify agentpress/examples/api-docs-handoff --strict-schema --json"
+    },
+    {
+      "name": "docs_drift",
+      "command": "agentpress docs-command-check --json"
+    },
+    {
+      "name": "submission_pack",
+      "command": "agentpress submission-pack --receipt <landing-receipt.json> --out <submission-pack> --json"
+    }
+  ],
+  "proof_receipt_required_fields": [
+    "agent_id",
+    "runtime",
+    "service_id",
+    "capability_id",
+    "commands_run",
+    "artifacts",
+    "result_status",
+    "redaction_attestation"
+  ],
+  "submit_via": [
+    "GitHub issue template: agentpress-third-party-proof",
+    "PR containing proof receipt JSON under agentpress/external-proofs/submissions/"
+  ],
+  "privacy_rules": [
+    "no secrets",
+    "no cookies",
+    "no private prompts",
+    "no private repo paths",
+    "no API tokens",
+    "redact local usernames if needed"
+  ],
+  "acceptance": "Accepted proof must be service-scoped and replayable enough for a reviewer to verify."
+}
