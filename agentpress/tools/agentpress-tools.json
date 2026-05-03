@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T20:10:49Z",
+  "generated_at": "2026-05-03T20:14:45Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -162,6 +162,18 @@
         "tools",
         "release",
         "self-register"
+      ]
+    },
+    {
+      "name": "agentpress.schema_validate",
+      "description": "Strict dependency-free JSON Schema subset validation for AgentPress contract files.",
+      "command": "python3 scripts/agentpress.py schema-validate <file> --schema <schema-name-or-file> --json",
+      "tags": [
+        "schema",
+        "strict",
+        "validate",
+        "contract",
+        "jsonschema"
       ]
     },
     {

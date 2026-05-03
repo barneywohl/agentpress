@@ -359,6 +359,89 @@ def _schema_required_errors(payload: dict, schema_path: pathlib.Path, label: str
     return errors
 
 
+
+def _schema_type_ok(value, expected):
+    if expected == "object": return isinstance(value, dict)
+    if expected == "array": return isinstance(value, list)
+    if expected == "string": return isinstance(value, str)
+    if expected == "integer": return isinstance(value, int) and not isinstance(value, bool)
+    if expected == "number": return (isinstance(value, (int, float)) and not isinstance(value, bool))
+    if expected == "boolean": return isinstance(value, bool)
+    if expected == "null": return value is None
+    return True
+
+
+def _strict_json_schema_errors(value, schema, path="$"):
+    """Small dependency-free JSON Schema subset validator for AgentPress contracts."""
+    errors=[]
+    if not isinstance(schema, dict):
+        return errors
+    if "enum" in schema and value not in schema.get("enum", []):
+        errors.append(f"{path} expected one of {schema.get('enum')}, got {value!r}")
+    expected=schema.get("type")
+    if isinstance(expected, list):
+        if not any(_schema_type_ok(value, t) for t in expected):
+            errors.append(f"{path} expected one of {expected}")
+            return errors
+    elif isinstance(expected, str):
+        if not _schema_type_ok(value, expected):
+            errors.append(f"{path} expected {expected}")
+            return errors
+    if isinstance(value, dict):
+        required=schema.get("required", [])
+        for key in required:
+            if key not in value:
+                errors.append(f"{path}.{key} missing required field")
+        props=schema.get("properties", {}) if isinstance(schema.get("properties", {}), dict) else {}
+        allow_extra=schema.get("additionalProperties", True)
+        for key, val in value.items():
+            child=f"{path}.{key}"
+            if key in props:
+                errors.extend(_strict_json_schema_errors(val, props[key], child))
+            elif allow_extra is False:
+                errors.append(f"{child} additional property not allowed")
+            elif isinstance(allow_extra, dict):
+                errors.extend(_strict_json_schema_errors(val, allow_extra, child))
+    if isinstance(value, list):
+        if "minItems" in schema and len(value) < int(schema["minItems"]): errors.append(f"{path} expected at least {schema['minItems']} items")
+        if "maxItems" in schema and len(value) > int(schema["maxItems"]): errors.append(f"{path} expected at most {schema['maxItems']} items")
+        item_schema=schema.get("items")
+        if isinstance(item_schema, dict):
+            for i, item in enumerate(value):
+                errors.extend(_strict_json_schema_errors(item, item_schema, f"{path}[{i}]"))
+    if isinstance(value, str):
+        if "minLength" in schema and len(value) < int(schema["minLength"]): errors.append(f"{path} expected minLength {schema['minLength']}")
+        if "maxLength" in schema and len(value) > int(schema["maxLength"]): errors.append(f"{path} expected maxLength {schema['maxLength']}")
+        if schema.get("format") == "uri":
+            u=urlparse(value)
+            if not u.scheme: errors.append(f"{path} expected uri")
+    return errors
+
+
+def _load_schema_ref(name_or_path):
+    cand=pathlib.Path(name_or_path)
+    if cand.exists(): return cand, json.loads(cand.read_text(encoding="utf-8"))
+    variants=[name_or_path, name_or_path.replace("_","-"), name_or_path.replace("_","-")+".schema.json", name_or_path+".schema.json"]
+    for v in variants:
+        pp=schema_root()/v
+        if pp.exists(): return pp, json.loads(pp.read_text(encoding="utf-8"))
+    raise FileNotFoundError(f"schema not found: {name_or_path}")
+
+
+def schema_validate(args):
+    target=pathlib.Path(args.file)
+    try:
+        payload=json.loads(target.read_text(encoding="utf-8"))
+        schema_path, schema=_load_schema_ref(args.schema)
+        errors=_strict_json_schema_errors(payload, schema)
+    except Exception as e:
+        errors=[str(e)]; schema_path=None
+    result={"schema_version":"2026-05-03.agentpress-strict-schema-validation.v1","status":"ok" if not errors else "fail","file":str(target),"schema":str(schema_path) if schema_path else args.schema,"validator":"agentpress_dependency_free_json_schema_subset","errors":errors}
+    if args.out:
+        pathlib.Path(args.out).parent.mkdir(parents=True,exist_ok=True); pathlib.Path(args.out).write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(result,indent=2) if args.json else result["status"])
+    return 0 if not errors else 1
+
 def _validate_contract_files(root: pathlib.Path) -> list[str]:
     root = root.resolve()
     schemas = schema_root()
@@ -486,6 +569,14 @@ def verify(args):
     root = pathlib.Path(args.out)
     code, errors, warnings = audit_root(root, strict=True)
     checked = sorted(rel for rel in CONTRACT_SCHEMA_MAP if (root / rel).exists())
+    strict_schema_errors=[]
+    if getattr(args, "strict_schema", False):
+        for rel in checked:
+            try:
+                data=json.loads((root/rel).read_text(encoding="utf-8")); sp,_schema=_load_schema_ref(CONTRACT_SCHEMA_MAP[rel]); strict_schema_errors.extend([f"{rel}: {e}" for e in _strict_json_schema_errors(data,_schema)])
+            except Exception as e:
+                strict_schema_errors.append(f"{rel}: {e}")
+        errors.extend(strict_schema_errors); code = 0 if not errors else 1
     payload = {
         "status": "ok" if code == 0 else "fail",
         "path": str(root),
@@ -493,6 +584,8 @@ def verify(args):
         "schema_index": schema_url("index.json"),
         "errors": errors,
         "warnings": warnings,
+        "strict_schema": bool(getattr(args, "strict_schema", False)),
+        "strict_schema_errors": strict_schema_errors if "strict_schema_errors" in locals() else [],
     }
     if args.json:
         print(json.dumps(payload, indent=2))
@@ -2135,6 +2228,7 @@ def tools_manifest(args):
         {"name":"agentpress.distribution_kit", "description":"Generate mirror catalog and failover plan for resilient AgentPress fetch/install.", "command":"python3 scripts/agentpress.py distribution-kit --json", "tags":["distribution","mirror","failover","install"]},
         {"name":"agentpress.mirror_status", "description":"Check AgentPress primary and fallback distribution mirrors.", "command":"python3 scripts/agentpress.py mirror-status --json", "tags":["mirror","status","health","fetch"]},
         {"name":"agentpress.discover", "description":"Discover another AgentPress node, inspect tools/releases/contracts, and update a known-agent mesh registry.", "command":"python3 scripts/agentpress.py discover <agentpress-url> --registry agentpress/mesh/known-agents.json --json", "tags":["discover","mesh","agent-network","tools","release","self-register"]},
+        {"name":"agentpress.schema_validate", "description":"Strict dependency-free JSON Schema subset validation for AgentPress contract files.", "command":"python3 scripts/agentpress.py schema-validate <file> --schema <schema-name-or-file> --json", "tags":["schema","strict","validate","contract","jsonschema"]},
         {"name":"agentpress.verify", "description":"Verify an AgentPress bundle fails/passes contract checks.", "command":"python3 scripts/agentpress.py verify <bundle> --json", "tags":["verify","schema","contract"]},
         {"name":"agentpress.bundle", "description":"Generate a valid AgentPress bundle from docs/API folder.", "command":"python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force", "tags":["generate","bundle","docs","api"]},
         {"name":"agentpress.bundle_diff", "description":"Compare two AgentPress bundles and report changed files/hashes for upgrade review.", "command":"python3 scripts/agentpress.py bundle-diff <old-bundle> <new-bundle> --json --include-hashes", "tags":["bundle","diff","upgrade","review"]},
@@ -4230,8 +4324,9 @@ def main():
     p = sub.add_parser("init"); p.add_argument("out"); p.add_argument("--title", required=True); p.add_argument("--canonical"); p.add_argument("--summary"); p.add_argument("--primary-task"); p.add_argument("--task-type", default="agent_native_publication")
     p = sub.add_parser("validate"); p.add_argument("out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("audit"); p.add_argument("out"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("verify"); p.add_argument("out", nargs="?", default="."); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("verify"); p.add_argument("out", nargs="?", default="."); p.add_argument("--strict-schema", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("schema"); p.add_argument("name", nargs="?"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("schema-validate"); p.add_argument("file"); p.add_argument("--schema", required=True); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("distribution-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/distribution"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("distribution-mirrors"); p.add_argument("--out", default="agentpress/distribution/distribution-mirrors.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("mirror-status"); p.add_argument("--catalog", default="agentpress/distribution/distribution-mirrors.json"); p.add_argument("--out", default="agentpress/distribution/mirror-status.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--timeout-seconds", type=int, default=10); p.add_argument("--json", action="store_true")
@@ -4355,6 +4450,7 @@ def main():
     if args.cmd == "audit": return audit(args)
     if args.cmd == "verify": return verify(args)
     if args.cmd == "schema": return schema_command(args)
+    if args.cmd == "schema-validate": return schema_validate(args)
     if args.cmd == "fetch": return fetch(args)
     if args.cmd == "distribution-kit": return distribution_kit(args)
     if args.cmd == "distribution-mirrors": return distribution_mirrors(args)

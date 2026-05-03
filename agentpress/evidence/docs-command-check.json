@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-03.agentpress-docs-command-check.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/evidence/docs-command-check.json",
-  "generated_utc": "2026-05-03T20:10:50Z",
+  "generated_utc": "2026-05-03T20:14:45Z",
   "status": "ok",
-  "checked": 336,
+  "checked": 342,
   "failed": 0,
-  "commands_known": 106,
+  "commands_known": 107,
   "results": [
     {
       "path": "README.md",
@@ -938,6 +938,22 @@
       "warnings": []
     },
     {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py schema-validate agentpress/examples/api-docs-handoff/agent-task-card.json --schema agent-task-card.schema.json --json",
+      "cmd": "schema-validate",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --strict-schema --json",
+      "cmd": "verify",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
       "path": "llms.txt",
       "command": "python3 scripts/agentpress.py adopt --json",
       "cmd": "adopt",
@@ -1822,6 +1838,22 @@
       "warnings": []
     },
     {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py schema-validate agentpress/examples/api-docs-handoff/agent-task-card.json --schema agent-task-card.schema.json --json",
+      "cmd": "schema-validate",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --strict-schema --json",
+      "cmd": "verify",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
       "path": "agentpress/CLI_AGENT_LAUNCH.md",
       "command": "python3 scripts/agentpress.py doctor --json",
       "cmd": "doctor",
@@ -2694,6 +2726,26 @@
       "status": "ok",
       "errors": [],
       "warnings": []
+    },
+    {
+      "path": "agentpress/specs/AGENTPRESS_STRICT_SCHEMA_VALIDATION_SPEC_20260503.md",
+      "command": "python3 scripts/agentpress.py schema-validate <file> --schema <schema-name-or-file> --json",
+      "cmd": "schema-validate",
+      "status": "ok",
+      "errors": [],
+      "warnings": [
+        "contains placeholder; parser execution skipped"
+      ]
+    },
+    {
+      "path": "agentpress/specs/AGENTPRESS_STRICT_SCHEMA_VALIDATION_SPEC_20260503.md",
+      "command": "python3 scripts/agentpress.py verify <bundle> --strict-schema --json",
+      "cmd": "verify",
+      "status": "ok",
+      "errors": [],
+      "warnings": [
+        "contains placeholder; parser execution skipped"
+      ]
     },
     {
       "path": "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md",

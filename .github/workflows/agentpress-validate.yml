@@ -43,6 +43,12 @@ jobs:
           python3 scripts/agentpress.py tools-manifest
           python3 scripts/agentpress.py tools-manifest-check --json
           python3 -m json.tool agentpress/tools/agentpress-tools.json >/dev/null
+      - name: Validate strict schemas and docs command drift
+        run: |
+          python3 scripts/agentpress.py docs-command-check --json
+          python3 scripts/agentpress.py schema-validate tests/fixtures/strict-schema/valid-agent-task-card.json --schema agent-task-card.schema.json --json
+          if python3 scripts/agentpress.py schema-validate tests/fixtures/strict-schema/invalid-agent-task-card.json --schema agent-task-card.schema.json --json; then echo "invalid strict-schema fixture unexpectedly passed"; exit 1; fi
+          python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --strict-schema --json
       - name: Validate AgentPress offline package
         run: |
           python3 scripts/agentpress.py package . --out /tmp/agentpress-offline.tar.gz

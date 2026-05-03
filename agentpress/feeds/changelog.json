@@ -1,7 +1,18 @@
 {
   "schema_version": "2026-05-03.agentpress-changelog.v1",
-  "generated_utc": "2026-05-03T20:12:00Z",
+  "generated_utc": "2026-05-03T20:18:00Z",
   "changes": [
+    {
+      "version": "2026-05-03-strict-schema-validation",
+      "summary": "Added strict schema validation command and CI gates.",
+      "files": [
+        "scripts/agentpress.py",
+        "tests/fixtures/strict-schema/valid-agent-task-card.json",
+        "tests/fixtures/strict-schema/invalid-agent-task-card.json",
+        "agentpress/specs/AGENTPRESS_STRICT_SCHEMA_VALIDATION_SPEC_20260503.md"
+      ],
+      "breaking": false
+    },
     {
       "version": "2026-05-03-community-radar-mcp-catalog",
       "summary": "Added public community radar, MCP static catalog export, and tool permission policy.",
