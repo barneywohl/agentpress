@@ -1,0 +1,33 @@
+{
+  "schema_version": "2026-05-03.agentpress-failover-plan.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/distribution/failover-plan.json",
+  "generated_utc": "2026-05-03T19:18:24Z",
+  "status": "ok",
+  "steps": [
+    {
+      "step": 1,
+      "action": "fetch primary llms.txt",
+      "command": "curl -L https://barneywohl.github.io/agentpress/llms.txt"
+    },
+    {
+      "step": 2,
+      "action": "if primary fails, fetch raw GitHub fallback",
+      "command": "curl -L https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/llms.txt"
+    },
+    {
+      "step": 3,
+      "action": "if raw GitHub fails, fetch jsDelivr CDN fallback",
+      "command": "curl -L https://cdn.jsdelivr.net/gh/barneywohl/agentpress@main/llms.txt"
+    },
+    {
+      "step": 4,
+      "action": "verify release package before execution",
+      "command": "python3 scripts/agentpress.py package-verify agentpress/releases/agentpress-offline.tar.gz --manifest agentpress/releases/agentpress-offline.tar.gz.sha256.json --json"
+    }
+  ],
+  "rules": [
+    "Never execute fetched code before hash/package verification.",
+    "Prefer static machine files over HTML.",
+    "Record which mirror was used in proof receipts."
+  ]
+}

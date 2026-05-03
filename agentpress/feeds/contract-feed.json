@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T19:14:00Z",
-  "current_contract_version": "2026-05-03-submission-loop-hardening",
+  "generated_utc": "2026-05-03T19:18:00Z",
+  "current_contract_version": "2026-05-03-distribution-failover",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-distribution-failover",
+      "kind": "distribution_failover",
+      "status": "shipped",
+      "summary": "Added mirror catalog, mirror status checks, and failover plan for resilient AgentPress distribution.",
+      "agent_action": "Run `python3 scripts/agentpress.py mirror-status --json` before fetch/install if a surface is unavailable.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-submission-loop-hardening",
       "kind": "submission_loop_hardening",
@@ -222,7 +230,8 @@
     "privacy_status": "https://barneywohl.github.io/agentpress/agentpress/privacy/privacy-status.json",
     "confidential_message_example": "https://barneywohl.github.io/agentpress/agentpress/privacy/confidential-message.example.json",
     "secure_transport_readiness": "https://barneywohl.github.io/agentpress/agentpress/secure-transport/secure-transport-readiness.json",
-    "submission_loop": "https://barneywohl.github.io/agentpress/agentpress/submissions/README.md"
+    "submission_loop": "https://barneywohl.github.io/agentpress/agentpress/submissions/README.md",
+    "distribution_mirrors": "https://barneywohl.github.io/agentpress/agentpress/distribution/distribution-mirrors.json"
   },
   "privacy": "Static feed only; no tracking."
 }

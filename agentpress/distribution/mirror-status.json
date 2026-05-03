@@ -1,0 +1,111 @@
+{
+  "schema_version": "2026-05-03.agentpress-mirror-status.v1",
+  "generated_utc": "2026-05-03T19:18:24Z",
+  "status": "ok",
+  "best_mirror": "github_pages",
+  "mirrors": [
+    {
+      "mirror_id": "github_pages",
+      "kind": "primary_static_site",
+      "priority": 1,
+      "status": "ok",
+      "ok_count": 4,
+      "check_count": 4,
+      "checks": [
+        {
+          "url": "https://barneywohl.github.io/agentpress/llms.txt",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        },
+        {
+          "url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        },
+        {
+          "url": "https://barneywohl.github.io/agentpress/agentpress/releases/release-index.json",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        },
+        {
+          "url": "https://barneywohl.github.io/agentpress/agentpress/install/install-catalog.json",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "mirror_id": "raw_github_main",
+      "kind": "raw_source_fallback",
+      "priority": 2,
+      "status": "ok",
+      "ok_count": 4,
+      "check_count": 4,
+      "checks": [
+        {
+          "url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/llms.txt",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        },
+        {
+          "url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/tools/agentpress-tools.json",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        },
+        {
+          "url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/releases/release-index.json",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        },
+        {
+          "url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/agentpress/install/install-catalog.json",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "mirror_id": "jsdelivr_cdn",
+      "kind": "cdn_fallback",
+      "priority": 3,
+      "status": "ok",
+      "ok_count": 4,
+      "check_count": 4,
+      "checks": [
+        {
+          "url": "https://cdn.jsdelivr.net/gh/barneywohl/agentpress@main/llms.txt",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        },
+        {
+          "url": "https://cdn.jsdelivr.net/gh/barneywohl/agentpress@main/agentpress/tools/agentpress-tools.json",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        },
+        {
+          "url": "https://cdn.jsdelivr.net/gh/barneywohl/agentpress@main/agentpress/releases/release-index.json",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        },
+        {
+          "url": "https://cdn.jsdelivr.net/gh/barneywohl/agentpress@main/agentpress/install/install-catalog.json",
+          "status": "ok",
+          "http_status": 200,
+          "error": ""
+        }
+      ]
+    }
+  ],
+  "fallback_command": "python3 scripts/agentpress.py fetch --base <best_mirror_base_url> --out fetched-agentpress --json"
+}

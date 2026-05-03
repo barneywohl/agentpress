@@ -1,0 +1,51 @@
+{
+  "schema_version": "2026-05-03.agentpress-distribution-mirrors.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/distribution/distribution-mirrors.json",
+  "generated_utc": "2026-05-03T19:18:23Z",
+  "status": "ok",
+  "purpose": "Give agents deterministic fallback URLs when a distribution surface is unavailable.",
+  "mirrors": [
+    {
+      "mirror_id": "github_pages",
+      "kind": "primary_static_site",
+      "base_url": "https://barneywohl.github.io/agentpress/",
+      "priority": 1,
+      "critical_urls": [
+        "llms.txt",
+        "agentpress/tools/agentpress-tools.json",
+        "agentpress/releases/release-index.json",
+        "agentpress/install/install-catalog.json"
+      ]
+    },
+    {
+      "mirror_id": "raw_github_main",
+      "kind": "raw_source_fallback",
+      "base_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
+      "priority": 2,
+      "critical_urls": [
+        "llms.txt",
+        "agentpress/tools/agentpress-tools.json",
+        "agentpress/releases/release-index.json",
+        "agentpress/install/install-catalog.json"
+      ]
+    },
+    {
+      "mirror_id": "jsdelivr_cdn",
+      "kind": "cdn_fallback",
+      "base_url": "https://cdn.jsdelivr.net/gh/barneywohl/agentpress@main/",
+      "priority": 3,
+      "critical_urls": [
+        "llms.txt",
+        "agentpress/tools/agentpress-tools.json",
+        "agentpress/releases/release-index.json",
+        "agentpress/install/install-catalog.json"
+      ]
+    }
+  ],
+  "failover_order": [
+    "github_pages",
+    "raw_github_main",
+    "jsdelivr_cdn"
+  ],
+  "agent_policy": "Try mirrors in priority order; verify package hashes before executing fetched artifacts."
+}

@@ -929,6 +929,7 @@ def build_search_index(args):
     add("cli_command", "AgentPress external proof ingestion", "agentpress/external-proofs/README.md", "proof-ingest validate index external proof receipts blocker reports privacy scan reputation scoring", ["proof", "ingest", "receipts", "score", "privacy"] )
     add("cli_command", "AgentPress secure transport readiness", "agentpress/secure-transport/README.md", "secure transport readiness key owner rotation recipient identity encrypted payload approval", ["secure-transport", "privacy", "keys", "approval"] )
     add("cli_command", "AgentPress privacy and confidential messaging", "agentpress/privacy/README.md", "privacy confidential message envelope redaction secure transport metadata-only threat model", ["privacy", "confidential", "redaction", "message", "security"] )
+    add("cli_command", "AgentPress distribution failover", "agentpress/distribution/README.md", "distribution mirrors failover raw github jsdelivr cdn package verify fallback", ["distribution", "mirror", "failover", "cdn", "install"] )
     add("cli_command", "AgentPress runtime support", "agentpress/runtime/README.md", "error codes session state health status batch run progress agent orchestration", ["runtime", "error-codes", "session", "health", "batch"] )
     add("cli_command", "AgentPress remediation index", "agentpress/remediation/remediation-index.json", "remediation exact command blockers failed checks next action", ["remediation", "debug", "doctor", "commands"] )
     add("cli_command", "AgentPress package registry skeleton", "agentpress/package-registry/skeleton/README.md", "package skeleton pypi npm pipx uvx npx dry-run no publish", ["package", "pypi", "npm", "dry-run", "install"] )
@@ -2033,6 +2034,8 @@ def tools_manifest(args):
     base=args.base_url.rstrip("/") + "/"
     tools=[
         {"name":"agentpress.fetch", "description":"Fetch core AgentPress machine assets.", "command":"python3 scripts/agentpress.py fetch --base {base} --out agentpress-fetch --json", "tags":["fetch","bootstrap","offline"]},
+        {"name":"agentpress.distribution_kit", "description":"Generate mirror catalog and failover plan for resilient AgentPress fetch/install.", "command":"python3 scripts/agentpress.py distribution-kit --json", "tags":["distribution","mirror","failover","install"]},
+        {"name":"agentpress.mirror_status", "description":"Check AgentPress primary and fallback distribution mirrors.", "command":"python3 scripts/agentpress.py mirror-status --json", "tags":["mirror","status","health","fetch"]},
         {"name":"agentpress.discover", "description":"Discover another AgentPress node, inspect tools/releases/contracts, and update a known-agent mesh registry.", "command":"python3 scripts/agentpress.py discover <agentpress-url> --registry agentpress/mesh/known-agents.json --json", "tags":["discover","mesh","agent-network","tools","release","self-register"]},
         {"name":"agentpress.verify", "description":"Verify an AgentPress bundle fails/passes contract checks.", "command":"python3 scripts/agentpress.py verify <bundle> --json", "tags":["verify","schema","contract"]},
         {"name":"agentpress.bundle", "description":"Generate a valid AgentPress bundle from docs/API folder.", "command":"python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force", "tags":["generate","bundle","docs","api"]},
@@ -2626,6 +2629,7 @@ def agent_painpoints(args):
         {"id":"security_eval_agent","examples":["QA","red team","eval harness"],"wants":["negative fixtures","consistency gates","threat model","signed artifacts","replay/tamper checks"],"painpoints":["trust based on self-claims","weak sybil resistance","unsigned receipts"]}
     ]
     shipped={
+        "distribution_failover": exists("agentpress/distribution/distribution-mirrors.json"),
         "one_command_setup": exists("agentpress/onboarding/agent-onboard-example.json"),
         "marketplace": exists("agentpress/marketplace/marketplace-index.json"),
         "payments_metadata": exists("agentpress/payments/payment-policy.json"),
@@ -3358,6 +3362,83 @@ Current default: metadata-only coordination is allowed; live payload transport i
     print(json.dumps(manifest, indent=2) if args.json else out.as_posix())
     return 0
 
+
+def distribution_mirrors(args):
+    """Generate machine-readable distribution mirror/failover catalog."""
+    out=pathlib.Path(args.out)
+    mirrors=[
+        {"mirror_id":"github_pages","kind":"primary_static_site","base_url":"https://barneywohl.github.io/agentpress/","priority":1,"critical_urls":["llms.txt","agentpress/tools/agentpress-tools.json","agentpress/releases/release-index.json","agentpress/install/install-catalog.json"]},
+        {"mirror_id":"raw_github_main","kind":"raw_source_fallback","base_url":"https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/","priority":2,"critical_urls":["llms.txt","agentpress/tools/agentpress-tools.json","agentpress/releases/release-index.json","agentpress/install/install-catalog.json"]},
+        {"mirror_id":"jsdelivr_cdn","kind":"cdn_fallback","base_url":"https://cdn.jsdelivr.net/gh/barneywohl/agentpress@main/","priority":3,"critical_urls":["llms.txt","agentpress/tools/agentpress-tools.json","agentpress/releases/release-index.json","agentpress/install/install-catalog.json"]}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-distribution-mirrors.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give agents deterministic fallback URLs when a distribution surface is unavailable.","mirrors":mirrors,"failover_order":[m["mirror_id"] for m in sorted(mirrors,key=lambda m:m["priority"])],"agent_policy":"Try mirrors in priority order; verify package hashes before executing fetched artifacts."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"mirrors={len(mirrors)}")
+    return 0
+
+
+def mirror_status(args):
+    """Check configured AgentPress distribution mirrors."""
+    catalog=pathlib.Path(args.catalog)
+    if not catalog.exists():
+        distribution_mirrors(argparse.Namespace(out=str(catalog), base_url=args.base_url, no_write=False, json=False))
+    data=json.loads(catalog.read_text(encoding="utf-8"))
+    rows=[]
+    for m in data.get("mirrors",[]):
+        ok_count=0; checks=[]
+        for rel in m.get("critical_urls",[]):
+            url=urljoin(m["base_url"], rel)
+            status="unknown"; error=""; code=None
+            try:
+                with urlopen(url, timeout=args.timeout_seconds) as r:
+                    code=getattr(r,"status",None) or r.getcode(); r.read(1)
+                status="ok" if 200 <= int(code) < 400 else "fail"
+            except Exception as e:
+                status="fail"; error=str(e)[:300]
+            if status=="ok": ok_count+=1
+            checks.append({"url":url,"status":status,"http_status":code,"error":error})
+        rows.append({"mirror_id":m.get("mirror_id"),"kind":m.get("kind"),"priority":m.get("priority"),"status":"ok" if ok_count==len(checks) and checks else "degraded","ok_count":ok_count,"check_count":len(checks),"checks":checks})
+    best=next((r for r in sorted(rows,key=lambda r:r.get("priority") or 999) if r["status"]=="ok"), None)
+    payload={"schema_version":"2026-05-03.agentpress-mirror-status.v1","generated_utc":_utc_now(),"status":"ok" if best else "degraded","best_mirror":best.get("mirror_id") if best else "","mirrors":rows,"fallback_command":"python3 scripts/agentpress.py fetch --base <best_mirror_base_url> --out fetched-agentpress --json"}
+    if args.out:
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0 if best else 1
+
+
+def failover_plan(args):
+    """Generate an agent-readable distribution failover plan."""
+    out=pathlib.Path(args.out)
+    payload={"schema_version":"2026-05-03.agentpress-failover-plan.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","steps":[{"step":1,"action":"fetch primary llms.txt","command":"curl -L https://barneywohl.github.io/agentpress/llms.txt"},{"step":2,"action":"if primary fails, fetch raw GitHub fallback","command":"curl -L https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/llms.txt"},{"step":3,"action":"if raw GitHub fails, fetch jsDelivr CDN fallback","command":"curl -L https://cdn.jsdelivr.net/gh/barneywohl/agentpress@main/llms.txt"},{"step":4,"action":"verify release package before execution","command":"python3 scripts/agentpress.py package-verify agentpress/releases/agentpress-offline.tar.gz --manifest agentpress/releases/agentpress-offline.tar.gz.sha256.json --json"}],"rules":["Never execute fetched code before hash/package verification.","Prefer static machine files over HTML.","Record which mirror was used in proof receipts."]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else out.as_posix())
+    return 0
+
+
+def distribution_kit(args):
+    """Generate distribution failover kit."""
+    root=pathlib.Path(args.root); out=root/args.out; out.mkdir(parents=True, exist_ok=True)
+    distribution_mirrors(argparse.Namespace(out=str(out/"distribution-mirrors.json"), base_url=args.base_url, no_write=False, json=False))
+    failover_plan(argparse.Namespace(out=str(out/"failover-plan.json"), base_url=args.base_url, no_write=False, json=False))
+    (out/"README.md").write_text("""# AgentPress Distribution Failover
+
+Agents need resilient fetch/install paths. This kit provides primary and fallback mirrors plus a failover plan.
+
+```bash
+python3 scripts/agentpress.py distribution-kit --json
+python3 scripts/agentpress.py mirror-status --json
+python3 scripts/agentpress.py failover-plan --json
+```
+
+Rule: verify hashes/packages before executing fetched artifacts.
+""", encoding="utf-8")
+    manifest={"schema_version":"2026-05-03.agentpress-distribution-kit-manifest.v1","status":"ok","generated_utc":_utc_now(),"files":[fp.relative_to(root).as_posix() for fp in sorted(out.glob("*")) if fp.is_file()]}
+    (out/"manifest.json").write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(manifest, indent=2) if args.json else out.as_posix())
+    return 0
+
 def adoption_status(args):
     """Summarize opt-in AgentPress adoption/proof state without hidden telemetry."""
     root=pathlib.Path(args.root)
@@ -3483,6 +3564,10 @@ def main():
     p = sub.add_parser("audit"); p.add_argument("out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("verify"); p.add_argument("out", nargs="?", default="."); p.add_argument("--json", action="store_true")
     p = sub.add_parser("schema"); p.add_argument("name", nargs="?"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("distribution-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/distribution"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("distribution-mirrors"); p.add_argument("--out", default="agentpress/distribution/distribution-mirrors.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("mirror-status"); p.add_argument("--catalog", default="agentpress/distribution/distribution-mirrors.json"); p.add_argument("--out", default="agentpress/distribution/mirror-status.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--timeout-seconds", type=int, default=10); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("failover-plan"); p.add_argument("--out", default="agentpress/distribution/failover-plan.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("fetch"); p.add_argument("--base", default=CANONICAL_BASE_URL); p.add_argument("--out", default="agentpress-fetch"); p.add_argument("--asset", action="append", help="relative asset to fetch; repeatable; defaults to core machine entrypoints"); p.add_argument("--timeout", type=int, default=20); p.add_argument("--keep-going", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("discover"); p.add_argument("url", nargs="?"); p.add_argument("--out"); p.add_argument("--registry"); p.add_argument("--timeout", type=int, default=20); p.add_argument("--json", action="store_true"); p.add_argument("--self-register", action="store_true"); p.add_argument("--canonical-url", default=CANONICAL_BASE_URL); p.add_argument("--agent-id")
     p = sub.add_parser("negative-fixtures"); p.add_argument("--manifest", default="agentpress/fixtures/broken-bundles/expected-failures.json"); p.add_argument("--json", action="store_true")
@@ -3585,6 +3670,10 @@ def main():
     if args.cmd == "verify": return verify(args)
     if args.cmd == "schema": return schema_command(args)
     if args.cmd == "fetch": return fetch(args)
+    if args.cmd == "distribution-kit": return distribution_kit(args)
+    if args.cmd == "distribution-mirrors": return distribution_mirrors(args)
+    if args.cmd == "mirror-status": return mirror_status(args)
+    if args.cmd == "failover-plan": return failover_plan(args)
     if args.cmd == "discover": return discover_agentpress(args)
     if args.cmd == "negative-fixtures": return negative_fixtures(args)
     if args.cmd == "feedback-submit": return feedback_submit(args)

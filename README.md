@@ -341,3 +341,9 @@ python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/inst
 ```
 
 Release metadata lives at `agentpress/releases/release-index.json`; package and manifest SHA256 hashes are verified before extraction.
+
+```bash
+python3 scripts/agentpress.py distribution-kit --json
+python3 scripts/agentpress.py mirror-status --json
+python3 scripts/agentpress.py failover-plan --json
+```

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T19:13:49Z",
+  "generated_at": "2026-05-03T19:18:12Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -28,6 +28,28 @@
         "fetch",
         "bootstrap",
         "offline"
+      ]
+    },
+    {
+      "name": "agentpress.distribution_kit",
+      "description": "Generate mirror catalog and failover plan for resilient AgentPress fetch/install.",
+      "command": "python3 scripts/agentpress.py distribution-kit --json",
+      "tags": [
+        "distribution",
+        "mirror",
+        "failover",
+        "install"
+      ]
+    },
+    {
+      "name": "agentpress.mirror_status",
+      "description": "Check AgentPress primary and fallback distribution mirrors.",
+      "command": "python3 scripts/agentpress.py mirror-status --json",
+      "tags": [
+        "mirror",
+        "status",
+        "health",
+        "fetch"
       ]
     },
     {
