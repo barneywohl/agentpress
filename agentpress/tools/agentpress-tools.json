@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T18:31:37Z",
+  "generated_at": "2026-05-03T18:35:22Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -272,6 +272,28 @@
         "receipts",
         "privacy",
         "score"
+      ]
+    },
+    {
+      "name": "agentpress.secure_transport_readiness",
+      "description": "Report approval gates for live confidential payload transport without enabling unsafe transport.",
+      "command": "python3 scripts/agentpress.py secure-transport-readiness --json",
+      "tags": [
+        "secure-transport",
+        "privacy",
+        "keys",
+        "approval"
+      ]
+    },
+    {
+      "name": "agentpress.transport_request",
+      "description": "Create an approval artifact requesting secure encrypted transport for confidential payload exchange.",
+      "command": "python3 scripts/agentpress.py transport-request --from-agent a --to-operator operator --purpose secure-handoff --json",
+      "tags": [
+        "transport",
+        "request",
+        "approval",
+        "privacy"
       ]
     },
     {

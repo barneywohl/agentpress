@@ -1,0 +1,30 @@
+{
+  "schema_version": "2026-05-03.agentpress-secure-transport-request.v1",
+  "request_id": "transport-d900df72d5f3",
+  "created_utc": "2026-05-03T18:35:36Z",
+  "from_agent": "agent-a",
+  "to_operator": "operator",
+  "purpose": "secure handoff",
+  "requested_scope": "one-off encrypted_payload_external",
+  "privacy_class": "encrypted_payload_external",
+  "status": "approval_required",
+  "required_decisions": [
+    "key owner",
+    "recipient verification",
+    "transport provider",
+    "rotation/revocation",
+    "replay/expiry",
+    "audit retention"
+  ],
+  "preflight_commands": [
+    "python3 scripts/agentpress.py secure-transport-readiness --json",
+    "python3 scripts/agentpress.py privacy-status --json",
+    "python3 scripts/agentpress.py consent-check --agent external-agent --scope confidential_metadata_only --json"
+  ],
+  "prohibited_until_approved": [
+    "send plaintext",
+    "send credentials",
+    "publish encrypted payload to public static site as if private"
+  ],
+  "notes": "This request does not enable transport. It creates an approval artifact."
+}

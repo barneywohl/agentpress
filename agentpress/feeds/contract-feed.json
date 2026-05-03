@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T18:29:00Z",
-  "current_contract_version": "2026-05-03-privacy-confidential-messaging",
+  "generated_utc": "2026-05-03T18:36:00Z",
+  "current_contract_version": "2026-05-03-secure-transport-readiness",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-secure-transport-readiness",
+      "kind": "secure_transport_readiness",
+      "status": "shipped",
+      "summary": "Added approval/readiness kit for confidential payload transport, without enabling unsafe live transport.",
+      "agent_action": "Run `python3 scripts/agentpress.py secure-transport-readiness --json` before any confidential payload exchange.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-privacy-confidential-messaging",
       "kind": "privacy_confidential_messaging",
@@ -204,7 +212,8 @@
     "session_state": "https://barneywohl.github.io/agentpress/agentpress/runtime/session-state.example.json",
     "batch_result": "https://barneywohl.github.io/agentpress/agentpress/runtime/batch-result.json",
     "privacy_status": "https://barneywohl.github.io/agentpress/agentpress/privacy/privacy-status.json",
-    "confidential_message_example": "https://barneywohl.github.io/agentpress/agentpress/privacy/confidential-message.example.json"
+    "confidential_message_example": "https://barneywohl.github.io/agentpress/agentpress/privacy/confidential-message.example.json",
+    "secure_transport_readiness": "https://barneywohl.github.io/agentpress/agentpress/secure-transport/secure-transport-readiness.json"
   },
   "privacy": "Static feed only; no tracking."
 }

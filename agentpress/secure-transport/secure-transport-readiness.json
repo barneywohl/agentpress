@@ -1,0 +1,77 @@
+{
+  "schema_version": "2026-05-03.agentpress-secure-transport-readiness.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/secure-transport/secure-transport-readiness.json",
+  "generated_utc": "2026-05-03T18:35:36Z",
+  "status": "blocked_on_security_approval",
+  "live_transport_enabled": false,
+  "principle": "Do not exchange confidential payloads until key ownership, recipient identity, transport provider, and replay policy are approved.",
+  "checks": [
+    {
+      "id": "privacy_status",
+      "ok": true,
+      "required": true,
+      "detail": "privacy posture exists"
+    },
+    {
+      "id": "consent_registry",
+      "ok": true,
+      "required": true,
+      "detail": "consent registry exists"
+    },
+    {
+      "id": "redaction_gate",
+      "ok": true,
+      "required": true,
+      "detail": "redaction-check CLI available"
+    },
+    {
+      "id": "envelope_verify",
+      "ok": true,
+      "required": true,
+      "detail": "confidential-message-verify CLI available"
+    },
+    {
+      "id": "key_owner_policy",
+      "ok": false,
+      "required": true,
+      "detail": "no approved key owner/rotation/revocation policy yet"
+    },
+    {
+      "id": "recipient_identity_policy",
+      "ok": false,
+      "required": true,
+      "detail": "no approved recipient identity verification policy yet"
+    },
+    {
+      "id": "transport_provider",
+      "ok": false,
+      "required": true,
+      "detail": "no approved encrypted transport provider configured"
+    },
+    {
+      "id": "replay_policy",
+      "ok": false,
+      "required": true,
+      "detail": "nonce/sequence exists in envelope; no live replay verifier service"
+    }
+  ],
+  "safe_now": [
+    "metadata-only confidential envelopes",
+    "redaction checks",
+    "consent registry checks",
+    "hash/integrity verification"
+  ],
+  "blocked_actions": [
+    "live encrypted payload exchange",
+    "automatic key exchange",
+    "credential or private prompt transfer"
+  ],
+  "approval_needed": [
+    "key owner",
+    "rotation/revocation",
+    "recipient identity",
+    "transport provider",
+    "replay/expiry verifier",
+    "audit retention"
+  ]
+}

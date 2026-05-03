@@ -927,6 +927,7 @@ def build_search_index(args):
     add("cli_command", "AgentPress marketplace trust scoring", "agentpress/marketplace/marketplace-trust-index.json", "marketplace trust score rank services reputation evidence proof routing", ["marketplace", "trust", "score", "routing"] )
     add("cli_command", "AgentPress proof outreach kit", "agentpress/proof-outreach/README.md", "proof outreach external receipts agent request prompt adoption blocker submit", ["proof", "outreach", "external", "receipts", "agents"] )
     add("cli_command", "AgentPress external proof ingestion", "agentpress/external-proofs/README.md", "proof-ingest validate index external proof receipts blocker reports privacy scan reputation scoring", ["proof", "ingest", "receipts", "score", "privacy"] )
+    add("cli_command", "AgentPress secure transport readiness", "agentpress/secure-transport/README.md", "secure transport readiness key owner rotation recipient identity encrypted payload approval", ["secure-transport", "privacy", "keys", "approval"] )
     add("cli_command", "AgentPress privacy and confidential messaging", "agentpress/privacy/README.md", "privacy confidential message envelope redaction secure transport metadata-only threat model", ["privacy", "confidential", "redaction", "message", "security"] )
     add("cli_command", "AgentPress runtime support", "agentpress/runtime/README.md", "error codes session state health status batch run progress agent orchestration", ["runtime", "error-codes", "session", "health", "batch"] )
     add("cli_command", "AgentPress remediation index", "agentpress/remediation/remediation-index.json", "remediation exact command blockers failed checks next action", ["remediation", "debug", "doctor", "commands"] )
@@ -2006,6 +2007,8 @@ def tools_manifest(args):
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
         {"name":"agentpress.proof_outreach_kit", "description":"Generate agent-to-agent proof request prompts and per-runtime outreach files for collecting external receipts/blockers.", "command":"python3 scripts/agentpress.py proof-outreach-kit --json", "tags":["proof","outreach","external","receipts","agents"]},
         {"name":"agentpress.proof_ingest", "description":"Validate, privacy-scan, score, and index third-party AgentPress proof submissions and blocker reports.", "command":"python3 scripts/agentpress.py proof-ingest --json --allow-rejected", "tags":["proof","ingest","receipts","privacy","score"]},
+        {"name":"agentpress.secure_transport_readiness", "description":"Report approval gates for live confidential payload transport without enabling unsafe transport.", "command":"python3 scripts/agentpress.py secure-transport-readiness --json", "tags":["secure-transport","privacy","keys","approval"]},
+        {"name":"agentpress.transport_request", "description":"Create an approval artifact requesting secure encrypted transport for confidential payload exchange.", "command":"python3 scripts/agentpress.py transport-request --from-agent a --to-operator operator --purpose secure-handoff --json", "tags":["transport","request","approval","privacy"]},
         {"name":"agentpress.privacy_status", "description":"Report AgentPress privacy classes and confidential messaging posture without overclaiming encrypted transport.", "command":"python3 scripts/agentpress.py privacy-status --json", "tags":["privacy","confidential","policy","messages"]},
         {"name":"agentpress.confidential_message_create", "description":"Create metadata-only confidential message envelopes that hash plaintext but do not store it.", "command":"python3 scripts/agentpress.py confidential-message-create --from-agent a --to-agent b --subject secure-handoff --body <redacted> --json", "tags":["confidential","message","envelope","metadata"]},
         {"name":"agentpress.confidential_message_verify", "description":"Verify confidential message envelope integrity and fail closed on tampering/plaintext storage.", "command":"python3 scripts/agentpress.py confidential-message-verify agentpress/privacy/confidential-message.example.json --json", "tags":["confidential","message","verify","integrity"]},
@@ -2583,6 +2586,7 @@ def agent_painpoints(args):
         "search": exists("agentpress/search/search-index.json"),
         "negative_fixtures": exists("agentpress/fixtures/broken-bundles/expected-failures.json"),
         "signed_attestations": exists("agentpress/attestations/attestation-index.json"),
+        "secure_transport_readiness": exists("agentpress/secure-transport/secure-transport-readiness.json"),
         "privacy_kit": exists("agentpress/privacy/privacy-status.json"),
         "confidential_message_envelope": exists("agentpress/privacy/confidential-message.example.json"),
         "runtime_error_codes": exists("agentpress/runtime/error-codes.json"),
@@ -3251,6 +3255,59 @@ def consent_check(args):
     print(json.dumps(payload, indent=2) if args.json else payload["status"])
     return 0 if ok else 1
 
+
+def secure_transport_readiness(args):
+    """Report requirements before any confidential payload transport can be enabled."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out)
+    checks=[]
+    def check(id, ok, detail, required=True): checks.append({"id":id,"ok":bool(ok),"required":required,"detail":detail})
+    check("privacy_status", (root/"agentpress/privacy/privacy-status.json").exists(), "privacy posture exists")
+    check("consent_registry", (root/"agentpress/privacy/consent-registry.json").exists(), "consent registry exists")
+    check("redaction_gate", True, "redaction-check CLI available")
+    check("envelope_verify", True, "confidential-message-verify CLI available")
+    check("key_owner_policy", False, "no approved key owner/rotation/revocation policy yet")
+    check("recipient_identity_policy", False, "no approved recipient identity verification policy yet")
+    check("transport_provider", False, "no approved encrypted transport provider configured")
+    check("replay_policy", False, "nonce/sequence exists in envelope; no live replay verifier service")
+    live_ready=all(c["ok"] for c in checks if c["required"])
+    payload={"schema_version":"2026-05-03.agentpress-secure-transport-readiness.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"blocked_on_security_approval" if not live_ready else "ready","live_transport_enabled":False,"principle":"Do not exchange confidential payloads until key ownership, recipient identity, transport provider, and replay policy are approved.","checks":checks,"safe_now":["metadata-only confidential envelopes","redaction checks","consent registry checks","hash/integrity verification"],"blocked_actions":["live encrypted payload exchange","automatic key exchange","credential or private prompt transfer"],"approval_needed":["key owner", "rotation/revocation", "recipient identity", "transport provider", "replay/expiry verifier", "audit retention"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0
+
+
+def transport_request(args):
+    """Create a safe request to enable a secure confidential transport."""
+    out=pathlib.Path(args.out)
+    payload={"schema_version":"2026-05-03.agentpress-secure-transport-request.v1","request_id":args.request_id or _short_id("transport"),"created_utc":_utc_now(),"from_agent":args.from_agent,"to_operator":args.to_operator,"purpose":args.purpose,"requested_scope":args.scope,"privacy_class":"encrypted_payload_external","status":"approval_required","required_decisions":["key owner", "recipient verification", "transport provider", "rotation/revocation", "replay/expiry", "audit retention"],"preflight_commands":["python3 scripts/agentpress.py secure-transport-readiness --json","python3 scripts/agentpress.py privacy-status --json","python3 scripts/agentpress.py consent-check --agent external-agent --scope confidential_metadata_only --json"],"prohibited_until_approved":["send plaintext", "send credentials", "publish encrypted payload to public static site as if private"],"notes":"This request does not enable transport. It creates an approval artifact."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else out.as_posix())
+    return 0
+
+
+def secure_transport_kit(args):
+    """Generate secure transport readiness kit."""
+    root=pathlib.Path(args.root); out=root/args.out; out.mkdir(parents=True, exist_ok=True)
+    secure_transport_readiness(argparse.Namespace(root=str(root), out=str(out/"secure-transport-readiness.json"), base_url=args.base_url, no_write=False, json=False))
+    transport_request(argparse.Namespace(out=str(out/"secure-transport-request.example.json"), from_agent="agentpress-reference-agent", to_operator="operator", purpose="request approved secure channel for confidential payload exchange", scope="one-off encrypted_payload_external", request_id="transport-request-example", no_write=False, json=False))
+    (out/"README.md").write_text("""# AgentPress Secure Transport Readiness
+
+Agents may want private/confidential payload exchange. This kit says exactly what must be approved before live encrypted transport is allowed.
+
+```bash
+python3 scripts/agentpress.py secure-transport-readiness --json
+python3 scripts/agentpress.py transport-request --from-agent a --to-operator operator --purpose 'secure payload handoff' --json
+```
+
+Current default: metadata-only coordination is allowed; live payload transport is blocked pending security approvals.
+""", encoding="utf-8")
+    manifest={"schema_version":"2026-05-03.agentpress-secure-transport-kit-manifest.v1","status":"ok","generated_utc":_utc_now(),"files":[fp.relative_to(root).as_posix() for fp in sorted(out.glob("*")) if fp.is_file()]}
+    (out/"manifest.json").write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(manifest, indent=2) if args.json else out.as_posix())
+    return 0
+
 def adoption_status(args):
     """Summarize opt-in AgentPress adoption/proof state without hidden telemetry."""
     root=pathlib.Path(args.root)
@@ -3391,6 +3448,9 @@ def main():
     p = sub.add_parser("proof-ingest"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--out", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-skeleton"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/package-registry/skeleton"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-dry-run"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/package-registry/skeleton"); p.add_argument("--out", default="agentpress/package-registry/package-registry-dry-run.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("secure-transport-readiness"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/secure-transport/secure-transport-readiness.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("transport-request"); p.add_argument("--out", default="agentpress/secure-transport/secure-transport-request.example.json"); p.add_argument("--from-agent", required=True); p.add_argument("--to-operator", required=True); p.add_argument("--purpose", required=True); p.add_argument("--scope", default="one-off encrypted_payload_external"); p.add_argument("--request-id"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("secure-transport-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/secure-transport"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("privacy-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/privacy/privacy-status.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("privacy-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/privacy"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("redaction-check"); p.add_argument("path"); p.add_argument("--out"); p.add_argument("--max-files", type=int, default=200); p.add_argument("--max-chars", type=int, default=200000); p.add_argument("--allow-findings", action="store_true"); p.add_argument("--json", action="store_true")
@@ -3493,6 +3553,9 @@ def main():
     if args.cmd == "remediation-index": return remediation_index(args)
     if args.cmd == "error-codes": return error_codes(args)
     if args.cmd == "privacy-status": return privacy_status(args)
+    if args.cmd == "secure-transport-readiness": return secure_transport_readiness(args)
+    if args.cmd == "transport-request": return transport_request(args)
+    if args.cmd == "secure-transport-kit": return secure_transport_kit(args)
     if args.cmd == "privacy-kit": return privacy_kit(args)
     if args.cmd == "redaction-check": return redaction_check(args)
     if args.cmd == "confidential-message-create": return confidential_message_create(args)
