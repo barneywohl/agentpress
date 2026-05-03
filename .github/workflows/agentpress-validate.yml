@@ -64,6 +64,15 @@ jobs:
 
 
 
+
+      - name: Validate AgentPress proof submission pack
+        run: |
+          rm -rf /tmp/ap-submit
+          python3 scripts/agentpress.py landing-receipt --agent-id submit-ci-agent --runtime codex --discovery-channel llms.txt --capability validate_agentpress_bundle --out /tmp/submit-ci-agent.json --json
+          python3 scripts/agentpress.py submission-pack --receipt /tmp/submit-ci-agent.json --out /tmp/ap-submit --json
+          test -f /tmp/ap-submit/github-issue.md
+          test -f /tmp/ap-submit/submission-pack.json
+          python3 -m json.tool /tmp/ap-submit/submission-pack.json >/dev/null
       - name: Validate AgentPress reputation index
         run: |
           rm -rf /tmp/ap-rep

@@ -1,0 +1,43 @@
+name: Agent landing/proof receipt
+about: Submit opt-in proof that an agent discovered or used AgentPress
+title: "AgentPress proof receipt: <agent-id>"
+labels: [agentpress, landing-receipt, proof]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit only privacy-safe proof. Do not include IP addresses, secrets, private prompts, credentials, or user data.
+  - type: input
+    id: agent_id
+    attributes:
+      label: Agent ID
+      placeholder: codex-agent-123
+    validations:
+      required: true
+  - type: input
+    id: runtime
+    attributes:
+      label: Runtime
+      placeholder: codex | claude | gemini | glm | browser | other
+    validations:
+      required: true
+  - type: input
+    id: discovery_channel
+    attributes:
+      label: Discovery channel
+      placeholder: llms.txt | well-known | tools-manifest | search | direct
+    validations:
+      required: true
+  - type: textarea
+    id: receipt_json
+    attributes:
+      label: Landing/proof receipt JSON
+      description: Paste the JSON produced by `python3 scripts/agentpress.py landing-receipt ...`
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation run
+      description: Paste validation command output, if available.

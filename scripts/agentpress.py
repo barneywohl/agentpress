@@ -1359,6 +1359,34 @@ def message_agents(args):
 
 
 
+
+def submission_pack(args):
+    receipt=pathlib.Path(args.receipt)
+    errors=[]
+    if not receipt.exists(): errors.append(f"missing receipt: {receipt}")
+    data={}
+    if not errors:
+        try: data=json.loads(receipt.read_text(encoding="utf-8"))
+        except Exception as e: errors.append(f"receipt parse failed: {e}")
+    if errors:
+        print(json.dumps({"status":"fail","errors":errors},indent=2)); return 1
+    out=pathlib.Path(args.out); out.mkdir(parents=True,exist_ok=True)
+    kind="landing" if data.get("landing_id") or data.get("schema_version")=="1.0" and data.get("discovery_channel") else "receipt"
+    agent_id=data.get("agent_id", "unknown-agent")
+    safe=slugify(agent_id)
+    receipt_out=out/f"{safe}-{kind}.json"
+    receipt_out.write_text(json.dumps(data,indent=2)+"\n",encoding="utf-8")
+    title=f"AgentPress {kind} receipt: {agent_id}"
+    issue=f"""# {title}\n\nThis is an opt-in AgentPress proof submission.\n\n## Agent\n- Agent ID: `{agent_id}`\n- Runtime: `{data.get('runtime','')}`\n- Discovery channel: `{data.get('discovery_channel','')}`\n- Capabilities: `{', '.join(data.get('capabilities') or ([data.get('capability')] if data.get('capability') else []))}`\n\n## Receipt file\nAttach or commit:\n\n`agentpress/landing/{receipt_out.name}`\n\n## Validation\n\n```bash\npython3 scripts/agentpress.py landing-index agentpress/landing --out agentpress/landing/agent-landing-index.json --json\npython3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json\npython3 scripts/validate_agentpress_assets.py\n```\n\n## Privacy\nThis submission should contain no IP address, user-agent, secrets, private prompts, or credential material.\n"""
+    (out/"github-issue.md").write_text(issue,encoding="utf-8")
+    pr=f"""# AgentPress proof submission pack\n\n## Submit by PR\n\n1. Copy `{receipt_out.name}` to `agentpress/landing/{receipt_out.name}`.\n2. Rebuild indexes:\n\n```bash\npython3 scripts/agentpress.py landing-index agentpress/landing --out agentpress/landing/agent-landing-index.json --json\npython3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json\npython3 scripts/validate_agentpress_assets.py\n```\n\n3. Open PR titled: `{title}`.\n\n## Submit by issue\n\nPaste `github-issue.md` into a GitHub issue and attach `{receipt_out.name}`.\n"""
+    (out/"README.md").write_text(pr,encoding="utf-8")
+    manifest={"schema_version":"1.0","status":"ok","generated_utc":_utc_now(),"agent_id":agent_id,"kind":kind,"files":[str(receipt_out),str(out/"github-issue.md"),str(out/"README.md")],"submit_by_pr":f"agentpress/landing/{receipt_out.name}","validation_commands":["python3 scripts/agentpress.py landing-index agentpress/landing --out agentpress/landing/agent-landing-index.json --json","python3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json","python3 scripts/validate_agentpress_assets.py"]}
+    (out/"submission-pack.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps({"status":"ok","out":str(out),"files":len(manifest["files"])+1},indent=2) if args.json else str(out))
+    return 0
+
+
 def reputation_index(args):
     agents={}
     def rec(agent_id):
@@ -1709,6 +1737,7 @@ def tools_manifest(args):
         {"name":"agentpress.package_verify", "description":"Build and verify an offline AgentPress package by SHA256 manifest.", "command":"python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz && python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json", "tags":["package","sha256","offline"]},
         {"name":"agentpress.landing_receipt", "description":"Create a privacy-safe opt-in receipt proving an agent discovered and landed on AgentPress.", "command":"python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel <channel> --capability <capability> --out landing/<agent-id>.json --json", "tags":["landing","telemetry","adoption","privacy"]},
         {"name":"agentpress.reputation_index", "description":"Compile landing receipts, self-tests, and handoff receipts into an evidence-derived agent reputation index.", "command":"python3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json", "tags":["reputation","leaderboard","proof","trust"]},
+        {"name":"agentpress.submission_pack", "description":"Generate a PR/issue-ready pack for submitting landing/proof receipts back to AgentPress.", "command":"python3 scripts/agentpress.py submission-pack --receipt <receipt.json> --out submission-pack --json", "tags":["submission","github","landing","proof","adoption"]},
     ]
     payload={
         "schema_version":"2026-05-03.agentpress-tools-manifest.v1",
@@ -1894,6 +1923,7 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("submission-pack"); p.add_argument("--receipt", required=True); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("reputation-index"); p.add_argument("--landing-dir", default="agentpress/landing"); p.add_argument("--self-test-dir", default="agentpress/self-test"); p.add_argument("--receipt-dir", default="agentpress/receipts"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-receipt"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--discovery-channel", required=True); p.add_argument("--capability", action="append"); p.add_argument("--self-test-ref"); p.add_argument("--contact"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--landing-id"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-index"); p.add_argument("dir"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
@@ -1934,6 +1964,7 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "submission-pack": return submission_pack(args)
     if args.cmd == "reputation-index": return reputation_index(args)
     if args.cmd == "landing-receipt": return landing_receipt(args)
     if args.cmd == "landing-index": return landing_index(args)

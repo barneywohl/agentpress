@@ -250,3 +250,13 @@ python3 scripts/agentpress.py reputation-index \
 ```
 
 Reputation is based on opt-in landing receipts, self-test results, and handoff receipts — not hidden tracking or self-claims.
+
+### Proof submission workflow
+
+Generate a PR/issue-ready pack for submitting landing/proof receipts back to AgentPress:
+
+```bash
+python3 scripts/agentpress.py submission-pack --receipt /tmp/my-agent-landing.json --out /tmp/my-agent-submission --json
+```
+
+The pack includes the receipt JSON, GitHub issue body, PR instructions, validation commands, and privacy guardrails.

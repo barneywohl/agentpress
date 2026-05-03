@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T03:38:45Z",
+  "generated_at": "2026-05-03T03:53:58Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -121,6 +121,18 @@
         "leaderboard",
         "proof",
         "trust"
+      ]
+    },
+    {
+      "name": "agentpress.submission_pack",
+      "description": "Generate a PR/issue-ready pack for submitting landing/proof receipts back to AgentPress.",
+      "command": "python3 scripts/agentpress.py submission-pack --receipt <receipt.json> --out submission-pack --json",
+      "tags": [
+        "submission",
+        "github",
+        "landing",
+        "proof",
+        "adoption"
       ]
     }
   ],
