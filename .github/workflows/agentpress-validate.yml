@@ -18,6 +18,7 @@ jobs:
         run: |
           python3 scripts/agentpress.py consistency-check --json
           python3 scripts/agentpress.py feedback-submit --example | python3 -m json.tool >/dev/null
+          python3 scripts/agentpress.py adoption-status --json
           test -f agentpress/feedback/response-template.json
           test -f agentpress/audit/first-contact-evidence.json
       - name: Validate AgentPress mesh self-registration

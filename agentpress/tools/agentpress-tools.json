@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T14:31:27Z",
+  "generated_at": "2026-05-03T16:34:55Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -180,6 +180,18 @@
         "ci",
         "contract",
         "drift"
+      ]
+    },
+    {
+      "name": "agentpress.adoption_status",
+      "description": "Summarize opt-in landing receipts, reputation, compatibility, mesh, and install-lane adoption state without hidden telemetry.",
+      "command": "python3 scripts/agentpress.py adoption-status --json",
+      "tags": [
+        "adoption",
+        "reputation",
+        "compatibility",
+        "privacy",
+        "proof"
       ]
     },
     {

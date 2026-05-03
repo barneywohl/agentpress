@@ -1979,6 +1979,7 @@ def tools_manifest(args):
         {"name":"agentpress.submission_pack", "description":"Generate a PR/issue-ready pack for submitting landing/proof receipts back to AgentPress.", "command":"python3 scripts/agentpress.py submission-pack --receipt <receipt.json> --out submission-pack --json", "tags":["submission","github","landing","proof","adoption"]},
         {"name":"agentpress.feedback_submit", "description":"Emit or validate deterministic external-agent feedback against the AgentPress response template/rubric.", "command":"python3 scripts/agentpress.py feedback-submit --example", "tags":["feedback","rubric","first-contact","agent-review"]},
         {"name":"agentpress.consistency_check", "description":"Fail CI when first-contact machine contracts drift across llms.txt, README, schemas, and agent instructions.", "command":"python3 scripts/agentpress.py consistency-check --json", "tags":["consistency","ci","contract","drift"]},
+        {"name":"agentpress.adoption_status", "description":"Summarize opt-in landing receipts, reputation, compatibility, mesh, and install-lane adoption state without hidden telemetry.", "command":"python3 scripts/agentpress.py adoption-status --json", "tags":["adoption","reputation","compatibility","privacy","proof"]},
         {"name":"agentpress.compatibility_matrix", "description":"Run install/doctor/self-test/proof compatibility checks across agent runtime families and emit a machine-readable matrix.", "command":"python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json", "tags":["compatibility","runtime","matrix","proof","self-test"]},
         {"name":"agentpress.agent_traffic_audit", "description":"Audit whether AgentPress exposes the required machine surfaces for agent traffic and proof conversion.", "command":"python3 scripts/agentpress.py agent-traffic-audit --out agentpress/traffic/agent-traffic-audit.json --json", "tags":["traffic","audit","crawler","routes","proof"]},
         {"name":"agentpress.agent_route", "description":"Return exact commands and URLs for an agent runtime and intent from the AgentPress route manifest.", "command":"python3 scripts/agentpress.py agent-route --runtime codex --intent prove --json", "tags":["agent-route","routes","runtime","intent","commands"]},
@@ -2208,6 +2209,44 @@ def doctor(args):
     return 0 if ok else 1
 
 
+
+def adoption_status(args):
+    """Summarize opt-in AgentPress adoption/proof state without hidden telemetry."""
+    root=pathlib.Path(args.root)
+    errors=[]
+    def load(rel, default):
+        path=root/rel
+        if not path.exists():
+            errors.append(f"missing {rel}"); return default
+        try: return json.loads(path.read_text(encoding='utf-8'))
+        except Exception as e:
+            errors.append(f"{rel}: {e}"); return default
+    mesh=load('agentpress/mesh/known-agents.json', {})
+    landing=load('agentpress/landing/agent-landing-index.json', {})
+    rep=load('agentpress/reputation/reputation-index.json', {})
+    compat=load('agentpress/compatibility/compatibility-matrix.json', {})
+    catalog=load('agentpress/install/install-catalog.json', {})
+    third_party=0
+    for r in landing.get('receipts', []):
+        aid=(r.get('agent_id') or '')
+        if aid and not aid.startswith('compat-') and aid != 'agentpress-barneywohl':
+            third_party+=1
+    metrics={
+        'mesh_known_agents': mesh.get('agent_count', 0),
+        'landing_receipts': landing.get('receipt_count', 0),
+        'reputation_agents': rep.get('agent_count', 0),
+        'compatibility_profiles_passed': compat.get('pass_count', 0),
+        'compatibility_profiles_tested': compat.get('runtimes_tested', 0),
+        'third_party_receipts': third_party,
+        'install_lanes_live': sum(1 for x in catalog.get('lanes', []) if str(x.get('status','')).startswith('live')),
+    }
+    status='ok' if not errors and metrics['compatibility_profiles_passed'] == metrics['compatibility_profiles_tested'] and metrics['landing_receipts'] >= 1 else 'needs_attention'
+    payload={'schema_version':'2026-05-03.agentpress-adoption-status-result.v1','generated_utc':_utc_now(),'status':status,'metrics':metrics,'errors':errors,'next_actions':['collect independent third-party receipts','publish package registry lanes after ownership confirmation','run compatibility from real external hosts','add non-GitHub mirror']}
+    if args.out:
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+'\n', encoding='utf-8')
+    print(json.dumps(payload, indent=2) if args.json else status)
+    return 0 if status == 'ok' or args.allow_needs_attention else 1
+
 def feedback_submit(args):
     """Emit or validate a deterministic AgentPress feedback response."""
     template_path = pathlib.Path(args.template)
@@ -2301,6 +2340,7 @@ def main():
     p = sub.add_parser("negative-fixtures"); p.add_argument("--manifest", default="agentpress/fixtures/broken-bundles/expected-failures.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("feedback-submit"); p.add_argument("--example", action="store_true"); p.add_argument("--input"); p.add_argument("--template", default="agentpress/feedback/response-template.json"); p.add_argument("--rubric", default="agentpress/feedback/scoring-rubric.json"); p.add_argument("--agent-id"); p.add_argument("--agent-family", default="codex"); p.add_argument("--runtime-or-model"); p.add_argument("--target-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("consistency-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("adoption-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true"); p.add_argument("--allow-needs-attention", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
     p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True)
     p = sub.add_parser("list"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--json", action="store_true")
@@ -2365,6 +2405,7 @@ def main():
     if args.cmd == "negative-fixtures": return negative_fixtures(args)
     if args.cmd == "feedback-submit": return feedback_submit(args)
     if args.cmd == "consistency-check": return consistency_check(args)
+    if args.cmd == "adoption-status": return adoption_status(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)
     if args.cmd == "list": return list_examples(args)

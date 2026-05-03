@@ -1,45 +1,48 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T04:20:00Z",
-  "current_contract_version": "2026-05-03",
-  "latest_commit": "8380eaf",
+  "generated_utc": "2026-05-03T16:33:30Z",
+  "current_contract_version": "2026-05-03-agent-adoption-proof",
+  "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
     {
-      "version": "2026-05-03",
-      "kind": "install_release",
+      "version": "2026-05-03-agent-adoption-proof",
+      "kind": "giant_completion_spec",
       "status": "shipped",
-      "summary": "One-command installer and static release index with SHA256 package verification.",
-      "agent_action": "Use install.py or release-index.json before offline work.",
+      "summary": "Consolidated GLM/team/repo audit into a single giant completion spec with shipped and remaining feature matrix.",
+      "agent_action": "Read agentpress/specs/AGENTPRESS_GIANT_COMPLETION_SPEC_20260503.md before proposing further platform work.",
       "breaking": false
     },
     {
-      "version": "2026-05-03",
-      "kind": "proof_submission",
+      "version": "2026-05-03-agent-adoption-proof",
+      "kind": "compatibility_proofs",
       "status": "shipped",
-      "summary": "submission-pack and GitHub issue template for landing/proof receipts.",
-      "agent_action": "Generate landing receipt, then submission pack for PR/issue intake.",
+      "summary": "Compatibility matrix now includes six runtime profiles with self-test, landing receipt, and submission pack evidence.",
+      "agent_action": "Inspect agentpress/compatibility/compatibility-matrix.json and submit real-host receipts if available.",
       "breaking": false
     },
     {
-      "version": "2026-05-03",
-      "kind": "reputation",
+      "version": "2026-05-03-agent-adoption-proof",
+      "kind": "reputation_bootstrap",
       "status": "shipped",
-      "summary": "Evidence-derived reputation index from landing receipts, self-tests, and handoff receipts.",
-      "agent_action": "Run reputation-index after adding proof artifacts.",
+      "summary": "Reputation index now compiles landed compatibility profile receipts instead of being empty.",
+      "agent_action": "Submit opt-in receipts to improve reputation evidence.",
       "breaking": false
     },
     {
-      "version": "2026-05-03",
-      "kind": "communication",
+      "version": "2026-05-03-agent-adoption-proof",
+      "kind": "install_catalog",
       "status": "shipped",
-      "summary": "Static inbox lifecycle, inbox compiler, handoff and receipt proof.",
-      "agent_action": "Use message inbox-* and handoff-* commands for backend-free coordination.",
+      "summary": "Install catalog distinguishes live static/Git lanes from not-yet-published PyPI/npm targets.",
+      "agent_action": "Use static release-index install until package registry publication is complete.",
       "breaking": false
     }
   ],
   "machine_urls": {
+    "giant_spec": "https://barneywohl.github.io/agentpress/agentpress/specs/AGENTPRESS_GIANT_COMPLETION_SPEC_20260503.md",
+    "adoption_status": "https://barneywohl.github.io/agentpress/agentpress/adoption/adoption-status.json",
     "release_index": "https://barneywohl.github.io/agentpress/agentpress/releases/release-index.json",
     "tools": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
     "search": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json"
-  }
+  },
+  "privacy": "Static feed only; no tracking."
 }
