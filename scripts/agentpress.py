@@ -441,7 +441,7 @@ def list_examples(args):
 
 
 def index_articles(args):
-    """Build a machine-readable article database from AgentPress examples."""
+    """Build a machine-readable bundle index from AgentPress examples."""
     src_root = pathlib.Path(args.root)
     dest = pathlib.Path(args.out)
     base_url = args.base_url.rstrip("/")
@@ -475,7 +475,7 @@ def index_articles(args):
             "slug": slug,
             "canonical_url": url,
             "summary_for_agents": summary,
-            "human_summary": read_text(ex/"README.md").replace("\n", " ")[:500] or summary,
+            "agent_fallback_summary": read_text(ex/"README.md").replace("\n", " ")[:500] or summary,
             "domains": domains,
             "task_types": task_types,
             "target_agent_families": card.get("target_agents") or ["browser_agent", "coding_agent", "rag_agent", "search_crawler"],
@@ -517,7 +517,7 @@ def index_articles(args):
             topics.setdefault(slugify(str(key)), []).append(a["slug"])
     write(dest/"topics.json", json.dumps({"schema_version": "0.1", "generated_at": generated_at, "topics": topics}, indent=2, ensure_ascii=False) + "\n")
     write(dest/"language-index.json", json.dumps({"schema_version": "0.1", "generated_at": generated_at, "languages": languages}, indent=2, ensure_ascii=False) + "\n")
-    write(dest/"README.md", f"# AgentPress Article Database\n\nGenerated index of agent-native articles.\n\nCurrent article count: {len(articles)}.\n")
+    write(dest/"README.md", f"# AgentPress Bundle Index\n\nGenerated index of agent-native bundles.\n\nCurrent bundle count: {len(articles)}.\n")
     print(f"indexed {len(articles)} AgentPress articles into {dest}")
     return 0
 

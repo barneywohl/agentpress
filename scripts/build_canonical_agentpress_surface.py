@@ -40,7 +40,7 @@ def kind(path: str) -> str:
     if path.endswith((".json", ".jsonl", ".yaml", ".yml", ".xml", ".opml", ".cff", ".txt")):
         return "machine_manifest_or_data"
     if path.endswith((".md", ".html")):
-        return "human_and_agent_readable_page"
+        return "agent_readable_fallback_page"
     if path.endswith((".py", ".js", ".sh")):
         return "script_or_tool"
     return "asset"
@@ -70,7 +70,7 @@ def main() -> int:
         "name": "AgentPress canonical asset manifest",
         "canonical_product": "AgentPress",
         "generated_at_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "purpose": "Clean public inventory for agents, crawlers, RAG systems, eval harnesses, MCP-style agents, and coding agents.",
+        "purpose": "Deterministic public inventory for agents, crawlers, RAG systems, eval harnesses, MCP-style agents, and coding agents.",
         "canonical_pages": f"{BASE}/",
         "canonical_repo": "https://github.com/barneywohl/agentpress",
         "raw_base": f"{RAW}/",
@@ -80,10 +80,7 @@ def main() -> int:
             ".well-known/ai-ingestion.json",
             "agentpress/articles/article-index.json",
             "agentpress/articles/article-index.jsonl",
-            "agentpress/AGENT_ARTICLE_DATABASE_SPEC.md",
-            "agentpress/hub/AGENT_HUB.md",
-            "agentpress/profiles/agentpress-reference-agent/agent-profile.json",
-            "agentpress/protocols/mcp-manifest.json",
+                        "agentpress/protocols/mcp-manifest.json",
             "agentpress/protocols/executable-contracts.json",
             "agentpress/feeds/agentpress-feed.json",
             "agentpress/use-cases/README.md",

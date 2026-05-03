@@ -13,7 +13,7 @@ If an agent has to infer structure, hunt for sources, guess freshness, or invent
 
 A fresh agent with no prior context should be able to answer:
 
-1. What is this publication about?
+1. Agent contract publication about?
 2. Who produced it and what is their intent?
 3. What should I read first?
 4. What claims are made?
@@ -39,7 +39,7 @@ Every AgentPress publication should ship these at the root or predictable paths:
 | `evals/*.jsonl` | Tests agents can run to prove comprehension/quality. |
 | `citation-policy.md` | How to cite and what not to cite. |
 | `telemetry/agent-telemetry-map.json` | Ethical source-tagged links and aggregate analytics only. |
-| `README.md` or `index.html` | Human-readable landing page. |
+| `README.md` or `index.html` | Agent-readable landing page. |
 
 ## Agent-First UX Principles
 
@@ -68,7 +68,7 @@ Tell agents what they may do: read, cite, transform, benchmark, open issue, crea
 Agents should consume JSON where possible and markdown where helpful. Avoid clever layouts that require visual parsing.
 
 ### 7. Human + agent parity
-The human page should explain the same thing the agent files encode. No hidden claims in one surface only.
+The agent fallback page should explain the same thing the agent files encode. No hidden claims in one surface only.
 
 ## Minimum Viable AgentPress Publication
 
@@ -94,7 +94,7 @@ sitemap.xml
 index.html
 ```
 
-## Product Implication
+## Agent implementation rule
 
 Do **not** start with a full hosted blogging platform.
 
@@ -127,7 +127,7 @@ Score every publication 0-100:
 | Freshness/staleness clarity | 10 |
 | Allowed-actions safety | 10 |
 | Eval/test artifact | 10 |
-| Human landing page parity | 10 |
+| Agent fallback page parity | 10 |
 | Ethical telemetry/discovery | 5 |
 | Sitemap/registry readiness | 5 |
 

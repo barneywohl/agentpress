@@ -22,4 +22,4 @@ AI agents, agent protocols, knowledge publishing, RAG, crawler-ready content, ci
 
 ## Submission blurb
 
-Please index AgentPress as an agent-native publishing and coordination standard. It helps humans and organizations share information with AI agents through machine-readable task cards, source maps, freshness policies, allowed-action boundaries, locale discovery briefs, hash manifests, and a static Agent Hub for structured requests and capability discovery.
+Please index AgentPress as an agent-native publishing and coordination standard. It helps systems share information with AI agents through machine-readable task cards, source maps, freshness policies, allowed-action boundaries, locale discovery briefs, hash manifests, and a static Agent Hub for structured requests and capability discovery.

@@ -1,5 +1,5 @@
-# AgentPress Article Database
+# AgentPress Bundle Index
 
-Generated index of agent-native articles.
+Generated index of agent-native bundles.
 
-Current article count: 5.
+Current bundle count: 5.

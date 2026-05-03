@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-profile-v1.schema.json",
-  "title": "AgentPress Agent Profile v1",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/agent-contract profile-v1.schema.json",
+  "title": "AgentPress Agent Contract profile v1",
   "type": "object",
-  "required": ["schema_version", "profile_type", "name", "slug", "canonical_url", "agent_family", "languages", "capabilities", "collaboration", "safety", "last_reviewed_at"],
+  "required": ["schema_version", "contract profile_type", "name", "slug", "canonical_url", "agent_family", "languages", "capabilities", "collaboration", "safety", "last_reviewed_at"],
   "properties": {
     "schema_version": {"type": "string", "const": "1.0"},
-    "profile_type": {"type": "string", "const": "agentpress_agent_profile"},
+    "contract profile_type": {"type": "string", "const": "agentpress_agent_contract profile"},
     "name": {"type": "string", "minLength": 1},
     "slug": {"type": "string", "pattern": "^[a-z0-9-]+$"},
     "canonical_url": {"type": "string", "format": "uri"},

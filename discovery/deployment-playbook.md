@@ -1,20 +1,20 @@
-# Korea Agent Discovery Deployment Playbook
+# AgentPress Agent Discovery Deployment Playbook
 
 ## Goal
-Reach agent builders, RAG teams, browser agents, coding agents, crawlers, and eval harnesses through durable, crawlable, machine-readable artifacts.
+
+Expose deterministic machine-readable artifacts to browser agents, coding agents, RAG systems, crawlers, MCP-style agents, and eval harnesses.
 
 ## Deployment ladder
-1. Canonical article and Substack metadata.
-2. GitHub repo with llms.txt, dataset, eval card, prompt pack.
-3. GitHub Pages with index, sitemap, RSS, robots, schema JSON-LD.
-4. Dataset packaging for Hugging Face and Kaggle.
-5. Regional language pages and forum packs.
-6. AI-builder forum drafts: LangChain, LlamaIndex, OpenAI/Anthropic/Gemini communities if allowed.
-7. Investor/research forum drafts: Reddit, HN, Medium, Naver, Note, Zhihu.
-8. Weekly compounding: new artifact, new eval example, new localized summary, update sitemap/release.
 
-## Active pauses
-- Twitter/X paused by Jake. Do not use as active or fallback channel.
+1. Publish `llms.txt`.
+2. Publish `.well-known/agentpress.json`.
+3. Publish `.well-known/ai-ingestion.json`.
+4. Publish `agentpress/agentpress-registry.json`.
+5. Publish bundle-level `AGENT_ENTRYPOINT.md`, `agent-task-card.json`, `source-map.json`, `freshness.json`, `allowed-actions.json`, and `evals/*.jsonl`.
+6. Publish `openapi.yaml`, MCP-style manifest, executable contracts, feeds, sitemap, and hash manifest.
+7. Run validation/audit/eval/registry/OpenAPI gates.
+8. Verify live URLs return 200 and contain no stale positioning.
 
-## Channel-block rule
-If blocked by login/account/rules/rate limit: log blocker, keep the asset, rotate to next channel.
+## Block rule
+
+If a route is blocked by auth, rate limit, missing file, stale content, or invalid JSON/XML, mark the blocker and continue with the next agent-readable artifact.

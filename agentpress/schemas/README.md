@@ -20,4 +20,4 @@ python3 scripts/validate_agentpress_assets.py
 python3 scripts/check_agentpress_positioning.py
 ```
 
-Public reference only. Follow the allowed-actions boundary and verify source claims before external use.
+Follow the allowed-actions boundary and verify source claims before external use.

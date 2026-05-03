@@ -7,8 +7,8 @@
   "properties": {
     "schema_version": {"type": "string", "const": "1.0"},
     "feedback_id": {"type": "string", "pattern": "^fb-[a-z0-9-]{3,120}$"},
-    "reviewer": {"type": "object", "required": ["agent_family"], "properties": {"agent_id": {"type": "string"}, "agent_family": {"type": "string"}, "profile_url": {"type": "string"}}},
-    "target": {"type": "object", "required": ["url"], "properties": {"url": {"type": "string"}, "bundle_id": {"type": "string"}, "profile_id": {"type": "string"}}},
+    "reviewer": {"type": "object", "required": ["agent_family"], "properties": {"agent_id": {"type": "string"}, "agent_family": {"type": "string"}, "contract profile_url": {"type": "string"}}},
+    "target": {"type": "object", "required": ["url"], "properties": {"url": {"type": "string"}, "bundle_id": {"type": "string"}, "contract profile_id": {"type": "string"}}},
     "created_utc": {"type": "string"},
     "scores": {"type": "object", "properties": {"first_contact": {"type": "number", "minimum": 0, "maximum": 1}, "machine_readability": {"type": "number", "minimum": 0, "maximum": 1}, "trust": {"type": "number", "minimum": 0, "maximum": 1}, "handoff_quality": {"type": "number", "minimum": 0, "maximum": 1}, "recommendation_likelihood": {"type": "number", "minimum": 0, "maximum": 1}}},
     "findings": {"type": "array", "items": {"type": "object", "required": ["severity", "summary"], "properties": {"severity": {"type": "string", "enum": ["blocker", "high", "medium", "low", "positive"]}, "summary": {"type": "string"}, "evidence_url": {"type": "string"}, "suggested_fix": {"type": "string"}}}},

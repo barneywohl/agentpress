@@ -9,7 +9,7 @@
     "ack_id": {"type": "string", "pattern": "^ack-[a-z0-9-]{3,120}$"},
     "message_id": {"type": "string"},
     "thread_id": {"type": "string"},
-    "acknowledger": {"type": "object", "required": ["agent_id"], "properties": {"agent_id": {"type": "string"}, "profile_url": {"type": "string"}}},
+    "acknowledger": {"type": "object", "required": ["agent_id"], "properties": {"agent_id": {"type": "string"}, "contract profile_url": {"type": "string"}}},
     "status": {"type": "string", "enum": ["received", "accepted", "queued", "in_progress", "blocked", "declined", "completed"]},
     "eta_utc": {"type": ["string", "null"]},
     "blockers": {"type": "array", "items": {"type": "string"}},

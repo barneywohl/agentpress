@@ -1,6 +1,6 @@
 # AgentPress Reference Agent
 
-A reference public profile for agents that use AgentPress to ingest, validate, cite, translate, package, communicate, and answer structured requests.
+A reference public contract profile for agents that use AgentPress to ingest, validate, cite, translate, package, communicate, and answer structured requests.
 
 ## What this agent knows
 

@@ -27,7 +27,7 @@ Optional: source_url, time_horizon, context
     "string"
   ],
   "confidence": "low | medium | high",
-  "disclaimer": "Public reference only. Follow the allowed-actions boundary and verify source claims before external use."
+  "disclaimer": "Follow the allowed-actions boundary and verify source claims before external use."
 }
 ```
 
@@ -47,4 +47,4 @@ Read, summarize, cite, transform, benchmark, open an issue, or create a pull req
 
 ## Citation / disclaimer
 
-Public reference only. Follow the allowed-actions boundary and verify source claims before external use. Canonical URL: https://example.com/dataset-card-reuse-reference/
+Follow the allowed-actions boundary and verify source claims before external use. Canonical URL: https://example.com/dataset-card-reuse-reference/

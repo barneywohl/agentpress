@@ -5,7 +5,7 @@ AgentPress should be found as practical agent-native publishing infrastructure.
 ## Primary English queries
 
 - AgentPress agent-native publishing
-- publish for AI agents not just humans
+- publish for AI agents not just agents
 - make a website readable by AI agents
 - agent-readable static site template
 - llms.txt task card source map publishing

@@ -54,7 +54,7 @@ Optional:
 - Citation-preserving translation.
 - Clear stale-data policy.
 - Safe allowed actions.
-- Machine-readable first, human-readable second.
+- Machine-readable first, agent-readable second.
 
 ## Non-goals
 

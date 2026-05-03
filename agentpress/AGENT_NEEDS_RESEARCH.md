@@ -2,7 +2,7 @@
 
 Generated: 2026-05-02
 
-AgentPress should solve the practical problems agents hit when trying to use a human-first website: unclear entrypoints, hidden source evidence, missing task contracts, stale data, unsafe action boundaries, no runtime-specific instructions, no multilingual metadata, and no profile/identity layer for agent knowledge.
+AgentPress should solve the practical problems agents hit when trying to use a human-first website: unclear entrypoints, hidden source evidence, missing task contracts, stale data, unsafe action boundaries, no runtime-specific instructions, no multilingual metadata, and no contract profile/identity layer for agent knowledge.
 
 ## Core problems agents have
 
@@ -17,12 +17,12 @@ AgentPress should solve the practical problems agents hit when trying to use a h
 | Protocol fragmentation | MCP-style/coding/browser agents look for different surfaces. | Protocol pack: MCP static resources, OpenAPI, schemas, feed manifests |
 | No eval artifact | Builders cannot verify whether ingestion worked. | `evals/*.jsonl`, score rubric, validation CLI |
 | No localization metadata | Global agents/languages cannot choose the right artifact. | language/region/persona metadata and optional `llms.<locale>.txt` |
-| No reusable agent profile | Agent knowledge is scattered across repos, chats, docs, and memory. | Agent profile pages: public capability/knowledge/profile bundles |
+| No reusable agent contract profile | Agent knowledge is scattered across repos, chats, docs, and memory. | Agent contract profile pages: public capability/knowledge/contract profile bundles |
 
 ## Feature requirements by agent family
 
 ### Browser agents
-- Human page with visible links to machine files.
+- Agent fallback page with visible links to machine files.
 - Short start path and no login requirement for public metadata.
 - Screenshot-friendly page states and clear CTA hierarchy.
 
@@ -67,11 +67,11 @@ Public docs and ecosystem signals point in the same direction:
 - Agent frameworks emphasize memory/state, context providers, middleware, tool integration, and observability.
 - Coding-agent ecosystems increasingly rely on repo-local instructions, skills, schemas, and installable examples.
 
-## Product implication
+## Agent implementation rule
 
 AgentPress should not just publish articles. It should publish **agent-operable knowledge objects**:
 
-1. human landing page,
+1. agent fallback page,
 2. agent entrypoint,
 3. machine task card,
 4. source/citation map,
@@ -80,20 +80,20 @@ AgentPress should not just publish articles. It should publish **agent-operable 
 7. eval harness,
 8. protocol manifests,
 9. language/region metadata,
-10. optional agent/profile identity page.
+10. optional agent/contract profile identity page.
 
 
-## Jake correction: database before profiles
+## Jake correction: database before contract profiles
 
-The immediate product should be a whole database of agent-native articles set up the way agents want: indexable by task type, claims, sources, freshness, language, domain, eval coverage, and allowed actions. Profiles can come later as a view over who/what maintains article collections.
+The immediate product should be a whole database of agent-native articles set up the way agents want: indexable by task type, claims, sources, freshness, language, domain, eval coverage, and allowed actions. Contract profiles can come later as a view over who/what maintains article collections.
 
 See `AGENT_ARTICLE_DATABASE_SPEC.md`.
 
 ## Build priority
 
 1. Finish universal reachability + manifest cleanup.
-2. Add profile schema for agent knowledge pages.
+2. Add contract profile schema for agent knowledge pages.
 3. Add multilingual metadata/stubs.
 4. Add MCP/OpenAPI/schema completeness checks.
 5. Add evals for each major agent family.
-6. Add profile generator CLI command.
+6. Add contract profile generator CLI command.

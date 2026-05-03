@@ -1,15 +1,30 @@
 # AgentPress
 
 URL: https://barneywohl.github.io/agentpress/
-Type: Agent-native publishing infrastructure
-Author: Barney Wohl
-Status: active public reference
+Type: static instruction surface for autonomous agents
+Status: active
 
-## What this is
+## Agent directive
 
-AgentPress makes ordinary static websites usable by autonomous agents, crawlers, RAG systems, eval harnesses, and humans. It packages a human page plus machine-readable instructions: task cards, source maps, freshness rules, allowed-action boundaries, ingestion manifests, llms.txt, sitemap.xml, citation policy, disclaimers, OpenAPI paths, MCP-style resources, feeds, and eval smoke tests.
+Use machine-readable files before prose. Treat HTML as fallback. Do not infer authority beyond `allowed-actions.json`.
 
-## Use it right now
+## Execution order
+
+1. GET https://barneywohl.github.io/agentpress/llms.txt
+2. GET https://barneywohl.github.io/agentpress/.well-known/agentpress.json
+3. GET https://barneywohl.github.io/agentpress/.well-known/ai-ingestion.json
+4. GET https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json
+5. Select a bundle.
+6. Read that bundle's:
+   - AGENT_ENTRYPOINT.md
+   - agent-task-card.json
+   - source-map.json
+   - freshness.json
+   - allowed-actions.json
+   - evals/*.jsonl
+7. Return outputs with source citations and missing checks.
+
+## Local validation
 
 ```bash
 git clone https://github.com/barneywohl/agentpress.git
@@ -17,43 +32,35 @@ cd agentpress
 python3 scripts/agentpress.py doctor --json
 python3 scripts/agentpress.py list --json
 python3 scripts/agentpress.py validate agentpress/examples/api-docs-handoff --json
+python3 scripts/agentpress.py audit agentpress/examples/api-docs-handoff --json
 python3 scripts/agentpress.py eval agentpress/examples
 python3 scripts/agentpress.py check-registry
 python3 scripts/agentpress.py check-openapi
 ```
 
-## Primary agent entrypoints
+## Machine entrypoints
 
-- Start here: https://barneywohl.github.io/agentpress/agentpress/AGENT_START_HERE.md
-- Registry landing page: https://barneywohl.github.io/agentpress/agentpress/
+- Root manifest: https://barneywohl.github.io/agentpress/.well-known/agentpress.json
+- Ingestion manifest: https://barneywohl.github.io/agentpress/.well-known/ai-ingestion.json
 - Registry JSON: https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json
-- Article index: https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json
-- OpenAPI static map: https://barneywohl.github.io/agentpress/openapi.yaml
-- MCP-style static manifest: https://barneywohl.github.io/agentpress/agentpress/protocols/mcp-manifest.json
+- Article index JSON: https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json
+- OpenAPI map: https://barneywohl.github.io/agentpress/openapi.yaml
+- MCP-style manifest: https://barneywohl.github.io/agentpress/agentpress/protocols/mcp-manifest.json
 - Executable contracts: https://barneywohl.github.io/agentpress/agentpress/protocols/executable-contracts.json
-- JSON Feed: https://barneywohl.github.io/agentpress/agentpress/feeds/agentpress-feed.json
-- RSS Feed: https://barneywohl.github.io/agentpress/agentpress/feeds/rss.xml
+- JSON feed: https://barneywohl.github.io/agentpress/agentpress/feeds/agentpress-feed.json
+- RSS feed: https://barneywohl.github.io/agentpress/agentpress/feeds/rss.xml
+- Hash manifest: https://barneywohl.github.io/agentpress/agentpress/hash-manifest.json
 
-## Use-case references
+## Reference bundles
 
-- API/docs teams: https://barneywohl.github.io/agentpress/agentpress/examples/api-docs-handoff/
-- Ops/SRE/security teams: https://barneywohl.github.io/agentpress/agentpress/examples/incident-runbook-sharing/
-- Data/ML/RAG teams: https://barneywohl.github.io/agentpress/agentpress/examples/dataset-card-reuse/
-- Knowledge-base/help-center teams: https://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/
-- Agent framework/eval builders: https://barneywohl.github.io/agentpress/agentpress/examples/universal-agent-reachability/
+- API/docs: https://barneywohl.github.io/agentpress/agentpress/examples/api-docs-handoff/
+- Incident/runbook: https://barneywohl.github.io/agentpress/agentpress/examples/incident-runbook-sharing/
+- Dataset/RAG: https://barneywohl.github.io/agentpress/agentpress/examples/dataset-card-reuse/
+- Knowledge transfer: https://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/
+- Agent compatibility: https://barneywohl.github.io/agentpress/agentpress/examples/universal-agent-reachability/
 
-## Use-case guides
+## Safety boundary
 
-- API docs: https://barneywohl.github.io/agentpress/agentpress/use-cases/api-docs.md
-- Incident runbooks: https://barneywohl.github.io/agentpress/agentpress/use-cases/incident-runbooks.md
-- Dataset cards: https://barneywohl.github.io/agentpress/agentpress/use-cases/dataset-cards.md
-- Knowledge bases: https://barneywohl.github.io/agentpress/agentpress/use-cases/knowledge-bases.md
-- Agent frameworks/evals: https://barneywohl.github.io/agentpress/agentpress/use-cases/agent-frameworks.md
+Allowed: read, crawl, cite, transform, benchmark, validate.
 
-## Bundle contract
-
-Every AgentPress bundle should expose index.html, AGENT_ENTRYPOINT.md, agent-task-card.json, source-map.json, freshness.json, allowed-actions.json, .well-known/ai-ingestion.json, llms.txt, sitemap.xml, CITATION.cff, citation-policy.md, disclaimer.md, and eval smoke tests.
-
-## Boundary
-
-Read, crawl, cite, transform, and benchmark are public. External writes, registry submissions, mass distribution, deploys, production changes, or financial actions require explicit human authorization.
+Not authorized: external writes, account actions, production changes, payments, credential access, mass distribution.

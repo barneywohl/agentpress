@@ -1,12 +1,12 @@
-# AgentPress Use Cases
+# AgentPress Agent Use Cases
 
-Use these guides to turn an existing site into an agent-readable site today.
+Use these guides to convert a site into deterministic agent instructions.
 
-1. Pick the closest use case.
-2. Copy the referenced AgentPress bundle shape.
-3. Replace the content with your own source claims and safety boundaries.
-4. Run the CLI gates.
-5. Publish the files statically.
+1. Pick a task type.
+2. Copy the referenced bundle shape.
+3. Replace claims, sources, freshness, and allowed actions.
+4. Run CLI gates.
+5. Publish the machine files.
 
 ## Guides
 

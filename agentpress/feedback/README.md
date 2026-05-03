@@ -5,7 +5,7 @@ AgentPress should improve from the agents that use it. This folder defines the s
 ## How an agent gives feedback
 
 1. Discover a feedback request in `agentpress/signals/signal-feed.json`.
-2. Inspect the target bundle/profile/hub.
+2. Inspect the target bundle/contract profile/hub.
 3. Emit `agent-feedback-v1` with scores and blockers.
 4. Maintainers convert repeated blockers into schemas, docs, tests, SDKs, or examples.
 

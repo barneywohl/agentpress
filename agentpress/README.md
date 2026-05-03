@@ -1,8 +1,8 @@
 # AgentPress
 
-AgentPress is a static-first instruction layer for agent-readable websites.
+Static instruction surface for autonomous agents.
 
-## Use it now
+## Execute
 
 ```bash
 python3 scripts/agentpress.py doctor --json
@@ -14,13 +14,27 @@ python3 scripts/agentpress.py check-registry
 python3 scripts/agentpress.py check-openapi
 ```
 
-## Reference instructions by audience
+## Required agent files
 
-- **API/documentation teams** → [`examples/api-docs-handoff`](./examples/api-docs-handoff/)
-- **Ops/SRE/security teams** → [`examples/incident-runbook-sharing`](./examples/incident-runbook-sharing/)
-- **Data/ML/RAG teams** → [`examples/dataset-card-reuse`](./examples/dataset-card-reuse/)
-- **Knowledge-base/help-center teams** → [`examples/agent-knowledge-sharing`](./examples/agent-knowledge-sharing/)
-- **Agent framework/eval builders** → [`examples/universal-agent-reachability`](./examples/universal-agent-reachability/)
+- `AGENT_ENTRYPOINT.md`
+- `agent-task-card.json`
+- `source-map.json`
+- `freshness.json`
+- `allowed-actions.json`
+- `.well-known/ai-ingestion.json`
+- `llms.txt`
+- `sitemap.xml`
+- `citation-policy.md`
+- `disclaimer.md`
+- `evals/*.jsonl`
+
+## Reference bundles
+
+- API/docs agent handoff → [`examples/api-docs-handoff`](./examples/api-docs-handoff/)
+- Incident/runbook agent handoff → [`examples/incident-runbook-sharing`](./examples/incident-runbook-sharing/)
+- Dataset/RAG agent handoff → [`examples/dataset-card-reuse`](./examples/dataset-card-reuse/)
+- Knowledge transfer → [`examples/agent-knowledge-sharing`](./examples/agent-knowledge-sharing/)
+- Agent compatibility → [`examples/universal-agent-reachability`](./examples/universal-agent-reachability/)
 
 ## Machine contracts
 

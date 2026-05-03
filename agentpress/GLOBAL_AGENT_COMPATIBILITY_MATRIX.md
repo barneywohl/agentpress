@@ -4,7 +4,7 @@
 |---|---|---|---|
 | Search crawler | crawl seeds + sitemap | `sitemap.xml`, `robots.txt`, registry | shipped |
 | RAG indexer | compact docs + source map | `llms.txt`, `source-map.json`, JSON feed | shipped |
-| Browser agent | human page + safe actions | `index.html`, `allowed-actions.json` | shipped |
+| Browser agent | agent fallback page + safe actions | `index.html`, `allowed-actions.json` | shipped |
 | Coding agent | templates + CLI + schemas | `templates/`, `scripts/agentpress.py`, `schemas/` | shipped |
 | Eval agent | prompts + rubric + score | `agent-task-card.json`, eval JSONL, `score` | shipped |
 | API agent | OpenAPI paths | `openapi.yaml` | shipped |

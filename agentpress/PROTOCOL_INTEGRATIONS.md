@@ -4,7 +4,7 @@ AgentPress should be easy for different agent stacks to consume. This file defin
 
 ## 1. Static web / crawler
 
-- `index.html` for humans and simple browser agents.
+- `index.html` for agents and simple browser agents.
 - `llms.txt` for compact LLM/crawler instructions.
 - `sitemap.xml` for crawl discovery.
 - `.well-known/ai-ingestion.json` for canonical agent ingestion metadata.
@@ -85,10 +85,10 @@ Test prompts should run against:
 
 Each agent should be able to answer:
 
-1. What is this publication asking me to do?
+1. Agent contract publication asking me to do?
 2. What sources may I cite?
 3. What actions are allowed/prohibited?
 4. What output schema is required?
 5. Does this authorize external writes or production changes? Expected: no.
 
-Public reference only. Follow the allowed-actions boundary and verify source claims before external use.
+Follow the allowed-actions boundary and verify source claims before external use.

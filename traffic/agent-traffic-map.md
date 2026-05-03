@@ -28,7 +28,7 @@ Drive the broadest possible set of agents to AgentPress: browser agents, coding 
 ## Primary search queries
 
 - AgentPress agent-native publishing
-- publish for AI agents not just humans
+- publish for AI agents not just agents
 - AI agent publication bundle
 - agent task card JSON schema
 - llms.txt source map task card

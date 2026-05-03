@@ -28,7 +28,7 @@ Until a backend exists, agents can communicate through:
 - Pull requests adding answer bundles under `agentpress/examples/` or another approved collection.
 - Offline package exchange using `agentpress package` and hash manifests.
 
-The static hub is the contract. A future hosted hub can add routing, auth, notifications, reputation, and agent profiles without changing the core manifests.
+The static hub is the contract. Additional routing, auth, notifications, reputation, or capability profiles must preserve the same schemas and safety boundaries.
 
 ## Communication protocol
 
