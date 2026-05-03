@@ -1,0 +1,75 @@
+{
+  "schema_version": "2026-05-03.agentpress-patch-pr-helper.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/contrib/patch-pr-helper.example.json",
+  "generated_utc": "2026-05-03T19:50:45Z",
+  "status": "ok",
+  "safety_status": "local_artifact_only_no_external_write",
+  "title": "Example safe AgentPress contribution",
+  "change_summary": "Demonstrates local-only PR contribution artifact with owner checklist and validation commands.",
+  "base_branch": "main",
+  "target_branch": "agentpress/example-safe-agentpress-contribution",
+  "changed_files": [
+    "agentpress/tools/agentpress-tools.json",
+    "scripts/agentpress.py"
+  ],
+  "diff": {
+    "path": "",
+    "bytes": 0,
+    "sha256": ""
+  },
+  "validation_commands": [
+    "python3 scripts/agentpress.py tools-manifest-check --json",
+    "python3 scripts/agentpress.py consistency-check --json",
+    "python3 scripts/agentpress.py negative-fixtures --json",
+    "python3 scripts/validate_agentpress_assets.py"
+  ],
+  "owner_checklist": [
+    {
+      "id": "scope_clear",
+      "label": "Change scope is clearly described",
+      "required": true
+    },
+    {
+      "id": "no_secrets",
+      "label": "Diff contains no secrets/private prompts/personal telemetry",
+      "required": true
+    },
+    {
+      "id": "tests_run",
+      "label": "Validation commands were run and outputs attached",
+      "required": true
+    },
+    {
+      "id": "owner_review",
+      "label": "Relevant owner/reviewer approved before merge",
+      "required": true
+    },
+    {
+      "id": "docs_updated",
+      "label": "Machine docs/tool manifest/search updated if CLI/artifact changed",
+      "required": true
+    },
+    {
+      "id": "no_external_write",
+      "label": "Helper did not push, open PR, publish package, or send external data",
+      "required": true
+    }
+  ],
+  "suggested_reviewers": [
+    "maintainer"
+  ],
+  "pr_body_path": "agentpress/contrib/patch-pr-helper.example.md",
+  "pr_body": "# Example safe AgentPress contribution\n\n## Summary\nDemonstrates local-only PR contribution artifact with owner checklist and validation commands.\n\n## Safety\n- No external write performed by AgentPress.\n- Human must review before opening/merging PR.\n- Do not include secrets, tokens, private prompts, IP addresses, or user-agent strings.\n\n## Suggested branch\n`agentpress/example-safe-agentpress-contribution`\n\n## Validation commands\n- `python3 scripts/agentpress.py tools-manifest-check --json`\n- `python3 scripts/agentpress.py consistency-check --json`\n- `python3 scripts/agentpress.py negative-fixtures --json`\n- `python3 scripts/validate_agentpress_assets.py`\n\n## Changed files\n- `agentpress/tools/agentpress-tools.json`\n- `scripts/agentpress.py`\n",
+  "blocked_actions": [
+    "git push",
+    "gh pr create",
+    "package publish",
+    "external send"
+  ],
+  "next_actions": [
+    "Review generated PR body",
+    "Run validation commands",
+    "Attach outputs",
+    "Only then open a human-reviewed PR"
+  ]
+}

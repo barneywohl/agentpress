@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T19:44:43Z",
+  "generated_at": "2026-05-03T19:50:46Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -28,6 +28,18 @@
         "fetch",
         "bootstrap",
         "offline"
+      ]
+    },
+    {
+      "name": "agentpress.patch_pr_helper",
+      "description": "Generate a local-only patch/PR contribution pack with owner checklist and validation commands.",
+      "command": "python3 scripts/agentpress.py patch-pr-helper --title <title> --change-summary <summary> --json",
+      "tags": [
+        "patch",
+        "pr",
+        "contribution",
+        "review",
+        "coding-agent"
       ]
     },
     {
@@ -390,6 +402,30 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.queue_adapter_kit",
+      "description": "Generate static/local durable queue adapter schema, retry policy, idempotency, health, and dead-letter examples.",
+      "command": "python3 scripts/agentpress.py queue-adapter-kit --json",
+      "tags": [
+        "queue",
+        "retry",
+        "workflow",
+        "handoff",
+        "idempotency"
+      ]
+    },
+    {
+      "name": "agentpress.marketplace_compare",
+      "description": "Compare marketplace services for a capability with no-spend quote simulation.",
+      "command": "python3 scripts/agentpress.py marketplace-compare --capability agent_onboard --json",
+      "tags": [
+        "marketplace",
+        "compare",
+        "quote",
+        "routing",
+        "no-spend"
       ]
     },
     {

@@ -1,7 +1,37 @@
 {
   "schema_version": "2026-05-03.agentpress-changelog.v1",
-  "generated_utc": "2026-05-03T19:45:00Z",
+  "generated_utc": "2026-05-03T19:53:00Z",
   "changes": [
+    {
+      "version": "2026-05-03-queue-adapter-kit",
+      "summary": "Added durable queue adapter schema/retry policy/idempotency/health/dead-letter kit.",
+      "files": [
+        "scripts/agentpress.py",
+        "agentpress/queue/manifest.json",
+        "agentpress/specs/AGENTPRESS_QUEUE_ADAPTER_KIT_SPEC_20260503.md"
+      ],
+      "breaking": false
+    },
+    {
+      "version": "2026-05-03-marketplace-compare",
+      "summary": "Added marketplace service comparison and no-spend quote simulation.",
+      "files": [
+        "scripts/agentpress.py",
+        "agentpress/marketplace/marketplace-compare.example.json",
+        "agentpress/specs/AGENTPRESS_MARKETPLACE_COMPARE_SPEC_20260503.md"
+      ],
+      "breaking": false
+    },
+    {
+      "version": "2026-05-03-patch-pr-helper",
+      "summary": "Added real local-only patch/PR helper for coding agents.",
+      "files": [
+        "scripts/agentpress.py",
+        "agentpress/contrib/patch-pr-helper.example.json",
+        "agentpress/specs/AGENTPRESS_PATCH_PR_HELPER_SPEC_20260503.md"
+      ],
+      "breaking": false
+    },
     {
       "version": "2026-05-03-freshness-citation-report",
       "summary": "Added real RAG/crawler freshness and citation coverage report.",

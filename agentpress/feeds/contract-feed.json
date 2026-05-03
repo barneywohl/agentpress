@@ -1,9 +1,33 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T19:45:00Z",
-  "current_contract_version": "2026-05-03-freshness-citation-report",
+  "generated_utc": "2026-05-03T19:53:00Z",
+  "current_contract_version": "2026-05-03-queue-adapter-kit",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-queue-adapter-kit",
+      "kind": "workflow_queue",
+      "status": "shipped",
+      "summary": "Added static/local durable queue adapter kit with retry policy, idempotency, health, and dead-letter semantics.",
+      "agent_action": "Run `python3 scripts/agentpress.py queue-adapter-kit --json` to generate workflow handoff contracts.",
+      "breaking": false
+    },
+    {
+      "version": "2026-05-03-marketplace-compare",
+      "kind": "marketplace_routing",
+      "status": "shipped",
+      "summary": "Added service comparison and no-spend quote simulation for marketplace routing.",
+      "agent_action": "Run `python3 scripts/agentpress.py marketplace-compare --capability <capability> --json` before selecting a service.",
+      "breaking": false
+    },
+    {
+      "version": "2026-05-03-patch-pr-helper",
+      "kind": "contribution_lane",
+      "status": "shipped",
+      "summary": "Added local-only patch/PR helper with owner checklist, validation commands, and PR body generation.",
+      "agent_action": "Run `python3 scripts/agentpress.py patch-pr-helper --title ... --change-summary ... --json` before proposing contributions.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-freshness-citation-report",
       "kind": "rag_crawler_evidence",
@@ -278,7 +302,10 @@
     "external_proof_index": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/external-proof-index.json",
     "proof_scoreboard": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/proof-scoreboard.json",
     "browser_smoke": "https://barneywohl.github.io/agentpress/agentpress/evidence/browser-smoke.json",
-    "freshness_citation_report": "https://barneywohl.github.io/agentpress/agentpress/evidence/freshness-citation-report.json"
+    "freshness_citation_report": "https://barneywohl.github.io/agentpress/agentpress/evidence/freshness-citation-report.json",
+    "patch_pr_helper": "https://barneywohl.github.io/agentpress/agentpress/contrib/patch-pr-helper.example.json",
+    "marketplace_compare": "https://barneywohl.github.io/agentpress/agentpress/marketplace/marketplace-compare.example.json",
+    "queue_adapter_kit": "https://barneywohl.github.io/agentpress/agentpress/queue/manifest.json"
   },
   "privacy": "Static feed only; no tracking."
 }

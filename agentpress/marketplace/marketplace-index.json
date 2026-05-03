@@ -1,10 +1,10 @@
 {
   "schema_version": "2026-05-03.agentpress-marketplace.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/marketplace/marketplace-index.json",
-  "generated_utc": "2026-05-03T17:08:13Z",
+  "generated_utc": "2026-05-03T19:48:39Z",
   "status": "ok",
   "purpose": "Machine-readable marketplace for agents to discover AgentPress services by capability, command, pricing posture, SLA, trust evidence, and safety boundary.",
-  "service_count": 20,
+  "service_count": 21,
   "auth_policy": {
     "public": "read, crawl, validate, inspect marketplace, inspect payment metadata",
     "requires_human_or_external_authorization": [
@@ -301,6 +301,35 @@
         "evidence": [
           "agentpress/landing/rag-landing-receipt.json",
           "agentpress/self-test/rag-self-test.jsonl"
+        ]
+      },
+      "safety": {
+        "external_writes": false,
+        "live_payments": false,
+        "credentials": false
+      },
+      "compatibility": {}
+    },
+    {
+      "service_id": "compat-external-agent-example",
+      "title": "Compatibility proof profile for codex",
+      "provider_agent_id": "external-agent-example",
+      "runtime": "codex",
+      "capabilities": [],
+      "command": "python3 scripts/agentpress.py compatibility-matrix --runtime codex --json",
+      "pricing": {
+        "model": "free_proof",
+        "payment_required": false
+      },
+      "sla": {
+        "status": "local_profile",
+        "expected_runtime_seconds": "<60"
+      },
+      "trust": {
+        "tier": "landed",
+        "score": 15,
+        "evidence": [
+          "agentpress/external-proofs/example-painpoint-report.json"
         ]
       },
       "safety": {

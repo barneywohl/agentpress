@@ -1,0 +1,18 @@
+{
+  "schema_version": "2026-05-03.agentpress-queue-message.v1",
+  "message_id": "qmsg-example",
+  "created_utc": "2026-05-03T19:50:45Z",
+  "producer_agent_id": "agentpress-reference-agent",
+  "consumer_agent_id": "",
+  "capability": "validate_agentpress_bundle",
+  "task": "Validate and score an AgentPress bundle",
+  "status": "queued",
+  "attempt": 0,
+  "max_attempts": 5,
+  "idempotency_key": "validate_agentpress_bundle:qmsg-example",
+  "lease_expires_utc": "",
+  "payload": {
+    "command": "python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --json"
+  },
+  "privacy": "No secrets/private prompts/personal telemetry."
+}

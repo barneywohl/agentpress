@@ -930,6 +930,9 @@ def build_search_index(args):
     add("cli_command", "AgentPress external proof ingestion", "agentpress/external-proofs/README.md", "proof-ingest validate index external proof receipts blocker reports privacy scan reputation scoring", ["proof", "ingest", "receipts", "score", "privacy"] )
     add("cli_command", "AgentPress secure transport readiness", "agentpress/secure-transport/README.md", "secure transport readiness key owner rotation recipient identity encrypted payload approval", ["secure-transport", "privacy", "keys", "approval"] )
     add("cli_command", "AgentPress privacy and confidential messaging", "agentpress/privacy/README.md", "privacy confidential message envelope redaction secure transport metadata-only threat model", ["privacy", "confidential", "redaction", "message", "security"] )
+    add("cli_command", "AgentPress queue adapter kit", "agentpress/queue/manifest.json", "queue adapter retry policy idempotency lease dead letter workflow", ["queue", "retry", "workflow", "handoff", "idempotency"] )
+    add("cli_command", "AgentPress marketplace compare", "agentpress/marketplace/marketplace-compare.example.json", "marketplace compare service quote simulation no spend routing", ["marketplace", "compare", "quote", "routing", "no-spend"] )
+    add("cli_command", "AgentPress patch PR helper", "agentpress/contrib/patch-pr-helper.example.json", "patch pr helper contribution code owner checklist validation diff", ["patch", "pr", "contribution", "review", "coding-agent"] )
     add("cli_command", "AgentPress freshness citation report", "agentpress/evidence/freshness-citation-report.json", "freshness citation coverage rag crawler canonical source generated utc", ["freshness", "citation", "rag", "crawler", "coverage"] )
     add("cli_command", "AgentPress browser smoke evidence", "agentpress/evidence/browser-smoke.json", "browser smoke public urls live url evidence http status crawler rag", ["browser", "smoke", "evidence", "urls", "health"] )
     add("cli_command", "AgentPress internal feature build queue", "agentpress/planning/feature-build-queue.json", "feature build queue next features coverage painpoints adoption gaps internal planning", ["planning", "roadmap", "build-queue", "features"] )
@@ -1833,6 +1836,69 @@ def _json_or_none(path: pathlib.Path):
         return None
 
 
+
+def patch_pr_helper(args):
+    """Generate a local-only PR/patch contribution pack with owner/security checklist."""
+    out=pathlib.Path(args.out)
+    slug=slugify(args.title)[:60] or "agentpress-change"
+    diff_path=pathlib.Path(args.diff) if args.diff else None
+    changed_files=[]; diff_sha=""; diff_bytes=0
+    if diff_path and diff_path.exists():
+        raw=diff_path.read_bytes(); diff_sha=hashlib.sha256(raw).hexdigest(); diff_bytes=len(raw)
+        text=raw.decode("utf-8", errors="ignore")
+        for line in text.splitlines():
+            if line.startswith("diff --git "):
+                parts=line.split()
+                if len(parts)>=4:
+                    changed_files.append(parts[3][2:] if parts[3].startswith("b/") else parts[3])
+            elif line.startswith("+++ b/"):
+                changed_files.append(line[6:])
+        changed_files=sorted(set(x for x in changed_files if x and x != "/dev/null"))
+    elif args.changed_file:
+        changed_files=sorted(set(args.changed_file))
+    pr_body=f"""# {args.title}\n\n## Summary\n{args.change_summary}\n\n## Safety\n- No external write performed by AgentPress.\n- Human must review before opening/merging PR.\n- Do not include secrets, tokens, private prompts, IP addresses, or user-agent strings.\n\n## Suggested branch\n`{args.target_branch or 'agentpress/'+slug}`\n\n## Validation commands\n"""
+    validations=args.validation or [
+        "python3 scripts/agentpress.py tools-manifest-check --json",
+        "python3 scripts/agentpress.py consistency-check --json",
+        "python3 scripts/agentpress.py negative-fixtures --json",
+        "python3 scripts/validate_agentpress_assets.py",
+    ]
+    pr_body += "\n".join(f"- `{v}`" for v in validations)+"\n\n## Changed files\n"+"\n".join(f"- `{f}`" for f in changed_files or ["<fill after diff>"])+"\n"
+    checklist=[
+        {"id":"scope_clear","label":"Change scope is clearly described","required":True},
+        {"id":"no_secrets","label":"Diff contains no secrets/private prompts/personal telemetry","required":True},
+        {"id":"tests_run","label":"Validation commands were run and outputs attached","required":True},
+        {"id":"owner_review","label":"Relevant owner/reviewer approved before merge","required":True},
+        {"id":"docs_updated","label":"Machine docs/tool manifest/search updated if CLI/artifact changed","required":True},
+        {"id":"no_external_write","label":"Helper did not push, open PR, publish package, or send external data","required":True},
+    ]
+    payload={
+        "schema_version":"2026-05-03.agentpress-patch-pr-helper.v1",
+        "canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),
+        "generated_utc":_utc_now(),
+        "status":"ok",
+        "safety_status":"local_artifact_only_no_external_write",
+        "title":args.title,
+        "change_summary":args.change_summary,
+        "base_branch":args.base_branch,
+        "target_branch":args.target_branch or "agentpress/"+slug,
+        "changed_files":changed_files,
+        "diff":{"path":str(diff_path) if diff_path else "","bytes":diff_bytes,"sha256":diff_sha},
+        "validation_commands":validations,
+        "owner_checklist":checklist,
+        "suggested_reviewers":args.reviewer or [],
+        "pr_body_path":str(out.with_suffix(".md")),
+        "pr_body":pr_body,
+        "blocked_actions":["git push","gh pr create","package publish","external send"],
+        "next_actions":["Review generated PR body", "Run validation commands", "Attach outputs", "Only then open a human-reviewed PR"]
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+        out.with_suffix(".md").write_text(pr_body, encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else out.as_posix())
+    return 0
+
 def bundle_diff(args):
     a=pathlib.Path(args.bundle_a); b=pathlib.Path(args.bundle_b); errors=[]
     if not a.is_dir(): errors.append(f"bundle_a missing/not dir: {a}")
@@ -2054,6 +2120,7 @@ def tools_manifest(args):
     base=args.base_url.rstrip("/") + "/"
     tools=[
         {"name":"agentpress.fetch", "description":"Fetch core AgentPress machine assets.", "command":"python3 scripts/agentpress.py fetch --base {base} --out agentpress-fetch --json", "tags":["fetch","bootstrap","offline"]},
+        {"name":"agentpress.patch_pr_helper", "description":"Generate a local-only patch/PR contribution pack with owner checklist and validation commands.", "command":"python3 scripts/agentpress.py patch-pr-helper --title <title> --change-summary <summary> --json", "tags":["patch","pr","contribution","review","coding-agent"]},
         {"name":"agentpress.freshness_citation_report", "description":"Report freshness/citation/canonical URL coverage for RAG and crawler agents.", "command":"python3 scripts/agentpress.py freshness-citation-report --json", "tags":["freshness","citation","rag","crawler","coverage"]},
         {"name":"agentpress.browser_smoke", "description":"Smoke-check public AgentPress URLs and emit machine-readable evidence for browser/RAG agents.", "command":"python3 scripts/agentpress.py browser-smoke --json", "tags":["browser","smoke","evidence","urls","health"]},
         {"name":"agentpress.feature_build_queue", "description":"Generate internal next-feature build queue from tool coverage, painpoints, adoption gaps, and strategic expansions.", "command":"python3 scripts/agentpress.py feature-build-queue --json", "tags":["planning","build-queue","roadmap","features"]},
@@ -2087,6 +2154,8 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.queue_adapter_kit", "description":"Generate static/local durable queue adapter schema, retry policy, idempotency, health, and dead-letter examples.", "command":"python3 scripts/agentpress.py queue-adapter-kit --json", "tags":["queue","retry","workflow","handoff","idempotency"]},
+        {"name":"agentpress.marketplace_compare", "description":"Compare marketplace services for a capability with no-spend quote simulation.", "command":"python3 scripts/agentpress.py marketplace-compare --capability agent_onboard --json", "tags":["marketplace","compare","quote","routing","no-spend"]},
         {"name":"agentpress.proof_outreach_kit", "description":"Generate agent-to-agent proof request prompts and per-runtime outreach files for collecting external receipts/blockers.", "command":"python3 scripts/agentpress.py proof-outreach-kit --json", "tags":["proof","outreach","external","receipts","agents"]},
         {"name":"agentpress.submission_validate", "description":"Validate a generated AgentPress submission pack before issue/PR submission.", "command":"python3 scripts/agentpress.py submission-validate <submission-pack-dir> --json", "tags":["submission","validate","proof","privacy"]},
         {"name":"agentpress.blocker_report", "description":"Create sanitized blocker report JSON when an agent cannot complete adoption/proof.", "command":"python3 scripts/agentpress.py blocker-report --agent-id a --runtime codex --command <cmd> --error-summary <err> --desired-fix <fix> --json", "tags":["blocker","report","painpoint","feedback"]},
@@ -2662,6 +2731,9 @@ def agent_painpoints(args):
     ]
     shipped={
         "tool_coverage": exists("agentpress/tools/tool-coverage.json"),
+        "queue_adapter_kit": exists("agentpress/queue/manifest.json"),
+        "marketplace_compare": exists("agentpress/marketplace/marketplace-compare.example.json"),
+        "patch_pr_helper": exists("agentpress/contrib/patch-pr-helper.example.json"),
         "freshness_citation_report": exists("agentpress/evidence/freshness-citation-report.json"),
         "browser_smoke_evidence": exists("agentpress/evidence/browser-smoke.json"),
         "feature_build_queue": exists("agentpress/planning/feature-build-queue.json"),
@@ -3069,6 +3141,52 @@ def attestation_coverage(args):
     print(json.dumps(payload, indent=2) if args.json else f"coverage={pct}%")
     return 0
 
+
+
+
+def queue_adapter_kit(args):
+    """Generate static/local durable queue adapter schema, retry policy, and examples."""
+    outdir=pathlib.Path(args.out)
+    outdir.mkdir(parents=True, exist_ok=True)
+    schema={"schema_version":"2026-05-03.agentpress-queue-message-schema.v1","required":["message_id","created_utc","producer_agent_id","capability","task","status","attempt","idempotency_key"],"statuses":["queued","claimed","completed","failed","dead_letter"],"fields":{"message_id":"stable unique id","idempotency_key":"dedupe key stable across retries","lease_expires_utc":"claim timeout for retry","attempt":"integer retry attempt","max_attempts":"dead-letter threshold"}}
+    retry={"schema_version":"2026-05-03.agentpress-retry-policy.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", (outdir/"retry-policy.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","policy":{"max_attempts":5,"backoff_seconds":[30,120,300,900,1800],"dead_letter_after_attempt":5,"claim_lease_seconds":600,"idempotency_required":True,"retryable_errors":["timeout","rate_limit","transient_network","worker_unavailable"],"non_retryable_errors":["invalid_schema","privacy_violation","unauthorized_external_write","missing_required_approval"]}}
+    example={"schema_version":"2026-05-03.agentpress-queue-message.v1","message_id":"qmsg-example","created_utc":_utc_now(),"producer_agent_id":"agentpress-reference-agent","consumer_agent_id":"","capability":"validate_agentpress_bundle","task":"Validate and score an AgentPress bundle","status":"queued","attempt":0,"max_attempts":5,"idempotency_key":"validate_agentpress_bundle:qmsg-example","lease_expires_utc":"","payload":{"command":"python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --json"},"privacy":"No secrets/private prompts/personal telemetry."}
+    health={"schema_version":"2026-05-03.agentpress-queue-health.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", (outdir/"queue-health.example.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","queue":"static_local_example","counts":{"queued":1,"claimed":0,"completed":0,"failed":0,"dead_letter":0},"oldest_queued_seconds":0,"retry_policy":"agentpress/queue/retry-policy.json"}
+    manifest={"schema_version":"2026-05-03.agentpress-queue-adapter-kit.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", (outdir/"manifest.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give workflow agents durable handoff semantics: queue schema, retry policy, idempotency, lease, health, and dead-letter model.","files":["queue-message-schema.json","retry-policy.json","queue-message.example.json","queue-health.example.json"],"safety":"Static/local adapter first; no broker credentials, no external queue writes."}
+    files={"queue-message-schema.json":schema,"retry-policy.json":retry,"queue-message.example.json":example,"queue-health.example.json":health,"manifest.json":manifest}
+    if not args.no_write:
+        for name,data in files.items(): (outdir/name).write_text(json.dumps(data, indent=2)+"\n", encoding="utf-8")
+        (outdir/"README.md").write_text("""# AgentPress Queue Adapter Kit\n\nStatic/local durable queue adapter contract for workflow agents.\n\n```bash\npython3 scripts/agentpress.py queue-adapter-kit --json\n```\n\nIncludes message schema, retry/backoff policy, idempotency key rules, health export, and dead-letter semantics. No external broker write is performed.\n""", encoding="utf-8")
+    print(json.dumps(manifest, indent=2) if args.json else outdir.as_posix())
+    return 0
+
+def marketplace_compare(args):
+    """Compare marketplace services for a capability with no-spend quote simulation."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out)
+    mpath=root/"agentpress/marketplace/marketplace-index.json"
+    if not mpath.exists():
+        marketplace_index(argparse.Namespace(root=args.root, out=str(mpath), base_url=args.base_url, capability=None, runtime=None, payment_required=None, json=False))
+    marketplace=json.loads(mpath.read_text(encoding="utf-8"))
+    services=marketplace.get("services", [])
+    q=(args.capability or "").lower()
+    rows=[]
+    for svc in services:
+        hay=" ".join([svc.get("service_id",""), svc.get("title",""), " ".join(svc.get("capabilities",[]) or []), svc.get("command","")]).lower()
+        if q and q not in hay: continue
+        pricing=svc.get("pricing",{}) or {}; trust=svc.get("trust",{}) or {}; sla=svc.get("sla",{}) or {}
+        payment_required=bool(pricing.get("payment_required"))
+        trust_score={"reference":40,"verified":35,"provisional":20}.get(str(trust.get("tier","")).lower(),10)
+        price_score=30 if not payment_required else (10 if args.allow_paid_quotes else 0)
+        sla_score=20 if sla.get("status") else 5
+        evidence_score=min(10, len(trust.get("evidence",[]) or [])*2)
+        total=trust_score+price_score+sla_score+evidence_score
+        rows.append({"service_id":svc.get("service_id"),"title":svc.get("title"),"capabilities":svc.get("capabilities",[]),"command":svc.get("command"),"pricing":pricing,"sla":sla,"trust":trust,"quote_simulation":{"status":"quote_only_no_spend","payment_required":payment_required,"allowed_without_approval":not payment_required,"max_amount":0 if not payment_required else args.max_amount,"currency":pricing.get("currency","USD"),"blocked_actions":["sign_payment","submit_payment","call_paid_endpoint"] if payment_required else []},"score":total,"why":["matches requested capability" if q else "included by default", "free/no-spend" if not payment_required else "paid quote only", f"trust tier {trust.get('tier','unknown')}"]})
+    rows=sorted(rows, key=lambda r:(-r["score"], r["service_id"] or ""))
+    payload={"schema_version":"2026-05-03.agentpress-marketplace-compare.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","query":{"capability":args.capability,"allow_paid_quotes":args.allow_paid_quotes,"max_amount":args.max_amount},"result_count":len(rows),"best_service":rows[0] if rows else {},"services":rows,"safety":"No spend, no wallet, no paid endpoint call. This is quote/routing simulation only."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"results={len(rows)}")
+    return 0 if rows else 1
 
 def marketplace_trust(args):
     """Score marketplace services using available proof/reputation/payment signals."""
@@ -3883,6 +4001,8 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("queue-adapter-kit"); p.add_argument("--out", default="agentpress/queue"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("marketplace-compare"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability", default=""); p.add_argument("--max-amount", type=float, default=0.0); p.add_argument("--allow-paid-quotes", action="store_true"); p.add_argument("--out", default="agentpress/marketplace/marketplace-compare.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace-trust"); p.add_argument("root", nargs="?", default="."); p.add_argument("--marketplace", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--out", default="agentpress/marketplace/marketplace-trust-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-outreach-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/proof-outreach"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-ingest"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--out", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
@@ -3945,6 +4065,7 @@ def main():
     p = sub.add_parser("landing-receipt"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--discovery-channel", required=True); p.add_argument("--capability", action="append"); p.add_argument("--self-test-ref"); p.add_argument("--contact"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--landing-id"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-index"); p.add_argument("dir"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("inbox-compile"); p.add_argument("inbox_dir"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("patch-pr-helper"); p.add_argument("--title", required=True); p.add_argument("--change-summary", required=True); p.add_argument("--diff"); p.add_argument("--changed-file", action="append"); p.add_argument("--base-branch", default="main"); p.add_argument("--target-branch"); p.add_argument("--reviewer", action="append"); p.add_argument("--validation", action="append"); p.add_argument("--out", default="agentpress/contrib/patch-pr-helper.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("bundle-diff"); p.add_argument("bundle_a"); p.add_argument("bundle_b"); p.add_argument("--json", action="store_true"); p.add_argument("--include-hashes", action="store_true"); p.add_argument("--allow-breaking", action="store_true")
     p = sub.add_parser("upgrade-check"); p.add_argument("current_bundle"); p.add_argument("latest_bundle"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("adapter-quickstart"); p.add_argument("--agent-type", choices=["codex","claude","gemini","glm","browser","all"], default="all"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
@@ -4024,6 +4145,8 @@ def main():
     if args.cmd == "painpoint-intake": return painpoint_intake(args)
     if args.cmd == "attestation-coverage": return attestation_coverage(args)
     if args.cmd == "marketplace-trust": return marketplace_trust(args)
+    if args.cmd == "marketplace-compare": return marketplace_compare(args)
+    if args.cmd == "queue-adapter-kit": return queue_adapter_kit(args)
     if args.cmd in {"agent-onboard", "adopt"}: return agent_onboard(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)
@@ -4042,6 +4165,7 @@ def main():
     if args.cmd == "landing-index": return landing_index(args)
     if args.cmd == "inbox-compile": return inbox_compile(args)
     if args.cmd == "bundle-diff": return bundle_diff(args)
+    if args.cmd == "patch-pr-helper": return patch_pr_helper(args)
     if args.cmd == "upgrade-check": return upgrade_check(args)
     if args.cmd == "adapter-quickstart": return adapter_quickstart(args)
     if args.cmd == "adapter-quickstart-check": return adapter_quickstart_check(args)

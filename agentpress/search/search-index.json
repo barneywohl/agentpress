@@ -1,8 +1,8 @@
 {
   "schema_version": "2026-05-03.agentpress-search.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json",
-  "generated_at": "2026-05-03T19:44:43Z",
-  "record_count": 142,
+  "generated_at": "2026-05-03T19:50:46Z",
+  "record_count": 145,
   "records": [
     {
       "id": "cli-command-scripts-agentpress-py",
@@ -192,6 +192,51 @@
         "security"
       ],
       "text": "agentpress privacy and confidential messaging agentpress/privacy/readme.md privacy confidential message envelope redaction secure transport metadata-only threat model privacy confidential redaction message security"
+    },
+    {
+      "id": "cli-command-agentpress-queue-manifest-json",
+      "kind": "cli_command",
+      "title": "AgentPress queue adapter kit",
+      "path": "agentpress/queue/manifest.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/queue/manifest.json",
+      "tags": [
+        "handoff",
+        "idempotency",
+        "queue",
+        "retry",
+        "workflow"
+      ],
+      "text": "agentpress queue adapter kit agentpress/queue/manifest.json queue adapter retry policy idempotency lease dead letter workflow queue retry workflow handoff idempotency"
+    },
+    {
+      "id": "cli-command-agentpress-marketplace-marketplace-compare-example-json",
+      "kind": "cli_command",
+      "title": "AgentPress marketplace compare",
+      "path": "agentpress/marketplace/marketplace-compare.example.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/marketplace/marketplace-compare.example.json",
+      "tags": [
+        "compare",
+        "marketplace",
+        "no-spend",
+        "quote",
+        "routing"
+      ],
+      "text": "agentpress marketplace compare agentpress/marketplace/marketplace-compare.example.json marketplace compare service quote simulation no spend routing marketplace compare quote routing no-spend"
+    },
+    {
+      "id": "cli-command-agentpress-contrib-patch-pr-helper-example-json",
+      "kind": "cli_command",
+      "title": "AgentPress patch PR helper",
+      "path": "agentpress/contrib/patch-pr-helper.example.json",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/contrib/patch-pr-helper.example.json",
+      "tags": [
+        "coding-agent",
+        "contribution",
+        "patch",
+        "pr",
+        "review"
+      ],
+      "text": "agentpress patch pr helper agentpress/contrib/patch-pr-helper.example.json patch pr helper contribution code owner checklist validation diff patch pr contribution review coding-agent"
     },
     {
       "id": "cli-command-agentpress-evidence-freshness-citation-report-json",
@@ -1523,7 +1568,7 @@
         "doc",
         "marketplace-index"
       ],
-      "text": "marketplace-index.json agentpress/marketplace/marketplace-index.json {\n  \"schema_version\": \"2026-05-03.agentpress-marketplace.v1\",\n  \"canonical_url\": \"https://barneywohl.github.io/agentpress/agentpress/marketplace/marketplace-index.json\",\n  \"generated_utc\": \"2026-05-03t17:08:13z\",\n  \"status\": \"ok\",\n  \"purpose\": \"machine-readable marketplace for agents to discover agentpress services by capability, command, pricing posture, sla, trust evidence, and safety boundary.\",\n  \"service_count\": 20,\n  \"auth_policy\": {\n    \"public\": \"read, crawl, validate, inspect marketplace, inspect payment metadata\",\n    \"requires_human_or_external_authorization\": [\n      \"sign_payment\",\n      \"submit_payment\",\n      \"call_paid_endpoint\",\n      \"create_wallet\",\n      \"access_wallet\",\n      \"spend_budget\",\n      \"settle_invoice\",\n      \"escrow_release\",\n      \"external_commerce_post\"\n    ],\n    \"prohibited_by_public_bundle\": [\n      \"private_key_request\",\n      \"seed_phrase_request\",\n      \"silent_payment\",\n      \"auto_subscribe\",\n      \"recurring_charge_without_policy\",\n      \"custodial_funds_handling\",\n      \"kyc_collection\",\n      \"sanctions_or_geo_bypass\"\n    ]\n  },\n  \"services\": [\n    {\n      \"service_id\": \"agentpress-adopt-flywheel\",\n      \"title\": \"one-command agentpress onboarding and proof submission\",\n      \"provider_agent_id\": \"agentpress-reference-agent\",\n      \"capabilities\": [\n        \"agent_onboard\",\n        \"doctor\",\n        \"self-test\",\n        \"landing-receipt\",\n        \"payment-status\",\n        \"payment-intent\",\n        \"submission-pack\"\n      ],\n     doc marketplace-index"
+      "text": "marketplace-index.json agentpress/marketplace/marketplace-index.json {\n  \"schema_version\": \"2026-05-03.agentpress-marketplace.v1\",\n  \"canonical_url\": \"https://barneywohl.github.io/agentpress/agentpress/marketplace/marketplace-index.json\",\n  \"generated_utc\": \"2026-05-03t19:48:39z\",\n  \"status\": \"ok\",\n  \"purpose\": \"machine-readable marketplace for agents to discover agentpress services by capability, command, pricing posture, sla, trust evidence, and safety boundary.\",\n  \"service_count\": 21,\n  \"auth_policy\": {\n    \"public\": \"read, crawl, validate, inspect marketplace, inspect payment metadata\",\n    \"requires_human_or_external_authorization\": [\n      \"sign_payment\",\n      \"submit_payment\",\n      \"call_paid_endpoint\",\n      \"create_wallet\",\n      \"access_wallet\",\n      \"spend_budget\",\n      \"settle_invoice\",\n      \"escrow_release\",\n      \"external_commerce_post\"\n    ],\n    \"prohibited_by_public_bundle\": [\n      \"private_key_request\",\n      \"seed_phrase_request\",\n      \"silent_payment\",\n      \"auto_subscribe\",\n      \"recurring_charge_without_policy\",\n      \"custodial_funds_handling\",\n      \"kyc_collection\",\n      \"sanctions_or_geo_bypass\"\n    ]\n  },\n  \"services\": [\n    {\n      \"service_id\": \"agentpress-adopt-flywheel\",\n      \"title\": \"one-command agentpress onboarding and proof submission\",\n      \"provider_agent_id\": \"agentpress-reference-agent\",\n      \"capabilities\": [\n        \"agent_onboard\",\n        \"doctor\",\n        \"self-test\",\n        \"landing-receipt\",\n        \"payment-status\",\n        \"payment-intent\",\n        \"submission-pack\"\n      ],\n     doc marketplace-index"
     },
     {
       "id": "doc-agentpress-specs-agentpress-agent-marketplace-spec-20260503-md",
@@ -1559,7 +1604,7 @@
         "attestation-index",
         "doc"
       ],
-      "text": "attestation-index.json agentpress/attestations/attestation-index.json {\n  \"schema_version\": \"2026-05-03.agentpress-attestation-index.v1\",\n  \"canonical_url\": \"https://barneywohl.github.io/agentpress/agentpress/attestations/attestation-index.json\",\n  \"generated_utc\": \"2026-05-03t19:43:39z\",\n  \"status\": \"ok\",\n  \"attestation_count\": 15,\n  \"attestations\": [\n    {\n      \"path\": \"agentpress/attestations/attestation-coverage.json\",\n      \"attestation_id\": null,\n      \"subject\": null,\n      \"created_utc\": null,\n      \"file_count\": 0,\n      \"signature_status\": null\n    },\n    {\n      \"path\": \"agentpress/attestations/attestation-index.json\",\n      \"attestation_id\": null,\n      \"subject\": null,\n      \"created_utc\": null,\n      \"file_count\": 0,\n      \"signature_status\": null\n    },\n    {\n      \"path\": \"agentpress/attestations/browser-smoke-evidence-attestation.json\",\n      \"attestation_id\": \"att-16875b0142a3\",\n      \"subject\": \"agentpress-browser-smoke-evidence\",\n      \"created_utc\": \"2026-05-03t19:42:55z\",\n      \"file_count\": 2,\n      \"signature_status\": \"unsigned_hash_attestation\"\n    },\n    {\n      \"path\": \"agentpress/attestations/core-surfaces-attestation.json\",\n      \"attestation_id\": \"att-772f58f97fe3\",\n      \"subject\": \"core-agentpress-agent-growth-surfaces\",\n      \"created_utc\": \"2026-05-03t18:15:51z\",\n      \"file_count\": 4,\n      \"signature_status\": \"unsigned_hash_attestation\"\n    },\n    {\n      \"path\": \"agentpress/attestations/distribution-failover-attestation.json\",\n      \"attestation_id\": \"att-300df0bd265e\",\n      \"subject\": \"agentpress-distribu doc attestation-index"
+      "text": "attestation-index.json agentpress/attestations/attestation-index.json {\n  \"schema_version\": \"2026-05-03.agentpress-attestation-index.v1\",\n  \"canonical_url\": \"https://barneywohl.github.io/agentpress/agentpress/attestations/attestation-index.json\",\n  \"generated_utc\": \"2026-05-03t19:50:06z\",\n  \"status\": \"ok\",\n  \"attestation_count\": 18,\n  \"attestations\": [\n    {\n      \"path\": \"agentpress/attestations/attestation-coverage.json\",\n      \"attestation_id\": null,\n      \"subject\": null,\n      \"created_utc\": null,\n      \"file_count\": 0,\n      \"signature_status\": null\n    },\n    {\n      \"path\": \"agentpress/attestations/attestation-index.json\",\n      \"attestation_id\": null,\n      \"subject\": null,\n      \"created_utc\": null,\n      \"file_count\": 0,\n      \"signature_status\": null\n    },\n    {\n      \"path\": \"agentpress/attestations/browser-smoke-evidence-attestation.json\",\n      \"attestation_id\": \"att-4d4d7b3cd8ad\",\n      \"subject\": \"agentpress-browser-smoke-evidence\",\n      \"created_utc\": \"2026-05-03t19:44:44z\",\n      \"file_count\": 2,\n      \"signature_status\": \"unsigned_hash_attestation\"\n    },\n    {\n      \"path\": \"agentpress/attestations/core-surfaces-attestation.json\",\n      \"attestation_id\": \"att-772f58f97fe3\",\n      \"subject\": \"core-agentpress-agent-growth-surfaces\",\n      \"created_utc\": \"2026-05-03t18:15:51z\",\n      \"file_count\": 4,\n      \"signature_status\": \"unsigned_hash_attestation\"\n    },\n    {\n      \"path\": \"agentpress/attestations/distribution-failover-attestation.json\",\n      \"attestation_id\": \"att-300df0bd265e\",\n      \"subject\": \"agentpress-distribu doc attestation-index"
     },
     {
       "id": "doc-agentpress-specs-agentpress-attestations-spec-20260503-md",
@@ -1775,7 +1820,7 @@
         "doc",
         "release-index"
       ],
-      "text": "release-index.json agentpress/releases/release-index.json {\n  \"schema_version\": \"1.0\",\n  \"status\": \"ok\",\n  \"generated_utc\": \"2026-05-03t19:43:51z\",\n  \"name\": \"agentpress offline release index\",\n  \"latest\": {\n    \"version\": \"2026-05-03-browser-freshness-evidence\",\n    \"package_url\": \"https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz\",\n    \"manifest_url\": \"https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz.sha256.json\",\n    \"package_sha256\": \"756dc7797dd73a8c657b4ad132ae29df62378109cde951f59e99517b40e9720b\",\n    \"manifest_sha256\": \"4055ec1fef118941d8187d98725d0860515a8dfacff2641e278c6361b58c06d9\",\n    \"bytes\": 21171914,\n    \"asset_count\": 588,\n    \"install_command\": \"python3 -c \\\"$(curl -fssl https://barneywohl.github.io/agentpress/agentpress/install/install.py)\\\" --base-url https://barneywohl.github.io/agentpress/ --out agentpress-offline\"\n  },\n  \"mirrors\": [\n    {\n      \"kind\": \"github_pages\",\n      \"base_url\": \"https://barneywohl.github.io/agentpress/\"\n    },\n    {\n      \"kind\": \"raw_github\",\n      \"base_url\": \"https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/\"\n    }\n  ],\n  \"verify_command\": \"python3 scripts/agentpress.py package-verify agentpress-offline.tar.gz --manifest agentpress-offline.tar.gz.sha256.json --json\",\n  \"privacy\": \"static release index; no tracking\"\n}\n doc release-index"
+      "text": "release-index.json agentpress/releases/release-index.json {\n  \"schema_version\": \"1.0\",\n  \"status\": \"ok\",\n  \"generated_utc\": \"2026-05-03t19:50:21z\",\n  \"name\": \"agentpress offline release index\",\n  \"latest\": {\n    \"version\": \"2026-05-03-integration-tooling-batch\",\n    \"package_url\": \"https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz\",\n    \"manifest_url\": \"https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz.sha256.json\",\n    \"package_sha256\": \"597e0f6a52e478d84e4b54ecf6024ab43f99c249ac375c73b7ecdbd28e4f233a\",\n    \"manifest_sha256\": \"7a9d2f2d3682cb02da3f2ea5f4ed853012880a225d02ca4db6d8e3f2ac2b2346\",\n    \"bytes\": 22773637,\n    \"asset_count\": 603,\n    \"install_command\": \"python3 -c \\\"$(curl -fssl https://barneywohl.github.io/agentpress/agentpress/install/install.py)\\\" --base-url https://barneywohl.github.io/agentpress/ --out agentpress-offline\"\n  },\n  \"mirrors\": [\n    {\n      \"kind\": \"github_pages\",\n      \"base_url\": \"https://barneywohl.github.io/agentpress/\"\n    },\n    {\n      \"kind\": \"raw_github\",\n      \"base_url\": \"https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/\"\n    }\n  ],\n  \"verify_command\": \"python3 scripts/agentpress.py package-verify agentpress-offline.tar.gz --manifest agentpress-offline.tar.gz.sha256.json --json\",\n  \"privacy\": \"static release index; no tracking\"\n}\n doc release-index"
     },
     {
       "id": "doc-agentpress-submissions-readme-md",
@@ -1847,7 +1892,7 @@
         "contract-feed",
         "doc"
       ],
-      "text": "contract-feed.json agentpress/feeds/contract-feed.json {\n  \"schema_version\": \"2026-05-03.agentpress-contract-feed.v1\",\n  \"generated_utc\": \"2026-05-03t19:45:00z\",\n  \"current_contract_version\": \"2026-05-03-freshness-citation-report\",\n  \"latest_commit_note\": \"generated before final deployment commit; verify current git sha via github main.\",\n  \"entries\": [\n    {\n      \"version\": \"2026-05-03-freshness-citation-report\",\n      \"kind\": \"rag_crawler_evidence\",\n      \"status\": \"shipped\",\n      \"summary\": \"added freshness/citation/canonical url coverage report for rag/crawler agents.\",\n      \"agent_action\": \"run `python3 scripts/agentpress.py freshness-citation-report --json` to find source/freshness coverage gaps.\",\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03-browser-smoke-evidence\",\n      \"kind\": \"browser_smoke\",\n      \"status\": \"shipped\",\n      \"summary\": \"added live public url smoke evidence cli for browser/rag agents.\",\n      \"agent_action\": \"run `python3 scripts/agentpress.py browser-smoke --json --require-json` to produce public url evidence.\",\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03-external-proof-ingestion-scoring\",\n      \"kind\": \"proof_ingestion\",\n      \"status\": \"shipped\",\n      \"summary\": \"external proof/blocker json is now ingested, privacy-scanned, accepted/rejected, scored, published as a scoreboard, and consumed by reputation-index.\",\n      \"agent_action\": \"submit sanitized json under agentpress/external-proofs/, then run proof-ingest, proof-scoreboard, and reputation-index.\", doc contract-feed"
+      "text": "contract-feed.json agentpress/feeds/contract-feed.json {\n  \"schema_version\": \"2026-05-03.agentpress-contract-feed.v1\",\n  \"generated_utc\": \"2026-05-03t19:53:00z\",\n  \"current_contract_version\": \"2026-05-03-queue-adapter-kit\",\n  \"latest_commit_note\": \"generated before final deployment commit; verify current git sha via github main.\",\n  \"entries\": [\n    {\n      \"version\": \"2026-05-03-queue-adapter-kit\",\n      \"kind\": \"workflow_queue\",\n      \"status\": \"shipped\",\n      \"summary\": \"added static/local durable queue adapter kit with retry policy, idempotency, health, and dead-letter semantics.\",\n      \"agent_action\": \"run `python3 scripts/agentpress.py queue-adapter-kit --json` to generate workflow handoff contracts.\",\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03-marketplace-compare\",\n      \"kind\": \"marketplace_routing\",\n      \"status\": \"shipped\",\n      \"summary\": \"added service comparison and no-spend quote simulation for marketplace routing.\",\n      \"agent_action\": \"run `python3 scripts/agentpress.py marketplace-compare --capability <capability> --json` before selecting a service.\",\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03-patch-pr-helper\",\n      \"kind\": \"contribution_lane\",\n      \"status\": \"shipped\",\n      \"summary\": \"added local-only patch/pr helper with owner checklist, validation commands, and pr body generation.\",\n      \"agent_action\": \"run `python3 scripts/agentpress.py patch-pr-helper --title ... --change-summary ... --json` before proposing contributions.\",\n      \"breaking\": false\n   doc contract-feed"
     },
     {
       "id": "doc-agentpress-feeds-changelog-json",
@@ -1859,7 +1904,7 @@
         "changelog",
         "doc"
       ],
-      "text": "changelog.json agentpress/feeds/changelog.json {\n  \"schema_version\": \"2026-05-03.agentpress-changelog.v1\",\n  \"generated_utc\": \"2026-05-03t19:45:00z\",\n  \"changes\": [\n    {\n      \"version\": \"2026-05-03-freshness-citation-report\",\n      \"summary\": \"added real rag/crawler freshness and citation coverage report.\",\n      \"files\": [\n        \"scripts/agentpress.py\",\n        \"agentpress/evidence/freshness-citation-report.json\",\n        \"agentpress/specs/agentpress_freshness_citation_report_spec_20260503.md\"\n      ],\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03-browser-smoke-evidence\",\n      \"summary\": \"added real browser/rag public url smoke evidence cli and live evidence artifact.\",\n      \"files\": [\n        \"scripts/agentpress.py\",\n        \"agentpress/evidence/browser-smoke.json\",\n        \"agentpress/specs/agentpress_browser_smoke_evidence_spec_20260503.md\"\n      ],\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03-external-proof-ingestion-scoring\",\n      \"summary\": \"added real external proof ingestion/scoring scoreboard and reputation-index integration.\",\n      \"files\": [\n        \"scripts/agentpress.py\",\n        \"agentpress/external-proofs/external-proof-index.json\",\n        \"agentpress/external-proofs/proof-scoreboard.json\",\n        \"agentpress/reputation/reputation-index.json\",\n        \"agentpress/specs/agentpress_external_proof_ingestion_scoring_spec_20260503.md\"\n      ],\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03-internal-feature-build-queue\",\n      \"summary\": \"adde doc changelog"
+      "text": "changelog.json agentpress/feeds/changelog.json {\n  \"schema_version\": \"2026-05-03.agentpress-changelog.v1\",\n  \"generated_utc\": \"2026-05-03t19:53:00z\",\n  \"changes\": [\n    {\n      \"version\": \"2026-05-03-queue-adapter-kit\",\n      \"summary\": \"added durable queue adapter schema/retry policy/idempotency/health/dead-letter kit.\",\n      \"files\": [\n        \"scripts/agentpress.py\",\n        \"agentpress/queue/manifest.json\",\n        \"agentpress/specs/agentpress_queue_adapter_kit_spec_20260503.md\"\n      ],\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03-marketplace-compare\",\n      \"summary\": \"added marketplace service comparison and no-spend quote simulation.\",\n      \"files\": [\n        \"scripts/agentpress.py\",\n        \"agentpress/marketplace/marketplace-compare.example.json\",\n        \"agentpress/specs/agentpress_marketplace_compare_spec_20260503.md\"\n      ],\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03-patch-pr-helper\",\n      \"summary\": \"added real local-only patch/pr helper for coding agents.\",\n      \"files\": [\n        \"scripts/agentpress.py\",\n        \"agentpress/contrib/patch-pr-helper.example.json\",\n        \"agentpress/specs/agentpress_patch_pr_helper_spec_20260503.md\"\n      ],\n      \"breaking\": false\n    },\n    {\n      \"version\": \"2026-05-03-freshness-citation-report\",\n      \"summary\": \"added real rag/crawler freshness and citation coverage report.\",\n      \"files\": [\n        \"scripts/agentpress.py\",\n        \"agentpress/evidence/freshness-citation-report.json\",\n        \"agentpress/specs/agentpr doc changelog"
     },
     {
       "id": "doc-openapi-yaml",
