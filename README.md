@@ -350,3 +350,9 @@ python3 scripts/agentpress.py distribution-kit --json
 python3 scripts/agentpress.py mirror-status --json
 python3 scripts/agentpress.py failover-plan --json
 ```
+
+```bash
+python3 scripts/agentpress.py feature-build-queue --json
+python3 scripts/agentpress.py build-queue-pick --json
+python3 scripts/agentpress.py build-queue-complete --feature "..." --commit <sha> --evidence <url> --json
+```

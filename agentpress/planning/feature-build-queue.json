@@ -1,0 +1,124 @@
+{
+  "schema_version": "2026-05-03.agentpress-feature-build-queue.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/planning/feature-build-queue.json",
+  "generated_utc": "2026-05-03T19:33:12Z",
+  "status": "ok",
+  "purpose": "Internal AgentPress planning engine: use coverage and adoption gaps to choose the next features to build.",
+  "inputs": {
+    "coverage": "agentpress/tools/tool-coverage.json",
+    "painpoints": "agentpress/painpoints/agent-painpoints.json",
+    "adoption": "agentpress/adoption/adoption-status.json"
+  },
+  "coverage_summary": {
+    "need_count": 10,
+    "coverage_count": 10,
+    "missing_count": 0
+  },
+  "next_feature": {
+    "rank": 1,
+    "priority": "P0",
+    "source": "adoption_gap",
+    "feature": "automatic proof ingestion and scoring from submitted third-party proof/blocker packs",
+    "persona": "proof_agent",
+    "why": "Protocol features are shipped, but independent external adoption receipts remain zero.",
+    "acceptance": [
+      "proof ingest CLI validates external proof directory",
+      "reputation/proof index updates from accepted proofs",
+      "secret scan rejects unsafe submissions",
+      "live proof status JSON returns 200"
+    ],
+    "blocked": false
+  },
+  "items": [
+    {
+      "rank": 1,
+      "priority": "P0",
+      "source": "adoption_gap",
+      "feature": "automatic proof ingestion and scoring from submitted third-party proof/blocker packs",
+      "persona": "proof_agent",
+      "why": "Protocol features are shipped, but independent external adoption receipts remain zero.",
+      "acceptance": [
+        "proof ingest CLI validates external proof directory",
+        "reputation/proof index updates from accepted proofs",
+        "secret scan rejects unsafe submissions",
+        "live proof status JSON returns 200"
+      ],
+      "blocked": false
+    },
+    {
+      "rank": 2,
+      "priority": "P1",
+      "source": "strategic_expansion",
+      "feature": "static browser smoke/evidence manifest for public URLs",
+      "persona": "browser_agent",
+      "why": "Agents need a cheap way to prove live docs/tools still resolve without running full browser automation.",
+      "acceptance": [
+        "CLI/machine artifact shipped",
+        "tools manifest updated",
+        "package/attestation verify passes",
+        "CI/Pages live"
+      ],
+      "blocked": false
+    },
+    {
+      "rank": 3,
+      "priority": "P1",
+      "source": "strategic_expansion",
+      "feature": "freshness and citation coverage report",
+      "persona": "rag_crawler_agent",
+      "why": "Crawler/RAG agents need to know which surfaces are stale, uncited, or missing source maps.",
+      "acceptance": [
+        "CLI/machine artifact shipped",
+        "tools manifest updated",
+        "package/attestation verify passes",
+        "CI/Pages live"
+      ],
+      "blocked": false
+    },
+    {
+      "rank": 4,
+      "priority": "P1",
+      "source": "strategic_expansion",
+      "feature": "patch/PR generation helper and code-owner checklist",
+      "persona": "coding_agent",
+      "why": "Coding agents need a standardized safe contribution lane after they identify gaps.",
+      "acceptance": [
+        "CLI/machine artifact shipped",
+        "tools manifest updated",
+        "package/attestation verify passes",
+        "CI/Pages live"
+      ],
+      "blocked": false
+    },
+    {
+      "rank": 5,
+      "priority": "P2",
+      "source": "strategic_expansion",
+      "feature": "service comparison and quote simulation",
+      "persona": "marketplace_agent",
+      "why": "Marketplace agents need routing confidence before real payments are enabled.",
+      "acceptance": [
+        "CLI/machine artifact shipped",
+        "tools manifest updated",
+        "package/attestation verify passes",
+        "CI/Pages live"
+      ],
+      "blocked": false
+    },
+    {
+      "rank": 6,
+      "priority": "P2",
+      "source": "strategic_expansion",
+      "feature": "durable queue adapter and retry policy export",
+      "persona": "workflow_agent",
+      "why": "Workflow agents need repeatable handoff/retry semantics across runtimes.",
+      "acceptance": [
+        "CLI/machine artifact shipped",
+        "tools manifest updated",
+        "package/attestation verify passes",
+        "CI/Pages live"
+      ],
+      "blocked": false
+    }
+  ]
+}

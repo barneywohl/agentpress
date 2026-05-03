@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T19:22:00Z",
-  "current_contract_version": "2026-05-03-tool-cli-coverage",
+  "generated_utc": "2026-05-03T19:33:00Z",
+  "current_contract_version": "2026-05-03-internal-feature-build-queue",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-internal-feature-build-queue",
+      "kind": "internal_planning",
+      "status": "shipped",
+      "summary": "Uses tool coverage, painpoints, and adoption gaps as an internal build queue for next AgentPress features.",
+      "agent_action": "Run `python3 scripts/agentpress.py build-queue-pick --json` to choose the next unblocked feature to build.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-tool-cli-coverage",
       "kind": "tool_cli_coverage",
@@ -241,7 +249,8 @@
     "submission_loop": "https://barneywohl.github.io/agentpress/agentpress/submissions/README.md",
     "distribution_mirrors": "https://barneywohl.github.io/agentpress/agentpress/distribution/distribution-mirrors.json",
     "tool_coverage": "https://barneywohl.github.io/agentpress/agentpress/tools/tool-coverage.json",
-    "cli_expansion_roadmap": "https://barneywohl.github.io/agentpress/agentpress/tools/cli-expansion-roadmap.json"
+    "cli_expansion_roadmap": "https://barneywohl.github.io/agentpress/agentpress/tools/cli-expansion-roadmap.json",
+    "feature_build_queue": "https://barneywohl.github.io/agentpress/agentpress/planning/feature-build-queue.json"
   },
   "privacy": "Static feed only; no tracking."
 }

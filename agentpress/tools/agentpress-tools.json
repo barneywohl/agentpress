@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T19:22:14Z",
+  "generated_at": "2026-05-03T19:32:04Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -28,6 +28,37 @@
         "fetch",
         "bootstrap",
         "offline"
+      ]
+    },
+    {
+      "name": "agentpress.feature_build_queue",
+      "description": "Generate internal next-feature build queue from tool coverage, painpoints, adoption gaps, and strategic expansions.",
+      "command": "python3 scripts/agentpress.py feature-build-queue --json",
+      "tags": [
+        "planning",
+        "build-queue",
+        "roadmap",
+        "features"
+      ]
+    },
+    {
+      "name": "agentpress.build_queue_pick",
+      "description": "Pick the next unblocked AgentPress feature from the internal build queue.",
+      "command": "python3 scripts/agentpress.py build-queue-pick --json",
+      "tags": [
+        "planning",
+        "next-feature",
+        "build-queue"
+      ]
+    },
+    {
+      "name": "agentpress.build_queue_complete",
+      "description": "Append a shipped feature completion record for the internal build queue.",
+      "command": "python3 scripts/agentpress.py build-queue-complete --feature <feature> --commit <sha> --evidence <url> --json",
+      "tags": [
+        "planning",
+        "completion",
+        "evidence"
       ]
     },
     {

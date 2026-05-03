@@ -929,6 +929,7 @@ def build_search_index(args):
     add("cli_command", "AgentPress external proof ingestion", "agentpress/external-proofs/README.md", "proof-ingest validate index external proof receipts blocker reports privacy scan reputation scoring", ["proof", "ingest", "receipts", "score", "privacy"] )
     add("cli_command", "AgentPress secure transport readiness", "agentpress/secure-transport/README.md", "secure transport readiness key owner rotation recipient identity encrypted payload approval", ["secure-transport", "privacy", "keys", "approval"] )
     add("cli_command", "AgentPress privacy and confidential messaging", "agentpress/privacy/README.md", "privacy confidential message envelope redaction secure transport metadata-only threat model", ["privacy", "confidential", "redaction", "message", "security"] )
+    add("cli_command", "AgentPress internal feature build queue", "agentpress/planning/feature-build-queue.json", "feature build queue next features coverage painpoints adoption gaps internal planning", ["planning", "roadmap", "build-queue", "features"] )
     add("cli_command", "AgentPress tool coverage matrix", "agentpress/tools/tool-coverage.json", "tool coverage cli matrix agent needs missing expansion roadmap", ["tools", "cli", "coverage", "roadmap", "agents"] )
     add("cli_command", "AgentPress distribution failover", "agentpress/distribution/README.md", "distribution mirrors failover raw github jsdelivr cdn package verify fallback", ["distribution", "mirror", "failover", "cdn", "install"] )
     add("cli_command", "AgentPress runtime support", "agentpress/runtime/README.md", "error codes session state health status batch run progress agent orchestration", ["runtime", "error-codes", "session", "health", "batch"] )
@@ -2035,6 +2036,9 @@ def tools_manifest(args):
     base=args.base_url.rstrip("/") + "/"
     tools=[
         {"name":"agentpress.fetch", "description":"Fetch core AgentPress machine assets.", "command":"python3 scripts/agentpress.py fetch --base {base} --out agentpress-fetch --json", "tags":["fetch","bootstrap","offline"]},
+        {"name":"agentpress.feature_build_queue", "description":"Generate internal next-feature build queue from tool coverage, painpoints, adoption gaps, and strategic expansions.", "command":"python3 scripts/agentpress.py feature-build-queue --json", "tags":["planning","build-queue","roadmap","features"]},
+        {"name":"agentpress.build_queue_pick", "description":"Pick the next unblocked AgentPress feature from the internal build queue.", "command":"python3 scripts/agentpress.py build-queue-pick --json", "tags":["planning","next-feature","build-queue"]},
+        {"name":"agentpress.build_queue_complete", "description":"Append a shipped feature completion record for the internal build queue.", "command":"python3 scripts/agentpress.py build-queue-complete --feature <feature> --commit <sha> --evidence <url> --json", "tags":["planning","completion","evidence"]},
         {"name":"agentpress.tool_coverage", "description":"Generate persona-based matrix of AgentPress tools/CLI agents need, current coverage, gaps, and expansions.", "command":"python3 scripts/agentpress.py tool-coverage --json", "tags":["tools","cli","coverage","roadmap"]},
         {"name":"agentpress.cli_expansion_roadmap", "description":"Generate prioritized roadmap from tool/CLI coverage gaps.", "command":"python3 scripts/agentpress.py cli-expansion-roadmap --json", "tags":["roadmap","cli","tools","gaps"]},
         {"name":"agentpress.tool_request", "description":"Create structured request for a missing AgentPress CLI/tool.", "command":"python3 scripts/agentpress.py tool-request --agent-id a --persona coding_agent --wanted-tool x --painpoint y --desired-command z --json", "tags":["tool-request","feedback","cli"]},
@@ -2637,6 +2641,7 @@ def agent_painpoints(args):
     ]
     shipped={
         "tool_coverage": exists("agentpress/tools/tool-coverage.json"),
+        "feature_build_queue": exists("agentpress/planning/feature-build-queue.json"),
         "cli_expansion_roadmap": exists("agentpress/tools/cli-expansion-roadmap.json"),
         "distribution_failover": exists("agentpress/distribution/distribution-mirrors.json"),
         "one_command_setup": exists("agentpress/onboarding/agent-onboard-example.json"),
@@ -3449,6 +3454,89 @@ Rule: verify hashes/packages before executing fetched artifacts.
     return 0
 
 
+
+def feature_build_queue(args):
+    """Generate an internal next-feature build queue from coverage, painpoints, adoption, and proof gaps."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out)
+    def load(rel, default):
+        path=root/rel
+        if not path.exists(): return default
+        try: return json.loads(path.read_text(encoding="utf-8"))
+        except Exception: return default
+    cov=load(args.coverage,{})
+    pain=load(args.painpoints,{})
+    adoption=load(args.adoption,{})
+    items=[]
+    rank=1
+    # Coverage gaps first
+    for g in cov.get("missing_or_expand",[]):
+        items.append({"rank":rank,"priority":g.get("priority","P1"),"source":"tool_coverage_gap","feature":g.get("recommended_expansion"),"persona":g.get("persona"),"why":"Coverage matrix found missing/partial CLI capability.","acceptance":["CLI exists in tools manifest","machine JSON output validates","package verify passes","live URL returns 200"],"blocked":False}); rank+=1
+    # Painpoints next, but skip explicitly blocked security approval items unless requested
+    for g in pain.get("gaps",[]) or pain.get("painpoints",[]) or []:
+        title=g.get("title") or g.get("gap_id") or "painpoint"
+        rec=g.get("recommended_build") or g.get("recommended_expansion") or g.get("why_agents_care") or title
+        blocked=bool(g.get("blocked") or "blocked" in str(g).lower() and "approval" in str(g).lower())
+        if blocked and not args.include_blocked: continue
+        items.append({"rank":rank,"priority":g.get("priority","P1"),"source":"agent_painpoint","feature":rec,"persona":g.get("persona","external_agent"),"why":g.get("why_agents_care",title),"acceptance":["spec written","CLI or machine artifact shipped","attestation/package verify passes","CI/Pages live"],"blocked":blocked,"gap_id":g.get("gap_id","")}); rank+=1
+    # Always include real-world adoption/proof gaps when receipts absent
+    external_receipts=0
+    for key in ("landing_receipts","self_tests","proof_receipts","external_receipts"):
+        v=adoption.get(key)
+        if isinstance(v,int): external_receipts=max(external_receipts,v)
+        elif isinstance(v,list): external_receipts=max(external_receipts,len(v))
+    if external_receipts == 0:
+        items.append({"rank":rank,"priority":"P0","source":"adoption_gap","feature":"automatic proof ingestion and scoring from submitted third-party proof/blocker packs","persona":"proof_agent","why":"Protocol features are shipped, but independent external adoption receipts remain zero.","acceptance":["proof ingest CLI validates external proof directory","reputation/proof index updates from accepted proofs","secret scan rejects unsafe submissions","live proof status JSON returns 200"],"blocked":False}); rank+=1
+    # Strategic expansions not necessarily gaps
+    strategic=[
+        ("P1","browser_agent","static browser smoke/evidence manifest for public URLs","Agents need a cheap way to prove live docs/tools still resolve without running full browser automation."),
+        ("P1","rag_crawler_agent","freshness and citation coverage report","Crawler/RAG agents need to know which surfaces are stale, uncited, or missing source maps."),
+        ("P1","coding_agent","patch/PR generation helper and code-owner checklist","Coding agents need a standardized safe contribution lane after they identify gaps."),
+        ("P2","marketplace_agent","service comparison and quote simulation","Marketplace agents need routing confidence before real payments are enabled."),
+        ("P2","workflow_agent","durable queue adapter and retry policy export","Workflow agents need repeatable handoff/retry semantics across runtimes.")
+    ]
+    existing_features="\n".join(json.dumps(i).lower() for i in items)
+    for pr,persona,feature,why in strategic:
+        if feature.lower() not in existing_features:
+            items.append({"rank":rank,"priority":pr,"source":"strategic_expansion","feature":feature,"persona":persona,"why":why,"acceptance":["CLI/machine artifact shipped","tools manifest updated","package/attestation verify passes","CI/Pages live"],"blocked":False}); rank+=1
+    # sort P0, P1, P2, but preserve generated rank inside priority
+    order={"P0":0,"P1":1,"P2":2,"P3":3}
+    items=sorted(items,key=lambda x:(order.get(x.get("priority","P2"),2),x["rank"]))
+    for i,row in enumerate(items,1): row["rank"]=i
+    payload={"schema_version":"2026-05-03.agentpress-feature-build-queue.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Internal AgentPress planning engine: use coverage and adoption gaps to choose the next features to build.","inputs":{"coverage":args.coverage,"painpoints":args.painpoints,"adoption":args.adoption},"coverage_summary":{"need_count":cov.get("need_count",0),"coverage_count":cov.get("coverage_count",0),"missing_count":len(cov.get("missing_or_expand",[]))},"next_feature":items[0] if items else {},"items":items}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"next={items[0]['feature'] if items else 'none'}")
+    return 0
+
+
+def build_queue_pick(args):
+    """Pick the next unblocked AgentPress feature from the internal build queue."""
+    path=pathlib.Path(args.queue)
+    if not path.exists():
+        feature_build_queue(argparse.Namespace(root=args.root, coverage=args.coverage, painpoints=args.painpoints, adoption=args.adoption, out=str(path), base_url=args.base_url, include_blocked=args.include_blocked, no_write=False, json=False))
+    data=json.loads(path.read_text(encoding="utf-8"))
+    items=[i for i in data.get("items",[]) if args.include_blocked or not i.get("blocked")]
+    pick=items[0] if items else {}
+    payload={"schema_version":"2026-05-03.agentpress-build-queue-pick.v1","generated_utc":_utc_now(),"status":"ok" if pick else "empty","pick":pick,"queue":str(path)}
+    print(json.dumps(payload, indent=2) if args.json else (pick.get("feature") if pick else "empty"))
+    return 0 if pick else 1
+
+
+def build_queue_complete(args):
+    """Mark a build-queue item as shipped in an append-only completion log."""
+    out=pathlib.Path(args.out); rows=[]
+    if out.exists():
+        for line in out.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                try: rows.append(json.loads(line))
+                except Exception: pass
+    row={"schema_version":"2026-05-03.agentpress-build-queue-completion.v1","completed_utc":_utc_now(),"feature":args.feature,"commit":args.commit,"evidence":args.evidence,"notes":args.notes}
+    rows.append(row)
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text("".join(json.dumps(r, sort_keys=True)+"\n" for r in rows), encoding="utf-8")
+    print(json.dumps(row, indent=2) if args.json else args.feature)
+    return 0
+
 def tool_coverage(args):
     """Generate a persona-based AgentPress tool/CLI coverage and expansion matrix."""
     root=pathlib.Path(args.root); out=pathlib.Path(args.out)
@@ -3725,6 +3813,9 @@ def main():
     p = sub.add_parser("agent-route"); p.add_argument("--runtime", required=True, help="codex|claude|gemini|glm|browser|rag|crawler|mcp|eval_harness|workflow_agent|list"); p.add_argument("--intent", default="all", help="discover|install|verify|prove|submit|coordinate|all"); p.add_argument("--routes", default="agentpress/routes/agent-routes.json"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-traffic-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/traffic/agent-traffic-audit.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("compatibility-matrix"); p.add_argument("--runtime", action="append", choices=["codex","claude","gemini","glm","browser","rag"]); p.add_argument("--out", default="agentpress/compatibility/compatibility-matrix.json"); p.add_argument("--workdir", default="/tmp/agentpress-compatibility-matrix"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("feature-build-queue"); p.add_argument("root", nargs="?", default="."); p.add_argument("--coverage", default="agentpress/tools/tool-coverage.json"); p.add_argument("--painpoints", default="agentpress/painpoints/agent-painpoints.json"); p.add_argument("--adoption", default="agentpress/adoption/adoption-status.json"); p.add_argument("--out", default="agentpress/planning/feature-build-queue.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--include-blocked", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("build-queue-pick"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/planning/feature-build-queue.json"); p.add_argument("--coverage", default="agentpress/tools/tool-coverage.json"); p.add_argument("--painpoints", default="agentpress/painpoints/agent-painpoints.json"); p.add_argument("--adoption", default="agentpress/adoption/adoption-status.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--include-blocked", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("build-queue-complete"); p.add_argument("--feature", required=True); p.add_argument("--commit", default=""); p.add_argument("--evidence", default=""); p.add_argument("--notes", default=""); p.add_argument("--out", default="agentpress/planning/build-completions.jsonl"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--tools", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/tools/tool-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("cli-expansion-roadmap"); p.add_argument("root", nargs="?", default="."); p.add_argument("--tools", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--coverage", default="agentpress/tools/tool-coverage.json"); p.add_argument("--out", default="agentpress/tools/cli-expansion-roadmap.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-request"); p.add_argument("--agent-id", required=True); p.add_argument("--persona", required=True); p.add_argument("--wanted-tool", required=True); p.add_argument("--painpoint", required=True); p.add_argument("--desired-command", required=True); p.add_argument("--priority", choices=["P0","P1","P2","P3"], default="P1"); p.add_argument("--request-id"); p.add_argument("--out", default="agentpress/tools/tool-request.example.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -3817,6 +3908,9 @@ def main():
     if args.cmd == "compatibility-matrix": return compatibility_matrix(args)
     if args.cmd == "tools-manifest": return tools_manifest(args)
     if args.cmd == "tool-coverage": return tool_coverage(args)
+    if args.cmd == "feature-build-queue": return feature_build_queue(args)
+    if args.cmd == "build-queue-pick": return build_queue_pick(args)
+    if args.cmd == "build-queue-complete": return build_queue_complete(args)
     if args.cmd == "cli-expansion-roadmap": return cli_expansion_roadmap(args)
     if args.cmd == "tool-request": return tool_request(args)
     if args.cmd == "tools-manifest-check": return tools_manifest_check(args)
