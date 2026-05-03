@@ -1,8 +1,8 @@
 {
   "schema_version": "2026-05-03.agentpress-search.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json",
-  "generated_at": "2026-05-03T04:55:13Z",
-  "record_count": 90,
+  "generated_at": "2026-05-03T04:58:33Z",
+  "record_count": 91,
   "records": [
     {
       "id": "cli-command-scripts-agentpress-py",
@@ -120,6 +120,21 @@
         "traffic"
       ],
       "text": "agent routes manifest agentpress/routes/agent-routes.json machine routable agent runtime intent discover install verify prove submit coordinate routes agent runtime intent traffic"
+    },
+    {
+      "id": "cli-command-scripts-agentpress-py",
+      "kind": "cli_command",
+      "title": "Agent runtime route resolver",
+      "path": "scripts/agentpress.py",
+      "url": "https://barneywohl.github.io/agentpress/scripts/agentpress.py",
+      "tags": [
+        "agent-route",
+        "cli",
+        "intent",
+        "routes",
+        "runtime"
+      ],
+      "text": "agent runtime route resolver scripts/agentpress.py agent-route runtime intent exact commands discover install verify prove submit coordinate agent-route routes runtime intent cli"
     },
     {
       "id": "cli-command-agentpress-traffic-agent-traffic-audit-json",
@@ -923,7 +938,7 @@
         "agent-traffic-audit",
         "doc"
       ],
-      "text": "agent-traffic-audit.json agentpress/traffic/agent-traffic-audit.json {\n  \"schema_version\": \"2026-05-03.agentpress-agent-traffic-audit.v1\",\n  \"generated_utc\": \"2026-05-03t04:55:06z\",\n  \"status\": \"ok\",\n  \"score\": 100,\n  \"passed\": 23,\n  \"total\": 23,\n  \"checks\": [\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"llms.txt\",\n        \"exists\": true,\n        \"bytes\": 13418\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"agents.md\",\n        \"exists\": true,\n        \"bytes\": 1846\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"readme.md\",\n        \"exists\": true,\n        \"bytes\": 13803\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"robots.txt\",\n        \"exists\": true,\n        \"bytes\": 1253\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"sitemap.xml\",\n        \"exists\": true,\n        \"bytes\": 39535\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"agent-sitemap.xml\",\n        \"exists\": true,\n        \"bytes\": 2518\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \".well-known/agentpress.json\",\n        \"exists\": true,\n        \"bytes\": 4881\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"de doc agent-traffic-audit"
+      "text": "agent-traffic-audit.json agentpress/traffic/agent-traffic-audit.json {\n  \"schema_version\": \"2026-05-03.agentpress-agent-traffic-audit.v1\",\n  \"generated_utc\": \"2026-05-03t04:55:15z\",\n  \"status\": \"ok\",\n  \"score\": 100,\n  \"passed\": 23,\n  \"total\": 23,\n  \"checks\": [\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"llms.txt\",\n        \"exists\": true,\n        \"bytes\": 13418\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"agents.md\",\n        \"exists\": true,\n        \"bytes\": 1846\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"readme.md\",\n        \"exists\": true,\n        \"bytes\": 13803\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"robots.txt\",\n        \"exists\": true,\n        \"bytes\": 1253\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"sitemap.xml\",\n        \"exists\": true,\n        \"bytes\": 39835\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \"agent-sitemap.xml\",\n        \"exists\": true,\n        \"bytes\": 2518\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"detail\": {\n        \"path\": \".well-known/agentpress.json\",\n        \"exists\": true,\n        \"bytes\": 4881\n      }\n    },\n    {\n      \"name\": \"required_surface\",\n      \"status\": \"pass\",\n      \"de doc agent-traffic-audit"
     },
     {
       "id": "doc-agentpress-traffic-crawler-seeds-txt",
@@ -947,7 +962,7 @@
         "README",
         "doc"
       ],
-      "text": "readme.md agentpress/routes/readme.md # agentpress agent routes\n\nmachine-routable paths for autonomous agents.\n\nstart with `agent-routes.json`, choose your runtime family, then follow exact commands for discover → install → verify → prove → submit.\n\ncanonical json: `https://barneywohl.github.io/agentpress/agentpress/routes/agent-routes.json`\n\ngenerated: 2026-05-03t04:54:43z\n doc readme"
+      "text": "readme.md agentpress/routes/readme.md # agentpress agent routes\n\nmachine-routable paths for autonomous agents.\n\nstart with `agent-routes.json`, choose your runtime family, then follow exact commands for discover → install → verify → prove → submit.\n\ncanonical json: `https://barneywohl.github.io/agentpress/agentpress/routes/agent-routes.json`\n\ngenerated: 2026-05-03t04:54:43z\n\n## cli resolver\n\nagents can ask for a concrete path without manually parsing json:\n\n```bash\npython3 scripts/agentpress.py agent-route --runtime codex --intent prove --json\npython3 scripts/agentpress.py agent-route --runtime browser --intent install\npython3 scripts/agentpress.py agent-route --runtime list --json\n```\n\nsupported intents: `discover`, `install`, `verify`, `prove`, `submit`, `coordinate`, `all`.\n doc readme"
     },
     {
       "id": "doc-agentpress-routes-agent-routes-json",

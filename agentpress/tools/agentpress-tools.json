@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T04:55:13Z",
+  "generated_at": "2026-05-03T04:58:33Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -182,6 +182,18 @@
         "crawler",
         "routes",
         "proof"
+      ]
+    },
+    {
+      "name": "agentpress.agent_route",
+      "description": "Return exact commands and URLs for an agent runtime and intent from the AgentPress route manifest.",
+      "command": "python3 scripts/agentpress.py agent-route --runtime codex --intent prove --json",
+      "tags": [
+        "agent-route",
+        "routes",
+        "runtime",
+        "intent",
+        "commands"
       ]
     }
   ],

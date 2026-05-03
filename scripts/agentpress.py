@@ -920,6 +920,7 @@ def build_search_index(args):
     add("cli_command", "CLI agent launch pack", "agentpress/CLI_AGENT_LAUNCH.md", "first agent install doctor compatibility matrix self-test landing receipt submission pack attract agents", ["cli", "launch", "install", "proof", "adoption"] )
     add("traffic", "Agent traffic acquisition pack", "agentpress/traffic/agent-traffic-acquisition.json", "crawler seeds agent sitemap directory submission first autonomous agents landing receipts proof traffic acquisition", ["traffic", "crawler", "directory", "adoption", "agent"] )
     add("traffic", "Agent routes manifest", "agentpress/routes/agent-routes.json", "machine routable agent runtime intent discover install verify prove submit coordinate", ["routes", "agent", "runtime", "intent", "traffic"] )
+    add("cli_command", "Agent runtime route resolver", "scripts/agentpress.py", "agent-route runtime intent exact commands discover install verify prove submit coordinate", ["agent-route", "routes", "runtime", "intent", "cli"] )
     add("cli_command", "Agent traffic audit", "agentpress/traffic/agent-traffic-audit.json", "audit agent traffic surfaces crawler seeds routes cli launch proof conversion", ["audit", "traffic", "crawler", "proof", "cli"] )
     add("cli_command", "Submit AgentPress proof receipt", "agentpress/submissions/README.md", "submission-pack landing receipt github issue pull request adoption proof", ["submission", "landing", "proof", "github", "cli"])
     add("cli_command", "Compile AgentPress reputation index", "agentpress/reputation/README.md", "reputation-index trust tier self-test handoff receipt landing proof", ["reputation", "proof", "trust", "cli"])
@@ -1826,6 +1827,45 @@ def adapter_quickstart_check(args):
 
 
 
+
+def agent_route(args):
+    routes_path=pathlib.Path(args.routes)
+    if not routes_path.exists():
+        print(json.dumps({"status":"fail","errors":[f"missing routes file: {routes_path}"]}, indent=2)); return 2
+    data=json.loads(routes_path.read_text(encoding='utf-8'))
+    runtime=args.runtime
+    intent=args.intent
+    routes=data.get('routes', [])
+    if runtime == 'list':
+        payload={'status':'ok','runtimes':data.get('agent_families', []),'intents':data.get('intents', [])}
+        print(json.dumps(payload, indent=2) if args.json else '\n'.join(payload['runtimes']))
+        return 0
+    route=next((r for r in routes if r.get('runtime') == runtime), None)
+    if not route:
+        payload={'status':'fail','errors':[f'unknown runtime: {runtime}'],'available_runtimes':data.get('agent_families', [])}
+        print(json.dumps(payload, indent=2)); return 1
+    commands_by_intent=route.get('commands_by_intent', {})
+    if intent == 'all':
+        selected=commands_by_intent
+    elif intent in commands_by_intent:
+        selected={intent:commands_by_intent[intent]}
+    else:
+        payload={'status':'fail','runtime':runtime,'errors':[f'unknown intent: {intent}'],'available_intents':sorted(commands_by_intent)}
+        print(json.dumps(payload, indent=2)); return 1
+    payload={'schema_version':'2026-05-03.agentpress-agent-route-result.v1','status':'ok','runtime':runtime,'intent':intent,'route_id':route.get('route_id'),'entrypoints':route.get('entrypoints', []),'commands_by_intent':selected,'proof_required_for_reputation':route.get('proof_required_for_reputation', True),'privacy':route.get('privacy'),'next_step':'execute commands in order, then submit opt-in proof receipt'}
+    if args.out:
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+'\n', encoding='utf-8')
+    if args.json:
+        print(json.dumps(payload, indent=2))
+    else:
+        print(f"AgentPress route: runtime={runtime} intent={intent}")
+        for key, commands in selected.items():
+            print(f"\n## {key}")
+            for cmd in commands:
+                print(cmd)
+    return 0
+
+
 def agent_traffic_audit(args):
     root=pathlib.Path(args.root)
     required=[
@@ -1938,6 +1978,7 @@ def tools_manifest(args):
         {"name":"agentpress.submission_pack", "description":"Generate a PR/issue-ready pack for submitting landing/proof receipts back to AgentPress.", "command":"python3 scripts/agentpress.py submission-pack --receipt <receipt.json> --out submission-pack --json", "tags":["submission","github","landing","proof","adoption"]},
         {"name":"agentpress.compatibility_matrix", "description":"Run install/doctor/self-test/proof compatibility checks across agent runtime families and emit a machine-readable matrix.", "command":"python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json", "tags":["compatibility","runtime","matrix","proof","self-test"]},
         {"name":"agentpress.agent_traffic_audit", "description":"Audit whether AgentPress exposes the required machine surfaces for agent traffic and proof conversion.", "command":"python3 scripts/agentpress.py agent-traffic-audit --out agentpress/traffic/agent-traffic-audit.json --json", "tags":["traffic","audit","crawler","routes","proof"]},
+        {"name":"agentpress.agent_route", "description":"Return exact commands and URLs for an agent runtime and intent from the AgentPress route manifest.", "command":"python3 scripts/agentpress.py agent-route --runtime codex --intent prove --json", "tags":["agent-route","routes","runtime","intent","commands"]},
     ]
     payload={
         "schema_version":"2026-05-03.agentpress-tools-manifest.v1",
@@ -2211,6 +2252,7 @@ def main():
     p = sub.add_parser("handoff-validate"); p.add_argument("path"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("receipt-create"); p.add_argument("--handoff", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--status", choices=["accepted","completed","partial","rejected","blocked"], default="completed"); p.add_argument("--response"); p.add_argument("--notes"); p.add_argument("--next-actions"); p.add_argument("--receipt-id"); p.add_argument("--out", required=True)
     p = sub.add_parser("receipt-validate"); p.add_argument("path"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("agent-route"); p.add_argument("--runtime", required=True, help="codex|claude|gemini|glm|browser|rag|crawler|mcp|eval_harness|workflow_agent|list"); p.add_argument("--intent", default="all", help="discover|install|verify|prove|submit|coordinate|all"); p.add_argument("--routes", default="agentpress/routes/agent-routes.json"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-traffic-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/traffic/agent-traffic-audit.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("compatibility-matrix"); p.add_argument("--runtime", action="append", choices=["codex","claude","gemini","glm","browser","rag"]); p.add_argument("--out", default="agentpress/compatibility/compatibility-matrix.json"); p.add_argument("--workdir", default="/tmp/agentpress-compatibility-matrix"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tools-manifest"); p.add_argument("--out", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/")
@@ -2257,6 +2299,7 @@ def main():
     if args.cmd == "handoff-validate": return handoff_validate(args)
     if args.cmd == "receipt-create": return receipt_create(args)
     if args.cmd == "receipt-validate": return receipt_validate(args)
+    if args.cmd == "agent-route": return agent_route(args)
     if args.cmd == "agent-traffic-audit": return agent_traffic_audit(args)
     if args.cmd == "compatibility-matrix": return compatibility_matrix(args)
     if args.cmd == "tools-manifest": return tools_manifest(args)
