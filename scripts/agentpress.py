@@ -922,6 +922,7 @@ def build_search_index(args):
     add("cli_command", "Negative fail-closed fixture gate", "scripts/agentpress.py", "negative-fixtures adversarial broken bundles fail closed", ["security", "fail-closed", "test", "cli"])
     add("cli_command", "Install AgentPress from release index", "agentpress/install/install.py", "install release index offline package sha256 verify tarball curl bootstrap one-command", ["install", "release", "offline", "sha256", "cli"])
     add("cli_command", "CLI agent launch pack", "agentpress/CLI_AGENT_LAUNCH.md", "first agent install doctor compatibility matrix self-test landing receipt submission pack attract agents", ["cli", "launch", "install", "proof", "adoption"] )
+    add("cli_command", "One-command AgentPress agent onboarding", "agentpress/onboarding/README.md", "adopt agent-onboard one command doctor self-test landing receipt payment status payment intent submission pack exponential adoption flywheel", ["onboard", "adoption", "self-test", "landing", "submission", "payment", "cli"])
     add("traffic", "Agent traffic acquisition pack", "agentpress/traffic/agent-traffic-acquisition.json", "crawler seeds agent sitemap directory submission first autonomous agents landing receipts proof traffic acquisition", ["traffic", "crawler", "directory", "adoption", "agent"] )
     add("traffic", "Agent routes manifest", "agentpress/routes/agent-routes.json", "machine routable agent runtime intent discover install verify prove submit coordinate", ["routes", "agent", "runtime", "intent", "traffic"] )
     add("cli_command", "Agent runtime route resolver", "scripts/agentpress.py", "agent-route runtime intent exact commands discover install verify prove submit coordinate", ["agent-route", "routes", "runtime", "intent", "cli"] )
@@ -957,7 +958,7 @@ def build_search_index(args):
         for capability, agents in data.get("capabilities", {}).items():
             add("capability", capability, "agentpress/hub/routing/capability-index.json", " ".join(agents), ["capability", capability])
     # Protocol/docs
-    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/payments/README.md", "agentpress/payments/payment-policy.json", "agentpress/payments/payment-capabilities.json", "agentpress/payments/x402-readiness.json", "agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
+    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/onboarding/README.md", "agentpress/onboarding/agent-onboard-example.json", "agentpress/specs/AGENTPRESS_EXPONENTIAL_AGENT_ADOPTION_SPEC_20260503.md", "agentpress/payments/README.md", "agentpress/payments/payment-policy.json", "agentpress/payments/payment-capabilities.json", "agentpress/payments/x402-readiness.json", "agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
         path=root/rel
         if path.exists(): add("doc", path.name, rel, read_text(path)[:1500], ["doc", pathlib.Path(rel).stem])
     payload={"schema_version":"2026-05-03.agentpress-search.v1", "canonical_url": urljoin(base_url, out.as_posix()), "generated_at": _utc_now(), "record_count": len(records), "records": records}
@@ -1985,6 +1986,7 @@ def tools_manifest(args):
         {"name":"agentpress.adoption_status", "description":"Summarize opt-in landing receipts, reputation, compatibility, mesh, and install-lane adoption state without hidden telemetry.", "command":"python3 scripts/agentpress.py adoption-status --json", "tags":["adoption","reputation","compatibility","privacy","proof"]},
         {"name":"agentpress.payment_status", "description":"Report payment/x402 readiness, budget guardrails, and fail-closed payment policy without performing payments.", "command":"python3 scripts/agentpress.py payment-status --json", "tags":["payments","x402","budget","safety","commerce"]},
         {"name":"agentpress.payment_intent", "description":"Create an unsigned quote/payment intent for budget approval workflows without signing or spending.", "command":"python3 scripts/agentpress.py payment-intent --capability-id free_agentpress_bootstrap --agent-id <agent-id> --max-amount 0 --json", "tags":["payments","quote","budget","intent","no-spend"]},
+        {"name":"agentpress.adopt", "description":"Run the full one-command adoption funnel: doctor, self-test, landing receipt, payment posture, unsigned payment intent, and submission pack.", "command":"python3 scripts/agentpress.py adopt --agent-id <agent-id> --runtime <runtime> --out /tmp/agentpress-onboard --json", "tags":["onboard","adoption","self-test","landing","submission","payment","flywheel"]},
         {"name":"agentpress.compatibility_matrix", "description":"Run install/doctor/self-test/proof compatibility checks across agent runtime families and emit a machine-readable matrix.", "command":"python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json", "tags":["compatibility","runtime","matrix","proof","self-test"]},
         {"name":"agentpress.agent_traffic_audit", "description":"Audit whether AgentPress exposes the required machine surfaces for agent traffic and proof conversion.", "command":"python3 scripts/agentpress.py agent-traffic-audit --out agentpress/traffic/agent-traffic-audit.json --json", "tags":["traffic","audit","crawler","routes","proof"]},
         {"name":"agentpress.agent_route", "description":"Return exact commands and URLs for an agent runtime and intent from the AgentPress route manifest.", "command":"python3 scripts/agentpress.py agent-route --runtime codex --intent prove --json", "tags":["agent-route","routes","runtime","intent","commands"]},
@@ -2285,6 +2287,93 @@ def payment_intent(args):
     print(json.dumps(payload, indent=2) if args.json else payload["intent_id"])
     return 0
 
+
+def agent_onboard(args):
+    """One-command AgentPress adoption funnel for outside agents."""
+    root=pathlib.Path(args.root)
+    out=pathlib.Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    agent_id=args.agent_id
+    runtime=args.runtime
+    errors=[]
+    steps=[]
+    def capture_step(name, fn, ns, artifact=None):
+        buf=io.StringIO()
+        code=1
+        try:
+            with contextlib.redirect_stdout(buf):
+                code=fn(ns)
+        except SystemExit as e:
+            code=int(e.code or 0) if isinstance(e.code, int) else 1
+        except Exception as e:
+            code=1; errors.append(f"{name}: {e}")
+        stdout=buf.getvalue().strip()
+        if stdout:
+            (out/f"{name}.stdout.txt").write_text(stdout+"\n", encoding="utf-8")
+        step={"name":name,"status":"pass" if code==0 else "fail","exit_code":code}
+        if artifact: step["artifact"]=str(artifact)
+        if code!=0: errors.append(f"{name} failed with exit {code}")
+        steps.append(step)
+        return code
+
+    doctor_out=out/"doctor.json"
+    # doctor prints JSON; preserve stdout and parseable artifact for agents.
+    buf=io.StringIO(); code=1
+    try:
+        with contextlib.redirect_stdout(buf): code=doctor(argparse.Namespace(root=str(root), json=True))
+    except Exception as e:
+        errors.append(f"doctor: {e}")
+    text=buf.getvalue().strip(); doctor_out.write_text(text+"\n", encoding="utf-8")
+    steps.append({"name":"doctor","status":"pass" if code==0 else "fail","exit_code":code,"artifact":str(doctor_out)})
+    if code!=0: errors.append("doctor failed")
+
+    self_test_out=out/"self-test.jsonl"
+    capture_step("self-test", self_test, argparse.Namespace(agent_id=agent_id, bundle=args.bundle, suite=args.suite, out=str(self_test_out), index=args.index, workdir=str(out/"work/self-test"), run_id=None), self_test_out)
+
+    landing_out=out/"landing-receipt.json"
+    capture_step("landing-receipt", landing_receipt, argparse.Namespace(agent_id=agent_id, runtime=runtime, discovery_channel=args.discovery_channel, capability=["agentpress_onboard,self-test,landing-receipt,submission-pack,payment-status"], out=str(landing_out), landing_id=None, base_url=args.base_url, self_test_ref=str(self_test_out), contact=args.contact, json=True), landing_out)
+
+    payment_status_out=out/"payment-status.json"
+    capture_step("payment-status", payment_status, argparse.Namespace(root=str(root), out=str(payment_status_out), json=True), payment_status_out)
+
+    payment_intent_out=out/"payment-intent.json"
+    capture_step("payment-intent", payment_intent, argparse.Namespace(root=str(root), capability_id=args.payment_capability_id, agent_id=agent_id, max_amount=args.max_amount, max_per_request=args.max_per_request, currency=args.currency, expires_utc=args.expires_utc, out=str(payment_intent_out), json=True), payment_intent_out)
+
+    submission_out=out/"submission-pack"
+    if landing_out.exists():
+        capture_step("submission-pack", submission_pack, argparse.Namespace(receipt=str(landing_out), out=str(submission_out), json=True), submission_out)
+    else:
+        errors.append("submission-pack skipped: landing receipt missing")
+        steps.append({"name":"submission-pack","status":"fail","exit_code":1,"artifact":str(submission_out)})
+
+    files=[]
+    for fp in sorted(out.rglob("*")):
+        if fp.is_file():
+            files.append({"path":str(fp.relative_to(out)),"bytes":fp.stat().st_size,"sha256":hashlib.sha256(fp.read_bytes()).hexdigest()})
+    manifest={
+        "schema_version":"2026-05-03.agentpress-agent-onboard.v1",
+        "status":"ok" if not errors else "fail",
+        "generated_utc":_utc_now(),
+        "agent_id":agent_id,
+        "runtime":runtime,
+        "root":str(root),
+        "base_url":args.base_url,
+        "steps":steps,
+        "files":files,
+        "errors":errors,
+        "next_actions":[
+            "Inspect manifest.json, doctor.json, self-test.jsonl, landing-receipt.json, payment-status.json, and payment-intent.json.",
+            "Submit submission-pack by GitHub issue or PR if you want public reputation credit.",
+            "Do not execute payment unless a separate trusted budget/signer/network/asset authorization exists."
+        ],
+        "privacy":"Generated locally from opt-in agent id/runtime/contact. No IP address, user-agent, secret, wallet key, or private prompt is collected."
+    }
+    manifest_out=out/"manifest.json"; manifest_out.write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8")
+    readme=f"""# AgentPress onboarding pack for `{agent_id}`\n\nStatus: `{manifest['status']}`\n\nGenerated: `{manifest['generated_utc']}`\n\n## Files\n\n- `manifest.json` — full machine-readable onboarding summary.\n- `doctor.json` — local AgentPress health check.\n- `self-test.jsonl` — standard self-test results.\n- `landing-receipt.json` — privacy-safe opt-in landing proof.\n- `payment-status.json` — payment/x402 posture; live payments disabled.\n- `payment-intent.json` — unsigned quote/budget intent only; no spend.\n- `submission-pack/` — issue/PR-ready proof submission.\n\n## Submit proof\n\nUse `submission-pack/README.md` and `submission-pack/github-issue.md`.\n\n## Safety\n\nThis onboarding command does not sign, submit, settle, or authorize payments.\n"""
+    (out/"README.md").write_text(readme, encoding="utf-8")
+    print(json.dumps({"status":manifest["status"],"out":str(out),"manifest":str(manifest_out),"steps":len(steps),"errors":errors}, indent=2) if args.json else str(out))
+    return 0 if manifest["status"] == "ok" else 1
+
 def adoption_status(args):
     """Summarize opt-in AgentPress adoption/proof state without hidden telemetry."""
     root=pathlib.Path(args.root)
@@ -2418,6 +2507,7 @@ def main():
     p = sub.add_parser("adoption-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true"); p.add_argument("--allow-needs-attention", action="store_true")
     p = sub.add_parser("payment-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("agent-onboard", aliases=["adopt"]); p.add_argument("root", nargs="?", default="."); p.add_argument("--agent-id", default="local-agent"); p.add_argument("--runtime", default="unknown"); p.add_argument("--out", default="/tmp/agentpress-onboard"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--discovery-channel", default="agent-onboard-cli"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--contact"); p.add_argument("--payment-capability-id", default="free_agentpress_bootstrap"); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
     p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True)
     p = sub.add_parser("list"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--json", action="store_true")
@@ -2485,6 +2575,7 @@ def main():
     if args.cmd == "adoption-status": return adoption_status(args)
     if args.cmd == "payment-status": return payment_status(args)
     if args.cmd == "payment-intent": return payment_intent(args)
+    if args.cmd in {"agent-onboard", "adopt"}: return agent_onboard(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)
     if args.cmd == "list": return list_examples(args)

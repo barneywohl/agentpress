@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T16:49:30Z",
-  "current_contract_version": "2026-05-03-agent-payments-x402-readiness",
+  "generated_utc": "2026-05-03T16:57:00Z",
+  "current_contract_version": "2026-05-03-agent-onboarding-flywheel",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-agent-onboarding-flywheel",
+      "kind": "one_command_agent_onboarding",
+      "status": "shipped",
+      "summary": "Added adopt/agent-onboard CLI: doctor, self-test, landing receipt, payment status, unsigned payment intent, submission pack, and manifest in one no-argument-capable command.",
+      "agent_action": "Run `python3 scripts/agentpress.py adopt --json` for the no-argument adoption funnel, or pass explicit --agent-id/--runtime for public proof.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-agent-payments-x402-readiness",
       "kind": "payments_x402_metadata",
@@ -53,7 +61,9 @@
     "search": "https://barneywohl.github.io/agentpress/agentpress/search/search-index.json",
     "payment_policy": "https://barneywohl.github.io/agentpress/agentpress/payments/payment-policy.json",
     "payment_capabilities": "https://barneywohl.github.io/agentpress/agentpress/payments/payment-capabilities.json",
-    "x402_metadata": "https://barneywohl.github.io/agentpress/agentpress/payments/x402-metadata.json"
+    "x402_metadata": "https://barneywohl.github.io/agentpress/agentpress/payments/x402-metadata.json",
+    "agent_onboarding": "https://barneywohl.github.io/agentpress/agentpress/onboarding/README.md",
+    "agent_onboard_example": "https://barneywohl.github.io/agentpress/agentpress/onboarding/agent-onboard-example.json"
   },
   "privacy": "Static feed only; no tracking."
 }
