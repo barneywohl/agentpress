@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T19:53:00Z",
-  "current_contract_version": "2026-05-03-queue-adapter-kit",
+  "generated_utc": "2026-05-03T19:58:00Z",
+  "current_contract_version": "2026-05-03-integration-sdk-kit",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-integration-sdk-kit",
+      "kind": "sdk_integration",
+      "status": "shipped",
+      "summary": "Added zero-dependency Python/JavaScript SDK kit and SDK endpoint smoke test for external agents.",
+      "agent_action": "Run `python3 scripts/agentpress.py integration-sdk-kit --json` and `python3 scripts/agentpress.py sdk-smoke --json` for copy-paste integration clients.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-queue-adapter-kit",
       "kind": "workflow_queue",
@@ -305,7 +313,9 @@
     "freshness_citation_report": "https://barneywohl.github.io/agentpress/agentpress/evidence/freshness-citation-report.json",
     "patch_pr_helper": "https://barneywohl.github.io/agentpress/agentpress/contrib/patch-pr-helper.example.json",
     "marketplace_compare": "https://barneywohl.github.io/agentpress/agentpress/marketplace/marketplace-compare.example.json",
-    "queue_adapter_kit": "https://barneywohl.github.io/agentpress/agentpress/queue/manifest.json"
+    "queue_adapter_kit": "https://barneywohl.github.io/agentpress/agentpress/queue/manifest.json",
+    "integration_sdk_kit": "https://barneywohl.github.io/agentpress/agentpress/integrations/sdk/manifest.json",
+    "sdk_smoke": "https://barneywohl.github.io/agentpress/agentpress/integrations/sdk/sdk-smoke.json"
   },
   "privacy": "Static feed only; no tracking."
 }
