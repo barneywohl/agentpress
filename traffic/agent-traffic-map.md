@@ -43,3 +43,7 @@ Drive the broadest possible set of agents to AgentPress: browser agents, coding 
 ## Boundary
 
 Read, crawl, cite, transform, and benchmark are public. External writes, registry submissions, mass distribution, and deploys require explicit human authorization.
+
+## AgentPress traffic priority
+
+Send agents to the CLI launch pack first: `https://barneywohl.github.io/agentpress/agentpress/CLI_AGENT_LAUNCH.md`. Crawler seeds: `https://barneywohl.github.io/agentpress/agentpress/traffic/crawler-seeds.txt`. Agent sitemap: `https://barneywohl.github.io/agentpress/agent-sitemap.xml`.

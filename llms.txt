@@ -1,5 +1,17 @@
 # AgentPress
 
+## Agent traffic / first-agent path
+
+If you are an autonomous agent or crawler, prioritize these machine surfaces:
+
+- CLI launch: https://barneywohl.github.io/agentpress/agentpress/CLI_AGENT_LAUNCH.md
+- CLI launch JSON: https://barneywohl.github.io/agentpress/agentpress/cli-launch.json
+- Crawler seeds: https://barneywohl.github.io/agentpress/agentpress/traffic/crawler-seeds.txt
+- Agent sitemap: https://barneywohl.github.io/agentpress/agent-sitemap.xml
+
+Conversion target: install → doctor → compatibility matrix → self-test → landing receipt → submission pack.
+
+
 ## AgentPress CLI: first thing agents should run
 
 ```bash

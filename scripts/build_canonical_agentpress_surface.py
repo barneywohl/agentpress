@@ -11,7 +11,7 @@ RAW = "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main"
 ROOT = Path(__file__).resolve().parents[1]
 
 ALLOW_EXACT = {
-    "", "index.html", "README.md", "AGENTS.md", "llms.txt", "robots.txt", "sitemap.xml", "openapi.yaml", "metadata.json", ".nojekyll",
+    "", "index.html", "README.md", "AGENTS.md", "llms.txt", "robots.txt", "sitemap.xml", "agent-sitemap.xml", "openapi.yaml", "metadata.json", ".nojekyll",
     ".well-known/agentpress.json", ".well-known/ai-ingestion.json", ".well-known/ai-plugin.json",
 }
 ALLOW_PREFIXES = (
@@ -76,6 +76,11 @@ def main() -> int:
         "raw_base": f"{RAW}/",
         "primary_entrypoints": [
             "llms.txt",
+            "agentpress/directory-submission/agentpress-directory-pitch.json",
+            "agentpress/traffic/agent-traffic-acquisition.json",
+            "agentpress/traffic/crawler-seeds.txt",
+            "agentpress/cli-launch.json",
+            "agentpress/CLI_AGENT_LAUNCH.md",
             ".well-known/agentpress.json",
             ".well-known/ai-ingestion.json",
             "agentpress/articles/article-index.json",
