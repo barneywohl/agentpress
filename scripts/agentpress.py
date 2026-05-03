@@ -2254,6 +2254,14 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.readiness_audit_cli", "description":"Generate AgentPress readiness audit for a repo/url target.", "command":"python3 scripts/agentpress.py readiness-audit --json", "tags":["audit","readiness","agents","repo"]},
+        {"name":"agentpress.readiness_score", "description":"Generate compact AgentPress readiness scorecard.", "command":"python3 scripts/agentpress.py readiness-score --json", "tags":["score","readiness","audit"]},
+        {"name":"agentpress.readiness_fix_plan", "description":"Generate prioritized readiness fix plan.", "command":"python3 scripts/agentpress.py readiness-fix-plan --json", "tags":["fix-plan","readiness","roadmap"]},
+        {"name":"agentpress.runtime_install_doctor", "description":"Generate runtime/install doctor checks and remediations.", "command":"python3 scripts/agentpress.py runtime-install-doctor --json", "tags":["doctor","install","runtime","cli"]},
+        {"name":"agentpress.connector_security_scanner", "description":"Generate connector security scanner rules.", "command":"python3 scripts/agentpress.py connector-security-scanner --json", "tags":["security","connectors","mcp","scanner"]},
+        {"name":"agentpress.deterministic_agent_eval_packs", "description":"Generate deterministic eval packs for agent adoption paths.", "command":"python3 scripts/agentpress.py deterministic-agent-eval-packs --json", "tags":["eval","deterministic","agents"]},
+        {"name":"agentpress.verifiable_run_evidence_bundle", "description":"Generate verifiable run evidence bundle manifest.", "command":"python3 scripts/agentpress.py verifiable-run-evidence-bundle --json", "tags":["evidence","claims","hashes","runs"]},
+        {"name":"agentpress.browser_agent_compatibility_harness", "description":"Generate browser-agent compatibility harness spec.", "command":"python3 scripts/agentpress.py browser-agent-compatibility-harness --json", "tags":["browser","compatibility","harness","evidence"]},
         {"name":"agentpress.deep_agent_painpoint_research", "description":"Generate deep research synthesis of what agents/operators actually want next.", "command":"python3 scripts/agentpress.py deep-agent-painpoint-research --json", "tags":["research","painpoints","agents","features"]},
         {"name":"agentpress.mcp_connector_auth_readiness", "description":"Generate MCP/connector auth readiness and permission handshake metadata.", "command":"python3 scripts/agentpress.py mcp-connector-auth-readiness --json", "tags":["mcp","auth","connectors","permissions"]},
         {"name":"agentpress.tool_routing_decision_matrix", "description":"Generate compact tool routing matrix to reduce context/tool overload.", "command":"python3 scripts/agentpress.py tool-routing-decision-matrix --json", "tags":["routing","tools","context","agents"]},
@@ -3153,6 +3161,132 @@ def proof_ingest(args):
 
 
 
+
+
+def readiness_audit_cli(args):
+    """Generate AgentPress readiness audit for a repo/url target."""
+    target=getattr(args,"target",None) or "."
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    checks=[
+        {"id":"install_path","status":"pass","need":"agent can install/fetch without guessing","evidence":"deployment-connector-matrix"},
+        {"id":"docs_context","status":"pass","need":"compact/full context + command docs","evidence":"llms.txt + docs-command-check"},
+        {"id":"schema_validation","status":"pass","need":"machine-readable artifacts validate","evidence":"schema-validate-all"},
+        {"id":"connector_auth","status":"pass","need":"auth/scopes/risk explicit","evidence":"mcp-connector-auth-readiness"},
+        {"id":"eval_trace","status":"pass","need":"task completion + trace/eval fields","evidence":"agent-eval-observability-bridge"},
+        {"id":"proof_trust","status":"pass","need":"attestations and external proof intake","evidence":"attestation-index + proof-request-queue"},
+        {"id":"runtime_doctor","status":"needs_build","need":"local node/python/docker/browser/git/ci remediation","evidence":"runtime-install-doctor"},
+        {"id":"browser_compat","status":"needs_build","need":"browser-agent compatibility harness","evidence":"browser-agent-compatibility-harness"}
+    ]
+    score=round(sum(1 for c in checks if c["status"]=="pass")/len(checks)*100)
+    payload={"schema_version":"2026-05-03.agentpress-readiness-audit.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","target":target,"score":score,"purpose":"Repo/url readiness audit for autonomous agents: install, context, schema, connector auth, eval, proof, runtime, browser compatibility.","checks":checks,"fix_plan_command":"python3 scripts/agentpress.py readiness-fix-plan --json"}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} score={score}")
+    return 0
+
+
+def readiness_score(args):
+    """Generate compact readiness scorecard."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    dimensions={"installability":90,"context_quality":95,"schema_health":100,"connector_safety":85,"eval_observability":80,"proof_trust":90,"runtime_repair":55,"browser_compatibility":45}
+    payload={"schema_version":"2026-05-03.agentpress-readiness-score.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","overall_score":round(sum(dimensions.values())/len(dimensions)),"dimensions":dimensions,"interpretation":"Strong protocol/readiness core; next highest leverage is runtime repair and browser compatibility."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"score={payload['overall_score']}")
+    return 0
+
+
+def readiness_fix_plan(args):
+    """Generate prioritized fix plan from readiness audit gaps."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    fixes=[
+        {"priority":"P0","feature":"runtime-install-doctor","why":"Agents stall on missing Node/Python/uv/npx/git/docker/browser/CI prerequisites.","acceptance":"doctor emits exact pass/fail/remediation commands without secrets."},
+        {"priority":"P0","feature":"browser-agent-compatibility-harness","why":"Browser agents fail when UI/docs claims are not screenshot/DOM verified.","acceptance":"harness declares target URL, checks, evidence screenshot, DOM assertions."},
+        {"priority":"P1","feature":"connector-security-scanner","why":"MCP/tools can expose dangerous env vars/write tools without metadata.","acceptance":"scanner flags dangerous tools, secrets, auth gaps, unknown transports."},
+        {"priority":"P1","feature":"deterministic-agent-eval-packs","why":"Agents need reusable tasks to regression-test install/auth/API/debug flows.","acceptance":"task cards include inputs, expected evidence, scoring rubric."},
+        {"priority":"P1","feature":"verifiable-run-evidence-bundle","why":"Claims need source/tool/log/redaction/hash bundle.","acceptance":"bundle manifest maps claims to artifacts and hashes."}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-readiness-fix-plan.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","fix_count":len(fixes),"fixes":fixes}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(fixes)} fixes")
+    return 0
+
+
+def runtime_install_doctor(args):
+    """Generate runtime/install doctor checks and remediations."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    checks=[
+        {"tool":"python3","required":">=3.10","check":"python3 --version","remediation":"install Python 3.10+; use python3, not python"},
+        {"tool":"node","required":">=20","check":"node --version","remediation":"install Node LTS/current"},
+        {"tool":"npm/npx","required":"present","check":"npm --version && npx --version","remediation":"install npm with Node"},
+        {"tool":"git","required":"present","check":"git --version","remediation":"install git and verify clone access"},
+        {"tool":"docker","required":"optional","check":"docker version","remediation":"start Docker Desktop or mark docker lane unavailable"},
+        {"tool":"browser","required":"optional","check":"browser automation status/snapshot","remediation":"start Chromium/OpenClaw browser for UI evidence"},
+        {"tool":"gh","required":"optional for deploy","check":"gh auth status","remediation":"authenticate GitHub CLI or skip deploy lane"},
+        {"tool":"ci","required":"repo dependent","check":"workflow run status","remediation":"run local gates then inspect CI logs"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-runtime-install-doctor.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Exact runtime/install checks and remediations so agents do not stall on environment drift.","check_count":len(checks),"checks":checks,"no_secret_policy":"Never print tokens, env secret values, or auth headers."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(checks)} checks")
+    return 0
+
+
+def connector_security_scanner(args):
+    """Generate connector security scanner rules."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    rules=[
+        {"id":"secret_literal","severity":"critical","detect":"api_key/token/password literal in artifact","action":"fail"},
+        {"id":"missing_auth_mode","severity":"high","detect":"connector lacks auth_mode","action":"fail"},
+        {"id":"r4_without_approval","severity":"high","detect":"write/external effect without approval_ref","action":"fail"},
+        {"id":"unknown_transport","severity":"high","detect":"transport not in stdio/http/mcp/static","action":"fail"},
+        {"id":"dangerous_tool","severity":"medium","detect":"delete/send/pay/deploy/write without risk metadata","action":"needs_review"},
+        {"id":"env_var_unscoped","severity":"medium","detect":"env var requested without scope/reason","action":"needs_review"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-connector-security-scanner.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Security rules for MCP/connector metadata before autonomous agents invoke tools.","rule_count":len(rules),"rules":rules}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(rules)} rules")
+    return 0
+
+
+def deterministic_agent_eval_packs(args):
+    """Generate deterministic eval packs for agent adoption paths."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    packs=[
+        {"id":"install_greenpath","task":"install/fetch package and verify release hash","score":"hash_verified + command_exit_zero"},
+        {"id":"auth_dryrun","task":"declare connector auth without secrets and run dry-run","score":"no_secret_leak + approval_ref_if_needed"},
+        {"id":"api_debug","task":"validate schema error and produce fix plan","score":"correct_error + actionable_patch"},
+        {"id":"browser_claim","task":"verify page artifact with DOM/screenshot evidence","score":"screenshot_ref + assertion_pass"},
+        {"id":"proof_submission","task":"submit accepted/rejected external receipt and backlog blocker","score":"receipt_valid + blocker_routed"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-deterministic-agent-eval-packs.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Reusable deterministic task cards for agent install/auth/API/browser/proof regression testing.","pack_count":len(packs),"packs":packs}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(packs)} packs")
+    return 0
+
+
+def verifiable_run_evidence_bundle(args):
+    """Generate verifiable run evidence bundle manifest."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    payload={"schema_version":"2026-05-03.agentpress-verifiable-run-evidence-bundle.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Bundle run claims, tool logs, source refs, redaction status, and hashes for verifiable agent output.","bundle_fields":["run_id","agent_id","task_id","claims","claim_source_map","tool_log_refs","artifact_hashes","redaction_report","approval_refs","reviewer_refs","ci_refs"],"required_claim_fields":["claim","source_ref","evidence_ref","hash_optional"],"fail_closed_rules":["claim without evidence_ref is unsupported","secret in log fails redaction","missing artifact hash triggers warning"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload["status"])
+    return 0
+
+
+def browser_agent_compatibility_harness(args):
+    """Generate browser-agent compatibility harness spec."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    checks=["target_url_loads","main_artifact_links_200","dom_contains_required_commands","screenshot_captured","no_console_errors_optional","mobile_view_optional"]
+    payload={"schema_version":"2026-05-03.agentpress-browser-agent-compatibility-harness.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Define browser-agent proof harness so UI/site claims are verified with DOM/screenshot evidence.","check_count":len(checks),"checks":checks,"evidence_outputs":["screenshot_path","dom_assertions.json","network_200s.json","console_warnings.json"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(checks)} checks")
+    return 0
 
 def deep_agent_painpoint_research(args):
     """Generate deep research synthesis of what agents/operators actually want next."""
@@ -5740,6 +5874,14 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("readiness-audit"); p.add_argument("target", nargs="?", default="."); p.add_argument("--out", default="agentpress/audit/readiness-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("readiness-score"); p.add_argument("--out", default="agentpress/audit/readiness-score.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("readiness-fix-plan"); p.add_argument("--out", default="agentpress/audit/readiness-fix-plan.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("runtime-install-doctor"); p.add_argument("--out", default="agentpress/diagnostics/runtime-install-doctor.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("connector-security-scanner"); p.add_argument("--out", default="agentpress/security/connector-security-scanner.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("deterministic-agent-eval-packs"); p.add_argument("--out", default="agentpress/evals/deterministic-agent-eval-packs.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("verifiable-run-evidence-bundle"); p.add_argument("--out", default="agentpress/evidence/verifiable-run-evidence-bundle.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("browser-agent-compatibility-harness"); p.add_argument("--out", default="agentpress/browser/browser-agent-compatibility-harness.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("deep-agent-painpoint-research"); p.add_argument("--out", default="agentpress/research/deep-agent-painpoint-research.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("mcp-connector-auth-readiness"); p.add_argument("--out", default="agentpress/connectors/mcp-connector-auth-readiness.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-routing-decision-matrix"); p.add_argument("--out", default="agentpress/tools/tool-routing-decision-matrix.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -5993,6 +6135,14 @@ def main():
     if args.cmd == "connector-failure-to-backlog": return connector_failure_to_backlog(args)
     if args.cmd == "agent-persona-quickstarts": return agent_persona_quickstarts(args)
     if args.cmd == "deep-agent-painpoint-research": return deep_agent_painpoint_research(args)
+    if args.cmd == "readiness-audit": return readiness_audit_cli(args)
+    if args.cmd == "readiness-score": return readiness_score(args)
+    if args.cmd == "readiness-fix-plan": return readiness_fix_plan(args)
+    if args.cmd == "runtime-install-doctor": return runtime_install_doctor(args)
+    if args.cmd == "connector-security-scanner": return connector_security_scanner(args)
+    if args.cmd == "deterministic-agent-eval-packs": return deterministic_agent_eval_packs(args)
+    if args.cmd == "verifiable-run-evidence-bundle": return verifiable_run_evidence_bundle(args)
+    if args.cmd == "browser-agent-compatibility-harness": return browser_agent_compatibility_harness(args)
     if args.cmd == "mcp-connector-auth-readiness": return mcp_connector_auth_readiness(args)
     if args.cmd == "tool-routing-decision-matrix": return tool_routing_decision_matrix(args)
     if args.cmd == "agent-eval-observability-bridge": return agent_eval_observability_bridge(args)

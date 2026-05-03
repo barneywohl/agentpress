@@ -1,0 +1,35 @@
+{
+  "schema_version": "2026-05-03.agentpress-deterministic-agent-eval-packs.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/evals/deterministic-agent-eval-packs.json",
+  "generated_utc": "2026-05-03T22:27:13Z",
+  "status": "ok",
+  "purpose": "Reusable deterministic task cards for agent install/auth/API/browser/proof regression testing.",
+  "pack_count": 5,
+  "packs": [
+    {
+      "id": "install_greenpath",
+      "task": "install/fetch package and verify release hash",
+      "score": "hash_verified + command_exit_zero"
+    },
+    {
+      "id": "auth_dryrun",
+      "task": "declare connector auth without secrets and run dry-run",
+      "score": "no_secret_leak + approval_ref_if_needed"
+    },
+    {
+      "id": "api_debug",
+      "task": "validate schema error and produce fix plan",
+      "score": "correct_error + actionable_patch"
+    },
+    {
+      "id": "browser_claim",
+      "task": "verify page artifact with DOM/screenshot evidence",
+      "score": "screenshot_ref + assertion_pass"
+    },
+    {
+      "id": "proof_submission",
+      "task": "submit accepted/rejected external receipt and backlog blocker",
+      "score": "receipt_valid + blocker_routed"
+    }
+  ]
+}

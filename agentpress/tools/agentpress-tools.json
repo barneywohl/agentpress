@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T22:17:39Z",
+  "generated_at": "2026-05-03T22:27:12Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,91 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.readiness_audit_cli",
+      "description": "Generate AgentPress readiness audit for a repo/url target.",
+      "command": "python3 scripts/agentpress.py readiness-audit --json",
+      "tags": [
+        "audit",
+        "readiness",
+        "agents",
+        "repo"
+      ]
+    },
+    {
+      "name": "agentpress.readiness_score",
+      "description": "Generate compact AgentPress readiness scorecard.",
+      "command": "python3 scripts/agentpress.py readiness-score --json",
+      "tags": [
+        "score",
+        "readiness",
+        "audit"
+      ]
+    },
+    {
+      "name": "agentpress.readiness_fix_plan",
+      "description": "Generate prioritized readiness fix plan.",
+      "command": "python3 scripts/agentpress.py readiness-fix-plan --json",
+      "tags": [
+        "fix-plan",
+        "readiness",
+        "roadmap"
+      ]
+    },
+    {
+      "name": "agentpress.runtime_install_doctor",
+      "description": "Generate runtime/install doctor checks and remediations.",
+      "command": "python3 scripts/agentpress.py runtime-install-doctor --json",
+      "tags": [
+        "doctor",
+        "install",
+        "runtime",
+        "cli"
+      ]
+    },
+    {
+      "name": "agentpress.connector_security_scanner",
+      "description": "Generate connector security scanner rules.",
+      "command": "python3 scripts/agentpress.py connector-security-scanner --json",
+      "tags": [
+        "security",
+        "connectors",
+        "mcp",
+        "scanner"
+      ]
+    },
+    {
+      "name": "agentpress.deterministic_agent_eval_packs",
+      "description": "Generate deterministic eval packs for agent adoption paths.",
+      "command": "python3 scripts/agentpress.py deterministic-agent-eval-packs --json",
+      "tags": [
+        "eval",
+        "deterministic",
+        "agents"
+      ]
+    },
+    {
+      "name": "agentpress.verifiable_run_evidence_bundle",
+      "description": "Generate verifiable run evidence bundle manifest.",
+      "command": "python3 scripts/agentpress.py verifiable-run-evidence-bundle --json",
+      "tags": [
+        "evidence",
+        "claims",
+        "hashes",
+        "runs"
+      ]
+    },
+    {
+      "name": "agentpress.browser_agent_compatibility_harness",
+      "description": "Generate browser-agent compatibility harness spec.",
+      "command": "python3 scripts/agentpress.py browser-agent-compatibility-harness --json",
+      "tags": [
+        "browser",
+        "compatibility",
+        "harness",
+        "evidence"
       ]
     },
     {

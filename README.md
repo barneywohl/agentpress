@@ -542,3 +542,14 @@ python3 scripts/agentpress.py agent-eval-observability-bridge --json
 python3 scripts/agentpress.py deployment-connector-matrix --json
 python3 scripts/agentpress.py connector-first-run-checklist --json
 ```
+
+```bash
+python3 scripts/agentpress.py readiness-audit --json
+python3 scripts/agentpress.py readiness-score --json
+python3 scripts/agentpress.py readiness-fix-plan --json
+python3 scripts/agentpress.py runtime-install-doctor --json
+python3 scripts/agentpress.py connector-security-scanner --json
+python3 scripts/agentpress.py deterministic-agent-eval-packs --json
+python3 scripts/agentpress.py verifiable-run-evidence-bundle --json
+python3 scripts/agentpress.py browser-agent-compatibility-harness --json
+```

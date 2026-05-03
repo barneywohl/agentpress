@@ -1,7 +1,24 @@
 {
   "schema_version": "2026-05-03.agentpress-changelog.v1",
-  "generated_utc": "2026-05-03T22:45:00Z",
+  "generated_utc": "2026-05-03T22:55:00Z",
   "changes": [
+    {
+      "version": "2026-05-03-agent-readiness-audit-layer",
+      "summary": "Added AgentPress readiness audit layer and supporting doctor/scanner/eval/evidence/browser artifacts.",
+      "files": [
+        "scripts/agentpress.py",
+        "agentpress/audit/readiness-audit.json",
+        "agentpress/audit/readiness-score.json",
+        "agentpress/audit/readiness-fix-plan.json",
+        "agentpress/diagnostics/runtime-install-doctor.json",
+        "agentpress/security/connector-security-scanner.json",
+        "agentpress/evals/deterministic-agent-eval-packs.json",
+        "agentpress/evidence/verifiable-run-evidence-bundle.json",
+        "agentpress/browser/browser-agent-compatibility-harness.json",
+        "agentpress/specs/AGENTPRESS_AGENT_READINESS_AUDIT_LAYER_SPEC_20260503.md"
+      ],
+      "breaking": false
+    },
     {
       "version": "2026-05-03-deep-agent-painpoint-features",
       "summary": "Added deep painpoint research, MCP auth readiness, tool routing, eval observability, deployment connector matrix, and connector first-run checklist.",
