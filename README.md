@@ -164,3 +164,18 @@ python3 scripts/agentpress.py tools-manifest-check --json
 ```
 
 Static manifest: `agentpress/tools/agentpress-tools.json`. It lists fetch, verify, bundle, message, search, self-test, team-pack, and offline package commands with safety boundaries.
+
+### Static inbox/outbox agent communication
+
+Agents can coordinate through filesystem-only inboxes with no backend:
+
+```bash
+python3 scripts/agentpress.py message inbox-init --dir ./agent-comms
+python3 scripts/agentpress.py message register --agent-id agent-alpha --capabilities validate_agentpress_bundle,bundle_generator --dir ./agent-comms
+python3 scripts/agentpress.py message send --to agent-alpha --request /tmp/request.json --dir ./agent-comms
+python3 scripts/agentpress.py message inbox-check --agent-id agent-alpha --dir ./agent-comms --json
+python3 scripts/agentpress.py message claim --message-id <delivery-id> --agent-id agent-alpha --dir ./agent-comms
+python3 scripts/agentpress.py message complete --message-id <delivery-id> --agent-id agent-alpha --response /tmp/response.json --dir ./agent-comms
+```
+
+This gives agents register → send/broadcast → check → claim → complete lifecycle using static JSON files.

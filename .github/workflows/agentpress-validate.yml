@@ -57,6 +57,20 @@ jobs:
           python3 scripts/agentpress.py bundle tests/fixtures/source-docs --out /tmp/generated-agentpress-bundle --title "Example API Docs" --canonical-url "https://example.com/agentpress/example-api/" --force
           python3 scripts/agentpress.py verify /tmp/generated-agentpress-bundle --json
           python3 scripts/agentpress.py score /tmp/generated-agentpress-bundle
+
+      - name: Validate AgentPress static inbox communication
+        run: |
+          rm -rf /tmp/ap-comms
+          python3 scripts/agentpress.py message inbox-init --dir /tmp/ap-comms
+          python3 scripts/agentpress.py message register --agent-id agent-alpha --capabilities validate_agentpress_bundle,bundle_generator --dir /tmp/ap-comms
+          python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify this bundle and report missing contracts" --requester-id ci-agent --out /tmp/ap-inbox-request.json
+          python3 scripts/agentpress.py message send --to agent-alpha --request /tmp/ap-inbox-request.json --dir /tmp/ap-comms > /tmp/ap-send.json
+          MSG=$(python3 -c 'import json; print(json.load(open("/tmp/ap-send.json"))["delivery_id"])')
+          python3 scripts/agentpress.py message inbox-check --agent-id agent-alpha --dir /tmp/ap-comms --json
+          python3 scripts/agentpress.py message claim --message-id "$MSG" --agent-id agent-alpha --dir /tmp/ap-comms
+          python3 scripts/agentpress.py message create-response --request /tmp/ap-inbox-request.json --responder-id agent-alpha --status completed --result-inline '{"status":"ok"}' --out /tmp/ap-inbox-response.json
+          python3 scripts/agentpress.py message complete --message-id "$MSG" --agent-id agent-alpha --response /tmp/ap-inbox-response.json --dir /tmp/ap-comms
+          python3 scripts/agentpress.py message inbox-check --agent-id agent-alpha --dir /tmp/ap-comms --json
       - name: Validate AgentPress message CLI
         run: |
           python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify this bundle and report missing contracts" --requester-id ci-agent --out /tmp/ap-request.json

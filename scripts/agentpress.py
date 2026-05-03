@@ -1195,10 +1195,140 @@ def message_thread_append(args):
     return 0
 
 
+
+def _comms_root(path: str) -> pathlib.Path:
+    return pathlib.Path(path)
+
+
+def message_inbox_init(args):
+    root=_comms_root(args.dir)
+    for rel in ["agents", "messages", "responses", "threads"]:
+        (root/rel).mkdir(parents=True, exist_ok=True)
+    reg=root/"registry.json"
+    if not reg.exists():
+        reg.write_text(json.dumps({"schema_version":"2026-05-03.agentpress-static-inbox.v1", "agents":{}, "capabilities":{}}, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps({"status":"ok", "dir":str(root), "registry":str(reg)}, indent=2))
+    return 0
+
+
+def _load_registry(root: pathlib.Path) -> dict:
+    reg=root/"registry.json"
+    if not reg.exists():
+        with contextlib.redirect_stdout(io.StringIO()):
+            message_inbox_init(argparse.Namespace(dir=str(root)))
+    return json.loads(reg.read_text(encoding="utf-8"))
+
+
+def _save_registry(root: pathlib.Path, data: dict):
+    (root/"registry.json").write_text(json.dumps(data, indent=2)+"\n", encoding="utf-8")
+
+
+def message_register(args):
+    root=_comms_root(args.dir)
+    with contextlib.redirect_stdout(io.StringIO()):
+        with contextlib.redirect_stdout(io.StringIO()):
+            message_inbox_init(argparse.Namespace(dir=str(root)))
+    reg=_load_registry(root)
+    caps=_csv_list(args.capabilities)
+    agent={"agent_id":args.agent_id, "capabilities":caps, "registered_utc":_utc_now(), "inbox":f"agents/{args.agent_id}/inbox", "outbox":f"agents/{args.agent_id}/outbox"}
+    reg.setdefault("agents", {})[args.agent_id]=agent
+    reg.setdefault("capabilities", {})
+    for c in caps:
+        reg["capabilities"].setdefault(c, [])
+        if args.agent_id not in reg["capabilities"][c]: reg["capabilities"][c].append(args.agent_id)
+    _save_registry(root, reg)
+    for rel in [f"agents/{args.agent_id}/inbox/pending", f"agents/{args.agent_id}/inbox/claimed", f"agents/{args.agent_id}/inbox/completed", f"agents/{args.agent_id}/outbox"]:
+        (root/rel).mkdir(parents=True, exist_ok=True)
+    print(json.dumps({"status":"ok", "agent_id":args.agent_id, "capabilities":caps}, indent=2))
+    return 0
+
+
+def _message_delivery_id(request: dict, to_agent: str) -> str:
+    rid=request.get("request_id") or _short_id("req")
+    return f"{rid}--to--{slugify(to_agent)}"
+
+
+def message_send(args):
+    root=_comms_root(args.dir); request=_load_json(pathlib.Path(args.request)); kind, errors=_validate_message_payload(request, "request")
+    if errors or kind != "agent_request":
+        print(json.dumps({"status":"fail", "errors":errors or ["message must be agent_request"]}, indent=2)); return 1
+    reg=_load_registry(root)
+    if args.to not in reg.get("agents", {}):
+        print(json.dumps({"status":"fail", "errors":[f"unknown agent: {args.to}"]}, indent=2)); return 1
+    delivery_id=_message_delivery_id(request, args.to)
+    env={"schema_version":"2026-05-03.agentpress-delivery.v1", "delivery_id":delivery_id, "to_agent":args.to, "state":"pending", "created_utc":_utc_now(), "request":request}
+    dest=root/f"agents/{args.to}/inbox/pending/{delivery_id}.json"; dest.parent.mkdir(parents=True, exist_ok=True); dest.write_text(json.dumps(env, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps({"status":"ok", "delivery_id":delivery_id, "path":str(dest)}, indent=2))
+    return 0
+
+
+def message_broadcast(args):
+    root=_comms_root(args.dir); reg=_load_registry(root)
+    targets=reg.get("capabilities", {}).get(args.capability, [])
+    sent=[]; errors=[]
+    for agent_id in targets:
+        code=message_send(argparse.Namespace(dir=str(root), request=args.request, to=agent_id))
+        if code == 0: sent.append(agent_id)
+        else: errors.append(agent_id)
+    print(json.dumps({"status":"ok" if sent and not errors else "fail", "capability":args.capability, "sent":sent, "errors":errors}, indent=2))
+    return 0 if sent and not errors else 1
+
+
+def message_inbox_check(args):
+    root=_comms_root(args.dir); base=root/f"agents/{args.agent_id}/inbox"
+    rows=[]
+    for state in ["pending", "claimed", "completed"]:
+        for p in sorted((base/state).glob("*.json")) if (base/state).exists() else []:
+            try: d=json.loads(p.read_text(encoding="utf-8"))
+            except Exception: d={}
+            rows.append({"state":state, "delivery_id":d.get("delivery_id", p.stem), "path":str(p), "request_id":d.get("request", {}).get("request_id"), "capability":d.get("request", {}).get("needed_capability")})
+    print(json.dumps({"status":"ok", "agent_id":args.agent_id, "count":len(rows), "messages":rows}, indent=2) if args.json else "\n".join(r["path"] for r in rows))
+    return 0
+
+
+def message_claim(args):
+    root=_comms_root(args.dir); pending=root/f"agents/{args.agent_id}/inbox/pending/{args.message_id}.json"; claimed=root/f"agents/{args.agent_id}/inbox/claimed/{args.message_id}.json"
+    if not pending.exists():
+        print(json.dumps({"status":"fail", "errors":[f"pending message not found: {args.message_id}"]}, indent=2)); return 1
+    claimed.parent.mkdir(parents=True, exist_ok=True)
+    data=json.loads(pending.read_text(encoding="utf-8")); data["state"]="claimed"; data["claimed_by"]=args.agent_id; data["claimed_utc"]=_utc_now()
+    claimed.write_text(json.dumps(data, indent=2)+"\n", encoding="utf-8"); pending.unlink()
+    print(json.dumps({"status":"ok", "delivery_id":args.message_id, "path":str(claimed)}, indent=2))
+    return 0
+
+
+def message_complete(args):
+    root=_comms_root(args.dir); claimed=root/f"agents/{args.agent_id}/inbox/claimed/{args.message_id}.json"; complete=root/f"agents/{args.agent_id}/inbox/completed/{args.message_id}.json"
+    if not claimed.exists():
+        print(json.dumps({"status":"fail", "errors":[f"claimed message not found: {args.message_id}"]}, indent=2)); return 1
+    response=_load_json(pathlib.Path(args.response)); kind, errors=_validate_message_payload(response, "response")
+    if errors or kind != "agent_response":
+        print(json.dumps({"status":"fail", "errors":errors or ["response must be agent_response"]}, indent=2)); return 1
+    data=json.loads(claimed.read_text(encoding="utf-8")); data["state"]="completed"; data["completed_utc"]=_utc_now(); data["response"]=response
+    complete.parent.mkdir(parents=True, exist_ok=True); complete.write_text(json.dumps(data, indent=2)+"\n", encoding="utf-8"); claimed.unlink()
+    outbox=root/f"agents/{args.agent_id}/outbox/{args.message_id}-response.json"; outbox.parent.mkdir(parents=True, exist_ok=True); outbox.write_text(json.dumps(response, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps({"status":"ok", "delivery_id":args.message_id, "path":str(complete), "outbox":str(outbox)}, indent=2))
+    return 0
+
+
+def message_agents(args):
+    root=_comms_root(args.dir); reg=_load_registry(root)
+    print(json.dumps({"status":"ok", "count":len(reg.get("agents", {})), "agents":reg.get("agents", {}), "capabilities":reg.get("capabilities", {})}, indent=2) if args.json else "\n".join(reg.get("agents", {}).keys()))
+    return 0
+
+
 def message_command(args):
     if args.message_cmd == "create-request": return message_create_request(args)
     if args.message_cmd == "route": return message_route(args)
     if args.message_cmd == "create-response": return message_create_response(args)
+    if args.message_cmd == "inbox-init": return message_inbox_init(args)
+    if args.message_cmd == "register": return message_register(args)
+    if args.message_cmd == "send": return message_send(args)
+    if args.message_cmd == "broadcast": return message_broadcast(args)
+    if args.message_cmd == "inbox-check": return message_inbox_check(args)
+    if args.message_cmd == "claim": return message_claim(args)
+    if args.message_cmd == "complete": return message_complete(args)
+    if args.message_cmd == "agents": return message_agents(args)
     if args.message_cmd == "validate": return message_validate(args)
     if args.message_cmd == "thread-create": return message_thread_create(args)
     if args.message_cmd == "thread-append": return message_thread_append(args)
@@ -1490,6 +1620,14 @@ def main():
     q = msg.add_parser("create-request"); q.add_argument("--capability", required=True); q.add_argument("--task", required=True); q.add_argument("--priority", choices=["P0","P1","P2","P3"], default="P1"); q.add_argument("--requester-id", required=True); q.add_argument("--out", required=True); q.add_argument("--request-id"); q.add_argument("--context-urls"); q.add_argument("--required-sources"); q.add_argument("--allowed-actions"); q.add_argument("--requires-human-approval"); q.add_argument("--prohibited-actions"); q.add_argument("--output-schema", default="https://barneywohl.github.io/agentpress/agentpress/schemas/agent-response-v1.schema.json"); q.add_argument("--deadline-utc")
     q = msg.add_parser("route"); q.add_argument("--capability", required=True); q.add_argument("--directory", default="agentpress/hub/routing/capability-index.json"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("create-response"); q.add_argument("--request", required=True); q.add_argument("--responder-id", required=True); q.add_argument("--status", choices=["accepted","in_progress","completed","partial","rejected","escalated","timeout"], default="completed"); q.add_argument("--out", required=True); q.add_argument("--response-id"); q.add_argument("--confidence", type=float, default=0.8); q.add_argument("--result-inline"); q.add_argument("--result-bundle"); q.add_argument("--sources-used"); q.add_argument("--missing-checks"); q.add_argument("--actions-taken")
+    q = msg.add_parser("inbox-init"); q.add_argument("--dir", default="agent-comms")
+    q = msg.add_parser("register"); q.add_argument("--agent-id", required=True); q.add_argument("--capabilities", required=True); q.add_argument("--dir", default="agent-comms")
+    q = msg.add_parser("send"); q.add_argument("--to", required=True); q.add_argument("--request", required=True); q.add_argument("--dir", default="agent-comms")
+    q = msg.add_parser("broadcast"); q.add_argument("--capability", required=True); q.add_argument("--request", required=True); q.add_argument("--dir", default="agent-comms")
+    q = msg.add_parser("inbox-check"); q.add_argument("--agent-id", required=True); q.add_argument("--dir", default="agent-comms"); q.add_argument("--json", action="store_true")
+    q = msg.add_parser("claim"); q.add_argument("--message-id", required=True); q.add_argument("--agent-id", required=True); q.add_argument("--dir", default="agent-comms")
+    q = msg.add_parser("complete"); q.add_argument("--message-id", required=True); q.add_argument("--agent-id", required=True); q.add_argument("--response", required=True); q.add_argument("--dir", default="agent-comms")
+    q = msg.add_parser("agents"); q.add_argument("--dir", default="agent-comms"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
