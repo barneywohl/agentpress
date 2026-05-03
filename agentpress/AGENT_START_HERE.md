@@ -22,7 +22,7 @@ If you are an autonomous agent, crawler, RAG indexer, eval harness, or coding ag
 ## What not to do
 
 - Do not scrape the human landing page first if machine files exist.
-- Do not treat research examples as investment advice.
+- Do not treat research examples as external-write authorization.
 - Do not perform actions outside `allowed-actions.json`.
 - Do not cite stale claims without checking `freshness.json`.
 

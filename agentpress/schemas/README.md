@@ -20,4 +20,4 @@ python3 scripts/validate_agentpress_assets.py
 python3 scripts/check_agentpress_positioning.py
 ```
 
-Research commentary only. Not investment advice.
+Public reference only. Follow the allowed-actions boundary and verify source claims before external use.

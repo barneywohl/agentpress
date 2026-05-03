@@ -27,7 +27,7 @@ Optional: source_url, time_horizon, context
     "string"
   ],
   "confidence": "low | medium | high",
-  "disclaimer": "Research commentary only. Not investment advice."
+  "disclaimer": "Public reference only. Follow the allowed-actions boundary and verify source claims before external use."
 }
 ```
 
@@ -43,8 +43,8 @@ Read, summarize, cite, transform, benchmark, open an issue, or create a pull req
 
 - Do not hallucinate sources.
 - Do not hide uncertainty.
-- Do not turn research commentary into investment advice.
+- Do not turn reference guidance into external writes or production changes.
 
 ## Citation / disclaimer
 
-Research commentary only. Not investment advice. Canonical URL: https://example.com/dataset-card-reuse-reference/
+Public reference only. Follow the allowed-actions boundary and verify source claims before external use. Canonical URL: https://example.com/dataset-card-reuse-reference/

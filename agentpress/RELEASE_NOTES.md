@@ -42,4 +42,4 @@ Do not tag or publish a package unless the GitHub Actions `AgentPress Validate` 
 - No hosted CMS.
 - No external posting/account actions.
 - No telemetry beyond ethical aggregate discovery surfaces.
-- No investment advice; research commentary only.
+- Public reference only; verify source claims before external use.

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AgentPress — Agent-Native Publishing Infrastructure</title>
-<meta name="description" content="AgentPress is publishing infrastructure for autonomous agents: task cards, RAG packs, evals, source maps, freshness policies, crawler manifests, and citation-safe research bundles.">
+<meta name="description" content="AgentPress is publishing infrastructure for autonomous agents: task cards, RAG packs, evals, source maps, freshness policies, crawler manifests, and use-now instruction bundles.">
 <meta property="og:title" content="AgentPress — Agent-Native Publishing Infrastructure">
 <meta property="og:description" content="A static publishing layer for agents, crawlers, RAG systems, eval harnesses, and humans.">
 <meta property="og:url" content="https://barneywohl.github.io/agentpress/">
@@ -22,7 +22,7 @@ body{font-family:Inter,system-ui,-apple-system,sans-serif;max-width:980px;margin
   "@type":"SoftwareApplication",
   "name":"AgentPress",
   "applicationCategory":"DeveloperApplication",
-  "description":"Agent-native publishing infrastructure with task cards, RAG packs, evals, source maps, freshness policies, crawler manifests, and citation-safe research bundles.",
+  "description":"Agent-native publishing infrastructure with task cards, RAG packs, evals, source maps, freshness policies, crawler manifests, and use-now instruction bundles.",
   "url":"https://barneywohl.github.io/agentpress/",
   "author":{"@type":"Person","name":"Barney Wohl"},
   "keywords":"agent-native publishing, AI agents, RAG, eval harness, crawler manifests, llms.txt, citation policy, source maps, MCP, OpenAPI, autonomous agents"
@@ -30,7 +30,7 @@ body{font-family:Inter,system-ui,-apple-system,sans-serif;max-width:980px;margin
 </script>
 </head>
 <body>
-<p><span class="pill">AgentPress</span><span class="pill">agent-native publishing</span><span class="pill">research-only</span></p>
+<p><span class="pill">AgentPress</span><span class="pill">agent-native publishing</span><span class="pill">use-now guides</span></p>
 <h1>AgentPress</h1>
 <blockquote>Publish for agents, not just humans.</blockquote>
 <p><strong>AgentPress is the product.</strong> It turns a static site into a complete agent-facing publication bundle: human page, task contract, source map, freshness policy, allowed-actions boundary, RAG/eval assets, crawler manifest, and citation rules.</p>
@@ -42,12 +42,15 @@ python3 scripts/validate_agentpress_assets.py</code></pre><p>Installable skeleto
   <div class="card"><h2>For agents</h2><ul><li><a href="./llms.txt">llms.txt</a></li><li><a href="./sitemap.xml">sitemap.xml</a></li><li><a href="./agentpress/schemas/README.md">schemas</a></li><li><a href="./agentpress/AGENT_USABILITY_STANDARD.md">agent usability standard</a></li></ul></div>
 </div>
 
-<div class="card"><h2>Flagship neutral benchmark</h2><p>The default AgentPress example is now non-financial and universal: test whether any agent family can discover, parse, cite, and safely use a static bundle.</p><ul><li><a href="./agentpress/examples/universal-agent-reachability/">Universal Agent Reachability Benchmark</a></li><li><a href="./agentpress/MASS_AGENT_REACHABILITY_PLAN.md">Mass Agent Reachability Plan</a></li></ul></div>
+<div class="card"><h2>Use-now references</h2><p>Start with a large, practical use case: API docs, incident runbooks, dataset cards, knowledge bases, or agent framework compatibility. Each reference is an instruction bundle agents can use immediately.</p><ul><li><a href="./agentpress/examples/README.md">Choose a reference by audience</a></li><li><a href="./agentpress/use-cases/README.md">Use-case implementation guides</a></li><li><a href="./agentpress/examples/universal-agent-reachability/">Universal agent reachability reference</a></li></ul></div>
 <div class="card"><h2>Global agent discovery</h2><p>AgentPress now ships root-level manifests and protocol surfaces for agents worldwide.</p><ul><li><a href="./agentpress/AGENT_START_HERE.md">Start here for agents</a></li><li><a href="./.well-known/agentpress.json">.well-known/agentpress.json</a></li><li><a href="./agentpress/WHAT_AGENTS_WANT.md">What agents want</a></li><li><a href="./agentpress/protocols/README.md">Protocol integrations</a></li><li><a href="./agentpress/feeds/agentpress-feed.json">JSON Feed</a> / <a href="./agentpress/feeds/rss.xml">RSS</a></li></ul></div>
 <div class="card"><h2>Agent article database</h2><p>AgentPress is expanding from bundles into a database of agent-native articles: indexed by task type, claims, sources, freshness, allowed actions, evals, language, domain, and target agent family. Profiles can come later as optional views.</p><ul><li><a href="./agentpress/AGENT_NEEDS_RESEARCH.md">What agents need</a></li><li><a href="./agentpress/AGENT_ARTICLE_DATABASE_SPEC.md">Agent article database spec</a></li><li><a href="./agentpress/articles/article-index.json">Article database index</a></li><li><a href="./agentpress/AGENT_PROFILE_SPEC.md">Profile spec as later view</a></li><li><a href="./agentpress/GLOBAL_FEATURE_BACKLOG.md">Global feature backlog</a></li></ul></div>
 <div class="card"><h2>What every AgentPress bundle exposes</h2><ul><li><code>AGENT_ENTRYPOINT.md</code> — the agent-facing start page</li><li><code>agent-task-card.json</code> — machine-readable task contract</li><li><code>source-map.json</code> — claim/source map</li><li><code>freshness.json</code> — freshness and stale-zone policy</li><li><code>allowed-actions.json</code> — safety/action boundary</li><li><code>.well-known/ai-ingestion.json</code> — ingestion manifest</li><li><code>llms.txt</code>, <code>sitemap.xml</code>, citation policy, disclaimer, and eval smoke tests</li></ul></div>
-<div class="card"><h2>Reference examples</h2><p>Start with broad, neutral examples that show how agents can discover, validate, cite, and reuse publication bundles.</p><ul><li><a href="./agentpress/examples/api-docs-handoff/">API docs handoff</a></li><li><a href="./agentpress/examples/incident-runbook-sharing/">Incident runbook sharing</a></li><li><a href="./agentpress/examples/dataset-card-reuse/">Dataset card reuse</a></li></ul></div>
-<div class="card"><h2>Current build backlog</h2><p>The next shipping targets are availability monitoring, East/West source adapters, global language metadata, MCP/OpenAPI/JSON Schema/RSS integrations, cross-agent evals, and CI deploy gates.</p><p><a href="./agentpress/GLOBAL_READINESS_GAP_LIST.md">See the full missing list and build order.</a></p></div>
-<p><small>Research commentary only. Not investment advice. External publishing/account actions require fresh authorization.</small></p>
+<div class="card"><h2>References by audience</h2><p>These are the broad surfaces most teams understand immediately.</p><ul><li><a href="./agentpress/examples/api-docs-handoff/">API/docs teams</a></li><li><a href="./agentpress/examples/incident-runbook-sharing/">Ops/SRE/security teams</a></li><li><a href="./agentpress/examples/dataset-card-reuse/">Data/ML/RAG teams</a></li><li><a href="./agentpress/examples/agent-knowledge-sharing/">Knowledge-base/help-center teams</a></li><li><a href="./agentpress/examples/universal-agent-reachability/">Agent framework/eval builders</a></li></ul></div>
+<div class="card"><h2>Ship your own bundle</h2><p>Copy a reference, replace the source claims and allowed-actions boundary, then run the CLI gates before publishing.</p><pre><code>python3 scripts/agentpress.py validate agentpress/examples/api-docs-handoff --json
+python3 scripts/agentpress.py audit agentpress/examples/api-docs-handoff --json
+python3 scripts/agentpress.py check-registry
+python3 scripts/agentpress.py check-openapi</code></pre></div>
+<p><small>Public reference only. Follow the allowed-actions boundary and verify source claims before external use. External publishing/account actions require fresh authorization.</small></p>
 </body>
 </html>

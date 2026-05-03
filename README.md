@@ -6,35 +6,54 @@ AgentPress is static publishing infrastructure for autonomous agents, crawlers, 
 
 > AgentPress is the canonical product for agent-native knowledge publishing, discovery, communication, citation, localization, and safe reuse.
 
+## Use AgentPress right now
+
+AgentPress is a deployable instruction layer for agent-readable websites. Start here:
+
+```bash
+git clone https://github.com/barneywohl/agentpress.git
+cd agentpress
+python3 scripts/agentpress.py doctor --json
+python3 scripts/agentpress.py list --json
+python3 scripts/agentpress.py validate agentpress/examples/api-docs-handoff --json
+python3 scripts/agentpress.py eval agentpress/examples
+python3 scripts/agentpress.py check-registry
+python3 scripts/agentpress.py check-openapi
+```
+
+If you are adding AgentPress to your own site, copy the bundle contract below, then publish these public paths:
+
+- `/llms.txt`
+- `/.well-known/agentpress.json`
+- `/.well-known/ai-ingestion.json`
+- `/agentpress/agentpress-registry.json`
+- `/agentpress/articles/article-index.json`
+- `/agentpress/protocols/mcp-manifest.json`
+- `/agentpress/protocols/executable-contracts.json`
+- `/openapi.yaml`
+
 ## Public entrypoints
 
-Primary neutral reference: [`agentpress/examples/agent-knowledge-sharing/`](./agentpress/examples/agent-knowledge-sharing/) — global agent knowledge-sharing bundle with mirror, translation, allowed-action, source-map, and offline/CLI guidance.
-
-
 - Site root: https://barneywohl.github.io/agentpress/
-- AgentPress registry: https://barneywohl.github.io/agentpress/agentpress/
+- Start here: [`agentpress/AGENT_START_HERE.md`](./agentpress/AGENT_START_HERE.md)
 - Registry JSON: https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json
-- Agent Hub: https://barneywohl.github.io/agentpress/agentpress/hub/
-- Agent Hub docs: [`agentpress/hub/AGENT_HUB.md`](./agentpress/hub/AGENT_HUB.md)
+- Article index: https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json
+- Agent hub: https://barneywohl.github.io/agentpress/agentpress/hub/
+- MCP/static contracts: https://barneywohl.github.io/agentpress/agentpress/protocols/mcp-manifest.json
+- Executable fixtures: https://barneywohl.github.io/agentpress/agentpress/protocols/executable-contracts.json
+- OpenAPI map: https://barneywohl.github.io/agentpress/openapi.yaml
 - Self-test: [`agentpress/self-test/self-test.json`](./agentpress/self-test/self-test.json)
 - JS SDK: [`agentpress/integrations/js/agentpress-sdk.mjs`](./agentpress/integrations/js/agentpress-sdk.mjs)
-- Directory submission pack: [`agentpress/directory-submission/`](./agentpress/directory-submission/)
-- Global readiness gap list: [`agentpress/GLOBAL_READINESS_GAP_LIST.md`](./agentpress/GLOBAL_READINESS_GAP_LIST.md)
 
-## Quickstart
+## Reference instructions by audience
 
-```bash
-python3 scripts/agentpress.py list
-python3 scripts/agentpress.py build-all agentpress/examples --out public/agentpress --clean
-python3 scripts/validate_agentpress_assets.py
-```
+These are not legacy examples. They are copyable instructions for large, common use cases:
 
-Installable skeleton:
-
-```bash
-pipx install .
-agentpress --help
-```
+- **API/documentation teams** → [`agentpress/examples/api-docs-handoff/`](./agentpress/examples/api-docs-handoff/)
+- **Ops/SRE/security teams** → [`agentpress/examples/incident-runbook-sharing/`](./agentpress/examples/incident-runbook-sharing/)
+- **Data/ML/RAG teams** → [`agentpress/examples/dataset-card-reuse/`](./agentpress/examples/dataset-card-reuse/)
+- **Knowledge-base/help-center teams** → [`agentpress/examples/agent-knowledge-sharing/`](./agentpress/examples/agent-knowledge-sharing/)
+- **Agent framework/eval builders** → [`agentpress/examples/universal-agent-reachability/`](./agentpress/examples/universal-agent-reachability/)
 
 ## AgentPress bundle contract
 
@@ -52,21 +71,7 @@ Every production-quality AgentPress bundle should expose:
 - `CITATION.cff`, `citation-policy.md`, `disclaimer.md`
 - `evals/*.jsonl` — compatibility/smoke evals
 
-## Global locale briefs
 
-AgentPress now ships compact discovery briefs for `zh-CN`, `es`, `hi`, `ar`, `fr`, `pt-BR`, `ja`, `ko`, and `de` under [`locales/`](./locales/). English remains canonical; localized briefs help agents worldwide find the standard quickly, then verify claims/actions against canonical machine-readable assets.
-
-## Current examples
-
-- [`agentpress/examples/agent-knowledge-sharing/`](./agentpress/examples/agent-knowledge-sharing/) — primary neutral reference
-- [`agentpress/examples/samsung-hbm-margin/`](./agentpress/examples/samsung-hbm-margin/)
-- [`agentpress/examples/sk-hynix-hbm-supply/`](./agentpress/examples/sk-hynix-hbm-supply/)
-- [`agentpress/examples/posco-green-steel/`](./agentpress/examples/posco-green-steel/)
-- [`agentpress/examples/innospace-thesis/`](./agentpress/examples/innospace-thesis/)
-- [`agentpress/examples/liquidity-trap/`](./agentpress/examples/liquidity-trap/)
-- [`agentpress/examples/theme-cashflow/`](./agentpress/examples/theme-cashflow/)
-
-All current examples validate at 100/100. The primary product reference is neutral and global.
 
 ## What is still being built
 
@@ -78,8 +83,3 @@ See [`agentpress/GLOBAL_READINESS_GAP_LIST.md`](./agentpress/GLOBAL_READINESS_GA
 4. MCP/OpenAPI/JSON Schema/RSS integration samples,
 5. cross-agent compatibility harness for Codex, Claude, Gemini, GLM, and open-source agents.
 
-## Legacy stress-test material
-
-Some older market-research files remain as test material for multilingual/source-heavy workflows. They are not the product identity and should not be used as primary discovery surfaces.
-
-Research commentary only. Not investment advice.

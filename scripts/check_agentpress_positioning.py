@@ -21,6 +21,11 @@ BANNED_PRIMARY_PHRASES = [
     "obsolete research-agent framing",
     "obsolete all-assets manifest",
     "Build a Korea cheap-screen deletion agent",
+    "investment advice",
+    "Not investment advice",
+    "research commentary",
+    "Legacy stress",
+    "stress-test",
 ]
 
 REQUIRED_PHRASES = [

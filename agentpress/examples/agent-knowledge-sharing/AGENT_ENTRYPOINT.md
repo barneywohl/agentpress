@@ -65,4 +65,4 @@ Optional:
 
 ## Citation / disclaimer
 
-Public compatibility reference only. Not legal, financial, security, or investment advice.
+Public compatibility reference only. Not legal, financial, security, or external-write authorization.

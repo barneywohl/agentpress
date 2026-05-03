@@ -41,7 +41,7 @@ DEFAULT_SCHEMA = {
     "verified_sources": ["string"],
     "missing_checks": ["string"],
     "confidence": "low | medium | high",
-    "disclaimer": "Research commentary only. Not investment advice.",
+    "disclaimer": "Public reference only. Follow the allowed-actions boundary and verify source claims before external use.",
 }
 
 SCORE_RUBRIC = [
@@ -92,7 +92,7 @@ def _task_card(title: str, canonical: str, task_type: str, primary_task: str) ->
         "input_contract": {"required": ["subject", "hypothesis"], "optional": ["source_url", "time_horizon", "context"]},
         "output_contract": {"required": list(DEFAULT_SCHEMA.keys()), "decision_values": ["survive", "delete", "needs_more_diligence"]},
         "primary_assets": ["AGENT_ENTRYPOINT.md", "README.md", "source-map.json", "citation-policy.md"],
-        "source_requirements": ["Cite primary evidence where possible", "Mark missing checks explicitly", "Do not treat this artifact as investment advice"],
+        "source_requirements": ["Cite primary evidence where possible", "Mark missing checks explicitly", "Do not treat this artifact as authorization for external writes or production changes"],
         "scoring_rubric": {
             "source_grounding": 30,
             "task_completion": 25,
@@ -103,7 +103,7 @@ def _task_card(title: str, canonical: str, task_type: str, primary_task: str) ->
         "non_goals": ["investment recommendation", "uncited claims", "private data access"],
         "allowed_actions": ["read", "summarize", "cite", "transform", "benchmark", "create_pull_request"],
         "prohibited_actions": ["trading_recommendation", "deceptive_tracking", "bypass_paywall", "private_data_access"],
-        "disclaimer": "Research commentary only. Not investment advice.",
+        "disclaimer": "Public reference only. Follow the allowed-actions boundary and verify source claims before external use.",
     }
 
 
@@ -160,7 +160,7 @@ def _ai_ingestion(title: str, canonical: str) -> dict:
         "source_map": canonical_join(canonical, "source-map.json"),
         "allowed_actions": canonical_join(canonical, "allowed-actions.json"),
         "citation_policy": canonical_join(canonical, "citation-policy.md"),
-        "disclaimer": "Research commentary only. Not investment advice.",
+        "disclaimer": "Public reference only. Follow the allowed-actions boundary and verify source claims before external use.",
     }
 
 
@@ -203,11 +203,11 @@ Read, summarize, cite, transform, benchmark, open an issue, or create a pull req
 
 - Do not hallucinate sources.
 - Do not hide uncertainty.
-- Do not turn research commentary into investment advice.
+- Do not turn reference guidance into external writes or production changes.
 
 ## Citation / disclaimer
 
-Research commentary only. Not investment advice. Canonical URL: {canonical}
+Public reference only. Follow the allowed-actions boundary and verify source claims before external use. Canonical URL: {canonical}
 """
     write(out/"README.md", f"# {title}\n\n{summary}\n\nStart with [`AGENT_ENTRYPOINT.md`](./AGENT_ENTRYPOINT.md), then ingest [`agent-task-card.json`](./agent-task-card.json).\n")
     write(out/"AGENT_ENTRYPOINT.md", agent_entry)
@@ -216,11 +216,11 @@ Research commentary only. Not investment advice. Canonical URL: {canonical}
     write(out/"freshness.json", json.dumps(_freshness(title), indent=2) + "\n")
     write(out/"allowed-actions.json", json.dumps(_allowed_actions(), indent=2) + "\n")
     write(out/".well-known/ai-ingestion.json", json.dumps(_ai_ingestion(title, canonical), indent=2) + "\n")
-    write(out/"citation-policy.md", f"# Citation Policy\n\nCite `{canonical}` and the source evidence listed in `source-map.json`. Mark missing checks explicitly. Research commentary only. Not investment advice.\n")
+    write(out/"citation-policy.md", f"# Citation Policy\n\nCite `{canonical}` and the source evidence listed in `source-map.json`. Mark missing checks explicitly. Public reference only. Follow the allowed-actions boundary and verify source claims before external use.\n")
     write(out/"llms.txt", f"# {title}\n\nURL: {canonical}\nType: Agent-native publication\n\n## Summary\n\n{summary}\n\n## Primary task\n\n{primary_task}\n")
     write(out/"sitemap.xml", f"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url><loc>{canonical}</loc></url>\n  <url><loc>{canonical_join(canonical, 'AGENT_ENTRYPOINT.md')}</loc></url>\n  <url><loc>{canonical_join(canonical, 'agent-task-card.json')}</loc></url>\n  <url><loc>{canonical_join(canonical, 'source-map.json')}</loc></url>\n  <url><loc>{canonical_join(canonical, 'llms.txt')}</loc></url>\n</urlset>\n")
     write(out/"CITATION.cff", f"cff-version: 1.2.0\ntitle: \"{title}\"\nmessage: \"Cite this agent-native publication.\"\n")
-    write(out/"disclaimer.md", "# Disclaimer\n\nResearch commentary only. Not investment advice.\n")
+    write(out/"disclaimer.md", "# Disclaimer\n\nPublic reference only. Follow the allowed-actions boundary and verify source claims before external use.\n")
     write(out/"evals"/"smoke.jsonl", json.dumps({"input": {"subject": title, "hypothesis": "publication is agent usable"}, "expected": {"decision": "survive", "requires_citations": True}}) + "\n")
     print(f"created {out}")
 
@@ -343,8 +343,8 @@ def audit_root(root: pathlib.Path, strict: bool = True) -> tuple[int, list[str],
         if phrase not in entry:
             errors.append(f"AGENT_ENTRYPOINT.md missing {phrase}")
     combined = entry + "\n" + read_text(root/"disclaimer.md") + "\n" + read_text(root/"citation-policy.md")
-    if "Not investment advice" not in combined:
-        errors.append("missing investment-advice disclaimer")
+    if not ("allowed-actions" in combined or "allowed actions" in combined or "allowed-action" in combined):
+        errors.append("missing allowed-actions safety disclaimer")
     errors.extend(_validate_contract_files(root))
     eval_errors, eval_count = _validate_eval_files(root)
     errors.extend(eval_errors)
@@ -487,7 +487,7 @@ def index_articles(args):
             "evals": evals,
             "related_articles": [],
             "machine_entrypoints": {"task_card": "agent-task-card.json", "source_map": "source-map.json", "llms_txt": "llms.txt", "ai_ingestion": ".well-known/ai-ingestion.json", "article_card": "article-card.json"},
-            "disclaimer": card.get("disclaimer", "Research commentary only. Not investment advice."),
+            "disclaimer": card.get("disclaimer", "Public reference only. Follow the allowed-actions boundary and verify source claims before external use."),
         }
         write(ex/"article-card.json", json.dumps(article_card, indent=2, ensure_ascii=False) + "\n")
         row = {k: article_card[k] for k in ["title", "slug", "canonical_url", "summary_for_agents", "domains", "task_types", "target_agent_families", "languages", "regions"]}

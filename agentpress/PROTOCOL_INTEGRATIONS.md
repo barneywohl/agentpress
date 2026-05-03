@@ -34,7 +34,7 @@ MCP resource response should include:
 
 ```json
 {
-  "uri": "agentpress://publication/samsung-hbm-margin",
+  "uri": "agentpress://publication/api-docs-handoff",
   "mimeType": "application/json",
   "text": "{...agent-task-card.json...}"
 }
@@ -71,7 +71,7 @@ paths:
 
 ## 5. RSS/Atom feed
 
-Needed next: `agentpress/feed.xml` containing publication title, slug, canonical URL, updated timestamp, score, and disclaimer.
+Shipped: JSON/RSS feeds containing publication title, slug, canonical URL, updated timestamp, score, and disclaimer.
 
 ## 6. Compatibility target agents
 
@@ -89,6 +89,6 @@ Each agent should be able to answer:
 2. What sources may I cite?
 3. What actions are allowed/prohibited?
 4. What output schema is required?
-5. Is this investment advice? Expected: no.
+5. Does this authorize external writes or production changes? Expected: no.
 
-Research commentary only. Not investment advice.
+Public reference only. Follow the allowed-actions boundary and verify source claims before external use.

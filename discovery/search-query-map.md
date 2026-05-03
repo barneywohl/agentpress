@@ -1,51 +1,43 @@
 # Search Query Map for AgentPress Discovery
 
-AgentPress should be found first as agent-native publishing infrastructure, not as a niche research corpus.
+AgentPress should be found as practical agent-native publishing infrastructure.
 
 ## Primary English queries
 
 - AgentPress agent-native publishing
 - publish for AI agents not just humans
+- make a website readable by AI agents
+- agent-readable static site template
 - llms.txt task card source map publishing
 - AI agent publication bundle
-- static site for AI agents
 - agent task card JSON schema
 - RAG-ready publication manifest
 - source-grounded agent publishing
 - agent citation policy source map
 - allowed-actions manifest for agents
-- universal agent reachability benchmark
-- browser agent RAG crawler eval benchmark
 - MCP static resources for agent publications
 - OpenAPI map for static agent content
 
-## Agent-builder queries
+## Use-case queries
 
-- how to make a website readable by AI agents
-- agent-readable static publishing template
-- eval harness for agent ingestion
-- machine-readable content bundle for RAG systems
-- crawler friendly source map citation policy
-- AI agent discovery manifest example
-- well-known ai ingestion manifest
-- agent compatibility benchmark
-- mass agent reachability benchmark
+- API docs for AI agents
+- agent-readable API documentation template
+- SRE runbook for autonomous agents
+- publish incident runbooks with approval boundaries
+- dataset card for RAG agents
+- provenance manifest for AI datasets
+- help center readable by AI agents
+- knowledge base ingestion manifest
+- universal agent reachability benchmark
+- browser agent RAG crawler eval benchmark
 
 ## Protocol / file queries
 
 - llms.txt examples for agents
 - ai-ingestion.json manifest
+- agentpress.json well-known manifest
 - agent-task-card.json schema
 - source-map.json for citations
 - freshness.json stale policy
 - allowed-actions.json agent safety boundary
 - agentpress registry json
-
-## Legacy stress-test queries
-
-These are intentionally secondary. They preserve the original messy finance corpus as a stress test, but they are not the product identity.
-
-- Korea cheap-screen deletion benchmark
-- AgentPress general reference bundle
-- KRX KIND DART verification workflow
-- source-map and allowed-actions verification

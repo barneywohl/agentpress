@@ -1,37 +1,21 @@
-# AgentPress Global Readiness Gap List — 2026-05-02
+# AgentPress Readiness Gap List
 
-Purpose: make AgentPress understandable and usable by any autonomous agent, crawler, RAG system, or human team across East/West markets.
+Current focus: make AgentPress immediately usable by broad agent builders.
 
-## Already present
-- Human landing pages and README docs.
-- Agent entrypoints (`AGENT_ENTRYPOINT.md`).
-- Machine task cards (`agent-task-card.json`).
-- Source maps, freshness policy, allowed-actions, citation policy, disclaimers.
-- `.well-known/ai-ingestion.json`, `llms.txt`, and `sitemap.xml` per bundle.
-- CLI validation/audit/score/list/build-all commands.
-- Six validated example publications scoring 100/100.
-- Public GitHub Pages root available.
-- Public AgentPress registry path verified live at `/agentpress/` and `/agentpress/agentpress-registry.json` after deploy.
-- Per-publication HTML landing pages verified live for all six example bundles.
-- Dotfile serving verified live for root and per-example `.well-known/ai-ingestion.json` via `.nojekyll`.
-- Registry/task-card language and region metadata present for current examples.
-- East/West source-adapter matrix documented.
-- Agent protocol integration notes/samples documented.
-- Package build/install smoke gate and release notes for 0.1.0.
+## Shipped gates
 
-## Missing / needs build
-1. **CI deployment gate** — add a GitHub Actions workflow that fails if registry URLs 404, JSON/XML invalid, required examples score <100, disclaimers are missing, or `.well-known` assets are not served.
-2. **Availability monitor** — promote the post-deploy curl check into a reusable script/cron that checks root, registry, llms, sitemap, representative task cards, and ingestion manifests.
-3. **Package/install distribution** — release notes plus CI wheel build/install smoke test now exist; remaining work is external package publishing only after a passing release gate.
-4. **Cross-agent compatibility tests** — create fixture prompts and expected outputs for Codex/Claude/Gemini/GLM/open-source agents.
-5. **Protocol integration fixtures** — turn MCP/OpenAPI/RSS/Atom examples into machine-testable fixtures with expected discovery outputs.
-6. **Internationalization pass** — define explicit translation policy fields and add at least one non-English metadata fixture while preserving English canonical research text.
-7. **Crawler politeness/telemetry profile** — document user-agent expectations, cache hints, rate limits, and non-invasive optional discovery telemetry.
-8. **Versioning and changelog policy** — define how `schema_version`, generated timestamps, and bundle freshness dates change across releases.
+- CLI JSON outputs for validation/audit/doctor.
+- Registry consistency check.
+- OpenAPI local-asset check.
+- Eval JSONL parse check.
+- MCP-style static manifest.
+- Executable contracts manifest.
+- Broad use-case references for API docs, runbooks, dataset cards, knowledge bases, and agent frameworks.
 
-## Build order
-1. Add CI deployment gate and reusable availability monitor.
-2. Add package build/install smoke test and release notes.
-3. Add cross-agent compatibility fixture harness.
-4. Convert protocol integrations into machine-testable fixtures.
-5. Add internationalization and crawler-politeness metadata pass.
+## Next gaps
+
+1. Hosted copy/paste starter template for each use case.
+2. One-command `agentpress new --use-case ...` scaffolding.
+3. Live URL checker that fetches deployed public pages, not only local assets.
+4. Deterministic eval scoring beyond JSONL parse checks.
+5. More SDK examples for JS/Python agent consumers.

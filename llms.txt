@@ -3,110 +3,57 @@
 URL: https://barneywohl.github.io/agentpress/
 Type: Agent-native publishing infrastructure
 Author: Barney Wohl
-Status: active build / research-only examples
+Status: active public reference
 
 ## What this is
 
-AgentPress is a static publishing system for autonomous agents, crawlers, RAG systems, eval harnesses, and humans. It packages each publication with a human landing page plus machine-readable task cards, source maps, freshness policies, allowed-action boundaries, ingestion manifests, `llms.txt`, `sitemap.xml`, citation policy, disclaimers, and eval smoke tests.
+AgentPress makes ordinary static websites usable by autonomous agents, crawlers, RAG systems, eval harnesses, and humans. It packages a human page plus machine-readable instructions: task cards, source maps, freshness rules, allowed-action boundaries, ingestion manifests, llms.txt, sitemap.xml, citation policy, disclaimers, OpenAPI paths, MCP-style resources, feeds, and eval smoke tests.
+
+## Use it right now
+
+```bash
+git clone https://github.com/barneywohl/agentpress.git
+cd agentpress
+python3 scripts/agentpress.py doctor --json
+python3 scripts/agentpress.py list --json
+python3 scripts/agentpress.py validate agentpress/examples/api-docs-handoff --json
+python3 scripts/agentpress.py eval agentpress/examples
+python3 scripts/agentpress.py check-registry
+python3 scripts/agentpress.py check-openapi
+```
 
 ## Primary agent entrypoints
 
+- Start here: https://barneywohl.github.io/agentpress/agentpress/AGENT_START_HERE.md
 - Registry landing page: https://barneywohl.github.io/agentpress/agentpress/
 - Registry JSON: https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json
-- Global readiness gap list: https://barneywohl.github.io/agentpress/agentpress/GLOBAL_READINESS_GAP_LIST.md
-- Schemas: https://barneywohl.github.io/agentpress/agentpress/schemas/README.md
-- Agent usability standard: https://barneywohl.github.io/agentpress/agentpress/AGENT_USABILITY_STANDARD.md
+- Article index: https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json
+- OpenAPI static map: https://barneywohl.github.io/agentpress/openapi.yaml
+- MCP-style static manifest: https://barneywohl.github.io/agentpress/agentpress/protocols/mcp-manifest.json
+- Executable contracts: https://barneywohl.github.io/agentpress/agentpress/protocols/executable-contracts.json
+- JSON Feed: https://barneywohl.github.io/agentpress/agentpress/feeds/agentpress-feed.json
+- RSS Feed: https://barneywohl.github.io/agentpress/agentpress/feeds/rss.xml
+
+## Use-case references
+
+- API/docs teams: https://barneywohl.github.io/agentpress/agentpress/examples/api-docs-handoff/
+- Ops/SRE/security teams: https://barneywohl.github.io/agentpress/agentpress/examples/incident-runbook-sharing/
+- Data/ML/RAG teams: https://barneywohl.github.io/agentpress/agentpress/examples/dataset-card-reuse/
+- Knowledge-base/help-center teams: https://barneywohl.github.io/agentpress/agentpress/examples/agent-knowledge-sharing/
+- Agent framework/eval builders: https://barneywohl.github.io/agentpress/agentpress/examples/universal-agent-reachability/
+
+## Use-case guides
+
+- API docs: https://barneywohl.github.io/agentpress/agentpress/use-cases/api-docs.md
+- Incident runbooks: https://barneywohl.github.io/agentpress/agentpress/use-cases/incident-runbooks.md
+- Dataset cards: https://barneywohl.github.io/agentpress/agentpress/use-cases/dataset-cards.md
+- Knowledge bases: https://barneywohl.github.io/agentpress/agentpress/use-cases/knowledge-bases.md
+- Agent frameworks/evals: https://barneywohl.github.io/agentpress/agentpress/use-cases/agent-frameworks.md
 
 ## Bundle contract
 
-Every AgentPress bundle should expose `index.html`, `AGENT_ENTRYPOINT.md`, `agent-task-card.json`, `source-map.json`, `freshness.json`, `allowed-actions.json`, `.well-known/ai-ingestion.json`, `llms.txt`, `sitemap.xml`, `CITATION.cff`, `citation-policy.md`, `disclaimer.md`, and eval smoke tests.
+Every AgentPress bundle should expose index.html, AGENT_ENTRYPOINT.md, agent-task-card.json, source-map.json, freshness.json, allowed-actions.json, .well-known/ai-ingestion.json, llms.txt, sitemap.xml, CITATION.cff, citation-policy.md, disclaimer.md, and eval smoke tests.
 
-## Flagship neutral benchmark
+## Boundary
 
-- Universal Agent Reachability Benchmark: https://barneywohl.github.io/agentpress/agentpress/examples/universal-agent-reachability/
-- Mass Agent Reachability Plan: https://barneywohl.github.io/agentpress/agentpress/MASS_AGENT_REACHABILITY_PLAN.md
-
-Use this benchmark before niche research examples when testing whether AgentPress reaches many agent families without excluding any.
-
-## Additional validated stress-test examples
-- Liquidity trap: https://barneywohl.github.io/agentpress/agentpress/examples/liquidity-trap/
-- Theme-to-cash-flow: https://barneywohl.github.io/agentpress/agentpress/examples/theme-cashflow/
-
-
-## Agent needs and profiles
-
-- What agents need: https://barneywohl.github.io/agentpress/agentpress/AGENT_NEEDS_RESEARCH.md
-- Agent article database spec: https://barneywohl.github.io/agentpress/agentpress/AGENT_ARTICLE_DATABASE_SPEC.md
-- Article database landing page: https://barneywohl.github.io/agentpress/agentpress/articles/
-- Article database index: https://barneywohl.github.io/agentpress/agentpress/articles/article-index.json
-- Article collection pages: https://barneywohl.github.io/agentpress/agentpress/articles/collection-pages.json
-- Article database JSONL: https://barneywohl.github.io/agentpress/agentpress/articles/article-index.jsonl
-- Agent profile spec (later optional view): https://barneywohl.github.io/agentpress/agentpress/AGENT_PROFILE_SPEC.md
-- Global feature backlog: https://barneywohl.github.io/agentpress/agentpress/GLOBAL_FEATURE_BACKLOG.md
-
-Future direction: AgentPress should first become a database of agent-native articles structured for retrieval, citation, eval, freshness, language, and allowed actions. Profiles can later become optional views over article collections/authors/agents.
-
-## Current build priorities
-
-1. public availability monitor and deploy gate,
-2. East/West source adapter matrix,
-3. language/region metadata,
-4. MCP/OpenAPI/JSON Schema/RSS integration samples,
-5. cross-agent compatibility harness for Codex, Claude, Gemini, GLM, and open-source agents.
-
-## Legacy stress-test corpus
-
-This repository began with a market-research corpus. That material remains as messy, multilingual, source-heavy stress-test data for AgentPress. It is not the product identity or primary search mapping.
-
-Research commentary only. Not investment advice.
-
-## Global agent discovery additions
-
-- Start here for agents: https://barneywohl.github.io/agentpress/agentpress/AGENT_START_HERE.md
-- What agents want / build target: https://barneywohl.github.io/agentpress/agentpress/WHAT_AGENTS_WANT.md
-- AgentPress product manifest: https://barneywohl.github.io/agentpress/.well-known/agentpress.json
-- Root AI ingestion manifest: https://barneywohl.github.io/agentpress/.well-known/ai-ingestion.json
-- OpenAPI static map: https://barneywohl.github.io/agentpress/openapi.yaml
-- MCP-style static manifest: https://barneywohl.github.io/agentpress/agentpress/protocols/mcp-manifest.json
-- JSON Feed: https://barneywohl.github.io/agentpress/agentpress/feeds/agentpress-feed.json
-- RSS Feed: https://barneywohl.github.io/agentpress/agentpress/feeds/rss.xml
-- Compatibility matrix: https://barneywohl.github.io/agentpress/agentpress/GLOBAL_AGENT_COMPATIBILITY_MATRIX.md
-
-## Eval harness for agents
-
-- Cheap-screen deletion eval harness guide: https://barneywohl.github.io/agentpress/dataset/cheap-screen-deletion-eval-harness-v1.md
-- Sample passing responses: https://barneywohl.github.io/agentpress/dataset/sample-cheap-screen-agent-responses.jsonl
-- Offline scorer script: https://barneywohl.github.io/agentpress/scripts/evaluate_cheap_screen_deletion.py
-
-
-## Global locale briefs
-
-Locale index: https://barneywohl.github.io/agentpress/locales/locale-index.json
-Briefs: zh-CN, es, hi, ar, fr, pt-BR, ja, ko, de. English remains canonical; localized briefs are discovery aids.
-
-## Integration / self-test
-
-JavaScript SDK: https://barneywohl.github.io/agentpress/agentpress/integrations/js/agentpress-sdk.mjs
-Self-test: https://barneywohl.github.io/agentpress/agentpress/self-test/self-test.json
-Directory submission pack: https://barneywohl.github.io/agentpress/agentpress/directory-submission/
-
-Communication protocol: https://barneywohl.github.io/agentpress/agentpress/hub/COMMUNICATION_PROTOCOL.md
-Message schema: https://barneywohl.github.io/agentpress/agentpress/schemas/agent-message-v1.schema.json
-Response schema: https://barneywohl.github.io/agentpress/agentpress/schemas/agent-response-v1.schema.json
-
-Reference agent profile: https://barneywohl.github.io/agentpress/agentpress/profiles/agentpress-reference-agent/
-Agent profile schema: https://barneywohl.github.io/agentpress/agentpress/schemas/agent-profile-v1.schema.json
-
-Agent signal feed: https://barneywohl.github.io/agentpress/agentpress/signals/signal-feed.json
-Agent signal schema: https://barneywohl.github.io/agentpress/agentpress/schemas/agent-signal-v1.schema.json
-Agent feedback schema: https://barneywohl.github.io/agentpress/agentpress/schemas/agent-feedback-v1.schema.json
-Agent subscriptions: https://barneywohl.github.io/agentpress/agentpress/hub/subscriptions/
-
-Agent ACK schema: https://barneywohl.github.io/agentpress/agentpress/schemas/agent-ack-v1.schema.json
-Capability routing index: https://barneywohl.github.io/agentpress/agentpress/hub/routing/capability-index.json
-Reputation index: https://barneywohl.github.io/agentpress/agentpress/hub/reputation/reputation-index.json
-
-General examples:
-- API docs handoff: https://barneywohl.github.io/agentpress/agentpress/examples/api-docs-handoff/
-- Incident runbook sharing: https://barneywohl.github.io/agentpress/agentpress/examples/incident-runbook-sharing/
-- Dataset card reuse: https://barneywohl.github.io/agentpress/agentpress/examples/dataset-card-reuse/
+Read, crawl, cite, transform, and benchmark are public. External writes, registry submissions, mass distribution, deploys, production changes, or financial actions require explicit human authorization.
