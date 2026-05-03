@@ -8,6 +8,7 @@ Usage:
   python3 scripts/agentpress.py verify out-dir --json
   python3 scripts/agentpress.py schema --json
   python3 scripts/agentpress.py fetch --base file:///path/to/agentpress/ --out fetched-agentpress
+  python3 scripts/agentpress.py negative-fixtures --json
   python3 scripts/agentpress.py score out-dir
   python3 scripts/agentpress.py build out-dir --out public-dir
 """
@@ -483,6 +484,50 @@ def verify(args):
     return code
 
 
+
+def negative_fixtures(args):
+    manifest_path = pathlib.Path(args.manifest)
+    if not manifest_path.exists():
+        print(f"missing negative fixture manifest: {manifest_path}", file=sys.stderr)
+        return 1
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    rows = []
+    failures = []
+    for item in manifest.get("fixtures", []):
+        fixture_path = pathlib.Path(item["path"])
+        expected = item.get("expected_error_contains", "")
+        code, errors, warnings = audit_root(fixture_path, strict=True)
+        joined = "\n".join(errors + warnings)
+        passed = code != 0 and (not expected or expected in joined)
+        row = {
+            "path": str(fixture_path),
+            "expected_error_contains": expected,
+            "verify_status": "fail" if code else "ok",
+            "matched_expected_error": bool(expected and expected in joined),
+            "errors": errors,
+            "warnings": warnings,
+            "result": "pass" if passed else "fail",
+        }
+        rows.append(row)
+        if not passed:
+            failures.append(row)
+    payload = {
+        "schema_version": "2026-05-03.agentpress-negative-fixtures-result.v1",
+        "status": "ok" if not failures else "fail",
+        "manifest": str(manifest_path),
+        "count": len(rows),
+        "passed": len(rows) - len(failures),
+        "failed": len(failures),
+        "fixtures": rows,
+    }
+    if args.json:
+        print(json.dumps(payload, indent=2))
+    else:
+        print(f"negative fixtures: {payload['passed']}/{payload['count']} passed")
+        for row in failures:
+            print(f"error: fixture did not fail as expected: {row['path']}")
+    return 0 if not failures else 1
+
 def fetch(args):
     dest = pathlib.Path(args.out)
     dest.mkdir(parents=True, exist_ok=True)
@@ -874,6 +919,7 @@ def main():
     p = sub.add_parser("verify"); p.add_argument("out", nargs="?", default="."); p.add_argument("--json", action="store_true")
     p = sub.add_parser("schema"); p.add_argument("name", nargs="?"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("fetch"); p.add_argument("--base", default=CANONICAL_BASE_URL); p.add_argument("--out", default="agentpress-fetch"); p.add_argument("--asset", action="append", help="relative asset to fetch; repeatable; defaults to core machine entrypoints"); p.add_argument("--timeout", type=int, default=20); p.add_argument("--keep-going", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("negative-fixtures"); p.add_argument("--manifest", default="agentpress/fixtures/broken-bundles/expected-failures.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
     p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True)
     p = sub.add_parser("list"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--json", action="store_true")
@@ -891,6 +937,7 @@ def main():
     if args.cmd == "verify": return verify(args)
     if args.cmd == "schema": return schema_command(args)
     if args.cmd == "fetch": return fetch(args)
+    if args.cmd == "negative-fixtures": return negative_fixtures(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)
     if args.cmd == "list": return list_examples(args)

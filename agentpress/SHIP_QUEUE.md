@@ -50,7 +50,7 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 | ID | Priority | Feature | Why it matters |
 |---|---:|---|---|
 | AP-013 | P1 | Offline package publishing and documented SHA256 manifest | Restricted-network agents need a single artifact they can fetch once and verify locally. CLI exists; publish/link package artifact next. |
-| AP-014 | P1 | Negative/adversarial validation fixtures | Agents need proof `verify` fails closed on broken bundles, not just happy-path examples. |
+| AP-014 | SHIPPED | Negative/adversarial validation fixtures | `agentpress/fixtures/broken-bundles/` + `agentpress.py negative-fixtures --json`; CI fails if broken bundles do not fail closed. |
 | AP-015 | P2 | Public release/changelog feed | Agents need to detect what changed between AgentPress contract versions. |
 | AP-016 | P2 | Language/runtime-specific quickstarts | Gemini/Claude/Codex/browser/RAG agents should each have one exact minimal run path. |
 
