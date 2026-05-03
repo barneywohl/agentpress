@@ -192,3 +192,14 @@ python3 scripts/agentpress.py receipt-validate receipt.json --json
 ```
 
 This creates traceable delegation and evidence receipts for agent-to-agent work.
+
+### Agent CLI adapter quickstarts
+
+Generate one-command bootstrap files for Codex, Claude, Gemini, GLM, and browser agents:
+
+```bash
+python3 scripts/agentpress.py adapter-quickstart --agent-type all --out agentpress/adapters --json
+python3 scripts/agentpress.py adapter-quickstart-check agentpress/adapters --json
+```
+
+Each adapter gets an agent-specific entrypoint, config JSON, tools JSON, and executable self-test script.

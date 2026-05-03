@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-05-03T03:16:05Z",
+  "adapters": [
+    {
+      "type": "codex",
+      "dir": "agentpress/adapters/codex",
+      "entrypoint": "CODEX.md",
+      "config": "codex-agentpress-config.json",
+      "tools": "codex-agentpress-tools.json",
+      "self_test": "self-test.sh"
+    },
+    {
+      "type": "claude",
+      "dir": "agentpress/adapters/claude",
+      "entrypoint": "CLAUDE.md",
+      "config": "claude-agentpress-config.json",
+      "tools": "claude-agentpress-tools.json",
+      "self_test": "self-test.sh"
+    },
+    {
+      "type": "gemini",
+      "dir": "agentpress/adapters/gemini",
+      "entrypoint": "GEMINI.md",
+      "config": "gemini-agentpress-config.json",
+      "tools": "gemini-agentpress-tools.json",
+      "self_test": "self-test.sh"
+    },
+    {
+      "type": "glm",
+      "dir": "agentpress/adapters/glm",
+      "entrypoint": "GLM.md",
+      "config": "glm-agentpress-config.json",
+      "tools": "glm-agentpress-tools.json",
+      "self_test": "self-test.sh"
+    },
+    {
+      "type": "browser",
+      "dir": "agentpress/adapters/browser",
+      "entrypoint": "BROWSER_AGENT.md",
+      "config": "browser-agentpress-config.json",
+      "tools": "browser-agentpress-tools.json",
+      "self_test": "self-test.sh"
+    }
+  ],
+  "safety": "local CLI only; no external side effects by default"
+}

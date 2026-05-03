@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/adapter-quickstart-v1.schema.json",
+  "title": "AgentPress Adapter Quickstart Manifest v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_at",
+    "adapters"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "adapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "dir",
+          "entrypoint",
+          "config",
+          "tools",
+          "self_test"
+        ],
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "dir": {
+            "type": "string"
+          },
+          "entrypoint": {
+            "type": "string"
+          },
+          "config": {
+            "type": "string"
+          },
+          "tools": {
+            "type": "string"
+          },
+          "self_test": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

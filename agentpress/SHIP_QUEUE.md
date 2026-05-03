@@ -47,6 +47,8 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 ## Real platform utility built locally
 
+| AP-024 | READY | Agent CLI adapter quickstarts | `adapter-quickstart` + `adapter-quickstart-check`; generates Codex/Claude/Gemini/GLM/browser entrypoints, configs, tool manifests, and self-test scripts. Local only pending directive keyword for deploy. |
+
 | AP-023 | SHIPPED | Handoff and receipt proof for agent delegation | `handoff-create/validate`, `receipt-create/validate`; traceable context transfer and completion evidence for agent-to-agent work. |
 
 | AP-022 | SHIPPED | Static inbox/outbox communication lifecycle | `message inbox-init/register/send/broadcast/inbox-check/claim/complete/agents`; agents can coordinate offline through static JSON directories. |

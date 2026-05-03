@@ -59,6 +59,17 @@ jobs:
           python3 scripts/agentpress.py score /tmp/generated-agentpress-bundle
 
 
+
+      - name: Validate AgentPress adapter quickstarts
+        run: |
+          rm -rf /tmp/ap-adapters
+          python3 scripts/agentpress.py adapter-quickstart --agent-type all --out /tmp/ap-adapters --json
+          python3 scripts/agentpress.py adapter-quickstart-check /tmp/ap-adapters --json
+          test -f /tmp/ap-adapters/codex/CODEX.md
+          test -f /tmp/ap-adapters/claude/CLAUDE.md
+          test -f /tmp/ap-adapters/gemini/GEMINI.md
+          test -f /tmp/ap-adapters/glm/GLM.md
+          test -f /tmp/ap-adapters/browser/BROWSER_AGENT.md
       - name: Validate AgentPress handoff receipts
         run: |
           python3 scripts/agentpress.py message create-request --capability validate_agentpress_bundle --task "Verify this bundle and report missing contracts" --requester-id ci-agent-a --out /tmp/ap-handoff-request.json

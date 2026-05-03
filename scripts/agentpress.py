@@ -1473,6 +1473,56 @@ def package_bundle(args):
 
 
 
+
+ADAPTER_TYPES = ["codex", "claude", "gemini", "glm", "browser"]
+
+def _adapter_entrypoint(agent_type: str) -> str:
+    return f"""# AgentPress Quickstart for {agent_type}\n\nYou are an autonomous agent integrating with AgentPress. Use local CLI commands and machine-readable JSON.\n\n## Start here\n\n1. Fetch/search tools:\n   `python3 scripts/agentpress.py search \"bundle verify message self-test\" --json`\n2. Run self-test:\n   `python3 scripts/agentpress.py self-test --agent-id {agent_type}-agent --out /tmp/{agent_type}-agentpress-self-test.jsonl`\n3. Generate/verify a bundle:\n   `python3 scripts/agentpress.py bundle tests/fixtures/source-docs --out /tmp/{agent_type}-bundle --title \"{agent_type} Test Bundle\" --force`\n   `python3 scripts/agentpress.py verify /tmp/{agent_type}-bundle --json`\n4. Communicate through static inbox lifecycle when delegating work.\n\n## Safety\n\nNo credential access, payments, production changes, spam, impersonation, or private-data extraction without explicit human approval.\n"""
+
+
+def _adapter_config(agent_type: str) -> dict:
+    return {"schema_version":"1.0", "agent_type":agent_type, "agentpress_root":".", "default_commands":{"search":"python3 scripts/agentpress.py search <query> --json", "self_test":f"python3 scripts/agentpress.py self-test --agent-id {agent_type}-agent --out /tmp/{agent_type}-self-test.jsonl", "verify":"python3 scripts/agentpress.py verify <bundle> --json"}, "safety":{"requires_human_approval":["external_write","production_change","payment","credential_access"], "prohibited":["private_data_extraction","spam","impersonation"]}}
+
+
+def adapter_quickstart(args):
+    types = ADAPTER_TYPES if args.agent_type == "all" else [args.agent_type]
+    out=pathlib.Path(args.out); out.mkdir(parents=True, exist_ok=True)
+    adapters=[]
+    for t in types:
+        if t not in ADAPTER_TYPES:
+            print(json.dumps({"status":"fail", "errors":[f"unknown adapter type: {t}"]}, indent=2)); return 1
+        d=out/t; d.mkdir(parents=True, exist_ok=True)
+        entry={"codex":"CODEX.md","claude":"CLAUDE.md","gemini":"GEMINI.md","glm":"GLM.md","browser":"BROWSER_AGENT.md"}[t]
+        config=f"{t}-agentpress-config.json"; tools=f"{t}-agentpress-tools.json"
+        (d/entry).write_text(_adapter_entrypoint(t), encoding="utf-8")
+        (d/config).write_text(json.dumps(_adapter_config(t), indent=2)+"\n", encoding="utf-8")
+        tool_manifest = json.loads(pathlib.Path("agentpress/tools/agentpress-tools.json").read_text(encoding="utf-8")) if pathlib.Path("agentpress/tools/agentpress-tools.json").exists() else {"tools": []}
+        (d/tools).write_text(json.dumps(tool_manifest, indent=2)+"\n", encoding="utf-8")
+        st=d/"self-test.sh"
+        st.write_text(f"#!/usr/bin/env bash\nset -euo pipefail\ncd \"$(dirname \"$0\")/../..\"\npython3 scripts/agentpress.py self-test --agent-id {t}-agent --out /tmp/{t}-agentpress-self-test.jsonl\npython3 scripts/agentpress.py search 'message route capability' --json >/tmp/{t}-agentpress-search.json\n", encoding="utf-8")
+        st.chmod(0o755)
+        adapters.append({"type":t,"dir":str(d),"entrypoint":entry,"config":config,"tools":tools,"self_test":"self-test.sh"})
+    manifest={"schema_version":"1.0","generated_at":_utc_now(),"adapters":adapters,"safety":"local CLI only; no external side effects by default"}
+    (out/"adapter-quickstart-manifest.json").write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps({"status":"ok", "out":str(out), "adapter_count":len(adapters)}, indent=2) if args.json else f"wrote {len(adapters)} adapters to {out}")
+    return 0
+
+
+def adapter_quickstart_check(args):
+    root=pathlib.Path(args.dir); manifest=root/"adapter-quickstart-manifest.json"; errors=[]
+    if not manifest.exists(): errors.append("missing adapter-quickstart-manifest.json")
+    else:
+        data=json.loads(manifest.read_text(encoding="utf-8"))
+        errors.extend(_schema_required_errors(data, schema_root()/"adapter-quickstart-v1.schema.json", "adapter_manifest"))
+        for a in data.get("adapters", []):
+            d=root/a.get("type", "")
+            for key in ["entrypoint","config","tools","self_test"]:
+                if not (d/a.get(key, "")).exists(): errors.append(f"missing {a.get('type')}/{a.get(key)}")
+    payload={"status":"ok" if not errors else "fail", "dir":str(root), "errors":errors}
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0 if not errors else 1
+
+
 def tools_manifest(args):
     base=args.base_url.rstrip("/") + "/"
     tools=[
@@ -1669,6 +1719,8 @@ def main():
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
+    p = sub.add_parser("adapter-quickstart"); p.add_argument("--agent-type", choices=["codex","claude","gemini","glm","browser","all"], default="all"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("adapter-quickstart-check"); p.add_argument("dir"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("handoff-create"); p.add_argument("--from-agent", required=True); p.add_argument("--to-agent", required=True); p.add_argument("--capability", required=True); p.add_argument("--context", required=True); p.add_argument("--partial-response"); p.add_argument("--instructions", required=True); p.add_argument("--parent-handoff-id"); p.add_argument("--handoff-id"); p.add_argument("--out", required=True)
     p = sub.add_parser("handoff-validate"); p.add_argument("path"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("receipt-create"); p.add_argument("--handoff", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--status", choices=["accepted","completed","partial","rejected","blocked"], default="completed"); p.add_argument("--response"); p.add_argument("--notes"); p.add_argument("--next-actions"); p.add_argument("--receipt-id"); p.add_argument("--out", required=True)
@@ -1701,6 +1753,8 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
+    if args.cmd == "adapter-quickstart": return adapter_quickstart(args)
+    if args.cmd == "adapter-quickstart-check": return adapter_quickstart_check(args)
     if args.cmd == "handoff-create": return handoff_create(args)
     if args.cmd == "handoff-validate": return handoff_validate(args)
     if args.cmd == "receipt-create": return receipt_create(args)
