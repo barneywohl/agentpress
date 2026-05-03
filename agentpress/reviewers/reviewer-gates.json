@@ -1,0 +1,51 @@
+{
+  "schema_version": "2026-05-03.agentpress-reviewer-gate-kit.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/reviewers/reviewer-gates.json",
+  "generated_utc": "2026-05-03T20:34:44Z",
+  "status": "ok",
+  "purpose": "Built-in reviewer gate templates before agents claim done.",
+  "gates": [
+    {
+      "id": "security_reviewer",
+      "checks": [
+        "no secrets",
+        "no unsafe external effects",
+        "permission policy followed",
+        "attack surface documented"
+      ]
+    },
+    {
+      "id": "product_reviewer",
+      "checks": [
+        "painpoint mapped",
+        "real feature shipped",
+        "acceptance gates pass",
+        "user value clear"
+      ]
+    },
+    {
+      "id": "docs_reviewer",
+      "checks": [
+        "commands executable",
+        "docs-command-check passes",
+        "spec links artifacts",
+        "no stale claims"
+      ]
+    },
+    {
+      "id": "runtime_reviewer",
+      "checks": [
+        "repro bundle exists",
+        "loop guard policy followed",
+        "action ledger/event evidence present"
+      ]
+    }
+  ],
+  "result_schema": {
+    "gate_id": "",
+    "status": "pass|fail|needs_fix",
+    "findings": [],
+    "evidence_refs": [],
+    "reviewer_id": ""
+  }
+}

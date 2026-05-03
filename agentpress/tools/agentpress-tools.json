@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T20:31:05Z",
+  "generated_at": "2026-05-03T20:34:43Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,85 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.plan_workflow_kit",
+      "description": "Generate Plan.md-native workflow templates for agent execution.",
+      "command": "python3 scripts/agentpress.py plan-workflow-kit --json",
+      "tags": [
+        "plan",
+        "workflow",
+        "approval",
+        "verify",
+        "closeout"
+      ]
+    },
+    {
+      "name": "agentpress.approval_gate_kit",
+      "description": "Generate risk-based approval gates for agent actions.",
+      "command": "python3 scripts/agentpress.py approval-gate-kit --json",
+      "tags": [
+        "approval",
+        "risk",
+        "safety",
+        "external-effects"
+      ]
+    },
+    {
+      "name": "agentpress.reviewer_gate_kit",
+      "description": "Generate built-in reviewer gate templates before agents claim done.",
+      "command": "python3 scripts/agentpress.py reviewer-gate-kit --json",
+      "tags": [
+        "review",
+        "security",
+        "product",
+        "docs",
+        "runtime"
+      ]
+    },
+    {
+      "name": "agentpress.provider_compatibility_kit",
+      "description": "Generate provider/model compatibility matrix and fallback guidance.",
+      "command": "python3 scripts/agentpress.py provider-compatibility-kit --json",
+      "tags": [
+        "provider",
+        "model",
+        "compatibility",
+        "fallback"
+      ]
+    },
+    {
+      "name": "agentpress.runtime_validation_harness",
+      "description": "Generate standard runtime validation harness before claiming support.",
+      "command": "python3 scripts/agentpress.py runtime-validation-harness --json",
+      "tags": [
+        "runtime",
+        "validation",
+        "harness",
+        "gates"
+      ]
+    },
+    {
+      "name": "agentpress.run_artifact_pack",
+      "description": "Generate shareable run artifact bundle manifest.",
+      "command": "python3 scripts/agentpress.py run-artifact-pack --json",
+      "tags": [
+        "artifact",
+        "run",
+        "share",
+        "evidence"
+      ]
+    },
+    {
+      "name": "agentpress.mission_keeper_kit",
+      "description": "Generate multi-agent mission keeper policy for recursive research-build-deploy cycles.",
+      "command": "python3 scripts/agentpress.py mission-keeper-kit --json",
+      "tags": [
+        "mission",
+        "keeper",
+        "multi-agent",
+        "cycle"
       ]
     },
     {

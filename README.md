@@ -429,3 +429,13 @@ python3 scripts/agentpress.py proof-request-pack --runtime codex --json
 python3 scripts/agentpress.py proof-receipt-verify tests/fixtures/proof/good-proof-receipt.json --json
 python3 scripts/agentpress.py scoped-trust-report --json
 ```
+
+```bash
+python3 scripts/agentpress.py plan-workflow-kit --json
+python3 scripts/agentpress.py approval-gate-kit --json
+python3 scripts/agentpress.py reviewer-gate-kit --json
+python3 scripts/agentpress.py provider-compatibility-kit --json
+python3 scripts/agentpress.py runtime-validation-harness --json
+python3 scripts/agentpress.py run-artifact-pack --json
+python3 scripts/agentpress.py mission-keeper-kit --json
+```

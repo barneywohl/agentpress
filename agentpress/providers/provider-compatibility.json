@@ -1,0 +1,46 @@
+{
+  "schema_version": "2026-05-03.agentpress-provider-compatibility-kit.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/providers/provider-compatibility.json",
+  "generated_utc": "2026-05-03T20:34:44Z",
+  "status": "ok",
+  "purpose": "Provider/model compatibility matrix and fallback guidance for agents using AgentPress.",
+  "providers": [
+    {
+      "provider": "openai/codex",
+      "tool_calling": "strong",
+      "notes": "coding agent workflows; use strict schema gates"
+    },
+    {
+      "provider": "anthropic/claude",
+      "tool_calling": "strong",
+      "notes": "human approval and plan mode fit; MCP ecosystem"
+    },
+    {
+      "provider": "google/gemini",
+      "tool_calling": "strong",
+      "notes": "large context; verify citations and JSON output"
+    },
+    {
+      "provider": "openrouter/litellm",
+      "tool_calling": "variable",
+      "notes": "route compatibility varies by model; require smoke test"
+    },
+    {
+      "provider": "local/ollama-lmstudio",
+      "tool_calling": "variable",
+      "notes": "privacy/cost benefits; weaker JSON/tool reliability; require fallback"
+    },
+    {
+      "provider": "browser/rag agents",
+      "tool_calling": "surface-specific",
+      "notes": "need freshness/citation/browser smoke evidence"
+    }
+  ],
+  "required_smoke": [
+    "doctor --json",
+    "docs-command-check --json",
+    "verify --strict-schema --json",
+    "sdk-smoke --json"
+  ],
+  "fallback_policy": "If provider fails JSON/tool call twice, switch to CLI/static artifact workflow and record loop-guard event."
+}

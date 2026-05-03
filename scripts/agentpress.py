@@ -2254,6 +2254,13 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.plan_workflow_kit", "description":"Generate Plan.md-native workflow templates for agent execution.", "command":"python3 scripts/agentpress.py plan-workflow-kit --json", "tags":["plan","workflow","approval","verify","closeout"]},
+        {"name":"agentpress.approval_gate_kit", "description":"Generate risk-based approval gates for agent actions.", "command":"python3 scripts/agentpress.py approval-gate-kit --json", "tags":["approval","risk","safety","external-effects"]},
+        {"name":"agentpress.reviewer_gate_kit", "description":"Generate built-in reviewer gate templates before agents claim done.", "command":"python3 scripts/agentpress.py reviewer-gate-kit --json", "tags":["review","security","product","docs","runtime"]},
+        {"name":"agentpress.provider_compatibility_kit", "description":"Generate provider/model compatibility matrix and fallback guidance.", "command":"python3 scripts/agentpress.py provider-compatibility-kit --json", "tags":["provider","model","compatibility","fallback"]},
+        {"name":"agentpress.runtime_validation_harness", "description":"Generate standard runtime validation harness before claiming support.", "command":"python3 scripts/agentpress.py runtime-validation-harness --json", "tags":["runtime","validation","harness","gates"]},
+        {"name":"agentpress.run_artifact_pack", "description":"Generate shareable run artifact bundle manifest.", "command":"python3 scripts/agentpress.py run-artifact-pack --json", "tags":["artifact","run","share","evidence"]},
+        {"name":"agentpress.mission_keeper_kit", "description":"Generate multi-agent mission keeper policy for recursive research-build-deploy cycles.", "command":"python3 scripts/agentpress.py mission-keeper-kit --json", "tags":["mission","keeper","multi-agent","cycle"]},
         {"name":"agentpress.agent_platform_feature_backlog", "description":"Generate major AgentPress platform feature backlog from audits and agent painpoints.", "command":"python3 scripts/agentpress.py agent-platform-feature-backlog --json", "tags":["backlog","features","painpoints","roadmap","audit"]},
         {"name":"agentpress.action_ledger_kit", "description":"Generate action ledger schema/example for agent observability and audit trails.", "command":"python3 scripts/agentpress.py action-ledger-kit --json", "tags":["observability","ledger","audit","actions","trust"]},
         {"name":"agentpress.context_debugger_kit", "description":"Generate context debugger manifest/policy for agent runs.", "command":"python3 scripts/agentpress.py context-debugger-kit --json", "tags":["context","debugger","budget","freshness","sources"]},
@@ -3076,6 +3083,66 @@ def proof_ingest(args):
 
 
 
+
+
+def plan_workflow_kit(args):
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    payload={"schema_version":"2026-05-03.agentpress-plan-workflow-kit.v1","canonical_url":urljoin(base,(outdir/"plan-workflow.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Plan.md-native workflow for agents: plan, approval checkpoints, implementation, verification, review, closeout.","phases":[{"id":"plan","requires":["goal","constraints","risks","acceptance_gates"]},{"id":"approval_checkpoint","requires":["approval_required_for_external_effects","human_decision_ref_if_needed"]},{"id":"execute","requires":["files_changed","commands_run","action_ledger_ref"]},{"id":"verify","requires":["tests_or_gates","evidence_refs"]},{"id":"review","requires":["reviewer_gate_results","security_or_privacy_check"]},{"id":"closeout","requires":["summary","remaining_gaps","next_cycle_backlog"]}],"plan_md_template":"# Plan\n\n## Goal\n\n## Constraints / approvals\n\n## Risks\n\n## Steps\n\n## Verification gates\n\n## Reviewer gates\n\n## Closeout / next cycle\n","machine_template":{"goal":"","constraints":[],"approval_boundaries":[],"steps":[],"verification_gates":[],"reviewer_gates":[],"closeout":{}}}
+    if not args.no_write:
+        (outdir/"plan-workflow.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+        (outdir/"PLAN_TEMPLATE.md").write_text(payload["plan_md_template"],encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} plan-workflow")
+    return 0
+
+
+def approval_gate_kit(args):
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    payload={"schema_version":"2026-05-03.agentpress-approval-gate-kit.v1","canonical_url":urljoin(base,(outdir/"approval-gates.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Risk-based approval gates for agent actions.","risk_levels":[{"level":"R0","name":"local read/analysis","approval":"not_required"},{"level":"R1","name":"local artifact/write in workspace","approval":"agent_may_execute_with_ledger"},{"level":"R2","name":"external read/network fetch","approval":"allowed_if_public_and_no_credentials"},{"level":"R3","name":"external write/message/PR/release","approval":"human_or_keyword_required"},{"level":"R4","name":"payment/credential/production/data deletion","approval":"explicit_high_impact_keyword_and_review_required"}],"gate_fields":["action","risk_level","external_effect","target","approval_ref","rollback_plan","evidence_ref"],"fail_closed_rules":["missing approval_ref on R3/R4 halts","unknown target halts","credential access without explicit approval halts","payment/signing without budget policy halts"]}
+    if not args.no_write: (outdir/"approval-gates.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} approval-gates")
+    return 0
+
+
+def reviewer_gate_kit(args):
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    gates=[{"id":"security_reviewer","checks":["no secrets","no unsafe external effects","permission policy followed","attack surface documented"]},{"id":"product_reviewer","checks":["painpoint mapped","real feature shipped","acceptance gates pass","user value clear"]},{"id":"docs_reviewer","checks":["commands executable","docs-command-check passes","spec links artifacts","no stale claims"]},{"id":"runtime_reviewer","checks":["repro bundle exists","loop guard policy followed","action ledger/event evidence present"]}]
+    payload={"schema_version":"2026-05-03.agentpress-reviewer-gate-kit.v1","canonical_url":urljoin(base,(outdir/"reviewer-gates.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Built-in reviewer gate templates before agents claim done.","gates":gates,"result_schema":{"gate_id":"","status":"pass|fail|needs_fix","findings":[],"evidence_refs":[],"reviewer_id":""}}
+    if not args.no_write: (outdir/"reviewer-gates.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} reviewer-gates")
+    return 0
+
+
+def provider_compatibility_kit(args):
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    providers=[{"provider":"openai/codex","tool_calling":"strong","notes":"coding agent workflows; use strict schema gates"},{"provider":"anthropic/claude","tool_calling":"strong","notes":"human approval and plan mode fit; MCP ecosystem"},{"provider":"google/gemini","tool_calling":"strong","notes":"large context; verify citations and JSON output"},{"provider":"openrouter/litellm","tool_calling":"variable","notes":"route compatibility varies by model; require smoke test"},{"provider":"local/ollama-lmstudio","tool_calling":"variable","notes":"privacy/cost benefits; weaker JSON/tool reliability; require fallback"},{"provider":"browser/rag agents","tool_calling":"surface-specific","notes":"need freshness/citation/browser smoke evidence"}]
+    payload={"schema_version":"2026-05-03.agentpress-provider-compatibility-kit.v1","canonical_url":urljoin(base,(outdir/"provider-compatibility.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Provider/model compatibility matrix and fallback guidance for agents using AgentPress.","providers":providers,"required_smoke":["doctor --json","docs-command-check --json","verify --strict-schema --json","sdk-smoke --json"],"fallback_policy":"If provider fails JSON/tool call twice, switch to CLI/static artifact workflow and record loop-guard event."}
+    if not args.no_write: (outdir/"provider-compatibility.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} provider-compatibility")
+    return 0
+
+
+def runtime_validation_harness(args):
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    payload={"schema_version":"2026-05-03.agentpress-runtime-validation-harness.v1","canonical_url":urljoin(base,(outdir/"runtime-validation-harness.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Standard runtime validation harness before an agent claims AgentPress support.","gates":[{"name":"doctor","command":"python3 scripts/agentpress.py doctor --json"},{"name":"strict_schema","command":"python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --strict-schema --json"},{"name":"docs_drift","command":"python3 scripts/agentpress.py docs-command-check --json"},{"name":"sdk_smoke","command":"python3 scripts/agentpress.py sdk-smoke --json"},{"name":"package_verify","command":"python3 scripts/agentpress.py package-verify agentpress/releases/agentpress-offline.tar.gz --manifest agentpress/releases/agentpress-offline.tar.gz.sha256.json --json"}],"pass_condition":"all gates status ok / failed 0","artifact":"runtime-validation-result.json"}
+    if not args.no_write: (outdir/"runtime-validation-harness.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} runtime-validation")
+    return 0
+
+
+def run_artifact_pack(args):
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    payload={"schema_version":"2026-05-03.agentpress-run-artifact-pack.v1","canonical_url":urljoin(base,(outdir/"run-artifact-pack.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Shareable run artifact bundle for agent work: plan, ledger, context, approvals, validation, review, closeout.","required_files":["PLAN.md","action-ledger.json","context-debugger.json","approval-gates.json","runtime-validation-result.json","reviewer-gates.json","closeout.json"],"closeout_schema":{"status":"done|blocked|needs_review","summary":"","evidence_refs":[],"remaining_gaps":[],"next_cycle_backlog_ref":""},"privacy":"redact secrets/private prompts/cookies/local paths before sharing"}
+    if not args.no_write: (outdir/"run-artifact-pack.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} run-artifact-pack")
+    return 0
+
+
+def mission_keeper_kit(args):
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
+    payload={"schema_version":"2026-05-03.agentpress-mission-keeper-kit.v1","canonical_url":urljoin(base,(outdir/"mission-keeper.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Multi-agent mission keeper policy for recursive research-build-deploy cycles.","cycle":["research painpoints","update backlog","select highest P0/P1","write spec","build machine surface","run gates","deploy","verify live URLs","append action ledger","repeat"],"roles":[{"role":"scout","output":"painpoint evidence"},{"role":"builder","output":"feature artifacts"},{"role":"reviewer","output":"reviewer gate result"},{"role":"keeper","output":"mission cockpit/backlog update"}],"stop_conditions":["only external third-party proof remains","credential boundary with no token","all live gates pass and backlog has no buildable P0/P1"],"anti_patterns":["memo without shipped artifact","self-proof counted as external proof","queue empty while adoption proof is zero","claiming done without live URL checks"]}
+    if not args.no_write: (outdir/"mission-keeper.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} mission-keeper")
+    return 0
 
 def agent_platform_feature_backlog(args):
     """Generate major AgentPress platform feature backlog from audits/community painpoints."""
@@ -4543,6 +4610,13 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("plan-workflow-kit"); p.add_argument("--out", default="agentpress/workflows/plan-workflow"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("approval-gate-kit"); p.add_argument("--out", default="agentpress/approvals"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("reviewer-gate-kit"); p.add_argument("--out", default="agentpress/reviewers"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("provider-compatibility-kit"); p.add_argument("--out", default="agentpress/providers"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("runtime-validation-harness"); p.add_argument("--out", default="agentpress/runtime-validation"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("run-artifact-pack"); p.add_argument("--out", default="agentpress/run-artifacts"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("mission-keeper-kit"); p.add_argument("--out", default="agentpress/mission-keeper"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-platform-feature-backlog"); p.add_argument("--out", default="agentpress/planning/agent-platform-feature-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("action-ledger-kit"); p.add_argument("--out", default="agentpress/observability/action-ledger"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("context-debugger-kit"); p.add_argument("--out", default="agentpress/context"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -4719,6 +4793,13 @@ def main():
     if args.cmd == "package-manager-bridge": return package_manager_bridge(args)
     if args.cmd == "agent-identity-card": return agent_identity_card(args)
     if args.cmd == "agent-platform-feature-backlog": return agent_platform_feature_backlog(args)
+    if args.cmd == "plan-workflow-kit": return plan_workflow_kit(args)
+    if args.cmd == "approval-gate-kit": return approval_gate_kit(args)
+    if args.cmd == "reviewer-gate-kit": return reviewer_gate_kit(args)
+    if args.cmd == "provider-compatibility-kit": return provider_compatibility_kit(args)
+    if args.cmd == "runtime-validation-harness": return runtime_validation_harness(args)
+    if args.cmd == "run-artifact-pack": return run_artifact_pack(args)
+    if args.cmd == "mission-keeper-kit": return mission_keeper_kit(args)
     if args.cmd == "action-ledger-kit": return action_ledger_kit(args)
     if args.cmd == "context-debugger-kit": return context_debugger_kit(args)
     if args.cmd == "loop-guard-kit": return loop_guard_kit(args)
