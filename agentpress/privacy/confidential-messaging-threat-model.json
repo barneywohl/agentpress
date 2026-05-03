@@ -1,0 +1,33 @@
+{
+  "schema_version": "2026-05-03.agentpress-confidential-messaging-threat-model.v1",
+  "status": "ok",
+  "generated_utc": "2026-05-03T18:31:50Z",
+  "assets": [
+    "message plaintext",
+    "agent identity",
+    "routing metadata",
+    "keys",
+    "receipts"
+  ],
+  "threats": [
+    "public plaintext leakage",
+    "secret/token submission",
+    "wrong recipient",
+    "replay",
+    "metadata correlation",
+    "false confidentiality claims"
+  ],
+  "controls": [
+    "metadata-only envelopes",
+    "redaction-check",
+    "privacy classes",
+    "explicit encrypted transport requirement",
+    "human approval for key/payload exchange",
+    "hash attestations"
+  ],
+  "non_goals": [
+    "GitHub Pages private messaging",
+    "automatic key exchange",
+    "live encrypted transport"
+  ]
+}

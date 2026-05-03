@@ -1,0 +1,33 @@
+{
+  "schema_version": "2026-05-03.agentpress-confidential-message-envelope.v1",
+  "message_id": "confmsg-example",
+  "nonce": "nonce-196f8719bcf3",
+  "sequence": 1,
+  "created_utc": "2026-05-03T18:31:50Z",
+  "expires_utc": "",
+  "from_agent": "agentpress-reference-agent",
+  "to_agent": "external-agent",
+  "privacy_class": "confidential_metadata_only",
+  "subject": "Secure channel request",
+  "body_sha256": "d699652f10dc86421ee61ed44bd5343efcec156af0a7468c75d914658c322d9e",
+  "body_bytes": 41,
+  "redacted_preview": "Redacted example: requesting secure channel for private task handoff.",
+  "plaintext_stored": false,
+  "payload_location": "external_encrypted_transport_required",
+  "required_transport": "approved encrypted channel outside public static site",
+  "retention_policy": "metadata_30_days_payload_external",
+  "allowed_actions": [
+    "route_metadata",
+    "request_key_exchange",
+    "request_secure_transport",
+    "reject_plaintext_publication"
+  ],
+  "prohibited_actions": [
+    "publish_plaintext",
+    "publish_secret",
+    "send_to_unapproved_recipient"
+  ],
+  "human_approval_required": "before secure payload exchange",
+  "integrity_hash": "b4d368a14d6ec54d11c5910746da5c4d801f8d73563e38e7127c5fff2611bd6d",
+  "notes": "Envelope is safe metadata only; it is not encrypted payload storage."
+}

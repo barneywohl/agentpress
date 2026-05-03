@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T18:24:20Z",
+  "generated_at": "2026-05-03T18:31:37Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -272,6 +272,60 @@
         "receipts",
         "privacy",
         "score"
+      ]
+    },
+    {
+      "name": "agentpress.privacy_status",
+      "description": "Report AgentPress privacy classes and confidential messaging posture without overclaiming encrypted transport.",
+      "command": "python3 scripts/agentpress.py privacy-status --json",
+      "tags": [
+        "privacy",
+        "confidential",
+        "policy",
+        "messages"
+      ]
+    },
+    {
+      "name": "agentpress.confidential_message_create",
+      "description": "Create metadata-only confidential message envelopes that hash plaintext but do not store it.",
+      "command": "python3 scripts/agentpress.py confidential-message-create --from-agent a --to-agent b --subject secure-handoff --body <redacted> --json",
+      "tags": [
+        "confidential",
+        "message",
+        "envelope",
+        "metadata"
+      ]
+    },
+    {
+      "name": "agentpress.confidential_message_verify",
+      "description": "Verify confidential message envelope integrity and fail closed on tampering/plaintext storage.",
+      "command": "python3 scripts/agentpress.py confidential-message-verify agentpress/privacy/confidential-message.example.json --json",
+      "tags": [
+        "confidential",
+        "message",
+        "verify",
+        "integrity"
+      ]
+    },
+    {
+      "name": "agentpress.consent_check",
+      "description": "Check static consent registry before confidential metadata routing.",
+      "command": "python3 scripts/agentpress.py consent-check --agent external-agent --scope confidential_metadata_only --json",
+      "tags": [
+        "consent",
+        "privacy",
+        "routing"
+      ]
+    },
+    {
+      "name": "agentpress.redaction_check",
+      "description": "Scan candidate public artifacts for obvious secret/private-data markers before submission.",
+      "command": "python3 scripts/agentpress.py redaction-check <path> --json --allow-findings",
+      "tags": [
+        "redaction",
+        "privacy",
+        "secrets",
+        "scan"
       ]
     },
     {

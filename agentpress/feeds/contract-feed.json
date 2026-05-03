@@ -1,9 +1,17 @@
 {
   "schema_version": "2026-05-03.agentpress-contract-feed.v1",
-  "generated_utc": "2026-05-03T18:25:00Z",
-  "current_contract_version": "2026-05-03-runtime-support",
+  "generated_utc": "2026-05-03T18:29:00Z",
+  "current_contract_version": "2026-05-03-privacy-confidential-messaging",
   "latest_commit_note": "Generated before final deployment commit; verify current git SHA via GitHub main.",
   "entries": [
+    {
+      "version": "2026-05-03-privacy-confidential-messaging",
+      "kind": "privacy_confidential_messaging",
+      "status": "shipped",
+      "summary": "Added privacy classes, metadata-only confidential message envelopes, redaction checking, and threat model.",
+      "agent_action": "Run `python3 scripts/agentpress.py privacy-kit --json` and `redaction-check` before publishing sensitive artifacts.",
+      "breaking": false
+    },
     {
       "version": "2026-05-03-runtime-support",
       "kind": "runtime_support",
@@ -194,7 +202,9 @@
     "runtime_health": "https://barneywohl.github.io/agentpress/agentpress/runtime/health-status.json",
     "error_codes": "https://barneywohl.github.io/agentpress/agentpress/runtime/error-codes.json",
     "session_state": "https://barneywohl.github.io/agentpress/agentpress/runtime/session-state.example.json",
-    "batch_result": "https://barneywohl.github.io/agentpress/agentpress/runtime/batch-result.json"
+    "batch_result": "https://barneywohl.github.io/agentpress/agentpress/runtime/batch-result.json",
+    "privacy_status": "https://barneywohl.github.io/agentpress/agentpress/privacy/privacy-status.json",
+    "confidential_message_example": "https://barneywohl.github.io/agentpress/agentpress/privacy/confidential-message.example.json"
   },
   "privacy": "Static feed only; no tracking."
 }

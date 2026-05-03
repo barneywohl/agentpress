@@ -25,6 +25,12 @@ python3 scripts/agentpress.py proof-ingest --json --allow-rejected
 python3 scripts/agentpress.py proof-outreach-kit --json
 python3 scripts/agentpress.py package-registry-plan --json
 python3 scripts/agentpress.py remediation-index --json
+python3 scripts/agentpress.py privacy-kit --json
+python3 scripts/agentpress.py privacy-status --json
+python3 scripts/agentpress.py confidential-message-create --from-agent a --to-agent b --subject secure-handoff --body 'do not publish me' --json
+python3 scripts/agentpress.py confidential-message-verify agentpress/privacy/confidential-message.example.json --json
+python3 scripts/agentpress.py consent-check --agent external-agent --scope confidential_metadata_only --json
+python3 scripts/agentpress.py redaction-check agentpress/privacy --json
 python3 scripts/agentpress.py error-codes --json
 python3 scripts/agentpress.py session-state --event started --json
 python3 scripts/agentpress.py health-status --json
