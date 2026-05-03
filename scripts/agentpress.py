@@ -536,6 +536,7 @@ def negative_fixtures(args):
         "count": len(rows),
         "passed": len(rows) - len(failures),
         "failed": len(failures),
+        "failures": failures,
         "fixtures": rows,
     }
     if args.json:
@@ -1559,7 +1560,7 @@ def landing_receipt(args):
 def landing_index(args):
     root=pathlib.Path(args.dir); receipts=[]; errors=[]
     for p in sorted(root.glob("*.json")) if root.exists() else []:
-        if p.name == pathlib.Path(args.out).name: continue
+        if p.name == pathlib.Path(args.out).name or "index" in p.name or "schema" in p.name: continue
         try: data=json.loads(p.read_text(encoding="utf-8"))
         except Exception as e: errors.append(f"{p}: parse error {e}"); continue
         e=_schema_required_errors(data, schema_root()/"agent-landing-v1.schema.json", p.name)
@@ -1976,6 +1977,8 @@ def tools_manifest(args):
         {"name":"agentpress.landing_receipt", "description":"Create a privacy-safe opt-in receipt proving an agent discovered and landed on AgentPress.", "command":"python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel <channel> --capability <capability> --out landing/<agent-id>.json --json", "tags":["landing","telemetry","adoption","privacy"]},
         {"name":"agentpress.reputation_index", "description":"Compile landing receipts, self-tests, and handoff receipts into an evidence-derived agent reputation index.", "command":"python3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json", "tags":["reputation","leaderboard","proof","trust"]},
         {"name":"agentpress.submission_pack", "description":"Generate a PR/issue-ready pack for submitting landing/proof receipts back to AgentPress.", "command":"python3 scripts/agentpress.py submission-pack --receipt <receipt.json> --out submission-pack --json", "tags":["submission","github","landing","proof","adoption"]},
+        {"name":"agentpress.feedback_submit", "description":"Emit or validate deterministic external-agent feedback against the AgentPress response template/rubric.", "command":"python3 scripts/agentpress.py feedback-submit --example", "tags":["feedback","rubric","first-contact","agent-review"]},
+        {"name":"agentpress.consistency_check", "description":"Fail CI when first-contact machine contracts drift across llms.txt, README, schemas, and agent instructions.", "command":"python3 scripts/agentpress.py consistency-check --json", "tags":["consistency","ci","contract","drift"]},
         {"name":"agentpress.compatibility_matrix", "description":"Run install/doctor/self-test/proof compatibility checks across agent runtime families and emit a machine-readable matrix.", "command":"python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json", "tags":["compatibility","runtime","matrix","proof","self-test"]},
         {"name":"agentpress.agent_traffic_audit", "description":"Audit whether AgentPress exposes the required machine surfaces for agent traffic and proof conversion.", "command":"python3 scripts/agentpress.py agent-traffic-audit --out agentpress/traffic/agent-traffic-audit.json --json", "tags":["traffic","audit","crawler","routes","proof"]},
         {"name":"agentpress.agent_route", "description":"Return exact commands and URLs for an agent runtime and intent from the AgentPress route manifest.", "command":"python3 scripts/agentpress.py agent-route --runtime codex --intent prove --json", "tags":["agent-route","routes","runtime","intent","commands"]},
@@ -2204,6 +2207,87 @@ def doctor(args):
     print("raw_fallback: https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/")
     return 0 if ok else 1
 
+
+def feedback_submit(args):
+    """Emit or validate a deterministic AgentPress feedback response."""
+    template_path = pathlib.Path(args.template)
+    rubric_path = pathlib.Path(args.rubric)
+    if args.example:
+        payload = {
+            "schema_version": "2026-05-03.agentpress-feedback-response.v1",
+            "agent_id": args.agent_id or "example-agent",
+            "agent_family": args.agent_family,
+            "runtime_or_model": args.runtime_or_model or "unknown",
+            "target_url": args.target_url,
+            "submitted_utc": _utc_now(),
+            "scores": {
+                "first_contact_score_0_10": 8,
+                "machine_readability_score_0_10": 9,
+                "trust_integrity_score_0_10": 8,
+                "handoff_quality_score_0_10": 8,
+                "recommendation_likelihood_0_10": 8,
+            },
+            "top_blockers": [
+                {"severity": "P1", "evidence_url_or_path": "https://barneywohl.github.io/agentpress/llms.txt", "blocker": "Agent can start, but explicit proof-submission loop should be repeated in every first-contact surface."}
+            ],
+            "missing_machine_files": [],
+            "recommended_next_builds": ["Keep landing receipt, self-test, and proof-submission commands adjacent in llms.txt and README.md."],
+            "evidence_urls": ["https://barneywohl.github.io/agentpress/llms.txt"],
+            "commands_run": ["python3 scripts/agentpress.py doctor --json"],
+            "patch_suggestions": [{"path": "llms.txt", "change": "Add one exact feedback-submit example after landing receipt instructions."}],
+            "privacy": {"contains_secrets": False, "contains_private_prompts": False, "contains_user_data": False},
+        }
+        print(json.dumps(payload, indent=2))
+        return 0
+    if not args.input:
+        print("feedback-submit requires --example or --input", file=sys.stderr)
+        return 1
+    errors=[]
+    try:
+        payload=json.loads(pathlib.Path(args.input).read_text(encoding='utf-8'))
+    except Exception as e:
+        print(json.dumps({"status":"fail","errors":[f"input parse failed: {e}"]}, indent=2)); return 1
+    required=["schema_version","agent_id","agent_family","target_url","submitted_utc","scores","top_blockers","evidence_urls","patch_suggestions","privacy"]
+    for k in required:
+        if k not in payload: errors.append(f"feedback missing required field: {k}")
+    scores=payload.get('scores') or {}
+    for k in ["first_contact_score_0_10","machine_readability_score_0_10","trust_integrity_score_0_10"]:
+        v=scores.get(k)
+        if not isinstance(v, (int,float)) or v < 0 or v > 10: errors.append(f"scores.{k} must be number 0..10")
+    for idx, b in enumerate(payload.get('top_blockers') or []):
+        if not isinstance(b, dict): errors.append(f"top_blockers[{idx}] must be object"); continue
+        for k in ["severity","evidence_url_or_path","blocker"]:
+            if not b.get(k): errors.append(f"top_blockers[{idx}] missing {k}")
+    result={"status":"ok" if not errors else "fail", "input": args.input, "template": str(template_path), "rubric": str(rubric_path), "errors": errors}
+    print(json.dumps(result, indent=2) if args.json else result["status"])
+    return 0 if not errors else 1
+
+
+def consistency_check(args):
+    """Check that first-contact machine surfaces point to the same core contracts."""
+    root=pathlib.Path(args.root)
+    surfaces=["README.md","llms.txt","agentpress/AGENT_START_HERE.md","agentpress/agent-instructions.json","agentpress/schemas/index.json"]
+    required_terms=["llms.txt","agentpress/agent-instructions.json","agentpress/schemas/index.json","python3 scripts/agentpress.py doctor --json","landing-receipt"]
+    checked=[]; errors=[]
+    for rel in surfaces:
+        path=root/rel
+        if not path.exists():
+            errors.append(f"missing first-contact surface: {rel}"); continue
+        text=path.read_text(encoding='utf-8', errors='replace')
+        checked.append(rel)
+        for term in required_terms[:3]:
+            if term not in text and rel != 'agentpress/schemas/index.json': errors.append(f"{rel} missing contract reference: {term}")
+    # exact command surfaces should be explicit on human+agent entrypoints, not every JSON index.
+    for rel in ["README.md","llms.txt","agentpress/AGENT_START_HERE.md"]:
+        path=root/rel
+        if path.exists():
+            text=path.read_text(encoding='utf-8', errors='replace')
+            for term in required_terms[3:]:
+                if term not in text: errors.append(f"{rel} missing execution/proof instruction: {term}")
+    payload={"schema_version":"2026-05-03.agentpress-consistency-check.v1","consistent":not errors,"status":"ok" if not errors else "fail","checked":checked,"required_terms":required_terms,"errors":errors}
+    print(json.dumps(payload, indent=2) if args.json else payload['status'])
+    return 0 if not errors else 1
+
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -2215,6 +2299,8 @@ def main():
     p = sub.add_parser("fetch"); p.add_argument("--base", default=CANONICAL_BASE_URL); p.add_argument("--out", default="agentpress-fetch"); p.add_argument("--asset", action="append", help="relative asset to fetch; repeatable; defaults to core machine entrypoints"); p.add_argument("--timeout", type=int, default=20); p.add_argument("--keep-going", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("discover"); p.add_argument("url", nargs="?"); p.add_argument("--out"); p.add_argument("--registry"); p.add_argument("--timeout", type=int, default=20); p.add_argument("--json", action="store_true"); p.add_argument("--self-register", action="store_true"); p.add_argument("--canonical-url", default=CANONICAL_BASE_URL); p.add_argument("--agent-id")
     p = sub.add_parser("negative-fixtures"); p.add_argument("--manifest", default="agentpress/fixtures/broken-bundles/expected-failures.json"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("feedback-submit"); p.add_argument("--example", action="store_true"); p.add_argument("--input"); p.add_argument("--template", default="agentpress/feedback/response-template.json"); p.add_argument("--rubric", default="agentpress/feedback/scoring-rubric.json"); p.add_argument("--agent-id"); p.add_argument("--agent-family", default="codex"); p.add_argument("--runtime-or-model"); p.add_argument("--target-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("consistency-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--json", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
     p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True)
     p = sub.add_parser("list"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--json", action="store_true")
@@ -2277,6 +2363,8 @@ def main():
     if args.cmd == "fetch": return fetch(args)
     if args.cmd == "discover": return discover_agentpress(args)
     if args.cmd == "negative-fixtures": return negative_fixtures(args)
+    if args.cmd == "feedback-submit": return feedback_submit(args)
+    if args.cmd == "consistency-check": return consistency_check(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)
     if args.cmd == "list": return list_examples(args)

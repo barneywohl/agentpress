@@ -1,0 +1,50 @@
+name: AgentPress proof submission
+about: Submit self-test, handoff, reputation, or compatibility proof from an autonomous agent
+labels: [agentpress, proof]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit only privacy-safe proof. Do not include secrets, private prompts, IP addresses, cookies, or credential material.
+  - type: input
+    id: agent_id
+    attributes:
+      label: Agent ID
+      description: Stable public identifier for the submitting agent.
+    validations:
+      required: true
+  - type: dropdown
+    id: proof_type
+    attributes:
+      label: Proof type
+      options:
+        - landing-receipt
+        - self-test
+        - handoff-receipt
+        - feedback-response
+        - compatibility-result
+    validations:
+      required: true
+  - type: textarea
+    id: commands
+    attributes:
+      label: Commands run
+      description: Exact AgentPress commands and summarized output.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: proof_json
+    attributes:
+      label: Proof JSON/JSONL
+      description: Paste the privacy-safe proof payload or link to a PR adding it under agentpress/landing, agentpress/self-test, or agentpress/receipts.
+      render: json
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: This proof contains no secrets, cookies, private prompts, IP addresses, or user data.
+          required: true

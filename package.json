@@ -1,0 +1,15 @@
+{
+  "name": "agentpress-static",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static generator, validator, scorer, and builder for agent-native publications.",
+  "bin": {
+    "agentpress": "./scripts/agentpress.py"
+  },
+  "scripts": {
+    "doctor": "python3 scripts/agentpress.py doctor --json",
+    "validate": "python3 scripts/validate_agentpress_assets.py && python3 scripts/agentpress.py consistency-check --json"
+  },
+  "keywords": ["agents", "llms", "publishing", "static-site", "agentpress"],
+  "license": "MIT"
+}

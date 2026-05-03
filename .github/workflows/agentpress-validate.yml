@@ -14,6 +14,22 @@ jobs:
           python-version: '3.11'
       - name: Validate AgentPress assets
         run: python3 scripts/validate_agentpress_assets.py
+      - name: Validate AgentPress consistency and feedback contracts
+        run: |
+          python3 scripts/agentpress.py consistency-check --json
+          python3 scripts/agentpress.py feedback-submit --example | python3 -m json.tool >/dev/null
+          test -f agentpress/feedback/response-template.json
+          test -f agentpress/audit/first-contact-evidence.json
+      - name: Validate AgentPress mesh self-registration
+        run: |
+          cp agentpress/mesh/known-agents.json /tmp/known-agents.json
+          python3 scripts/agentpress.py discover --self-register --canonical-url https://barneywohl.github.io/agentpress/ --agent-id agentpress-barneywohl --registry /tmp/known-agents.json --json
+          python3 -m json.tool /tmp/known-agents.json >/dev/null
+          python3 - <<'PY2'
+          import json
+          data=json.load(open('/tmp/known-agents.json'))
+          assert data.get('agent_count', 0) >= 1, data
+          PY2
 
 
 

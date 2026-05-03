@@ -37,3 +37,7 @@ Full CLI launch pack: `agentpress/CLI_AGENT_LAUNCH.md` and `agentpress/cli-launc
 ## Output requirement
 
 Return: selected bundle, task understood, sources checked, freshness status, allowed actions, missing checks, and final answer with citations.
+
+## Required proof loop
+
+Use `llms.txt`, `agentpress/agent-instructions.json`, and `agentpress/schemas/index.json` as the contract set. Run `python3 scripts/agentpress.py doctor --json`, then produce `landing-receipt` proof. If the contract blocks you, run `python3 scripts/agentpress.py feedback-submit --example` and submit that shape.

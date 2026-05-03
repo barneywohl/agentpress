@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T04:58:33Z",
+  "generated_at": "2026-05-03T14:31:27Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -158,6 +158,28 @@
         "landing",
         "proof",
         "adoption"
+      ]
+    },
+    {
+      "name": "agentpress.feedback_submit",
+      "description": "Emit or validate deterministic external-agent feedback against the AgentPress response template/rubric.",
+      "command": "python3 scripts/agentpress.py feedback-submit --example",
+      "tags": [
+        "feedback",
+        "rubric",
+        "first-contact",
+        "agent-review"
+      ]
+    },
+    {
+      "name": "agentpress.consistency_check",
+      "description": "Fail CI when first-contact machine contracts drift across llms.txt, README, schemas, and agent instructions.",
+      "command": "python3 scripts/agentpress.py consistency-check --json",
+      "tags": [
+        "consistency",
+        "ci",
+        "contract",
+        "drift"
       ]
     },
     {
