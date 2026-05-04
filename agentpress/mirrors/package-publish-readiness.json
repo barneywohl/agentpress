@@ -1,0 +1,26 @@
+{
+  "schema_version": "2026-05-04.agentpress-package-publish-readiness.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/mirrors/package-publish-readiness.json",
+  "generated_utc": "2026-05-04T03:47:36Z",
+  "status": "blocked_on_registry_auth",
+  "purpose": "Native package publish readiness for npm/PyPI without leaking credentials.",
+  "local_auth_checks": {
+    "npm": "not_authenticated_E401",
+    "pypi": "twine_not_installed_or_no_token_checked"
+  },
+  "ready_artifacts": [
+    "agentpress/package-registry/skeleton",
+    "agentpress/package-registry/package-registry-plan.json",
+    "agentpress/install/package-registry-fallback-matrix.json"
+  ],
+  "blocked_actions": [
+    "npm publish",
+    "twine upload"
+  ],
+  "safe_next": [
+    "create/choose owner accounts",
+    "store tokens in secrets",
+    "run dry-run package build",
+    "publish with explicit package-name confirmation"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "2026-05-04.agentpress-china-oss-cos-deploy-pack.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/mirrors/china-oss-cos-deploy-pack.json",
+  "generated_utc": "2026-05-04T03:47:36Z",
+  "status": "ready_pending_account",
+  "purpose": "Object-storage mirror recipe for Alibaba OSS or Tencent COS.",
+  "providers": [
+    {
+      "provider": "Alibaba OSS",
+      "cli": "ossutil",
+      "example": "ossutil cp -r . oss://<bucket>/agentpress/ --exclude .git/*"
+    },
+    {
+      "provider": "Tencent COS",
+      "cli": "coscli",
+      "example": "coscli cp -r . cos://<bucket>/agentpress/ --ignore .git/*"
+    }
+  ],
+  "required_decisions": [
+    "bucket name",
+    "region",
+    "public-read vs signed CDN",
+    "custom domain/ICP if any"
+  ],
+  "validation": [
+    "critical URL 200",
+    "sha256 manifest match",
+    "China region probe receipt"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-04.agentpress-github-release-mirror.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/mirrors/github-release-mirror.json",
+  "generated_utc": "2026-05-04T03:47:36Z",
+  "status": "ready_for_release",
+  "purpose": "Use GitHub Releases as an additional durable artifact mirror for the offline tarball and sha256 manifest.",
+  "tag_suggestion": "global-china-bottleneck-kit-20260504",
+  "assets": [
+    "agentpress/releases/agentpress-offline.tar.gz",
+    "agentpress/releases/agentpress-offline.tar.gz.sha256.json"
+  ],
+  "validation": [
+    "gh release view <tag>",
+    "download assets",
+    "package-verify"
+  ]
+}

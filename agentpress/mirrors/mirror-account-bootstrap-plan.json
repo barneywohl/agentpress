@@ -1,0 +1,103 @@
+{
+  "schema_version": "2026-05-04.agentpress-mirror-account-bootstrap-plan.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/mirrors/mirror-account-bootstrap-plan.json",
+  "generated_utc": "2026-05-04T03:47:36Z",
+  "status": "ok",
+  "purpose": "Account/setup plan for global and China-friendly mirrors without embedding credentials or bypassing provider verification.",
+  "accounts": [
+    {
+      "provider": "Cloudflare Pages/R2",
+      "region": "global",
+      "status": "not_authenticated_locally",
+      "why": "non-GitHub static mirror + object storage",
+      "minimum_permissions": [
+        "Pages project deploy",
+        "R2 bucket write/read"
+      ],
+      "blocked_by": [
+        "Cloudflare account/API token not present",
+        "wrangler not installed"
+      ]
+    },
+    {
+      "provider": "Gitee Pages",
+      "region": "China mainland",
+      "status": "account_required",
+      "why": "China-friendly Git/static mirror",
+      "minimum_permissions": [
+        "private/public repo create",
+        "pages enable if supported"
+      ],
+      "blocked_by": [
+        "Gitee account/phone/email verification",
+        "manual ToS/identity checks"
+      ]
+    },
+    {
+      "provider": "Alibaba OSS",
+      "region": "China mainland/Asia",
+      "status": "account_required",
+      "why": "China object storage mirror",
+      "minimum_permissions": [
+        "bucket write",
+        "public read or CDN binding"
+      ],
+      "blocked_by": [
+        "Alibaba Cloud account/real-name/billing/DNS decisions"
+      ]
+    },
+    {
+      "provider": "Tencent COS",
+      "region": "China mainland/Asia",
+      "status": "account_required",
+      "why": "alternate China object storage mirror",
+      "minimum_permissions": [
+        "bucket write",
+        "public read or CDN binding"
+      ],
+      "blocked_by": [
+        "Tencent Cloud account/real-name/billing/DNS decisions"
+      ]
+    },
+    {
+      "provider": "npm",
+      "region": "global",
+      "status": "not_authenticated_locally",
+      "why": "npx/native package install",
+      "minimum_permissions": [
+        "publish package"
+      ],
+      "blocked_by": [
+        "npm login/token missing"
+      ]
+    },
+    {
+      "provider": "PyPI",
+      "region": "global",
+      "status": "not_authenticated_locally",
+      "why": "pipx/uvx/native package install",
+      "minimum_permissions": [
+        "publish package"
+      ],
+      "blocked_by": [
+        "PyPI account/token missing"
+      ]
+    }
+  ],
+  "policy": [
+    "Do not invent identity, phone numbers, billing info, or bypass KYC/ToS.",
+    "Use user-owned accounts or explicitly created project accounts with recovery email/2FA controlled by Jake.",
+    "Store tokens only in approved secrets storage.",
+    "Dry-run and hash-verify before publish."
+  ],
+  "what_was_done_now": [
+    "GitHub Pages primary deployed",
+    "raw GitHub fallback deployed",
+    "jsDelivr fallback live by repo CDN",
+    "GitHub release mirror can be used for offline tarball"
+  ],
+  "next_human_inputs": [
+    "Choose account owner email/recovery for Cloudflare/Gitee/Alibaba/Tencent/npm/PyPI",
+    "Approve package names and whether public mirrors should use a custom domain"
+  ]
+}
