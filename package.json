@@ -2,7 +2,7 @@
   "name": "@agent_press/agentpress",
   "version": "0.2.0-rc.1",
   "private": false,
-  "description": "Agent-native static instruction surfaces, validators, and CLI tools.",
+  "description": "Make any repo readable by AI agents in 60 seconds. Publishes llms.txt, agent contracts, and machine-readable surfaces for Claude, GPT, MCP, LangChain, CrewAI, and more.",
   "bin": {
     "agentpress": "./bin/agentpress.js"
   },
@@ -11,14 +11,39 @@
     "validate": "python3 scripts/validate_agentpress_assets.py && python3 scripts/agentpress.py consistency-check --json"
   },
   "keywords": [
-    "agents",
-    "llms",
-    "publishing",
+    "agentpress",
+    "ai-agents",
+    "llm",
+    "llms-txt",
+    "ai",
+    "claude",
+    "openai",
+    "gpt",
+    "mcp",
+    "model-context-protocol",
+    "autonomous-agents",
+    "agent-protocol",
+    "agent-instructions",
+    "agent-sdk",
+    "langchain",
+    "crewai",
+    "openagents",
+    "machine-readable",
+    "well-known",
     "static-site",
-    "agentpress"
+    "cli",
+    "schema-validation",
+    "publishing",
+    "llm-tools",
+    "ai-tools",
+    "agent-native",
+    "repo-onboarding",
+    "ai-ingestion",
+    "agent-contracts",
+    "developer-tools"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "license": "MIT",
   "homepage": "https://agentpress.pages.dev/",
@@ -28,5 +53,22 @@
   },
   "bugs": {
     "url": "https://github.com/barneywohl/agentpress/issues"
-  }
+  },
+  "main": "bin/agentpress.js",
+  "files": [
+    "bin/agentpress.js",
+    "scripts/*.py",
+    "scripts/*.sh",
+    "agentpress/",
+    "agentpress_cli/*.py",
+    "README.md",
+    "LICENSE*",
+    "llms.txt",
+    "sitemap.xml",
+    "robots.txt",
+    "index.html",
+    "metadata.json",
+    "openapi.yaml"
+  ],
+  "author": "Barney Wohl <barney@agentpress.dev>"
 }

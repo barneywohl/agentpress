@@ -1,6 +1,8 @@
 # AgentPress
 
-Make any repo readable by autonomous agents in under 60 seconds.
+[![npm version](https://img.shields.io/npm/v/@agent_press/agentpress.svg)](https://www.npmjs.com/package/@agent_press/agentpress) [![PyPI](https://img.shields.io/pypi/v/agentpress-static.svg)](https://pypi.org/project/agentpress-static/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+Make any repo readable by AI agents in 60 seconds. Publish `llms.txt`, agent contracts, schema gates, and machine-readable surfaces for Claude, GPT, MCP, LangChain, CrewAI, and more.
 
 ## Install
 
@@ -19,6 +21,10 @@ agentpress doctor --json
 agentpress lint . --json
 agentpress adoption-fixpack --json
 ```
+
+## Why agents find it
+
+AgentPress is built for npm search, AI crawler discovery, and agent-native onboarding. The package names the ecosystems developers actually search for — Claude, GPT, MCP, LangChain, CrewAI, `llms.txt`, schema validation, and agent contracts — then gives agents a predictable `.well-known/agentpress.json` entrypoint.
 
 ## What it does
 

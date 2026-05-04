@@ -639,3 +639,50 @@ Adoption fix pack command:
 python3 scripts/agentpress.py adoption-fixpack --json
 ```
 Use it after doctor when an outside agent needs exact first-contact proof commands without hidden telemetry or external posting.
+
+
+## 0.2.0-rc.1 new features (2026-05-04)
+
+Current release candidate: **0.2.0-rc.1**. Schema index: `agentpress/schemas/index.json` (v3).
+
+### First-user bootstrap (schema: first-user-bootstrap-v2)
+```bash
+python3 scripts/agentpress.py first-user-bootstrap --platform <cline|roo|claude|cursor|windsurf|generic> --json
+```
+Emits copy-paste install + doctor + MCP guard + proof capture steps for a named host. Safe defaults; no secrets; rollback pointer included.
+
+### Proof capture v2 (schema: proof-capture-v2, secret_scan)
+```bash
+python3 scripts/agentpress.py proof-capture --task-id <id> --evidence-dir <dir> --json
+# add --strict to exit 1 on secret hits
+```
+Bundles proof-bundle.json + proof-card.md + SHA256s; scans all artifact files for secret patterns before bundling.
+
+### Sandbox guard v2 (schema: sandbox-guard-v2, allowlist)
+```bash
+python3 scripts/agentpress.py sandbox-guard --scope read-only --paths ./src --json
+```
+Enforces allowed_paths allowlist and forbidden-marker blocklist; emits executable wrapper + JSON policy manifest.
+
+### Adoption tracker (schema: adoption-tracker-v1)
+```bash
+python3 scripts/agentpress.py adoption-tracker --period 7d --json
+```
+Compiles funnel (install → doctor → self-test → landing) from local receipt files. Local-only; no external tracking.
+
+### Handoff pack (schema: handoff-pack-v1)
+```bash
+python3 scripts/agentpress.py handoff-pack --from glm --to rflo --task-id <id> --json
+```
+Transfers objective, constraints, evidence paths, and acceptance gates between agents without losing context.
+
+### Batch painpoints (schema: batch-painpoints-v1)
+```bash
+python3 scripts/agentpress.py batch-painpoints --input issues.json --output /tmp/out --json
+```
+Generates per-target painpoint-NNN.json + summary; approval_required_for_all=true; no automatic posting.
+
+Schema discovery for all new features:
+```bash
+python3 scripts/agentpress.py schema --json  # lists all registered schemas including v2 entries
+```
