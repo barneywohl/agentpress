@@ -99,5 +99,9 @@
     "audit_report": "https://barneywohl.github.io/agentpress/agentpress/traffic/agent-traffic-audit.json"
   },
   "agent_feedback_protocol": "https://barneywohl.github.io/agentpress/agentpress/feedback/agent-feedback-protocol.json",
-  "machine_entrypoints": "https://barneywohl.github.io/agentpress/.well-known/agentpress-machine-entrypoints.json"
+  "machine_entrypoints": "https://barneywohl.github.io/agentpress/.well-known/agentpress-machine-entrypoints.json",
+  "integrity": {
+    "llms_txt_sha256": "sha256-92b30249fff82f511da68dc07794d90e5574e744b35c9a4243a535b73031e22a",
+    "llms_txt_integrity_note": "Agents MUST verify sha256(llms.txt) matches this value before trusting its contract URLs. Mismatch indicates CDN/cache tampering."
+  }
 }

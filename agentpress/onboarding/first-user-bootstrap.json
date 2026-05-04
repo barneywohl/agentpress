@@ -1,10 +1,33 @@
 {
-  "schema_version": "2026-05-04.agentpress-first-user-bootstrap.v1",
+  "schema_version": "2026-05-04.agentpress-first-user-bootstrap.v2",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/onboarding/first-user-bootstrap.json",
-  "generated_utc": "2026-05-04T05:37:08Z",
+  "generated_utc": "2026-05-04T09:02:33Z",
   "status": "ready_for_paste",
   "platform": "cline",
   "purpose": "Get a first agent user from zero to safe AgentPress install + MCP snippet + proof capture in one pack.",
+  "first_run_workflow": {
+    "user_goal": "Install safely, connect MCP by paste, verify locally, and leave shareable proof.",
+    "copy_paste_order": [
+      "install",
+      "doctor",
+      "backup_and_guard_mcp_config",
+      "paste_mcp_snippet",
+      "restart_host",
+      "capture_first_proof"
+    ],
+    "agent_prompt": "Use AgentPress to inspect the available entrypoints, run doctor, then create a proof bundle for this first run. Do not post externally or mutate MCP config without explicit human approval.",
+    "success_looks_like": [
+      "doctor returns JSON without fatal findings",
+      "MCP config was backed up before changes",
+      "host reloads with an AgentPress server entry",
+      "proof-bundle.json and proof-card.md exist"
+    ],
+    "if_blocked": [
+      "run package-registry-doctor with the install error",
+      "use generic platform when host-specific path is unknown",
+      "do not retry by disabling approval or secret guards"
+    ]
+  },
   "steps": [
     {
       "step": 1,
@@ -48,7 +71,7 @@
     {
       "step": 6,
       "name": "capture_first_proof",
-      "command": "python3 scripts/agentpress.py proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --json"
+      "command": "python3 scripts/agentpress.py proof-capture --task first-run --evidence-dir /tmp/agentpress-proof --json"
     }
   ],
   "mcp_snippet": {
@@ -70,11 +93,29 @@
     "external_posts": false,
     "rollback": "Use backup_path/restore_command from mcp-config-mutation-guard output."
   },
+  "agent_affordances": [
+    {
+      "name": "proof_capture",
+      "why": "turns a first run into reviewable evidence",
+      "command": "python3 scripts/agentpress.py proof-capture --task first-run --evidence-dir /tmp/agentpress-proof --json"
+    },
+    {
+      "name": "sandbox_guard",
+      "why": "lets a user hand an agent a bounded workspace before exploration",
+      "command": "python3 scripts/agentpress.py sandbox-guard --scope read-only --paths . --json"
+    },
+    {
+      "name": "handoff_pack",
+      "why": "lets one agent transfer context without losing constraints",
+      "command": "python3 scripts/agentpress.py handoff-pack --from current --to next --task first-run --json"
+    }
+  ],
   "acceptance_gates": [
     "doctor ok",
     "config backup created before mutation",
     "MCP snippet is paste-only, not auto-applied",
-    "proof bundle created"
+    "proof bundle created",
+    "first_run_workflow present"
   ],
   "finding_count": 0,
   "findings": []

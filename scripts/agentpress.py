@@ -3503,7 +3503,11 @@ def painpoint_target_pack(args):
     host = (args.host or "unknown_host").strip()
     provider = (args.provider or "unknown_provider").strip()
     tool = (args.tool or "unknown_tool").strip()
-    lower = " ".join([issue_url, painpoint, host, provider, tool]).lower()
+    score_parts = [painpoint]
+    if host != "unknown_host": score_parts.append(host)
+    if provider != "unknown_provider": score_parts.append(provider)
+    if tool != "unknown_tool": score_parts.append(tool)
+    lower = " ".join(score_parts).lower()
     candidates = [
         {"id":"mcp_config_mutation_guard","match":["mcp","config","cline","roo","settings","approval","consent","server"],"artifact":"agentpress/security/mcp-config-mutation-guard-result.json","command":"python3 scripts/agentpress.py mcp-config-mutation-guard --config-exists --before-sha256 <sha256-before> --existing-servers <csv> --planned-servers <csv> --json","user_value":"Stops agent installers from silently breaking existing MCP/Cline/Roo config; emits backup/diff/restore evidence."},
         {"id":"provider_adapter_repro_pack","match":["tool","provider","adapter","execute_command","write_to_file","invalid_arguments","unknown tool"],"artifact":"agentpress/compatibility/provider-adapter-repro-pack.json","command":"python3 scripts/agentpress.py provider-adapter-repro-pack --host <host> --provider <provider> --calls <tool_csv> --json","user_value":"Turns host/provider tool mismatch into a small adapter map and failing-call repro maintainers can act on."},
@@ -3517,7 +3521,8 @@ def painpoint_target_pack(args):
         scored.append((len(hits), hits, candidate))
     scored.sort(key=lambda row: row[0], reverse=True)
     best_score, hits, best = scored[0]
-    if best_score == 0:
+    low_confidence = best_score == 0
+    if low_confidence:
         best = candidates[2]
         hits = []
     command = best["command"]
@@ -3539,11 +3544,24 @@ def painpoint_target_pack(args):
         findings.append({"severity":"P1","message":"issue_url missing; target pack is less directly actionable"})
     elif not issue_url.startswith(("https://github.com/","https://news.ycombinator.com/","https://gitlab.com/","https://gitee.com/")):
         findings.append({"severity":"P1","message":"target URL is not a known public dev/community thread"})
-    secret_re = re.compile(r"(?i)(sk-[a-z0-9_-]{12,}|gh[opsu]_[a-z0-9_]{20,}|api[_-]?key\s*[:=]\s*\S+|token\s*[:=]\s*\S+|password\s*[:=]\s*\S+)")
+    secret_re = re.compile(
+        r"(?i)("
+        r"sk-[a-z0-9_-]{12,}|"
+        r"gh[opsu]_[a-z0-9_]{20,}|"
+        r"AKIA[0-9A-Z]{16}|"
+        r"xoxb-[0-9A-Za-z-]{20,}|"
+        r"eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+|"
+        r"api[_-]?key\s*[:=]\s*\S+|"
+        r"token\s*[:=]\s*\S+|"
+        r"password\s*[:=]\s*\S+"
+        r")"
+    )
     for label,value in [("painpoint",painpoint),("error",args.error or ""),("issue_url",issue_url)]:
         if secret_re.search(str(value)):
             findings.append({"severity":"P0","field":label,"message":"secret-looking value detected; redact before sharing"})
-    status = "blocked_redact" if any(f.get("severity") == "P0" for f in findings) else ("needs_target" if findings else "ready_for_manual_approval")
+    if low_confidence:
+        findings.append({"severity":"P1","message":"low_confidence_match: no candidate scored above zero; fallback repro pack selected for manual review"})
+    status = "blocked_redact" if any(f.get("severity") == "P0" for f in findings) else ("low_confidence_match" if low_confidence else ("needs_target" if findings else "ready_for_manual_approval"))
     payload={
         "schema_version":"2026-05-04.agentpress-painpoint-target-pack.v1",
         "canonical_url":urljoin(base,out.as_posix()),
@@ -3901,8 +3919,13 @@ def sandbox_guard(args):
     for path in paths:
         if any(token in path.lower() for token in forbidden): findings.append({"severity":"P0","path":path,"message":"path looks secret-sensitive; refuse default sandbox"})
     wrapper=out.with_suffix('.sh')
-    wrapper_text = '#!/usr/bin/env bash\nset -euo pipefail\necho "AgentPress sandbox guard active" >&2\ncase "${1:-}" in\n  *clawd_secrets*|*.ssh*|*.gnupg*|*wallet*|*seed*|*.env*) echo "blocked sensitive path" >&2; exit 64;;\nesac\nexec "$@"\n'
-    payload={"schema_version":"2026-05-04.agentpress-sandbox-guard.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not findings else "fail_closed","scope":args.scope,"allowed_paths":paths,"forbidden_markers":forbidden,"wrapper_script":str(wrapper),"policy":{"default_deny_secrets":True,"external_effects_require_approval":True,"read_only_means_no_write_commands":args.scope=='read-only'},"finding_count":len(findings),"findings":findings}
+    # Build allowlist check: if allowed_paths given, require first arg to be within one of them
+    allow_check=""
+    if paths:
+        cond=" || ".join([f'[[ "${{1:-}}" == {shlex.quote(p)}* ]]' for p in paths])
+        allow_check=f'\n# allowlist enforcement\nif ! ( {cond} ); then\n  echo "blocked: path not in allowed_paths" >&2; exit 64\nfi'
+    wrapper_text = f'#!/usr/bin/env bash\nset -euo pipefail\necho "AgentPress sandbox guard active" >&2\ncase "${{1:-}}" in\n  *clawd_secrets*|*.ssh*|*.gnupg*|*wallet*|*seed*|*.env*|*private_key*|*id_rsa*) echo "blocked sensitive path" >&2; exit 64;;\nesac{allow_check}\nexec "$@"\n'
+    payload={"schema_version":"2026-05-04.agentpress-sandbox-guard.v2","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not findings else "fail_closed","scope":args.scope,"allowed_paths":paths,"forbidden_markers":forbidden,"wrapper_script":str(wrapper),"policy":{"default_deny_secrets":True,"allowlist_enforced":bool(paths),"external_effects_require_approval":True,"read_only_means_no_write_commands":args.scope=='read-only'},"finding_count":len(findings),"findings":findings}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8"); wrapper.write_text(wrapper_text,encoding="utf-8"); os.chmod(wrapper,0o755)
     print(json.dumps(payload,indent=2) if args.json else payload['status']); return 1 if args.strict and payload['status']!='ok' else 0
@@ -3936,7 +3959,10 @@ def handoff_pack(args):
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; evidence=[x for x in _csv_list(args.evidence, [])]
     payload={"schema_version":"2026-05-04.agentpress-handoff-pack.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ready","from_agent":args.from_agent,"to_agent":args.to_agent,"task_id":args.task_id,"objective":args.objective,"constraints":_csv_list(args.constraints, []),"evidence_paths":evidence,"acceptance_gates":_csv_list(args.acceptance, ["evidence artifact written","verification command passes","reviewer signs off"]),"pending_actions":_csv_list(args.pending_actions, []),"handoff_manifest":{"context":"read objective/constraints/evidence before acting","do_not":"claim completion without artifacts","review":"required if touching external effects or secrets"}}
     if not args.no_write:
-        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding='utf-8'); out.with_suffix('.md').write_text("# Handoff " + args.task_id + "\n\nFrom: " + args.from_agent + "\nTo: " + args.to_agent + "\n\nObjective: " + args.objective + "\n",encoding='utf-8')
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding='utf-8')
+        _c=payload['constraints']; _e=payload['evidence_paths']; _g=payload['acceptance_gates']; _p=payload['pending_actions']
+        _md=["# Handoff "+args.task_id,"","**From:** "+args.from_agent+"  **→ To:** "+args.to_agent,"","**Objective:** "+(payload['objective'] or '(none)'),"","## Constraints"]+(_c if _c else ["(none)"])+["","## Evidence paths"]+(["`"+x+"`" for x in _e] if _e else ["(none)"])+["","## Acceptance gates"]+["- [ ] "+x for x in _g]+["","## Pending actions"]+(["- [ ] "+x for x in _p] if _p else ["(none)"])+["","**Generated:** "+payload['generated_utc']]
+        out.with_suffix('.md').write_text("\n".join(_md)+"\n",encoding='utf-8')
     print(json.dumps(payload,indent=2) if args.json else 'ready'); return 0
 
 
@@ -3960,29 +3986,51 @@ def batch_painpoints(args):
     (outdir/'batch-painpoints-summary.json').write_text(json.dumps(summary,indent=2)+"\n",encoding='utf-8')
     print(json.dumps(summary,indent=2) if args.json else str(len(processed))); return 0
 
+_SECRET_PATTERNS = [
+    re.compile(r'(?i)(sk-[A-Za-z0-9]{20,}|Bearer\s+[A-Za-z0-9\-._~+/]{20,}|api[_-]?key["\s:=]+["\']?[A-Za-z0-9\-_]{16,}|ghp_[A-Za-z0-9]{36}|xoxb-[0-9\-]+|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z]+ PRIVATE KEY)'),
+]
+
+def _scan_for_secrets(text: str) -> list:
+    hits = []
+    for pat in _SECRET_PATTERNS:
+        m = pat.search(text)
+        if m:
+            hits.append({"pattern": pat.pattern[:60], "match_prefix": m.group(0)[:12] + "***"})
+    return hits
+
 def proof_capture(args):
     """Capture a local proof bundle for an agent task/run."""
     evidence_dir=pathlib.Path(args.evidence_dir).expanduser()
     out=evidence_dir / "proof-bundle.json"
     card=evidence_dir / "proof-card.md"
     artifacts=[]
+    secret_hits=[]
     for item in _csv_list(args.artifacts, []):
         path=pathlib.Path(item).expanduser()
         if path.exists() and path.is_file():
-            artifacts.append({"path":str(path),"bytes":path.stat().st_size,"sha256":hashlib.sha256(path.read_bytes()).hexdigest()})
+            content=path.read_bytes()
+            try: text=content.decode("utf-8","replace")
+            except Exception: text=""
+            hits=_scan_for_secrets(text)
+            secret_hits.extend(hits)
+            artifacts.append({"path":str(path),"bytes":path.stat().st_size,"sha256":hashlib.sha256(content).hexdigest(),"secret_scan":{"hits":len(hits),"safe":len(hits)==0}})
         else:
             artifacts.append({"path":str(path),"missing":True})
     commands=[]
     for cmd in _csv_list(args.commands, []):
         commands.append({"command":cmd,"recorded_only":True})
     env={"python":sys.version.split()[0],"platform":platform.platform(),"cwd":str(pathlib.Path.cwd()),"agentpress_file":"scripts/agentpress.py"}
-    payload={"schema_version":"2026-05-04.agentpress-proof-capture.v1","generated_utc":_utc_now(),"status":"ok","task_id":args.task_id,"purpose":"Create a shareable no-secret proof bundle for first-agent runs.","summary":args.summary,"environment":env,"commands":commands,"artifacts":artifacts,"acceptance":{"artifact_count":len([a for a in artifacts if not a.get('missing')]),"missing_count":len([a for a in artifacts if a.get('missing')]),"review_required":args.review_required},"privacy":{"no_secret_scan_guarantee":False,"operator_must_review_before_external_share":True},"reviewer_checklist":["commands are reproducible","artifacts are public-safe","no tokens/secrets/private prompts","expected vs observed is clear"]}
+    scan_status="secret_hits_found" if secret_hits else "no_obvious_secrets"
+    payload={"schema_version":"2026-05-04.agentpress-proof-capture.v2","generated_utc":_utc_now(),"status":"ok","task_id":args.task_id,"purpose":"Create a shareable no-secret proof bundle for first-agent runs.","summary":args.summary,"environment":env,"commands":commands,"artifacts":artifacts,"acceptance":{"artifact_count":len([a for a in artifacts if not a.get('missing')]),"missing_count":len([a for a in artifacts if a.get('missing')]),"review_required":args.review_required},"privacy":{"secret_scan_status":scan_status,"secret_hit_count":len(secret_hits),"operator_must_review_before_external_share":True},"reviewer_checklist":["commands are reproducible","artifacts are public-safe","no tokens/secrets/private prompts","expected vs observed is clear"]}
     evidence_dir.mkdir(parents=True,exist_ok=True)
+    initial=json.dumps(payload,indent=2)+"\n"
+    payload["bundle_sha256"] = hashlib.sha256(initial.encode("utf-8")).hexdigest()
     out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
-    card.write_text(f"# AgentPress proof card: {args.task_id}\n\nGenerated: {payload['generated_utc']}\n\nStatus: {payload['status']}\n\nSummary: {args.summary or '(none)'}\n\nArtifacts: {payload['acceptance']['artifact_count']} present / {payload['acceptance']['missing_count']} missing\n\nBundle: `{out}`\n",encoding="utf-8")
-    result={"status":"ok","task_id":args.task_id,"proof_bundle":str(out),"proof_card":str(card),"bundle_sha256":hashlib.sha256(out.read_bytes()).hexdigest(),"artifact_count":payload['acceptance']['artifact_count']}
+    scan_note = f"\n\n**Secret scan:** {scan_status} ({len(secret_hits)} hits)" if secret_hits else "\n\n**Secret scan:** no obvious secrets detected"
+    card.write_text(f"# AgentPress proof card: {args.task_id}\n\nGenerated: {payload['generated_utc']}\n\nStatus: {payload['status']}\n\nSummary: {args.summary or '(none)'}\n\nArtifacts: {payload['acceptance']['artifact_count']} present / {payload['acceptance']['missing_count']} missing\n\nBundle: `{out}`{scan_note}\n",encoding="utf-8")
+    result={"status":"ok","task_id":args.task_id,"proof_bundle":str(out),"proof_card":str(card),"bundle_sha256":payload["bundle_sha256"],"artifact_count":payload['acceptance']['artifact_count'],"secret_scan_status":scan_status}
     print(json.dumps(result,indent=2) if args.json else str(out))
-    return 0
+    return 1 if secret_hits and getattr(args,"strict",False) else 0
 
 def first_user_bootstrap(args):
     """Generate a first-user bootstrap pack for common agent hosts."""
@@ -4000,15 +4048,20 @@ def first_user_bootstrap(args):
     }.get(platform, {"config":"mcp.json","where":"unknown","restart":"manual"})
     install="bash agentpress/install/install-agentpress.sh"
     mcp={"mcpServers":{"agentpress":{"command":"python3","args":["scripts/agentpress.py","mcp-catalog-export","--json"],"approval_required":True,"notes":"Run mcp-config-mutation-guard before applying."}}}
-    commands=[install,"python3 scripts/agentpress.py doctor --json","python3 scripts/agentpress.py mcp-config-mutation-guard --config-path <config> --backup --planned-servers agentpress --json","python3 scripts/agentpress.py proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --json"]
+    commands=[install,"python3 scripts/agentpress.py doctor --json","python3 scripts/agentpress.py mcp-config-mutation-guard --config-path <config> --backup --planned-servers agentpress --json","python3 scripts/agentpress.py proof-capture --task first-run --evidence-dir /tmp/agentpress-proof --json"]
+    first_prompt="Use AgentPress to inspect the available entrypoints, run doctor, then create a proof bundle for this first run. Do not post externally or mutate MCP config without explicit human approval."
     findings=[]
     if status != "ready_for_paste": findings.append({"severity":"P1","message":"unsupported platform; use generic or one of cline,roo,claude,cursor,windsurf"})
-    payload={"schema_version":"2026-05-04.agentpress-first-user-bootstrap.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"platform":platform,"purpose":"Get a first agent user from zero to safe AgentPress install + MCP snippet + proof capture in one pack.","steps":[{"step":1,"name":"install","command":install},{"step":2,"name":"doctor","command":commands[1]},{"step":3,"name":"backup_and_guard_mcp_config","command":commands[2].replace('<config>',host_notes['config'])},{"step":4,"name":"paste_mcp_snippet","target":host_notes['where'],"snippet":mcp},{"step":5,"name":"restart_host","instruction":host_notes['restart']},{"step":6,"name":"capture_first_proof","command":commands[3]}],"mcp_snippet":mcp,"safety":{"no_secrets_required":True,"external_posts":False,"rollback":"Use backup_path/restore_command from mcp-config-mutation-guard output."},"acceptance_gates":["doctor ok","config backup created before mutation","MCP snippet is paste-only, not auto-applied","proof bundle created"],"finding_count":len(findings),"findings":findings}
+    payload={"schema_version":"2026-05-04.agentpress-first-user-bootstrap.v2","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"platform":platform,"purpose":"Get a first agent user from zero to safe AgentPress install + MCP snippet + proof capture in one pack.","first_run_workflow":{"user_goal":"Install safely, connect MCP by paste, verify locally, and leave shareable proof.","copy_paste_order":["install","doctor","backup_and_guard_mcp_config","paste_mcp_snippet","restart_host","capture_first_proof"],"agent_prompt":first_prompt,"success_looks_like":["doctor returns JSON without fatal findings","MCP config was backed up before changes","host reloads with an AgentPress server entry","proof-bundle.json and proof-card.md exist"],"if_blocked":["run package-registry-doctor with the install error","use generic platform when host-specific path is unknown","do not retry by disabling approval or secret guards"]},"steps":[{"step":1,"name":"install","command":install},{"step":2,"name":"doctor","command":commands[1]},{"step":3,"name":"backup_and_guard_mcp_config","command":commands[2].replace('<config>',host_notes['config'])},{"step":4,"name":"paste_mcp_snippet","target":host_notes['where'],"snippet":mcp},{"step":5,"name":"restart_host","instruction":host_notes['restart']},{"step":6,"name":"capture_first_proof","command":commands[3]}],"mcp_snippet":mcp,"safety":{"no_secrets_required":True,"external_posts":False,"rollback":"Use backup_path/restore_command from mcp-config-mutation-guard output."},"agent_affordances":[{"name":"proof_capture","why":"turns a first run into reviewable evidence","command":commands[3]},{"name":"sandbox_guard","why":"lets a user hand an agent a bounded workspace before exploration","command":"python3 scripts/agentpress.py sandbox-guard --scope read-only --paths . --json"},{"name":"handoff_pack","why":"lets one agent transfer context without losing constraints","command":"python3 scripts/agentpress.py handoff-pack --from current --to next --task first-run --json"}],"acceptance_gates":["doctor ok","config backup created before mutation","MCP snippet is paste-only, not auto-applied","proof bundle created","first_run_workflow present"],"finding_count":len(findings),"findings":findings}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+        md=["# AgentPress first-run card", "", "Status: `"+status+"`", "Platform: `"+platform+"`", "", "## Paste this agent prompt", "", first_prompt, "", "## Steps"]
+        for step in payload["steps"]:
+            md.append(f"- {step['step']}. {step['name']}: `{step.get('command') or step.get('instruction') or step.get('target')}`")
+        md += ["", "## Success looks like"] + ["- "+x for x in payload["first_run_workflow"]["success_looks_like"]] + ["", "## Safety", "- No secrets required", "- No external posts", "- Roll back with the guard backup/restore output"]
+        out.with_suffix('.md').write_text("\n".join(md)+"\n",encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else status)
     return 1 if args.strict and status!='ready_for_paste' else 0
-
 
 def first_run_wizard(args):
     """Detect host/provider/install state and emit the exact next command for a first agent user."""
@@ -4137,6 +4190,152 @@ def release_registry_readiness_dashboard(args):
         outdir.mkdir(parents=True,exist_ok=True); (outdir/"readiness.json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8"); (outdir/"index.html").write_text(html_doc,encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else payload["canonical_url"])
     return 0
+
+
+def release_candidate(args):
+    """Generate a 0.2.0-rc release-candidate checklist with all sprint features and deploy gates."""
+    out = pathlib.Path(args.out)
+    base = args.base_url.rstrip() + "/"
+    version = args.version or "0.2.0-rc"
+    sprint_features = [
+        {
+            "id": "first-user-bootstrap",
+            "command": "python3 scripts/agentpress.py first-user-bootstrap --platform cline --json",
+            "output_path": "agentpress/onboarding/first-user-bootstrap.json",
+            "acceptance_gates": ["status == ready_for_paste", "no_secrets_required == true", "rollback pointer present"],
+            "status": "implemented",
+        },
+        {
+            "id": "proof-capture",
+            "command": "python3 scripts/agentpress.py proof-capture --task-id test-001 --evidence-dir /tmp/proof --json",
+            "output_path": "sprint-proof/proof-bundle.json",
+            "acceptance_gates": ["proof-bundle.json written", "proof-card.md written", "SHA256s present", "secret_scan_status present"],
+            "status": "implemented",
+        },
+        {
+            "id": "sandbox-guard",
+            "command": "python3 scripts/agentpress.py sandbox-guard --scope read-only --paths ./src --json",
+            "output_path": "agentpress/security/sandbox-guard.json",
+            "acceptance_gates": ["JSON manifest written", "wrapper .sh written and chmod 755", "forbidden_markers list non-empty", "secret paths blocked"],
+            "status": "implemented",
+        },
+        {
+            "id": "adoption-tracker",
+            "command": "python3 scripts/agentpress.py adoption-tracker --period 7d --json",
+            "output_path": "agentpress/adoption/adoption-tracker.json",
+            "acceptance_gates": ["funnel dict present", "conversion rates computed", "privacy field = local files only"],
+            "status": "implemented",
+        },
+        {
+            "id": "handoff-pack",
+            "command": "python3 scripts/agentpress.py handoff-pack --from glm --to rflo --task-id mission-123 --json",
+            "output_path": "agentpress/handoffs/handoff-pack.json",
+            "acceptance_gates": ["JSON manifest written", "Markdown handoff card written", "acceptance_gates list non-empty"],
+            "status": "implemented",
+        },
+        {
+            "id": "batch-painpoints",
+            "command": "python3 scripts/agentpress.py batch-painpoints --input issues.json --output /tmp/outreach --json",
+            "output_path": "/tmp/outreach/batch-painpoints-summary.json",
+            "acceptance_gates": ["processed_count > 0", "per-target JSON written", "approval_required_for_all == true"],
+            "status": "implemented",
+        },
+        {
+            "id": "release-candidate",
+            "command": "python3 scripts/agentpress.py release-candidate --version 0.2.0-rc --json",
+            "output_path": "agentpress/releases/release-candidate.json",
+            "acceptance_gates": ["all sprint_features listed", "deploy_blocked == true", "gate_results present"],
+            "status": "implemented",
+        },
+    ]
+    integration_gates = [
+        {"gate": "py_compile", "command": "python3 -m py_compile scripts/agentpress.py", "required": True},
+        {"gate": "doctor", "command": "python3 scripts/agentpress.py doctor --json", "required": True},
+        {"gate": "schema_validate_all", "command": "python3 scripts/agentpress.py schema-validate-all --json", "required": True},
+        {"gate": "lint", "command": "python3 scripts/agentpress.py lint . --allow-warnings --json", "required": False},
+        {"gate": "docs_command_check", "command": "python3 scripts/agentpress.py docs-command-check --json", "required": False},
+        {"gate": "npm_pack_dry_run", "command": "npm pack --dry-run", "required": False},
+    ]
+    deploy_checklist = [
+        {"item": "All 7 sprint features implemented and locally verified", "done": False},
+        {"item": "Integration gates pass (py_compile + doctor at minimum)", "done": False},
+        {"item": "No secrets in any generated artifact (secret_scan_status clean)", "done": False},
+        {"item": "proof-bundle.json and proof-card.md generated for at least one test run", "done": False},
+        {"item": "sandbox-guard.sh present and executable", "done": False},
+        {"item": "RFLO/GLM review artifacts collected in shared/status/", "done": False},
+        {"item": "Release notes written (agentpress/releases/RELEASE-0.2.0-rc.md)", "done": False},
+        {"item": "Jake issues explicit deploy directive keyword before any public push/deploy", "done": False},
+    ]
+    payload = {
+        "schema_version": "2026-05-04.agentpress-release-candidate.v1",
+        "canonical_url": urljoin(base, out.as_posix()),
+        "generated_utc": _utc_now(),
+        "version": version,
+        "status": "rc_ready_pending_gates",
+        "deploy_blocked": True,
+        "deploy_unblock_requires": "Jake explicit directive keyword (e.g. SHIP IT or DEPLOY NOW)",
+        "sprint_features": sprint_features,
+        "feature_count": len(sprint_features),
+        "implemented_count": sum(1 for f in sprint_features if f["status"] == "implemented"),
+        "integration_gates": integration_gates,
+        "deploy_checklist": deploy_checklist,
+        "release_notes_path": "agentpress/releases/RELEASE-0.2.0-rc.md",
+        "evidence_dir": "shared/status/",
+        "safety": {
+            "no_auto_publish": True,
+            "no_external_posts": True,
+            "no_package_release": True,
+            "local_commits_ok": True,
+        },
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        release_notes = pathlib.Path("agentpress/releases/RELEASE-0.2.0-rc.md")
+        release_notes.parent.mkdir(parents=True, exist_ok=True)
+        lines = [
+            f"# AgentPress {version} — Release Notes",
+            "",
+            f"**Generated:** {_utc_now()}",
+            f"**Deploy status:** BLOCKED — requires Jake directive keyword",
+            "",
+            "## Sprint features (mission-20260504-053454-927a17)",
+            "",
+        ]
+        for f in sprint_features:
+            lines.append(f"### {f['id']}")
+            lines.append(f"- Command: `{f['command']}`")
+            lines.append(f"- Output: `{f['output_path']}`")
+            lines.append("- Acceptance gates:")
+            for g in f["acceptance_gates"]:
+                lines.append(f"  - [ ] {g}")
+            lines.append("")
+        lines += [
+            "## Integration gates",
+            "",
+        ]
+        for g in integration_gates:
+            req = "required" if g["required"] else "optional"
+            lines.append(f"- [ ] `{g['command']}` ({req})")
+        lines += [
+            "",
+            "## Deploy checklist",
+            "",
+        ]
+        for item in deploy_checklist:
+            lines.append(f"- [ ] {item['item']}")
+        lines += [
+            "",
+            "## Safety",
+            "",
+            "- No auto-publish, no external posts, no package release without Jake directive.",
+            "- All artifacts are local. Public deploy requires explicit keyword.",
+            "",
+        ]
+        release_notes.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0
+
 
 def package_registry_fallback_installer(args):
     """Generate a copy-paste AgentPress installer with npm, PyPI, git, and static fallbacks."""
@@ -7525,11 +7724,12 @@ def main():
     p = sub.add_parser("adoption-scoreboard"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/adoption/scoreboard"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("external-proof-inbox-review-flow"); p.add_argument("--inbox", default="agentpress/external-proofs/inbox"); p.add_argument("--out", default="agentpress/external-proofs/inbox-review-flow.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("release-registry-readiness-dashboard"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/releases/readiness-dashboard"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("proof-capture"); p.add_argument("--task-id", required=True); p.add_argument("--evidence-dir", required=True); p.add_argument("--artifacts", default=""); p.add_argument("--commands", default=""); p.add_argument("--summary", default=""); p.add_argument("--review-required", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("proof-capture"); p.add_argument("--task-id", "--task", dest="task_id", required=True); p.add_argument("--evidence-dir", required=True); p.add_argument("--artifacts", default=""); p.add_argument("--commands", default=""); p.add_argument("--summary", default=""); p.add_argument("--review-required", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("sandbox-guard"); p.add_argument("--scope", default="read-only"); p.add_argument("--paths", default="."); p.add_argument("--out", default="agentpress/security/sandbox-guard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("adoption-tracker"); p.add_argument("--period", default="7d"); p.add_argument("--root", default="agentpress"); p.add_argument("--out", default="agentpress/adoption/adoption-tracker.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("handoff-pack"); p.add_argument("--from", dest="from_agent", required=True); p.add_argument("--to", dest="to_agent", required=True); p.add_argument("--task-id", required=True); p.add_argument("--objective", default=""); p.add_argument("--constraints", default=""); p.add_argument("--evidence", default=""); p.add_argument("--acceptance", default=""); p.add_argument("--pending-actions", default=""); p.add_argument("--out", default="agentpress/handoffs/handoff-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("handoff-pack"); p.add_argument("--from", dest="from_agent", required=True); p.add_argument("--to", dest="to_agent", required=True); p.add_argument("--task-id", "--task", dest="task_id", required=True); p.add_argument("--objective", default=""); p.add_argument("--constraints", default=""); p.add_argument("--evidence", default=""); p.add_argument("--acceptance", default=""); p.add_argument("--pending-actions", default=""); p.add_argument("--out", default="agentpress/handoffs/handoff-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("batch-painpoints"); p.add_argument("--input", required=True); p.add_argument("--output", required=True); p.add_argument("--limit", default="25"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("release-candidate"); p.add_argument("--version", default="0.2.0-rc"); p.add_argument("--out", default="agentpress/releases/release-candidate.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-schema-serialization-check"); p.add_argument("--schema", default=""); p.add_argument("--out", default="agentpress/tools/tool-schema-serialization-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-issue-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/community-issue-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -7883,6 +8083,7 @@ def main():
     if args.cmd == "adoption-tracker": return adoption_tracker(args)
     if args.cmd == "handoff-pack": return handoff_pack(args)
     if args.cmd == "batch-painpoints": return batch_painpoints(args)
+    if args.cmd == "release-candidate": return release_candidate(args)
     if args.cmd == "tool-schema-serialization-check": return tool_schema_serialization_check(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
     if args.cmd == "unsolved-agent-problem-backlog": return unsolved_agent_problem_backlog(args)
