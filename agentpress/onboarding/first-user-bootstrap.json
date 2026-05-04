@@ -1,0 +1,81 @@
+{
+  "schema_version": "2026-05-04.agentpress-first-user-bootstrap.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/onboarding/first-user-bootstrap.json",
+  "generated_utc": "2026-05-04T05:37:08Z",
+  "status": "ready_for_paste",
+  "platform": "cline",
+  "purpose": "Get a first agent user from zero to safe AgentPress install + MCP snippet + proof capture in one pack.",
+  "steps": [
+    {
+      "step": 1,
+      "name": "install",
+      "command": "bash agentpress/install/install-agentpress.sh"
+    },
+    {
+      "step": 2,
+      "name": "doctor",
+      "command": "python3 scripts/agentpress.py doctor --json"
+    },
+    {
+      "step": 3,
+      "name": "backup_and_guard_mcp_config",
+      "command": "python3 scripts/agentpress.py mcp-config-mutation-guard --config-path cline_mcp_settings.json --backup --planned-servers agentpress --json"
+    },
+    {
+      "step": 4,
+      "name": "paste_mcp_snippet",
+      "target": "Cline MCP settings",
+      "snippet": {
+        "mcpServers": {
+          "agentpress": {
+            "command": "python3",
+            "args": [
+              "scripts/agentpress.py",
+              "mcp-catalog-export",
+              "--json"
+            ],
+            "approval_required": true,
+            "notes": "Run mcp-config-mutation-guard before applying."
+          }
+        }
+      }
+    },
+    {
+      "step": 5,
+      "name": "restart_host",
+      "instruction": "Reload Cline/VS Code after paste"
+    },
+    {
+      "step": 6,
+      "name": "capture_first_proof",
+      "command": "python3 scripts/agentpress.py proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --json"
+    }
+  ],
+  "mcp_snippet": {
+    "mcpServers": {
+      "agentpress": {
+        "command": "python3",
+        "args": [
+          "scripts/agentpress.py",
+          "mcp-catalog-export",
+          "--json"
+        ],
+        "approval_required": true,
+        "notes": "Run mcp-config-mutation-guard before applying."
+      }
+    }
+  },
+  "safety": {
+    "no_secrets_required": true,
+    "external_posts": false,
+    "rollback": "Use backup_path/restore_command from mcp-config-mutation-guard output."
+  },
+  "acceptance_gates": [
+    "doctor ok",
+    "config backup created before mutation",
+    "MCP snippet is paste-only, not auto-applied",
+    "proof bundle created"
+  ],
+  "finding_count": 0,
+  "findings": []
+}

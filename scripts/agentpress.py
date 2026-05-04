@@ -3883,6 +3883,32 @@ def package_registry_doctor(args):
 
 
 
+
+def first_user_bootstrap(args):
+    """Generate a first-user bootstrap pack for common agent hosts."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    platform=(args.platform or "cline").lower()
+    supported={"cline","roo","claude","cursor","windsurf","generic"}
+    status="ready_for_paste" if platform in supported else "unsupported_platform"
+    host_notes={
+        "cline":{"config":"cline_mcp_settings.json","where":"Cline MCP settings","restart":"Reload Cline/VS Code after paste"},
+        "roo":{"config":"cline_mcp_settings.json","where":"Roo Code MCP settings","restart":"Reload Roo/VS Code after paste"},
+        "claude":{"config":"claude_desktop_config.json","where":"Claude Desktop MCP config","restart":"Restart Claude Desktop"},
+        "cursor":{"config":"mcp.json","where":"Cursor MCP settings","restart":"Reload Cursor"},
+        "windsurf":{"config":"mcp_config.json","where":"Windsurf MCP settings","restart":"Reload Windsurf"},
+        "generic":{"config":"mcp.json","where":"your agent host MCP settings","restart":"Restart/reload host"},
+    }.get(platform, {"config":"mcp.json","where":"unknown","restart":"manual"})
+    install="bash agentpress/install/install-agentpress.sh"
+    mcp={"mcpServers":{"agentpress":{"command":"python3","args":["scripts/agentpress.py","mcp-catalog-export","--json"],"approval_required":True,"notes":"Run mcp-config-mutation-guard before applying."}}}
+    commands=[install,"python3 scripts/agentpress.py doctor --json","python3 scripts/agentpress.py mcp-config-mutation-guard --config-path <config> --backup --planned-servers agentpress --json","python3 scripts/agentpress.py proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --json"]
+    findings=[]
+    if status != "ready_for_paste": findings.append({"severity":"P1","message":"unsupported platform; use generic or one of cline,roo,claude,cursor,windsurf"})
+    payload={"schema_version":"2026-05-04.agentpress-first-user-bootstrap.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"platform":platform,"purpose":"Get a first agent user from zero to safe AgentPress install + MCP snippet + proof capture in one pack.","steps":[{"step":1,"name":"install","command":install},{"step":2,"name":"doctor","command":commands[1]},{"step":3,"name":"backup_and_guard_mcp_config","command":commands[2].replace('<config>',host_notes['config'])},{"step":4,"name":"paste_mcp_snippet","target":host_notes['where'],"snippet":mcp},{"step":5,"name":"restart_host","instruction":host_notes['restart']},{"step":6,"name":"capture_first_proof","command":commands[3]}],"mcp_snippet":mcp,"safety":{"no_secrets_required":True,"external_posts":False,"rollback":"Use backup_path/restore_command from mcp-config-mutation-guard output."},"acceptance_gates":["doctor ok","config backup created before mutation","MCP snippet is paste-only, not auto-applied","proof bundle created"],"finding_count":len(findings),"findings":findings}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else status)
+    return 1 if args.strict and status!='ready_for_paste' else 0
+
 def package_registry_fallback_installer(args):
     """Generate a copy-paste AgentPress installer with npm, PyPI, git, and static fallbacks."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
@@ -7264,6 +7290,7 @@ def main():
     p = sub.add_parser("context-compaction-risk-card"); p.add_argument("--out", default="agentpress/context/context-compaction-risk-card.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-doctor"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/diagnostics/package-registry-doctor.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-fallback-installer"); p.add_argument("--out", default="agentpress/install/install-agentpress.sh"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("first-user-bootstrap"); p.add_argument("--platform", default="cline"); p.add_argument("--out", default="agentpress/onboarding/first-user-bootstrap.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("tool-schema-serialization-check"); p.add_argument("--schema", default=""); p.add_argument("--out", default="agentpress/tools/tool-schema-serialization-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-issue-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/community-issue-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -7606,6 +7633,7 @@ def main():
     if args.cmd == "context-compaction-risk-card": return context_compaction_risk_card(args)
     if args.cmd == "package-registry-doctor": return package_registry_doctor(args)
     if args.cmd == "package-registry-fallback-installer": return package_registry_fallback_installer(args)
+    if args.cmd == "first-user-bootstrap": return first_user_bootstrap(args)
     if args.cmd == "tool-schema-serialization-check": return tool_schema_serialization_check(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
     if args.cmd == "unsolved-agent-problem-backlog": return unsolved_agent_problem_backlog(args)
