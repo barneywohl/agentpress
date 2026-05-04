@@ -3885,6 +3885,76 @@ def package_registry_doctor(args):
 
 
 
+
+def sandbox_guard(args):
+    """Generate a local sandbox boundary manifest and wrapper."""
+    out=pathlib.Path(args.out).expanduser(); base=args.base_url.rstrip()+"/"
+    paths=[str(pathlib.Path(x).expanduser()) for x in _csv_list(args.paths, [])]
+    forbidden=[".ssh",".gnupg","clawd_secrets","wallet","seed","private_key","id_rsa",".env"]
+    findings=[]
+    if args.scope not in ["read-only","read-write","full"]: findings.append({"severity":"P0","message":"invalid scope"})
+    for path in paths:
+        if any(token in path.lower() for token in forbidden): findings.append({"severity":"P0","path":path,"message":"path looks secret-sensitive; refuse default sandbox"})
+    wrapper=out.with_suffix('.sh')
+    wrapper_text = '#!/usr/bin/env bash\nset -euo pipefail\necho "AgentPress sandbox guard active" >&2\ncase "${1:-}" in\n  *clawd_secrets*|*.ssh*|*.gnupg*|*wallet*|*seed*|*.env*) echo "blocked sensitive path" >&2; exit 64;;\nesac\nexec "$@"\n'
+    payload={"schema_version":"2026-05-04.agentpress-sandbox-guard.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not findings else "fail_closed","scope":args.scope,"allowed_paths":paths,"forbidden_markers":forbidden,"wrapper_script":str(wrapper),"policy":{"default_deny_secrets":True,"external_effects_require_approval":True,"read_only_means_no_write_commands":args.scope=='read-only'},"finding_count":len(findings),"findings":findings}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8"); wrapper.write_text(wrapper_text,encoding="utf-8"); os.chmod(wrapper,0o755)
+    print(json.dumps(payload,indent=2) if args.json else payload['status']); return 1 if args.strict and payload['status']!='ok' else 0
+
+
+def adoption_tracker(args):
+    """Compute a privacy-safe local adoption funnel from receipt/proof files."""
+    root=pathlib.Path(args.root).expanduser(); out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    files=list(root.rglob('*.json')) if root.exists() else []
+    stages={"install_attempted":0,"doctor_ok":0,"proof_created":0,"outreach_ready":0,"external_reply":0,"issue_or_pr":0}; receipts=[]
+    for f in files[:5000]:
+        try: data=json.loads(f.read_text(encoding='utf-8'))
+        except Exception: continue
+        text=json.dumps(data).lower()
+        if 'install' in text: stages['install_attempted']+=1
+        if 'doctor' in text and 'ok' in text: stages['doctor_ok']+=1
+        if 'proof-bundle' in text or 'agentpress-proof-capture' in text: stages['proof_created']+=1
+        if 'ready_for_manual_approval' in text or 'approval_required' in text: stages['outreach_ready']+=1
+        if 'external_reply' in text or 'blocker_report' in text: stages['external_reply']+=1
+        if 'github.com' in text and ('pull' in text or 'issues' in text): stages['issue_or_pr']+=1
+        receipts.append(str(f))
+    ordered=list(stages.items()); conversion=[]
+    for (a,av),(b,bv) in zip(ordered,ordered[1:]): conversion.append({"from":a,"to":b,"rate":(bv/av if av else 0),"from_count":av,"to_count":bv})
+    payload={"schema_version":"2026-05-04.agentpress-adoption-tracker.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","period":args.period,"root":str(root),"funnel":stages,"conversion":conversion,"receipt_files_sample":receipts[:50],"privacy":"local files only; no IP/user-agent tracking"}
+    if not args.no_write: out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding='utf-8')
+    print(json.dumps(payload,indent=2) if args.json else 'ok'); return 0
+
+
+def handoff_pack(args):
+    """Package a task handoff between agents with evidence and acceptance gates."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; evidence=[x for x in _csv_list(args.evidence, [])]
+    payload={"schema_version":"2026-05-04.agentpress-handoff-pack.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ready","from_agent":args.from_agent,"to_agent":args.to_agent,"task_id":args.task_id,"objective":args.objective,"constraints":_csv_list(args.constraints, []),"evidence_paths":evidence,"acceptance_gates":_csv_list(args.acceptance, ["evidence artifact written","verification command passes","reviewer signs off"]),"pending_actions":_csv_list(args.pending_actions, []),"handoff_manifest":{"context":"read objective/constraints/evidence before acting","do_not":"claim completion without artifacts","review":"required if touching external effects or secrets"}}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding='utf-8'); out.with_suffix('.md').write_text("# Handoff " + args.task_id + "\n\nFrom: " + args.from_agent + "\nTo: " + args.to_agent + "\n\nObjective: " + args.objective + "\n",encoding='utf-8')
+    print(json.dumps(payload,indent=2) if args.json else 'ready'); return 0
+
+
+def batch_painpoints(args):
+    """Batch process public painpoints into manual-approval target packs."""
+    inp=pathlib.Path(args.input).expanduser(); outdir=pathlib.Path(args.output).expanduser(); base=args.base_url.rstrip()+"/"
+    try: rows=json.loads(inp.read_text(encoding='utf-8'))
+    except Exception: rows=[]
+    if isinstance(rows, dict): rows=rows.get('issues') or rows.get('painpoints') or []
+    outdir.mkdir(parents=True,exist_ok=True); processed=[]
+    for i,row in enumerate(rows[:int(args.limit)]):
+        if not isinstance(row, dict): continue
+        issue=row.get('issue_url') or row.get('url') or ''; pain=row.get('painpoint') or row.get('title') or row.get('error') or ''; host=row.get('host') or 'unknown_host'; provider=row.get('provider') or 'unknown_provider'; tool=row.get('tool') or 'unknown_tool'
+        target=outdir / ("painpoint-%03d.json" % (i+1))
+        class A: pass
+        a=A(); a.out=str(target); a.base_url=args.base_url; a.issue_url=issue; a.painpoint=pain; a.host=host; a.provider=provider; a.tool=tool; a.error=row.get('error',''); a.no_write=False; a.json=True; a.strict=False
+        import contextlib, io
+        with contextlib.redirect_stdout(io.StringIO()): painpoint_target_pack(a)
+        data=json.loads(target.read_text(encoding='utf-8')); processed.append({"path":str(target),"status":data.get('status'),"issue_url":issue,"matched_solution":(data.get('matched_solution') or {}).get('id')})
+    summary={"schema_version":"2026-05-04.agentpress-batch-painpoints.v1","canonical_url":urljoin(base,'agentpress/outreach/batch-painpoints-summary.json'),"generated_utc":_utc_now(),"status":"ok","processed_count":len(processed),"output_dir":str(outdir),"items":processed,"approval_required_for_all":True}
+    (outdir/'batch-painpoints-summary.json').write_text(json.dumps(summary,indent=2)+"\n",encoding='utf-8')
+    print(json.dumps(summary,indent=2) if args.json else str(len(processed))); return 0
+
 def proof_capture(args):
     """Capture a local proof bundle for an agent task/run."""
     evidence_dir=pathlib.Path(args.evidence_dir).expanduser()
@@ -7317,6 +7387,10 @@ def main():
     p = sub.add_parser("package-registry-fallback-installer"); p.add_argument("--out", default="agentpress/install/install-agentpress.sh"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("first-user-bootstrap"); p.add_argument("--platform", default="cline"); p.add_argument("--out", default="agentpress/onboarding/first-user-bootstrap.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("proof-capture"); p.add_argument("--task-id", required=True); p.add_argument("--evidence-dir", required=True); p.add_argument("--artifacts", default=""); p.add_argument("--commands", default=""); p.add_argument("--summary", default=""); p.add_argument("--review-required", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("sandbox-guard"); p.add_argument("--scope", default="read-only"); p.add_argument("--paths", default="."); p.add_argument("--out", default="agentpress/security/sandbox-guard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("adoption-tracker"); p.add_argument("--period", default="7d"); p.add_argument("--root", default="agentpress"); p.add_argument("--out", default="agentpress/adoption/adoption-tracker.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("handoff-pack"); p.add_argument("--from", dest="from_agent", required=True); p.add_argument("--to", dest="to_agent", required=True); p.add_argument("--task-id", required=True); p.add_argument("--objective", default=""); p.add_argument("--constraints", default=""); p.add_argument("--evidence", default=""); p.add_argument("--acceptance", default=""); p.add_argument("--pending-actions", default=""); p.add_argument("--out", default="agentpress/handoffs/handoff-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("batch-painpoints"); p.add_argument("--input", required=True); p.add_argument("--output", required=True); p.add_argument("--limit", default="25"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-schema-serialization-check"); p.add_argument("--schema", default=""); p.add_argument("--out", default="agentpress/tools/tool-schema-serialization-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-issue-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/community-issue-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -7661,6 +7735,10 @@ def main():
     if args.cmd == "package-registry-fallback-installer": return package_registry_fallback_installer(args)
     if args.cmd == "first-user-bootstrap": return first_user_bootstrap(args)
     if args.cmd == "proof-capture": return proof_capture(args)
+    if args.cmd == "sandbox-guard": return sandbox_guard(args)
+    if args.cmd == "adoption-tracker": return adoption_tracker(args)
+    if args.cmd == "handoff-pack": return handoff_pack(args)
+    if args.cmd == "batch-painpoints": return batch_painpoints(args)
     if args.cmd == "tool-schema-serialization-check": return tool_schema_serialization_check(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
     if args.cmd == "unsolved-agent-problem-backlog": return unsolved_agent_problem_backlog(args)

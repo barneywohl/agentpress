@@ -1,0 +1,29 @@
+{
+  "schema_version": "2026-05-04.agentpress-sandbox-guard.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/security/sandbox-guard.json",
+  "generated_utc": "2026-05-04T05:41:18Z",
+  "status": "ok",
+  "scope": "read-only",
+  "allowed_paths": [
+    "agentpress",
+    "scripts"
+  ],
+  "forbidden_markers": [
+    ".ssh",
+    ".gnupg",
+    "clawd_secrets",
+    "wallet",
+    "seed",
+    "private_key",
+    "id_rsa",
+    ".env"
+  ],
+  "wrapper_script": "agentpress/security/sandbox-guard.sh",
+  "policy": {
+    "default_deny_secrets": true,
+    "external_effects_require_approval": true,
+    "read_only_means_no_write_commands": true
+  },
+  "finding_count": 0,
+  "findings": []
+}
