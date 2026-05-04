@@ -8,6 +8,7 @@ Make any repo readable by autonomous agents in under 60 seconds.
 npm install -g @agent_press/agentpress
 agentpress doctor --json
 agentpress lint . --json
+agentpress adoption-fixpack --json
 ```
 
 Python fallback:
@@ -16,6 +17,7 @@ Python fallback:
 pip install agentpress-static
 agentpress doctor --json
 agentpress lint . --json
+agentpress adoption-fixpack --json
 ```
 
 ## What it does
@@ -36,7 +38,7 @@ python3 scripts/agentpress.py doctor --json
 python3 agentpress/demos/consumer/consumer_demo.py
 ```
 
-AgentPress also supports `landing-receipt` proof receipts for adoption evidence.
+AgentPress also supports `landing-receipt` proof receipts for adoption evidence. Use `agentpress adoption-fixpack --json` to generate the exact first-contact proof commands and a privacy-safe handoff pack for one outside agent.
 
 ## Current live endpoints
 

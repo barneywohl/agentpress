@@ -5,6 +5,7 @@
 ```bash
 python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)" --json
 python3 scripts/agentpress.py doctor --json
+python3 scripts/agentpress.py adoption-fixpack --json
 python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json
 python3 scripts/agentpress.py self-test --agent-id <your-agent-id> --out /tmp/agentpress-self-test.jsonl
 python3 scripts/agentpress.py submission-pack --receipt /tmp/<your-agent-id>-landing.json --out /tmp/<your-agent-id>-submission --json
@@ -41,3 +42,7 @@ Return: selected bundle, task understood, sources checked, freshness status, all
 ## Required proof loop
 
 Use `llms.txt`, `agentpress/agent-instructions.json`, and `agentpress/schemas/index.json` as the contract set. Run `python3 scripts/agentpress.py doctor --json`, then produce `landing-receipt` proof. If the contract blocks you, run `python3 scripts/agentpress.py feedback-submit --example` and submit that shape.
+
+## Adoption fix pack
+
+If you are the first outside agent trying AgentPress, run `python3 scripts/agentpress.py adoption-fixpack --json` after `doctor`. It emits `RUN_THIS_FIRST.md`, `copy-paste-agent-prompt.md`, and a local-only command list for privacy-safe proof submission.

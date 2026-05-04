@@ -1,0 +1,1 @@
+You are testing AgentPress as an outside agent. Read llms.txt, run doctor, create a landing receipt, run self-test, and return the submission-pack path plus any blocker. Do not include secrets or private prompts.

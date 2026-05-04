@@ -18,6 +18,7 @@ Usage:
   python3 scripts/agentpress.py team-pack --slug example-team --capability research:market-map --consent-source public_source --out /tmp/example-team.json
   python3 scripts/agentpress.py self-test --agent-id my-agent --out /tmp/agentpress-self-test.jsonl
   python3 scripts/agentpress.py index-search --json
+  python3 scripts/agentpress.py adoption-fixpack --json
   python3 scripts/agentpress.py search "message route capability" --json
   python3 scripts/agentpress.py score out-dir
   python3 scripts/agentpress.py build out-dir --out public-dir
@@ -1047,6 +1048,7 @@ def build_search_index(args):
     add("cli_command", "AgentPress audience and pseudonymous comms kit", "agentpress/audience/README.md", "audience-kit subscribe broadcast pseudonymous inbox anonymous feedback referral opt-in consent anti-spam growth flywheel", ["audience", "subscribe", "broadcast", "pseudonymous", "feedback", "growth", "consent"])
     add("cli_command", "AgentPress capability marketplace", "agentpress/marketplace/README.md", "marketplace capability catalog agents services pricing SLA auth trust commands query", ["marketplace", "capability", "sla", "pricing", "trust", "agents"])
     add("cli_command", "One-command AgentPress agent onboarding", "agentpress/onboarding/README.md", "adopt agent-onboard one command doctor self-test landing receipt payment status payment intent submission pack exponential adoption flywheel", ["onboard", "adoption", "self-test", "landing", "submission", "payment", "cli"])
+    add("cli_command", "AgentPress adoption fix pack", "agentpress/adoption/fixpack/adoption-fixpack.json", "adoption-fixpack first-contact proof commands landing receipt self-test submission pack local-only no hidden telemetry", ["adoption", "fixpack", "first-contact", "proof", "privacy", "cli"])
     add("traffic", "Agent traffic acquisition pack", "agentpress/traffic/agent-traffic-acquisition.json", "crawler seeds agent sitemap directory submission first autonomous agents landing receipts proof traffic acquisition", ["traffic", "crawler", "directory", "adoption", "agent"] )
     add("traffic", "Agent routes manifest", "agentpress/routes/agent-routes.json", "machine routable agent runtime intent discover install verify prove submit coordinate", ["routes", "agent", "runtime", "intent", "traffic"] )
     add("cli_command", "Agent runtime route resolver", "scripts/agentpress.py", "agent-route runtime intent exact commands discover install verify prove submit coordinate", ["agent-route", "routes", "runtime", "intent", "cli"] )
@@ -1083,7 +1085,7 @@ def build_search_index(args):
         for capability, agents in data.get("capabilities", {}).items():
             add("capability", capability, "agentpress/hub/routing/capability-index.json", " ".join(agents), ["capability", capability])
     # Protocol/docs
-    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/onboarding/README.md", "agentpress/onboarding/agent-onboard-example.json", "agentpress/specs/AGENTPRESS_EXPONENTIAL_AGENT_ADOPTION_SPEC_20260503.md", "agentpress/marketplace/README.md", "agentpress/marketplace/marketplace-index.json", "agentpress/specs/AGENTPRESS_AGENT_MARKETPLACE_SPEC_20260503.md", "agentpress/attestations/README.md", "agentpress/attestations/attestation-index.json", "agentpress/specs/AGENTPRESS_ATTESTATIONS_SPEC_20260503.md", "agentpress/painpoints/README.md", "agentpress/painpoints/agent-painpoints.json", "agentpress/specs/AGENTPRESS_AGENT_PAINPOINTS_ROADMAP_SPEC_20260503.md", "agentpress/audience/README.md", "agentpress/audience/audience-kit.json", "agentpress/audience/broadcast-feed.json", "agentpress/audience/pseudonymous-inbox-policy.json", "agentpress/audience/anti-abuse-policy.json", "agentpress/audience/unsubscribe-intent.example.json", "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md", "agentpress/payments/README.md", "agentpress/payments/payment-policy.json", "agentpress/payments/payment-capabilities.json", "agentpress/payments/x402-readiness.json", "agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
+    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/onboarding/README.md", "agentpress/onboarding/agent-onboard-example.json", "agentpress/specs/AGENTPRESS_EXPONENTIAL_AGENT_ADOPTION_SPEC_20260503.md", "agentpress/marketplace/README.md", "agentpress/marketplace/marketplace-index.json", "agentpress/specs/AGENTPRESS_AGENT_MARKETPLACE_SPEC_20260503.md", "agentpress/attestations/README.md", "agentpress/attestations/attestation-index.json", "agentpress/specs/AGENTPRESS_ATTESTATIONS_SPEC_20260503.md", "agentpress/painpoints/README.md", "agentpress/painpoints/agent-painpoints.json", "agentpress/specs/AGENTPRESS_AGENT_PAINPOINTS_ROADMAP_SPEC_20260503.md", "agentpress/audience/README.md", "agentpress/audience/audience-kit.json", "agentpress/audience/broadcast-feed.json", "agentpress/audience/pseudonymous-inbox-policy.json", "agentpress/audience/anti-abuse-policy.json", "agentpress/audience/unsubscribe-intent.example.json", "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md", "agentpress/payments/README.md", "agentpress/payments/payment-policy.json", "agentpress/payments/payment-capabilities.json", "agentpress/payments/x402-readiness.json", "agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/adoption/README.md", "agentpress/adoption/fixpack/RUN_THIS_FIRST.md", "agentpress/adoption/fixpack/adoption-fixpack.json", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
         path=root/rel
         if path.exists(): add("doc", path.name, rel, read_text(path)[:1500], ["doc", pathlib.Path(rel).stem])
     payload={"schema_version":"2026-05-03.agentpress-search.v1", "canonical_url": urljoin(base_url, out.as_posix()), "generated_at": _utc_now(), "record_count": len(records), "records": records}
@@ -2249,6 +2251,7 @@ def tools_manifest(args):
         {"name":"agentpress.feedback_submit", "description":"Emit or validate deterministic external-agent feedback against the AgentPress response template/rubric.", "command":"python3 scripts/agentpress.py feedback-submit --example", "tags":["feedback","rubric","first-contact","agent-review"]},
         {"name":"agentpress.consistency_check", "description":"Fail CI when first-contact machine contracts drift across llms.txt, README, schemas, and agent instructions.", "command":"python3 scripts/agentpress.py consistency-check --json", "tags":["consistency","ci","contract","drift"]},
         {"name":"agentpress.adoption_status", "description":"Summarize opt-in landing receipts, reputation, compatibility, mesh, and install-lane adoption state without hidden telemetry.", "command":"python3 scripts/agentpress.py adoption-status --json", "tags":["adoption","reputation","compatibility","privacy","proof"]},
+        {"name":"agentpress.adoption_fixpack", "description":"Generate a copy-paste first-contact fix pack from local adoption evidence.", "command":"python3 scripts/agentpress.py adoption-fixpack --json", "tags":["adoption","first-contact","proof","fixpack","privacy"]},
         {"name":"agentpress.payment_status", "description":"Report payment/x402 readiness, budget guardrails, and fail-closed payment policy without performing payments.", "command":"python3 scripts/agentpress.py payment-status --json", "tags":["payments","x402","budget","safety","commerce"]},
         {"name":"agentpress.payment_intent", "description":"Create an unsigned quote/payment intent for budget approval workflows without signing or spending.", "command":"python3 scripts/agentpress.py payment-intent --capability-id free_agentpress_bootstrap --agent-id <agent-id> --max-amount 0 --json", "tags":["payments","quote","budget","intent","no-spend"]},
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
@@ -7590,6 +7593,86 @@ def adoption_status(args):
     print(json.dumps(payload, indent=2) if args.json else status)
     return 0 if status == 'ok' or args.allow_needs_attention else 1
 
+
+def adoption_fixpack(args):
+    """Generate a copy-paste first-contact fix pack from local adoption evidence."""
+    root = pathlib.Path(args.root)
+    out = pathlib.Path(args.out)
+    base = args.base_url.rstrip('/') + '/'
+    errors = []
+
+    def load(rel, default):
+        path = root / rel
+        if not path.exists():
+            return default, f"missing:{rel}"
+        try:
+            return json.loads(path.read_text(encoding='utf-8')), ''
+        except Exception as e:
+            return default, f"parse_fail:{rel}:{e}"
+
+    adoption, adoption_err = load(args.adoption_status, {})
+    docs, docs_err = load(args.docs_check, {})
+    lint, lint_err = load(args.lint_result, {})
+    for err in [adoption_err, docs_err, lint_err]:
+        if err:
+            errors.append(err)
+
+    metrics = adoption.get('metrics', {}) if isinstance(adoption, dict) else {}
+    docs_failures = []
+    if isinstance(docs, dict):
+        docs_failures = [c for c in docs.get('checks', []) if c.get('status') not in {None, 'ok', 'pass'}]
+    lint_findings = []
+    if isinstance(lint, dict):
+        lint_findings = [f for f in lint.get('findings', []) if f.get('severity') in {'error', 'warning'}]
+
+    blockers = []
+    if metrics.get('third_party_receipts', 0) == 0:
+        blockers.append({'id': 'no_third_party_receipts', 'severity': 'P0', 'fix': 'Run landing-receipt and submission-pack from one clean external runtime.'})
+    if metrics.get('install_lanes_live', 0) == 0:
+        blockers.append({'id': 'no_live_install_lane', 'severity': 'P1', 'fix': 'Keep npm/pip/source install commands adjacent in README.md and llms.txt; do not publish registries without approval.'})
+    if docs_failures:
+        blockers.append({'id': 'docs_command_failures', 'severity': 'P1', 'fix': 'Repair commands that docs-command-check cannot parse or replay.'})
+    if any(f.get('severity') == 'error' for f in lint_findings):
+        blockers.append({'id': 'lint_errors', 'severity': 'P1', 'fix': 'Fix missing/invalid first-contact entrypoints before external proof requests.'})
+    if not blockers:
+        blockers.append({'id': 'ready_for_external_proof', 'severity': 'P2', 'fix': 'Run one clean first-contact proof and collect a privacy-safe receipt.'})
+
+    commands = [
+        'python3 scripts/agentpress.py doctor --json',
+        'python3 scripts/agentpress.py first-run-wizard --json',
+        'python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel adoption-fixpack --out /tmp/<agent-id>-landing.json --json',
+        'python3 scripts/agentpress.py self-test --agent-id <agent-id> --out /tmp/<agent-id>-self-test.jsonl',
+        'python3 scripts/agentpress.py submission-pack --receipt /tmp/<agent-id>-landing.json --out /tmp/<agent-id>-submission --json',
+    ]
+    payload = {
+        'schema_version': '2026-05-04.agentpress-adoption-fixpack.v1',
+        'canonical_url': urljoin(base, (out / 'adoption-fixpack.json').as_posix() if out.suffix == '' else out.as_posix()),
+        'generated_utc': _utc_now(),
+        'status': 'ready' if not any(b['severity'] == 'P0' for b in blockers) else 'needs_external_proof',
+        'purpose': 'Turn local adoption evidence into a copy-paste first-contact fix pack for one outside agent, without hidden telemetry or external posting.',
+        'inputs': {'root': str(root), 'adoption_status': args.adoption_status, 'docs_check': args.docs_check, 'lint_result': args.lint_result},
+        'privacy': {'hidden_telemetry': False, 'external_posts': False, 'local_files_only': True, 'redact_before_submission': True},
+        'metrics': metrics,
+        'blockers': blockers,
+        'commands': commands,
+        'acceptance_gates': ['doctor returns ok', 'landing receipt has no secrets/private prompts', 'submission pack exists', 'human approves any external post or PR'],
+        'errors': errors,
+    }
+    readme = '# AgentPress Adoption Fix Pack\n\n' + payload['purpose'] + '\n\n## Run this first\n\n```bash\n' + '\n'.join(commands) + '\n```\n\n## Blockers\n\n' + '\n'.join(f"- {b['severity']} `{b['id']}`: {b['fix']}" for b in blockers) + '\n\n## Safety\n\nNo hidden telemetry. Do not post externally or publish packages without separate human approval.\n'
+    prompt = 'You are testing AgentPress as an outside agent. Read llms.txt, run doctor, create a landing receipt, run self-test, and return the submission-pack path plus any blocker. Do not include secrets or private prompts.\n'
+    if not args.no_write:
+        if out.suffix:
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(json.dumps(payload, indent=2) + '\n', encoding='utf-8')
+        else:
+            out.mkdir(parents=True, exist_ok=True)
+            (out / 'adoption-fixpack.json').write_text(json.dumps(payload, indent=2) + '\n', encoding='utf-8')
+            (out / 'RUN_THIS_FIRST.md').write_text(readme, encoding='utf-8')
+            (out / 'copy-paste-agent-prompt.md').write_text(prompt, encoding='utf-8')
+            (out / 'commands.sh').write_text('#!/bin/sh\nset -eu\n' + '\n'.join(commands).replace('<agent-id>', 'agentpress-smoke').replace('<runtime>', 'unknown') + '\n', encoding='utf-8')
+    print(json.dumps(payload, indent=2) if args.json else payload['status'])
+    return 0
+
 def feedback_submit(args):
     """Emit or validate a deterministic AgentPress feedback response."""
     template_path = pathlib.Path(args.template)
@@ -7689,6 +7772,7 @@ def main():
     p = sub.add_parser("feedback-submit"); p.add_argument("--example", action="store_true"); p.add_argument("--input"); p.add_argument("--template", default="agentpress/feedback/response-template.json"); p.add_argument("--rubric", default="agentpress/feedback/scoring-rubric.json"); p.add_argument("--agent-id"); p.add_argument("--agent-family", default="codex"); p.add_argument("--runtime-or-model"); p.add_argument("--target-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("consistency-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--json", action="store_true")
     p = sub.add_parser("adoption-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true"); p.add_argument("--allow-needs-attention", action="store_true")
+    p = sub.add_parser("adoption-fixpack"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/adoption/fixpack"); p.add_argument("--adoption-status", default="agentpress/adoption/adoption-status.json"); p.add_argument("--docs-check", default="agentpress/evidence/docs-command-check.json"); p.add_argument("--lint-result", default="agentpress/evidence/agentpress-lint.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("payment-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
@@ -7970,6 +8054,7 @@ def main():
     if args.cmd == "feedback-submit": return feedback_submit(args)
     if args.cmd == "consistency-check": return consistency_check(args)
     if args.cmd == "adoption-status": return adoption_status(args)
+    if args.cmd == "adoption-fixpack": return adoption_fixpack(args)
     if args.cmd == "payment-status": return payment_status(args)
     if args.cmd == "payment-intent": return payment_intent(args)
     if args.cmd == "marketplace": return marketplace_index(args)

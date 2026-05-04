@@ -14,11 +14,13 @@ Status: **release candidate** — locally verified, pending CI gate + Jake go/no
 | `adoption-tracker` | `python3 scripts/agentpress.py adoption-tracker --period 7d --json` | `2026-05-04.agentpress-adoption-tracker.v1` |
 | `handoff-pack` | `python3 scripts/agentpress.py handoff-pack --from glm --to rflo --task-id <id> --json` | `2026-05-04.agentpress-handoff-pack.v1` |
 | `batch-painpoints` | `python3 scripts/agentpress.py batch-painpoints --input issues.json --output /tmp/out --json` | `2026-05-04.agentpress-batch-painpoints.v1` |
+| `adoption-fixpack` | `python3 scripts/agentpress.py adoption-fixpack --json` | `2026-05-04.agentpress-adoption-fixpack.v1` |
 
 ### Patch details (ruflo_sonnet_1 sprint lane — mission-20260504-053454-927a17)
 
 - **proof-capture v2**: Added `_scan_for_secrets()` that detects common secret patterns (sk-*, Bearer tokens, GH PATs, AWS AKIAs, PEM private keys) in all artifact files before bundling. Schema bumped to v2. `secret_scan_status` field added to result. `--strict` mode returns exit 1 if hits found.
 - **sandbox-guard v2**: Wrapper script now enforces `allowed_paths` allowlist in addition to forbidden-marker blocklist. Added `allowlist_enforced` to policy object. Schema bumped to v2.
+- **adoption-fixpack**: Added a local-only first-contact fix pack that turns adoption-status/docs/lint evidence into `RUN_THIS_FIRST.md`, `copy-paste-agent-prompt.md`, and copy-paste proof commands.
 - **Version bump**: Both `pyproject.toml` (0.2.0rc1) and `package.json` (0.2.0-rc.1) bumped from 0.1.0.
 
 ### Integration gate commands (run before deploy)
