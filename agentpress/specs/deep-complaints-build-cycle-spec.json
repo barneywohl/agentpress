@@ -1,0 +1,71 @@
+{
+  "schema_version": "2026-05-04.agentpress-deep-complaints-build-cycle-spec.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/specs/deep-complaints-build-cycle-spec.json",
+  "generated_utc": "2026-05-04T02:47:45Z",
+  "status": "ok",
+  "purpose": "Build plan from deeper public complaint scan.",
+  "research_summary": {
+    "sample_size": 48,
+    "top_categories": [
+      {
+        "category": "market_discussion",
+        "count": 31
+      },
+      {
+        "category": "tool_call_schema_mismatch",
+        "count": 24
+      },
+      {
+        "category": "approval_consent_security",
+        "count": 22
+      },
+      {
+        "category": "provider_model_compat",
+        "count": 12
+      },
+      {
+        "category": "file_path_data_safety",
+        "count": 11
+      },
+      {
+        "category": "state_checkpoint_memory",
+        "count": 9
+      },
+      {
+        "category": "docs_first_run",
+        "count": 9
+      },
+      {
+        "category": "runtime_hang_timeout",
+        "count": 6
+      }
+    ]
+  },
+  "shipped_in_this_local_cycle": [
+    "deep-agent-complaint-frequency",
+    "live-community-recheck-runner",
+    "live-missing-capabilities-radar",
+    "issue-to-repro-pack",
+    "mcp-config-mutation-guard",
+    "manual-outreach-approval-queue",
+    "reply-receipt-ingest-examples"
+  ],
+  "next_deploy_requires": "Jake directive keyword because this is an external public GitHub Pages write from Telegram.",
+  "next_builds_after_deploy": [
+    {
+      "priority": "P0",
+      "name": "CLI implementation for issue-to-repro validate/generate",
+      "why": "Static contract should become one-command repro pack."
+    },
+    {
+      "priority": "P0",
+      "name": "MCP config guard CLI preflight",
+      "why": "Cline issue shows concrete config mutation risk."
+    },
+    {
+      "priority": "P1",
+      "name": "Package registry fallback installer",
+      "why": "Install failures block first receipts."
+    }
+  ]
+}

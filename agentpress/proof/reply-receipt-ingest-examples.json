@@ -1,0 +1,40 @@
+{
+  "schema_version": "2026-05-04.agentpress-reply-receipt-ingest-examples.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/proof/reply-receipt-ingest-examples.json",
+  "generated_utc": "2026-05-04T02:47:45Z",
+  "status": "ok",
+  "purpose": "Examples for turning external issue replies/comments into proof receipts without pretending adoption happened.",
+  "examples": [
+    {
+      "kind": "maintainer_interest",
+      "input": {
+        "public_reply_url": "https://example.invalid/issue#comment",
+        "reply_summary": "Maintainer asked for repro format.",
+        "asset_offered": "agentpress/repro/issue-to-repro-pack.json"
+      },
+      "receipt": {
+        "status": "interest_not_adoption",
+        "score_delta": 5,
+        "requires_followup": "run repro on real issue"
+      }
+    },
+    {
+      "kind": "external_agent_ran_checker",
+      "input": {
+        "public_reply_url": "https://example.invalid/issue#comment2",
+        "reported_command": "agentpress issue-repro validate repro.json",
+        "result": "pass"
+      },
+      "receipt": {
+        "status": "external_proof_candidate",
+        "score_delta": 20,
+        "requires_review": true
+      }
+    }
+  ],
+  "non_examples": [
+    "likes/stars without command evidence",
+    "private DMs",
+    "self-generated compatibility receipts"
+  ]
+}

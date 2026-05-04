@@ -1,0 +1,38 @@
+{
+  "schema_version": "2026-05-04.agentpress-manual-outreach-approval-queue.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/outreach/manual-outreach-approval-queue.json",
+  "generated_utc": "2026-05-04T02:47:45Z",
+  "status": "ok",
+  "purpose": "Prepare high-relevance outreach candidates without posting automatically. Human approval required before any external write.",
+  "policy": {
+    "automation": "prepare_only",
+    "external_writes": "forbidden_without_human_keyword_or_explicit_approval",
+    "tone": "specific, helpful, one command/artifact, no spam"
+  },
+  "candidates": [
+    {
+      "target": "https://github.com/cline/cline/issues/9663",
+      "painpoint": "MCP config mutation/deleted settings",
+      "offer_asset": "agentpress/security/mcp-config-mutation-guard.json",
+      "draft": "I built a small static guard contract for MCP config mutation: backup hash + diff + restore proof before installers touch settings. If useful, I can adapt it to this issue format."
+    },
+    {
+      "target": "https://github.com/cline/cline/issues/10336",
+      "painpoint": "provider/host tool vocabulary mismatch",
+      "offer_asset": "agentpress/compatibility/provider-adapter-repro-pack.json",
+      "draft": "This looks like provider/host tool vocabulary drift. I have a repro-pack format that captures host runtime, provider, failing tool name, and expected dispatch contract in JSON."
+    },
+    {
+      "target": "https://github.com/cline/cline/issues/10534",
+      "painpoint": "tool calls fail with provider/model",
+      "offer_asset": "agentpress/repro/issue-to-repro-pack.json",
+      "draft": "For failing tool calls, this issue-to-repro pack turns the exact error + tool schema into a sanitized maintainer attachment without exposing private prompts."
+    },
+    {
+      "target": "https://github.com/cline/cline/issues/10499",
+      "painpoint": "MCP approval bypass risk",
+      "offer_asset": "agentpress/approvals/mcp-consent-manifest-validator.json",
+      "draft": "Approval boundary issues need fail-closed evidence. This consent manifest validator checks risky tool scopes and approval receipts before execution is considered safe."
+    }
+  ]
+}

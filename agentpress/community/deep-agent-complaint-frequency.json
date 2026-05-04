@@ -1,0 +1,670 @@
+{
+  "schema_version": "2026-05-04.agentpress-deep-agent-complaint-frequency.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/community/deep-agent-complaint-frequency.json",
+  "generated_utc": "2026-05-04T02:47:45Z",
+  "status": "ok",
+  "purpose": "Deeper current scan of public agent-builder complaints to decide what AgentPress should build next.",
+  "source_scan": "/tmp/agentpress_deep_current_agent_complaints_scan.json",
+  "research_scope": {
+    "github_repos": [
+      "cline/cline",
+      "RooVetGit/Roo-Code",
+      "All-Hands-AI/OpenHands",
+      "langchain-ai/langgraph",
+      "langchain-ai/langchain",
+      "run-llama/llama_index",
+      "modelcontextprotocol/python-sdk",
+      "modelcontextprotocol/typescript-sdk",
+      "crewAIInc/crewAI",
+      "microsoft/autogen"
+    ],
+    "hackernews_queries": [
+      "mcp security agent",
+      "cline agent coding",
+      "openhands agent",
+      "AI agent tool calling",
+      "MCP approval",
+      "agent browser terminal"
+    ],
+    "note": "GitHub API rate/repo availability limited some repositories; ranking uses current accessible public issue and HN samples plus prior deployed research artifacts."
+  },
+  "sample_size": 48,
+  "complaint_ranking": [
+    {
+      "category": "market_discussion",
+      "count": 31
+    },
+    {
+      "category": "tool_call_schema_mismatch",
+      "count": 24
+    },
+    {
+      "category": "approval_consent_security",
+      "count": 22
+    },
+    {
+      "category": "provider_model_compat",
+      "count": 12
+    },
+    {
+      "category": "file_path_data_safety",
+      "count": 11
+    },
+    {
+      "category": "state_checkpoint_memory",
+      "count": 9
+    },
+    {
+      "category": "docs_first_run",
+      "count": 9
+    },
+    {
+      "category": "runtime_hang_timeout",
+      "count": 6
+    },
+    {
+      "category": "mcp_install_config",
+      "count": 5
+    }
+  ],
+  "most_common_complaints": [
+    {
+      "rank": 1,
+      "category": "tool_call_schema_mismatch",
+      "agent_need": "A deterministic way to prove tool-call schema/argument/provider mismatch and attach a minimal failing call to an issue.",
+      "examples": [
+        {
+          "repo": "cline/cline",
+          "title": "Cline MCP installation deleted existing cline_mcp_settings.json",
+          "url": "https://github.com/cline/cline/issues/9663",
+          "updated_at": "2026-05-04T02:14:56Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "state_checkpoint_memory",
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  Cline v3.68.0  ### What happened?  <report_bug>   <title>Cline MCP installation deleted existing cline_mcp_settings.json</title>   <what_happened> I tried installing the \"mcp-atlassian\" MCP server (github.com/pashpashpash/mcp-atlassian) from the Cline marketplace / via Cline’s MCP setup flow.  During the "
+        },
+        {
+          "repo": "cline/cline",
+          "title": "3.82.0 tool calls fail with Deepseek v4-flash (Thinking)",
+          "url": "https://github.com/cline/cline/issues/10534",
+          "updated_at": "2026-05-04T00:19:38Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.82.0  ### Beta version  - [ ] I am using a beta version of Cline  ### What happened?  In most recent version **3.82.0** I got frequent errors:   > Cline tried to use search_files without value for required parameter \"regex\". Retrying...  Reverting to previous version **3.81.0** fixes the problem for me."
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Claude incorrectly recommended removing Prisma multiSchema   @@schema directives, causing \"public.tenants does not exist\" error and unnecessary token consumption",
+          "url": "https://github.com/cline/cline/issues/10533",
+          "updated_at": "2026-05-04T00:08:50Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "runtime_hang_timeout",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.82.0  ### Beta version  - [ ] I am using a beta version of Cline  ### What happened?  Claude (acting as a senior backend/DevOps engineer) incorrectly analyzed a Prisma multiSchema configuration issue. When asked about the `multiSchema` preview feature in `prisma/schema.prisma`, Claude proposed removing "
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Cline Kanban MiniMax provider config not synced across state/secrets; stale provider causes invalid API key errors",
+          "url": "https://github.com/cline/cline/issues/10520",
+          "updated_at": "2026-05-03T21:32:56Z",
+          "categories": [
+            "approval_consent_security",
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "runtime_hang_timeout",
+            "state_checkpoint_memory",
+            "provider_model_compat"
+          ],
+          "excerpt": "## Summary  Cline Kanban / standalone Cline CLI appears to persist provider configuration across multiple state stores inconsistently. After configuring MiniMax in the Kanban UI, tasks can still run with the previous provider, or run with MiniMax but fail because the runtime does not see the MiniMax key.  This looks like a state sync / stale runtime config i"
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Claude Code provider: model uses Cline tool vocabulary (execute_command) which Claude Code cannot dispatch",
+          "url": "https://github.com/cline/cline/issues/10336",
+          "updated_at": "2026-05-03T20:22:25Z",
+          "categories": [
+            "approval_consent_security",
+            "tool_call_schema_mismatch",
+            "runtime_hang_timeout",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.79.0  ### What happened?  When using the Claude Code provider, the model produces Cline-style tool calls (execute_command, read_file, etc.) because Cline's prompt format is forwarded verbatim to the Claude CLI. Claude Code's own tool executor does not recognise those tool names — it only knows Bash, Rea"
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "category": "approval_consent_security",
+      "agent_need": "Fail-closed manifests for MCP/tool side effects, approval evidence, and human-in-the-loop gates.",
+      "examples": [
+        {
+          "repo": "cline/cline",
+          "title": "Cline Kanban MiniMax provider config not synced across state/secrets; stale provider causes invalid API key errors",
+          "url": "https://github.com/cline/cline/issues/10520",
+          "updated_at": "2026-05-03T21:32:56Z",
+          "categories": [
+            "approval_consent_security",
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "runtime_hang_timeout",
+            "state_checkpoint_memory",
+            "provider_model_compat"
+          ],
+          "excerpt": "## Summary  Cline Kanban / standalone Cline CLI appears to persist provider configuration across multiple state stores inconsistently. After configuring MiniMax in the Kanban UI, tasks can still run with the previous provider, or run with MiniMax but fail because the runtime does not see the MiniMax key.  This looks like a state sync / stale runtime config i"
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Claude Code provider: model uses Cline tool vocabulary (execute_command) which Claude Code cannot dispatch",
+          "url": "https://github.com/cline/cline/issues/10336",
+          "updated_at": "2026-05-03T20:22:25Z",
+          "categories": [
+            "approval_consent_security",
+            "tool_call_schema_mismatch",
+            "runtime_hang_timeout",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.79.0  ### What happened?  When using the Claude Code provider, the model produces Cline-style tool calls (execute_command, read_file, etc.) because Cline's prompt format is forwarded verbatim to the Claude CLI. Claude Code's own tool executor does not recognise those tool names — it only knows Bash, Rea"
+        },
+        {
+          "repo": "langchain-ai/langgraph",
+          "title": "Add: Compliance-aware human-in-the-loop checkpoint example for regulated environments",
+          "url": "https://github.com/langchain-ai/langgraph/issues/7687",
+          "updated_at": "2026-05-03T05:55:57Z",
+          "categories": [
+            "approval_consent_security",
+            "state_checkpoint_memory",
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "**Gap:** None of the existing `examples/` cover regulated industry requirements — the current `human_in_the_loop/` example demonstrates interrupt/resume but has no compliance gates, risk classification, or audit logging.  **What this adds:** A self-contained example (`examples/compliance_checkpoint/`) for FCA/MiFID II/Basel III environments with: - 4-node pi"
+        },
+        {
+          "repo": "hackernews",
+          "title": "Show HN: Security Scanner for Agent Skills and MCP",
+          "url": "https://github.com/snyk/agent-scan",
+          "updated_at": "2026-05-03T18:10:38Z",
+          "categories": [
+            "market_discussion",
+            "approval_consent_security"
+          ],
+          "excerpt": ""
+        },
+        {
+          "repo": "hackernews",
+          "title": "Show HN: AgentPort – Open-source Security Gateway For Agents",
+          "url": "https://agentport.sh/",
+          "updated_at": "2026-04-29T16:33:38Z",
+          "categories": [
+            "market_discussion",
+            "approval_consent_security"
+          ],
+          "excerpt": "Hey HN!<p>I&#x27;ve been wanting to use something like OpenClaw for a while but couldn&#x27;t get myself to give it access to anything important due to all the risks involved. Prompt injection is still a problem (even though some people seem to ignore it) and so are hallucinations and mishaps that cause agents to do things like delete production data [1].<p>"
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "category": "provider_model_compat",
+      "agent_need": "Provider-host capability matrix that maps model features, unsupported tool vocabulary, and fallback prompts.",
+      "examples": [
+        {
+          "repo": "cline/cline",
+          "title": "sapaicore provide missing Claude 4.6 opus and 1 million token option",
+          "url": "https://github.com/cline/cline/issues/9644",
+          "updated_at": "2026-05-04T02:14:57Z",
+          "categories": [
+            "mcp_install_config",
+            "state_checkpoint_memory",
+            "provider_model_compat"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.69.0  ### What happened?  Hello,  Claude 4.6 opus is not available for SAP AI Core connector. The value is missing in the anthropicModels: [\t\tconst anthropicModels = [](https://github.com/cline/cline/blob/b5c0cc18d8c05b12d8f87b99cb4889e125a18eaa/src/core/api/providers/sapaicore.ts#L610)  It is also miss"
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Cline MCP installation deleted existing cline_mcp_settings.json",
+          "url": "https://github.com/cline/cline/issues/9663",
+          "updated_at": "2026-05-04T02:14:56Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "state_checkpoint_memory",
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  Cline v3.68.0  ### What happened?  <report_bug>   <title>Cline MCP installation deleted existing cline_mcp_settings.json</title>   <what_happened> I tried installing the \"mcp-atlassian\" MCP server (github.com/pashpashpash/mcp-atlassian) from the Cline marketplace / via Cline’s MCP setup flow.  During the "
+        },
+        {
+          "repo": "cline/cline",
+          "title": "3.82.0 tool calls fail with Deepseek v4-flash (Thinking)",
+          "url": "https://github.com/cline/cline/issues/10534",
+          "updated_at": "2026-05-04T00:19:38Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.82.0  ### Beta version  - [ ] I am using a beta version of Cline  ### What happened?  In most recent version **3.82.0** I got frequent errors:   > Cline tried to use search_files without value for required parameter \"regex\". Retrying...  Reverting to previous version **3.81.0** fixes the problem for me."
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Claude incorrectly recommended removing Prisma multiSchema   @@schema directives, causing \"public.tenants does not exist\" error and unnecessary token consumption",
+          "url": "https://github.com/cline/cline/issues/10533",
+          "updated_at": "2026-05-04T00:08:50Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "runtime_hang_timeout",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.82.0  ### Beta version  - [ ] I am using a beta version of Cline  ### What happened?  Claude (acting as a senior backend/DevOps engineer) incorrectly analyzed a Prisma multiSchema configuration issue. When asked about the `multiSchema` preview feature in `prisma/schema.prisma`, Claude proposed removing "
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Cline Kanban MiniMax provider config not synced across state/secrets; stale provider causes invalid API key errors",
+          "url": "https://github.com/cline/cline/issues/10520",
+          "updated_at": "2026-05-03T21:32:56Z",
+          "categories": [
+            "approval_consent_security",
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "runtime_hang_timeout",
+            "state_checkpoint_memory",
+            "provider_model_compat"
+          ],
+          "excerpt": "## Summary  Cline Kanban / standalone Cline CLI appears to persist provider configuration across multiple state stores inconsistently. After configuring MiniMax in the Kanban UI, tasks can still run with the previous provider, or run with MiniMax but fail because the runtime does not see the MiniMax key.  This looks like a state sync / stale runtime config i"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "category": "file_path_data_safety",
+      "agent_need": "Preflight scanner for path metadata, arbitrary file read/write risk, and publish-safe redaction.",
+      "examples": [
+        {
+          "repo": "cline/cline",
+          "title": "Cline MCP installation deleted existing cline_mcp_settings.json",
+          "url": "https://github.com/cline/cline/issues/9663",
+          "updated_at": "2026-05-04T02:14:56Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "state_checkpoint_memory",
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  Cline v3.68.0  ### What happened?  <report_bug>   <title>Cline MCP installation deleted existing cline_mcp_settings.json</title>   <what_happened> I tried installing the \"mcp-atlassian\" MCP server (github.com/pashpashpash/mcp-atlassian) from the Cline marketplace / via Cline’s MCP setup flow.  During the "
+        },
+        {
+          "repo": "cline/cline",
+          "title": "3.82.0 tool calls fail with Deepseek v4-flash (Thinking)",
+          "url": "https://github.com/cline/cline/issues/10534",
+          "updated_at": "2026-05-04T00:19:38Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.82.0  ### Beta version  - [ ] I am using a beta version of Cline  ### What happened?  In most recent version **3.82.0** I got frequent errors:   > Cline tried to use search_files without value for required parameter \"regex\". Retrying...  Reverting to previous version **3.81.0** fixes the problem for me."
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Claude incorrectly recommended removing Prisma multiSchema   @@schema directives, causing \"public.tenants does not exist\" error and unnecessary token consumption",
+          "url": "https://github.com/cline/cline/issues/10533",
+          "updated_at": "2026-05-04T00:08:50Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "runtime_hang_timeout",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.82.0  ### Beta version  - [ ] I am using a beta version of Cline  ### What happened?  Claude (acting as a senior backend/DevOps engineer) incorrectly analyzed a Prisma multiSchema configuration issue. When asked about the `multiSchema` preview feature in `prisma/schema.prisma`, Claude proposed removing "
+        },
+        {
+          "repo": "cline/cline",
+          "title": "OpenSpec workflows do not appear",
+          "url": "https://github.com/cline/cline/issues/10532",
+          "updated_at": "2026-05-03T21:14:56Z",
+          "categories": [
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.82.0  ### Beta version  - [ ] I am using a beta version of Cline  ### What happened?  Workspace workflows (particularly OpenSpec) are not available as slash commands until Rules & Workflows panel is opened  ### Steps to reproduce  1. Open a project with .clinerules/workflows/ containing .md files 2. Typ"
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Claude Code provider: model uses Cline tool vocabulary (execute_command) which Claude Code cannot dispatch",
+          "url": "https://github.com/cline/cline/issues/10336",
+          "updated_at": "2026-05-03T20:22:25Z",
+          "categories": [
+            "approval_consent_security",
+            "tool_call_schema_mismatch",
+            "runtime_hang_timeout",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.79.0  ### What happened?  When using the Claude Code provider, the model produces Cline-style tool calls (execute_command, read_file, etc.) because Cline's prompt format is forwarded verbatim to the Claude CLI. Claude Code's own tool executor does not recognise those tool names — it only knows Bash, Rea"
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "category": "state_checkpoint_memory",
+      "agent_need": "Checkpoint replay sanitizer that shows stale state/structured output drift across turns.",
+      "examples": [
+        {
+          "repo": "cline/cline",
+          "title": "sapaicore provide missing Claude 4.6 opus and 1 million token option",
+          "url": "https://github.com/cline/cline/issues/9644",
+          "updated_at": "2026-05-04T02:14:57Z",
+          "categories": [
+            "mcp_install_config",
+            "state_checkpoint_memory",
+            "provider_model_compat"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.69.0  ### What happened?  Hello,  Claude 4.6 opus is not available for SAP AI Core connector. The value is missing in the anthropicModels: [\t\tconst anthropicModels = [](https://github.com/cline/cline/blob/b5c0cc18d8c05b12d8f87b99cb4889e125a18eaa/src/core/api/providers/sapaicore.ts#L610)  It is also miss"
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Cline MCP installation deleted existing cline_mcp_settings.json",
+          "url": "https://github.com/cline/cline/issues/9663",
+          "updated_at": "2026-05-04T02:14:56Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "state_checkpoint_memory",
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  Cline v3.68.0  ### What happened?  <report_bug>   <title>Cline MCP installation deleted existing cline_mcp_settings.json</title>   <what_happened> I tried installing the \"mcp-atlassian\" MCP server (github.com/pashpashpash/mcp-atlassian) from the Cline marketplace / via Cline’s MCP setup flow.  During the "
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Cline Kanban MiniMax provider config not synced across state/secrets; stale provider causes invalid API key errors",
+          "url": "https://github.com/cline/cline/issues/10520",
+          "updated_at": "2026-05-03T21:32:56Z",
+          "categories": [
+            "approval_consent_security",
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "runtime_hang_timeout",
+            "state_checkpoint_memory",
+            "provider_model_compat"
+          ],
+          "excerpt": "## Summary  Cline Kanban / standalone Cline CLI appears to persist provider configuration across multiple state stores inconsistently. After configuring MiniMax in the Kanban UI, tasks can still run with the previous provider, or run with MiniMax but fail because the runtime does not see the MiniMax key.  This looks like a state sync / stale runtime config i"
+        },
+        {
+          "repo": "langchain-ai/langgraph",
+          "title": "draw_graph: TypeError sorting edges with None data from conditional edges",
+          "url": "https://github.com/langchain-ai/langgraph/issues/7691",
+          "updated_at": "2026-05-04T02:29:29Z",
+          "categories": [
+            "state_checkpoint_memory"
+          ],
+          "excerpt": "### Description  When a `StateGraph` has a node that returns `Command[Literal[...]]` AND also uses `add_conditional_edges` from the same node, calling `graph.get_graph()` fails with:  ``` TypeError: '<' not supported between instances of 'NoneType' and 'str' ```  The bug is in `libs/langgraph/langgraph/pregel/_draw.py` and exists in versions **1.1.10 through"
+        },
+        {
+          "repo": "langchain-ai/langgraph",
+          "title": "Long tool calls (~180s+) silently re-executed from checkpoint on LangGraph Cloud",
+          "url": "https://github.com/langchain-ai/langgraph/issues/7417",
+          "updated_at": "2026-05-04T02:29:29Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "runtime_hang_timeout",
+            "state_checkpoint_memory",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### Problem  When a tool call takes longer than ~3 minutes on LangGraph Cloud, it gets silently re-dispatched from the last checkpoint while the original is still running. Both the original and the duplicate complete successfully, resulting in 2-3x redundant work and cost.  We're using deepagents' `SubAgentMiddleware`, where the main agent dispatches sub-age"
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "category": "docs_first_run",
+      "agent_need": "First-run doctor that reports exact install/config failures before adoption churns.",
+      "examples": [
+        {
+          "repo": "cline/cline",
+          "title": "Cline MCP installation deleted existing cline_mcp_settings.json",
+          "url": "https://github.com/cline/cline/issues/9663",
+          "updated_at": "2026-05-04T02:14:56Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "state_checkpoint_memory",
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  Cline v3.68.0  ### What happened?  <report_bug>   <title>Cline MCP installation deleted existing cline_mcp_settings.json</title>   <what_happened> I tried installing the \"mcp-atlassian\" MCP server (github.com/pashpashpash/mcp-atlassian) from the Cline marketplace / via Cline’s MCP setup flow.  During the "
+        },
+        {
+          "repo": "cline/cline",
+          "title": "3.82.0 tool calls fail with Deepseek v4-flash (Thinking)",
+          "url": "https://github.com/cline/cline/issues/10534",
+          "updated_at": "2026-05-04T00:19:38Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.82.0  ### Beta version  - [ ] I am using a beta version of Cline  ### What happened?  In most recent version **3.82.0** I got frequent errors:   > Cline tried to use search_files without value for required parameter \"regex\". Retrying...  Reverting to previous version **3.81.0** fixes the problem for me."
+        },
+        {
+          "repo": "cline/cline",
+          "title": "OpenSpec workflows do not appear",
+          "url": "https://github.com/cline/cline/issues/10532",
+          "updated_at": "2026-05-03T21:14:56Z",
+          "categories": [
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.82.0  ### Beta version  - [ ] I am using a beta version of Cline  ### What happened?  Workspace workflows (particularly OpenSpec) are not available as slash commands until Rules & Workflows panel is opened  ### Steps to reproduce  1. Open a project with .clinerules/workflows/ containing .md files 2. Typ"
+        },
+        {
+          "repo": "langchain-ai/langgraph",
+          "title": "Feature Request: Driver abstraction for checkpoint-postgres: to build support for asyncpg and other adapters",
+          "url": "https://github.com/langchain-ai/langgraph/issues/7692",
+          "updated_at": "2026-05-03T07:51:23Z",
+          "categories": [
+            "mcp_install_config",
+            "state_checkpoint_memory",
+            "docs_first_run"
+          ],
+          "excerpt": "### Checked other resources  - [x] This is a bug, not a usage question. - [x] I added a clear and descriptive title that summarizes this issue. - [x] I used the GitHub search to find a similar question and didn't find it. - [x] I am sure that this is a bug in LangGraph rather than my code. - [x] The bug is not resolved by updating to the latest stable versio"
+        },
+        {
+          "repo": "langchain-ai/langgraph",
+          "title": "Sub Agent sends back to starting agent after handoff even if it is waiting on further responses to finish it task from user",
+          "url": "https://github.com/langchain-ai/langgraph/issues/6064",
+          "updated_at": "2026-05-03T07:05:03Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "state_checkpoint_memory",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Checked other resources  - [x] This is a bug, not a usage question. For questions, please use the LangChain Forum (https://forum.langchain.com/). - [x] I added a clear and detailed title that summarizes the issue. - [x] I read what a minimal reproducible example is (https://stackoverflow.com/help/minimal-reproducible-example). - [x] I included a self-con"
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "category": "runtime_hang_timeout",
+      "agent_need": "Runtime hang capsule with exit/callback/state evidence and maintainer-ready timeline.",
+      "examples": [
+        {
+          "repo": "cline/cline",
+          "title": "Claude incorrectly recommended removing Prisma multiSchema   @@schema directives, causing \"public.tenants does not exist\" error and unnecessary token consumption",
+          "url": "https://github.com/cline/cline/issues/10533",
+          "updated_at": "2026-05-04T00:08:50Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "runtime_hang_timeout",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.82.0  ### Beta version  - [ ] I am using a beta version of Cline  ### What happened?  Claude (acting as a senior backend/DevOps engineer) incorrectly analyzed a Prisma multiSchema configuration issue. When asked about the `multiSchema` preview feature in `prisma/schema.prisma`, Claude proposed removing "
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Cline Kanban MiniMax provider config not synced across state/secrets; stale provider causes invalid API key errors",
+          "url": "https://github.com/cline/cline/issues/10520",
+          "updated_at": "2026-05-03T21:32:56Z",
+          "categories": [
+            "approval_consent_security",
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "runtime_hang_timeout",
+            "state_checkpoint_memory",
+            "provider_model_compat"
+          ],
+          "excerpt": "## Summary  Cline Kanban / standalone Cline CLI appears to persist provider configuration across multiple state stores inconsistently. After configuring MiniMax in the Kanban UI, tasks can still run with the previous provider, or run with MiniMax but fail because the runtime does not see the MiniMax key.  This looks like a state sync / stale runtime config i"
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Claude Code provider: model uses Cline tool vocabulary (execute_command) which Claude Code cannot dispatch",
+          "url": "https://github.com/cline/cline/issues/10336",
+          "updated_at": "2026-05-03T20:22:25Z",
+          "categories": [
+            "approval_consent_security",
+            "tool_call_schema_mismatch",
+            "runtime_hang_timeout",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.79.0  ### What happened?  When using the Claude Code provider, the model produces Cline-style tool calls (execute_command, read_file, etc.) because Cline's prompt format is forwarded verbatim to the Claude CLI. Claude Code's own tool executor does not recognise those tool names — it only knows Bash, Rea"
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Azure + GPT-5 = NoGo?",
+          "url": "https://github.com/cline/cline/issues/5447",
+          "updated_at": "2026-04-29T09:48:41Z",
+          "categories": [
+            "runtime_hang_timeout",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### What happened?  Hello,  I saw that my Cline was updated this morning to allow GPT-5. It doesn't look like this made it into the Azure (`openai-compatible`) blade.   Have the dreaded: `temperature not allowed...` error.  <img width=\"551\" height=\"899\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/f6a15177-9f69-4f7e-a605-7720aaa86622\" />  From"
+        },
+        {
+          "repo": "langchain-ai/langgraph",
+          "title": "Long tool calls (~180s+) silently re-executed from checkpoint on LangGraph Cloud",
+          "url": "https://github.com/langchain-ai/langgraph/issues/7417",
+          "updated_at": "2026-05-04T02:29:29Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "runtime_hang_timeout",
+            "state_checkpoint_memory",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### Problem  When a tool call takes longer than ~3 minutes on LangGraph Cloud, it gets silently re-dispatched from the last checkpoint while the original is still running. Both the original and the duplicate complete successfully, resulting in 2-3x redundant work and cost.  We're using deepagents' `SubAgentMiddleware`, where the main agent dispatches sub-age"
+        }
+      ]
+    },
+    {
+      "rank": 8,
+      "category": "mcp_install_config",
+      "agent_need": "MCP config backup/diff/restore proof before installers mutate settings.",
+      "examples": [
+        {
+          "repo": "cline/cline",
+          "title": "sapaicore provide missing Claude 4.6 opus and 1 million token option",
+          "url": "https://github.com/cline/cline/issues/9644",
+          "updated_at": "2026-05-04T02:14:57Z",
+          "categories": [
+            "mcp_install_config",
+            "state_checkpoint_memory",
+            "provider_model_compat"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.69.0  ### What happened?  Hello,  Claude 4.6 opus is not available for SAP AI Core connector. The value is missing in the anthropicModels: [\t\tconst anthropicModels = [](https://github.com/cline/cline/blob/b5c0cc18d8c05b12d8f87b99cb4889e125a18eaa/src/core/api/providers/sapaicore.ts#L610)  It is also miss"
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Cline MCP installation deleted existing cline_mcp_settings.json",
+          "url": "https://github.com/cline/cline/issues/9663",
+          "updated_at": "2026-05-04T02:14:56Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "state_checkpoint_memory",
+            "provider_model_compat",
+            "file_path_data_safety",
+            "docs_first_run"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  Cline v3.68.0  ### What happened?  <report_bug>   <title>Cline MCP installation deleted existing cline_mcp_settings.json</title>   <what_happened> I tried installing the \"mcp-atlassian\" MCP server (github.com/pashpashpash/mcp-atlassian) from the Cline marketplace / via Cline’s MCP setup flow.  During the "
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Claude incorrectly recommended removing Prisma multiSchema   @@schema directives, causing \"public.tenants does not exist\" error and unnecessary token consumption",
+          "url": "https://github.com/cline/cline/issues/10533",
+          "updated_at": "2026-05-04T00:08:50Z",
+          "categories": [
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "runtime_hang_timeout",
+            "provider_model_compat",
+            "file_path_data_safety"
+          ],
+          "excerpt": "### Plugin Type  VSCode Extension  ### Cline Version  3.82.0  ### Beta version  - [ ] I am using a beta version of Cline  ### What happened?  Claude (acting as a senior backend/DevOps engineer) incorrectly analyzed a Prisma multiSchema configuration issue. When asked about the `multiSchema` preview feature in `prisma/schema.prisma`, Claude proposed removing "
+        },
+        {
+          "repo": "cline/cline",
+          "title": "Cline Kanban MiniMax provider config not synced across state/secrets; stale provider causes invalid API key errors",
+          "url": "https://github.com/cline/cline/issues/10520",
+          "updated_at": "2026-05-03T21:32:56Z",
+          "categories": [
+            "approval_consent_security",
+            "tool_call_schema_mismatch",
+            "mcp_install_config",
+            "runtime_hang_timeout",
+            "state_checkpoint_memory",
+            "provider_model_compat"
+          ],
+          "excerpt": "## Summary  Cline Kanban / standalone Cline CLI appears to persist provider configuration across multiple state stores inconsistently. After configuring MiniMax in the Kanban UI, tasks can still run with the previous provider, or run with MiniMax but fail because the runtime does not see the MiniMax key.  This looks like a state sync / stale runtime config i"
+        },
+        {
+          "repo": "langchain-ai/langgraph",
+          "title": "Feature Request: Driver abstraction for checkpoint-postgres: to build support for asyncpg and other adapters",
+          "url": "https://github.com/langchain-ai/langgraph/issues/7692",
+          "updated_at": "2026-05-03T07:51:23Z",
+          "categories": [
+            "mcp_install_config",
+            "state_checkpoint_memory",
+            "docs_first_run"
+          ],
+          "excerpt": "### Checked other resources  - [x] This is a bug, not a usage question. - [x] I added a clear and descriptive title that summarizes this issue. - [x] I used the GitHub search to find a similar question and didn't find it. - [x] I am sure that this is a bug in LangGraph rather than my code. - [x] The bug is not resolved by updating to the latest stable versio"
+        }
+      ]
+    }
+  ],
+  "decision": "Build issue-specific repro/approval/config proof kits, not another generic directory. Every outreach candidate should carry one runnable checker and one sanitized JSON receipt."
+}
