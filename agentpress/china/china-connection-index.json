@@ -1,0 +1,100 @@
+{
+  "schema_version": "2026-05-04.agentpress-china-connection-index.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/china/china-connection-index.json",
+  "generated_utc": "2026-05-04T03:50:29Z",
+  "status": "ok",
+  "purpose": "Single China-focused AgentPress connection entrypoint for agents that need non-GitHub-only fallback paths, localized docs, and mirror/probe instructions.",
+  "entrypoints": {
+    "primary_pages": "https://barneywohl.github.io/agentpress/",
+    "llms_zh_cn": "https://barneywohl.github.io/agentpress/llms.zh-CN.txt",
+    "raw_github_fallback": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
+    "jsdelivr_cdn_fallback": "https://cdn.jsdelivr.net/gh/barneywohl/agentpress@main/",
+    "github_release_offline_bundle": "https://github.com/barneywohl/agentpress/releases/tag/global-china-bottleneck-kit-20260504-f7cb86a"
+  },
+  "critical_assets": [
+    "llms.zh-CN.txt",
+    "agentpress/china/china-painpoint-radar.json",
+    "agentpress/china/china-deep-angle-radar.json",
+    "agentpress/china/china-mcp-preflight.json",
+    "agentpress/china/windows-npx-doctor-pack.json",
+    "agentpress/china/mcp-cli-bridge-pack.json",
+    "agentpress/china/china-container-mirror-pack.json",
+    "agentpress/china/qwen-deepseek-provider-profiles.json",
+    "agentpress/china/dify-coze-n8n-import-pack.json",
+    "agentpress/china/enterprise-collab-receipt-schema.json",
+    "agentpress/distribution/global-region-mirror-matrix.json",
+    "agentpress/evidence/region-health.json",
+    "agentpress/mirrors/gitee-mirror-pack.json",
+    "agentpress/mirrors/china-oss-cos-deploy-pack.json"
+  ],
+  "connection_modes": [
+    {
+      "mode": "online_primary",
+      "try_order": [
+        "github_pages",
+        "jsdelivr_cdn",
+        "raw_github_main"
+      ],
+      "command": "curl -fsSL https://barneywohl.github.io/agentpress/llms.zh-CN.txt"
+    },
+    {
+      "mode": "offline_release",
+      "try_order": [
+        "github_release_assets",
+        "any_mirrored_tarball"
+      ],
+      "command": "download agentpress-offline.tar.gz + agentpress-offline.tar.gz.sha256.json, then run package-verify"
+    },
+    {
+      "mode": "future_china_native_mirror",
+      "try_order": [
+        "gitee_pages",
+        "aliyun_oss",
+        "tencent_cos"
+      ],
+      "status": "ready_pending_owner_account"
+    }
+  ],
+  "china_specific_problem_map": [
+    {
+      "problem": "GitHub/GitHub Pages unstable",
+      "asset": "agentpress/distribution/global-region-mirror-matrix.json",
+      "fix": "try jsDelivr/release/offline tarball; deploy Gitee/OSS/COS when account exists"
+    },
+    {
+      "problem": "Windows Cline/Roo spawn npx ENOENT",
+      "asset": "agentpress/china/windows-npx-doctor-pack.json",
+      "fix": "check node/npm/npx paths, registry, VS Code terminal environment"
+    },
+    {
+      "problem": "MCP config mutation risk",
+      "asset": "agentpress/china/china-mcp-preflight.json",
+      "fix": "backup config, diff, restore, fail closed"
+    },
+    {
+      "problem": "MCP token/debug overhead",
+      "asset": "agentpress/china/mcp-cli-bridge-pack.json",
+      "fix": "MCP for contract, CLI --json for replay/debug"
+    },
+    {
+      "problem": "Docker/GHCR/Quay/K8s pull instability",
+      "asset": "agentpress/china/china-container-mirror-pack.json",
+      "fix": "pin digests, use mirror variables, support offline OCI tar"
+    },
+    {
+      "problem": "Qwen/DeepSeek provider compatibility",
+      "asset": "agentpress/china/qwen-deepseek-provider-profiles.json",
+      "fix": "run provider adapter/tool-call repro packs"
+    }
+  ],
+  "blocked_real_world_actions": [
+    "create Gitee/Alibaba/Tencent/Cloudflare accounts without owner credentials",
+    "publish npm/PyPI without registry tokens",
+    "post to Chinese communities without manual external-send approval"
+  ],
+  "next_unblocked_actions": [
+    "share this index with external China-region tester",
+    "collect region probe receipt",
+    "deploy owner-provided Gitee/OSS/COS mirror when credentials are available"
+  ]
+}
