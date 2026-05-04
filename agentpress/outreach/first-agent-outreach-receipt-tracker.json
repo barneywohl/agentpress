@@ -1,0 +1,54 @@
+{
+  "schema_version": "2026-05-03.agentpress-first-agent-outreach-receipt-tracker.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/outreach/first-agent-outreach-receipt-tracker.json",
+  "generated_utc": "2026-05-04T01:12:22Z",
+  "status": "ok",
+  "purpose": "Track targeted first-agent attention attempts and external receipts without spam or private data.",
+  "rules": [
+    "manual/approved outreach only",
+    "one relevant artifact per thread",
+    "no secrets/private prompts/user data",
+    "record blockers as useful receipts"
+  ],
+  "targets": [
+    {
+      "target_id": "cline-mcp-approval",
+      "place": "GitHub issue",
+      "painpoint": "approval boundary",
+      "asset": "agentpress/security/mcp-consent-manifest-validation.json",
+      "status": "ready_not_sent",
+      "receipt": null
+    },
+    {
+      "target_id": "cline-provider-adapter",
+      "place": "GitHub issue",
+      "painpoint": "tool vocabulary mismatch",
+      "asset": "agentpress/compatibility/provider-adapter-repro-pack.json",
+      "status": "ready_not_sent",
+      "receipt": null
+    },
+    {
+      "target_id": "langchain-checkpoint",
+      "place": "GitHub issue",
+      "painpoint": "stale structured_response checkpoint",
+      "asset": "agentpress/repro/checkpoint-replay-minimal-repro.json",
+      "status": "ready_not_sent",
+      "receipt": null
+    },
+    {
+      "target_id": "mcp-security-hn",
+      "place": "HN/Show HN replies",
+      "painpoint": "MCP tool-call security evidence",
+      "asset": "agentpress/security/mcp-consent-manifest-validation.json",
+      "status": "ready_not_sent",
+      "receipt": null
+    }
+  ],
+  "receipt_schema": {
+    "target_id": "string",
+    "sent_at": "ISO8601 or null",
+    "reply_url": "public URL or null",
+    "result": "accepted|blocked|no_reply|needs_fix",
+    "blocker": "string or null"
+  }
+}

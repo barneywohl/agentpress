@@ -1,0 +1,38 @@
+{
+  "schema_version": "2026-05-03.agentpress-continuous-research-build-cycle-audit.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/audits/continuous-research-build-cycle-audit.json",
+  "generated_utc": "2026-05-04T01:12:22Z",
+  "status": "ok",
+  "purpose": "After each next-build cycle, audit what shipped, what remains, and where research should continue.",
+  "shipped": {
+    "mcp_consent_manifest_validator": true,
+    "provider_adapter_repro_pack": true,
+    "checkpoint_replay_minimal_repro_generator": true,
+    "runtime_hang_repro_capsule": true,
+    "first_agent_outreach_receipt_tracker": true
+  },
+  "gaps": [],
+  "next_builds": [
+    {
+      "name": "rag-tool-safety-bundle",
+      "why": "LlamaIndex file-path/tool-schema pain remains attention-worthy",
+      "priority": "P1"
+    },
+    {
+      "name": "external-reply-to-proof-ingest-bridge",
+      "why": "adoption stays zero until replies/blockers become receipts",
+      "priority": "P1"
+    },
+    {
+      "name": "agentpress-issue-comment-pack-generator",
+      "why": "first-agent attention needs per-issue exact commands/snippets",
+      "priority": "P2"
+    }
+  ],
+  "assumption_tests": [
+    "Do public issue URLs still represent active pain?",
+    "Do shipped artifacts produce one-command evidence?",
+    "Does outreach remain manual/non-spam?",
+    "Do validation gates pass locally and on Pages?"
+  ]
+}

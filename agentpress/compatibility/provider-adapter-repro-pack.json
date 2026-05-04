@@ -1,0 +1,46 @@
+{
+  "schema_version": "2026-05-03.agentpress-provider-adapter-repro-pack.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/compatibility/provider-adapter-repro-pack.json",
+  "generated_utc": "2026-05-04T01:12:22Z",
+  "status": "ok",
+  "host": "cline",
+  "provider": "claude_code",
+  "purpose": "Convert provider/tool vocabulary mismatch into a maintainer-ready repro plus adapter map.",
+  "evidence_urls": [
+    "https://github.com/cline/cline/issues/10336",
+    "https://github.com/cline/cline/issues/9920"
+  ],
+  "tool_rows": [
+    {
+      "host_tool": "execute_command",
+      "provider_tool": "bash",
+      "status": "mapped",
+      "example_failure": null
+    },
+    {
+      "host_tool": "write_to_file",
+      "provider_tool": "write_file",
+      "status": "mapped",
+      "example_failure": null
+    },
+    {
+      "host_tool": "replace_in_file",
+      "provider_tool": "edit_file",
+      "status": "mapped",
+      "example_failure": null
+    }
+  ],
+  "adapter_contract": {
+    "input": "host_tool_call",
+    "transform": "map host tool to provider-native tool or fail closed if unknown",
+    "output": "provider_tool_call",
+    "unknown_policy": "do_not_infer; request provider manifest"
+  },
+  "minimal_repro_steps": [
+    "Configure host/provider pair",
+    "Ask model to run a shell/write/edit action",
+    "Capture emitted host tool name",
+    "Compare against provider dispatch vocabulary",
+    "Attach this pack with unmapped rows"
+  ]
+}

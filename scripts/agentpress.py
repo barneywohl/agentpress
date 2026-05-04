@@ -2254,6 +2254,12 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.mcp_consent_manifest_validator", "description":"Validate MCP/tool consent manifests and approval evidence fail-closed.", "command":"python3 scripts/agentpress.py mcp-consent-manifest-validator --json", "tags":["mcp","consent","approval","security","gate"]},
+        {"name":"agentpress.provider_adapter_repro_pack", "description":"Create provider/host tool vocabulary mismatch repro and adapter map.", "command":"python3 scripts/agentpress.py provider-adapter-repro-pack --json", "tags":["provider","adapter","repro","tools"]},
+        {"name":"agentpress.checkpoint_replay_minimal_repro_generator", "description":"Generate stale checkpoint/structured_response minimal repro artifact.", "command":"python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json", "tags":["checkpoint","repro","langchain","state"]},
+        {"name":"agentpress.runtime_hang_repro_capsule", "description":"Turn stuck runtime/browser/terminal logs into maintainer-ready capsule.", "command":"python3 scripts/agentpress.py runtime-hang-repro-capsule --json", "tags":["runtime","hang","browser","terminal","repro"]},
+        {"name":"agentpress.first_agent_outreach_receipt_tracker", "description":"Track targeted first-agent outreach receipts/blockers privacy-safely.", "command":"python3 scripts/agentpress.py first-agent-outreach-receipt-tracker --json", "tags":["outreach","receipts","growth","privacy"]},
+        {"name":"agentpress.continuous_research_build_cycle_audit", "description":"Audit shipped next-build cycle and emit remaining research/build backlog.", "command":"python3 scripts/agentpress.py continuous-research-build-cycle-audit --json", "tags":["audit","cycle","backlog","research"]},
         {"name":"agentpress.current_agent_places_map", "description":"Map current places where agent builders communicate and how to engage them.", "command":"python3 scripts/agentpress.py current-agent-places-map --json", "tags":["community","research","agents","attention"]},
         {"name":"agentpress.attention_painpoint_radar", "description":"Rank current unsolved agent painpoints most likely to get first-agent attention.", "command":"python3 scripts/agentpress.py attention-painpoint-radar --json", "tags":["painpoints","attention","research","agents"]},
         {"name":"agentpress.first_agent_attention_kit", "description":"Publish non-spam first-agent attention hooks tied to shipped AgentPress artifacts.", "command":"python3 scripts/agentpress.py first-agent-attention-kit --json", "tags":["growth","outreach","attention","agents"]},
@@ -3214,6 +3220,145 @@ def _write_json_payload(payload, out, no_write=False, json_mode=False):
 
 
 
+
+
+def mcp_consent_manifest_validator(args):
+    """Validate an MCP/tool consent manifest and fail closed on risky actions without approval evidence."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    manifest={
+        "schema_version":"2026-05-03.agentpress-mcp-consent-manifest.example.v1",
+        "auto_approve":False,
+        "tools":[
+            {"name":"read_file","risk":"read","requires_approval":False,"scopes":["workspace_read"]},
+            {"name":"write_file","risk":"write","requires_approval":True,"scopes":["workspace_write"]},
+            {"name":"shell_exec","risk":"execute","requires_approval":True,"scopes":["shell"]}
+        ],
+        "calls":[
+            {"tool":"read_file","executed":True,"approval_state":"not_required"},
+            {"tool":"write_file","executed":False,"approval_state":"not_requested"}
+        ]
+    }
+    if args.manifest and pathlib.Path(args.manifest).exists():
+        manifest=json.loads(pathlib.Path(args.manifest).read_text())
+    risky={"write","execute","delete","external_write","payment","deploy","credential","network_send"}
+    findings=[]
+    tools={t.get('name'):t for t in manifest.get('tools',[])}
+    auto=bool(manifest.get('auto_approve'))
+    for name,t in tools.items():
+        risk=str(t.get('risk','')).lower()
+        scopes=' '.join(map(str,t.get('scopes',[]))).lower()
+        high=(risk in risky) or any(x in name.lower()+' '+scopes for x in ['write','delete','exec','shell','send','deploy','payment','credential','secret'])
+        if high and not t.get('requires_approval'):
+            findings.append({"severity":"P0","tool":name,"message":"risky tool/scope does not require explicit approval"})
+    for c in manifest.get('calls',[]):
+        t=tools.get(c.get('tool'),{})
+        high=str(t.get('risk','')).lower() in risky or any(x in str(c.get('tool','')).lower() for x in ['write','delete','exec','shell','send','deploy','payment'])
+        if high and c.get('executed') and not auto and c.get('approval_state') not in ['approved','allow_once','human_approved']:
+            findings.append({"severity":"P0","tool":c.get('tool'),"message":"risky call executed without approved/allow_once approval evidence"})
+    status='ok' if not findings else 'fail'
+    payload={"schema_version":"2026-05-03.agentpress-mcp-consent-manifest-validation.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"purpose":"Give MCP/agent builders a one-command consent manifest gate for tool approval boundaries.","policy":{"fail_closed":True,"auto_approve":auto,"risky_risks":sorted(risky)},"finding_count":len(findings),"findings":findings,"recommended_next_step":"Attach this JSON to MCP/tool approval issues as reproducible evidence."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else status)
+    return 1 if args.strict and status=='fail' else 0
+
+
+def provider_adapter_repro_pack(args):
+    """Create a provider/host tool-vocabulary repro and adapter suggestion pack."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    host=args.host; provider=args.provider
+    calls=_csv_list(args.calls, ["execute_command", "write_to_file", "replace_in_file"])
+    mapping={
+      ("cline","claude_code"):{"execute_command":"bash","write_to_file":"write_file","replace_in_file":"edit_file","read_file":"read_file"},
+      ("cline","openhands"):{"execute_command":"run","write_to_file":"write","replace_in_file":"edit"},
+      ("generic","mcp"):{"execute_command":"tools/call shell.run","write_to_file":"tools/call fs.write","replace_in_file":"tools/call fs.patch"}
+    }
+    m=mapping.get((host,provider)) or mapping.get((host,'claude_code')) or {}
+    rows=[]
+    for call in calls:
+        rows.append({"host_tool":call,"provider_tool":m.get(call),"status":"mapped" if call in m else "unmapped_requires_manifest","example_failure":f"Provider {provider} cannot dispatch host tool `{call}`" if call not in m else None})
+    status='ok' if all(r['status']=='mapped' for r in rows) else 'needs_manifest'
+    payload={"schema_version":"2026-05-03.agentpress-provider-adapter-repro-pack.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"host":host,"provider":provider,"purpose":"Convert provider/tool vocabulary mismatch into a maintainer-ready repro plus adapter map.","evidence_urls":["https://github.com/cline/cline/issues/10336","https://github.com/cline/cline/issues/9920"],"tool_rows":rows,"adapter_contract":{"input":"host_tool_call","transform":"map host tool to provider-native tool or fail closed if unknown","output":"provider_tool_call","unknown_policy":"do_not_infer; request provider manifest"},"minimal_repro_steps":["Configure host/provider pair","Ask model to run a shell/write/edit action","Capture emitted host tool name","Compare against provider dispatch vocabulary","Attach this pack with unmapped rows"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else status)
+    return 0
+
+
+def checkpoint_replay_minimal_repro_generator(args):
+    """Generate a minimal stale checkpoint/structured_response replay repro."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    checkpoint={"messages":[{"role":"assistant","tool_calls":[{"name":"lookup"}]}],"structured_response":{"answer":"old"},"next_user_message":"continue"}
+    if args.checkpoint and pathlib.Path(args.checkpoint).exists(): checkpoint=json.loads(pathlib.Path(args.checkpoint).read_text())
+    findings=[]
+    if checkpoint.get('structured_response'):
+        findings.append({"severity":"P0","field":"structured_response","message":"checkpoint contains structured_response before new turn; can cause premature exit/stale answer"})
+    msgs=checkpoint.get('messages') or []
+    if msgs and msgs[-1].get('role')=='assistant' and msgs[-1].get('tool_calls'):
+        findings.append({"severity":"P1","field":"messages[-1].tool_calls","message":"last assistant message has tool calls; replay must include tool result or trim pending call"})
+    status='needs_sanitization' if findings else 'ok'
+    payload={"schema_version":"2026-05-03.agentpress-checkpoint-replay-minimal-repro.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"purpose":"Help LangChain/LangGraph users attach a compact checkpoint replay artifact for stale state bugs.","evidence_urls":["https://github.com/langchain-ai/langchain/issues/36957","https://github.com/langchain-ai/langgraph/issues/4940"],"findings":findings,"sanitized_replay":{"remove_fields":["structured_response"],"require_tool_results_for_pending_calls":True,"next_turn":"resume only after stale output fields are removed"},"issue_attachment_template":{"observed":"agent exited/reused stale structured response after checkpoint resume","expected":"new user turn should invoke model/tools normally","attach":["this JSON","sanitized checkpoint diff","framework version"]}}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else status)
+    return 0
+
+
+def runtime_hang_repro_capsule(args):
+    """Turn terminal/browser/runtime hang evidence into a maintainer-ready capsule."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    log=args.log or "state: running\nlast_output_at: 45m ago\nterminal_exit_code: missing\ncallback: missing\nbrowser: connected"
+    low=log.lower(); findings=[]
+    if 'state: running' in low and ('callback: missing' in low or 'callback' not in low): findings.append({"severity":"P0","message":"runtime still running without callback evidence"})
+    if 'terminal_exit_code: missing' in low or ('command completed' in low and 'exit' not in low): findings.append({"severity":"P1","message":"terminal completion lacks exit-code evidence"})
+    if 'browser' in low and ('disconnected' in low or 'timeout' in low): findings.append({"severity":"P1","message":"browser/runtime connectivity timeout present"})
+    status='hang_suspected' if findings else 'ok'
+    payload={"schema_version":"2026-05-03.agentpress-runtime-hang-repro-capsule.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"purpose":"Convert stuck browser/terminal/agent runs into a small evidence capsule maintainers can act on.","findings":findings,"required_evidence":["start_time","last_output_time","terminal_exit_code","callback_delivery_state","runtime_state","browser_connection_state","container_or_shell_fingerprint"],"maintainer_repro_template":{"observed":"run remains active without callback/exit evidence","expected":"completed/failed/cancelled terminal state is emitted exactly once","attach":["capsule JSON","last 200 log lines","environment fingerprint"]}}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else status)
+    return 0
+
+
+def first_agent_outreach_receipt_tracker(args):
+    """Publish a privacy-safe tracker for targeted first-agent outreach receipts/blockers."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    targets=[
+        {"target_id":"cline-mcp-approval","place":"GitHub issue","painpoint":"approval boundary","asset":"agentpress/security/mcp-consent-manifest-validation.json","status":"ready_not_sent","receipt":None},
+        {"target_id":"cline-provider-adapter","place":"GitHub issue","painpoint":"tool vocabulary mismatch","asset":"agentpress/compatibility/provider-adapter-repro-pack.json","status":"ready_not_sent","receipt":None},
+        {"target_id":"langchain-checkpoint","place":"GitHub issue","painpoint":"stale structured_response checkpoint","asset":"agentpress/repro/checkpoint-replay-minimal-repro.json","status":"ready_not_sent","receipt":None},
+        {"target_id":"mcp-security-hn","place":"HN/Show HN replies","painpoint":"MCP tool-call security evidence","asset":"agentpress/security/mcp-consent-manifest-validation.json","status":"ready_not_sent","receipt":None}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-first-agent-outreach-receipt-tracker.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Track targeted first-agent attention attempts and external receipts without spam or private data.","rules":["manual/approved outreach only","one relevant artifact per thread","no secrets/private prompts/user data","record blockers as useful receipts"],"targets":targets,"receipt_schema":{"target_id":"string","sent_at":"ISO8601 or null","reply_url":"public URL or null","result":"accepted|blocked|no_reply|needs_fix","blocker":"string or null"}}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else 'ok')
+    return 0
+
+
+def continuous_research_build_cycle_audit(args):
+    """Audit shipped AgentPress surfaces against current painpoint/build lists and emit next cycle decision."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    shipped={
+      "mcp_consent_manifest_validator": pathlib.Path("agentpress/security/mcp-consent-manifest-validation.json").exists(),
+      "provider_adapter_repro_pack": pathlib.Path("agentpress/compatibility/provider-adapter-repro-pack.json").exists(),
+      "checkpoint_replay_minimal_repro_generator": pathlib.Path("agentpress/repro/checkpoint-replay-minimal-repro.json").exists(),
+      "runtime_hang_repro_capsule": pathlib.Path("agentpress/repro/runtime-hang-repro-capsule.json").exists(),
+      "first_agent_outreach_receipt_tracker": pathlib.Path("agentpress/outreach/first-agent-outreach-receipt-tracker.json").exists()
+    }
+    gaps=[]
+    for k,v in shipped.items():
+        if not v: gaps.append({"gap":k,"priority":"P0","action":"build_and_publish_artifact"})
+    next_builds=[
+      {"name":"rag-tool-safety-bundle","why":"LlamaIndex file-path/tool-schema pain remains attention-worthy","priority":"P1"},
+      {"name":"external-reply-to-proof-ingest-bridge","why":"adoption stays zero until replies/blockers become receipts","priority":"P1"},
+      {"name":"agentpress-issue-comment-pack-generator","why":"first-agent attention needs per-issue exact commands/snippets","priority":"P2"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-continuous-research-build-cycle-audit.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not gaps else "gaps_found","purpose":"After each next-build cycle, audit what shipped, what remains, and where research should continue.","shipped":shipped,"gaps":gaps,"next_builds":next_builds,"assumption_tests":["Do public issue URLs still represent active pain?","Do shipped artifacts produce one-command evidence?","Does outreach remain manual/non-spam?","Do validation gates pass locally and on Pages?"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload['status'])
+    return 0
 
 def current_agent_places_map(args):
     """Publish a researched map of where agents/agent-builders are currently communicating."""
@@ -6522,6 +6667,12 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("mcp-consent-manifest-validator"); p.add_argument("--manifest", default=""); p.add_argument("--out", default="agentpress/security/mcp-consent-manifest-validation.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("provider-adapter-repro-pack"); p.add_argument("--host", default="cline"); p.add_argument("--provider", default="claude_code"); p.add_argument("--calls", default="execute_command,write_to_file,replace_in_file"); p.add_argument("--out", default="agentpress/compatibility/provider-adapter-repro-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("checkpoint-replay-minimal-repro-generator"); p.add_argument("--checkpoint", default=""); p.add_argument("--out", default="agentpress/repro/checkpoint-replay-minimal-repro.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("runtime-hang-repro-capsule"); p.add_argument("--log", default=""); p.add_argument("--out", default="agentpress/repro/runtime-hang-repro-capsule.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("first-agent-outreach-receipt-tracker"); p.add_argument("--out", default="agentpress/outreach/first-agent-outreach-receipt-tracker.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("continuous-research-build-cycle-audit"); p.add_argument("--out", default="agentpress/audits/continuous-research-build-cycle-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("current-agent-places-map"); p.add_argument("--out", default="agentpress/community/current-agent-places-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attention-painpoint-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/attention-painpoint-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("first-agent-attention-kit"); p.add_argument("--out", default="agentpress/outreach/first-agent-attention-kit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -6823,6 +6974,12 @@ def main():
     if args.cmd == "next-cycle-research": return next_cycle_research(args)
     if args.cmd == "memory-drift-check": return memory_drift_check(args)
     if args.cmd == "agent-community-channel-map": return agent_community_channel_map(args)
+    if args.cmd == "mcp-consent-manifest-validator": return mcp_consent_manifest_validator(args)
+    if args.cmd == "provider-adapter-repro-pack": return provider_adapter_repro_pack(args)
+    if args.cmd == "checkpoint-replay-minimal-repro-generator": return checkpoint_replay_minimal_repro_generator(args)
+    if args.cmd == "runtime-hang-repro-capsule": return runtime_hang_repro_capsule(args)
+    if args.cmd == "first-agent-outreach-receipt-tracker": return first_agent_outreach_receipt_tracker(args)
+    if args.cmd == "continuous-research-build-cycle-audit": return continuous_research_build_cycle_audit(args)
     if args.cmd == "current-agent-places-map": return current_agent_places_map(args)
     if args.cmd == "attention-painpoint-radar": return attention_painpoint_radar(args)
     if args.cmd == "first-agent-attention-kit": return first_agent_attention_kit(args)

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-04T01:03:51Z",
+  "generated_at": "2026-05-04T01:12:21Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,74 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.mcp_consent_manifest_validator",
+      "description": "Validate MCP/tool consent manifests and approval evidence fail-closed.",
+      "command": "python3 scripts/agentpress.py mcp-consent-manifest-validator --json",
+      "tags": [
+        "mcp",
+        "consent",
+        "approval",
+        "security",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.provider_adapter_repro_pack",
+      "description": "Create provider/host tool vocabulary mismatch repro and adapter map.",
+      "command": "python3 scripts/agentpress.py provider-adapter-repro-pack --json",
+      "tags": [
+        "provider",
+        "adapter",
+        "repro",
+        "tools"
+      ]
+    },
+    {
+      "name": "agentpress.checkpoint_replay_minimal_repro_generator",
+      "description": "Generate stale checkpoint/structured_response minimal repro artifact.",
+      "command": "python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json",
+      "tags": [
+        "checkpoint",
+        "repro",
+        "langchain",
+        "state"
+      ]
+    },
+    {
+      "name": "agentpress.runtime_hang_repro_capsule",
+      "description": "Turn stuck runtime/browser/terminal logs into maintainer-ready capsule.",
+      "command": "python3 scripts/agentpress.py runtime-hang-repro-capsule --json",
+      "tags": [
+        "runtime",
+        "hang",
+        "browser",
+        "terminal",
+        "repro"
+      ]
+    },
+    {
+      "name": "agentpress.first_agent_outreach_receipt_tracker",
+      "description": "Track targeted first-agent outreach receipts/blockers privacy-safely.",
+      "command": "python3 scripts/agentpress.py first-agent-outreach-receipt-tracker --json",
+      "tags": [
+        "outreach",
+        "receipts",
+        "growth",
+        "privacy"
+      ]
+    },
+    {
+      "name": "agentpress.continuous_research_build_cycle_audit",
+      "description": "Audit shipped next-build cycle and emit remaining research/build backlog.",
+      "command": "python3 scripts/agentpress.py continuous-research-build-cycle-audit --json",
+      "tags": [
+        "audit",
+        "cycle",
+        "backlog",
+        "research"
       ]
     },
     {
