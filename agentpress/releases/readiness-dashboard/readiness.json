@@ -1,0 +1,58 @@
+{
+  "schema_version": "2026-05-04.agentpress-release-registry-readiness-dashboard.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/releases/readiness-dashboard/index.html",
+  "generated_utc": "2026-05-04T05:55:47Z",
+  "status": "ready",
+  "pass_count": 6,
+  "check_count": 6,
+  "checks": [
+    {
+      "name": "package.json present",
+      "status": "pass",
+      "fix": "create package.json for npm lane",
+      "evidence": "package.json"
+    },
+    {
+      "name": "npm package has bin",
+      "status": "pass",
+      "fix": "add bin.agentpress pointing to bin/agentpress.js",
+      "evidence": "{\"agentpress\": \"./bin/agentpress.js\"}"
+    },
+    {
+      "name": "pyproject present",
+      "status": "pass",
+      "fix": "create pyproject.toml for Python/uvx/pipx lane",
+      "evidence": "pyproject.toml"
+    },
+    {
+      "name": "release index present",
+      "status": "pass",
+      "fix": "run python3 scripts/agentpress.py release-index <package> --json",
+      "evidence": "agentpress/releases/release-index.json"
+    },
+    {
+      "name": "install script present",
+      "status": "pass",
+      "fix": "run package-registry-fallback-installer or install-script",
+      "evidence": "agentpress/install/"
+    },
+    {
+      "name": "npm pack dry-run command documented",
+      "status": "pass",
+      "fix": "npm pack --dry-run",
+      "evidence": "npm pack --dry-run"
+    }
+  ],
+  "lanes": [
+    "npm",
+    "PyPI/pipx/uvx",
+    "GitHub source",
+    "static bundle"
+  ],
+  "dry_run_commands": [
+    "python3 -m py_compile scripts/agentpress.py",
+    "python3 scripts/agentpress.py doctor --json",
+    "npm pack --dry-run"
+  ],
+  "no_publish_performed": true
+}

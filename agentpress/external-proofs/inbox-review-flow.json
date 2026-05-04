@@ -1,0 +1,16 @@
+{
+  "schema_version": "2026-05-04.agentpress-external-proof-inbox-review-flow.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/external-proofs/inbox-review-flow.json",
+  "generated_utc": "2026-05-04T05:55:47Z",
+  "status": "ok",
+  "inbox": "agentpress/external-proofs/inbox",
+  "item_count": 0,
+  "accept_candidate_count": 0,
+  "reject_redact_count": 0,
+  "items": [],
+  "next_commands": [
+    "python3 scripts/agentpress.py proof-ingest --json",
+    "python3 scripts/agentpress.py adoption-scoreboard --json"
+  ],
+  "privacy": "Reject/redact any proof containing secrets, auth headers, private prompts, IPs, or user-agent strings."
+}

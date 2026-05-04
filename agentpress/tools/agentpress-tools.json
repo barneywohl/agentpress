@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-04T01:16:03Z",
+  "generated_at": "2026-05-04T05:56:07Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -645,6 +645,65 @@
         "registry",
         "install",
         "doctor"
+      ]
+    },
+    {
+      "name": "agentpress.first_run_wizard",
+      "description": "Detect host/provider/install state and emit the exact next command for a first agent user.",
+      "command": "python3 scripts/agentpress.py first-run-wizard --json",
+      "tags": [
+        "first-run",
+        "wizard",
+        "onboarding",
+        "host",
+        "provider"
+      ]
+    },
+    {
+      "name": "agentpress.provider_error_explainer",
+      "description": "Map raw provider/runtime errors to remediation packs with exact commands.",
+      "command": "python3 scripts/agentpress.py provider-error-explainer --error '<sanitized error>' --json",
+      "tags": [
+        "provider",
+        "errors",
+        "remediation",
+        "doctor"
+      ]
+    },
+    {
+      "name": "agentpress.adoption_scoreboard",
+      "description": "Build a static privacy-safe adoption scoreboard from opt-in proof artifacts.",
+      "command": "python3 scripts/agentpress.py adoption-scoreboard --json",
+      "tags": [
+        "adoption",
+        "scoreboard",
+        "static",
+        "proof",
+        "privacy"
+      ]
+    },
+    {
+      "name": "agentpress.external_proof_inbox_review_flow",
+      "description": "Review external proof inbox files for acceptance candidates and privacy redaction blockers.",
+      "command": "python3 scripts/agentpress.py external-proof-inbox-review-flow --json",
+      "tags": [
+        "proof",
+        "inbox",
+        "review",
+        "privacy",
+        "adoption"
+      ]
+    },
+    {
+      "name": "agentpress.release_registry_readiness_dashboard",
+      "description": "Build a static release/package-registry readiness dashboard for npm/PyPI/source/static lanes.",
+      "command": "python3 scripts/agentpress.py release-registry-readiness-dashboard --json",
+      "tags": [
+        "release",
+        "registry",
+        "npm",
+        "pypi",
+        "dashboard"
       ]
     },
     {

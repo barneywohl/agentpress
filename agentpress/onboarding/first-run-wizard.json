@@ -1,0 +1,33 @@
+{
+  "schema_version": "2026-05-04.agentpress-first-run-wizard.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/onboarding/first-run-wizard.json",
+  "generated_utc": "2026-05-04T05:55:47Z",
+  "status": "ready",
+  "root": ".",
+  "detected": {
+    "host": "cline",
+    "provider": "anthropic",
+    "tools": {
+      "python3": true,
+      "git": true,
+      "npm": true,
+      "node": true
+    },
+    "mcp_config": "cline_mcp_settings.json",
+    "hints": []
+  },
+  "exact_next_command": "python3 scripts/agentpress.py first-user-bootstrap --platform cline --out agentpress/onboarding/first-user-bootstrap.json --json",
+  "then_command": "python3 scripts/agentpress.py proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --artifacts agentpress/onboarding/first-user-bootstrap.json --commands 'python3 scripts/agentpress.py doctor --json' --json",
+  "commands": {
+    "bootstrap": "python3 scripts/agentpress.py first-user-bootstrap --platform cline --json",
+    "doctor": "python3 scripts/agentpress.py doctor --json",
+    "config_guard": "python3 scripts/agentpress.py mcp-config-mutation-guard --config-path cline_mcp_settings.json --backup --planned-servers agentpress --json",
+    "proof": "python3 scripts/agentpress.py proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --artifacts agentpress/onboarding/first-user-bootstrap.json --commands 'python3 scripts/agentpress.py doctor --json' --json"
+  },
+  "blockers": [],
+  "safety": {
+    "does_not_apply_config": true,
+    "external_effects": false,
+    "secrets_echoed": false
+  }
+}
