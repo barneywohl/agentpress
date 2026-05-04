@@ -2468,6 +2468,85 @@ def release_index(args):
     return 0
 
 
+
+def agent_lint(args):
+    root = pathlib.Path(args.root)
+    findings = []
+    required = ["llms.txt", ".well-known/agentpress.json", ".well-known/ai-ingestion.json"]
+    for rel in required:
+        path = root / rel
+        if not path.exists():
+            findings.append({"severity": "error", "code": "missing_entrypoint", "path": rel, "message": "Missing required public agent entrypoint " + rel})
+    llms = root / "llms.txt"
+    if llms.exists():
+        text = read_text(llms)
+        low = text.lower()
+        if len(text.strip()) < 200:
+            findings.append({"severity": "warning", "code": "thin_llms", "path": "llms.txt", "message": "llms.txt is very short; agents may lack enough instruction context"})
+        if "allowed" not in low or "prohibited" not in low:
+            findings.append({"severity": "warning", "code": "missing_action_boundary", "path": "llms.txt", "message": "llms.txt should state allowed/prohibited actions or link to them"})
+        if "http" not in low:
+            findings.append({"severity": "warning", "code": "missing_fetch_urls", "path": "llms.txt", "message": "llms.txt should include concrete fetch URLs"})
+    for rel in [".well-known/agentpress.json", ".well-known/ai-ingestion.json"]:
+        path = root / rel
+        if path.exists():
+            try:
+                json.loads(read_text(path))
+            except Exception as e:
+                findings.append({"severity": "error", "code": "invalid_json", "path": rel, "message": str(e)[:180]})
+    readme = root / "README.md"
+    if readme.exists():
+        text = read_text(readme)
+        low = text.lower()
+        if len(text) > args.max_readme_chars:
+            findings.append({"severity": "warning", "code": "long_readme", "path": "README.md", "message": "README is %d chars; first-contact path should be shorter than %d" % (len(text), args.max_readme_chars)})
+        if "git clone" in low and "npx" not in low and "pip install" not in low:
+            findings.append({"severity": "warning", "code": "clone_only_onboarding", "path": "README.md", "message": "Onboarding appears git-clone-first; add npx/pip install path"})
+    status = "ok" if not any(f["severity"] == "error" for f in findings) else "fail"
+    result = {"schema_version": "2026-05-04.agentpress-lint.v1", "status": status, "root": str(root), "checked": required + ["README.md"], "finding_count": len(findings), "findings": findings}
+    if args.out and not args.no_write:
+        out = pathlib.Path(args.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(result, indent=2) if args.json else "%s %d findings" % (status, len(findings)))
+    return 0 if status == "ok" or args.allow_warnings else 1
+
+def consumer_demo_pack(args):
+    out = pathlib.Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    demo = """#!/usr/bin/env python3
+# Minimal AgentPress consumer demo: fetch, parse, and decide next action.
+import json
+import urllib.request
+
+BASE = \"https://agentpress.pages.dev/\"
+for rel in [\"llms.txt\", \".well-known/agentpress.json\", \".well-known/ai-ingestion.json\"]:
+    url = BASE + rel
+    req = urllib.request.Request(url, headers={\"User-Agent\": \"agentpress-demo/0.1\"})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        body = r.read().decode(\"utf-8\")
+    print(f\"FETCHED {rel}: {len(body)} bytes\")
+    if rel.endswith(\".json\"):
+        parsed = json.loads(body)
+        print(\"  keys:\", \", \".join(sorted(parsed.keys())[:8]))
+print(\"NEXT: run `agentpress lint . --json` on your own repo to make it agent-readable.\")
+"""
+    (out / "consumer_demo.py").write_text(demo, encoding="utf-8")
+    (out / "README.md").write_text("""# AgentPress Consumer Demo
+
+Smallest proof loop: an external agent/client fetches AgentPress machine entrypoints and decides what to do next.
+
+```bash
+python3 agentpress/demos/consumer/consumer_demo.py
+agentpress lint . --json
+```
+
+Acceptance evidence: the script fetches `llms.txt`, `.well-known/agentpress.json`, and `.well-known/ai-ingestion.json` from `https://agentpress.pages.dev/`.
+""", encoding="utf-8")
+    result = {"schema_version": "2026-05-04.agentpress-consumer-demo.v1", "status": "ok", "out": str(out), "files": [str(out / "consumer_demo.py"), str(out / "README.md")], "run": "python3 agentpress/demos/consumer/consumer_demo.py"}
+    print(json.dumps(result, indent=2) if args.json else "ok " + str(out))
+    return 0
+
 def install_script(args):
     script = """#!/usr/bin/env python3
 import argparse, json, pathlib, shutil, sys, tarfile, tempfile, urllib.request, hashlib
@@ -7204,6 +7283,8 @@ def main():
     p = sub.add_parser("global-starter-pack"); p.add_argument("--out", default="agentpress/global"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("ecosystem-connector-packs"); p.add_argument("--out", default="agentpress/connectors/ecosystem-packs"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-plan"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/package-registry/package-registry-plan.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("lint"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/agentpress-lint.json"); p.add_argument("--max-readme-chars", type=int, default=12000); p.add_argument("--allow-warnings", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("consumer-demo-pack"); p.add_argument("--out", default="agentpress/demos/consumer"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-campaign"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/proof-campaigns/proof-campaign.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attest"); att = p.add_subparsers(dest="attest_cmd", required=True)
     c=att.add_parser("create"); c.add_argument("root", nargs="?", default="."); c.add_argument("--file", action="append", required=True); c.add_argument("--subject", required=True); c.add_argument("--issuer", default="agentpress-reference-agent"); c.add_argument("--attestation-id"); c.add_argument("--notes"); c.add_argument("--out", required=True); c.add_argument("--json", action="store_true")
@@ -7320,6 +7401,8 @@ def main():
     if args.cmd == "global-starter-pack": return global_starter_pack(args)
     if args.cmd == "ecosystem-connector-packs": return ecosystem_connector_packs(args)
     if args.cmd == "package-registry-plan": return package_registry_plan(args)
+    if args.cmd == "lint": return agent_lint(args)
+    if args.cmd == "consumer-demo-pack": return consumer_demo_pack(args)
     if args.cmd == "package-registry-skeleton": return package_registry_skeleton(args)
     if args.cmd == "package-registry-dry-run": return package_registry_dry_run(args)
     if args.cmd == "remediation-index": return remediation_index(args)

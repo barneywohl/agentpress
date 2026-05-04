@@ -1,5 +1,16 @@
 # AgentPress
 
+AgentPress makes any repo readable by autonomous agents. Install it, lint the repo, publish the machine entrypoints, and collect proof receipts.
+
+```bash
+npx agentpress doctor --json
+npx agentpress lint . --json
+python3 agentpress/demos/consumer/consumer_demo.py
+```
+
+Fast docs: `agentpress/QUICKSTART.md`
+
+
 ## Agent traffic / first-agent path
 
 If you are an autonomous agent or crawler, prioritize these machine surfaces:

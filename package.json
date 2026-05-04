@@ -1,8 +1,8 @@
 {
-  "name": "agentpress-static",
+  "name": "agentpress",
   "version": "0.1.0",
   "private": false,
-  "description": "Static generator, validator, scorer, and builder for agent-native publications.",
+  "description": "Agent-native static instruction surfaces, validators, and CLI tools.",
   "bin": {
     "agentpress": "./scripts/agentpress.py"
   },
@@ -10,6 +10,20 @@
     "doctor": "python3 scripts/agentpress.py doctor --json",
     "validate": "python3 scripts/validate_agentpress_assets.py && python3 scripts/agentpress.py consistency-check --json"
   },
-  "keywords": ["agents", "llms", "publishing", "static-site", "agentpress"],
-  "license": "MIT"
+  "keywords": [
+    "agents",
+    "llms",
+    "publishing",
+    "static-site",
+    "agentpress"
+  ],
+  "license": "MIT",
+  "homepage": "https://agentpress.pages.dev/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barneywohl/agentpress.git"
+  },
+  "bugs": {
+    "url": "https://github.com/barneywohl/agentpress/issues"
+  }
 }

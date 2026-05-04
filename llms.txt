@@ -627,3 +627,9 @@ python3 scripts/agentpress.py external-reply-to-proof-ingest-bridge --json
 python3 scripts/agentpress.py issue-comment-pack-generator --json
 python3 scripts/agentpress.py continuous-research-build-cycle-audit --json
 ```
+
+## Action boundary
+Allowed: read public files, validate schemas, summarize, cite, transform, prepare local patches, and create pull requests.
+Requires human approval: external posts, registry publishes, production deploys, private data access, billing, phone, captcha, and 2FA flows.
+Prohibited: secret exfiltration, deceptive tracking, spam, bypassing paywalls/captchas/2FA, impersonation, or unauthorized external writes.
+
