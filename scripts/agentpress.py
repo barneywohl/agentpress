@@ -2259,6 +2259,9 @@ def tools_manifest(args):
         {"name":"agentpress.checkpoint_replay_minimal_repro_generator", "description":"Generate stale checkpoint/structured_response minimal repro artifact.", "command":"python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json", "tags":["checkpoint","repro","langchain","state"]},
         {"name":"agentpress.runtime_hang_repro_capsule", "description":"Turn stuck runtime/browser/terminal logs into maintainer-ready capsule.", "command":"python3 scripts/agentpress.py runtime-hang-repro-capsule --json", "tags":["runtime","hang","browser","terminal","repro"]},
         {"name":"agentpress.first_agent_outreach_receipt_tracker", "description":"Track targeted first-agent outreach receipts/blockers privacy-safely.", "command":"python3 scripts/agentpress.py first-agent-outreach-receipt-tracker --json", "tags":["outreach","receipts","growth","privacy"]},
+        {"name":"agentpress.rag_tool_safety_bundle", "description":"Publish RAG/tool safety bundle for file-path metadata, zero-arg tools, and output contracts.", "command":"python3 scripts/agentpress.py rag-tool-safety-bundle --json", "tags":["rag","tools","security","schema","safety"]},
+        {"name":"agentpress.external_reply_to_proof_ingest_bridge", "description":"Map external replies/blockers into proof-ingest compatible receipt records.", "command":"python3 scripts/agentpress.py external-reply-to-proof-ingest-bridge --json", "tags":["proof","receipts","external","bridge"]},
+        {"name":"agentpress.issue_comment_pack_generator", "description":"Generate issue-specific non-spam comment packs tied to exact artifacts/commands.", "command":"python3 scripts/agentpress.py issue-comment-pack-generator --json", "tags":["outreach","comments","issues","attention"]},
         {"name":"agentpress.continuous_research_build_cycle_audit", "description":"Audit shipped next-build cycle and emit remaining research/build backlog.", "command":"python3 scripts/agentpress.py continuous-research-build-cycle-audit --json", "tags":["audit","cycle","backlog","research"]},
         {"name":"agentpress.current_agent_places_map", "description":"Map current places where agent builders communicate and how to engage them.", "command":"python3 scripts/agentpress.py current-agent-places-map --json", "tags":["community","research","agents","attention"]},
         {"name":"agentpress.attention_painpoint_radar", "description":"Rank current unsolved agent painpoints most likely to get first-agent attention.", "command":"python3 scripts/agentpress.py attention-painpoint-radar --json", "tags":["painpoints","attention","research","agents"]},
@@ -3336,6 +3339,47 @@ def first_agent_outreach_receipt_tracker(args):
     return 0
 
 
+
+def rag_tool_safety_bundle(args):
+    """Publish RAG/tool safety bundle for file-path metadata and zero-arg tool schemas."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    checks=[
+        {"id":"file_path_metadata","risk":"arbitrary file read via metadata path","evidence":"https://github.com/run-llama/llama_index/issues/21512","gate":"reject absolute paths, parent traversal, home/secrets paths unless explicitly consented"},
+        {"id":"zero_arg_tool_schema","risk":"tool schema violates provider spec when no parameters are declared","evidence":"https://github.com/run-llama/llama_index/issues/18928","gate":"emit explicit empty object schema with additionalProperties=false"},
+        {"id":"output_contract_drift","risk":"RAG agent returns prose when caller expects structured output","evidence":"agent community issue class","gate":"validate response against declared output schema before publishing"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-rag-tool-safety-bundle.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give RAG/agent builders a compact safety bundle for file metadata, zero-argument tools, and output contracts.","checks":checks,"commands":["python3 scripts/agentpress.py tool-file-access-risk-scanner --json","python3 scripts/agentpress.py tool-schema-serialization-check --json","python3 scripts/agentpress.py output-format-contract-tester --json"],"maintainer_attachment":"Attach this bundle plus scanner outputs to RAG/tool safety issues."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else 'ok')
+    return 0
+
+
+def external_reply_to_proof_ingest_bridge(args):
+    """Map external replies/blockers into proof-ingest compatible receipt records."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    bridge={"schema_version":"2026-05-03.agentpress-external-reply-to-proof-ingest-bridge.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Convert first-agent replies, blockers, and maintainer comments into AgentPress proof-ingest records without scraping private data.","accepted_inputs":["public issue comment URL","public HN comment URL","submitted blocker JSON","manual operator note with public URL"],"output_receipt_fields":{"proof_type":"external_reply|blocker_report|adoption_signal","source_url":"public URL","agent_family":"optional pseudonymous family","commands_run":"optional redacted commands","result":"accepted|blocked|needs_fix|no_reply","privacy_checked":True},"privacy_rules":["no tokens/secrets/private prompts","no IP/user-agent capture","manual approval before external posting","blocker reports count as useful receipts"],"example_record":{"proof_type":"blocker_report","source_url":"https://github.com/example/project/issues/123#issuecomment-...","result":"needs_fix","privacy_checked":True}}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(bridge,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(bridge,indent=2) if args.json else 'ok')
+    return 0
+
+
+def issue_comment_pack_generator(args):
+    """Generate issue-specific comment packs that point to one relevant artifact/command."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    packs=[
+      {"issue_class":"MCP approval boundary","target_url":"https://github.com/cline/cline/issues/10499","artifact":"https://barneywohl.github.io/agentpress/agentpress/security/mcp-consent-manifest-validation.json","command":"python3 scripts/agentpress.py mcp-consent-manifest-validator --json","comment":"I mapped this class of approval-boundary bug into a fail-closed consent manifest check. The useful piece is the JSON gate + one command above; it does not require secrets or telemetry."},
+      {"issue_class":"provider tool vocabulary mismatch","target_url":"https://github.com/cline/cline/issues/10336","artifact":"https://barneywohl.github.io/agentpress/agentpress/compatibility/provider-adapter-repro-pack.json","command":"python3 scripts/agentpress.py provider-adapter-repro-pack --host cline --provider claude_code --json","comment":"This turns host/provider tool mismatch into a small adapter map and failing-call repro. If helpful, it can be attached as maintainer evidence rather than a product pitch."},
+      {"issue_class":"stale structured_response checkpoint","target_url":"https://github.com/langchain-ai/langchain/issues/36957","artifact":"https://barneywohl.github.io/agentpress/agentpress/repro/checkpoint-replay-minimal-repro.json","command":"python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json","comment":"This emits a sanitized checkpoint replay artifact for stale structured_response bugs, including fields to remove before resume."},
+      {"issue_class":"RAG file/tool schema safety","target_url":"https://github.com/run-llama/llama_index/issues/21512","artifact":"https://barneywohl.github.io/agentpress/agentpress/safety/rag-tool-safety-bundle.json","command":"python3 scripts/agentpress.py rag-tool-safety-bundle --json","comment":"This bundles file_path metadata and tool-schema safety checks into maintainer-ready JSON. It is intentionally local/static and avoids private path disclosure."}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-issue-comment-pack-generator.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Prepare non-spam, issue-specific first-agent attention comments tied to one artifact and one command.","rules":["manual approval before posting","post only where directly relevant","one artifact per comment","do not claim upstream fix","no secrets/private prompts"],"packs":packs}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else 'ok')
+    return 0
+
 def continuous_research_build_cycle_audit(args):
     """Audit shipped AgentPress surfaces against current painpoint/build lists and emit next cycle decision."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
@@ -3349,12 +3393,19 @@ def continuous_research_build_cycle_audit(args):
     gaps=[]
     for k,v in shipped.items():
         if not v: gaps.append({"gap":k,"priority":"P0","action":"build_and_publish_artifact"})
+    second_wave={
+      "rag_tool_safety_bundle": pathlib.Path("agentpress/safety/rag-tool-safety-bundle.json").exists(),
+      "external_reply_to_proof_ingest_bridge": pathlib.Path("agentpress/proof/external-reply-to-proof-ingest-bridge.json").exists(),
+      "issue_comment_pack_generator": pathlib.Path("agentpress/outreach/issue-comment-pack-generator.json").exists()
+    }
+    for k,v in second_wave.items():
+        if not v: gaps.append({"gap":k,"priority":"P1","action":"build_and_publish_artifact"})
     next_builds=[
-      {"name":"rag-tool-safety-bundle","why":"LlamaIndex file-path/tool-schema pain remains attention-worthy","priority":"P1"},
-      {"name":"external-reply-to-proof-ingest-bridge","why":"adoption stays zero until replies/blockers become receipts","priority":"P1"},
-      {"name":"agentpress-issue-comment-pack-generator","why":"first-agent attention needs per-issue exact commands/snippets","priority":"P2"}
+      {"name":"live-community-recheck-runner","why":"Painpoints should be refreshed from public issues before any outreach comment is posted.","priority":"P1"},
+      {"name":"manual-outreach-approval-queue","why":"Prepared comments still require human approval before external posting.","priority":"P1"},
+      {"name":"reply-receipt-ingest-examples","why":"The bridge needs real examples once first external replies arrive.","priority":"P2"}
     ]
-    payload={"schema_version":"2026-05-03.agentpress-continuous-research-build-cycle-audit.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not gaps else "gaps_found","purpose":"After each next-build cycle, audit what shipped, what remains, and where research should continue.","shipped":shipped,"gaps":gaps,"next_builds":next_builds,"assumption_tests":["Do public issue URLs still represent active pain?","Do shipped artifacts produce one-command evidence?","Does outreach remain manual/non-spam?","Do validation gates pass locally and on Pages?"]}
+    payload={"schema_version":"2026-05-03.agentpress-continuous-research-build-cycle-audit.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not gaps else "gaps_found","purpose":"After each next-build cycle, audit what shipped, what remains, and where research should continue.","shipped":shipped,"second_wave_shipped":second_wave,"gaps":gaps,"next_builds":next_builds,"assumption_tests":["Do public issue URLs still represent active pain?","Do shipped artifacts produce one-command evidence?","Does outreach remain manual/non-spam?","Do validation gates pass locally and on Pages?"]}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else payload['status'])
@@ -6672,6 +6723,9 @@ def main():
     p = sub.add_parser("checkpoint-replay-minimal-repro-generator"); p.add_argument("--checkpoint", default=""); p.add_argument("--out", default="agentpress/repro/checkpoint-replay-minimal-repro.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("runtime-hang-repro-capsule"); p.add_argument("--log", default=""); p.add_argument("--out", default="agentpress/repro/runtime-hang-repro-capsule.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("first-agent-outreach-receipt-tracker"); p.add_argument("--out", default="agentpress/outreach/first-agent-outreach-receipt-tracker.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("rag-tool-safety-bundle"); p.add_argument("--out", default="agentpress/safety/rag-tool-safety-bundle.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("external-reply-to-proof-ingest-bridge"); p.add_argument("--out", default="agentpress/proof/external-reply-to-proof-ingest-bridge.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("issue-comment-pack-generator"); p.add_argument("--out", default="agentpress/outreach/issue-comment-pack-generator.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("continuous-research-build-cycle-audit"); p.add_argument("--out", default="agentpress/audits/continuous-research-build-cycle-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("current-agent-places-map"); p.add_argument("--out", default="agentpress/community/current-agent-places-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attention-painpoint-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/attention-painpoint-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -6979,6 +7033,9 @@ def main():
     if args.cmd == "checkpoint-replay-minimal-repro-generator": return checkpoint_replay_minimal_repro_generator(args)
     if args.cmd == "runtime-hang-repro-capsule": return runtime_hang_repro_capsule(args)
     if args.cmd == "first-agent-outreach-receipt-tracker": return first_agent_outreach_receipt_tracker(args)
+    if args.cmd == "rag-tool-safety-bundle": return rag_tool_safety_bundle(args)
+    if args.cmd == "external-reply-to-proof-ingest-bridge": return external_reply_to_proof_ingest_bridge(args)
+    if args.cmd == "issue-comment-pack-generator": return issue_comment_pack_generator(args)
     if args.cmd == "continuous-research-build-cycle-audit": return continuous_research_build_cycle_audit(args)
     if args.cmd == "current-agent-places-map": return current_agent_places_map(args)
     if args.cmd == "attention-painpoint-radar": return attention_painpoint_radar(args)

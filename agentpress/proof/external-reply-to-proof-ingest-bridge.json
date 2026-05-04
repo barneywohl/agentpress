@@ -1,0 +1,33 @@
+{
+  "schema_version": "2026-05-03.agentpress-external-reply-to-proof-ingest-bridge.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/proof/external-reply-to-proof-ingest-bridge.json",
+  "generated_utc": "2026-05-04T01:16:03Z",
+  "status": "ok",
+  "purpose": "Convert first-agent replies, blockers, and maintainer comments into AgentPress proof-ingest records without scraping private data.",
+  "accepted_inputs": [
+    "public issue comment URL",
+    "public HN comment URL",
+    "submitted blocker JSON",
+    "manual operator note with public URL"
+  ],
+  "output_receipt_fields": {
+    "proof_type": "external_reply|blocker_report|adoption_signal",
+    "source_url": "public URL",
+    "agent_family": "optional pseudonymous family",
+    "commands_run": "optional redacted commands",
+    "result": "accepted|blocked|needs_fix|no_reply",
+    "privacy_checked": true
+  },
+  "privacy_rules": [
+    "no tokens/secrets/private prompts",
+    "no IP/user-agent capture",
+    "manual approval before external posting",
+    "blocker reports count as useful receipts"
+  ],
+  "example_record": {
+    "proof_type": "blocker_report",
+    "source_url": "https://github.com/example/project/issues/123#issuecomment-...",
+    "result": "needs_fix",
+    "privacy_checked": true
+  }
+}

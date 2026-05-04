@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-03.agentpress-docs-command-check.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/evidence/docs-command-check.json",
-  "generated_utc": "2026-05-04T01:12:22Z",
+  "generated_utc": "2026-05-04T01:16:04Z",
   "status": "ok",
-  "checked": 732,
+  "checked": 740,
   "failed": 0,
-  "commands_known": 231,
+  "commands_known": 234,
   "results": [
     {
       "path": "README.md",
@@ -1994,6 +1994,38 @@
       "warnings": []
     },
     {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py rag-tool-safety-bundle --json",
+      "cmd": "rag-tool-safety-bundle",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py external-reply-to-proof-ingest-bridge --json",
+      "cmd": "external-reply-to-proof-ingest-bridge",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py issue-comment-pack-generator --json",
+      "cmd": "issue-comment-pack-generator",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py continuous-research-build-cycle-audit --json",
+      "cmd": "continuous-research-build-cycle-audit",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
       "path": "llms.txt",
       "command": "python3 scripts/agentpress.py adopt --json",
       "cmd": "adopt",
@@ -3934,6 +3966,38 @@
       "warnings": []
     },
     {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py rag-tool-safety-bundle --json",
+      "cmd": "rag-tool-safety-bundle",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py external-reply-to-proof-ingest-bridge --json",
+      "cmd": "external-reply-to-proof-ingest-bridge",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py issue-comment-pack-generator --json",
+      "cmd": "issue-comment-pack-generator",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py continuous-research-build-cycle-audit --json",
+      "cmd": "continuous-research-build-cycle-audit",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
       "path": "agentpress/CLI_AGENT_LAUNCH.md",
       "command": "python3 scripts/agentpress.py doctor --json",
       "cmd": "doctor",
@@ -3976,76 +4040,6 @@
       "warnings": [
         "contains placeholder; parser execution skipped"
       ]
-    },
-    {
-      "path": "agentpress/CLI_AGENT_LAUNCH.md",
-      "command": "python3 scripts/agentpress.py submission-pack --receipt /tmp/<your-agent-id>-landing.json --out /tmp/<your-agent-id>-agentpress-submission --json",
-      "cmd": "submission-pack",
-      "status": "ok",
-      "errors": [],
-      "warnings": [
-        "contains placeholder; parser execution skipped"
-      ]
-    },
-    {
-      "path": "agentpress/AGENT_START_HERE.md",
-      "command": "python3 scripts/agentpress.py doctor --json",
-      "cmd": "doctor",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/AGENT_START_HERE.md",
-      "command": "python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json",
-      "cmd": "compatibility-matrix",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/AGENT_START_HERE.md",
-      "command": "python3 scripts/agentpress.py self-test --agent-id <your-agent-id> --out /tmp/agentpress-self-test.jsonl",
-      "cmd": "self-test",
-      "status": "ok",
-      "errors": [],
-      "warnings": [
-        "contains placeholder; parser execution skipped"
-      ]
-    },
-    {
-      "path": "agentpress/AGENT_START_HERE.md",
-      "command": "python3 scripts/agentpress.py submission-pack --receipt /tmp/<your-agent-id>-landing.json --out /tmp/<your-agent-id>-submission --json",
-      "cmd": "submission-pack",
-      "status": "ok",
-      "errors": [],
-      "warnings": [
-        "contains placeholder; parser execution skipped"
-      ]
-    },
-    {
-      "path": "agentpress/AGENT_START_HERE.md",
-      "command": "python3 scripts/agentpress.py doctor --json",
-      "cmd": "doctor",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/AGENT_START_HERE.md",
-      "command": "python3 scripts/agentpress.py feedback-submit --example",
-      "cmd": "feedback-submit",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/adapters/gemini/GEMINI.md",
-      "command": "python3 scripts/agentpress.py search \"bundle verify message self-test\" --json",
-      "cmd": "search",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
     }
   ],
   "principle": "Documented commands must not drift from parser command names or obvious flags."

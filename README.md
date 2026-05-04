@@ -619,3 +619,13 @@ python3 scripts/agentpress.py runtime-hang-repro-capsule --json
 python3 scripts/agentpress.py first-agent-outreach-receipt-tracker --json
 python3 scripts/agentpress.py continuous-research-build-cycle-audit --json
 ```
+
+
+### Second-wave research/build loop
+
+```bash
+python3 scripts/agentpress.py rag-tool-safety-bundle --json
+python3 scripts/agentpress.py external-reply-to-proof-ingest-bridge --json
+python3 scripts/agentpress.py issue-comment-pack-generator --json
+python3 scripts/agentpress.py continuous-research-build-cycle-audit --json
+```

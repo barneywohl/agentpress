@@ -1,7 +1,7 @@
 {
   "schema_version": "2026-05-03.agentpress-continuous-research-build-cycle-audit.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/audits/continuous-research-build-cycle-audit.json",
-  "generated_utc": "2026-05-04T01:12:22Z",
+  "generated_utc": "2026-05-04T01:16:03Z",
   "status": "ok",
   "purpose": "After each next-build cycle, audit what shipped, what remains, and where research should continue.",
   "shipped": {
@@ -11,21 +11,26 @@
     "runtime_hang_repro_capsule": true,
     "first_agent_outreach_receipt_tracker": true
   },
+  "second_wave_shipped": {
+    "rag_tool_safety_bundle": true,
+    "external_reply_to_proof_ingest_bridge": true,
+    "issue_comment_pack_generator": true
+  },
   "gaps": [],
   "next_builds": [
     {
-      "name": "rag-tool-safety-bundle",
-      "why": "LlamaIndex file-path/tool-schema pain remains attention-worthy",
+      "name": "live-community-recheck-runner",
+      "why": "Painpoints should be refreshed from public issues before any outreach comment is posted.",
       "priority": "P1"
     },
     {
-      "name": "external-reply-to-proof-ingest-bridge",
-      "why": "adoption stays zero until replies/blockers become receipts",
+      "name": "manual-outreach-approval-queue",
+      "why": "Prepared comments still require human approval before external posting.",
       "priority": "P1"
     },
     {
-      "name": "agentpress-issue-comment-pack-generator",
-      "why": "first-agent attention needs per-issue exact commands/snippets",
+      "name": "reply-receipt-ingest-examples",
+      "why": "The bridge needs real examples once first external replies arrive.",
       "priority": "P2"
     }
   ],

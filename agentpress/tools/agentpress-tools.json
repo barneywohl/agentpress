@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-04T01:12:21Z",
+  "generated_at": "2026-05-04T01:16:03Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -471,6 +471,40 @@
         "receipts",
         "growth",
         "privacy"
+      ]
+    },
+    {
+      "name": "agentpress.rag_tool_safety_bundle",
+      "description": "Publish RAG/tool safety bundle for file-path metadata, zero-arg tools, and output contracts.",
+      "command": "python3 scripts/agentpress.py rag-tool-safety-bundle --json",
+      "tags": [
+        "rag",
+        "tools",
+        "security",
+        "schema",
+        "safety"
+      ]
+    },
+    {
+      "name": "agentpress.external_reply_to_proof_ingest_bridge",
+      "description": "Map external replies/blockers into proof-ingest compatible receipt records.",
+      "command": "python3 scripts/agentpress.py external-reply-to-proof-ingest-bridge --json",
+      "tags": [
+        "proof",
+        "receipts",
+        "external",
+        "bridge"
+      ]
+    },
+    {
+      "name": "agentpress.issue_comment_pack_generator",
+      "description": "Generate issue-specific non-spam comment packs tied to exact artifacts/commands.",
+      "command": "python3 scripts/agentpress.py issue-comment-pack-generator --json",
+      "tags": [
+        "outreach",
+        "comments",
+        "issues",
+        "attention"
       ]
     },
     {
