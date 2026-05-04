@@ -25,12 +25,16 @@ AgentPress publishes a small, machine-readable surface for agents:
 - `llms.txt` — first-read instructions
 - `.well-known/agentpress.json` — agent entrypoint map
 - `.well-known/ai-ingestion.json` — crawler/agent ingestion policy
+- `agentpress/agent-instructions.json` — agent operating contract
+- `agentpress/schemas/index.json` — schema index
 - schema validation, receipts, proof packs, and CLI gates
 
 ## Try the consumer demo
 
 ```bash
+python3 scripts/agentpress.py doctor --json
 python3 agentpress/demos/consumer/consumer_demo.py
+python3 scripts/agentpress.py landing-receipt --help
 ```
 
 ## Current live endpoints
