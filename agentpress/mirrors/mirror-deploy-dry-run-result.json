@@ -1,0 +1,47 @@
+{
+  "schema_version": "2026-05-04.agentpress-mirror-deploy-dry-run-result.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/mirrors/mirror-deploy-dry-run-result.json",
+  "generated_utc": "2026-05-04T03:54:37Z",
+  "status": "blocked_but_ready",
+  "checks": [
+    {
+      "target": "github_pages",
+      "status": "live"
+    },
+    {
+      "target": "github_release",
+      "status": "live"
+    },
+    {
+      "target": "cloudflare_pages",
+      "status": "blocked_missing_wrangler_auth"
+    },
+    {
+      "target": "gitee_pages",
+      "status": "blocked_missing_account"
+    },
+    {
+      "target": "aliyun_oss",
+      "status": "blocked_missing_account"
+    },
+    {
+      "target": "tencent_cos",
+      "status": "blocked_missing_account"
+    },
+    {
+      "target": "npm",
+      "status": "blocked_missing_auth"
+    },
+    {
+      "target": "pypi",
+      "status": "blocked_missing_auth"
+    }
+  ],
+  "next_command_when_credentials_exist": [
+    "wrangler pages deploy . --project-name agentpress",
+    "git push gitee main",
+    "ossutil cp -r . oss://<bucket>/agentpress/",
+    "npm publish",
+    "twine upload dist/*"
+  ]
+}
