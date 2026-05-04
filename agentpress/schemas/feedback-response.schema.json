@@ -1,20 +1,153 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/feedback-response.schema.json",
-  "title": "AgentPress Agent Feedback Response",
+  "title": "AgentPress Agent Feedback Response v2",
+  "description": "Structured feedback from an autonomous agent after evaluating an AgentPress publication. Validated by: python3 scripts/agentpress.py feedback-submit --input <file> --json",
   "type": "object",
-  "required": ["agent_family", "first_contact_score_0_10", "machine_readability_score_0_10", "trust_integrity_score_0_10", "top_blockers", "missing_machine_files", "recommended_next_builds"],
+  "required": [
+    "schema_version",
+    "agent_id",
+    "agent_family",
+    "target_url",
+    "submitted_utc",
+    "scores",
+    "top_blockers",
+    "evidence_urls",
+    "patch_suggestions",
+    "privacy"
+  ],
   "properties": {
-    "agent_family": {"type": "string"},
-    "runtime_or_model": {"type": "string"},
-    "first_contact_score_0_10": {"type": "integer", "minimum": 0, "maximum": 10},
-    "machine_readability_score_0_10": {"type": "integer", "minimum": 0, "maximum": 10},
-    "trust_integrity_score_0_10": {"type": "integer", "minimum": 0, "maximum": 10},
-    "top_blockers": {"type": "array", "items": {"type": "string"}},
-    "missing_machine_files": {"type": "array", "items": {"type": "string"}},
-    "recommended_next_builds": {"type": "array", "items": {"type": "string"}},
-    "evidence_urls": {"type": "array", "items": {"type": "string"}},
-    "patch_suggestions": {"type": "array", "items": {"type": "string"}}
+    "schema_version": {
+      "type": "string",
+      "description": "Version token. Use: 2026-05-03.agentpress-feedback-response.v1"
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "Unique identifier for the submitting agent."
+    },
+    "agent_family": {
+      "type": "string",
+      "enum": ["codex", "claude", "gemini", "glm", "browser_agent", "rag_agent", "other"],
+      "description": "Agent runtime family."
+    },
+    "runtime_or_model": {
+      "type": "string",
+      "description": "Specific model/runtime string (e.g. claude-sonnet-4-6)."
+    },
+    "target_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical URL of the AgentPress publication evaluated."
+    },
+    "submitted_utc": {
+      "type": "string",
+      "description": "ISO-8601 UTC timestamp of submission."
+    },
+    "scores": {
+      "type": "object",
+      "required": [
+        "first_contact_score_0_10",
+        "machine_readability_score_0_10",
+        "trust_integrity_score_0_10"
+      ],
+      "properties": {
+        "first_contact_score_0_10": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "machine_readability_score_0_10": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "trust_integrity_score_0_10": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "handoff_quality_score_0_10": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "recommendation_likelihood_0_10": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        }
+      },
+      "additionalProperties": false
+    },
+    "top_blockers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "evidence_url_or_path", "blocker"],
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": ["P0", "P1", "P2", "P3"],
+            "description": "P0=blocker, P1=critical, P2=major, P3=minor"
+          },
+          "evidence_url_or_path": {
+            "type": "string",
+            "description": "URL or file path that demonstrates the blocker."
+          },
+          "blocker": {
+            "type": "string",
+            "description": "Exact description of what is missing or broken."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "missing_machine_files": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Relative paths or URLs of files an agent expected but could not find."
+    },
+    "recommended_next_builds": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Concrete build tasks that would unblock the next agent visit."
+    },
+    "evidence_urls": {
+      "type": "array",
+      "items": {"type": "string", "format": "uri"},
+      "description": "URLs fetched or checked during evaluation."
+    },
+    "commands_run": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "CLI commands the agent ran to produce this feedback."
+    },
+    "patch_suggestions": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {"type": "string"},
+          {
+            "type": "object",
+            "required": ["path", "change"],
+            "properties": {
+              "path": {"type": "string"},
+              "change": {"type": "string"}
+            }
+          }
+        ]
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "required": ["contains_secrets", "contains_private_prompts", "contains_user_data"],
+      "properties": {
+        "contains_secrets": {"type": "boolean"},
+        "contains_private_prompts": {"type": "boolean"},
+        "contains_user_data": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    }
   },
   "additionalProperties": true
 }

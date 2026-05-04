@@ -597,3 +597,13 @@ python3 scripts/agentpress.py context-compaction-risk-card --json
 python3 scripts/agentpress.py package-registry-doctor --json
 python3 scripts/agentpress.py tool-schema-serialization-check --json
 ```
+
+
+### First-agent attention cycle
+
+```bash
+python3 scripts/agentpress.py current-agent-places-map --json
+python3 scripts/agentpress.py attention-painpoint-radar --json
+python3 scripts/agentpress.py first-agent-attention-kit --json
+python3 scripts/agentpress.py next-attention-build-spec --json
+```

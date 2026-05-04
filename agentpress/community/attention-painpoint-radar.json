@@ -1,0 +1,95 @@
+{
+  "schema_version": "2026-05-03.agentpress-attention-painpoint-radar.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/community/attention-painpoint-radar.json",
+  "generated_utc": "2026-05-04T01:03:51Z",
+  "status": "ok",
+  "purpose": "Rank the biggest unsolved agent painpoints likely to get immediate attention from first external agents/builders.",
+  "research_sample": "/tmp/agentpress-current-places-research.json",
+  "research_buckets": [
+    "cline_mcp_approval",
+    "cline_provider_tools",
+    "roo_code",
+    "openhands_runtime",
+    "langgraph_checkpoint",
+    "langchain_tools",
+    "llamaindex_agent",
+    "modelcontextprotocol",
+    "mcp_servers",
+    "hn_mcp",
+    "hn_cline",
+    "hn_openhands"
+  ],
+  "painpoints": [
+    {
+      "rank": 1,
+      "painpoint": "MCP/tool calls executing or appearing to execute without trustworthy approval boundaries",
+      "attention_trigger": "Agents and users fear invisible side effects; security gateways are getting public attention.",
+      "evidence": [
+        "https://github.com/cline/cline/issues/10499",
+        "HN: Cordon/Kvlar/AgentArmor MCP security Show HN results"
+      ],
+      "shipped_solution": "approval-bypass-risk-check",
+      "next_build": "mcp-consent-manifest-validator",
+      "outreach_hook": "Run one command to prove risky tools fail closed when auto-approve is off."
+    },
+    {
+      "rank": 2,
+      "painpoint": "Provider/host tool vocabulary mismatch breaks otherwise capable models",
+      "attention_trigger": "Agents waste turns saying execute_command/write_to_file when provider cannot dispatch those tools.",
+      "evidence": [
+        "https://github.com/cline/cline/issues/10336",
+        "https://github.com/cline/cline/issues/9920"
+      ],
+      "shipped_solution": "provider-tool-translation-map",
+      "next_build": "provider-adapter-repro-pack",
+      "outreach_hook": "Paste your provider/host pair and get a translation map plus failing call proof."
+    },
+    {
+      "rank": 3,
+      "painpoint": "Stale checkpoint/structured output state causes premature exits or wrong next-turn behavior",
+      "attention_trigger": "Framework users lose trust when agents stop or reuse stale structured_response data.",
+      "evidence": [
+        "https://github.com/langchain-ai/langchain/issues/36957",
+        "https://github.com/langchain-ai/langgraph/issues/4940"
+      ],
+      "shipped_solution": "agent-state-checkpoint-sanitizer",
+      "next_build": "checkpoint-replay-minimal-repro-generator",
+      "outreach_hook": "Generate a before/after checkpoint replay pack agents can attach to framework issues."
+    },
+    {
+      "rank": 4,
+      "painpoint": "Runtime/browser/terminal workflow hangs with weak completion evidence",
+      "attention_trigger": "Agents stuck in running state waste money and make CI/browser agents feel unreliable.",
+      "evidence": [
+        "Cline terminal reliability issue class",
+        "OpenHands/runtime browser Docker issue class"
+      ],
+      "shipped_solution": "workflow-terminal-callback-check",
+      "next_build": "runtime-hang-repro-capsule",
+      "outreach_hook": "Turn a stuck run log into exit/callback/state evidence in one artifact."
+    },
+    {
+      "rank": 5,
+      "painpoint": "File/path metadata and tool schemas leak security or serialization failures into agent runs",
+      "attention_trigger": "RAG/agent developers hit arbitrary file-read and no-parameter tool spec bugs.",
+      "evidence": [
+        "https://github.com/run-llama/llama_index/issues/21512",
+        "https://github.com/run-llama/llama_index/issues/18928"
+      ],
+      "shipped_solution": "tool-file-access-risk-scanner + tool-schema-serialization-check",
+      "next_build": "rag-tool-safety-bundle",
+      "outreach_hook": "Validate file-path metadata and zero-arg tool schemas before publishing an agent."
+    },
+    {
+      "rank": 6,
+      "painpoint": "First-run install/package failures block adoption before an agent can test the product",
+      "attention_trigger": "No one adopts if npm/pip/CLI startup fails or package name is unclear.",
+      "evidence": [
+        "package/startup/404/auth/permission issue class"
+      ],
+      "shipped_solution": "package-registry-doctor",
+      "next_build": "copy-paste installer with registry fallback matrix",
+      "outreach_hook": "If install fails, attach this doctor output instead of a vague bug report."
+    }
+  ]
+}

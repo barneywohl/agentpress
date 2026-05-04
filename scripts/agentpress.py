@@ -2254,6 +2254,10 @@ def tools_manifest(args):
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
+        {"name":"agentpress.current_agent_places_map", "description":"Map current places where agent builders communicate and how to engage them.", "command":"python3 scripts/agentpress.py current-agent-places-map --json", "tags":["community","research","agents","attention"]},
+        {"name":"agentpress.attention_painpoint_radar", "description":"Rank current unsolved agent painpoints most likely to get first-agent attention.", "command":"python3 scripts/agentpress.py attention-painpoint-radar --json", "tags":["painpoints","attention","research","agents"]},
+        {"name":"agentpress.first_agent_attention_kit", "description":"Publish non-spam first-agent attention hooks tied to shipped AgentPress artifacts.", "command":"python3 scripts/agentpress.py first-agent-attention-kit --json", "tags":["growth","outreach","attention","agents"]},
+        {"name":"agentpress.next_attention_build_spec", "description":"Publish next build/deploy spec from live agent painpoint research.", "command":"python3 scripts/agentpress.py next-attention-build-spec --json", "tags":["spec","build-queue","attention","agents"]},
         {"name":"agentpress.agent_community_newswire", "description":"Compile current public agent-community issue/news signals.", "command":"python3 scripts/agentpress.py agent-community-newswire --json", "tags":["community","newswire","issues","agents"]},
         {"name":"agentpress.immediate_agent_needs_radar", "description":"Rank current agent needs from sampled community signals.", "command":"python3 scripts/agentpress.py immediate-agent-needs-radar --json", "tags":["needs","radar","agents","research"]},
         {"name":"agentpress.solution_targeting_matrix", "description":"Map communities/problems to AgentPress solution gates.", "command":"python3 scripts/agentpress.py solution-targeting-matrix --json", "tags":["targeting","solutions","community"]},
@@ -3209,6 +3213,79 @@ def _write_json_payload(payload, out, no_write=False, json_mode=False):
 
 
 
+
+
+def current_agent_places_map(args):
+    """Publish a researched map of where agents/agent-builders are currently communicating."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    places=[
+        {"place":"GitHub Issues","communities":["Cline","Roo Code","OpenHands","LangChain/LangGraph","LlamaIndex","MCP servers"],"why_agents_are_there":"bugs, tool-call failures, runtime hangs, approval/security reports, schema drift","how_to_research":"GitHub issue search by updated/open issue plus exact pain keywords","attention_rule":"Reply only with a directly relevant checker/spec and one command; no generic launch copy."},
+        {"place":"Hacker News / Show HN","communities":["MCP security gateways","agent browsers","agent orchestration tools","debugging MCP servers"],"why_agents_are_there":"new tools are announced and evaluated publicly by builders","how_to_research":"HN Algolia queries for MCP agent approval/tool/browser/runtime","attention_rule":"Position AgentPress as neutral evidence layer, not a competing agent."},
+        {"place":"Project docs/discussions/Discord pointers","communities":["MCP ecosystem","Cline/Roo/OpenHands users","LangChain/LlamaIndex builders"],"why_agents_are_there":"how-to questions and integration blockers","how_to_research":"official docs + GitHub discussions/issues first; Discord only when authenticated/allowed","attention_rule":"Bring a minimal repro contract and blocker-report template."},
+        {"place":"Package/install channels","communities":["npm/pip/CLI users","agent framework adopters"],"why_agents_are_there":"first-run failure before adoption","how_to_research":"issues mentioning install, package, 404, EACCES, auth, startup","attention_rule":"Lead with package-registry-doctor output and fallback install path."}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-current-agent-places-map.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Map the current public places where agent builders communicate, and define how AgentPress should research/engage them without spam.","places":places}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"ok {len(places)} places")
+    return 0
+
+
+def attention_painpoint_radar(args):
+    """Rank live/current agent painpoints most likely to get first-agent attention."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    sample=pathlib.Path(args.sample or '/tmp/agentpress-current-places-research.json')
+    research={}
+    if sample.exists():
+        try: research=json.loads(sample.read_text())
+        except Exception: research={}
+    painpoints=[
+        {"rank":1,"painpoint":"MCP/tool calls executing or appearing to execute without trustworthy approval boundaries","attention_trigger":"Agents and users fear invisible side effects; security gateways are getting public attention.","evidence":["https://github.com/cline/cline/issues/10499","HN: Cordon/Kvlar/AgentArmor MCP security Show HN results"],"shipped_solution":"approval-bypass-risk-check","next_build":"mcp-consent-manifest-validator","outreach_hook":"Run one command to prove risky tools fail closed when auto-approve is off."},
+        {"rank":2,"painpoint":"Provider/host tool vocabulary mismatch breaks otherwise capable models","attention_trigger":"Agents waste turns saying execute_command/write_to_file when provider cannot dispatch those tools.","evidence":["https://github.com/cline/cline/issues/10336","https://github.com/cline/cline/issues/9920"],"shipped_solution":"provider-tool-translation-map","next_build":"provider-adapter-repro-pack","outreach_hook":"Paste your provider/host pair and get a translation map plus failing call proof."},
+        {"rank":3,"painpoint":"Stale checkpoint/structured output state causes premature exits or wrong next-turn behavior","attention_trigger":"Framework users lose trust when agents stop or reuse stale structured_response data.","evidence":["https://github.com/langchain-ai/langchain/issues/36957","https://github.com/langchain-ai/langgraph/issues/4940"],"shipped_solution":"agent-state-checkpoint-sanitizer","next_build":"checkpoint-replay-minimal-repro-generator","outreach_hook":"Generate a before/after checkpoint replay pack agents can attach to framework issues."},
+        {"rank":4,"painpoint":"Runtime/browser/terminal workflow hangs with weak completion evidence","attention_trigger":"Agents stuck in running state waste money and make CI/browser agents feel unreliable.","evidence":["Cline terminal reliability issue class","OpenHands/runtime browser Docker issue class"],"shipped_solution":"workflow-terminal-callback-check","next_build":"runtime-hang-repro-capsule","outreach_hook":"Turn a stuck run log into exit/callback/state evidence in one artifact."},
+        {"rank":5,"painpoint":"File/path metadata and tool schemas leak security or serialization failures into agent runs","attention_trigger":"RAG/agent developers hit arbitrary file-read and no-parameter tool spec bugs.","evidence":["https://github.com/run-llama/llama_index/issues/21512","https://github.com/run-llama/llama_index/issues/18928"],"shipped_solution":"tool-file-access-risk-scanner + tool-schema-serialization-check","next_build":"rag-tool-safety-bundle","outreach_hook":"Validate file-path metadata and zero-arg tool schemas before publishing an agent."},
+        {"rank":6,"painpoint":"First-run install/package failures block adoption before an agent can test the product","attention_trigger":"No one adopts if npm/pip/CLI startup fails or package name is unclear.","evidence":["package/startup/404/auth/permission issue class"],"shipped_solution":"package-registry-doctor","next_build":"copy-paste installer with registry fallback matrix","outreach_hook":"If install fails, attach this doctor output instead of a vague bug report."}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-attention-painpoint-radar.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Rank the biggest unsolved agent painpoints likely to get immediate attention from first external agents/builders.","research_sample":str(sample),"research_buckets":list(research.keys()),"painpoints":painpoints}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"ok {len(painpoints)} painpoints")
+    return 0
+
+
+def first_agent_attention_kit(args):
+    """Publish non-spam, issue-specific first-agent attention hooks and outreach snippets."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    hooks=[
+        {"target":"Cline maintainers/users","painpoint":"MCP approval bypass and provider tool vocabulary mismatch","asset":"https://barneywohl.github.io/agentpress/agentpress/security/approval-bypass-risk-result.json","message":"I mapped this to a machine-checkable approval/tool-contract preflight. If useful, here is the exact JSON gate and command; no secrets or telemetry required.","do_not":"Do not claim AgentPress fixes Cline internals; offer reproducible preflight evidence only."},
+        {"target":"LangChain/LangGraph agent developers","painpoint":"stale structured_response/checkpoint drift","asset":"https://barneywohl.github.io/agentpress/agentpress/community/attention-painpoint-radar.json","message":"This is a small checkpoint hygiene contract agents can run before resuming a saved thread; happy to convert it into a minimal repro pack for the issue.","do_not":"Do not spam unrelated framework issues."},
+        {"target":"LlamaIndex/RAG agent builders","painpoint":"file-path metadata safety and zero-arg tool schemas","asset":"https://barneywohl.github.io/agentpress/agentpress/tools/tool-schema-serialization-result.json","message":"AgentPress now has a preflight for file/tool schema hazards; the useful piece is a tiny JSON artifact maintainers can attach to bugs.","do_not":"Do not mention private/security-sensitive paths."},
+        {"target":"MCP security/project builders on HN","painpoint":"tool-call firewall/approval evidence","asset":"https://barneywohl.github.io/agentpress/agentpress/community/current-agent-places-map.json","message":"AgentPress is the evidence layer around MCP security tools: publish consent manifests, approval outcomes, and reproducible proof rather than another proxy.","do_not":"Do not attack Cordon/Kvlar/AgentArmor; complement them."},
+        {"target":"OpenHands/Roo/browser-agent users","painpoint":"runtime/browser/terminal completion evidence","asset":"https://barneywohl.github.io/agentpress/agentpress/workflows/workflow-terminal-callback-result.json","message":"If a run hangs, AgentPress can turn terminal/callback state into a small evidence capsule for maintainers.","do_not":"Do not claim support for authenticated private browser sessions unless verified."}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-first-agent-attention-kit.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give AgentPress a targeted, non-spam way to get first-agent attention by matching live painpoints to exact shipped artifacts.","rules":["Only respond where the painpoint is already being discussed.","Lead with one command or one JSON artifact, not marketing.","Never ask for secrets/private prompts.","Prefer blocker reports and repro capsules over vague praise."],"hooks":hooks}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"ok {len(hooks)} hooks")
+    return 0
+
+
+def next_attention_build_spec(args):
+    """Publish the next build/deploy spec derived from current agent painpoint research."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    builds=[
+        {"priority":"P0","name":"mcp-consent-manifest-validator","why":"Approval bypass/security is the highest-attention current painpoint.","acceptance":["validates risky tool scopes","fails if auto-approve false but execution lacks approval evidence","emits public safe JSON result"],"owner":"barney/direct-ship"},
+        {"priority":"P0","name":"provider-adapter-repro-pack","why":"Provider/tool mismatch has exact public Cline evidence and immediate user pain.","acceptance":["input host/provider/tools","output translation map","output failing-call repro and suggested adapter contract"],"owner":"barney/direct-ship"},
+        {"priority":"P1","name":"checkpoint-replay-minimal-repro-generator","why":"LangChain/LangGraph stale state bugs need compact reproducible evidence.","acceptance":["input checkpoint summary","detect stale structured_response/tool state","emit replay steps and sanitized issue attachment"],"owner":"agent team + barney"},
+        {"priority":"P1","name":"runtime-hang-repro-capsule","why":"Browser/terminal hangs waste agent spend and are easy to prove with structured logs.","acceptance":["captures exit code/callback/state","detects stuck running state","emits maintainer-ready capsule"],"owner":"agent team + barney"},
+        {"priority":"P2","name":"first-agent-outreach-receipt-tracker","why":"Adoption proof is still zero until external builders respond.","acceptance":["tracks target/painpoint/message/asset/reply/proof","privacy-safe","no mass-send automation"],"owner":"barney/direct-ship"}
+    ]
+    payload={"schema_version":"2026-05-03.agentpress-next-attention-build-spec.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Concrete next build queue to convert current agent-community painpoints into deployed AgentPress features and first-agent attention.","builds":builds}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"ok {len(builds)} builds")
+    return 0
 
 def agent_community_newswire(args):
     """Compile current public agent-community issue/news signals into a machine-readable newswire."""
@@ -6445,6 +6522,10 @@ def main():
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attestation-coverage"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/attestations"); p.add_argument("--out", default="agentpress/attestations/attestation-coverage.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("current-agent-places-map"); p.add_argument("--out", default="agentpress/community/current-agent-places-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("attention-painpoint-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/attention-painpoint-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("first-agent-attention-kit"); p.add_argument("--out", default="agentpress/outreach/first-agent-attention-kit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("next-attention-build-spec"); p.add_argument("--out", default="agentpress/specs/next-attention-build-spec.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-community-newswire"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/agent-community-newswire.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("immediate-agent-needs-radar"); p.add_argument("--out", default="agentpress/community/immediate-agent-needs-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("solution-targeting-matrix"); p.add_argument("--out", default="agentpress/community/solution-targeting-matrix.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -6742,6 +6823,10 @@ def main():
     if args.cmd == "next-cycle-research": return next_cycle_research(args)
     if args.cmd == "memory-drift-check": return memory_drift_check(args)
     if args.cmd == "agent-community-channel-map": return agent_community_channel_map(args)
+    if args.cmd == "current-agent-places-map": return current_agent_places_map(args)
+    if args.cmd == "attention-painpoint-radar": return attention_painpoint_radar(args)
+    if args.cmd == "first-agent-attention-kit": return first_agent_attention_kit(args)
+    if args.cmd == "next-attention-build-spec": return next_attention_build_spec(args)
     if args.cmd == "agent-community-newswire": return agent_community_newswire(args)
     if args.cmd == "immediate-agent-needs-radar": return immediate_agent_needs_radar(args)
     if args.cmd == "solution-targeting-matrix": return solution_targeting_matrix(args)

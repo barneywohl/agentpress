@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-03T23:31:20Z",
+  "generated_at": "2026-05-04T01:03:51Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -414,6 +414,50 @@
         "trust",
         "score",
         "routing"
+      ]
+    },
+    {
+      "name": "agentpress.current_agent_places_map",
+      "description": "Map current places where agent builders communicate and how to engage them.",
+      "command": "python3 scripts/agentpress.py current-agent-places-map --json",
+      "tags": [
+        "community",
+        "research",
+        "agents",
+        "attention"
+      ]
+    },
+    {
+      "name": "agentpress.attention_painpoint_radar",
+      "description": "Rank current unsolved agent painpoints most likely to get first-agent attention.",
+      "command": "python3 scripts/agentpress.py attention-painpoint-radar --json",
+      "tags": [
+        "painpoints",
+        "attention",
+        "research",
+        "agents"
+      ]
+    },
+    {
+      "name": "agentpress.first_agent_attention_kit",
+      "description": "Publish non-spam first-agent attention hooks tied to shipped AgentPress artifacts.",
+      "command": "python3 scripts/agentpress.py first-agent-attention-kit --json",
+      "tags": [
+        "growth",
+        "outreach",
+        "attention",
+        "agents"
+      ]
+    },
+    {
+      "name": "agentpress.next_attention_build_spec",
+      "description": "Publish next build/deploy spec from live agent painpoint research.",
+      "command": "python3 scripts/agentpress.py next-attention-build-spec --json",
+      "tags": [
+        "spec",
+        "build-queue",
+        "attention",
+        "agents"
       ]
     },
     {

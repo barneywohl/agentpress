@@ -1,0 +1,64 @@
+{
+  "schema_version": "2026-05-03.agentpress-next-attention-build-spec.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/specs/next-attention-build-spec.json",
+  "generated_utc": "2026-05-04T01:03:52Z",
+  "status": "ok",
+  "purpose": "Concrete next build queue to convert current agent-community painpoints into deployed AgentPress features and first-agent attention.",
+  "builds": [
+    {
+      "priority": "P0",
+      "name": "mcp-consent-manifest-validator",
+      "why": "Approval bypass/security is the highest-attention current painpoint.",
+      "acceptance": [
+        "validates risky tool scopes",
+        "fails if auto-approve false but execution lacks approval evidence",
+        "emits public safe JSON result"
+      ],
+      "owner": "barney/direct-ship"
+    },
+    {
+      "priority": "P0",
+      "name": "provider-adapter-repro-pack",
+      "why": "Provider/tool mismatch has exact public Cline evidence and immediate user pain.",
+      "acceptance": [
+        "input host/provider/tools",
+        "output translation map",
+        "output failing-call repro and suggested adapter contract"
+      ],
+      "owner": "barney/direct-ship"
+    },
+    {
+      "priority": "P1",
+      "name": "checkpoint-replay-minimal-repro-generator",
+      "why": "LangChain/LangGraph stale state bugs need compact reproducible evidence.",
+      "acceptance": [
+        "input checkpoint summary",
+        "detect stale structured_response/tool state",
+        "emit replay steps and sanitized issue attachment"
+      ],
+      "owner": "agent team + barney"
+    },
+    {
+      "priority": "P1",
+      "name": "runtime-hang-repro-capsule",
+      "why": "Browser/terminal hangs waste agent spend and are easy to prove with structured logs.",
+      "acceptance": [
+        "captures exit code/callback/state",
+        "detects stuck running state",
+        "emits maintainer-ready capsule"
+      ],
+      "owner": "agent team + barney"
+    },
+    {
+      "priority": "P2",
+      "name": "first-agent-outreach-receipt-tracker",
+      "why": "Adoption proof is still zero until external builders respond.",
+      "acceptance": [
+        "tracks target/painpoint/message/asset/reply/proof",
+        "privacy-safe",
+        "no mass-send automation"
+      ],
+      "owner": "barney/direct-ship"
+    }
+  ]
+}

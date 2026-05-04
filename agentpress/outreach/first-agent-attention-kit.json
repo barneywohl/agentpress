@@ -1,0 +1,50 @@
+{
+  "schema_version": "2026-05-03.agentpress-first-agent-attention-kit.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/outreach/first-agent-attention-kit.json",
+  "generated_utc": "2026-05-04T01:03:51Z",
+  "status": "ok",
+  "purpose": "Give AgentPress a targeted, non-spam way to get first-agent attention by matching live painpoints to exact shipped artifacts.",
+  "rules": [
+    "Only respond where the painpoint is already being discussed.",
+    "Lead with one command or one JSON artifact, not marketing.",
+    "Never ask for secrets/private prompts.",
+    "Prefer blocker reports and repro capsules over vague praise."
+  ],
+  "hooks": [
+    {
+      "target": "Cline maintainers/users",
+      "painpoint": "MCP approval bypass and provider tool vocabulary mismatch",
+      "asset": "https://barneywohl.github.io/agentpress/agentpress/security/approval-bypass-risk-result.json",
+      "message": "I mapped this to a machine-checkable approval/tool-contract preflight. If useful, here is the exact JSON gate and command; no secrets or telemetry required.",
+      "do_not": "Do not claim AgentPress fixes Cline internals; offer reproducible preflight evidence only."
+    },
+    {
+      "target": "LangChain/LangGraph agent developers",
+      "painpoint": "stale structured_response/checkpoint drift",
+      "asset": "https://barneywohl.github.io/agentpress/agentpress/community/attention-painpoint-radar.json",
+      "message": "This is a small checkpoint hygiene contract agents can run before resuming a saved thread; happy to convert it into a minimal repro pack for the issue.",
+      "do_not": "Do not spam unrelated framework issues."
+    },
+    {
+      "target": "LlamaIndex/RAG agent builders",
+      "painpoint": "file-path metadata safety and zero-arg tool schemas",
+      "asset": "https://barneywohl.github.io/agentpress/agentpress/tools/tool-schema-serialization-result.json",
+      "message": "AgentPress now has a preflight for file/tool schema hazards; the useful piece is a tiny JSON artifact maintainers can attach to bugs.",
+      "do_not": "Do not mention private/security-sensitive paths."
+    },
+    {
+      "target": "MCP security/project builders on HN",
+      "painpoint": "tool-call firewall/approval evidence",
+      "asset": "https://barneywohl.github.io/agentpress/agentpress/community/current-agent-places-map.json",
+      "message": "AgentPress is the evidence layer around MCP security tools: publish consent manifests, approval outcomes, and reproducible proof rather than another proxy.",
+      "do_not": "Do not attack Cordon/Kvlar/AgentArmor; complement them."
+    },
+    {
+      "target": "OpenHands/Roo/browser-agent users",
+      "painpoint": "runtime/browser/terminal completion evidence",
+      "asset": "https://barneywohl.github.io/agentpress/agentpress/workflows/workflow-terminal-callback-result.json",
+      "message": "If a run hangs, AgentPress can turn terminal/callback state into a small evidence capsule for maintainers.",
+      "do_not": "Do not claim support for authenticated private browser sessions unless verified."
+    }
+  ]
+}

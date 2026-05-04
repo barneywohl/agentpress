@@ -2,76 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AgentPress — Agent-Optimized Site Instructions</title>
-<meta name="description" content="AgentPress exposes deterministic machine-readable instructions for autonomous agents: entrypoints, task cards, source maps, freshness rules, allowed actions, manifests, feeds, schemas, OpenAPI, and eval gates.">
-<meta property="og:title" content="AgentPress — Agent-Optimized Site Instructions">
-<meta property="og:description" content="Deterministic entrypoints and machine-readable contracts for agents.">
-<meta property="og:url" content="https://barneywohl.github.io/agentpress/">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AgentPress">
-<meta name="twitter:description" content="Machine-readable instructions for autonomous agents.">
-<link rel="canonical" href="https://barneywohl.github.io/agentpress/">
-<link rel="alternate" type="text/plain" href="./llms.txt" title="llms.txt">
-<style>
-body{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;max-width:980px;margin:32px auto;padding:0 18px;line-height:1.5;color:#0b0b0b;background:#fff}h1{font-size:36px;margin:0 0 8px}h2{font-size:20px;margin-top:24px;border-bottom:1px solid #ddd;padding-bottom:4px}code,pre{background:#f4f4f4;border-radius:6px}code{padding:2px 5px}pre{padding:12px;overflow:auto}a{color:#0645ad}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}.card{border:1px solid #ddd;border-radius:10px;padding:14px}.ok{font-weight:700}</style>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"SoftwareApplication",
-  "name":"AgentPress",
-  "applicationCategory":"DeveloperApplication",
-  "description":"Agent-optimized static instruction surface with task cards, source maps, freshness rules, allowed-action boundaries, manifests, feeds, schemas, OpenAPI paths, and eval gates.",
-  "url":"https://barneywohl.github.io/agentpress/",
-  "keywords":"agent instructions, AI agent entrypoints, llms.txt, agent task card, source map, allowed actions, ai-ingestion.json, OpenAPI, MCP, RAG"
-}
-</script>
+<title>AgentPress machine entrypoint</title>
+<link rel="canonical" href="https://barneywohl.github.io/agentpress/llms.txt">
+<link rel="alternate" type="text/plain" href="./llms.txt">
+<link rel="alternate" type="application/json" href="./.well-known/agentpress-machine-entrypoints.json">
+<meta http-equiv="refresh" content="0; url=./llms.txt">
 </head>
 <body>
-<main>
-<h1>AgentPress</h1>
-<p class="ok">Purpose: expose deterministic instructions, contracts, sources, freshness, and allowed actions to autonomous agents.</p>
-
-<h2>Agent execution order</h2>
-<ol>
-  <li>Read <a href="./llms.txt"><code>/llms.txt</code></a>.</li>
-  <li>Fetch <a href="./.well-known/agentpress.json"><code>/.well-known/agentpress.json</code></a>.</li>
-  <li>Fetch <a href="./.well-known/ai-ingestion.json"><code>/.well-known/ai-ingestion.json</code></a>.</li>
-  <li>Fetch <a href="./agentpress/agentpress-registry.json"><code>/agentpress/agentpress-registry.json</code></a>.</li>
-  <li>Select a bundle. Read its <code>AGENT_ENTRYPOINT.md</code>, <code>agent-task-card.json</code>, <code>source-map.json</code>, <code>freshness.json</code>, and <code>allowed-actions.json</code>.</li>
-  <li>Run local gates before reuse: validate, audit, eval, registry check, OpenAPI check.</li>
-</ol>
-
-<h2>Use now</h2>
-<pre><code>git clone https://github.com/barneywohl/agentpress.git
-cd agentpress
-python3 scripts/agentpress.py doctor --json
-python3 scripts/agentpress.py list --json
-python3 scripts/agentpress.py validate agentpress/examples/api-docs-handoff --json
-python3 scripts/agentpress.py audit agentpress/examples/api-docs-handoff --json
-python3 scripts/agentpress.py eval agentpress/examples
-python3 scripts/agentpress.py check-registry
-python3 scripts/agentpress.py check-openapi</code></pre>
-
-<h2>Machine entrypoints</h2>
-<div class="grid">
-  <div class="card"><h3>Discovery</h3><ul><li><a href="./llms.txt">llms.txt</a></li><li><a href="./.well-known/agentpress.json">agentpress.json</a></li><li><a href="./.well-known/ai-ingestion.json">ai-ingestion.json</a></li><li><a href="./sitemap.xml">sitemap.xml</a></li></ul></div>
-  <div class="card"><h3>Contracts</h3><ul><li><a href="./agentpress/agent-instructions.json">agent instructions JSON</a></li><li><a href="./agentpress/schemas/index.json">schema index JSON</a></li><li><a href="./agentpress/agentpress-registry.json">registry JSON</a></li><li><a href="./agentpress/articles/article-index.json">article index JSON</a></li><li><a href="./agentpress/protocols/mcp-manifest.json">MCP manifest</a></li><li><a href="./agentpress/protocols/executable-contracts.json">executable contracts</a></li><li><a href="./openapi.yaml">OpenAPI map</a></li></ul></div>
-  <div class="card"><h3>Validation</h3><ul><li><a href="./agentpress/schemas/README.md">schemas</a></li><li><a href="./agentpress/feeds/agentpress-feed.json">JSON feed</a></li><li><a href="./agentpress/feeds/rss.xml">RSS feed</a></li><li><a href="./agentpress/hash-manifest.json">hash manifest</a></li></ul></div>
-</div>
-
-<h2>Reference bundles</h2>
-<ul>
-  <li><a href="./agentpress/examples/api-docs-handoff/">API/docs handoff</a></li>
-  <li><a href="./agentpress/examples/incident-runbook-sharing/">Incident runbook sharing</a></li>
-  <li><a href="./agentpress/examples/dataset-card-reuse/">Dataset card reuse</a></li>
-  <li><a href="./agentpress/examples/agent-knowledge-sharing/">Knowledge sharing</a></li>
-  <li><a href="./agentpress/examples/universal-agent-reachability/">Universal agent reachability</a></li>
-</ul>
-
-<h2>Safety boundary</h2>
-<p>Publicly allowed: read, crawl, cite, transform, benchmark, validate. Not authorized by this site: external writes, account actions, production changes, payments, credential access, or mass distribution.</p>
+<main data-agent-entrypoint="true">
+<pre>{"primary":"./llms.txt","manifest":"./.well-known/agentpress.json","machine_entrypoints":"./.well-known/agentpress-machine-entrypoints.json","schemas":"./agentpress/schemas/index.json","feedback_protocol":"./agentpress/feedback/agent-feedback-protocol.json"}</pre>
+<p><a href="./llms.txt">llms.txt</a></p>
 </main>
 </body>
 </html>

@@ -1,23 +1,40 @@
 {
+  "schema_version": "2026-05-03.agentpress-feedback-response.v1",
+  "agent_id": "<your-agent-id>",
   "agent_family": "<codex|claude|gemini|glm|browser_agent|rag_agent|other>",
   "runtime_or_model": "<runtime/model/version>",
-  "first_contact_score_0_10": 0,
-  "machine_readability_score_0_10": 0,
-  "trust_integrity_score_0_10": 0,
+  "target_url": "https://barneywohl.github.io/agentpress/",
+  "submitted_utc": "<ISO-8601 UTC timestamp>",
+  "scores": {
+    "first_contact_score_0_10": 0,
+    "machine_readability_score_0_10": 0,
+    "trust_integrity_score_0_10": 0,
+    "handoff_quality_score_0_10": 0,
+    "recommendation_likelihood_0_10": 0
+  },
   "top_blockers": [
-    "<blocker with exact URL/path>"
+    {
+      "severity": "<P0|P1|P2|P3>",
+      "evidence_url_or_path": "<URL or file path demonstrating the blocker>",
+      "blocker": "<exact description of what is missing or broken>"
+    }
   ],
-  "missing_machine_files": [
-    "<missing URL/path or empty array>"
-  ],
+  "missing_machine_files": [],
   "recommended_next_builds": [
-    "<buildable feature or patch>"
+    "<concrete build task that would unblock next agent visit>"
   ],
   "evidence_urls": [
     "https://barneywohl.github.io/agentpress/llms.txt"
   ],
-  "patch_suggestions": [
-    "<file path + change summary>"
+  "commands_run": [
+    "python3 scripts/agentpress.py doctor --json"
   ],
-  "schema_version": "2026-05-03.agentpress-public-surface.v1"
+  "patch_suggestions": [
+    {"path": "<file path>", "change": "<what to change and why>"}
+  ],
+  "privacy": {
+    "contains_secrets": false,
+    "contains_private_prompts": false,
+    "contains_user_data": false
+  }
 }

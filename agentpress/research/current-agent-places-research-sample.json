@@ -1,0 +1,298 @@
+{
+  "schema_version": "2026-05-03.agentpress-current-agent-places-research-sample.v1",
+  "status": "ok",
+  "generated_utc": "2026-05-04T01:03:00Z",
+  "source": "GitHub Search API + HN Algolia public query sample",
+  "buckets": {
+    "cline_mcp_approval": {
+      "query": "repo:cline/cline is:issue is:open MCP approval auto approve tool call",
+      "url": "https://api.github.com/search/issues?q=repo%3Acline%2Fcline+is%3Aissue+is%3Aopen+MCP+approval+auto+approve+tool+call&sort=updated&order=desc&per_page=8",
+      "total_count": 1,
+      "items": [
+        {
+          "title": "MCP tool calls execute without user approval when Auto-approve is OFF",
+          "url": "https://github.com/cline/cline/issues/10499",
+          "repo": "cline",
+          "state": "open",
+          "updated_at": "2026-05-03T04:47:00Z",
+          "comments": 5,
+          "body": "### Plugin Type\n\nVSCode Extension\n\n### Cline Version\n\n3.81.0\n\n### Beta version\n\n- [ ] I am using a beta version of Cline\n\n### What happened?\n\nMCP server tools with the Auto-approve toggle disabled are being executed by Cline without presenting the user with an approval prompt.\n\nExpected behavior: Cline pauses before each tool call and shows the user an approve/reject dialog when Auto-approve is OFF.\n\nActual behavior: The tool call fires and completes without any user interaction. The user has no"
+        }
+      ]
+    },
+    "cline_provider_tools": {
+      "query": "repo:cline/cline is:issue is:open provider tool execute_command Claude Code",
+      "url": "https://api.github.com/search/issues?q=repo%3Acline%2Fcline+is%3Aissue+is%3Aopen+provider+tool+execute_command+Claude+Code&sort=updated&order=desc&per_page=8",
+      "total_count": 4,
+      "items": [
+        {
+          "title": "Claude Code provider: model uses Cline tool vocabulary (execute_command) which Claude Code cannot dispatch",
+          "url": "https://github.com/cline/cline/issues/10336",
+          "repo": "cline",
+          "state": "open",
+          "updated_at": "2026-05-03T20:22:25Z",
+          "comments": 3,
+          "body": "### Plugin Type\n\nVSCode Extension\n\n### Cline Version\n\n3.79.0\n\n### What happened?\n\nWhen using the Claude Code provider, the model produces Cline-style tool calls (execute_command, read_file, etc.) because Cline's prompt format is forwarded verbatim to the Claude CLI. Claude Code's own tool executor does not recognise those tool names \u2014 it only knows Bash, Read, Edit, etc. \u2014 so every tool call fails immediately with Error: No such tool available:\nexecute_command. Because the process exits after ma"
+        },
+        {
+          "title": "Cline repeatedly reports \"[ERROR] You did not use a tool\" when tool calls are present but response is truncated mid-tag",
+          "url": "https://github.com/cline/cline/issues/9920",
+          "repo": "cline",
+          "state": "open",
+          "updated_at": "2026-04-06T16:48:15Z",
+          "comments": 3,
+          "body": "### Plugin Type\n\nVSCode Extension\n\n### Cline Version\n\n3.75.0\n\n### What happened?\n\nDuring a long coding task, Cline's responses were being cut off mid-tool-call (e.g., the closing `</execute_command>` or `</replace_in_file>` tag was never emitted because the response was truncated). This caused Cline to receive the \"[ERROR] You did not use a tool in your previous response!\" error repeatedly, even though tool calls were clearly present in the response \u2014 they were simply truncated before the closin"
+        },
+        {
+          "title": "Improve Terminal Integration Reliability Across Platforms and Shell Configurations",
+          "url": "https://github.com/cline/cline/issues/4356",
+          "repo": "cline",
+          "state": "open",
+          "updated_at": "2026-03-15T03:38:29Z",
+          "comments": 61,
+          "body": "## Problem\n\nCline's terminal integration frequently fails across different platforms, shell configurations, and environments, preventing users from accessing command output. This creates significant friction in the user experience and forces users to find complex workarounds.\n\nFor example:\n\n\u2022 macOS users with zsh + Oh-My-Zsh configurations experience shell integration failures  <br>\u2022 VSCode reaches terminal limits (100+ terminals) causing complete shell integration breakdown  <br>\u2022 WSL and SSH c"
+        },
+        {
+          "title": "Does .clineignore work? cant get it right",
+          "url": "https://github.com/cline/cline/issues/8361",
+          "repo": "cline",
+          "state": "open",
+          "updated_at": "2026-03-04T02:13:21Z",
+          "comments": 11,
+          "body": "### Plugin Type\n\nVSCode Extension\n\n### Cline Version\n\n3.46.1\n\n### What happened?\n\nHi! Thanks for cline, it has become my go to agent for everything! A small question on ignores: I have tried lots of variations of `.clineignore` but I can't get it to work properly, it keeps detecting my DB dir's changes as shown in the screenshot, am I doing something wrong? Everytime I click \"see the changes/diff\" it includes lots of changes in my DB from regular usage (which also make it slow to open)\n\nDir stru"
+        }
+      ]
+    },
+    "roo_code": {
+      "query": "repo:RooVetGit/Roo-Code is:issue is:open tool approval browser context stuck",
+      "url": "https://api.github.com/search/issues?q=repo%3ARooVetGit%2FRoo-Code+is%3Aissue+is%3Aopen+tool+approval+browser+context+stuck&sort=updated&order=desc&per_page=8",
+      "total_count": null,
+      "items": []
+    },
+    "openhands_runtime": {
+      "query": "repo:All-Hands-AI/OpenHands is:issue is:open runtime browser docker terminal stuck",
+      "url": "https://api.github.com/search/issues?q=repo%3AAll-Hands-AI%2FOpenHands+is%3Aissue+is%3Aopen+runtime+browser+docker+terminal+stuck&sort=updated&order=desc&per_page=8",
+      "total_count": null,
+      "items": []
+    },
+    "langgraph_checkpoint": {
+      "query": "repo:langchain-ai/langgraph is:issue is:open checkpoint structured_response tool state",
+      "url": "https://api.github.com/search/issues?q=repo%3Alangchain-ai%2Flanggraph+is%3Aissue+is%3Aopen+checkpoint+structured_response+tool+state&sort=updated&order=desc&per_page=8",
+      "total_count": 1,
+      "items": [
+        {
+          "title": "When using tools, pre-filling the `assistant` response is not supported",
+          "url": "https://github.com/langchain-ai/langgraph/issues/4940",
+          "repo": "langgraph",
+          "state": "open",
+          "updated_at": "2026-03-24T04:35:23Z",
+          "comments": 4,
+          "body": "### Checked other resources\n\n- [x] This is a bug, not a usage question. For questions, please use GitHub Discussions.\n- [x] I added a clear and detailed title that summarizes the issue.\n- [x] I read what a minimal reproducible example is (https://stackoverflow.com/help/minimal-reproducible-example).\n- [x] I included a self-contained, minimal example that demonstrates the issue INCLUDING all the relevant imports. The code run AS IS to reproduce the issue.\n\n### Example Code\n\n```python\nfrom langgra"
+        }
+      ]
+    },
+    "langchain_tools": {
+      "query": "repo:langchain-ai/langchain is:issue is:open agent tool schema structured_response",
+      "url": "https://api.github.com/search/issues?q=repo%3Alangchain-ai%2Flangchain+is%3Aissue+is%3Aopen+agent+tool+schema+structured_response&sort=updated&order=desc&per_page=8",
+      "total_count": 6,
+      "items": [
+        {
+          "title": "`create_agent`: stale `structured_response` from checkpoint causes premature exit on next turn",
+          "url": "https://github.com/langchain-ai/langchain/issues/36957",
+          "repo": "langchain",
+          "state": "open",
+          "updated_at": "2026-05-03T20:37:06Z",
+          "comments": 6,
+          "body": "### Submission checklist\n\n- [x] This is a bug, not a usage question.\n- [x] I added a clear and descriptive title that summarizes this issue.\n- [x] I used the GitHub search to find a similar question and didn't find it.\n- [x] I am sure that this is a bug in LangChain rather than my code.\n- [x] The bug is not resolved by updating to the latest stable version of LangChain (or the specific integration package).\n- [x] This is not related to the langchain-community package.\n- [x] I posted a self-conta"
+        },
+        {
+          "title": "`wrap_model_call` middleware ToolStrategy narrowing has no effect \u2014 model still sees all structured output tools",
+          "url": "https://github.com/langchain-ai/langchain/issues/36568",
+          "repo": "langchain",
+          "state": "open",
+          "updated_at": "2026-04-07T08:22:42Z",
+          "comments": 2,
+          "body": "### Checked other resources\n\n- [x] This is a bug, not a usage question.\n- [x] I added a clear and descriptive title that summarizes this issue.\n- [x] I used the GitHub search to find a similar question and didn't find it.\n- [x] I am sure that this is a bug in LangChain rather than my code.\n- [x] The bug is not resolved by updating to the latest stable version of LangChain (or the specific integration package).\n- [x] This is not related to the langchain-community package.\n- [x] I posted a self-co"
+        },
+        {
+          "title": "LangChain Agent + vLLM Qwen2-VL + @tool",
+          "url": "https://github.com/langchain-ai/langchain/issues/35758",
+          "repo": "langchain",
+          "state": "open",
+          "updated_at": "2026-03-12T09:19:15Z",
+          "comments": 4,
+          "body": "### Checked other resources\n\n- [x] This is a bug, not a usage question.\n- [x] I added a clear and descriptive title that summarizes this issue.\n- [x] I used the GitHub search to find a similar question and didn't find it.\n- [x] I am sure that this is a bug in LangChain rather than my code.\n- [x] The bug is not resolved by updating to the latest stable version of LangChain (or the specific integration package).\n- [x] This is not related to the langchain-community package.\n- [x] I posted a self-co"
+        },
+        {
+          "title": "[langchain Agent]: Errors in tool calling from Playwright MCP",
+          "url": "https://github.com/langchain-ai/langchain/issues/33869",
+          "repo": "langchain",
+          "state": "open",
+          "updated_at": "2026-01-22T20:49:35Z",
+          "comments": 2,
+          "body": "### Checked other resources\n\n- [x] This is a bug, not a usage question. For questions, please use the LangChain Forum (https://forum.langchain.com/).\n- [x] I added a clear and detailed title that summarizes the issue.\n- [x] I read what a minimal reproducible example is (https://stackoverflow.com/help/minimal-reproducible-example).\n- [x] I included a self-contained, minimal example that demonstrates the issue INCLUDING all the relevant imports. The code run AS IS to reproduce the issue.\n\n### Exam"
+        },
+        {
+          "title": "Dynamic response_format with create_agent",
+          "url": "https://github.com/langchain-ai/langchain/issues/34239",
+          "repo": "langchain",
+          "state": "open",
+          "updated_at": "2026-01-22T20:44:57Z",
+          "comments": 7,
+          "body": "### Checked other resources\n\n- [x] This is a feature request, not a bug report or usage question.\n- [x] I added a clear and descriptive title that summarizes the feature request.\n- [x] I used the GitHub search to find a similar feature request and didn't find it.\n- [x] I checked the LangChain documentation and API reference to see if this feature already exists.\n- [x] This is not related to the langchain-community package.\n\n### Package (Required)\n\n- [x] langchain\n- [ ] langchain-openai\n- [ ] lan"
+        },
+        {
+          "title": "Docs: JSON schema 'title' requirement not clearly documented",
+          "url": "https://github.com/langchain-ai/langchain/issues/34662",
+          "repo": "langchain",
+          "state": "open",
+          "updated_at": "2026-01-22T20:42:24Z",
+          "comments": 2,
+          "body": "### Checked other resources\n\n- [x] This is a bug, not a usage question.\n- [x] I added a clear and descriptive title that summarizes this issue.\n- [x] I used the GitHub search to find a similar question and didn't find it.\n- [x] I am sure that this is a bug in LangChain rather than my code.\n- [x] The bug is not resolved by updating to the latest stable version of LangChain (or the specific integration package).\n- [x] This is not related to the langchain-community package.\n- [x] I posted a self-co"
+        }
+      ]
+    },
+    "llamaindex_agent": {
+      "query": "repo:run-llama/llama_index is:issue is:open agent tool file output schema",
+      "url": "https://api.github.com/search/issues?q=repo%3Arun-llama%2Fllama_index+is%3Aissue+is%3Aopen+agent+tool+file+output+schema&sort=updated&order=desc&per_page=8",
+      "total_count": 4,
+      "items": [
+        {
+          "title": "[Question]: How to call rag in the agent",
+          "url": "https://github.com/run-llama/llama_index/issues/20573",
+          "repo": "llama_index",
+          "state": "open",
+          "updated_at": "2026-05-03T02:20:18Z",
+          "comments": 7,
+          "body": "### Question Validation\n\n- [x] I have searched both the documentation and discord for an answer.\n\n### Question\n\nHow to call rag in the agent\nUsing this has no effect\n budget_tool = QueryEngineTool.from_defaults(\n    query_engine=query_engine,\n    name=\"rag\",\n    description=\"rag\",\n )\nworkflow = AgentWorkflow.from_tools_or_functions(\n    [budget_tool, weather],\n    llm=llm,\n    system_prompt=\"For unknown questions, the rag tool must be used to answer them\",\n    verbose=True\n)\nreference https://gi"
+        },
+        {
+          "title": "Arbitrary file read via ImageDocument.metadata[\"file_path\"] in image_documents_to_base64",
+          "url": "https://github.com/run-llama/llama_index/issues/21512",
+          "repo": "llama_index",
+          "state": "open",
+          "updated_at": "2026-05-03T02:13:14Z",
+          "comments": 15,
+          "body": "### Bug Description\n\n### Summary\n\n`image_documents_to_base64` in `llama-index-core` opens any path supplied via `ImageDocument.metadata[\"file_path\"]` and base64-encodes the bytes \u2014 with no allow-listed root, no symlink check, and no MIME validation. Applications that build `ImageDocument` instances from user-influenced data (a common pattern: tool arguments, JSON request bodies, deserialized documents) effectively expose an arbitrary-file-read primitive whose output is forwarded to the configure"
+        },
+        {
+          "title": "[Bug]: Chat API call violates the OpenAI specification if the tool has no parameters",
+          "url": "https://github.com/run-llama/llama_index/issues/18928",
+          "repo": "llama_index",
+          "state": "open",
+          "updated_at": "2026-05-01T21:45:04Z",
+          "comments": 3,
+          "body": "### Bug Description\n\nIf a tool takes no arguments, the passed API call violates the openai specification. Since VLLM enforces parameter checking, this call is then rejected outright by vLLM.\n\n### Version\n\n0.12.39\n\n### Steps to Reproduce\n\nSimply create a FunctionTool that takes no arguments with FunctionAgent\n\n### Relevant Logs/Tracbacks\n\n\n#### Logs from llama index Openai client:\n\n```shell\n2025-06-02 17:35:31.252 | DEBUG    | gpt.chat_support_llindex:stream_response:259 - Chatbot response: \nExce"
+        },
+        {
+          "title": "[Bug]: Unable to use ChromaDB for vector memory",
+          "url": "https://github.com/run-llama/llama_index/issues/15681",
+          "repo": "llama_index",
+          "state": "open",
+          "updated_at": "2024-08-28T00:18:34Z",
+          "comments": 1,
+          "body": "### Bug Description\n\nWhen attempting to use chromadb as a vector memory, I received a key error on sub_dicts. I'm not sure if this is a chromadb issue because I've no errors when setting the vector_store to None and using the in-memory vector store.\n\n### Version\n\n0.10.68\n\n### Steps to Reproduce\n\n##Assuming you already have a chromaDB instance of messages\r\n```\r\nimport chromadb\r\nfrom llama_index.vector_stores import ChromaVectorStore\r\nfrom llama_index.core.memory import VectorMemory, Simple Compos"
+        }
+      ]
+    },
+    "modelcontextprotocol": {
+      "query": "org:modelcontextprotocol is:issue is:open auth transport permissions approval",
+      "url": "https://api.github.com/search/issues?q=org%3Amodelcontextprotocol+is%3Aissue+is%3Aopen+auth+transport+permissions+approval&sort=updated&order=desc&per_page=8",
+      "total_count": 0,
+      "items": []
+    },
+    "mcp_servers": {
+      "query": "repo:modelcontextprotocol/servers is:issue is:open auth security tool permissions",
+      "url": "https://api.github.com/search/issues?q=repo%3Amodelcontextprotocol%2Fservers+is%3Aissue+is%3Aopen+auth+security+tool+permissions&sort=updated&order=desc&per_page=8",
+      "total_count": 0,
+      "items": []
+    },
+    "hn_mcp": {
+      "query": "MCP agent approval tool call",
+      "url": "https://hn.algolia.com/api/v1/search?query=MCP+agent+approval+tool+call&tags=story&hitsPerPage=5",
+      "items": [
+        {
+          "title": "Show HN: Cordon \u2013 open-source security gateway for MCP tool calls",
+          "url": "https://cordon-server-production.up.railway.app/dashboard/",
+          "points": 3,
+          "comments": 0,
+          "created_at": "2026-03-16T14:07:01Z"
+        },
+        {
+          "title": "Show HN: Kvlar \u2013 Open-source firewall for AI agent tool calls",
+          "url": "https://github.com/kvlar-io/kvlar",
+          "points": 1,
+          "comments": 0,
+          "created_at": "2026-03-04T23:16:30Z"
+        },
+        {
+          "title": "Show HN: AgentArmor \u2013 open-source 8-layer security framework for AI agents",
+          "url": "https://github.com/Agastya910/agentarmor",
+          "points": 10,
+          "comments": 6,
+          "created_at": "2026-03-14T09:44:36Z"
+        },
+        {
+          "title": "Show HN: Mercury \u2013 No-code orchestration for human and agent teams",
+          "url": "https://www.mercury.build/",
+          "points": 6,
+          "comments": 4,
+          "created_at": "2026-04-13T22:16:48Z"
+        },
+        {
+          "title": "Show HN: Cordon \u2013 Security gateway for MCP tool calls with HITL approvals",
+          "url": "https://github.com/marras0914/cordon",
+          "points": 2,
+          "comments": 1,
+          "created_at": "2026-04-28T22:39:22Z"
+        }
+      ]
+    },
+    "hn_cline": {
+      "query": "Cline agent tool provider",
+      "url": "https://hn.algolia.com/api/v1/search?query=Cline+agent+tool+provider&tags=story&hitsPerPage=5",
+      "items": [
+        {
+          "title": "Show HN: OpenBrowser MCP: Give your AI agent a real efficient browser",
+          "url": "https://openbrowser.me/",
+          "points": 2,
+          "comments": 0,
+          "created_at": "2026-02-22T13:57:23Z"
+        },
+        {
+          "title": "Show HN: Forge \u2013 Cline/Roo Alternative on the CLI",
+          "url": "https://github.com/antinomyhq/forge",
+          "points": 1,
+          "comments": 0,
+          "created_at": "2025-04-27T04:56:18Z"
+        },
+        {
+          "title": "Show HN: I built a BYOK AI gateway after a 100x Cloudflare KV cost mistake",
+          "url": "https://qzira.com/en/",
+          "points": 1,
+          "comments": 0,
+          "created_at": "2026-03-09T14:23:46Z"
+        },
+        {
+          "title": "Show HN: I built a debugging MCP server that saves me ~2 programming hours a day",
+          "url": "https://news.ycombinator.com/item?id=43797906",
+          "points": 5,
+          "comments": 1,
+          "created_at": "2025-04-25T19:53:51Z"
+        },
+        {
+          "title": "$38k AWS Bedrock bill caused by a simple prompt caching miss",
+          "url": "https://news.ycombinator.com/item?id=47933355",
+          "points": 8,
+          "comments": 0,
+          "created_at": "2026-04-28T12:07:40Z"
+        }
+      ]
+    },
+    "hn_openhands": {
+      "query": "OpenHands agent runtime docker",
+      "url": "https://hn.algolia.com/api/v1/search?query=OpenHands+agent+runtime+docker&tags=story&hitsPerPage=5",
+      "items": []
+    }
+  }
+}
