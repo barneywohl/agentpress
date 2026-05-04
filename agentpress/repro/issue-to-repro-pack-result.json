@@ -1,0 +1,36 @@
+{
+  "schema_version": "2026-05-04.agentpress-issue-to-repro-pack-result.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/repro/issue-to-repro-pack-result.json",
+  "generated_utc": "2026-05-04T02:56:46Z",
+  "status": "ok",
+  "purpose": "Turn a live tool/provider/schema complaint into a sanitized maintainer-ready repro attachment.",
+  "input_summary": {
+    "public_issue_url": "https://github.com/cline/cline/issues/10534",
+    "host_runtime": "cline",
+    "provider_or_model": "deepseek-v4-flash",
+    "tool_name": "tool_call",
+    "observed_error": "3.82.0 tool calls fail with Deepseek v4-flash Thinking"
+  },
+  "secret_findings": [],
+  "findings": [],
+  "repro_pack": {
+    "failing_call": {
+      "tool": "tool_call",
+      "host": "cline",
+      "provider": "deepseek-v4-flash",
+      "observed_error": "3.82.0 tool calls fail with Deepseek v4-flash Thinking"
+    },
+    "expected_contract": {
+      "tool_must_be_declared": true,
+      "arguments_must_match_schema": true,
+      "unknown_tool_policy": "fail_closed_do_not_infer"
+    },
+    "maintainer_comment_md": "Attached: sanitized AgentPress issue-to-repro pack for a tool/provider/schema failure. It includes only public issue URL, host/provider/tool names, observed error, and expected contract; no private prompt or secret material."
+  },
+  "acceptance_gates": [
+    "JSON parses",
+    "no secret-looking values",
+    "public issue URL present",
+    "tool/provider/error fields present"
+  ]
+}

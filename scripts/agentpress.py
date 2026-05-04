@@ -3380,6 +3380,64 @@ def issue_comment_pack_generator(args):
     print(json.dumps(payload,indent=2) if args.json else 'ok')
     return 0
 
+
+def issue_to_repro_pack(args):
+    """Generate/validate a sanitized issue-to-repro pack for tool/provider/schema failures."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    issue=args.issue_url or "https://github.com/cline/cline/issues/10534"
+    error=args.error or "tool call failed / invalid_arguments"
+    tool=args.tool or "unknown_tool"
+    host=args.host or "unknown_host"
+    provider=args.provider or "unknown_provider"
+    secret_hits=[]
+    secret_re=re.compile(r"(?i)(sk-[a-z0-9_-]{12,}|gh[opsu]_[a-z0-9_]{20,}|api[_-]?key\s*[:=]\s*\S+|token\s*[:=]\s*\S+|password\s*[:=]\s*\S+)")
+    for label,value in [("error",error),("tool",tool),("host",host),("provider",provider),("issue_url",issue)]:
+        if secret_re.search(str(value)):
+            secret_hits.append({"field":label,"message":"secret-looking value detected; redact before sharing"})
+    findings=[]
+    if not issue.startswith(("https://github.com/","https://news.ycombinator.com/")):
+        findings.append({"severity":"P1","message":"issue_url should be a public maintainer thread"})
+    if tool == "unknown_tool":
+        findings.append({"severity":"P1","message":"tool name missing; repro is less actionable"})
+    if error == "tool call failed / invalid_arguments":
+        findings.append({"severity":"P2","message":"specific observed error not supplied; using generic class"})
+    status="fail" if secret_hits else ("needs_detail" if findings else "ok")
+    payload={"schema_version":"2026-05-04.agentpress-issue-to-repro-pack-result.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"purpose":"Turn a live tool/provider/schema complaint into a sanitized maintainer-ready repro attachment.","input_summary":{"public_issue_url":issue,"host_runtime":host,"provider_or_model":provider,"tool_name":tool,"observed_error":error},"secret_findings":secret_hits,"findings":findings,"repro_pack":{"failing_call":{"tool":tool,"host":host,"provider":provider,"observed_error":error},"expected_contract":{"tool_must_be_declared":True,"arguments_must_match_schema":True,"unknown_tool_policy":"fail_closed_do_not_infer"},"maintainer_comment_md":"Attached: sanitized AgentPress issue-to-repro pack for a tool/provider/schema failure. It includes only public issue URL, host/provider/tool names, observed error, and expected contract; no private prompt or secret material."},"acceptance_gates":["JSON parses","no secret-looking values","public issue URL present","tool/provider/error fields present"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else status)
+    return 1 if args.strict and status=="fail" else 0
+
+
+def mcp_config_mutation_guard(args):
+    """Preflight MCP config mutation with backup/diff/restore evidence requirements."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    config_path=args.config_path
+    before=args.before_sha256 or ""
+    after=args.after_sha256 or ""
+    allowed=set(_csv_list(args.allowed_mutations, []))
+    planned=_csv_list(args.planned_servers, [])
+    existing=_csv_list(args.existing_servers, [])
+    removed=[server for server in existing if server and server not in planned]
+    added=[server for server in planned if server and server not in existing]
+    findings=[]
+    if args.config_exists and not before:
+        findings.append({"severity":"P0","message":"config exists but before_sha256/backup proof is missing"})
+    for server in removed:
+        if f"remove:{server}" not in allowed and "remove:*" not in allowed:
+            findings.append({"severity":"P0","server":server,"message":"existing MCP server would be removed without explicit allowed_mutation"})
+    broad=[server for server in added if any(x in server.lower() for x in ["filesystem","shell","terminal","browser","wallet","credential","secret"])]
+    for server in broad:
+        findings.append({"severity":"P1","server":server,"message":"new broad-scope server requires consent manifest before mutation"})
+    if args.apply and findings:
+        findings.append({"severity":"P0","message":"apply requested but guard is not clean; refuse mutation"})
+    status="ok" if not findings else "fail_closed"
+    payload={"schema_version":"2026-05-04.agentpress-mcp-config-mutation-guard-result.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"purpose":"Prevent MCP installers/agents from silently damaging existing MCP settings.","config_path":config_path,"evidence":{"before_sha256":before or None,"after_sha256":after or None,"restore_command":f"cp {config_path}.backup {config_path}"},"diff_summary":{"existing_servers":existing,"planned_servers":planned,"added":added,"removed":removed,"allowed_mutations":sorted(allowed)},"finding_count":len(findings),"findings":findings,"policy":{"fail_closed":True,"never_apply_without_backup":True,"broad_scope_servers_need_consent_manifest":True},"public_issue_signal":"https://github.com/cline/cline/issues/9663"}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else status)
+    return 1 if args.strict and status!='ok' else 0
+
 def continuous_research_build_cycle_audit(args):
     """Audit shipped AgentPress surfaces against current painpoint/build lists and emit next cycle decision."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
@@ -6726,6 +6784,8 @@ def main():
     p = sub.add_parser("rag-tool-safety-bundle"); p.add_argument("--out", default="agentpress/safety/rag-tool-safety-bundle.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("external-reply-to-proof-ingest-bridge"); p.add_argument("--out", default="agentpress/proof/external-reply-to-proof-ingest-bridge.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("issue-comment-pack-generator"); p.add_argument("--out", default="agentpress/outreach/issue-comment-pack-generator.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("issue-to-repro-pack"); p.add_argument("--issue-url", default=""); p.add_argument("--host", default="cline"); p.add_argument("--provider", default="unknown_provider"); p.add_argument("--tool", default="unknown_tool"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/repro/issue-to-repro-pack-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("mcp-config-mutation-guard"); p.add_argument("--config-path", default="cline_mcp_settings.json"); p.add_argument("--config-exists", action="store_true"); p.add_argument("--before-sha256", default=""); p.add_argument("--after-sha256", default=""); p.add_argument("--existing-servers", default=""); p.add_argument("--planned-servers", default=""); p.add_argument("--allowed-mutations", default=""); p.add_argument("--apply", action="store_true"); p.add_argument("--out", default="agentpress/security/mcp-config-mutation-guard-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("continuous-research-build-cycle-audit"); p.add_argument("--out", default="agentpress/audits/continuous-research-build-cycle-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("current-agent-places-map"); p.add_argument("--out", default="agentpress/community/current-agent-places-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attention-painpoint-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/attention-painpoint-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -7036,6 +7096,8 @@ def main():
     if args.cmd == "rag-tool-safety-bundle": return rag_tool_safety_bundle(args)
     if args.cmd == "external-reply-to-proof-ingest-bridge": return external_reply_to_proof_ingest_bridge(args)
     if args.cmd == "issue-comment-pack-generator": return issue_comment_pack_generator(args)
+    if args.cmd == "issue-to-repro-pack": return issue_to_repro_pack(args)
+    if args.cmd == "mcp-config-mutation-guard": return mcp_config_mutation_guard(args)
     if args.cmd == "continuous-research-build-cycle-audit": return continuous_research_build_cycle_audit(args)
     if args.cmd == "current-agent-places-map": return current_agent_places_map(args)
     if args.cmd == "attention-painpoint-radar": return attention_painpoint_radar(args)

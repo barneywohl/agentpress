@@ -1,0 +1,45 @@
+{
+  "schema_version": "2026-05-04.agentpress-mcp-config-mutation-guard-result.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/security/mcp-config-mutation-guard-result.json",
+  "generated_utc": "2026-05-04T02:56:47Z",
+  "status": "fail_closed",
+  "purpose": "Prevent MCP installers/agents from silently damaging existing MCP settings.",
+  "config_path": "cline_mcp_settings.json",
+  "evidence": {
+    "before_sha256": "example_before_hash",
+    "after_sha256": null,
+    "restore_command": "cp cline_mcp_settings.json.backup cline_mcp_settings.json"
+  },
+  "diff_summary": {
+    "existing_servers": [
+      "filesystem",
+      "github"
+    ],
+    "planned_servers": [
+      "filesystem",
+      "github",
+      "terminal"
+    ],
+    "added": [
+      "terminal"
+    ],
+    "removed": [],
+    "allowed_mutations": [
+      "add:terminal"
+    ]
+  },
+  "finding_count": 1,
+  "findings": [
+    {
+      "severity": "P1",
+      "server": "terminal",
+      "message": "new broad-scope server requires consent manifest before mutation"
+    }
+  ],
+  "policy": {
+    "fail_closed": true,
+    "never_apply_without_backup": true,
+    "broad_scope_servers_need_consent_manifest": true
+  },
+  "public_issue_signal": "https://github.com/cline/cline/issues/9663"
+}
