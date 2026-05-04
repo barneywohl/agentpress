@@ -118,6 +118,40 @@ def read_text(path: pathlib.Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
 
 
+SENSITIVE_PATH_MARKERS = (
+    ".env",
+    ".ssh",
+    ".aws",
+    ".config/gcloud",
+    ".netrc",
+    ".pypirc",
+    ".npmrc",
+    "id_rsa",
+    "id_ed25519",
+    "clawd_secrets",
+)
+
+
+def _is_sensitive_path(path: pathlib.Path) -> bool:
+    """Fail closed before lint/doctor read paths that are commonly secret-bearing."""
+    raw = path.expanduser().as_posix().lower()
+    name = path.name.lower()
+    if name.endswith((".key", ".pem")):
+        return True
+    return any(marker in raw for marker in SENSITIVE_PATH_MARKERS)
+
+
+def _secret_path_guard(root: pathlib.Path) -> list[dict]:
+    if _is_sensitive_path(root):
+        return [{
+            "severity": "error",
+            "code": "sensitive_root_refused",
+            "path": str(root),
+            "message": "Refusing to lint/doctor a secret-bearing path (.env, SSH/AWS/GCloud credentials, key/pem files, netrc, npm/pypi auth, or clawd_secrets). Choose the public project root instead.",
+        }]
+    return []
+
+
 def write(path: pathlib.Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
@@ -2479,7 +2513,15 @@ def release_index(args):
 
 def agent_lint(args):
     root = pathlib.Path(args.root)
-    findings = []
+    findings = _secret_path_guard(root)
+    if findings:
+        result = {"schema_version": "2026-05-04.agentpress-lint.v1", "status": "fail", "root": str(root), "checked": ["secret_path_guard"], "finding_count": len(findings), "findings": findings}
+        if args.out and not args.no_write:
+            out = pathlib.Path(args.out)
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(result, indent=2) if args.json else "fail %d findings" % len(findings))
+        return 1
     required = ["llms.txt", ".well-known/agentpress.json", ".well-known/ai-ingestion.json"]
     for rel in required:
         path = root / rel
@@ -2671,6 +2713,27 @@ def package_index(args):
 
 def doctor(args):
     root = pathlib.Path(args.root)
+    guard_findings = _secret_path_guard(root)
+    if guard_findings:
+        payload = {
+            "status": "fail",
+            "root": str(root),
+            "entrypoints": [],
+            "primary_reference_score": None,
+            "primary_reference_errors": [guard_findings[0]["message"]],
+            "primary_reference_warnings": [],
+            "canonical_url": "https://barneywohl.github.io/agentpress/",
+            "raw_fallback": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
+            "security_guard": guard_findings[0],
+        }
+        if getattr(args, "json", False):
+            print(json.dumps(payload, indent=2))
+        else:
+            print("AgentPress doctor")
+            print(f"root: {root}")
+            print("FAIL    secret_path_guard")
+            print(json.dumps({"primary_reference_errors": payload["primary_reference_errors"]}, indent=2), file=sys.stderr)
+        return 1
     entrypoints = [
         "llms.txt",
         ".well-known/agentpress.json",
