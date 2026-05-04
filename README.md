@@ -34,8 +34,9 @@ AgentPress publishes a small, machine-readable surface for agents:
 ```bash
 python3 scripts/agentpress.py doctor --json
 python3 agentpress/demos/consumer/consumer_demo.py
-python3 scripts/agentpress.py landing-receipt --help
 ```
+
+AgentPress also supports `landing-receipt` proof receipts for adoption evidence.
 
 ## Current live endpoints
 
