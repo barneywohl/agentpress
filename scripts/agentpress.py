@@ -3488,19 +3488,133 @@ def issue_to_repro_pack(args):
     return 1 if args.strict and status=="fail" else 0
 
 
+
+def painpoint_target_pack(args):
+    """Turn one live agent pain complaint into a runnable pack + approval-ready outreach draft."""
+    out = pathlib.Path(args.out)
+    base = args.base_url.rstrip() + "/"
+    issue_url = args.issue_url.strip()
+    painpoint = (args.painpoint or args.error or "").strip()
+    host = (args.host or "unknown_host").strip()
+    provider = (args.provider or "unknown_provider").strip()
+    tool = (args.tool or "unknown_tool").strip()
+    lower = " ".join([issue_url, painpoint, host, provider, tool]).lower()
+    candidates = [
+        {"id":"mcp_config_mutation_guard","match":["mcp","config","cline","roo","settings","approval","consent","server"],"artifact":"agentpress/security/mcp-config-mutation-guard-result.json","command":"python3 scripts/agentpress.py mcp-config-mutation-guard --config-exists --before-sha256 <sha256-before> --existing-servers <csv> --planned-servers <csv> --json","user_value":"Stops agent installers from silently breaking existing MCP/Cline/Roo config; emits backup/diff/restore evidence."},
+        {"id":"provider_adapter_repro_pack","match":["tool","provider","adapter","execute_command","write_to_file","invalid_arguments","unknown tool"],"artifact":"agentpress/compatibility/provider-adapter-repro-pack.json","command":"python3 scripts/agentpress.py provider-adapter-repro-pack --host <host> --provider <provider> --calls <tool_csv> --json","user_value":"Turns host/provider tool mismatch into a small adapter map and failing-call repro maintainers can act on."},
+        {"id":"issue_to_repro_pack","match":["repro","bug","error","failed","schema","arguments","exception"],"artifact":"agentpress/repro/issue-to-repro-pack-result.json","command":"python3 scripts/agentpress.py issue-to-repro-pack --issue-url <public-url> --host <host> --provider <provider> --tool <tool> --error <redacted-error> --json","user_value":"Converts a public complaint into a sanitized, no-secret repro attachment."},
+        {"id":"runtime_hang_repro_capsule","match":["hang","stuck","timeout","terminal","browser","running","callback"],"artifact":"agentpress/repro/runtime-hang-repro-capsule.json","command":"python3 scripts/agentpress.py runtime-hang-repro-capsule --log <redacted-log-path> --json","user_value":"Turns a stuck run into exit/callback/runtime-state evidence instead of vague debugging."},
+        {"id":"package_registry_doctor","match":["npm","pypi","install","package","registry","404","npx","pip"],"artifact":"agentpress/diagnostics/package-registry-doctor.json","command":"python3 scripts/agentpress.py package-registry-doctor --error <install-error> --json","user_value":"Diagnoses first-run package/registry failures before the user gives up."},
+    ]
+    scored=[]
+    for candidate in candidates:
+        hits=[word for word in candidate["match"] if word in lower]
+        scored.append((len(hits), hits, candidate))
+    scored.sort(key=lambda row: row[0], reverse=True)
+    best_score, hits, best = scored[0]
+    if best_score == 0:
+        best = candidates[2]
+        hits = []
+    command = best["command"]
+    command = command.replace("<public-url>", shlex.quote(issue_url or "https://github.com/example/project/issues/123"))
+    command = command.replace("<host>", shlex.quote(host))
+    command = command.replace("<provider>", shlex.quote(provider))
+    command = command.replace("<tool>", shlex.quote(tool))
+    command = command.replace("<tool_csv>", shlex.quote(tool if tool != "unknown_tool" else "execute_command,write_to_file"))
+    command = command.replace("<redacted-error>", shlex.quote(args.error or painpoint or "redacted observed error"))
+    command = command.replace("<install-error>", shlex.quote(args.error or painpoint or "install failed"))
+    comment = (
+        "I saw this pain point and mapped it to a small AgentPress repro/preflight so it is useful even if you ignore the project.\n\n"
+        f"Run:\n```bash\n{command}\n```\n\n"
+        f"What it gives you: {best['user_value']}\n\n"
+        "No secrets, private prompts, telemetry, or external writes required. If this misses the actual failure mode, reply with the redacted error and I’ll tighten the pack."
+    )
+    findings=[]
+    if not issue_url:
+        findings.append({"severity":"P1","message":"issue_url missing; target pack is less directly actionable"})
+    elif not issue_url.startswith(("https://github.com/","https://news.ycombinator.com/","https://gitlab.com/","https://gitee.com/")):
+        findings.append({"severity":"P1","message":"target URL is not a known public dev/community thread"})
+    secret_re = re.compile(r"(?i)(sk-[a-z0-9_-]{12,}|gh[opsu]_[a-z0-9_]{20,}|api[_-]?key\s*[:=]\s*\S+|token\s*[:=]\s*\S+|password\s*[:=]\s*\S+)")
+    for label,value in [("painpoint",painpoint),("error",args.error or ""),("issue_url",issue_url)]:
+        if secret_re.search(str(value)):
+            findings.append({"severity":"P0","field":label,"message":"secret-looking value detected; redact before sharing"})
+    status = "blocked_redact" if any(f.get("severity") == "P0" for f in findings) else ("needs_target" if findings else "ready_for_manual_approval")
+    payload={
+        "schema_version":"2026-05-04.agentpress-painpoint-target-pack.v1",
+        "canonical_url":urljoin(base,out.as_posix()),
+        "generated_utc":_utc_now(),
+        "status":status,
+        "purpose":"Directly target one live agent-builder painpoint with one runnable AgentPress command and one non-spam outreach draft.",
+        "input":{"issue_url":issue_url,"painpoint":painpoint,"host":host,"provider":provider,"tool":tool},
+        "matched_solution":{"id":best["id"],"match_terms":hits,"artifact":urljoin(base,best["artifact"]),"command":command,"user_value":best["user_value"]},
+        "manual_outreach_draft":{"approval_required":True,"comment_md":comment},
+        "acceptance_gates":["public target URL","one command","one artifact","no secrets","manual approval before posting","receipt captured if anyone replies"],
+        "finding_count":len(findings),"findings":findings,
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 1 if args.strict and payload["status"].startswith("blocked") else 0
+
+def _mcp_server_names_from_config(path):
+    try:
+        data=json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+    except Exception:
+        return [], None
+    if isinstance(data, dict):
+        for key in ("mcpServers", "servers"):
+            if isinstance(data.get(key), dict):
+                return sorted(data[key].keys()), data
+    return [], data
+
+
 def mcp_config_mutation_guard(args):
-    """Preflight MCP config mutation with backup/diff/restore evidence requirements."""
+    """Preflight MCP config mutation with optional real backup/diff/restore proof."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
-    config_path=args.config_path
+    cfg=pathlib.Path(args.config_path).expanduser()
+    config_path=str(cfg)
+    findings=[]; actions=[]; backup_path=None
+    config_exists=cfg.exists() or args.config_exists
     before=args.before_sha256 or ""
     after=args.after_sha256 or ""
-    allowed=set(_csv_list(args.allowed_mutations, []))
-    planned=_csv_list(args.planned_servers, [])
     existing=_csv_list(args.existing_servers, [])
+    planned=_csv_list(args.planned_servers, [])
+    if cfg.exists():
+        before=hashlib.sha256(cfg.read_bytes()).hexdigest()
+        detected,_=_mcp_server_names_from_config(cfg)
+        if detected and not existing:
+            existing=detected
+    if args.planned_config:
+        detected,_=_mcp_server_names_from_config(pathlib.Path(args.planned_config).expanduser())
+        if detected:
+            planned=detected
+    if not planned:
+        planned=list(existing)
+    if args.backup and cfg.exists():
+        backup_dir=pathlib.Path(args.backup_dir).expanduser(); backup_dir.mkdir(parents=True, exist_ok=True)
+        backup_path=backup_dir / f"{cfg.name}.{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}.backup"
+        shutil.copy2(cfg, backup_path)
+        actions.append({"action":"backup_created","path":str(backup_path),"sha256":hashlib.sha256(backup_path.read_bytes()).hexdigest()})
+    if args.restore:
+        src=pathlib.Path(args.restore).expanduser()
+        if not src.exists():
+            findings.append({"severity":"P0","message":"restore source does not exist","path":str(src)})
+        elif args.apply_restore:
+            if cfg.exists() and not backup_path:
+                backup_dir=pathlib.Path(args.backup_dir).expanduser(); backup_dir.mkdir(parents=True, exist_ok=True)
+                backup_path=backup_dir / f"{cfg.name}.{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}.pre-restore.backup"
+                shutil.copy2(cfg, backup_path)
+            cfg.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, cfg)
+            after=hashlib.sha256(cfg.read_bytes()).hexdigest()
+            actions.append({"action":"restored","from":str(src),"to":str(cfg),"after_sha256":after})
+        else:
+            actions.append({"action":"restore_dry_run","from":str(src),"to":str(cfg),"apply_with":"--apply-restore"})
+    allowed=set(_csv_list(args.allowed_mutations, []))
     removed=[server for server in existing if server and server not in planned]
     added=[server for server in planned if server and server not in existing]
-    findings=[]
-    if args.config_exists and not before:
+    if config_exists and not before:
         findings.append({"severity":"P0","message":"config exists but before_sha256/backup proof is missing"})
     for server in removed:
         if f"remove:{server}" not in allowed and "remove:*" not in allowed:
@@ -3511,7 +3625,8 @@ def mcp_config_mutation_guard(args):
     if args.apply and findings:
         findings.append({"severity":"P0","message":"apply requested but guard is not clean; refuse mutation"})
     status="ok" if not findings else "fail_closed"
-    payload={"schema_version":"2026-05-04.agentpress-mcp-config-mutation-guard-result.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"purpose":"Prevent MCP installers/agents from silently damaging existing MCP settings.","config_path":config_path,"evidence":{"before_sha256":before or None,"after_sha256":after or None,"restore_command":f"cp {config_path}.backup {config_path}"},"diff_summary":{"existing_servers":existing,"planned_servers":planned,"added":added,"removed":removed,"allowed_mutations":sorted(allowed)},"finding_count":len(findings),"findings":findings,"policy":{"fail_closed":True,"never_apply_without_backup":True,"broad_scope_servers_need_consent_manifest":True},"public_issue_signal":"https://github.com/cline/cline/issues/9663"}
+    restore_cmd=f"cp {shlex.quote(str(backup_path or (str(cfg)+'.backup')))} {shlex.quote(config_path)}"
+    payload={"schema_version":"2026-05-04.agentpress-mcp-config-mutation-guard-result.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"purpose":"Prevent MCP installers/agents from silently damaging existing MCP settings with real backup/diff/restore evidence.","config_path":config_path,"evidence":{"before_sha256":before or None,"after_sha256":after or None,"backup_path":str(backup_path) if backup_path else None,"restore_command":restore_cmd},"actions":actions,"diff_summary":{"existing_servers":existing,"planned_servers":planned,"added":added,"removed":removed,"allowed_mutations":sorted(allowed)},"finding_count":len(findings),"findings":findings,"policy":{"fail_closed":True,"never_apply_without_backup":True,"broad_scope_servers_need_consent_manifest":True,"restore_is_dry_run_unless_apply_restore":True},"public_issue_signal":"https://github.com/cline/cline/issues/9663"}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else status)
@@ -3766,6 +3881,18 @@ def package_registry_doctor(args):
     print(json.dumps(payload,indent=2) if args.json else payload['status'])
     return 0
 
+
+
+def package_registry_fallback_installer(args):
+    """Generate a copy-paste AgentPress installer with npm, PyPI, git, and static fallbacks."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    script='#!/usr/bin/env bash\nset -euo pipefail\nwant="${AGENTPRESS_VERSION:-0.1.0}"\necho "AgentPress fallback installer (target ${want})"\ntry_cmd() { echo "+ $*" >&2; "$@"; }\nif command -v npm >/dev/null 2>&1; then\n  if try_cmd npm install -g "@agent_press/agentpress@${want}"; then\n    agentpress --help >/dev/null && echo "installed via npm" && exit 0\n  fi\nfi\nif command -v python3 >/dev/null 2>&1; then\n  tmp="$(mktemp -d)"\n  if python3 -m venv "$tmp/venv" && "$tmp/venv/bin/python" -m pip install -q "agentpress-static==${want}"; then\n    "$tmp/venv/bin/agentpress" --help >/dev/null && echo "installed via PyPI venv: $tmp/venv/bin/agentpress" && exit 0\n  fi\nfi\nif command -v git >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1; then\n  dir="${AGENTPRESS_DIR:-$HOME/.agentpress-src}"\n  rm -rf "$dir"\n  git clone --depth 1 https://github.com/barneywohl/agentpress.git "$dir"\n  python3 "$dir/scripts/agentpress.py" doctor --json >/dev/null && echo "installed from git source: python3 $dir/scripts/agentpress.py" && exit 0\nfi\nif command -v curl >/dev/null 2>&1; then\n  tmp="$(mktemp -d)"\n  curl -fsSL https://agentpress.pages.dev/llms.txt -o "$tmp/llms.txt"\n  curl -fsSL https://agentpress.pages.dev/.well-known/agentpress.json -o "$tmp/agentpress.json"\n  test -s "$tmp/llms.txt" -a -s "$tmp/agentpress.json" && echo "static fallback fetched: $tmp" && exit 0\nfi\necho "AgentPress install failed across npm/PyPI/git/static fallbacks" >&2\nexit 1\n'
+    payload={"schema_version":"2026-05-04.agentpress-package-registry-fallback-installer.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give first agent users a copy-paste installer that survives npm/PyPI/registry/region failures.","install_order":["npm @agent_press/agentpress","PyPI agentpress-static isolated venv","GitHub source checkout","static llms/agentpress JSON fetch"],"script_path":str(out),"usage":["bash agentpress/install/install-agentpress.sh","AGENTPRESS_VERSION=0.1.0 bash agentpress/install/install-agentpress.sh"],"script_sha256":hashlib.sha256(script.encode()).hexdigest(),"privacy":"No telemetry, no secrets, no account login."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(script,encoding="utf-8"); os.chmod(out,0o755)
+        out.with_suffix(out.suffix+".json").write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else str(out))
+    return 0
 
 def tool_schema_serialization_check(args):
     """Check whether tool schema metadata is JSON-serializable for agent frameworks."""
@@ -7121,7 +7248,8 @@ def main():
     p = sub.add_parser("external-reply-to-proof-ingest-bridge"); p.add_argument("--out", default="agentpress/proof/external-reply-to-proof-ingest-bridge.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("issue-comment-pack-generator"); p.add_argument("--out", default="agentpress/outreach/issue-comment-pack-generator.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("issue-to-repro-pack"); p.add_argument("--issue-url", default=""); p.add_argument("--host", default="cline"); p.add_argument("--provider", default="unknown_provider"); p.add_argument("--tool", default="unknown_tool"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/repro/issue-to-repro-pack-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("mcp-config-mutation-guard"); p.add_argument("--config-path", default="cline_mcp_settings.json"); p.add_argument("--config-exists", action="store_true"); p.add_argument("--before-sha256", default=""); p.add_argument("--after-sha256", default=""); p.add_argument("--existing-servers", default=""); p.add_argument("--planned-servers", default=""); p.add_argument("--allowed-mutations", default=""); p.add_argument("--apply", action="store_true"); p.add_argument("--out", default="agentpress/security/mcp-config-mutation-guard-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("painpoint-target-pack"); p.add_argument("--issue-url", default=""); p.add_argument("--painpoint", default=""); p.add_argument("--host", default="unknown_host"); p.add_argument("--provider", default="unknown_provider"); p.add_argument("--tool", default="unknown_tool"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/outreach/painpoint-target-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("mcp-config-mutation-guard"); p.add_argument("--config-path", default="cline_mcp_settings.json"); p.add_argument("--config-exists", action="store_true"); p.add_argument("--before-sha256", default=""); p.add_argument("--after-sha256", default=""); p.add_argument("--existing-servers", default=""); p.add_argument("--planned-servers", default=""); p.add_argument("--planned-config", default=""); p.add_argument("--allowed-mutations", default=""); p.add_argument("--backup", action="store_true"); p.add_argument("--backup-dir", default=".agentpress-backups"); p.add_argument("--restore", default=""); p.add_argument("--apply-restore", action="store_true"); p.add_argument("--apply", action="store_true"); p.add_argument("--out", default="agentpress/security/mcp-config-mutation-guard-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("continuous-research-build-cycle-audit"); p.add_argument("--out", default="agentpress/audits/continuous-research-build-cycle-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("current-agent-places-map"); p.add_argument("--out", default="agentpress/community/current-agent-places-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attention-painpoint-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/attention-painpoint-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -7135,6 +7263,7 @@ def main():
     p = sub.add_parser("workflow-terminal-callback-check"); p.add_argument("--log", default=""); p.add_argument("--out", default="agentpress/workflows/workflow-terminal-callback-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("context-compaction-risk-card"); p.add_argument("--out", default="agentpress/context/context-compaction-risk-card.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-doctor"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/diagnostics/package-registry-doctor.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("package-registry-fallback-installer"); p.add_argument("--out", default="agentpress/install/install-agentpress.sh"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-schema-serialization-check"); p.add_argument("--schema", default=""); p.add_argument("--out", default="agentpress/tools/tool-schema-serialization-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-issue-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/community-issue-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -7461,6 +7590,7 @@ def main():
     if args.cmd == "external-reply-to-proof-ingest-bridge": return external_reply_to_proof_ingest_bridge(args)
     if args.cmd == "issue-comment-pack-generator": return issue_comment_pack_generator(args)
     if args.cmd == "issue-to-repro-pack": return issue_to_repro_pack(args)
+    if args.cmd == "painpoint-target-pack": return painpoint_target_pack(args)
     if args.cmd == "mcp-config-mutation-guard": return mcp_config_mutation_guard(args)
     if args.cmd == "continuous-research-build-cycle-audit": return continuous_research_build_cycle_audit(args)
     if args.cmd == "current-agent-places-map": return current_agent_places_map(args)
@@ -7475,6 +7605,7 @@ def main():
     if args.cmd == "workflow-terminal-callback-check": return workflow_terminal_callback_check(args)
     if args.cmd == "context-compaction-risk-card": return context_compaction_risk_card(args)
     if args.cmd == "package-registry-doctor": return package_registry_doctor(args)
+    if args.cmd == "package-registry-fallback-installer": return package_registry_fallback_installer(args)
     if args.cmd == "tool-schema-serialization-check": return tool_schema_serialization_check(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
     if args.cmd == "unsolved-agent-problem-backlog": return unsolved_agent_problem_backlog(args)

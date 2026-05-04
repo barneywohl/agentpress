@@ -1,0 +1,20 @@
+{
+  "schema_version": "2026-05-04.agentpress-package-registry-fallback-installer.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/install/install-agentpress.sh",
+  "generated_utc": "2026-05-04T05:32:59Z",
+  "status": "ok",
+  "purpose": "Give first agent users a copy-paste installer that survives npm/PyPI/registry/region failures.",
+  "install_order": [
+    "npm @agent_press/agentpress",
+    "PyPI agentpress-static isolated venv",
+    "GitHub source checkout",
+    "static llms/agentpress JSON fetch"
+  ],
+  "script_path": "agentpress/install/install-agentpress.sh",
+  "usage": [
+    "bash agentpress/install/install-agentpress.sh",
+    "AGENTPRESS_VERSION=0.1.0 bash agentpress/install/install-agentpress.sh"
+  ],
+  "script_sha256": "45ea9f3a58aaf9547ebe1cdf61986b29555b0093f4c48ede2910ca1690447cee",
+  "privacy": "No telemetry, no secrets, no account login."
+}
