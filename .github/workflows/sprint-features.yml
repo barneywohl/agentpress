@@ -6,11 +6,13 @@ on:
     paths:
       - scripts/agentpress.py
       - tests/test_sprint_features.py
+      - tests/test_painpoint_target_pack.py
       - pyproject.toml
   pull_request:
     paths:
       - scripts/agentpress.py
       - tests/test_sprint_features.py
+      - tests/test_painpoint_target_pack.py
       - pyproject.toml
 
 jobs:
@@ -21,6 +23,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Install test dependencies
+        run: python3 -m pip install pytest
       - name: Syntax check
         run: python3 -m py_compile scripts/agentpress.py
       - name: Lint
@@ -32,11 +36,11 @@ jobs:
       - name: Doctor
         run: python3 scripts/agentpress.py doctor --json
       - name: Pytest sprint features
-        run: python3 -m pytest tests/test_sprint_features.py -v
+        run: python3 -m pytest tests/test_sprint_features.py tests/test_painpoint_target_pack.py -v
       - name: first-user-bootstrap smoke
         run: python3 scripts/agentpress.py first-user-bootstrap --platform cline --json
       - name: proof-capture smoke
-        run: python3 scripts/agentpress.py proof-capture --task-id ci-001 --evidence-dir /tmp/ci-proof --no-write --json
+        run: python3 scripts/agentpress.py proof-capture --task-id ci-001 --evidence-dir /tmp/ci-proof --json
       - name: sandbox-guard smoke
         run: python3 scripts/agentpress.py sandbox-guard --scope read-only --paths ./src --no-write --json
       - name: adoption-tracker smoke
@@ -46,7 +50,7 @@ jobs:
       - name: batch-painpoints smoke
         run: |
           echo '[]' > /tmp/ci-issues.json
-          python3 scripts/agentpress.py batch-painpoints --input /tmp/ci-issues.json --output /tmp/ci-outreach --no-write --json
+          python3 scripts/agentpress.py batch-painpoints --input /tmp/ci-issues.json --output /tmp/ci-outreach --json
       - name: release-candidate smoke
         run: python3 scripts/agentpress.py release-candidate --version 0.2.0-rc --no-write --json
 
