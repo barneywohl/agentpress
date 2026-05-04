@@ -4799,21 +4799,122 @@ def runtime_install_doctor(args):
 
 
 def connector_security_scanner(args):
-    """Generate connector security scanner rules."""
+    """Scan connector/MCP metadata for secret, auth, transport, and tool-risk gaps."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
     rules=[
-        {"id":"secret_literal","severity":"critical","detect":"api_key/token/password literal in artifact","action":"fail"},
-        {"id":"missing_auth_mode","severity":"high","detect":"connector lacks auth_mode","action":"fail"},
-        {"id":"r4_without_approval","severity":"high","detect":"write/external effect without approval_ref","action":"fail"},
-        {"id":"unknown_transport","severity":"high","detect":"transport not in stdio/http/mcp/static","action":"fail"},
-        {"id":"dangerous_tool","severity":"medium","detect":"delete/send/pay/deploy/write without risk metadata","action":"needs_review"},
-        {"id":"env_var_unscoped","severity":"medium","detect":"env var requested without scope/reason","action":"needs_review"}
+        {"id":"secret_literal","severity":"critical","detect":"secret-looking api_key/token/password literal in artifact","action":"fail"},
+        {"id":"missing_auth_mode","severity":"high","detect":"connector lacks auth_mode/auth.type/auth","action":"fail"},
+        {"id":"r4_without_approval","severity":"high","detect":"R4 or external/write effect without approval_ref","action":"fail"},
+        {"id":"unknown_transport","severity":"high","detect":"transport not in stdio/http/https/mcp/static/sse/websocket","action":"fail"},
+        {"id":"dangerous_tool","severity":"medium","detect":"delete/send/pay/deploy/write/shell tool without risk metadata","action":"needs_review"},
+        {"id":"env_var_unscoped","severity":"medium","detect":"env var requested without scope/reason/required flag","action":"needs_review"}
     ]
-    payload={"schema_version":"2026-05-03.agentpress-connector-security-scanner.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Security rules for MCP/connector metadata before autonomous agents invoke tools.","rule_count":len(rules),"rules":rules}
+    allowed_transports={"stdio","http","https","mcp","static","sse","websocket","ws"}
+    dangerous_tokens=("delete","send","pay","payment","deploy","write","shell","exec","transfer","external","publish")
+    findings=[]
+
+    def add(rule_id, severity, action, path, message, evidence=None):
+        finding={"rule_id":rule_id,"severity":severity,"action":action,"path":path,"message":message}
+        if evidence not in (None, ""):
+            finding["evidence"]=str(evidence)[:160]
+        findings.append(finding)
+
+    def load_manifest():
+        if getattr(args,"manifest",None):
+            path=pathlib.Path(args.manifest)
+            data=json.loads(path.read_text(encoding="utf-8"))
+            return data, str(path)
+        sample={
+            "connectors":[
+                {
+                    "id":"sample-safe-static",
+                    "transport":"static",
+                    "auth_mode":"none",
+                    "tools":[{"name":"fetch_contract", "risk_level":"R1", "effects":["read"]}],
+                    "env":[]
+                }
+            ]
+        }
+        return sample, "built_in_safe_sample"
+
+    def iter_items(data):
+        if isinstance(data, list):
+            for i,item in enumerate(data): yield f"[{i}]", item
+        elif isinstance(data, dict):
+            pools=[]
+            for key in ("connectors","mcpServers","servers","tools"):
+                val=data.get(key)
+                if isinstance(val, dict): pools.extend((f"{key}.{k}", v) for k,v in val.items())
+                elif isinstance(val, list): pools.extend((f"{key}[{i}]", v) for i,v in enumerate(val))
+            if pools:
+                for x in pools: yield x
+            else:
+                yield "$", data
+
+    def looks_secret(k, v):
+        key=str(k).lower()
+        if not any(t in key for t in ("api_key","apikey","token","password","secret","private_key")):
+            return False
+        if not isinstance(v, str):
+            return False
+        val=v.strip()
+        if not val or val.startswith(("$", "${", "<")) or "REDACTED" in val.upper() or "YOUR_" in val.upper():
+            return False
+        return len(val) >= 8 or val.startswith(("sk-","ghp_","xoxb-"))
+
+    def walk(obj, prefix="$"):
+        if isinstance(obj, dict):
+            for k,v in obj.items():
+                p=f"{prefix}.{k}"
+                if looks_secret(k,v):
+                    add("secret_literal","critical","fail",p,"secret-looking literal must be replaced by env var reference or redacted placeholder","<redacted-secret-like-value>")
+                walk(v,p)
+        elif isinstance(obj, list):
+            for i,v in enumerate(obj): walk(v,f"{prefix}[{i}]")
+
+    data, source=load_manifest()
+    walk(data)
+    for path,item in iter_items(data):
+        if not isinstance(item, dict):
+            continue
+        transport=str(item.get("transport") or item.get("type") or item.get("protocol") or "").lower()
+        if transport and transport not in allowed_transports:
+            add("unknown_transport","high","fail",f"{path}.transport",f"unknown transport '{transport}'",transport)
+        auth=item.get("auth_mode") or item.get("auth") or item.get("auth_type")
+        if auth is None and not (transport == "static" and item.get("public") is True):
+            add("missing_auth_mode","high","fail",path,"connector/tool entry must declare auth_mode, auth_type, or auth")
+        envs=item.get("env") or item.get("env_vars") or item.get("required_env") or []
+        if isinstance(envs, dict): env_iter=[{"name":k, **(v if isinstance(v,dict) else {"value":v})} for k,v in envs.items()]
+        elif isinstance(envs, list): env_iter=envs
+        else: env_iter=[]
+        for i,env in enumerate(env_iter):
+            if isinstance(env, str):
+                add("env_var_unscoped","medium","needs_review",f"{path}.env[{i}]","env var lacks structured scope/reason metadata",env)
+            elif isinstance(env, dict) and not (env.get("scope") or env.get("reason") or env.get("description")):
+                add("env_var_unscoped","medium","needs_review",f"{path}.env[{i}]","env var lacks scope/reason metadata",env.get("name"))
+        single_tool=not isinstance(item.get("tools"), list) and (path.startswith("tools") or bool(item.get("name")))
+        tools=item.get("tools") if isinstance(item.get("tools"), list) else ([item] if single_tool else [])
+        for i,tool in enumerate(tools):
+            if not isinstance(tool, dict): continue
+            name=str(tool.get("name") or tool.get("id") or "").lower()
+            effects=" ".join(str(x).lower() for x in tool.get("effects",[])) if isinstance(tool.get("effects"), list) else str(tool.get("effects","")).lower()
+            blob=" ".join([name,effects,str(tool.get("description","")).lower()])
+            risky=any(tok in blob for tok in dangerous_tokens)
+            risk=str(tool.get("risk_level") or tool.get("risk") or "").upper()
+            approval=tool.get("approval_ref") or item.get("approval_ref") or tool.get("approval_required") or item.get("approval_required")
+            tool_path=path if single_tool else f"{path}.tools[{i}]"
+            if (risk == "R4" or any(tok in effects for tok in ("write","external","deploy","payment","transfer"))) and not approval:
+                add("r4_without_approval","high","fail",tool_path,"high/external/write effect requires approval_ref or approval_required")
+            if risky and not (risk or tool.get("risk_metadata") or item.get("risk_metadata")):
+                add("dangerous_tool","medium","needs_review",tool_path,"dangerous tool/action token lacks risk metadata",name or effects)
+    fail_count=sum(1 for f in findings if f["action"]=="fail")
+    review_count=sum(1 for f in findings if f["action"]=="needs_review")
+    status="fail" if fail_count else ("needs_review" if review_count else "ok")
+    payload={"schema_version":"2026-05-04.agentpress-connector-security-scan.v2","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"purpose":"Fail-closed scanner for MCP/connector metadata before autonomous agents invoke tools.","source":source,"rule_count":len(rules),"rules":rules,"finding_count":len(findings),"fail_count":fail_count,"needs_review_count":review_count,"findings":findings,"safe_defaults":["store secret names only, never values","declare auth_mode for every connector","require approval_ref for write/external/payment/deploy effects","use only known transports or document adapter"]}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
-    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(rules)} rules")
-    return 0
+    print(json.dumps(payload,indent=2) if args.json else f"{status} {len(findings)} findings")
+    return 1 if getattr(args,"strict",False) and status != "ok" else 0
 
 
 def deterministic_agent_eval_packs(args):
@@ -7842,7 +7943,7 @@ def main():
     p = sub.add_parser("readiness-score"); p.add_argument("--out", default="agentpress/audit/readiness-score.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("readiness-fix-plan"); p.add_argument("--out", default="agentpress/audit/readiness-fix-plan.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("runtime-install-doctor"); p.add_argument("--out", default="agentpress/diagnostics/runtime-install-doctor.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("connector-security-scanner"); p.add_argument("--out", default="agentpress/security/connector-security-scanner.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("connector-security-scanner"); p.add_argument("--manifest"); p.add_argument("--out", default="agentpress/security/connector-security-scanner.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("deterministic-agent-eval-packs"); p.add_argument("--out", default="agentpress/evals/deterministic-agent-eval-packs.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("verifiable-run-evidence-bundle"); p.add_argument("--out", default="agentpress/evidence/verifiable-run-evidence-bundle.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("browser-agent-compatibility-harness"); p.add_argument("--out", default="agentpress/browser/browser-agent-compatibility-harness.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")

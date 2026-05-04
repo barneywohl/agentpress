@@ -47,6 +47,8 @@ A row is not done until it is committed, pushed to the Barney-owned AgentPress r
 
 ## Real platform utility built locally
 
+| AP-033 | SHIPPED | Fail-closed connector security scanner | `connector-security-scanner --manifest --strict`; flags secret-looking literals, missing auth metadata, unknown transports, unscoped env vars, dangerous tools, and write/external effects without approval refs. |
+
 | AP-032 | READY | AgentPress mesh discovery | `discover`; agents can inspect another AgentPress node, extract tools/releases/contracts, and update `agentpress/mesh/known-agents.json`. Local only pending directive keyword for deploy. |
 
 | AP-031 | READY | Search/discovery cleanup + contract feeds + distribution pack | Search now includes install/release/submission/reputation/changelog; added `contract-feed.json`, `changelog.json`, and distribution target pack. Local only pending directive keyword for deploy. |
