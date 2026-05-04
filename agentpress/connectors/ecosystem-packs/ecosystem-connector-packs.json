@@ -1,0 +1,88 @@
+{
+  "schema_version": "2026-05-04.agentpress-ecosystem-connector-packs.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/connectors/ecosystem-packs/ecosystem-connector-packs.json",
+  "generated_utc": "2026-05-04T03:32:00Z",
+  "status": "ok",
+  "purpose": "Put AgentPress in the tools/systems agents already use.",
+  "packs": [
+    {
+      "ecosystem": "cline_roo",
+      "status": "ready_static_pack",
+      "files": [
+        "cline-roo-mcp-config-snippet.json",
+        "cline-roo-issue-repro.md"
+      ],
+      "painpoints": [
+        "MCP consent",
+        "tool-call repro",
+        "config mutation guard"
+      ]
+    },
+    {
+      "ecosystem": "openhands",
+      "status": "ready_static_pack",
+      "files": [
+        "openhands-mcp-tool-guide.md"
+      ],
+      "painpoints": [
+        "MCP tool integration",
+        "runtime evidence"
+      ]
+    },
+    {
+      "ecosystem": "langchain_langgraph",
+      "status": "ready_static_pack",
+      "files": [
+        "langchain-loader-example.py"
+      ],
+      "painpoints": [
+        "tool manifest loading",
+        "workflow agent routing"
+      ]
+    },
+    {
+      "ecosystem": "llamaindex",
+      "status": "ready_static_pack",
+      "files": [
+        "llamaindex-reader-example.py"
+      ],
+      "painpoints": [
+        "RAG ingestion",
+        "source/citation freshness"
+      ]
+    },
+    {
+      "ecosystem": "crewai_autogen_openai_agents",
+      "status": "ready_static_pack",
+      "files": [
+        "multi-agent-tool-registry-example.md"
+      ],
+      "painpoints": [
+        "tool registry",
+        "proof receipts",
+        "handoff evidence"
+      ]
+    },
+    {
+      "ecosystem": "mcp_registry",
+      "status": "submission_ready",
+      "files": [
+        "mcp-registry-submission.md"
+      ],
+      "painpoints": [
+        "directory discovery",
+        "server/tool metadata"
+      ]
+    }
+  ],
+  "blocked_actions": [
+    "external directory submission",
+    "posting issue comments",
+    "publishing marketplace extensions"
+  ],
+  "next_actions": [
+    "Manual approve 3-5 issue-specific outreach packets",
+    "Submit MCP registry pack",
+    "Ask outside agents to run connector examples"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": "2026-05-04.agentpress-china-mcp-preflight.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/china/china-mcp-preflight.json",
+  "generated_utc": "2026-05-04T03:37:17Z",
+  "status": "ok",
+  "purpose": "Reduce Chinese Cline/Roo/MCP first-run failures before agents mutate local config.",
+  "checks": [
+    {
+      "id": "node_npm_npx",
+      "command": "node -v && npm -v && npx -v",
+      "fix_cn": "安装 Node LTS；确认 npm 全局路径在 PATH 中；Windows 重启 VS Code 终端。"
+    },
+    {
+      "id": "npm_registry",
+      "command": "npm config get registry",
+      "fix_cn": "如访问慢，可临时使用 npm --registry=https://registry.npmmirror.com。"
+    },
+    {
+      "id": "python_uv",
+      "command": "python --version || python3 --version; uv --version || pipx --version",
+      "fix_cn": "Python MCP 服务建议使用 uv/pipx 隔离环境，避免全局依赖污染。"
+    },
+    {
+      "id": "github_reachability",
+      "command": "git ls-remote https://github.com/modelcontextprotocol/servers.git HEAD",
+      "fix_cn": "如果 GitHub 不稳定，使用镜像/离线包；不要把 token 写进日志。"
+    },
+    {
+      "id": "cline_roo_config_backup",
+      "command": "cp cline_mcp_settings.json cline_mcp_settings.json.bak",
+      "fix_cn": "修改 MCP 配置前必须备份，运行 AgentPress config guard。"
+    },
+    {
+      "id": "agentpress_offline_verify",
+      "command": "sha256sum -c agentpress-offline.tar.gz.sha256",
+      "fix_cn": "离线包执行前先验 hash。"
+    }
+  ],
+  "fail_closed_rules": [
+    "No config mutation without backup",
+    "No secrets in repro receipts",
+    "No broad tool scope without consent evidence",
+    "Prefer CLI fallback when MCP transport fails"
+  ],
+  "related_assets": [
+    "agentpress/security/mcp-config-mutation-guard.json",
+    "agentpress/install/package-registry-fallback-matrix.json",
+    "agentpress/distribution/global-region-mirror-matrix.json"
+  ]
+}

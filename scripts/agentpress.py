@@ -5634,6 +5634,263 @@ def browser_smoke(args):
     print(json.dumps(payload, indent=2) if args.json else f"{payload['status']} {payload['checked']} checked")
     return 0 if not failed else 1
 
+
+
+
+def china_deep_angle_radar(args):
+    """Deeper China-market angle radar across developer, infra, enterprise, and protocol debates."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    angles=[
+        {"angle":"developer_first_run","priority":"P0","signals":["tutorial-heavy Cline/Roo/MCP content","Windows npx errors","virtualenv/path setup friction"],"build":"china-mcp-preflight + windows-npx-doctor + one-screen zh-CN quickstart"},
+        {"angle":"distribution_sovereignty","priority":"P0","signals":["GitHub/GHCR/Quay/K8s image pull instability","Docker MCP image distribution article","domestic mirror usage"],"build":"china-container-mirror-pack + offline artifact/hash mirror contract"},
+        {"angle":"mcp_cli_layering","priority":"P0","signals":["MCP vs CLI debate","token overhead/debugging concerns","Feishu/DingTalk/WeCom CLI examples"],"build":"mcp-cli-bridge: every MCP capability exposes human-replayable CLI with JSON output"},
+        {"angle":"enterprise_collab_tools","priority":"P1","signals":["DingTalk/Feishu/WeCom CLI and enterprise workflows","Chinese enterprise adoption patterns"],"build":"enterprise connector pack for DingTalk/Feishu/WeCom-style CLI receipts, approval, and audit logs"},
+        {"angle":"local_model_and_modelscope_ecosystem","priority":"P1","signals":["ModelScope/Tongyi/Qwen/deepseek developer channels","domestic model/provider compatibility"],"build":"provider compatibility examples for Qwen/DeepSeek/OpenAI-compatible endpoints"},
+        {"angle":"localized_education_and_terminology","priority":"P1","signals":["Awesome-MCP-ZH and MCPcn resource aggregation","Chinese technical terms differ from English docs"],"build":"zh-CN glossary, examples, and source-map for MCP/AgentPress terms"},
+        {"angle":"compliance_and_data_boundary","priority":"P1","signals":["enterprise/private deployment preference","no hidden telemetry expectation"],"build":"China/private deployment privacy statement and offline proof mode"},
+    ]
+    payload={"schema_version":"2026-05-04.agentpress-china-deep-angle-radar.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Explore all China-market angles for AgentPress adoption beyond simple translation.","angles":angles,"recommended_sequence":["mcp-cli-bridge-pack","china-container-mirror-pack","china-enterprise-connector-pack","zh-cn-glossary-pack","provider-compat-qwen-deepseek"],"research_basis":["Zhihu/Juejin/CSDN snippets","Juejin MCP-vs-CLI article","Juejin Docker MCP/image distribution article","MCPcn/MCP Chinese ecosystem pages","Alibaba/Tencent/AWS China developer articles"],"non_goals":["no private forum scraping","no automatic outreach","no unapproved China mirror account creation"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2,ensure_ascii=False) if args.json else f"{payload['status']} angles={len(angles)}")
+    return 0
+
+
+def mcp_cli_bridge_pack(args):
+    """Generate MCP+CLI layering pack for China/global debugging and token-efficiency concerns."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    capabilities=[
+        {"capability":"discover_tools","mcp":"tools/list","cli":"agentpress tools --json","why":"CLI gives human-replayable debug path; MCP gives machine contract."},
+        {"capability":"validate_config","mcp":"callTool:mcp_config_guard","cli":"agentpress mcp-config-mutation-guard --json","why":"Config mutation must be reproducible outside model context."},
+        {"capability":"issue_repro","mcp":"callTool:issue_to_repro_pack","cli":"agentpress issue-to-repro-pack --json","why":"Provider/tool-call failures need copy-pasteable repro artifacts."},
+        {"capability":"region_health","mcp":"callTool:region_health","cli":"agentpress region-health --json","why":"Mirror failures should be testable by humans and agents."},
+        {"capability":"proof_receipt","mcp":"callTool:proof_receipt_verify","cli":"agentpress proof-receipt-verify <file> --json","why":"External receipts need deterministic reviewer behavior."},
+    ]
+    payload={"schema_version":"2026-05-04.agentpress-mcp-cli-bridge-pack.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Answer the Chinese MCP-vs-CLI debate with layered design: MCP for contract/discovery, CLI for replay/debug/token efficiency.","principles":["Every MCP tool should have a CLI equivalent","Every CLI must support --json","MCP schemas should be compact; long docs live behind CLI/help URLs","Humans must be able to replay what an agent did","Use consent/approval receipts for risky tools"],"capabilities":capabilities,"metrics_to_track":["schema_token_budget","cli_replay_success","mcp_call_success","human_debug_minutes","config_mutation_fail_closed_count"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+        (out.parent/'MCP_CLI_BRIDGE_ZH.md').write_text('# MCP + CLI 分层方案\n\nMCP 负责能力发现、契约和权限；CLI 负责可复现执行、调试和低 token 成本。AgentPress 的原则：每个 MCP 能力都必须有 `--json` CLI 等价命令。\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2,ensure_ascii=False) if args.json else f"{payload['status']} capabilities={len(capabilities)}")
+    return 0
+
+
+def china_container_mirror_pack(args):
+    """Generate container/image distribution pack for China Agent/MCP platforms."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    registries=[
+        {"source":"Docker Hub","risk_cn":"medium_high","example_mirror_pattern":"docker.<mirror-domain>/<image>","agentpress_action":"document mirror variable, verify digest"},
+        {"source":"GHCR","risk_cn":"high","example_mirror_pattern":"ghcr.<mirror-domain>/<org>/<image>","agentpress_action":"provide offline OCI tarball/export contract before GHCR reliance"},
+        {"source":"Quay","risk_cn":"medium_high","example_mirror_pattern":"quay.<mirror-domain>/<image>","agentpress_action":"list all required images before deploy"},
+        {"source":"K8s/GCR","risk_cn":"high","example_mirror_pattern":"k8s.<mirror-domain>/<image>","agentpress_action":"preflight pull pause/coredns/browser images"},
+    ]
+    payload={"schema_version":"2026-05-04.agentpress-china-container-mirror-pack.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Prevent MCP/Agent platforms from failing at Docker/GHCR/Quay/K8s image distribution in China or restricted networks.","preflight_commands":["docker info","docker pull hello-world","docker pull <mirror>/redis:7-alpine","docker inspect --format='{{index .RepoDigests 0}}' <image>","docker save <image> -o image.tar"],"registries":registries,"compose_policy":["pin image digests","list original source and mirror source","record pull timestamp and digest","support offline image tar export/import","never execute unverified image from unknown mirror"],"receipt_fields":["agent_id","region","registry_source","mirror_used","image","digest","pull_status","latency_ms","error_redacted"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2,ensure_ascii=False) if args.json else f"{payload['status']} registries={len(registries)}")
+    return 0
+
+
+def china_enterprise_connector_pack(args):
+    """Generate Chinese enterprise collaboration connector strategy pack."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    connectors=[
+        {"platform":"DingTalk/钉钉","status":"strategy_pack_only","integration_shape":"CLI/MCP bridge with approval receipt; no live send by default","risk":"external messaging and enterprise auth require explicit approval"},
+        {"platform":"Feishu/Lark/飞书","status":"strategy_pack_only","integration_shape":"CLI JSON command + MCP contract + audit receipt","risk":"workspace auth and data boundary"},
+        {"platform":"WeCom/企业微信","status":"strategy_pack_only","integration_shape":"CLI wrapper over approved API/MCP server, replayable by humans","risk":"enterprise credentials and message-send approval"},
+        {"platform":"ModelScope/魔搭 + Qwen/通义","status":"strategy_pack_only","integration_shape":"OpenAI-compatible provider profile and model capability receipt","risk":"provider compatibility and regional endpoint handling"},
+        {"platform":"Dify/Coze/n8n","status":"strategy_pack_only","integration_shape":"webhook/tool manifest/import pack with no hidden telemetry","risk":"hosted workflow privacy and external effects"},
+    ]
+    payload={"schema_version":"2026-05-04.agentpress-china-enterprise-connector-pack.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Map AgentPress to Chinese enterprise tool ecosystems without unsafe external writes.","connectors":connectors,"default_policy":"No external send, workspace auth, or webhook write without explicit operator approval. Build manifests, dry-runs, and receipts first.","build_next":["provider profile for Qwen/DeepSeek OpenAI-compatible endpoints","Dify/Coze importable tool manifest","Feishu/DingTalk/WeCom CLI receipt schema","enterprise approval receipt template"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2,ensure_ascii=False) if args.json else f"{payload['status']} connectors={len(connectors)}")
+    return 0
+
+
+def china_painpoint_radar(args):
+    """Generate China-focused public painpoint radar for agent/MCP builders."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    sources=[
+        {"site":"Zhihu","signals":["MCP best practices","Cline/Roo MCP guides","tool/provider decoupling"],"examples":["通过 MCP 实现 AI Agent 最佳实践","Cline 与 MCP 集成指南","RooCode/Cline 源码/MCP 分析"]},
+        {"site":"Juejin","signals":["Cline+GitHub MCP setup","MCP as interoperability infrastructure","Docker/MCP image distribution","MCP vs CLI debate"],"examples":["Cline+GitHub MCP 学习记录","Docker MCP 后的镜像分发问题","MCP与CLI之争"]},
+        {"site":"CSDN/Cnblogs/51CTO","signals":["Windows npx/spawn issues","virtualenv setup friction","GitHub connection instability","step-by-step local MCP setup"],"examples":["spawn npx ENOENT","Windows11 VS Code/Cline/GitHub MCP 坑点","Python MCP Server 开发实战"]},
+        {"site":"Tencent Cloud/AWS China/SegmentFault","signals":["enterprise integration","MCP server local-to-cloud deployment","LangChain4j/MCP examples"],"examples":["AI Agent 开发新范式 MCP","MCP服务器从本地到云端","LangChain4j + MCP"]},
+        {"site":"Awesome-MCP-ZH/mcpcn","signals":["Chinese MCP resource aggregation","localized docs/discovery","Chinese terminology"],"examples":["Awesome-MCP-ZH","MCP 中文站"]},
+    ]
+    painpoints=[
+        {"priority":"P0","painpoint":"github_and_github_pages_reachability","evidence_signal":"Chinese guides frequently route through GitHub, but users report unstable GitHub/MCP setup paths.","agentpress_build":"china mirror pack: Gitee/OSS target, offline tarball, sha256 manifest, no GitHub-only dependency"},
+        {"priority":"P0","painpoint":"npm_npx_spawn_and_registry_friction_on_windows","evidence_signal":"CSDN results explicitly mention Cline MCP spawn npx ENOENT and npm/node path issues.","agentpress_build":"windows npx MCP doctor + npmmirror commands + PATH diagnostics"},
+        {"priority":"P0","painpoint":"mcp_install_config_complexity","evidence_signal":"Many Chinese posts are step-by-step MCP/Cline setup tutorials, indicating first-run friction.","agentpress_build":"Chinese MCP preflight checklist and Cline/Roo config snippet with consent/config guard"},
+        {"priority":"P1","painpoint":"mcp_vs_cli_debuggability_and_token_overhead","evidence_signal":"Juejin has MCP-vs-CLI discussion; debugging and token overhead are visible concerns.","agentpress_build":"CLI-first fallback pack: every MCP tool has equivalent CLI command and repro receipt"},
+        {"priority":"P1","painpoint":"container_image_distribution","evidence_signal":"Juejin article frames Docker MCP as creating a new image distribution problem.","agentpress_build":"China-friendly container/GHCR mirror plan and offline OCI tarball contract"},
+        {"priority":"P1","painpoint":"localized_examples_for_java_python_js","evidence_signal":"Chinese sources include Python MCP, LangChain4j, Cline/Roo examples.","agentpress_build":"zh-CN examples for Python, Node/npx, Java/LangChain4j, Cline/Roo"},
+    ]
+    payload={"schema_version":"2026-05-04.agentpress-china-painpoint-radar.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","research_scope":"public indexed Chinese-language sources only; no private groups, no scraping behind logins","sources":sources,"painpoints":painpoints,"top_builds":["china-mcp-preflight","windows-npx-doctor","china-mirror-install-pack","zh-cn-cli-fallback-pack"],"privacy":"No user tracking; only public qualitative signals."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2,ensure_ascii=False) if args.json else f"{payload['status']} painpoints={len(painpoints)}")
+    return 0
+
+
+def china_mcp_preflight(args):
+    """Generate China-focused MCP/Cline/Roo first-run preflight checklist."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    checks=[
+        {"id":"node_npm_npx","command":"node -v && npm -v && npx -v","fix_cn":"安装 Node LTS；确认 npm 全局路径在 PATH 中；Windows 重启 VS Code 终端。"},
+        {"id":"npm_registry","command":"npm config get registry","fix_cn":"如访问慢，可临时使用 npm --registry=https://registry.npmmirror.com。"},
+        {"id":"python_uv","command":"python --version || python3 --version; uv --version || pipx --version","fix_cn":"Python MCP 服务建议使用 uv/pipx 隔离环境，避免全局依赖污染。"},
+        {"id":"github_reachability","command":"git ls-remote https://github.com/modelcontextprotocol/servers.git HEAD","fix_cn":"如果 GitHub 不稳定，使用镜像/离线包；不要把 token 写进日志。"},
+        {"id":"cline_roo_config_backup","command":"cp cline_mcp_settings.json cline_mcp_settings.json.bak","fix_cn":"修改 MCP 配置前必须备份，运行 AgentPress config guard。"},
+        {"id":"agentpress_offline_verify","command":"sha256sum -c agentpress-offline.tar.gz.sha256","fix_cn":"离线包执行前先验 hash。"},
+    ]
+    payload={"schema_version":"2026-05-04.agentpress-china-mcp-preflight.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Reduce Chinese Cline/Roo/MCP first-run failures before agents mutate local config.","checks":checks,"fail_closed_rules":["No config mutation without backup","No secrets in repro receipts","No broad tool scope without consent evidence","Prefer CLI fallback when MCP transport fails"],"related_assets":["agentpress/security/mcp-config-mutation-guard.json","agentpress/install/package-registry-fallback-matrix.json","agentpress/distribution/global-region-mirror-matrix.json"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+        (out.parent/'CHINA_MCP_PREFLIGHT.md').write_text('# 中国 MCP/Cline/Roo 预检清单\n\n运行 MCP 服务前：检查 Node/npm/npx、npm registry、Python/uv、GitHub 可达性，并备份 Cline/Roo MCP 配置。\n\n原则：先备份、再改配置；先验 hash、再执行；不要提交密钥、cookie 或私有提示词。\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2,ensure_ascii=False) if args.json else f"{payload['status']} checks={len(checks)}")
+    return 0
+
+
+def windows_npx_doctor_pack(args):
+    """Generate Windows/npx diagnostic pack for Cline/Roo MCP failures."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    diagnostics=[
+        {"symptom":"spawn npx ENOENT","likely_causes":["Node/npm not installed","npm global bin missing from PATH","VS Code inherited stale environment"],"commands":["where node","where npm","where npx","npm config get prefix","echo %PATH%"],"safe_fixes":["Install Node LTS","Add npm global bin to PATH","Restart VS Code/terminal","Avoid deleting random global packages without backup"]},
+        {"symptom":"MCP server starts in terminal but not Cline/Roo","likely_causes":["different shell env","relative path in config","working directory mismatch"],"commands":["node -v","npx -y <server> --help","pwd/cd check"],"safe_fixes":["Use absolute command paths","Set explicit cwd/env in config","Capture stderr to repro pack"]},
+        {"symptom":"zod/package conflict","likely_causes":["corrupt npm global install","mixed package managers"],"commands":["npm ls -g --depth=0","npm cache verify"],"safe_fixes":["Use npx -y for isolated execution","Use project-local install","Record before/after package list"]},
+    ]
+    payload={"schema_version":"2026-05-04.agentpress-windows-npx-doctor-pack.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Help Chinese/Windows Cline/Roo users turn npx/MCP startup failures into safe repros and fixes.","diagnostics":diagnostics,"repro_receipt_fields":["os","shell","node_version","npm_version","npx_path","mcp_client","command","stderr_redacted","config_backup_hash","result_status"],"privacy":"Do not include usernames, tokens, private repo names, cookies, or API keys."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2,ensure_ascii=False) if args.json else f"{payload['status']} diagnostics={len(diagnostics)}")
+    return 0
+
+
+def global_mirror_matrix(args):
+    """Generate global/region-aware mirror targets and failover policy."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    critical=["llms.txt",".well-known/agentpress.json","agentpress/tools/agentpress-tools.json","agentpress/releases/release-index.json","agentpress/install/install-catalog.json","agentpress/releases/agentpress-offline.tar.gz","agentpress/releases/agentpress-offline.tar.gz.sha256.json"]
+    mirrors=[
+        {"mirror_id":"github_pages","kind":"primary_static_site","status":"live","base_url":base,"regions":["americas","europe","india","asia_non_cn"],"blocked_domain_risk":"medium_in_restricted_networks","priority":1},
+        {"mirror_id":"raw_github_main","kind":"raw_source_fallback","status":"live","base_url":"https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/","regions":["americas","europe","india","asia_non_cn"],"blocked_domain_risk":"medium_high_in_china","priority":2},
+        {"mirror_id":"jsdelivr_cdn","kind":"cdn_fallback","status":"live","base_url":"https://cdn.jsdelivr.net/gh/barneywohl/agentpress@main/","regions":["americas","europe","india","asia_non_cn","some_restricted_networks"],"blocked_domain_risk":"medium","priority":3},
+        {"mirror_id":"cloudflare_pages_or_r2","kind":"planned_static_object_mirror","status":"planned_owner_dns_needed","base_url":"https://<agentpress-mirror-domain>/","regions":["americas","europe","india","global_edge"],"blocked_domain_risk":"low_medium","priority":4},
+        {"mirror_id":"china_gitee_pages","kind":"planned_china_friendly_git_static_mirror","status":"planned_account_needed","base_url":"https://<gitee-user>.gitee.io/agentpress/","regions":["china_mainland"],"blocked_domain_risk":"lower_for_china_than_github","priority":5},
+        {"mirror_id":"china_object_storage","kind":"planned_china_object_storage_mirror","status":"planned_account_needed","base_url":"https://<bucket>.<region>.aliyuncs.com/agentpress/","regions":["china_mainland","asia"],"blocked_domain_risk":"low_if_icp_dns_configured","priority":6},
+        {"mirror_id":"offline_tarball","kind":"portable_release_artifact","status":"live","base_url":urljoin(base,"agentpress/releases/"),"regions":["all_offline_after_download"],"blocked_domain_risk":"depends_on_initial_download_mirror","priority":7},
+    ]
+    payload={"schema_version":"2026-05-04.agentpress-global-region-mirror-matrix.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Make AgentPress discoverable/installable for agents across Americas, Europe, India, China, and broader Asia with deterministic failover.","critical_paths":critical,"mirrors":mirrors,"regional_failover":{"americas":["github_pages","raw_github_main","jsdelivr_cdn","cloudflare_pages_or_r2","offline_tarball"],"europe":["github_pages","jsdelivr_cdn","raw_github_main","cloudflare_pages_or_r2","offline_tarball"],"india":["github_pages","jsdelivr_cdn","raw_github_main","cloudflare_pages_or_r2","offline_tarball"],"china_mainland":["china_gitee_pages","china_object_storage","jsdelivr_cdn","offline_tarball"],"asia_non_cn":["github_pages","jsdelivr_cdn","raw_github_main","cloudflare_pages_or_r2","offline_tarball"]},"agent_policy":"Try region failover order, verify sha256 manifest before execution, submit region probe receipt if all mirrors fail.","blocked_actions":["creating external mirror accounts","publishing DNS/ICP records","uploading to owner-controlled cloud buckets"],"next_owner_decisions":["Cloudflare/R2 or other global static mirror account","Gitee or China object storage mirror account","mirror domain/DNS ownership"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+'\n',encoding='utf-8')
+        (out.parent/'GLOBAL_REGION_MIRRORS.md').write_text('# AgentPress Global Region Mirrors\n\nMachine source: `global-region-mirror-matrix.json`.\n\nP0 unresolved: deploy non-GitHub global mirror and China-friendly mirror, then rerun `region-health`.\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} mirrors={len(mirrors)}")
+    return 0
+
+
+def region_health(args):
+    """Check live AgentPress mirrors and write regional probe evidence contract."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    matrix_path=root/args.matrix
+    if not matrix_path.exists():
+        global_mirror_matrix(argparse.Namespace(out=args.matrix, base_url=args.base_url, no_write=False, json=False))
+    matrix=json.loads(matrix_path.read_text(encoding='utf-8'))
+    checks=[]
+    for m in matrix.get('mirrors',[]):
+        paths=matrix.get('critical_paths',[])[:args.max_paths]
+        if m.get('status')!='live':
+            checks.append({"mirror_id":m.get('mirror_id'),"status":"planned_not_checked","mirror_status":m.get('status'),"base_url":m.get('base_url'),"checks":[]})
+            continue
+        sub=[]
+        for rel in paths:
+            u=urljoin(m.get('base_url',''), rel); started=time.time(); status='fail'; code=None; size=0; sha=''; err=''
+            try:
+                with urlopen(Request(u,headers={"User-Agent":"AgentPressRegionHealth/1.0"}), timeout=args.timeout_seconds) as r:
+                    code=getattr(r,'status',None) or r.getcode(); body=r.read(args.max_bytes+1)
+                size=len(body); sha=hashlib.sha256(body[:args.max_bytes]).hexdigest(); status='ok' if 200 <= int(code) < 400 and size>0 else 'fail'
+            except Exception as e: err=str(e)[:240]
+            sub.append({"path":rel,"url":u,"status":status,"http_status":code,"bytes":size,"sha256":sha,"elapsed_ms":round((time.time()-started)*1000,2),"error":err})
+        checks.append({"mirror_id":m.get('mirror_id'),"base_url":m.get('base_url'),"status":"ok" if all(c['status']=='ok' for c in sub) else "fail","checks":sub})
+    failed=[m for m in checks if m['status']=='fail']
+    payload={"schema_version":"2026-05-04.agentpress-region-health.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not failed else "degraded","checked_from":"local_gateway_network","checked_mirrors":len(checks),"failed_live_mirrors":len(failed),"checks":checks,"remote_probe_receipt_contract":{"schema_version":"2026-05-04.agentpress-region-probe-receipt.v1","required_fields":["probe_id","agent_id","region","network_context","timestamp_utc","mirror_id","url","http_status","latency_ms","sha256","result","redaction_attestation"],"privacy":"No IP address, user-agent, cookies, account ids, private prompts, or secrets."},"next_actions":["Run probes from US/EU/India/Singapore/China networks","Deploy planned global mirror","Deploy planned China-friendly mirror","Compare sha256 across mirrors"]}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+'\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} live_failed={len(failed)}")
+    return 0 if not failed else 1
+
+
+def package_registry_fallback_matrix(args):
+    """Generate package install fallbacks for PyPI/npm/git/offline and regional mirrors."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    channels=[
+        {"channel":"pipx_pypi","status":"blocked_on_owner_publish","command":"pipx install agentpress-cli","regions":["americas","europe","india","asia"],"fallback":"pipx install git+https://github.com/barneywohl/agentpress.git"},
+        {"channel":"uvx_pypi","status":"blocked_on_owner_publish","command":"uvx agentpress","regions":["americas","europe","india","asia"],"fallback":"uv tool run --from git+https://github.com/barneywohl/agentpress.git agentpress doctor --json"},
+        {"channel":"npx_npm","status":"blocked_on_owner_publish","command":"npx agentpress","regions":["americas","europe","india","asia"],"fallback":"npm install github:barneywohl/agentpress"},
+        {"channel":"pip_git","status":"ready","command":"python3 -m pip install git+https://github.com/barneywohl/agentpress.git","regions":["americas","europe","india","asia_non_cn"]},
+        {"channel":"npm_git","status":"ready","command":"npm install github:barneywohl/agentpress","regions":["americas","europe","india","asia_non_cn"]},
+        {"channel":"offline_tarball","status":"ready","command":"curl -LO https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz && curl -LO https://barneywohl.github.io/agentpress/agentpress/releases/agentpress-offline.tar.gz.sha256.json","regions":["all_after_mirror_download"]},
+        {"channel":"china_pypi_mirror_example","status":"planned_after_publish","command":"python3 -m pip install agentpress-cli -i https://pypi.tuna.tsinghua.edu.cn/simple","regions":["china_mainland"],"fallback":"download mirrored offline tarball and verify sha256"},
+        {"channel":"china_npm_mirror_example","status":"planned_after_publish","command":"npm install agentpress --registry=https://registry.npmmirror.com","regions":["china_mainland"],"fallback":"download mirrored offline tarball and verify sha256"},
+    ]
+    payload={"schema_version":"2026-05-04.agentpress-package-registry-fallback-matrix.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give agents exact install fallbacks when PyPI/npm/GitHub/region access fails.","publish_blocked_until":"explicit package/account owner approval","channels":channels,"decision_needed":["PyPI owner/account","npm owner/account","package name","whether to publish GHCR/Docker"],"agent_policy":"Prefer registry install once published; otherwise use git or offline tarball; in restricted regions use configured mirrors and always verify hashes."}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+'\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} channels={len(channels)}")
+    return 0
+
+
+def global_starter_pack(args):
+    """Generate region/language starter surfaces for global agents."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    out.mkdir(parents=True,exist_ok=True)
+    quickstarts=[
+        {"region":"americas","language":"en","entry":"README.en.md","preferred_install":["git clone","pip git","npm git","offline tarball"]},
+        {"region":"europe","language":"en","entry":"README.eu.md","preferred_install":["GitHub Pages","jsDelivr","offline tarball"],"trust_notes":["no hidden analytics","hash verification","privacy policy"]},
+        {"region":"india","language":"en/hi","entry":"README.india.md","preferred_install":["pipx/uvx after publish","npm/npx after publish","git/offline fallback"],"examples":["LangChain","CrewAI","LlamaIndex"]},
+        {"region":"china_mainland","language":"zh-CN","entry":"README.zh-CN.md","preferred_install":["Gitee/OSS mirror after owner setup","npmmirror after publish","Tsinghua PyPI mirror after publish","offline tarball + sha256"],"blocked_domain_warning":"Do not assume GitHub/GitHub Pages/raw GitHub are reachable."},
+        {"region":"asia_non_cn","language":"en/ja/ko","entry":"README.asia.md","preferred_install":["GitHub Pages","jsDelivr","offline tarball"]},
+    ]
+    files={
+        'README.en.md':'# AgentPress Global Quickstart\n\nUse `llms.txt`, `.well-known/agentpress.json`, the offline tarball, and `python3 scripts/agentpress.py doctor --json`.\n',
+        'README.eu.md':'# AgentPress EU Quickstart\n\nPrivacy posture: static files, opt-in proof receipts, no hidden analytics. Verify hashes before executing artifacts.\n',
+        'README.india.md':'# AgentPress India Quickstart\n\nUse GitHub/npm/PyPI-style workflows where available. Until registry publish, use git install or offline tarball. Examples should prioritize LangChain, CrewAI, and LlamaIndex.\n',
+        'README.zh-CN.md':'# AgentPress 中文快速开始\n\n不要假设 GitHub 或 GitHub Pages 一定可访问。优先使用已验证镜像、离线 tarball 和 sha256 清单。发布到 PyPI/npm 后，可使用区域镜像源安装。不要上传密钥、cookie、私有提示词或个人数据。\n',
+        'README.asia.md':'# AgentPress Asia Quickstart\n\nUse mirror failover, offline bundle verification, and localized receipts. Submit region probe receipts when a mirror fails.\n',
+    }
+    if not args.no_write:
+        for name,text in files.items(): (out/name).write_text(text,encoding='utf-8')
+        (pathlib.Path('llms.zh-CN.txt')).write_text('AgentPress：面向自治代理的静态优先发布、发现、验证和证明层。入口：.well-known/agentpress.json、agentpress/tools/agentpress-tools.json、agentpress/releases/release-index.json。安全规则：先验证哈希，不提交密钥或私有提示词。\n',encoding='utf-8')
+    payload={"schema_version":"2026-05-04.agentpress-global-starter-pack.v1","canonical_url":urljoin(base,(out/'global-starter-pack.json').as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Regional starter docs for agents in Americas, Europe, India, China, and Asia.","quickstarts":quickstarts,"files":list(files)+['llms.zh-CN.txt'],"next_locales":["hi","ja","ko","es","pt-BR","fr","de"],"privacy":"No tracking; docs only."}
+    if not args.no_write: (out/'global-starter-pack.json').write_text(json.dumps(payload,indent=2)+'\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} quickstarts={len(quickstarts)}")
+    return 0
+
+
+def ecosystem_connector_packs(args):
+    """Generate connector packs for the agent ecosystems where builders already work."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip('/')+'/'
+    packs=[
+        {"ecosystem":"cline_roo","status":"ready_static_pack","files":["cline-roo-mcp-config-snippet.json","cline-roo-issue-repro.md"],"painpoints":["MCP consent","tool-call repro","config mutation guard"]},
+        {"ecosystem":"openhands","status":"ready_static_pack","files":["openhands-mcp-tool-guide.md"],"painpoints":["MCP tool integration","runtime evidence"]},
+        {"ecosystem":"langchain_langgraph","status":"ready_static_pack","files":["langchain-loader-example.py"],"painpoints":["tool manifest loading","workflow agent routing"]},
+        {"ecosystem":"llamaindex","status":"ready_static_pack","files":["llamaindex-reader-example.py"],"painpoints":["RAG ingestion","source/citation freshness"]},
+        {"ecosystem":"crewai_autogen_openai_agents","status":"ready_static_pack","files":["multi-agent-tool-registry-example.md"],"painpoints":["tool registry","proof receipts","handoff evidence"]},
+        {"ecosystem":"mcp_registry","status":"submission_ready","files":["mcp-registry-submission.md"],"painpoints":["directory discovery","server/tool metadata"]},
+    ]
+    if not args.no_write:
+        out.mkdir(parents=True,exist_ok=True)
+        (out/'cline-roo-mcp-config-snippet.json').write_text(json.dumps({"mcpServers":{"agentpress":{"command":"python3","args":["scripts/agentpress.py","mcp-catalog-export","--json"],"approval_required":True,"consent_manifest":"agentpress/approvals/mcp-consent-manifest-validator.json","config_guard":"agentpress/security/mcp-config-mutation-guard.json"}}},indent=2)+'\n',encoding='utf-8')
+        (out/'cline-roo-issue-repro.md').write_text('# Cline/Roo issue-to-repro\n\nRun `python3 scripts/agentpress.py issue-to-repro-pack --json` and attach the generated minimal provider/tool-call payload.\n',encoding='utf-8')
+        (out/'openhands-mcp-tool-guide.md').write_text('# OpenHands MCP Tool Guide\n\nUse AgentPress static MCP catalog and consent guard before enabling tools.\n',encoding='utf-8')
+        (out/'langchain-loader-example.py').write_text('import json, urllib.request\nurl="https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"\nprint(json.load(urllib.request.urlopen(url))["status"])\n',encoding='utf-8')
+        (out/'llamaindex-reader-example.py').write_text('import urllib.request\nprint(urllib.request.urlopen("https://barneywohl.github.io/agentpress/llms.txt").read().decode()[:500])\n',encoding='utf-8')
+        (out/'multi-agent-tool-registry-example.md').write_text('# Multi-agent tool registry example\n\nFetch tool manifest, choose capability, run proof receipt, submit opt-in receipt. No secrets.\n',encoding='utf-8')
+        (out/'mcp-registry-submission.md').write_text('# MCP Registry Submission\n\nSubmit AgentPress static MCP catalog with consent policy and config mutation guard references.\n',encoding='utf-8')
+    payload={"schema_version":"2026-05-04.agentpress-ecosystem-connector-packs.v1","canonical_url":urljoin(base,(out/'ecosystem-connector-packs.json').as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Put AgentPress in the tools/systems agents already use.","packs":packs,"blocked_actions":["external directory submission","posting issue comments","publishing marketplace extensions"],"next_actions":["Manual approve 3-5 issue-specific outreach packets","Submit MCP registry pack","Ask outside agents to run connector examples"]}
+    if not args.no_write: (out/'ecosystem-connector-packs.json').write_text(json.dumps(payload,indent=2)+'\n',encoding='utf-8')
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} packs={len(packs)}")
+    return 0
+
+
 def package_registry_plan(args):
     """Publish-readiness checklist for PyPI/npm-style distribution without live publishing."""
     root=pathlib.Path(args.root)
@@ -6934,6 +7191,18 @@ def main():
     p = sub.add_parser("health-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/runtime/health-status.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("batch-run"); p.add_argument("input"); p.add_argument("--out", default="agentpress/runtime/batch-result.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("remediation-index"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/remediation/remediation-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("china-deep-angle-radar"); p.add_argument("--out", default="agentpress/china/china-deep-angle-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("mcp-cli-bridge-pack"); p.add_argument("--out", default="agentpress/china/mcp-cli-bridge-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("china-container-mirror-pack"); p.add_argument("--out", default="agentpress/china/china-container-mirror-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("china-enterprise-connector-pack"); p.add_argument("--out", default="agentpress/china/china-enterprise-connector-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("china-painpoint-radar"); p.add_argument("--out", default="agentpress/china/china-painpoint-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("china-mcp-preflight"); p.add_argument("--out", default="agentpress/china/china-mcp-preflight.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("windows-npx-doctor-pack"); p.add_argument("--out", default="agentpress/china/windows-npx-doctor-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("global-mirror-matrix"); p.add_argument("--out", default="agentpress/distribution/global-region-mirror-matrix.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("region-health"); p.add_argument("root", nargs="?", default="."); p.add_argument("--matrix", default="agentpress/distribution/global-region-mirror-matrix.json"); p.add_argument("--out", default="agentpress/evidence/region-health.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--timeout-seconds", type=int, default=12); p.add_argument("--max-bytes", type=int, default=1048576); p.add_argument("--max-paths", type=int, default=5); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("package-registry-fallback-matrix"); p.add_argument("--out", default="agentpress/install/package-registry-fallback-matrix.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("global-starter-pack"); p.add_argument("--out", default="agentpress/global"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("ecosystem-connector-packs"); p.add_argument("--out", default="agentpress/connectors/ecosystem-packs"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-plan"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/package-registry/package-registry-plan.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-campaign"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/proof-campaigns/proof-campaign.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attest"); att = p.add_subparsers(dest="attest_cmd", required=True)
@@ -7038,6 +7307,18 @@ def main():
     if args.cmd == "proof-request-pack": return proof_request_pack(args)
     if args.cmd == "proof-receipt-verify": return proof_receipt_verify(args)
     if args.cmd == "scoped-trust-report": return scoped_trust_report(args)
+    if args.cmd == "china-deep-angle-radar": return china_deep_angle_radar(args)
+    if args.cmd == "mcp-cli-bridge-pack": return mcp_cli_bridge_pack(args)
+    if args.cmd == "china-container-mirror-pack": return china_container_mirror_pack(args)
+    if args.cmd == "china-enterprise-connector-pack": return china_enterprise_connector_pack(args)
+    if args.cmd == "china-painpoint-radar": return china_painpoint_radar(args)
+    if args.cmd == "china-mcp-preflight": return china_mcp_preflight(args)
+    if args.cmd == "windows-npx-doctor-pack": return windows_npx_doctor_pack(args)
+    if args.cmd == "global-mirror-matrix": return global_mirror_matrix(args)
+    if args.cmd == "region-health": return region_health(args)
+    if args.cmd == "package-registry-fallback-matrix": return package_registry_fallback_matrix(args)
+    if args.cmd == "global-starter-pack": return global_starter_pack(args)
+    if args.cmd == "ecosystem-connector-packs": return ecosystem_connector_packs(args)
     if args.cmd == "package-registry-plan": return package_registry_plan(args)
     if args.cmd == "package-registry-skeleton": return package_registry_skeleton(args)
     if args.cmd == "package-registry-dry-run": return package_registry_dry_run(args)

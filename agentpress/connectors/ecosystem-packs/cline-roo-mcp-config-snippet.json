@@ -1,0 +1,18 @@
+{
+  "schema_version": "2026-05-04.agentpress-cline-roo-mcp-config-snippet.v1",
+  "status": "ok",
+  "purpose": "Example Cline/Roo MCP server snippet for AgentPress static catalog with consent guard.",
+  "mcpServers": {
+    "agentpress": {
+      "command": "python3",
+      "args": [
+        "scripts/agentpress.py",
+        "mcp-catalog-export",
+        "--json"
+      ],
+      "approval_required": true,
+      "consent_manifest": "agentpress/approvals/mcp-consent-manifest-validator.json",
+      "config_guard": "agentpress/security/mcp-config-mutation-guard.json"
+    }
+  }
+}

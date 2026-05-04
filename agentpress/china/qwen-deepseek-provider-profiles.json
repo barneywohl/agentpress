@@ -1,0 +1,58 @@
+{
+  "schema_version": "2026-05-04.agentpress-china-provider-profiles.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/china/qwen-deepseek-provider-profiles.json",
+  "generated_utc": "2026-05-04T03:43:17Z",
+  "status": "ok",
+  "purpose": "Provider compatibility profiles for China/common OpenAI-compatible agent endpoints without embedding secrets.",
+  "providers": [
+    {
+      "provider": "Qwen/Tongyi",
+      "endpoint_style": "openai_compatible_or_dashscope",
+      "models": [
+        "qwen-plus",
+        "qwen-max",
+        "qwen-coder"
+      ],
+      "agentpress_needs": [
+        "base_url field",
+        "model capability receipt",
+        "tool_call compatibility test",
+        "no secrets in receipts"
+      ]
+    },
+    {
+      "provider": "DeepSeek",
+      "endpoint_style": "openai_compatible",
+      "models": [
+        "deepseek-chat",
+        "deepseek-reasoner",
+        "deepseek-coder family when available"
+      ],
+      "agentpress_needs": [
+        "tool-call repro pack",
+        "reasoning/model-mode note",
+        "provider adapter repro capsule"
+      ]
+    },
+    {
+      "provider": "ModelScope/local OSS",
+      "endpoint_style": "hosted_or_local",
+      "models": [
+        "Qwen OSS",
+        "DeepSeek OSS",
+        "GLM variants"
+      ],
+      "agentpress_needs": [
+        "local endpoint health",
+        "context/window receipt",
+        "JSON/tool-call conformance"
+      ]
+    }
+  ],
+  "test_commands": [
+    "agentpress provider-adapter-repro-pack --json",
+    "agentpress issue-to-repro-pack --json",
+    "agentpress doctor --json"
+  ],
+  "privacy": "Profiles contain no API keys, org ids, or private endpoints."
+}

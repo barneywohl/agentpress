@@ -1,0 +1,156 @@
+{
+  "schema_version": "2026-05-04.agentpress-global-region-mirror-matrix.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/distribution/global-region-mirror-matrix.json",
+  "generated_utc": "2026-05-04T03:31:32Z",
+  "status": "ok",
+  "purpose": "Make AgentPress discoverable/installable for agents across Americas, Europe, India, China, and broader Asia with deterministic failover.",
+  "critical_paths": [
+    "llms.txt",
+    ".well-known/agentpress.json",
+    "agentpress/tools/agentpress-tools.json",
+    "agentpress/releases/release-index.json",
+    "agentpress/install/install-catalog.json",
+    "agentpress/releases/agentpress-offline.tar.gz",
+    "agentpress/releases/agentpress-offline.tar.gz.sha256.json"
+  ],
+  "mirrors": [
+    {
+      "mirror_id": "github_pages",
+      "kind": "primary_static_site",
+      "status": "live",
+      "base_url": "https://barneywohl.github.io/agentpress/",
+      "regions": [
+        "americas",
+        "europe",
+        "india",
+        "asia_non_cn"
+      ],
+      "blocked_domain_risk": "medium_in_restricted_networks",
+      "priority": 1
+    },
+    {
+      "mirror_id": "raw_github_main",
+      "kind": "raw_source_fallback",
+      "status": "live",
+      "base_url": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
+      "regions": [
+        "americas",
+        "europe",
+        "india",
+        "asia_non_cn"
+      ],
+      "blocked_domain_risk": "medium_high_in_china",
+      "priority": 2
+    },
+    {
+      "mirror_id": "jsdelivr_cdn",
+      "kind": "cdn_fallback",
+      "status": "live",
+      "base_url": "https://cdn.jsdelivr.net/gh/barneywohl/agentpress@main/",
+      "regions": [
+        "americas",
+        "europe",
+        "india",
+        "asia_non_cn",
+        "some_restricted_networks"
+      ],
+      "blocked_domain_risk": "medium",
+      "priority": 3
+    },
+    {
+      "mirror_id": "cloudflare_pages_or_r2",
+      "kind": "planned_static_object_mirror",
+      "status": "planned_owner_dns_needed",
+      "base_url": "https://<agentpress-mirror-domain>/",
+      "regions": [
+        "americas",
+        "europe",
+        "india",
+        "global_edge"
+      ],
+      "blocked_domain_risk": "low_medium",
+      "priority": 4
+    },
+    {
+      "mirror_id": "china_gitee_pages",
+      "kind": "planned_china_friendly_git_static_mirror",
+      "status": "planned_account_needed",
+      "base_url": "https://<gitee-user>.gitee.io/agentpress/",
+      "regions": [
+        "china_mainland"
+      ],
+      "blocked_domain_risk": "lower_for_china_than_github",
+      "priority": 5
+    },
+    {
+      "mirror_id": "china_object_storage",
+      "kind": "planned_china_object_storage_mirror",
+      "status": "planned_account_needed",
+      "base_url": "https://<bucket>.<region>.aliyuncs.com/agentpress/",
+      "regions": [
+        "china_mainland",
+        "asia"
+      ],
+      "blocked_domain_risk": "low_if_icp_dns_configured",
+      "priority": 6
+    },
+    {
+      "mirror_id": "offline_tarball",
+      "kind": "portable_release_artifact",
+      "status": "live",
+      "base_url": "https://barneywohl.github.io/agentpress/agentpress/releases/",
+      "regions": [
+        "all_offline_after_download"
+      ],
+      "blocked_domain_risk": "depends_on_initial_download_mirror",
+      "priority": 7
+    }
+  ],
+  "regional_failover": {
+    "americas": [
+      "github_pages",
+      "raw_github_main",
+      "jsdelivr_cdn",
+      "cloudflare_pages_or_r2",
+      "offline_tarball"
+    ],
+    "europe": [
+      "github_pages",
+      "jsdelivr_cdn",
+      "raw_github_main",
+      "cloudflare_pages_or_r2",
+      "offline_tarball"
+    ],
+    "india": [
+      "github_pages",
+      "jsdelivr_cdn",
+      "raw_github_main",
+      "cloudflare_pages_or_r2",
+      "offline_tarball"
+    ],
+    "china_mainland": [
+      "china_gitee_pages",
+      "china_object_storage",
+      "jsdelivr_cdn",
+      "offline_tarball"
+    ],
+    "asia_non_cn": [
+      "github_pages",
+      "jsdelivr_cdn",
+      "raw_github_main",
+      "cloudflare_pages_or_r2",
+      "offline_tarball"
+    ]
+  },
+  "agent_policy": "Try region failover order, verify sha256 manifest before execution, submit region probe receipt if all mirrors fail.",
+  "blocked_actions": [
+    "creating external mirror accounts",
+    "publishing DNS/ICP records",
+    "uploading to owner-controlled cloud buckets"
+  ],
+  "next_owner_decisions": [
+    "Cloudflare/R2 or other global static mirror account",
+    "Gitee or China object storage mirror account",
+    "mirror domain/DNS ownership"
+  ]
+}
