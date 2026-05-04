@@ -3884,6 +3884,31 @@ def package_registry_doctor(args):
 
 
 
+
+def proof_capture(args):
+    """Capture a local proof bundle for an agent task/run."""
+    evidence_dir=pathlib.Path(args.evidence_dir).expanduser()
+    out=evidence_dir / "proof-bundle.json"
+    card=evidence_dir / "proof-card.md"
+    artifacts=[]
+    for item in _csv_list(args.artifacts, []):
+        path=pathlib.Path(item).expanduser()
+        if path.exists() and path.is_file():
+            artifacts.append({"path":str(path),"bytes":path.stat().st_size,"sha256":hashlib.sha256(path.read_bytes()).hexdigest()})
+        else:
+            artifacts.append({"path":str(path),"missing":True})
+    commands=[]
+    for cmd in _csv_list(args.commands, []):
+        commands.append({"command":cmd,"recorded_only":True})
+    env={"python":sys.version.split()[0],"platform":platform.platform(),"cwd":str(pathlib.Path.cwd()),"agentpress_file":"scripts/agentpress.py"}
+    payload={"schema_version":"2026-05-04.agentpress-proof-capture.v1","generated_utc":_utc_now(),"status":"ok","task_id":args.task_id,"purpose":"Create a shareable no-secret proof bundle for first-agent runs.","summary":args.summary,"environment":env,"commands":commands,"artifacts":artifacts,"acceptance":{"artifact_count":len([a for a in artifacts if not a.get('missing')]),"missing_count":len([a for a in artifacts if a.get('missing')]),"review_required":args.review_required},"privacy":{"no_secret_scan_guarantee":False,"operator_must_review_before_external_share":True},"reviewer_checklist":["commands are reproducible","artifacts are public-safe","no tokens/secrets/private prompts","expected vs observed is clear"]}
+    evidence_dir.mkdir(parents=True,exist_ok=True)
+    out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    card.write_text(f"# AgentPress proof card: {args.task_id}\n\nGenerated: {payload['generated_utc']}\n\nStatus: {payload['status']}\n\nSummary: {args.summary or '(none)'}\n\nArtifacts: {payload['acceptance']['artifact_count']} present / {payload['acceptance']['missing_count']} missing\n\nBundle: `{out}`\n",encoding="utf-8")
+    result={"status":"ok","task_id":args.task_id,"proof_bundle":str(out),"proof_card":str(card),"bundle_sha256":hashlib.sha256(out.read_bytes()).hexdigest(),"artifact_count":payload['acceptance']['artifact_count']}
+    print(json.dumps(result,indent=2) if args.json else str(out))
+    return 0
+
 def first_user_bootstrap(args):
     """Generate a first-user bootstrap pack for common agent hosts."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
@@ -7291,6 +7316,7 @@ def main():
     p = sub.add_parser("package-registry-doctor"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/diagnostics/package-registry-doctor.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-fallback-installer"); p.add_argument("--out", default="agentpress/install/install-agentpress.sh"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("first-user-bootstrap"); p.add_argument("--platform", default="cline"); p.add_argument("--out", default="agentpress/onboarding/first-user-bootstrap.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("proof-capture"); p.add_argument("--task-id", required=True); p.add_argument("--evidence-dir", required=True); p.add_argument("--artifacts", default=""); p.add_argument("--commands", default=""); p.add_argument("--summary", default=""); p.add_argument("--review-required", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-schema-serialization-check"); p.add_argument("--schema", default=""); p.add_argument("--out", default="agentpress/tools/tool-schema-serialization-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-issue-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/community-issue-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -7634,6 +7660,7 @@ def main():
     if args.cmd == "package-registry-doctor": return package_registry_doctor(args)
     if args.cmd == "package-registry-fallback-installer": return package_registry_fallback_installer(args)
     if args.cmd == "first-user-bootstrap": return first_user_bootstrap(args)
+    if args.cmd == "proof-capture": return proof_capture(args)
     if args.cmd == "tool-schema-serialization-check": return tool_schema_serialization_check(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
     if args.cmd == "unsolved-agent-problem-backlog": return unsolved_agent_problem_backlog(args)
