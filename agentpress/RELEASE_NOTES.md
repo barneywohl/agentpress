@@ -1,5 +1,25 @@
 # AgentPress Release Notes
 
+## Unreleased - global agent painpoint gates (2026-05-05)
+
+Status: local source release only. npm/PyPI publish remains blocked unless an rc4 bump is explicit, all gates pass, and auth is safe.
+
+### New features
+
+| Feature | CLI | Status |
+|---|---|---|
+| Safety preflight umbrella | `python3 scripts/agentpress.py safety-preflight . --json` | Implemented |
+| Context budget gate | `python3 scripts/agentpress.py context-budget <bundle> --json` | Implemented |
+| MCP config doctor | `python3 scripts/agentpress.py mcp-config-doctor --config <mcp-config.json> --json` | Implemented |
+
+### Safety scope
+
+- No secret reads by default; redaction and tool-manifest scans require explicit public paths.
+- `mcp-config-doctor` is static and never mutates MCP config.
+- `context-budget` uses file metadata and source-map/freshness presence, not full source ingestion.
+
+---
+
 ## 0.2.0-rc.3 — Node first-run and integrity hardening (2026-05-05)
 
 Status: **local release candidate metadata**. Do NOT publish npm/PyPI without separate approval.

@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-03.agentpress-docs-command-check.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/evidence/docs-command-check.json",
-  "generated_utc": "2026-05-05T14:06:29Z",
+  "generated_utc": "2026-05-05T14:42:33Z",
   "status": "ok",
-  "checked": 503,
+  "checked": 506,
   "failed": 0,
-  "commands_known": 270,
+  "commands_known": 273,
   "results": [
     {
       "path": "README.md",
@@ -1729,6 +1729,30 @@
       "path": "llms.txt",
       "command": "python3 scripts/agentpress.py secret-permission-preflight-run --json",
       "cmd": "secret-permission-preflight-run",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py safety-preflight . --json",
+      "cmd": "safety-preflight",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py context-budget agentpress/examples/api-docs-handoff --json",
+      "cmd": "context-budget",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py mcp-config-doctor --json",
+      "cmd": "mcp-config-doctor",
       "status": "ok",
       "errors": [],
       "warnings": []
@@ -4026,30 +4050,6 @@
       "warnings": [
         "contains placeholder; parser execution skipped"
       ]
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py audience-kit --json",
-      "cmd": "audience-kit",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py audience-kit --json",
-      "cmd": "audience-kit",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py audience-kit --json",
-      "cmd": "audience-kit",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
     }
   ],
   "principle": "Documented commands must not drift from parser command names or obvious flags."

@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-04T19:44:41Z",
+  "generated_at": "2026-05-05T14:33:25Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -649,6 +649,18 @@
       ]
     },
     {
+      "name": "agentpress.context_budget",
+      "description": "Gate agent context bloat by file count, bytes, estimated chars, source maps, and freshness hints.",
+      "command": "python3 scripts/agentpress.py context-budget . --json",
+      "tags": [
+        "context",
+        "budget",
+        "source-map",
+        "freshness",
+        "gate"
+      ]
+    },
+    {
       "name": "agentpress.package_registry_doctor",
       "description": "Diagnose package/install registry failures for agent CLIs.",
       "command": "python3 scripts/agentpress.py package-registry-doctor --json",
@@ -680,6 +692,30 @@
         "errors",
         "remediation",
         "doctor"
+      ]
+    },
+    {
+      "name": "agentpress.safety_preflight",
+      "description": "Run/link secret, redaction, file-access, and sandbox safety checks without reading secret paths by default.",
+      "command": "python3 scripts/agentpress.py safety-preflight . --json",
+      "tags": [
+        "security",
+        "safety",
+        "preflight",
+        "redaction",
+        "sandbox"
+      ]
+    },
+    {
+      "name": "agentpress.mcp_config_doctor",
+      "description": "Statically validate MCP config JSON, server names, env literal risks, and backup guidance without mutation.",
+      "command": "python3 scripts/agentpress.py mcp-config-doctor --config <mcp-config.json> --json",
+      "tags": [
+        "mcp",
+        "config",
+        "doctor",
+        "security",
+        "gate"
       ]
     },
     {

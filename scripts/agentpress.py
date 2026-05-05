@@ -100,8 +100,8 @@ AGENT_PAINPOINT_MAP = [
         "priority": "P0",
         "painpoint": "Agents can leak/read secret paths unless guardrails are obvious and enforced.",
         "target_approach": "Fail closed on sensitive roots and make sandbox/approval boundaries machine-readable.",
-        "target_features": ["secret path guard", "sandbox-guard", "redaction-check"],
-        "safe_now": ["handoff evidence hashing refuses sensitive paths"],
+        "target_features": ["safety-preflight", "secret path guard", "sandbox-guard", "redaction-check"],
+        "safe_now": ["handoff evidence hashing refuses sensitive paths", "safety-preflight umbrella links no-secret preflights"],
     },
     {
         "rank": 4,
@@ -134,10 +134,10 @@ AGENT_PAINPOINT_MAP = [
         "rank": 7,
         "id": "compact_task_cards_source_maps",
         "priority": "P1",
-        "painpoint": "Agents need compact task cards/source maps rather than huge docs.",
-        "target_approach": "Expose task cards, source maps, and exact next commands before long-form docs.",
-        "target_features": ["agent-task-card.json", "source-map.json", "task-handoff-contract"],
-        "safe_now": ["painpoint-map includes compact target feature mapping"],
+        "painpoint": "Agents need compact task cards/source maps rather than huge docs and bloated contexts.",
+        "target_approach": "Expose task cards, source maps, context budgets, and exact next commands before long-form docs.",
+        "target_features": ["context-budget", "agent-task-card.json", "source-map.json", "task-handoff-contract"],
+        "safe_now": ["painpoint-map includes compact target feature mapping", "context-budget gate reports file/byte budgets"],
     },
     {
         "rank": 8,
@@ -164,6 +164,9 @@ SPRINT_SHIPPED_FEATURES = [
     "start --json exposes ranked_first_actions and stable-vs-rc version_channel clarity",
     "doctor/package-registry-doctor include version_channel so rc builds are not mislabeled as stable",
     "handoff-pack includes evidence_manifest hashes and refuses sensitive evidence paths before reading",
+    "safety-preflight umbrellas no-secret guardrails without reading secret paths by default",
+    "context-budget gates source-map, freshness, file, byte, and estimated-char budgets",
+    "mcp-config-doctor statically validates MCP config JSON, duplicate names, and env literal risks without mutation",
 ]
 
 FETCH_ASSETS = [
@@ -2640,9 +2643,12 @@ def tools_manifest(args):
         {"name":"agentpress.provider_tool_translation_map", "description":"Generate provider/host tool vocabulary translation hints.", "command":"python3 scripts/agentpress.py provider-tool-translation-map --json", "tags":["provider","tools","translation"]},
         {"name":"agentpress.workflow_terminal_callback_check", "description":"Check workflow/terminal callback completion contract.", "command":"python3 scripts/agentpress.py workflow-terminal-callback-check --json", "tags":["workflow","terminal","callback","gate"]},
         {"name":"agentpress.context_compaction_risk_card", "description":"Generate context compaction risk envelope.", "command":"python3 scripts/agentpress.py context-compaction-risk-card --json", "tags":["context","compaction","memory"]},
+        {"name":"agentpress.context_budget", "description":"Gate agent context bloat by file count, bytes, estimated chars, source maps, and freshness hints.", "command":"python3 scripts/agentpress.py context-budget . --json", "tags":["context","budget","source-map","freshness","gate"]},
         {"name":"agentpress.package_registry_doctor", "description":"Diagnose package/install registry failures for agent CLIs.", "command":"python3 scripts/agentpress.py package-registry-doctor --json", "tags":["package","registry","install","doctor"]},
         {"name":"agentpress.first_run_wizard", "description":"Detect host/provider/install state and emit the exact next command for a first agent user.", "command":"python3 scripts/agentpress.py first-run-wizard --json", "tags":["first-run","wizard","onboarding","host","provider"]},
         {"name":"agentpress.provider_error_explainer", "description":"Map raw provider/runtime errors to remediation packs with exact commands.", "command":"python3 scripts/agentpress.py provider-error-explainer --error '<sanitized error>' --json", "tags":["provider","errors","remediation","doctor"]},
+        {"name":"agentpress.safety_preflight", "description":"Run/link secret, redaction, file-access, and sandbox safety checks without reading secret paths by default.", "command":"python3 scripts/agentpress.py safety-preflight . --json", "tags":["security","safety","preflight","redaction","sandbox"]},
+        {"name":"agentpress.mcp_config_doctor", "description":"Statically validate MCP config JSON, server names, env literal risks, and backup guidance without mutation.", "command":"python3 scripts/agentpress.py mcp-config-doctor --config <mcp-config.json> --json", "tags":["mcp","config","doctor","security","gate"]},
         {"name":"agentpress.adoption_scoreboard", "description":"Build a static privacy-safe adoption scoreboard from opt-in proof artifacts.", "command":"python3 scripts/agentpress.py adoption-scoreboard --json", "tags":["adoption","scoreboard","static","proof","privacy"]},
         {"name":"agentpress.external_proof_inbox_review_flow", "description":"Review external proof inbox files for acceptance candidates and privacy redaction blockers.", "command":"python3 scripts/agentpress.py external-proof-inbox-review-flow --json", "tags":["proof","inbox","review","privacy","adoption"]},
         {"name":"agentpress.release_registry_readiness_dashboard", "description":"Build a static release/package-registry readiness dashboard for npm/PyPI/source/static lanes.", "command":"python3 scripts/agentpress.py release-registry-readiness-dashboard --json", "tags":["release","registry","npm","pypi","dashboard"]},
@@ -4231,6 +4237,350 @@ def mcp_config_mutation_guard(args):
     print(json.dumps(payload,indent=2) if args.json else status)
     return 1 if args.strict and status!='ok' else 0
 
+def _capture_json_call(fn, namespace):
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        code = fn(namespace)
+    raw = buf.getvalue().strip()
+    try:
+        data = json.loads(raw) if raw else {}
+    except Exception:
+        data = {"status": "unknown", "raw_tail": raw[-500:]}
+    return code, data
+
+
+def safety_preflight(args):
+    """Run/link local safety preflights without reading secret-bearing paths by default."""
+    root = pathlib.Path(args.root).expanduser()
+    out = pathlib.Path(args.out)
+    base = args.base_url.rstrip() + "/"
+    guard_findings = _secret_path_guard(root)
+    checks = []
+    exact_commands = [
+        "python3 scripts/agentpress.py secret-permission-preflight-run --json",
+        "python3 scripts/agentpress.py redaction-check <public-artifact-path> --json --allow-findings",
+        "python3 scripts/agentpress.py tool-file-access-risk-scanner --json --manifest <public-tool-manifest.json>",
+        f"python3 scripts/agentpress.py sandbox-guard --scope read-only --paths {shlex.quote(str(root))} --json --no-write",
+    ]
+
+    checks.append({
+        "id": "sensitive_path_guard",
+        "status": "fail_closed" if guard_findings else "ok",
+        "findings": guard_findings,
+        "no_secret_read": True,
+    })
+
+    manifest = pathlib.Path(args.manifest).expanduser() if args.manifest else None
+    if manifest and _is_sensitive_path(manifest):
+        checks.append({"id": "secret_permission_preflight", "status": "refused_sensitive_manifest", "path": str(manifest), "no_secret_read": True})
+    else:
+        code, data = _capture_json_call(secret_permission_preflight_run, argparse.Namespace(
+            manifest=str(manifest) if manifest else "",
+            out="agentpress/security/secret-permission-preflight-result.json",
+            base_url=args.base_url,
+            no_write=True,
+            json=True,
+            strict=False,
+        ))
+        checks.append({"id": "secret_permission_preflight", "status": data.get("status", "unknown"), "exit_code": code, "result": data, "no_secret_read": True})
+
+    if args.redaction_path:
+        redaction_path = pathlib.Path(args.redaction_path).expanduser()
+        if _is_sensitive_path(redaction_path):
+            checks.append({"id": "redaction_check", "status": "refused_sensitive_path", "path": str(redaction_path), "no_secret_read": True})
+        else:
+            code, data = _capture_json_call(redaction_check, argparse.Namespace(
+                path=str(redaction_path),
+                out="",
+                max_files=args.max_redaction_files,
+                max_chars=args.max_redaction_chars,
+                allow_findings=True,
+                json=True,
+            ))
+            checks.append({"id": "redaction_check", "status": data.get("status", "unknown"), "exit_code": code, "result": data, "no_secret_read": False})
+    else:
+        checks.append({
+            "id": "redaction_check",
+            "status": "guidance_only",
+            "reason": "not run unless --redaction-path is supplied for an explicitly public artifact path",
+            "command": "python3 scripts/agentpress.py redaction-check <public-artifact-path> --json --allow-findings",
+            "no_secret_read": True,
+        })
+
+    tool_manifest = pathlib.Path(args.tool_manifest).expanduser() if args.tool_manifest else None
+    if tool_manifest and _is_sensitive_path(tool_manifest):
+        checks.append({"id": "tool_file_access_risk_scanner", "status": "refused_sensitive_manifest", "path": str(tool_manifest), "no_secret_read": True})
+    elif tool_manifest:
+        code, data = _capture_json_call(tool_file_access_risk_scanner, argparse.Namespace(
+            manifest=str(tool_manifest),
+            out="agentpress/security/tool-file-access-risk-report.json",
+            base_url=args.base_url,
+            no_write=True,
+            json=True,
+            strict=False,
+        ))
+        checks.append({"id": "tool_file_access_risk_scanner", "status": data.get("status", "unknown"), "exit_code": code, "result": data, "no_secret_read": False})
+    else:
+        checks.append({
+            "id": "tool_file_access_risk_scanner",
+            "status": "guidance_only",
+            "reason": "not run unless --tool-manifest is supplied; avoids reading arbitrary configs",
+            "command": "python3 scripts/agentpress.py tool-file-access-risk-scanner --manifest <public-tool-manifest.json> --json",
+            "no_secret_read": True,
+        })
+
+    code, data = _capture_json_call(sandbox_guard, argparse.Namespace(
+        scope="read-only",
+        paths=str(root),
+        out="agentpress/security/sandbox-guard.json",
+        base_url=args.base_url,
+        no_write=True,
+        json=True,
+        strict=False,
+    ))
+    checks.append({"id": "sandbox_guard", "status": data.get("status", "unknown"), "exit_code": code, "result": data, "no_secret_read": True})
+
+    fail_statuses = {"fail", "fail_closed", "refused_sensitive_path", "refused_sensitive_manifest"}
+    failing = [c for c in checks if c.get("status") in fail_statuses]
+    status = "ok" if not failing else "fail_closed"
+    payload = {
+        "schema_version": "2026-05-05.agentpress-safety-preflight.v1",
+        "canonical_url": urljoin(base, out.as_posix()),
+        "generated_utc": _utc_now(),
+        "status": status,
+        "purpose": "Umbrella safety preflight for agents before connector/tool/file/publish work. It links broad scans and only reads explicit public artifacts.",
+        "root": str(root),
+        "no_secret_reads_by_default": True,
+        "checks": checks,
+        "exact_commands": exact_commands,
+        "remediation": [
+            "Run redaction-check only on explicitly public artifact directories, not home/config/secret paths.",
+            "Declare secret names and scopes in a preflight manifest; never store secret values in artifacts.",
+            "Run tool-file-access-risk-scanner on public tool manifests before enabling file-read tools.",
+            "Use sandbox-guard/read-only paths before running unfamiliar tool chains.",
+        ],
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else status)
+    return 1 if args.strict and status != "ok" else 0
+
+
+def _context_budget_files(root):
+    skip_parts = {".git", "node_modules", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
+    files = []
+    if root.is_file():
+        return [root]
+    if not root.exists():
+        return []
+    for p in root.rglob("*"):
+        if not p.is_file():
+            continue
+        rel_parts = set(p.relative_to(root).parts)
+        if rel_parts & skip_parts:
+            continue
+        files.append(p)
+    return files
+
+
+def context_budget(args):
+    """Gate agent context bloat with file/byte budgets, source-map requirement, and remediation."""
+    root = pathlib.Path(args.root).expanduser()
+    out = pathlib.Path(args.out)
+    base = args.base_url.rstrip() + "/"
+    files = _context_budget_files(root)
+    total_bytes = 0
+    largest = []
+    for p in files:
+        try:
+            size = p.stat().st_size
+        except OSError:
+            size = 0
+        total_bytes += size
+        largest.append((size, p))
+    largest.sort(reverse=True, key=lambda item: item[0])
+    source_map = pathlib.Path(args.source_map)
+    source_map_path = source_map if source_map.is_absolute() else root / source_map
+    freshness = pathlib.Path(args.freshness)
+    freshness_path = freshness if freshness.is_absolute() else root / freshness
+    estimated_chars = total_bytes
+    findings = []
+    def add(code, severity, message, remediation):
+        findings.append({"code": code, "severity": severity, "message": message, "remediation": remediation})
+    if args.require_source_map and not source_map_path.exists():
+        add("missing_source_map", "P0", f"required source map missing: {source_map.as_posix()}", f"Create {source_map.as_posix()} with claim-to-source mappings before loading this tree into an agent context.")
+    if not freshness_path.exists():
+        add("missing_freshness", "P1", f"freshness hints missing: {freshness.as_posix()}", f"Add {freshness.as_posix()} with generated_at, max_stale_days, and refresh commands.")
+    if len(files) > args.max_files:
+        add("too_many_files", "P1", f"{len(files)} files exceeds max_files={args.max_files}", "Pass a smaller root, add a source-map allowlist, or package a focused handoff bundle.")
+    if total_bytes > args.max_bytes:
+        add("too_many_bytes", "P1", f"{total_bytes} bytes exceeds max_bytes={args.max_bytes}", "Exclude generated/build artifacts and summarize large evidence files before context loading.")
+    if estimated_chars > args.max_chars:
+        add("too_many_estimated_chars", "P1", f"{estimated_chars} estimated chars exceeds max_chars={args.max_chars}", "Use source-map required files only, then attach hashes for omitted evidence.")
+    status = "ok" if not any(f["severity"] in {"P0", "P1"} for f in findings) else "needs_remediation"
+    payload = {
+        "schema_version": "2026-05-05.agentpress-context-budget.v1",
+        "canonical_url": urljoin(base, out.as_posix()),
+        "generated_utc": _utc_now(),
+        "status": status,
+        "root": str(root),
+        "budgets": {"max_files": args.max_files, "max_bytes": args.max_bytes, "max_chars": args.max_chars},
+        "actual": {"file_count": len(files), "total_bytes": total_bytes, "estimated_chars": estimated_chars},
+        "source_map": {"required": bool(args.require_source_map), "path": str(source_map_path), "present": source_map_path.exists()},
+        "freshness": {"path": str(freshness_path), "present": freshness_path.exists(), "hint": "freshness.json should declare generated_at, max_stale_days, and refresh_command"},
+        "largest_files": [{"path": str(p), "bytes": size} for size, p in largest[:10]],
+        "finding_count": len(findings),
+        "findings": findings,
+        "exact_remediation": [
+            f"Create or update {source_map.as_posix()} with only the files the agent should load.",
+            f"Create or update {freshness.as_posix()} with generated_at and refresh guidance.",
+            "Move generated logs, tarballs, caches, and build outputs outside the agent handoff root.",
+            "Run `python3 scripts/agentpress.py context-budget <root> --json --strict` in CI before large agent handoffs.",
+        ],
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else status)
+    return 1 if args.strict and status != "ok" else 0
+
+
+def _json_load_with_duplicate_markers(path):
+    raw = pathlib.Path(path).read_text(encoding="utf-8")
+    duplicate_sets = []
+    def hook(pairs):
+        obj = {}
+        dups = []
+        for key, value in pairs:
+            if key in obj:
+                dups.append(key)
+            obj[key] = value
+        if dups:
+            duplicate_sets.append(sorted(set(dups)))
+            obj["__agentpress_duplicate_keys__"] = sorted(set(dups))
+        return obj
+    return json.loads(raw, object_pairs_hook=hook), duplicate_sets
+
+
+def _mcp_config_servers(data):
+    servers = []
+    if not isinstance(data, dict):
+        return servers
+    for key in ("mcpServers", "servers"):
+        value = data.get(key)
+        if isinstance(value, dict):
+            for name, cfg in value.items():
+                if name == "__agentpress_duplicate_keys__":
+                    continue
+                servers.append({"name": name, "config": cfg if isinstance(cfg, dict) else {}})
+        elif isinstance(value, list):
+            for idx, cfg in enumerate(value):
+                if isinstance(cfg, dict):
+                    servers.append({"name": str(cfg.get("name") or cfg.get("id") or f"server_{idx}"), "config": cfg})
+    return servers
+
+
+def _env_entries(env):
+    if isinstance(env, dict):
+        for key, value in env.items():
+            yield key, value
+    elif isinstance(env, list):
+        for idx, item in enumerate(env):
+            if isinstance(item, dict):
+                yield item.get("name") or f"env[{idx}]", item.get("value", "")
+            else:
+                yield f"env[{idx}]", item
+
+
+def _dangerous_env_literal(key, value):
+    key_l = str(key).lower()
+    value_s = str(value or "").strip()
+    if not value_s:
+        return False
+    if value_s.startswith(("$", "${", "<")) or "REDACTED" in value_s.upper() or "YOUR_" in value_s.upper():
+        return False
+    secret_key = any(tok in key_l for tok in ("token", "secret", "password", "api_key", "apikey", "private_key", "credential"))
+    secret_value = bool(re.search(r"(?i)(sk-[a-z0-9_-]{12,}|gh[opsu]_[a-z0-9_]{20,}|xoxb-[0-9a-z-]{20,}|bearer\s+[a-z0-9._-]{12,})", value_s))
+    return secret_key or secret_value
+
+
+def mcp_config_doctor(args):
+    """Statically check MCP config shape and secret-risk markers without mutating config."""
+    out = pathlib.Path(args.out)
+    base = args.base_url.rstrip() + "/"
+    findings = []
+    config_path = pathlib.Path(args.config).expanduser() if args.config else None
+    data = {"mcpServers": {"agentpress-static": {"command": "python3", "args": ["scripts/agentpress.py", "mcp-catalog-export", "--json"], "env": {}}}}
+    duplicate_sets = []
+    source = "built_in_safe_sample"
+    if config_path:
+        source = str(config_path)
+        if _is_sensitive_path(config_path):
+            findings.append({"severity": "P0", "code": "sensitive_config_path_refused", "message": "config path looks secret-bearing; choose a public MCP settings export", "path": str(config_path)})
+            data = {}
+        elif not config_path.exists():
+            findings.append({"severity": "P0", "code": "config_missing", "message": "MCP config file does not exist", "path": str(config_path)})
+            data = {}
+        else:
+            try:
+                data, duplicate_sets = _json_load_with_duplicate_markers(config_path)
+            except Exception as e:
+                findings.append({"severity": "P0", "code": "invalid_json", "message": f"config JSON parse failed: {e}", "path": str(config_path)})
+                data = {}
+    if isinstance(data, dict) and not any(k in data for k in ("mcpServers", "servers")):
+        findings.append({"severity": "P1", "code": "missing_server_container", "message": "expected mcpServers or servers object/list"})
+    for dup in duplicate_sets:
+        findings.append({"severity": "P1", "code": "duplicate_json_keys", "message": "duplicate JSON object keys detected", "keys": dup})
+    servers = _mcp_config_servers(data)
+    names = [s["name"] for s in servers]
+    seen = set()
+    duplicate_names = sorted({name for name in names if name in seen or seen.add(name)})
+    for name in duplicate_names:
+        findings.append({"severity": "P1", "code": "duplicate_server_name", "message": "duplicate MCP server name", "server": name})
+    for server in servers:
+        cfg = server.get("config") or {}
+        env = cfg.get("env") or cfg.get("env_vars") or cfg.get("environment") or {}
+        for key, value in _env_entries(env):
+            if _dangerous_env_literal(key, value):
+                findings.append({
+                    "severity": "P0",
+                    "code": "dangerous_env_value_marker",
+                    "server": server["name"],
+                    "env": str(key),
+                    "message": "env entry appears to contain a literal secret; use an env var reference or redacted placeholder",
+                    "value_echoed": False,
+                })
+    duplicate_findings = any(f.get("code") in {"duplicate_json_keys", "duplicate_server_name"} for f in findings)
+    status = "ok" if not any(f["severity"] == "P0" for f in findings) and not duplicate_findings else "fail"
+    backup_hint = f"cp {shlex.quote(str(config_path or '<mcp-config.json>'))} {shlex.quote(str(config_path or '<mcp-config.json>'))}.$(date -u +%Y%m%dT%H%M%SZ).backup"
+    restore_hint = f"cp <backup-file> {shlex.quote(str(config_path or '<mcp-config.json>'))}"
+    payload = {
+        "schema_version": "2026-05-05.agentpress-mcp-config-doctor.v1",
+        "canonical_url": urljoin(base, out.as_posix()),
+        "generated_utc": _utc_now(),
+        "status": status,
+        "purpose": "Static MCP config check for JSON validity, server naming, env safety, and backup/restore guidance. It never mutates config.",
+        "source": source,
+        "mutated_config": False,
+        "server_count": len(servers),
+        "server_names": names,
+        "duplicate_server_names": duplicate_names,
+        "finding_count": len(findings),
+        "findings": findings,
+        "backup_restore_guidance": {
+            "backup_before_edit": backup_hint,
+            "restore": restore_hint,
+            "mutation_guard": "python3 scripts/agentpress.py mcp-config-mutation-guard --config-path <config> --backup --planned-servers <csv> --json",
+        },
+        "safe_env_rule": "Store secret names or runtime env references only; never place token/password/key values in static MCP config artifacts.",
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else status)
+    return 1 if args.strict and status != "ok" else 0
+
 def continuous_research_build_cycle_audit(args):
     """Audit shipped AgentPress surfaces against current painpoint/build lists and emit next cycle decision."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
@@ -4694,10 +5044,11 @@ def provider_error_explainer(args):
         packs.append({"class":cls,"severity":severity,"why":why,"exact_commands":commands,"docs":docs or [],"safe_to_retry":cls not in {"auth_secret_leak_risk","destructive_tool_denied"}})
     if any(x in low for x in ["401","unauthorized","invalid api key","authentication"]): add("provider_auth", "Provider rejected credentials; do not paste keys into logs.", ["printenv | grep -E 'OPENAI|ANTHROPIC|GEMINI|GOOGLE' | sed 's/=.*$/=<redacted>/'", "python3 scripts/agentpress.py secret-permission-preflight-run --json"], severity="P0")
     if any(x in low for x in ["429","rate limit","quota","insufficient_quota"]): add("rate_limit_or_quota", "Provider throttled or quota is exhausted.", ["sleep 60 && retry the previous command", "python3 scripts/agentpress.py budget-check --tier small --json"])
-    if any(x in low for x in ["context_length","maximum context","too many tokens","context window"]): add("context_window", "Prompt or retrieved context exceeds model window.", ["python3 scripts/agentpress.py context-compaction-risk-card --json", "rerun with a smaller file set or summarize first"])
+    if any(x in low for x in ["context_length","maximum context","too many tokens","context window"]): add("context_window", "Prompt or retrieved context exceeds model window.", ["python3 scripts/agentpress.py context-budget . --json", "python3 scripts/agentpress.py context-compaction-risk-card --json", "rerun with a smaller file set or summarize first"])
     if any(x in low for x in ["tool_use","invalid tool","tool call","schema"]): add("tool_schema_or_vocabulary", "Provider/host rejected a tool call or schema.", ["python3 scripts/agentpress.py tool-vocabulary-compatibility-check --json", "python3 scripts/agentpress.py tool-schema-serialization-check --json"])
     if any(x in low for x in ["module not found","modulenotfounderror","cannot find module","no module named"]): add("missing_dependency", "Runtime dependency is missing or installed in the wrong environment.", [f"python3 scripts/agentpress.py dependency-error-remediation-map --error {shlex.quote(error[:200])} --json", "python3 -m pip install -e ."])
-    if any(x in low for x in ["eacces","permission denied","operation not permitted"]): add("permission_denied", "Host sandbox or filesystem denied the action.", ["python3 scripts/agentpress.py sandbox-guard --scope read-only --paths . --json", "rerun in an approved workspace path"])
+    if any(x in low for x in ["eacces","permission denied","operation not permitted"]): add("permission_denied", "Host sandbox or filesystem denied the action.", ["python3 scripts/agentpress.py safety-preflight . --json", "python3 scripts/agentpress.py sandbox-guard --scope read-only --paths . --json", "rerun in an approved workspace path"])
+    if any(x in low for x in ["mcp", "mcps"]) and any(x in low for x in ["config", "settings", "json", "server"]): add("mcp_config", "MCP config/settings need a static shape and env-value safety check before mutation.", ["python3 scripts/agentpress.py mcp-config-doctor --config <mcp-config.json> --json", "python3 scripts/agentpress.py mcp-config-mutation-guard --config-path <mcp-config.json> --backup --planned-servers <csv> --json"])
     if any(x in low for x in ["model_not_found","not found: model","unsupported model"]): add("model_unavailable", "Configured model name is unavailable for this account/provider.", ["check provider model list/account access", "rerun with --provider and a known model from your host config"])
     if not packs: add("unknown_provider_error", "No known signature matched; capture reproducible evidence before retrying.", ["python3 scripts/agentpress.py repro-bundle --json", "python3 scripts/agentpress.py blocker-report --agent-id local-agent --runtime unknown --command '<failed command>' --error-summary '<sanitized error>' --desired-fix '<what should happen>' --json"], severity="P2")
     md="# Provider error remediation pack\n\n"+"\n".join(f"## {p['class']}\nWhy: {p['why']}\n\nCommands:\n"+"\n".join(f"- `{c}`" for c in p['exact_commands']) for p in packs)+"\n"
@@ -8648,6 +8999,9 @@ def main():
     p = sub.add_parser("issue-to-repro-pack"); p.add_argument("--issue-url", default=""); p.add_argument("--host", default="cline"); p.add_argument("--provider", default="unknown_provider"); p.add_argument("--tool", default="unknown_tool"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/repro/issue-to-repro-pack-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("painpoint-target-pack"); p.add_argument("--issue-url", default=""); p.add_argument("--painpoint", default=""); p.add_argument("--host", default="unknown_host"); p.add_argument("--provider", default="unknown_provider"); p.add_argument("--tool", default="unknown_tool"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/outreach/painpoint-target-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("mcp-config-mutation-guard"); p.add_argument("--config-path", default="cline_mcp_settings.json"); p.add_argument("--config-exists", action="store_true"); p.add_argument("--before-sha256", default=""); p.add_argument("--after-sha256", default=""); p.add_argument("--existing-servers", default=""); p.add_argument("--planned-servers", default=""); p.add_argument("--planned-config", default=""); p.add_argument("--allowed-mutations", default=""); p.add_argument("--backup", action="store_true"); p.add_argument("--backup-dir", default=".agentpress-backups"); p.add_argument("--restore", default=""); p.add_argument("--apply-restore", action="store_true"); p.add_argument("--apply", action="store_true"); p.add_argument("--out", default="agentpress/security/mcp-config-mutation-guard-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("safety-preflight"); p.add_argument("root", nargs="?", default="."); p.add_argument("--manifest", default=""); p.add_argument("--tool-manifest", default=""); p.add_argument("--redaction-path", default=""); p.add_argument("--max-redaction-files", type=int, default=200); p.add_argument("--max-redaction-chars", type=int, default=200000); p.add_argument("--out", default="agentpress/security/safety-preflight.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("context-budget"); p.add_argument("root", nargs="?", default="."); p.add_argument("--max-files", type=int, default=200); p.add_argument("--max-bytes", type=int, default=1000000); p.add_argument("--max-chars", type=int, default=200000); p.add_argument("--source-map", default="source-map.json"); p.add_argument("--freshness", default="freshness.json"); p.add_argument("--no-require-source-map", dest="require_source_map", action="store_false"); p.set_defaults(require_source_map=True); p.add_argument("--out", default="agentpress/context/context-budget.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("mcp-config-doctor"); p.add_argument("--config", default=""); p.add_argument("--out", default="agentpress/security/mcp-config-doctor-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("continuous-research-build-cycle-audit"); p.add_argument("--out", default="agentpress/audits/continuous-research-build-cycle-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("current-agent-places-map"); p.add_argument("--out", default="agentpress/community/current-agent-places-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attention-painpoint-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/attention-painpoint-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -9007,6 +9361,9 @@ def main():
     if args.cmd == "issue-to-repro-pack": return issue_to_repro_pack(args)
     if args.cmd == "painpoint-target-pack": return painpoint_target_pack(args)
     if args.cmd == "mcp-config-mutation-guard": return mcp_config_mutation_guard(args)
+    if args.cmd == "safety-preflight": return safety_preflight(args)
+    if args.cmd == "context-budget": return context_budget(args)
+    if args.cmd == "mcp-config-doctor": return mcp_config_doctor(args)
     if args.cmd == "continuous-research-build-cycle-audit": return continuous_research_build_cycle_audit(args)
     if args.cmd == "current-agent-places-map": return current_agent_places_map(args)
     if args.cmd == "attention-painpoint-radar": return attention_painpoint_radar(args)

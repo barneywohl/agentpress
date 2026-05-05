@@ -1,7 +1,7 @@
 {
   "schema_version": "2026-05-05.agentpress-painpoint-map.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/planning/current-agent-painpoint-map.json",
-  "generated_utc": "2026-05-05T14:06:29Z",
+  "generated_utc": "2026-05-05T14:33:25Z",
   "mission_id": "",
   "status": "ok",
   "purpose": "Rank the biggest current agent pain points and map each to concrete AgentPress features agents can run or verify.",
@@ -46,12 +46,14 @@
       "painpoint": "Agents can leak/read secret paths unless guardrails are obvious and enforced.",
       "target_approach": "Fail closed on sensitive roots and make sandbox/approval boundaries machine-readable.",
       "target_features": [
+        "safety-preflight",
         "secret path guard",
         "sandbox-guard",
         "redaction-check"
       ],
       "safe_now": [
-        "handoff evidence hashing refuses sensitive paths"
+        "handoff evidence hashing refuses sensitive paths",
+        "safety-preflight umbrella links no-secret preflights"
       ]
     },
     {
@@ -103,15 +105,17 @@
       "rank": 7,
       "id": "compact_task_cards_source_maps",
       "priority": "P1",
-      "painpoint": "Agents need compact task cards/source maps rather than huge docs.",
-      "target_approach": "Expose task cards, source maps, and exact next commands before long-form docs.",
+      "painpoint": "Agents need compact task cards/source maps rather than huge docs and bloated contexts.",
+      "target_approach": "Expose task cards, source maps, context budgets, and exact next commands before long-form docs.",
       "target_features": [
+        "context-budget",
         "agent-task-card.json",
         "source-map.json",
         "task-handoff-contract"
       ],
       "safe_now": [
-        "painpoint-map includes compact target feature mapping"
+        "painpoint-map includes compact target feature mapping",
+        "context-budget gate reports file/byte budgets"
       ]
     },
     {
@@ -168,7 +172,10 @@
     "painpoint-map CLI emits ranked agent painpoints, target features, P0/P1/P2 backlog, and sprint scope",
     "start --json exposes ranked_first_actions and stable-vs-rc version_channel clarity",
     "doctor/package-registry-doctor include version_channel so rc builds are not mislabeled as stable",
-    "handoff-pack includes evidence_manifest hashes and refuses sensitive evidence paths before reading"
+    "handoff-pack includes evidence_manifest hashes and refuses sensitive evidence paths before reading",
+    "safety-preflight umbrellas no-secret guardrails without reading secret paths by default",
+    "context-budget gates source-map, freshness, file, byte, and estimated-char budgets",
+    "mcp-config-doctor statically validates MCP config JSON, duplicate names, and env literal risks without mutation"
   ],
   "safe_scope": {
     "package_publish": false,

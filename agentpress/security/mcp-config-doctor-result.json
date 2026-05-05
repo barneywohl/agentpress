@@ -1,0 +1,22 @@
+{
+  "schema_version": "2026-05-05.agentpress-mcp-config-doctor.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/security/mcp-config-doctor-result.json",
+  "generated_utc": "2026-05-05T14:42:32Z",
+  "status": "ok",
+  "purpose": "Static MCP config check for JSON validity, server naming, env safety, and backup/restore guidance. It never mutates config.",
+  "source": "built_in_safe_sample",
+  "mutated_config": false,
+  "server_count": 1,
+  "server_names": [
+    "agentpress-static"
+  ],
+  "duplicate_server_names": [],
+  "finding_count": 0,
+  "findings": [],
+  "backup_restore_guidance": {
+    "backup_before_edit": "cp '<mcp-config.json>' '<mcp-config.json>'.$(date -u +%Y%m%dT%H%M%SZ).backup",
+    "restore": "cp <backup-file> '<mcp-config.json>'",
+    "mutation_guard": "python3 scripts/agentpress.py mcp-config-mutation-guard --config-path <config> --backup --planned-servers <csv> --json"
+  },
+  "safe_env_rule": "Store secret names or runtime env references only; never place token/password/key values in static MCP config artifacts."
+}

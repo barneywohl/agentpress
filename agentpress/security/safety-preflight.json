@@ -1,0 +1,99 @@
+{
+  "schema_version": "2026-05-05.agentpress-safety-preflight.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/security/safety-preflight.json",
+  "generated_utc": "2026-05-05T14:42:32Z",
+  "status": "ok",
+  "purpose": "Umbrella safety preflight for agents before connector/tool/file/publish work. It links broad scans and only reads explicit public artifacts.",
+  "root": ".",
+  "no_secret_reads_by_default": true,
+  "checks": [
+    {
+      "id": "sensitive_path_guard",
+      "status": "ok",
+      "findings": [],
+      "no_secret_read": true
+    },
+    {
+      "id": "secret_permission_preflight",
+      "status": "ok",
+      "exit_code": 0,
+      "result": {
+        "schema_version": "2026-05-03.agentpress-secret-permission-preflight-result.v1",
+        "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/security/secret-permission-preflight-result.json",
+        "generated_utc": "2026-05-05T14:42:32Z",
+        "status": "ok",
+        "finding_count": 1,
+        "findings": [
+          {
+            "check": "dry_run",
+            "status": "warn",
+            "message": "missing safe dry_run_command"
+          }
+        ],
+        "manifest": "built_in_example"
+      },
+      "no_secret_read": true
+    },
+    {
+      "id": "redaction_check",
+      "status": "guidance_only",
+      "reason": "not run unless --redaction-path is supplied for an explicitly public artifact path",
+      "command": "python3 scripts/agentpress.py redaction-check <public-artifact-path> --json --allow-findings",
+      "no_secret_read": true
+    },
+    {
+      "id": "tool_file_access_risk_scanner",
+      "status": "guidance_only",
+      "reason": "not run unless --tool-manifest is supplied; avoids reading arbitrary configs",
+      "command": "python3 scripts/agentpress.py tool-file-access-risk-scanner --manifest <public-tool-manifest.json> --json",
+      "no_secret_read": true
+    },
+    {
+      "id": "sandbox_guard",
+      "status": "ok",
+      "exit_code": 0,
+      "result": {
+        "schema_version": "2026-05-04.agentpress-sandbox-guard.v2",
+        "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/security/sandbox-guard.json",
+        "generated_utc": "2026-05-05T14:42:32Z",
+        "status": "ok",
+        "scope": "read-only",
+        "allowed_paths": [
+          "."
+        ],
+        "forbidden_markers": [
+          ".ssh",
+          ".gnupg",
+          "clawd_secrets",
+          "wallet",
+          "seed",
+          "private_key",
+          "id_rsa",
+          ".env"
+        ],
+        "wrapper_script": "agentpress/security/sandbox-guard.sh",
+        "policy": {
+          "default_deny_secrets": true,
+          "allowlist_enforced": true,
+          "external_effects_require_approval": true,
+          "read_only_means_no_write_commands": true
+        },
+        "finding_count": 0,
+        "findings": []
+      },
+      "no_secret_read": true
+    }
+  ],
+  "exact_commands": [
+    "python3 scripts/agentpress.py secret-permission-preflight-run --json",
+    "python3 scripts/agentpress.py redaction-check <public-artifact-path> --json --allow-findings",
+    "python3 scripts/agentpress.py tool-file-access-risk-scanner --json --manifest <public-tool-manifest.json>",
+    "python3 scripts/agentpress.py sandbox-guard --scope read-only --paths . --json --no-write"
+  ],
+  "remediation": [
+    "Run redaction-check only on explicitly public artifact directories, not home/config/secret paths.",
+    "Declare secret names and scopes in a preflight manifest; never store secret values in artifacts.",
+    "Run tool-file-access-risk-scanner on public tool manifests before enabling file-read tools.",
+    "Use sandbox-guard/read-only paths before running unfamiliar tool chains."
+  ]
+}

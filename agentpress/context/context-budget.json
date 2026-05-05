@@ -1,0 +1,77 @@
+{
+  "schema_version": "2026-05-05.agentpress-context-budget.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/context/context-budget.json",
+  "generated_utc": "2026-05-05T14:42:32Z",
+  "status": "ok",
+  "root": "agentpress/examples/agent-knowledge-sharing",
+  "budgets": {
+    "max_files": 200,
+    "max_bytes": 1000000,
+    "max_chars": 200000
+  },
+  "actual": {
+    "file_count": 20,
+    "total_bytes": 24518,
+    "estimated_chars": 24518
+  },
+  "source_map": {
+    "required": true,
+    "path": "agentpress/examples/agent-knowledge-sharing/source-map.json",
+    "present": true
+  },
+  "freshness": {
+    "path": "agentpress/examples/agent-knowledge-sharing/freshness.json",
+    "present": true,
+    "hint": "freshness.json should declare generated_at, max_stale_days, and refresh_command"
+  },
+  "largest_files": [
+    {
+      "path": "agentpress/examples/agent-knowledge-sharing/article-card.json",
+      "bytes": 3352
+    },
+    {
+      "path": "agentpress/examples/agent-knowledge-sharing/agent-task-card.json",
+      "bytes": 2923
+    },
+    {
+      "path": "agentpress/examples/agent-knowledge-sharing/AGENT_ENTRYPOINT.md",
+      "bytes": 2244
+    },
+    {
+      "path": "agentpress/examples/agent-knowledge-sharing/README.md",
+      "bytes": 2205
+    },
+    {
+      "path": "agentpress/examples/agent-knowledge-sharing/source-map.json",
+      "bytes": 1982
+    },
+    {
+      "path": "agentpress/examples/agent-knowledge-sharing/sitemap.xml",
+      "bytes": 1601
+    },
+    {
+      "path": "agentpress/examples/agent-knowledge-sharing/index.html",
+      "bytes": 1565
+    },
+    {
+      "path": "agentpress/examples/agent-knowledge-sharing/mirrors.json",
+      "bytes": 1556
+    },
+    {
+      "path": "agentpress/examples/agent-knowledge-sharing/.well-known/ai-ingestion.json",
+      "bytes": 1472
+    },
+    {
+      "path": "agentpress/examples/agent-knowledge-sharing/translation-policy.md",
+      "bytes": 1189
+    }
+  ],
+  "finding_count": 0,
+  "findings": [],
+  "exact_remediation": [
+    "Create or update source-map.json with only the files the agent should load.",
+    "Create or update freshness.json with generated_at and refresh guidance.",
+    "Move generated logs, tarballs, caches, and build outputs outside the agent handoff root.",
+    "Run `python3 scripts/agentpress.py context-budget <root> --json --strict` in CI before large agent handoffs."
+  ]
+}
