@@ -63,6 +63,8 @@ AGENTPRESS_REQUIRED = REQUIRED + [
 ]
 
 CANONICAL_BASE_URL = "https://barneywohl.github.io/agentpress/"
+# Fallback only until Cloudflare Pages root 403 is repaired.
+FALLBACK_BASE_URL = "https://agentpress.pages.dev/"
 SCHEMA_REL_ROOT = "agentpress/schemas"
 CONTRACT_SCHEMA_MAP = {
     "agent-task-card.json": "agent-task-card.schema.json",
@@ -1655,6 +1657,100 @@ def submission_pack(args):
 
 
 
+
+def external_proof_run(args):
+    """Run the no-external-write first-contact proof sequence into a reviewable directory."""
+    if not re.match(r"^[A-Za-z0-9_.:-]{2,120}$", args.agent_id):
+        print(json.dumps({"status":"fail","errors":["invalid agent-id"]}, indent=2)); return 2
+    out = pathlib.Path(args.out or f"/tmp/agentpress-proof-{slugify(args.agent_id)}")
+    if out.exists() and not out.is_dir():
+        print(json.dumps({"status":"fail","errors":[f"out path is not a directory: {out}"]}, indent=2)); return 2
+    out.mkdir(parents=True, exist_ok=True)
+    base = args.base_url.rstrip("/") + "/"
+    errors=[]; steps=[]
+
+    def capture_json_step(name, func, ns, artifact):
+        buf=io.StringIO(); code=1
+        try:
+            with contextlib.redirect_stdout(buf):
+                code = func(ns)
+        except SystemExit as e:
+            code = int(e.code or 0) if isinstance(e.code, int) else 1
+        except Exception as e:
+            code = 1; errors.append(f"{name}: {e}")
+        text=buf.getvalue().strip()
+        if text:
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            if artifact.exists() and artifact.stat().st_size > 0:
+                (artifact.parent / f"{artifact.name}.stdout.txt").write_text(text+"\n", encoding="utf-8")
+            else:
+                artifact.write_text(text+"\n", encoding="utf-8")
+        if code != 0:
+            errors.append(f"{name} failed with exit {code}")
+        steps.append({"name":name,"status":"pass" if code==0 else "fail","exit_code":code,"artifact":str(artifact)})
+        return code
+
+    doctor_out=out/"doctor.json"
+    capture_json_step("doctor", doctor, argparse.Namespace(root=".", mode="online", base_url=base, timeout=20, json=True), doctor_out)
+
+    wizard_out=out/"first-run-wizard.json"
+    capture_json_step("first-run-wizard", first_run_wizard, argparse.Namespace(root=".", out=str(wizard_out), base_url=base, host="generic", provider="unknown", no_write=False, strict=False, json=True), wizard_out)
+
+    self_test_out=out/"self-test.jsonl"
+    capture_json_step("self-test", self_test, argparse.Namespace(agent_id=args.agent_id, bundle="agentpress/examples/api-docs-handoff", suite="agentpress/self-tests/standard-suite.json", out=str(self_test_out), index="agentpress/search/search-index.json", workdir=str(out/"work/self-test"), run_id=None), self_test_out)
+
+    landing_out=out/"landing-receipt.json"
+    capture_json_step("landing-receipt", landing_receipt, argparse.Namespace(agent_id=args.agent_id, runtime=args.runtime, discovery_channel="external-proof-run", capability=["doctor,first-run-wizard,self-test,landing-receipt,submission-pack"], self_test_ref=str(self_test_out), contact=None, base_url=base, landing_id=None, out=str(landing_out), json=True), landing_out)
+
+    submission_out=out/"submission-pack"
+    if landing_out.exists():
+        capture_json_step("submission-pack", submission_pack, argparse.Namespace(receipt=str(landing_out), out=str(submission_out), json=True), submission_out/"submission-pack.json")
+    else:
+        errors.append("submission-pack skipped: landing receipt missing")
+        steps.append({"name":"submission-pack","status":"fail","exit_code":1,"artifact":str(submission_out)})
+
+    redaction_out=out/"redaction-check.json"
+    capture_json_step("redaction-check", redaction_check, argparse.Namespace(path=str(out), out=str(redaction_out), max_files=200, max_chars=200000, allow_findings=True, json=True), redaction_out)
+    redaction_result={"status":"unknown"}
+    try:
+        redaction_result=json.loads(redaction_out.read_text(encoding="utf-8"))
+    except Exception as e:
+        errors.append(f"redaction result parse failed: {e}")
+    if redaction_result.get("status") == "fail":
+        errors.append("redaction-check found candidate private/secret markers")
+
+    files=[str(fp) for fp in sorted(out.rglob("*")) if fp.is_file() and "work/" not in fp.as_posix()]
+    payload={
+        "schema_version":"2026-05-05.agentpress-external-proof-run.v1",
+        "generated_utc":_utc_now(),
+        "status":"ok" if not errors else "fail",
+        "agent_id":args.agent_id,
+        "runtime":args.runtime,
+        "base_url":base,
+        "out":str(out),
+        "steps":steps,
+        "files":files,
+        "submit_next":{
+            "human_review_required": True,
+            "submission_pack": str(submission_out),
+            "suggested_action": "After human review, open a GitHub issue or PR using submission-pack/README.md."
+        },
+        "privacy":{
+            "no_external_write": bool(args.no_external_write),
+            "hidden_telemetry": False,
+            "human_approval_required_for_external_post": True,
+            "redaction_result_path": str(redaction_out)
+        },
+        "redaction_result": {"status": redaction_result.get("status"), "checked": redaction_result.get("checked"), "rejected": redaction_result.get("rejected")},
+        "human_approval_required_for_external_post": True,
+        "errors": errors,
+    }
+    final=out/"external-proof-run.json"
+    final.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else str(final))
+    return 0 if payload["status"] == "ok" else 1
+
+
 def submission_validate(args):
     """Validate an AgentPress proof submission pack before issue/PR submission."""
     root=pathlib.Path(args.path)
@@ -2711,29 +2807,83 @@ def package_index(args):
     return 0
 
 
-def doctor(args):
-    root = pathlib.Path(args.root)
-    guard_findings = _secret_path_guard(root)
+
+DOCTOR_ONLINE_ASSETS = [
+    "llms.txt",
+    ".well-known/agentpress.json",
+    ".well-known/ai-ingestion.json",
+    "agentpress/agentpress-registry.json",
+    "agentpress/adoption/adoption-status.json",
+]
+
+
+def _doctor_fetch_url(url: str, timeout: int = 20) -> dict:
+    row = {"url": url, "status": "fail"}
+    try:
+        req = Request(url, headers={"User-Agent": "agentpress-doctor/0.2 (+https://barneywohl.github.io/agentpress/)"})
+        with urlopen(req, timeout=timeout) as resp:
+            body = resp.read(1024 * 1024)
+            row.update({"status": "ok", "http_status": getattr(resp, "status", 200), "bytes": len(body), "sha256": hashlib.sha256(body).hexdigest()})
+            ctype = (resp.headers.get("content-type") or "").lower()
+            if urlparse(url).path.endswith(".json") or "json" in ctype:
+                try:
+                    json.loads(body.decode("utf-8", errors="replace"))
+                    row["json_valid"] = True
+                except Exception as e:
+                    row["json_valid"] = False
+                    row["error"] = f"invalid json: {e}"
+                    row["status"] = "fail"
+    except Exception as e:
+        row["error"] = str(e)
+    return row
+
+
+def _doctor_self_check() -> dict:
+    errors = []
+    py_ok = sys.version_info >= (3, 10)
+    if not py_ok:
+        errors.append(f"Python >=3.10 required; found {platform.python_version()}")
+    script = pathlib.Path(__file__).resolve() if "__file__" in globals() else pathlib.Path("scripts/agentpress.py")
+    package_json = pathlib.Path(__file__).resolve().parent.parent / "package.json" if "__file__" in globals() else pathlib.Path("package.json")
+    checks = {
+        "python_version": platform.python_version(),
+        "python_ok": py_ok,
+        "cli_script": str(script),
+        "cli_script_exists": script.exists(),
+        "json_output_supported": True,
+        "package_metadata_exists": package_json.exists(),
+    }
+    if not checks["cli_script_exists"]:
+        errors.append("CLI script not found")
+    if package_json.exists():
+        try:
+            meta = json.loads(package_json.read_text(encoding="utf-8"))
+            checks["package_name"] = meta.get("name")
+            checks["package_version"] = meta.get("version")
+        except Exception as e:
+            errors.append(f"package metadata invalid: {e}")
+    return {"checks": checks, "errors": errors}
+
+
+def _doctor_local_payload(root: pathlib.Path, guard_findings: list[dict]) -> tuple[dict, bool]:
     if guard_findings:
         payload = {
             "status": "fail",
+            "mode": "local",
+            "base_url": CANONICAL_BASE_URL,
+            "fallback_base_url": FALLBACK_BASE_URL,
+            "checked_urls": [],
+            "errors": [guard_findings[0]["message"]],
             "root": str(root),
             "entrypoints": [],
             "primary_reference_score": None,
             "primary_reference_errors": [guard_findings[0]["message"]],
             "primary_reference_warnings": [],
-            "canonical_url": "https://barneywohl.github.io/agentpress/",
+            "canonical_url": CANONICAL_BASE_URL,
             "raw_fallback": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
             "security_guard": guard_findings[0],
         }
-        if getattr(args, "json", False):
-            print(json.dumps(payload, indent=2))
-        else:
-            print("AgentPress doctor")
-            print(f"root: {root}")
-            print("FAIL    secret_path_guard")
-            print(json.dumps({"primary_reference_errors": payload["primary_reference_errors"]}, indent=2), file=sys.stderr)
-        return 1
+        return payload, False
     entrypoints = [
         "llms.txt",
         ".well-known/agentpress.json",
@@ -2769,29 +2919,90 @@ def doctor(args):
         primary_errors.append("missing primary neutral reference")
     payload = {
         "status": "ok" if ok else "fail",
+        "mode": "local",
+        "base_url": CANONICAL_BASE_URL,
+        "fallback_base_url": FALLBACK_BASE_URL,
+        "checked_urls": [],
+        "errors": primary_errors.copy(),
         "root": str(root),
         "entrypoints": rows,
         "primary_reference_score": primary_score,
         "primary_reference_errors": primary_errors,
         "primary_reference_warnings": primary_warnings,
-        "canonical_url": "https://barneywohl.github.io/agentpress/",
+        "canonical_url": CANONICAL_BASE_URL,
         "raw_fallback": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
     }
+    return payload, ok
+
+
+def doctor(args):
+    root = pathlib.Path(args.root)
+    requested_mode = getattr(args, "mode", "auto") or "auto"
+    mode = requested_mode
+    if mode == "auto":
+        mode = "local" if (root/"llms.txt").exists() or (root/".well-known/agentpress.json").exists() else "online"
+
+    if mode == "self-check":
+        self_check = _doctor_self_check()
+        payload = {
+            "schema_version": "2026-05-05.agentpress-doctor.v2",
+            "status": "ok" if not self_check["errors"] else "fail",
+            "mode": "self-check",
+            "base_url": CANONICAL_BASE_URL,
+            "fallback_base_url": FALLBACK_BASE_URL,
+            "checked_urls": [],
+            "errors": self_check["errors"],
+            **self_check,
+        }
+        if getattr(args, "json", False):
+            print(json.dumps(payload, indent=2))
+        else:
+            print(payload["status"])
+        return 0 if payload["status"] == "ok" else 1
+
+    if mode == "online":
+        base = (getattr(args, "base_url", None) or CANONICAL_BASE_URL).rstrip("/") + "/"
+        timeout = int(getattr(args, "timeout", 20) or 20)
+        checked = [_doctor_fetch_url(urljoin(base, rel), timeout=timeout) for rel in DOCTOR_ONLINE_ASSETS]
+        errors = [f"{row['url']}: {row.get('error', row.get('status'))}" for row in checked if row.get("status") != "ok"]
+        payload = {
+            "schema_version": "2026-05-05.agentpress-doctor.v2",
+            "status": "ok" if not errors else "fail",
+            "mode": "online",
+            "base_url": base,
+            "fallback_base_url": FALLBACK_BASE_URL,
+            "checked_urls": checked,
+            "errors": errors,
+            "root": str(root),
+            "canonical_url": base,
+        }
+        if getattr(args, "json", False):
+            print(json.dumps(payload, indent=2))
+        else:
+            print(f"AgentPress doctor online: {payload['status']} ({len(checked)} URLs checked)")
+        return 0 if not errors else 1
+
+    if mode != "local":
+        payload = {"status": "fail", "mode": mode, "base_url": CANONICAL_BASE_URL, "checked_urls": [], "errors": [f"unknown doctor mode: {mode}"]}
+        print(json.dumps(payload, indent=2) if getattr(args, "json", False) else payload["errors"][0])
+        return 2
+
+    payload, ok = _doctor_local_payload(root, _secret_path_guard(root))
     if getattr(args, "json", False):
         print(json.dumps(payload, indent=2))
         return 0 if ok else 1
     print("AgentPress doctor")
     print(f"root: {root}")
-    for row in rows:
+    print(f"mode: {payload['mode']}")
+    for row in payload.get("entrypoints", []):
         print(f"{row['status']:<7} {row['path']}")
-    if primary_errors:
-        print(json.dumps({"primary_reference_errors": primary_errors, "warnings": primary_warnings}, indent=2), file=sys.stderr)
-    if primary_score is not None:
-        print(f"primary_reference_score: {primary_score}/100")
-    print("canonical_url: https://barneywohl.github.io/agentpress/")
+    if payload.get("primary_reference_errors"):
+        print(json.dumps({"primary_reference_errors": payload["primary_reference_errors"], "warnings": payload.get("primary_reference_warnings", [])}, indent=2), file=sys.stderr)
+    if payload.get("primary_reference_score") is not None:
+        print(f"primary_reference_score: {payload['primary_reference_score']}/100")
+    print(f"canonical_url: {CANONICAL_BASE_URL}")
     print("raw_fallback: https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/")
     return 0 if ok else 1
-
 
 
 
@@ -8142,7 +8353,7 @@ def main():
     p = sub.add_parser("list"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("build-all"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", dest="dest", required=True); p.add_argument("--clean", action="store_true")
     p = sub.add_parser("index-articles"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", default="agentpress/articles"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress")
-    p = sub.add_parser("doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--mode", choices=["auto","local","online","self-check"], default="auto"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--timeout", type=int, default=20); p.add_argument("--json", action="store_true")
     p = sub.add_parser("eval"); p.add_argument("root", nargs="?", default="agentpress/examples")
     p = sub.add_parser("check-registry"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--registry", default="agentpress/agentpress-registry.json")
     p = sub.add_parser("check-openapi"); p.add_argument("root", nargs="?", default="."); p.add_argument("--openapi", default="openapi.yaml")
@@ -8164,6 +8375,7 @@ def main():
     p = sub.add_parser("submission-validate"); p.add_argument("path"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("blocker-report"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--severity", choices=["P0","P1","P2","P3"], default="P1"); p.add_argument("--command", required=True); p.add_argument("--error-summary", required=True); p.add_argument("--missing-field"); p.add_argument("--desired-fix", required=True); p.add_argument("--blocker-id"); p.add_argument("--out", default="agentpress/submissions/blocker-report.example.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("submission-pack"); p.add_argument("--receipt", required=True); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("external-proof-run"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True, choices=["codex","claude","gemini","glm","browser","workflow","other"]); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--out"); p.add_argument("--no-external-write", action="store_true", default=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("reputation-index"); p.add_argument("--landing-dir", default="agentpress/landing"); p.add_argument("--self-test-dir", default="agentpress/self-test"); p.add_argument("--receipt-dir", default="agentpress/receipts"); p.add_argument("--external-proof-index", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-receipt"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--discovery-channel", required=True); p.add_argument("--capability", action="append"); p.add_argument("--self-test-ref"); p.add_argument("--contact"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--landing-id"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-index"); p.add_argument("dir"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
@@ -8427,6 +8639,7 @@ def main():
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
     if args.cmd == "submission-pack": return submission_pack(args)
+    if args.cmd == "external-proof-run": return external_proof_run(args)
     if args.cmd == "submission-validate": return submission_validate(args)
     if args.cmd == "blocker-report": return blocker_report(args)
     if args.cmd == "reputation-index": return reputation_index(args)

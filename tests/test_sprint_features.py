@@ -28,6 +28,8 @@ sandbox_guard = _MOD.sandbox_guard
 adoption_tracker = _MOD.adoption_tracker
 handoff_pack = _MOD.handoff_pack
 batch_painpoints = _MOD.batch_painpoints
+doctor = _MOD.doctor
+external_proof_run = _MOD.external_proof_run
 
 
 def _ns(**kwargs) -> argparse.Namespace:
@@ -533,3 +535,64 @@ class TestBatchPainpoints:
         capsys.readouterr()
         json_files = list(out.glob("painpoint-*.json"))
         assert len(json_files) == 3
+
+
+class TestDoctorOnlineMode:
+    def test_auto_from_empty_dir_uses_online_and_passes(self, tmp_path, monkeypatch, capsys):
+        def fake_fetch(url, timeout=20):
+            return {"url": url, "status": "ok", "http_status": 200, "bytes": 2, "sha256": "0" * 64}
+        monkeypatch.setattr(_MOD, "_doctor_fetch_url", fake_fetch)
+        rc = doctor(argparse.Namespace(root=str(tmp_path), mode="auto", base_url="https://example.com/agentpress/", timeout=1, json=True))
+        data = json.loads(capsys.readouterr().out)
+        assert rc == 0
+        assert data["status"] == "ok"
+        assert data["mode"] == "online"
+        assert len(data["checked_urls"]) == 5
+
+    def test_self_check_does_not_require_local_tree(self, tmp_path, capsys):
+        rc = doctor(argparse.Namespace(root=str(tmp_path), mode="self-check", base_url="https://example.com/agentpress/", timeout=1, json=True))
+        data = json.loads(capsys.readouterr().out)
+        assert rc == 0
+        assert data["mode"] == "self-check"
+        assert data["checks"]["json_output_supported"] is True
+
+
+class TestExternalProofRun:
+    def test_external_proof_run_writes_manifest_without_external_write(self, tmp_path, monkeypatch, capsys):
+        def ok_json_step(args):
+            if hasattr(args, "out") and args.out:
+                path = pathlib.Path(args.out)
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(json.dumps({"status":"ok", "agent_id": getattr(args, "agent_id", "ci-agent")}) + "\n")
+            print(json.dumps({"status":"ok"}))
+            return 0
+        def ok_doctor(args):
+            print(json.dumps({"status":"ok", "mode":"online", "checked_urls": []}))
+            return 0
+        def ok_self_test(args):
+            path = pathlib.Path(args.out); path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps({"status":"pass"}) + "\n")
+            print(json.dumps({"status":"ok"}))
+            return 0
+        def ok_submission(args):
+            out = pathlib.Path(args.out); out.mkdir(parents=True, exist_ok=True)
+            (out / "submission-pack.json").write_text(json.dumps({"status":"ok"}) + "\n")
+            print(json.dumps({"status":"ok"}))
+            return 0
+        def ok_redaction(args):
+            pathlib.Path(args.out).write_text(json.dumps({"status":"ok", "checked": 3, "rejected": 0}) + "\n")
+            print(json.dumps({"status":"ok", "checked": 3, "rejected": 0}))
+            return 0
+        monkeypatch.setattr(_MOD, "doctor", ok_doctor)
+        monkeypatch.setattr(_MOD, "first_run_wizard", ok_json_step)
+        monkeypatch.setattr(_MOD, "self_test", ok_self_test)
+        monkeypatch.setattr(_MOD, "landing_receipt", ok_json_step)
+        monkeypatch.setattr(_MOD, "submission_pack", ok_submission)
+        monkeypatch.setattr(_MOD, "redaction_check", ok_redaction)
+        out = tmp_path / "proof"
+        rc = external_proof_run(argparse.Namespace(agent_id="ci-agent", runtime="codex", base_url="https://example.com/agentpress/", out=str(out), no_external_write=True, json=True))
+        data = json.loads(capsys.readouterr().out)
+        assert rc == 0
+        assert data["status"] == "ok"
+        assert data["human_approval_required_for_external_post"] is True
+        assert (out / "external-proof-run.json").exists()

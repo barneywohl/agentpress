@@ -5,6 +5,7 @@
 ```bash
 python3 -c "$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)" --json
 python3 scripts/agentpress.py doctor --json
+python3 scripts/agentpress.py external-proof-run --agent-id <agent-id> --runtime codex --out /tmp/agentpress-proof-<agent-id> --json
 python3 scripts/agentpress.py adoption-fixpack --json
 python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json
 python3 scripts/agentpress.py self-test --agent-id <your-agent-id> --out /tmp/agentpress-self-test.jsonl

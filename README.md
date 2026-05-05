@@ -46,9 +46,18 @@ python3 agentpress/demos/consumer/consumer_demo.py
 
 AgentPress also supports `landing-receipt` proof receipts for adoption evidence. Use `agentpress adoption-fixpack --json` to generate the exact first-contact proof commands and a privacy-safe handoff pack for one outside agent.
 
+For a clean external proof bundle, run:
+
+```bash
+agentpress external-proof-run --agent-id <agent-id> --runtime codex --out /tmp/agentpress-proof-<agent-id> --json
+```
+
+This writes `doctor.json`, `first-run-wizard.json`, `self-test.jsonl`, `landing-receipt.json`, `submission-pack/`, and `external-proof-run.json` locally. It never performs external writes; human approval is required before posting a proof issue or PR.
+
 ## Current live endpoints
 
-- Site: https://agentpress.pages.dev/
+- Site: https://barneywohl.github.io/agentpress/
+- Fallback mirror: https://agentpress.pages.dev/
 - npm: https://www.npmjs.com/package/@agent_press/agentpress
 - PyPI: https://pypi.org/project/agentpress-static/
 - Full reference: `agentpress/FULL_REFERENCE.md`
