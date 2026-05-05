@@ -35,13 +35,30 @@ jobs:
       - name: AgentPress Node fast-path gate
         run: |
           PYTHON=/definitely/missing/python3 node bin/agentpress.js doctor --json | python3 -m json.tool >/dev/null
-          python3 -m pytest tests/test_first_user_p0_paths.py tests/test_llms_init_node_fast_path.py tests/test_node_shim_shell_metachar.py tests/test_lint_doctor_secret_guard.py -q
+          python3 scripts/agentpress.py no-python-fallback-check . --no-write --json --strict
+          python3 -m pytest tests/test_first_user_p0_paths.py tests/test_llms_init_node_fast_path.py tests/test_node_no_python_fallback.py tests/test_node_shim_shell_metachar.py tests/test_lint_doctor_secret_guard.py -q
       - name: AgentPress feedback gate
         run: python3 scripts/agentpress.py feedback-submit --example | python3 -m json.tool >/dev/null
       - name: AgentPress negative fixture gate
         run: python3 scripts/agentpress.py negative-fixtures --json
       - name: AgentPress docs command drift gate
         run: python3 scripts/agentpress.py docs-command-check --json
+      - name: AgentPress release promotion fail-closed gate
+        run: |
+          set +e
+          python3 scripts/agentpress.py release-promote-checklist --no-network --no-write --json --strict > /tmp/release-promote-checklist.json
+          code=$?
+          set -e
+          if [ "$code" -eq 0 ]; then echo "release promotion gate unexpectedly passed without independent proof/RFLO approval"; cat /tmp/release-promote-checklist.json; exit 1; fi
+          python3 - <<'PY'
+          import json
+          payload=json.load(open('/tmp/release-promote-checklist.json'))
+          assert payload['status'] == 'blocked', payload
+          assert payload['promotion_allowed'] is False, payload
+          blockers=set(payload.get('blocking_checks') or [])
+          assert {'independent_external_proof','rflo_review'} <= blockers, payload
+          PY
+          python3 -m pytest tests/test_release_promote_checklist.py -q
       - name: AgentPress tool output sample drift gate
         run: python3 scripts/agentpress.py tool-output-sample-generate --manifest agentpress/tools/agentpress-tools.json --check --json
       - name: AgentPress native adapter gate
