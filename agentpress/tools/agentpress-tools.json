@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-05T16:50:27Z",
+  "generated_at": "2026-05-05T16:55:28Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -833,6 +833,18 @@
         "release",
         "doctor",
         "truth"
+      ]
+    },
+    {
+      "name": "agentpress.cli_gap_audit",
+      "description": "Audit AgentPress CLI/parser/dispatch/docs/tool manifest drift and remaining CLI build gaps.",
+      "command": "python3 scripts/agentpress.py cli-gap-audit --json",
+      "tags": [
+        "cli",
+        "audit",
+        "drift",
+        "docs",
+        "tools"
       ]
     },
     {

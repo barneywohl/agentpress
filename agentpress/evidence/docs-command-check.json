@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-03.agentpress-docs-command-check.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/evidence/docs-command-check.json",
-  "generated_utc": "2026-05-05T14:42:33Z",
+  "generated_utc": "2026-05-05T16:54:28Z",
   "status": "ok",
-  "checked": 506,
+  "checked": 507,
   "failed": 0,
-  "commands_known": 273,
+  "commands_known": 278,
   "results": [
     {
       "path": "README.md",
@@ -1825,6 +1825,14 @@
       "path": "llms.txt",
       "command": "python3 scripts/agentpress.py output-format-contract-tester --json",
       "cmd": "output-format-contract-tester",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py tool-contract-check --json",
+      "cmd": "tool-contract-check",
       "status": "ok",
       "errors": [],
       "warnings": []
@@ -4035,16 +4043,6 @@
       "path": "agentpress/specs/AGENTPRESS_STRICT_SCHEMA_VALIDATION_SPEC_20260503.md",
       "command": "python3 scripts/agentpress.py schema-validate <file> --schema <schema-name-or-file> --json",
       "cmd": "schema-validate",
-      "status": "ok",
-      "errors": [],
-      "warnings": [
-        "contains placeholder; parser execution skipped"
-      ]
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_STRICT_SCHEMA_VALIDATION_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py verify <bundle> --strict-schema --json",
-      "cmd": "verify",
       "status": "ok",
       "errors": [],
       "warnings": [

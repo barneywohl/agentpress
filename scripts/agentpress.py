@@ -2063,6 +2063,57 @@ def broker_scope_guard(args):
     return 1 if args.strict and payload["status"] != "ok" else 0
 
 
+def cli_gap_audit(args):
+    """Audit AgentPress CLI command surface for command drift, manifest coverage, and next-build gaps."""
+    root = pathlib.Path(args.root)
+    script = root / "scripts" / "agentpress.py"
+    findings = []
+    parser_count = dispatch_count = 0
+    parser_no_dispatch = []
+    dispatch_no_parser = []
+    if not script.exists():
+        findings.append({"status": "fail", "code": "missing_agentpress_script", "message": str(script)})
+    else:
+        text = script.read_text(encoding="utf-8")
+        parsers = set(re.findall(r'sub\.add_parser\("([^"]+)"', text))
+        dispatch = set(re.findall(r'args\.cmd == "([^"]+)"', text))
+        for m in re.findall(r'args\.cmd in \{([^}]+)\}', text):
+            dispatch |= set(re.findall(r'"([^"]+)"', m))
+        parser_count = len(parsers); dispatch_count = len(dispatch)
+        parser_no_dispatch = sorted(parsers - dispatch)
+        dispatch_no_parser = sorted(x for x in dispatch - parsers if x not in {"adopt", "help-start"})
+        for cmd in parser_no_dispatch:
+            findings.append({"status": "fail", "code": "parser_without_dispatch", "command": cmd})
+        for cmd in dispatch_no_parser:
+            findings.append({"status": "warn", "code": "dispatch_without_parser", "command": cmd})
+    docs_status = tools_status = contract_status = "not_run"
+    docs_summary = tools_summary = contract_summary = {}
+    def capture(name, func, ns):
+        buf = io.StringIO(); code = 1
+        try:
+            with contextlib.redirect_stdout(buf):
+                code = func(ns)
+            data = json.loads(buf.getvalue() or "{}")
+        except Exception as e:
+            data = {"status": "fail", "error": str(e)}; code = 1
+        return code, data
+    if script.exists():
+        code, docs = capture("docs-command-check", docs_command_check, argparse.Namespace(root=str(root), path=None, out="/tmp/agentpress-cli-gap-docs.json", base_url=args.base_url, max_results=500, allow_failures=False, no_write=True, json=True))
+        docs_status = docs.get("status", "unknown"); docs_summary = {k: docs.get(k) for k in ("status","error_count","missing_count","checked_count") if k in docs}
+        if docs_status not in {"ok", "pass"}: findings.append({"status": "warn", "code": "docs_command_check_not_ok", "summary": docs_summary})
+        code, tools = capture("tools-manifest-check", tools_manifest_check, argparse.Namespace(path=str(root/"agentpress/tools/agentpress-tools.json"), json=True))
+        tools_status = tools.get("status", "unknown"); tools_summary = {k: tools.get(k) for k in ("status","tool_count","missing_count","error_count") if k in tools}
+        if tools_status not in {"ok", "pass"}: findings.append({"status": "warn", "code": "tools_manifest_check_not_ok", "summary": tools_summary})
+        code, contract = capture("tool-contract-check", tool_contract_check, argparse.Namespace(manifest=str(root/"agentpress/tools/agentpress-tools.json"), sample_result="", out="/tmp/agentpress-cli-gap-contract.json", base_url=args.base_url, require_text_mirror=True, no_write=True, json=True, strict=False))
+        contract_status = contract.get("status", "unknown"); contract_summary = {k: contract.get(k) for k in ("status","tool_count","fail_count","warn_count") if k in contract}
+        if contract_status != "ok": findings.append({"status": "warn", "code": "tool_contract_check_not_ok", "summary": contract_summary})
+    fail_count = sum(1 for f in findings if f.get("status") == "fail")
+    warn_count = sum(1 for f in findings if f.get("status") == "warn")
+    payload = {"schema_version":"2026-05-05.agentpress-cli-gap-audit.v1","generated_utc":_utc_now(),"status":"ok" if fail_count == 0 and warn_count == 0 else ("fail" if fail_count else "needs_review"),"root":str(root),"parser_count":parser_count,"dispatch_count":dispatch_count,"parser_no_dispatch":parser_no_dispatch,"dispatch_no_parser":dispatch_no_parser,"docs_command_check":docs_summary,"tools_manifest_check":tools_summary,"tool_contract_check":contract_summary,"remaining_cli_builds":[{"priority":"P1","item":"release-promote-checklist","why":"Block moving rc to latest until independent proof/RFLO/CI/package-smoke gates pass."},{"priority":"P1","item":"context-package init / handoff-root pick","why":"Agents still need a one-command way to turn huge repos into focused context roots."},{"priority":"P1","item":"native integration packs","why":"Agents need Cline/Roo/OpenHands/LangChain/LlamaIndex/MCP-specific config snippets and proof commands."}],"findings":findings}
+    _write_json_payload(payload, pathlib.Path(args.out), args.no_write, args.json)
+    return 1 if args.strict and payload["status"] != "ok" else 0
+
+
 def _tool_output_sample_for_schema(schema):
     if not isinstance(schema, dict):
         return {"status": "ok"}
@@ -2858,6 +2909,7 @@ def tools_manifest(args):
         {"name":"agentpress.tool_output_sample_generate", "description":"Generate structuredContent sample fixtures for tool outputSchema validation.", "command":"python3 scripts/agentpress.py tool-output-sample-generate --manifest agentpress/tools/agentpress-tools.json --json", "tags":["tools","samples","schemas","structured-content","fixtures"]},
         {"name":"agentpress.smoke_install", "description":"Run clean npm/PyPI rc install smoke checks and write machine-readable receipts.", "command":"python3 scripts/agentpress.py smoke-install --runtime all --json", "tags":["install","npm","pypi","smoke","receipts"]},
         {"name":"agentpress.repo_sync_doctor", "description":"Detect stale or dirty AgentPress checkouts before agents judge package/version truth.", "command":"python3 scripts/agentpress.py repo-sync-doctor . --json", "tags":["repo","sync","release","doctor","truth"]},
+        {"name":"agentpress.cli_gap_audit", "description":"Audit AgentPress CLI/parser/dispatch/docs/tool manifest drift and remaining CLI build gaps.", "command":"python3 scripts/agentpress.py cli-gap-audit --json", "tags":["cli","audit","drift","docs","tools"]},
         {"name":"agentpress.agent_community_channel_map", "description":"Map agent communities/channels to problem signals.", "command":"python3 scripts/agentpress.py agent-community-channel-map --json", "tags":["community","channels","research","agents"]},
         {"name":"agentpress.community_issue_radar", "description":"Compile community issue radar from public issue signals.", "command":"python3 scripts/agentpress.py community-issue-radar --json", "tags":["community","issues","radar","research"]},
         {"name":"agentpress.unsolved_agent_problem_backlog", "description":"Generate prioritized backlog from community issue radar.", "command":"python3 scripts/agentpress.py unsolved-agent-problem-backlog --json", "tags":["backlog","problems","features"]},
@@ -9506,6 +9558,7 @@ def main():
     p = sub.add_parser("tool-output-sample-generate"); p.add_argument("--manifest", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/tools/samples/tool-output-samples.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("smoke-install"); p.add_argument("--runtime", choices=["npm","pypi","all"], default="all"); p.add_argument("--version", default=""); p.add_argument("--workdir", default=""); p.add_argument("--out", default="agentpress/evidence/smoke-install.json"); p.add_argument("--timeout-seconds", type=int, default=180); p.add_argument("--no-run", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("repo-sync-doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--remote", default="https://github.com/barneywohl/agentpress.git"); p.add_argument("--ref", default="refs/heads/main"); p.add_argument("--out", default="agentpress/evidence/repo-sync-doctor.json"); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("cli-gap-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/cli-gap-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-issue-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/community-issue-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("unsolved-agent-problem-backlog"); p.add_argument("--out", default="agentpress/community/unsolved-agent-problem-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -9873,6 +9926,7 @@ def main():
     if args.cmd == "tool-output-sample-generate": return tool_output_sample_generate(args)
     if args.cmd == "smoke-install": return smoke_install(args)
     if args.cmd == "repo-sync-doctor": return repo_sync_doctor(args)
+    if args.cmd == "cli-gap-audit": return cli_gap_audit(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
     if args.cmd == "unsolved-agent-problem-backlog": return unsolved_agent_problem_backlog(args)
     if args.cmd == "tool-vocabulary-compatibility-check": return tool_vocabulary_compatibility_check(args)
