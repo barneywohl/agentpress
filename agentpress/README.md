@@ -14,6 +14,16 @@ python3 scripts/agentpress.py check-registry
 python3 scripts/agentpress.py check-openapi
 ```
 
+## First-user eval harness
+
+Run a safe local adversarial smoke test against synthetic repos:
+
+```bash
+python3 scripts/eval_first_user_harness.py --timeout 20
+```
+
+The harness creates 5-10 generated repos under `/tmp`, runs local AgentPress first-contact commands (`--help`, `doctor --mode local`, `lint --no-write`, `first-run-wizard --no-write`, `first-user-bootstrap --no-write`), writes a Markdown backlog report, and cleans generated repos by default.
+
 ## Required agent files
 
 - `AGENT_ENTRYPOINT.md`
