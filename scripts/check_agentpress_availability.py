@@ -21,7 +21,10 @@ def check_url(base: str) -> int:
     for path in REQUIRED_PATHS:
         url = urljoin(base if base.endswith('/') else base + '/', path)
         try:
-            with urllib.request.urlopen(url, timeout=20) as resp:
+            req = urllib.request.Request(url, headers={
+                'User-Agent': 'AgentPressAvailability/1.0 (+https://github.com/barneywohl/agentpress)'
+            })
+            with urllib.request.urlopen(req, timeout=20) as resp:
                 body = resp.read()
                 code = resp.status
         except urllib.error.HTTPError as e:
