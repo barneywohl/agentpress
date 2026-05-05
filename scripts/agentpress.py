@@ -3242,6 +3242,16 @@ def _doctor_local_payload(root: pathlib.Path, guard_findings: list[dict]) -> tup
 def doctor(args):
     root = pathlib.Path(args.root)
     requested_mode = getattr(args, "mode", "auto") or "auto"
+    guard_findings = _secret_path_guard(root)
+    if guard_findings and requested_mode != "self-check":
+        payload, _ = _doctor_local_payload(root, guard_findings)
+        payload["mode"] = requested_mode
+        payload["requested_mode"] = requested_mode
+        if getattr(args, "json", False):
+            print(json.dumps(payload, indent=2))
+        else:
+            print("AgentPress doctor: refused sensitive path")
+        return 1
     mode = requested_mode
     if mode == "auto":
         mode = "local" if (root/"llms.txt").exists() or (root/".well-known/agentpress.json").exists() else "online"
@@ -3293,7 +3303,7 @@ def doctor(args):
         print(json.dumps(payload, indent=2) if getattr(args, "json", False) else payload["errors"][0])
         return 2
 
-    payload, ok = _doctor_local_payload(root, _secret_path_guard(root))
+    payload, ok = _doctor_local_payload(root, guard_findings)
     if getattr(args, "json", False):
         print(json.dumps(payload, indent=2))
         return 0 if ok else 1

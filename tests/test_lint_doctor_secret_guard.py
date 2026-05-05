@@ -43,10 +43,29 @@ def test_doctor_refuses_sensitive_root_without_reading(tmp_path):
     assert result.returncode == 1
     payload = json.loads(result.stdout)
     assert payload["status"] == "fail"
+    assert payload["mode"] == "auto"
     assert payload["security_guard"]["code"] == "sensitive_root_refused"
     assert payload["entrypoints"] == []
     assert "aws_secret_access_key" not in result.stdout
     assert "aws_secret_access_key" not in result.stderr
+
+
+def test_doctor_online_mode_refuses_sensitive_root_without_reading(tmp_path):
+    secret_root = tmp_path / ".ssh"
+    secret_root.mkdir()
+    (secret_root / "id_rsa").write_text("PRIVATE KEY should never be read\n", encoding="utf-8")
+
+    result = run_cli("doctor", str(secret_root), "--mode", "online", "--json")
+
+    assert result.returncode == 1
+    payload = json.loads(result.stdout)
+    assert payload["status"] == "fail"
+    assert payload["mode"] == "online"
+    assert payload["requested_mode"] == "online"
+    assert payload["security_guard"]["code"] == "sensitive_root_refused"
+    assert payload["checked_urls"] == []
+    assert "PRIVATE KEY" not in result.stdout
+    assert "PRIVATE KEY" not in result.stderr
 
 
 def test_llms_init_refuses_sensitive_root_without_reading(tmp_path):

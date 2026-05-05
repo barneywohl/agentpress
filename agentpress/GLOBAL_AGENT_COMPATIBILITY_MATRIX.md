@@ -17,4 +17,4 @@ Status meanings: **green** = local/static proof exists; **amber** = usable stati
 | LlamaIndex | amber | native adapter skeleton + RAG surfaces | `python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json` | Add tested reader/loader. |
 | Live MCP server | roadmap | none | n/a | Implement and test `agentpress mcp-serve`; do not claim current live server support. |
 
-Packaging note: npm `0.2.0-rc.3` / PyPI `0.2.0rc3` are current local metadata. Live registry proof defaults remain `0.1.0` until separate human-approved npm/PyPI publishes.
+Packaging note: npm `0.2.0-rc.4` / PyPI `0.2.0rc4` are current local metadata. Live registry proof defaults remain `0.1.0` until separate human-approved npm/PyPI publishes.

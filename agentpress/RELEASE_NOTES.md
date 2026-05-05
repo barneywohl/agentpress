@@ -20,7 +20,7 @@ Status: local source release only. npm/PyPI publish remains blocked unless an rc
 
 ---
 
-## 0.2.0-rc.3 — Node first-run and integrity hardening (2026-05-05)
+## 0.2.0-rc.4 — Node first-run and integrity hardening (2026-05-05)
 
 Status: **local release candidate metadata**. Do NOT publish npm/PyPI without separate approval.
 
@@ -35,7 +35,7 @@ Status: **local release candidate metadata**. Do NOT publish npm/PyPI without se
 
 ### Release drift policy
 
-- Local metadata: npm `0.2.0-rc.3`, PyPI `0.2.0rc3`.
+- Local metadata: npm `0.2.0-rc.4`, PyPI `0.2.0rc4`.
 - Live registry proof defaults: npm/PyPI `0.1.0` until approved publish.
 - Package publish commands remain out of scope for this repo change.
 

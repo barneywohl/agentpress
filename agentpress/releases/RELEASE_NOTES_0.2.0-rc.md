@@ -1,7 +1,7 @@
 # AgentPress 0.2.0-rc — Release Notes & Deployment Checklist
 
 **Release branch:** `0.2.0-rc`
-**Package version:** `0.2.0rc3` (pyproject.toml) / `0.2.0-rc.3` (package.json)
+**Package version:** `0.2.0rc4` (pyproject.toml) / `0.2.0-rc.4` (package.json)
 **Mission:** `mission-20260505-130940-7d8123`
 **Generated:** 2026-05-05
 
