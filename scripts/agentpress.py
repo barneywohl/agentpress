@@ -2063,6 +2063,50 @@ def broker_scope_guard(args):
     return 1 if args.strict and payload["status"] != "ok" else 0
 
 
+def broker_preenqueue_check(args):
+    """Pre-enqueue wrapper for Mission Engine/agent fanout to fail closed on cross-scope AgentPress tasks."""
+    guard_args = argparse.Namespace(
+        path=args.path,
+        out=args.out,
+        require_text=args.require_text,
+        allowed_token=args.allowed_token,
+        banned_token=args.banned_token,
+        require_allowed_root=args.require_allowed_root,
+        no_write=True,
+        strict=False,
+        json=True,
+    )
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        broker_scope_guard(guard_args)
+    try:
+        guard = json.loads(buf.getvalue() or "{}")
+    except Exception as e:
+        guard = {"status":"fail","fail_count":1,"warn_count":0,"findings":[{"status":"fail","severity":"P0","code":"guard_parse_error","message":str(e)}]}
+    mode = "enforce" if args.enforce else "advisory"
+    enqueue_allowed = guard.get("status") == "ok" or (mode == "advisory" and guard.get("status") == "needs_review")
+    payload = {
+        "schema_version": "2026-05-05.agentpress-broker-preenqueue-check.v1",
+        "generated_utc": _utc_now(),
+        "status": "pass" if enqueue_allowed else "blocked",
+        "mode": mode,
+        "enqueue_allowed": enqueue_allowed,
+        "task_path": args.path,
+        "guard_status": guard.get("status"),
+        "guard_fail_count": guard.get("fail_count", 0),
+        "guard_warn_count": guard.get("warn_count", 0),
+        "guard_findings": guard.get("findings", []),
+        "integration_contract": {
+            "call_before_enqueue": True,
+            "block_when_enqueue_allowed_false": args.enforce,
+            "safe_default": "fail_closed_for_failures",
+            "recommended_command": "python3 scripts/agentpress.py broker-preenqueue-check <task.json-or-jsonl> --allowed-token agentpress --require-allowed-root --enforce --json",
+        },
+    }
+    _write_json_payload(payload, pathlib.Path(args.out), args.no_write, args.json)
+    return 1 if args.strict and not enqueue_allowed else 0
+
+
 def no_python_fallback_check(args):
     """Verify the npm Node shim emits machine-readable remediation when Python is missing."""
     root = pathlib.Path(args.root)
@@ -10129,6 +10173,7 @@ def main():
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
     p = sub.add_parser("submission-validate"); p.add_argument("path"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("broker-scope-guard"); p.add_argument("path"); p.add_argument("--out", default="agentpress/evidence/broker-scope-guard.json"); p.add_argument("--require-text", action="append", default=["agentpress"]); p.add_argument("--allowed-token", action="append"); p.add_argument("--banned-token", action="append"); p.add_argument("--require-allowed-root", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("broker-preenqueue-check"); p.add_argument("path"); p.add_argument("--out", default="agentpress/evidence/broker-preenqueue-check.json"); p.add_argument("--require-text", action="append", default=["agentpress"]); p.add_argument("--allowed-token", action="append"); p.add_argument("--banned-token", action="append"); p.add_argument("--require-allowed-root", action="store_true"); p.add_argument("--enforce", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("blocker-report"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--severity", choices=["P0","P1","P2","P3"], default="P1"); p.add_argument("--command", required=True); p.add_argument("--error-summary", required=True); p.add_argument("--missing-field"); p.add_argument("--desired-fix", required=True); p.add_argument("--blocker-id"); p.add_argument("--out", default="agentpress/submissions/blocker-report.example.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("submission-pack"); p.add_argument("--receipt", required=True); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("external-proof-run"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True, choices=["codex","claude","gemini","glm","browser","workflow","other"]); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--out"); p.add_argument("--no-external-write", action="store_true", default=True); p.add_argument("--strict", action="store_true", help="Return non-zero on any failed proof, submission, or secret-scan step"); p.add_argument("--json", action="store_true")
@@ -10415,6 +10460,7 @@ def main():
     if args.cmd == "external-proof-run": return external_proof_run(args)
     if args.cmd == "submission-validate": return submission_validate(args)
     if args.cmd == "broker-scope-guard": return broker_scope_guard(args)
+    if args.cmd == "broker-preenqueue-check": return broker_preenqueue_check(args)
     if args.cmd == "blocker-report": return blocker_report(args)
     if args.cmd == "reputation-index": return reputation_index(args)
     if args.cmd == "landing-receipt": return landing_receipt(args)
