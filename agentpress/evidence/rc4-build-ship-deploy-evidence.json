@@ -1,0 +1,63 @@
+{
+  "schema_version": "2026-05-05.agentpress-rc4-build-ship-deploy-evidence.v1",
+  "status": "ok",
+  "files": {
+    "npm_doctor": {
+      "path": "agentpress/evidence/npm-rc4-doctor-smoke.json",
+      "status": "ok",
+      "sha256": "8c5fd5c7fd409a78901e4ed0262509716422b7a7e044ecc85d55da3c25ef4b98"
+    },
+    "pypi_doctor": {
+      "path": "agentpress/evidence/pypi-rc4-doctor-smoke.json",
+      "status": "ok",
+      "sha256": "020e1f94d237b706666a667d9d29f5e11c890093acd392dd03ddceda0697428d"
+    },
+    "external_proof": {
+      "path": "agentpress/external-proofs/rc4-public-proof/external-proof-run.json",
+      "status": "ok",
+      "sha256": "cb1293e70bc1925646001a8ca8ac26e43ed8e97b5f11ce624d630889397d7f8f"
+    },
+    "compatibility_matrix": {
+      "path": "agentpress/compatibility/compatibility-matrix.json",
+      "status": "ok",
+      "sha256": "5948ae19e507659d053379a8edcb2ef1e0719a243c21da0f2e5ca0f15a8a9f67"
+    },
+    "tool_contract_check": {
+      "path": "agentpress/tools/tool-contract-check-result.json",
+      "status": "ok",
+      "sha256": "a0d2384726d7d9726dc404883603d8fb5d932df17872b554b87e82bb89922670"
+    },
+    "broker_scope_negative": {
+      "path": "agentpress/evidence/broker-scope-guard-negative.json",
+      "status": "fail",
+      "sha256": "358178309159d77573fab722f4415e1c2d3b3887b157ac892bc427036daea1b9"
+    },
+    "broker_scope_self": {
+      "path": "agentpress/evidence/broker-scope-guard-self.json",
+      "status": "ok",
+      "sha256": "7fd3b8f00b6420d9a1311e639c2943dd954ab24903cbc471e030b7c8588ea64d"
+    }
+  },
+  "commands": [
+    {
+      "name": "npm rc4 smoke",
+      "command": "npx -y @agent_press/agentpress@rc doctor . --mode online --json"
+    },
+    {
+      "name": "PyPI rc4 smoke",
+      "command": "pip install agentpress-static==0.2.0rc4 && agentpress doctor . --mode online --json"
+    },
+    {
+      "name": "tool contract strict",
+      "command": "python3 scripts/agentpress.py tool-contract-check --manifest agentpress/tools/agentpress-tools.json --strict --json"
+    },
+    {
+      "name": "external proof run",
+      "command": "python3 scripts/agentpress.py external-proof-run --agent-id agentpress-rc4-public-proof --runtime codex --strict --json"
+    },
+    {
+      "name": "broker scope negative fixture",
+      "command": "python3 scripts/agentpress.py broker-scope-guard /tmp/broker_scope_bad.json --allowed-token agentpress --strict --json"
+    }
+  ]
+}

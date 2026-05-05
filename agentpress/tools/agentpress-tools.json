@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-05T14:57:40Z",
+  "generated_at": "2026-05-05T16:40:50Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -190,6 +190,8 @@
       "name": "agentpress.bundle",
       "description": "Generate a valid AgentPress bundle from docs/API folder.",
       "command": "python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force",
+      "machine_output": false,
+      "output_contract": "writes an AgentPress bundle directory; validate with `python3 scripts/agentpress.py verify <bundle-dir> --json`",
       "tags": [
         "generate",
         "bundle",
@@ -234,6 +236,8 @@
       "name": "agentpress.message",
       "description": "Create, route, respond, thread, and validate agent work messages.",
       "command": "python3 scripts/agentpress.py message create-request --capability <capability> --task <task> --requester-id <agent-id> --out request.json",
+      "machine_output": false,
+      "output_contract": "writes request/response/thread JSON files to --out paths; validate with schema-validate --json",
       "tags": [
         "message",
         "route",
@@ -254,6 +258,8 @@
       "name": "agentpress.self_test",
       "description": "Run standard suite proving an agent can use AgentPress.",
       "command": "python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl",
+      "machine_output": false,
+      "output_contract": "writes JSONL proof rows to --out; parse as line-delimited JSON",
       "tags": [
         "self-test",
         "reputation",
@@ -264,6 +270,8 @@
       "name": "agentpress.team_pack",
       "description": "Create privacy-safe team/person capability pack.",
       "command": "python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json",
+      "machine_output": false,
+      "output_contract": "writes a privacy-safe team capability JSON file to --out",
       "tags": [
         "team",
         "capability",
@@ -330,6 +338,8 @@
       "name": "agentpress.feedback_submit",
       "description": "Emit or validate deterministic external-agent feedback against the AgentPress response template/rubric.",
       "command": "python3 scripts/agentpress.py feedback-submit --example",
+      "machine_output": false,
+      "output_contract": "prints an example feedback template; use --json with concrete input validation flows where available",
       "tags": [
         "feedback",
         "rubric",
@@ -775,6 +785,18 @@
         "schema",
         "structured-content",
         "gate"
+      ]
+    },
+    {
+      "name": "agentpress.broker_scope_guard",
+      "description": "Fail closed when AgentPress broker/mission tasks reference unrelated project roots or stale scope tokens.",
+      "command": "python3 scripts/agentpress.py broker-scope-guard <task.json-or-jsonl> --allowed-token agentpress --strict --json",
+      "tags": [
+        "broker",
+        "mission",
+        "scope",
+        "guard",
+        "safety"
       ]
     },
     {

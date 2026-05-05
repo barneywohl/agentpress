@@ -147,6 +147,28 @@ def test_cli_template_without_json_is_needs_remediation(tmp_path, capsys):
     assert any(f["code"] == "command_missing_json_flag" for f in data["findings"])
 
 
+def test_cli_template_without_json_can_declare_file_output_contract(tmp_path, capsys):
+    manifest = tmp_path / "tools.json"
+    manifest.write_text(json.dumps({
+        "tools": [
+            {
+                "name": "agentpress.bundle",
+                "description": "Generate a bundle",
+                "command": "python3 scripts/agentpress.py bundle docs --out out",
+                "machine_output": False,
+                "output_contract": "writes a bundle directory; validate with verify --json",
+            }
+        ]
+    }), encoding="utf-8")
+
+    rc = tool_contract_check(_args(manifest=str(manifest)))
+    data = json.loads(capsys.readouterr().out)
+
+    assert rc == 0
+    assert data["status"] == "ok"
+    assert data["findings"] == []
+
+
 def test_refuses_sensitive_manifest_without_reading(tmp_path, capsys):
     secret_dir = tmp_path / ".ssh"
     secret_dir.mkdir()

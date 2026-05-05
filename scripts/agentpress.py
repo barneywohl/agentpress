@@ -1987,6 +1987,82 @@ def external_proof_run(args):
     return 0 if payload["status"] == "ok" else 1
 
 
+def _broker_scope_guard_values(obj, path="$"):
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            child = f"{path}.{key}"
+            if any(token in str(key).lower() for token in ("root", "path", "workdir", "repo", "source")):
+                if isinstance(value, str):
+                    yield child, value
+                elif isinstance(value, list):
+                    for i, item in enumerate(value):
+                        if isinstance(item, str):
+                            yield f"{child}[{i}]", item
+            yield from _broker_scope_guard_values(value, child)
+    elif isinstance(obj, list):
+        for i, item in enumerate(obj):
+            yield from _broker_scope_guard_values(item, f"{path}[{i}]")
+
+
+def broker_scope_guard(args):
+    """Fail closed when broker/mission tasks mix AgentPress scope with unrelated project roots."""
+    path = pathlib.Path(args.path)
+    findings = []
+    records = []
+    if _is_sensitive_path(path):
+        findings.append({"status": "fail_closed", "severity": "P0", "code": "sensitive_path_refused", "path": str(path), "message": "refusing to read sensitive task path"})
+    elif not path.exists():
+        findings.append({"status": "fail", "severity": "P0", "code": "path_missing", "path": str(path), "message": "task file does not exist"})
+    else:
+        text = path.read_text(encoding="utf-8")
+        if path.suffix == ".jsonl":
+            for line_no, line in enumerate(text.splitlines(), 1):
+                if not line.strip():
+                    continue
+                try:
+                    records.append((line_no, json.loads(line)))
+                except Exception as e:
+                    findings.append({"status": "fail", "severity": "P0", "code": "invalid_jsonl", "line": line_no, "message": str(e)})
+        else:
+            try:
+                records.append((1, json.loads(text)))
+            except Exception as e:
+                findings.append({"status": "fail", "severity": "P0", "code": "invalid_json", "message": str(e)})
+
+    allowed = [x.lower() for x in (args.allowed_token or [])]
+    banned = [x.lower() for x in (args.banned_token or ["korea", "value-hunter", "article"])]
+    required_terms = [x.lower() for x in (args.require_text or ["agentpress"])]
+    for line_no, record in records:
+        blob = json.dumps(record, sort_keys=True).lower()
+        in_scope = all(term in blob for term in required_terms) if required_terms else True
+        for field, value in _broker_scope_guard_values(record):
+            low = value.lower()
+            banned_hits = [b for b in banned if b and b in low]
+            allowed_hit = any(a and a in low for a in allowed) if allowed else True
+            if in_scope and banned_hits:
+                findings.append({"status": "fail", "severity": "P0", "code": "cross_scope_root", "line": line_no, "field": field, "value": value, "banned_tokens": banned_hits, "message": "AgentPress-scoped task references unrelated project root/token"})
+            elif in_scope and args.require_allowed_root and not allowed_hit and ("/" in value or value.startswith("~")):
+                findings.append({"status": "warn", "severity": "P1", "code": "unrecognized_root", "line": line_no, "field": field, "value": value, "message": "AgentPress-scoped task references a root/path without an allowed token"})
+
+    fail_count = sum(1 for f in findings if f.get("status") in {"fail", "fail_closed"})
+    warn_count = sum(1 for f in findings if f.get("status") == "warn")
+    payload = {
+        "schema_version": "2026-05-05.agentpress-broker-scope-guard.v1",
+        "generated_utc": _utc_now(),
+        "status": "ok" if fail_count == 0 and warn_count == 0 else ("fail" if fail_count else "needs_review"),
+        "path": str(path),
+        "record_count": len(records),
+        "fail_count": fail_count,
+        "warn_count": warn_count,
+        "require_text": args.require_text or ["agentpress"],
+        "allowed_token": args.allowed_token or [],
+        "banned_token": banned,
+        "findings": findings,
+    }
+    _write_json_payload(payload, pathlib.Path(args.out), args.no_write, args.json)
+    return 1 if args.strict and payload["status"] != "ok" else 0
+
+
 def submission_validate(args):
     """Validate an AgentPress proof submission pack before issue/PR submission."""
     root=pathlib.Path(args.path)
@@ -2601,20 +2677,20 @@ def tools_manifest(args):
         {"name":"agentpress.discover", "description":"Discover another AgentPress node, inspect tools/releases/contracts, and update a known-agent mesh registry.", "command":"python3 scripts/agentpress.py discover <agentpress-url> --registry agentpress/mesh/known-agents.json --json", "tags":["discover","mesh","agent-network","tools","release","self-register"]},
         {"name":"agentpress.schema_validate", "description":"Strict dependency-free JSON Schema subset validation for AgentPress contract files.", "command":"python3 scripts/agentpress.py schema-validate <file> --schema <schema-name-or-file> --json", "tags":["schema","strict","validate","contract","jsonschema"]},
         {"name":"agentpress.verify", "description":"Verify an AgentPress bundle fails/passes contract checks.", "command":"python3 scripts/agentpress.py verify <bundle> --json", "tags":["verify","schema","contract"]},
-        {"name":"agentpress.bundle", "description":"Generate a valid AgentPress bundle from docs/API folder.", "command":"python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force", "tags":["generate","bundle","docs","api"]},
+        {"name":"agentpress.bundle", "description":"Generate a valid AgentPress bundle from docs/API folder.", "command":"python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force", "machine_output":False, "output_contract":"writes an AgentPress bundle directory; validate with `python3 scripts/agentpress.py verify <bundle-dir> --json`", "tags":["generate","bundle","docs","api"]},
         {"name":"agentpress.bundle_diff", "description":"Compare two AgentPress bundles and report changed files/hashes for upgrade review.", "command":"python3 scripts/agentpress.py bundle-diff <old-bundle> <new-bundle> --json --include-hashes", "tags":["bundle","diff","upgrade","review"]},
         {"name":"agentpress.upgrade_check", "description":"Check whether upgrading from one AgentPress bundle to another is safe or breaking.", "command":"python3 scripts/agentpress.py upgrade-check <current-bundle> <latest-bundle> --json", "tags":["upgrade","compatibility","bundle","breaking"]},
         {"name":"agentpress.negative_fixtures", "description":"Run adversarial broken-bundle fixtures and require fail-closed validation.", "command":"python3 scripts/agentpress.py negative-fixtures --json", "tags":["negative-fixtures","security","fail-closed","eval"]},
-        {"name":"agentpress.message", "description":"Create, route, respond, thread, and validate agent work messages.", "command":"python3 scripts/agentpress.py message create-request --capability <capability> --task <task> --requester-id <agent-id> --out request.json", "tags":["message","route","handoff"]},
+        {"name":"agentpress.message", "description":"Create, route, respond, thread, and validate agent work messages.", "command":"python3 scripts/agentpress.py message create-request --capability <capability> --task <task> --requester-id <agent-id> --out request.json", "machine_output":False, "output_contract":"writes request/response/thread JSON files to --out paths; validate with schema-validate --json", "tags":["message","route","handoff"]},
         {"name":"agentpress.search", "description":"Search AgentPress assets/capabilities/schemas by query.", "command":"python3 scripts/agentpress.py search <query> --json", "tags":["search","capability","discovery"]},
-        {"name":"agentpress.self_test", "description":"Run standard suite proving an agent can use AgentPress.", "command":"python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl", "tags":["self-test","reputation","proof"]},
-        {"name":"agentpress.team_pack", "description":"Create privacy-safe team/person capability pack.", "command":"python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json", "tags":["team","capability","privacy"]},
+        {"name":"agentpress.self_test", "description":"Run standard suite proving an agent can use AgentPress.", "command":"python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl", "machine_output":False, "output_contract":"writes JSONL proof rows to --out; parse as line-delimited JSON", "tags":["self-test","reputation","proof"]},
+        {"name":"agentpress.team_pack", "description":"Create privacy-safe team/person capability pack.", "command":"python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json", "machine_output":False, "output_contract":"writes a privacy-safe team capability JSON file to --out", "tags":["team","capability","privacy"]},
         {"name":"agentpress.package_verify", "description":"Build and verify an offline AgentPress package by SHA256 manifest.", "command":"python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz && python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json", "tags":["package","sha256","offline"]},
         {"name":"agentpress.install", "description":"Install AgentPress offline package from static release index with SHA256 verification.", "command":"python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json", "tags":["install","release","package","offline","sha256"]},
         {"name":"agentpress.landing_receipt", "description":"Create a privacy-safe opt-in receipt proving an agent discovered and landed on AgentPress.", "command":"python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel <channel> --capability <capability> --out landing/<agent-id>.json --json", "tags":["landing","telemetry","adoption","privacy"]},
         {"name":"agentpress.reputation_index", "description":"Compile landing receipts, self-tests, and handoff receipts into an evidence-derived agent reputation index.", "command":"python3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json", "tags":["reputation","leaderboard","proof","trust"]},
         {"name":"agentpress.submission_pack", "description":"Generate a PR/issue-ready pack for submitting landing/proof receipts back to AgentPress.", "command":"python3 scripts/agentpress.py submission-pack --receipt <receipt.json> --out submission-pack --json", "tags":["submission","github","landing","proof","adoption"]},
-        {"name":"agentpress.feedback_submit", "description":"Emit or validate deterministic external-agent feedback against the AgentPress response template/rubric.", "command":"python3 scripts/agentpress.py feedback-submit --example", "tags":["feedback","rubric","first-contact","agent-review"]},
+        {"name":"agentpress.feedback_submit", "description":"Emit or validate deterministic external-agent feedback against the AgentPress response template/rubric.", "command":"python3 scripts/agentpress.py feedback-submit --example", "machine_output":False, "output_contract":"prints an example feedback template; use --json with concrete input validation flows where available", "tags":["feedback","rubric","first-contact","agent-review"]},
         {"name":"agentpress.consistency_check", "description":"Fail CI when first-contact machine contracts drift across llms.txt, README, schemas, and agent instructions.", "command":"python3 scripts/agentpress.py consistency-check --json", "tags":["consistency","ci","contract","drift"]},
         {"name":"agentpress.adoption_status", "description":"Summarize opt-in landing receipts, reputation, compatibility, mesh, and install-lane adoption state without hidden telemetry.", "command":"python3 scripts/agentpress.py adoption-status --json", "tags":["adoption","reputation","compatibility","privacy","proof"]},
         {"name":"agentpress.adoption_fixpack", "description":"Generate a copy-paste first-contact fix pack from local adoption evidence.", "command":"python3 scripts/agentpress.py adoption-fixpack --json", "tags":["adoption","first-contact","proof","fixpack","privacy"]},
@@ -2654,6 +2730,7 @@ def tools_manifest(args):
         {"name":"agentpress.release_registry_readiness_dashboard", "description":"Build a static release/package-registry readiness dashboard for npm/PyPI/source/static lanes.", "command":"python3 scripts/agentpress.py release-registry-readiness-dashboard --json", "tags":["release","registry","npm","pypi","dashboard"]},
         {"name":"agentpress.tool_schema_serialization_check", "description":"Check tool schema metadata is JSON-serializable.", "command":"python3 scripts/agentpress.py tool-schema-serialization-check --json", "tags":["tools","schema","serialization","gate"]},
         {"name":"agentpress.tool_contract_check", "description":"Validate MCP-style tool input/output schemas, structuredContent samples, and CLI JSON-output contracts.", "command":"python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json", "tags":["tools","mcp","schema","structured-content","gate"]},
+        {"name":"agentpress.broker_scope_guard", "description":"Fail closed when AgentPress broker/mission tasks reference unrelated project roots or stale scope tokens.", "command":"python3 scripts/agentpress.py broker-scope-guard <task.json-or-jsonl> --allowed-token agentpress --strict --json", "tags":["broker","mission","scope","guard","safety"]},
         {"name":"agentpress.agent_community_channel_map", "description":"Map agent communities/channels to problem signals.", "command":"python3 scripts/agentpress.py agent-community-channel-map --json", "tags":["community","channels","research","agents"]},
         {"name":"agentpress.community_issue_radar", "description":"Compile community issue radar from public issue signals.", "command":"python3 scripts/agentpress.py community-issue-radar --json", "tags":["community","issues","radar","research"]},
         {"name":"agentpress.unsolved_agent_problem_backlog", "description":"Generate prioritized backlog from community issue radar.", "command":"python3 scripts/agentpress.py unsolved-agent-problem-backlog --json", "tags":["backlog","problems","features"]},
@@ -5527,8 +5604,10 @@ def tool_contract_check(args):
             command = tool.get("command")
             if not isinstance(command, str) or not command.strip():
                 add(name, "missing_command", "fail", "P0", "CLI tool template is missing command", "Add a deterministic local command template.", "command")
-            elif "--json" not in command:
-                add(name, "command_missing_json_flag", "warn", "P1", "CLI command does not advertise JSON output", "Add --json where the command supports machine output, or mark the entry as prose-only.", "command")
+            elif "--json" not in command and tool.get("machine_output") is not False:
+                add(name, "command_missing_json_flag", "warn", "P1", "CLI command does not advertise JSON output", "Add --json where the command supports machine output, or set machine_output=false with an output_contract for file/prose commands.", "command")
+            elif "--json" not in command and tool.get("machine_output") is False and not tool.get("output_contract"):
+                add(name, "missing_output_contract", "warn", "P1", "non-JSON CLI command needs an output_contract", "Describe the file/prose output and the follow-up validation command.", "output_contract")
         rows.append(row)
 
     fail_count = sum(1 for f in findings if f.get("status") in {"fail", "fail_closed"})
@@ -9480,6 +9559,7 @@ def main():
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
     p = sub.add_parser("submission-validate"); p.add_argument("path"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("broker-scope-guard"); p.add_argument("path"); p.add_argument("--out", default="agentpress/evidence/broker-scope-guard.json"); p.add_argument("--require-text", action="append", default=["agentpress"]); p.add_argument("--allowed-token", action="append"); p.add_argument("--banned-token", action="append"); p.add_argument("--require-allowed-root", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("blocker-report"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--severity", choices=["P0","P1","P2","P3"], default="P1"); p.add_argument("--command", required=True); p.add_argument("--error-summary", required=True); p.add_argument("--missing-field"); p.add_argument("--desired-fix", required=True); p.add_argument("--blocker-id"); p.add_argument("--out", default="agentpress/submissions/blocker-report.example.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("submission-pack"); p.add_argument("--receipt", required=True); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("external-proof-run"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True, choices=["codex","claude","gemini","glm","browser","workflow","other"]); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--out"); p.add_argument("--no-external-write", action="store_true", default=True); p.add_argument("--strict", action="store_true", help="Return non-zero on any failed proof, submission, or secret-scan step"); p.add_argument("--json", action="store_true")
@@ -9755,6 +9835,7 @@ def main():
     if args.cmd == "submission-pack": return submission_pack(args)
     if args.cmd == "external-proof-run": return external_proof_run(args)
     if args.cmd == "submission-validate": return submission_validate(args)
+    if args.cmd == "broker-scope-guard": return broker_scope_guard(args)
     if args.cmd == "blocker-report": return blocker_report(args)
     if args.cmd == "reputation-index": return reputation_index(args)
     if args.cmd == "landing-receipt": return landing_receipt(args)

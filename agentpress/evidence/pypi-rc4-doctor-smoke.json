@@ -1,0 +1,134 @@
+{
+  "schema_version": "2026-05-05.agentpress-doctor.v2",
+  "status": "ok",
+  "mode": "online",
+  "base_url": "https://barneywohl.github.io/agentpress/",
+  "fallback_base_url": "https://barneywohl.github.io/agentpress/",
+  "checked_urls": [
+    {
+      "url": "https://barneywohl.github.io/agentpress/llms.txt",
+      "status": "ok",
+      "http_status": 200,
+      "bytes": 31364,
+      "sha256": "650c37fcb8602b6b3bdeacd70434ca70e9c24c6a1d7ef846f19959263b7abb20"
+    },
+    {
+      "url": "https://barneywohl.github.io/agentpress/.well-known/agentpress.json",
+      "status": "ok",
+      "http_status": 200,
+      "bytes": 5617,
+      "sha256": "b0b96a40720838ad50539847d93a8b15103f4e04b838b7e150f1c63fecd4e72a",
+      "json_valid": true
+    },
+    {
+      "url": "https://barneywohl.github.io/agentpress/.well-known/ai-ingestion.json",
+      "status": "ok",
+      "http_status": 200,
+      "bytes": 5390,
+      "sha256": "fbef94ebb9d52bea2bff65d4ee9a1aa08573ba66b1ead60682d5a70e9003ccf6",
+      "json_valid": true
+    },
+    {
+      "url": "https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json",
+      "status": "ok",
+      "http_status": 200,
+      "bytes": 1044,
+      "sha256": "3c53c1072319e6e951f340782b06768db4a1bea5c97417d1f9928a0d4e542b78",
+      "json_valid": true
+    },
+    {
+      "url": "https://barneywohl.github.io/agentpress/agentpress/adoption/adoption-status.json",
+      "status": "ok",
+      "http_status": 200,
+      "bytes": 931,
+      "sha256": "7a75b1096e2192e09ac4c63062ad8a7c1bbd895e6e4727a83a09f6e764e88289",
+      "json_valid": true
+    }
+  ],
+  "errors": [],
+  "root": ".",
+  "canonical_url": "https://barneywohl.github.io/agentpress/",
+  "next_steps": [
+    {
+      "id": "retry_online_or_use_static_fallback",
+      "why": "Remote checks failed or were unavailable.",
+      "command": "python3 scripts/agentpress.py fetch --base https://barneywohl.github.io/agentpress/ --out /tmp/agentpress-fetch --json",
+      "expected_result": "Downloads core static entrypoints for offline inspection."
+    },
+    {
+      "id": "start_here",
+      "why": "Use the concise first-user path instead of scanning the whole command catalog.",
+      "command": "python3 scripts/agentpress.py start --json",
+      "expected_result": "Three-command first-run path with safety boundaries."
+    }
+  ],
+  "ranked_first_actions": [
+    {
+      "rank": 1,
+      "id": "doctor",
+      "command": "python3 scripts/agentpress.py doctor . --json",
+      "targets_painpoints": [
+        "first_run_onboarding_friction",
+        "secret_path_guardrails",
+        "stable_vs_rc_confusion"
+      ],
+      "why": "Start with a bounded health check and machine-readable next_steps."
+    },
+    {
+      "rank": 2,
+      "id": "llms_init_if_missing",
+      "command": "python3 scripts/agentpress.py llms-init . --json",
+      "targets_painpoints": [
+        "first_run_onboarding_friction",
+        "compact_task_cards_source_maps"
+      ],
+      "why": "Create the minimal agent-readable entrypoints when doctor reports missing surfaces."
+    },
+    {
+      "rank": 3,
+      "id": "first_run_wizard",
+      "command": "python3 scripts/agentpress.py first-run-wizard . --json",
+      "targets_painpoints": [
+        "first_run_onboarding_friction",
+        "python_runtime_dependency_friction",
+        "proof_handoff_evidence"
+      ],
+      "why": "Emit the exact next command, host/provider blockers, and proof command."
+    },
+    {
+      "rank": 4,
+      "id": "proof_capture",
+      "command": "python3 scripts/agentpress.py proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --commands 'python3 scripts/agentpress.py doctor --json' --json",
+      "targets_painpoints": [
+        "proof_handoff_evidence"
+      ],
+      "why": "Turn the run into a local proof bundle instead of a prose claim."
+    }
+  ],
+  "version_channel": {
+    "channel": "release_candidate",
+    "local": {
+      "npm_package": "@agent_press/agentpress",
+      "npm_version": "",
+      "python_package": "agentpress-static",
+      "python_version": "0.2.0rc4"
+    },
+    "stable_latest": {
+      "status": "not_asserted_without_registry_check",
+      "rule": "Do not call a release candidate the stable latest. Verify npm/PyPI live registry state before using stable labels."
+    },
+    "rc_lane": {
+      "status": "active",
+      "npm_install_hint": "npm package metadata in this checkout is unknown",
+      "python_install_hint": "Python package metadata in this checkout is 0.2.0rc4"
+    },
+    "safe_publish_policy": "No npm/PyPI publish is implied by this CLI output; dry-run/pack checks are local evidence only."
+  },
+  "recommendations": [
+    {
+      "priority": "P2",
+      "summary": "Run the first listed next_steps command exactly; it is safe/local and emits JSON.",
+      "command": "python3 scripts/agentpress.py fetch --base https://barneywohl.github.io/agentpress/ --out /tmp/agentpress-fetch --json"
+    }
+  ]
+}

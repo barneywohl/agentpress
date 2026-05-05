@@ -1,0 +1,35 @@
+{
+  "schema_version": "2026-05-05.agentpress-broker-scope-guard.v1",
+  "generated_utc": "2026-05-05T16:40:51Z",
+  "status": "fail",
+  "path": "/tmp/broker_scope_bad.json",
+  "record_count": 1,
+  "fail_count": 1,
+  "warn_count": 0,
+  "require_text": [
+    "agentpress"
+  ],
+  "allowed_token": [
+    "agentpress"
+  ],
+  "banned_token": [
+    "korea",
+    "value-hunter",
+    "article"
+  ],
+  "findings": [
+    {
+      "status": "fail",
+      "severity": "P0",
+      "code": "cross_scope_root",
+      "line": 1,
+      "field": "$.allowed_roots[0]",
+      "value": "/Volumes/X10/clawd/korea-value-hunter-research",
+      "banned_tokens": [
+        "korea",
+        "value-hunter"
+      ],
+      "message": "AgentPress-scoped task references unrelated project root/token"
+    }
+  ]
+}
