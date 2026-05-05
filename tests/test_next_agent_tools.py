@@ -29,7 +29,7 @@ def test_tool_output_sample_generate_builds_structured_content(tmp_path, capsys)
         }]
     }), encoding="utf-8")
 
-    rc = tool_output_sample_generate(argparse.Namespace(manifest=str(manifest), out=str(out), no_write=False, json=True, strict=True))
+    rc = tool_output_sample_generate(argparse.Namespace(manifest=str(manifest), out=str(out), check=False, no_write=False, json=True, strict=True))
     data = json.loads(capsys.readouterr().out)
 
     assert rc == 0
@@ -37,6 +37,33 @@ def test_tool_output_sample_generate_builds_structured_content(tmp_path, capsys)
     assert data["sample_count"] == 1
     assert data["samples"]["weather"]["structuredContent"]["conditions"] == "sample_conditions"
     assert json.loads(out.read_text())["samples"]["weather"]
+
+    rc = tool_output_sample_generate(argparse.Namespace(manifest=str(manifest), out=str(out), check=True, no_write=False, json=True, strict=True))
+    checked = json.loads(capsys.readouterr().out)
+    assert rc == 0
+    assert checked["status"] == "ok"
+    assert checked["check"]["enabled"] is True
+
+
+def test_tool_output_sample_check_fails_on_stale_fixture(tmp_path, capsys):
+    manifest = tmp_path / "tools.json"
+    out = tmp_path / "samples.json"
+    manifest.write_text(json.dumps({
+        "tools": [{
+            "name": "weather",
+            "description": "Weather",
+            "inputSchema": {"type": "object", "properties": {}},
+            "outputSchema": {"type": "object", "properties": {"temperature": {"type": "number"}}},
+        }]
+    }), encoding="utf-8")
+    out.write_text(json.dumps({"schema_version": "2026-05-05.agentpress-tool-output-samples.v1", "samples": {}}), encoding="utf-8")
+
+    rc = tool_output_sample_generate(argparse.Namespace(manifest=str(manifest), out=str(out), check=True, no_write=False, json=True, strict=True))
+    data = json.loads(capsys.readouterr().out)
+
+    assert rc == 1
+    assert data["status"] == "fail"
+    assert data["findings"][0]["code"] == "stale_sample_fixture"
 
 
 def test_smoke_install_no_run_plans_both_install_lanes(tmp_path, capsys):

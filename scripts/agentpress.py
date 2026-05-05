@@ -2328,8 +2328,27 @@ def tool_output_sample_generate(args):
             samples[name] = {"content": [{"type": "text", "text": "{\"status\":\"ok\"}"}], "structuredContent": {"status": "ok"}}
             rows.append({"name": name, "mode": "generic_status", "status": "sampled"})
     payload = {"schema_version": "2026-05-05.agentpress-tool-output-samples.v1", "generated_utc": _utc_now(), "status": "ok" if not findings else "fail", "manifest": args.manifest or "built_in", "tool_count": len(tools), "sample_count": len(samples), "skipped_count": sum(1 for r in rows if r["status"] == "skipped"), "samples": samples, "tools": rows, "findings": findings}
-    _write_json_payload(payload, pathlib.Path(args.out), args.no_write, args.json)
-    return 1 if args.strict and payload["status"] != "ok" else 0
+
+    if getattr(args, "check", False):
+        out_path = pathlib.Path(args.out)
+        if not out_path.exists():
+            findings.append({"code": "missing_sample_fixture", "path": str(out_path), "detail": "Generate samples without --check and commit the fixture."})
+        else:
+            try:
+                existing = json.loads(out_path.read_text(encoding="utf-8"))
+                expected = json.loads(json.dumps(payload))
+                existing.pop("generated_utc", None)
+                expected.pop("generated_utc", None)
+                if existing != expected:
+                    findings.append({"code": "stale_sample_fixture", "path": str(out_path), "detail": "Checked-in tool output samples differ from current tool manifest. Regenerate with tool-output-sample-generate."})
+            except Exception as exc:
+                findings.append({"code": "invalid_sample_fixture", "path": str(out_path), "detail": str(exc)})
+        payload["status"] = "ok" if not findings else "fail"
+        payload["findings"] = findings
+        payload["check"] = {"enabled": True, "path": str(out_path)}
+
+    _write_json_payload(payload, pathlib.Path(args.out), args.no_write or getattr(args, "check", False), args.json)
+    return 1 if (getattr(args, "strict", False) or getattr(args, "check", False)) and payload["status"] != "ok" else 0
 
 
 def smoke_install(args):
@@ -9726,7 +9745,7 @@ def main():
     p = sub.add_parser("release-candidate"); p.add_argument("--version", default="0.2.0-rc"); p.add_argument("--out", default="agentpress/releases/release-candidate.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-schema-serialization-check"); p.add_argument("--schema", default=""); p.add_argument("--out", default="agentpress/tools/tool-schema-serialization-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("tool-contract-check"); p.add_argument("--manifest", default=""); p.add_argument("--sample-result", default=""); p.add_argument("--out", default="agentpress/tools/tool-contract-check-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--require-text-mirror", action="store_true", default=True); p.add_argument("--no-require-text-mirror", dest="require_text_mirror", action="store_false"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("tool-output-sample-generate"); p.add_argument("--manifest", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/tools/samples/tool-output-samples.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("tool-output-sample-generate"); p.add_argument("--manifest", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/tools/samples/tool-output-samples.json"); p.add_argument("--check", action="store_true", help="Fail if checked-in samples are missing or stale; never writes."); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("smoke-install"); p.add_argument("--runtime", choices=["npm","pypi","all"], default="all"); p.add_argument("--version", default=""); p.add_argument("--workdir", default=""); p.add_argument("--out", default="agentpress/evidence/smoke-install.json"); p.add_argument("--timeout-seconds", type=int, default=180); p.add_argument("--no-run", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("repo-sync-doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--remote", default="https://github.com/barneywohl/agentpress.git"); p.add_argument("--ref", default="refs/heads/main"); p.add_argument("--out", default="agentpress/evidence/repo-sync-doctor.json"); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("cli-gap-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/cli-gap-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
