@@ -2097,6 +2097,37 @@ def release_promote_checklist(args):
     """Block rc->latest promotion until evidence, RFLO, CI, package, and external-proof gates are green."""
     root = pathlib.Path(args.root)
     out = pathlib.Path(args.out)
+    if getattr(args, "verify_bundle", ""):
+        bundle_dir = pathlib.Path(args.verify_bundle)
+        manifest_path = bundle_dir / "release-evidence-bundle.json"
+        failures = []
+        if not manifest_path.exists():
+            failures.append({"name":"bundle_manifest", "status":"missing", "evidence":str(manifest_path)})
+            payload = {"schema_version":"2026-05-05.agentpress-release-evidence-bundle-verify.v1","generated_utc":_utc_now(),"status":"blocked","bundle":str(bundle_dir),"checks":failures,"blocking_checks":["bundle_manifest"]}
+            _write_json_payload(payload, out, args.no_write, args.json)
+            return 1 if args.strict else 0
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except Exception as e:
+            failures.append({"name":"bundle_manifest", "status":"invalid", "evidence":str(manifest_path), "detail":str(e)})
+            manifest = {}
+        checks = []
+        for item in manifest.get("artifacts", []):
+            name = item.get("name", "unknown")
+            rel = item.get("path", "")
+            required = bool(item.get("required", True))
+            p = bundle_dir / rel if rel else bundle_dir / "__missing__"
+            status = "pass" if p.exists() and p.stat().st_size > 0 else "missing"
+            if required and status != "pass": failures.append({"name":name,"status":status,"evidence":str(p)})
+            checks.append({"name":name,"status":status,"required":required,"evidence":str(p)})
+        # RFLO/latest proof receipts must be explicit, not implied by a bundle directory existing.
+        for name in ["independent_external_proof", "rflo_review"]:
+            item = next((x for x in manifest.get("artifacts", []) if x.get("name") == name), {})
+            if item.get("status") not in {"pass", "accepted", "approved"}:
+                failures.append({"name":name,"status":"blocked","evidence":item.get("path", "")})
+        payload = {"schema_version":"2026-05-05.agentpress-release-evidence-bundle-verify.v1","generated_utc":_utc_now(),"status":"pass" if not failures else "blocked","bundle":str(bundle_dir),"checks":checks,"blocking_checks":[f["name"] for f in failures],"promotion_allowed":not failures}
+        _write_json_payload(payload, out, args.no_write, args.json)
+        return 1 if args.strict and failures else 0
     checks = []
     def add(name, status, evidence="", required=True, detail=""):
         checks.append({"name": name, "status": status, "required": required, "evidence": evidence, "detail": detail})
@@ -2185,6 +2216,21 @@ def release_promote_checklist(args):
             add("npm_dist_tags", "warn", required=False, detail=str(e))
     failures = [c for c in checks if c["required"] and c["status"] in {"fail", "missing", "blocked"}]
     payload = {"schema_version":"2026-05-05.agentpress-release-promote-checklist.v1","generated_utc":_utc_now(),"status":"pass" if not failures else "blocked","root":str(root),"from_tag":args.from_tag,"to_tag":args.to_tag,"promotion_allowed":not failures,"checks":checks,"blocking_checks":[c["name"] for c in failures],"decision":"Do not promote rc to latest until every required check passes." if failures else "Promotion gates are green; still require explicit human publish approval."}
+    if getattr(args, "evidence_bundle_out", ""):
+        bundle_dir = pathlib.Path(args.evidence_bundle_out)
+        bundle_dir.mkdir(parents=True, exist_ok=True)
+        checklist_rel = "release-promote-checklist.json"
+        (bundle_dir / checklist_rel).write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+        artifacts = [{"name":"release_promote_checklist","path":checklist_rel,"required":True,"status":payload["status"]}]
+        for check in checks:
+            safe = re.sub(r"[^a-z0-9_.-]+", "-", check["name"].lower()).strip("-") or "check"
+            rel = f"checks/{safe}.json"
+            (bundle_dir / "checks").mkdir(exist_ok=True)
+            (bundle_dir / rel).write_text(json.dumps(check, indent=2)+"\n", encoding="utf-8")
+            artifacts.append({"name":check["name"],"path":rel,"required":check.get("required", True),"status":check.get("status")})
+        manifest = {"schema_version":"2026-05-05.agentpress-release-evidence-bundle.v1","generated_utc":_utc_now(),"from_tag":args.from_tag,"to_tag":args.to_tag,"promotion_allowed":payload["promotion_allowed"],"source_checklist":checklist_rel,"artifacts":artifacts,"blocking_checks":payload["blocking_checks"]}
+        (bundle_dir / "release-evidence-bundle.json").write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8")
+        payload["evidence_bundle"] = str(bundle_dir)
     _write_json_payload(payload, out, args.no_write, args.json)
     return 1 if args.strict and failures else 0
 
@@ -9760,7 +9806,7 @@ def main():
     p = sub.add_parser("smoke-install"); p.add_argument("--runtime", choices=["npm","pypi","all"], default="all"); p.add_argument("--version", default=""); p.add_argument("--workdir", default=""); p.add_argument("--out", default="agentpress/evidence/smoke-install.json"); p.add_argument("--timeout-seconds", type=int, default=180); p.add_argument("--no-run", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("repo-sync-doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--remote", default="https://github.com/barneywohl/agentpress.git"); p.add_argument("--ref", default="refs/heads/main"); p.add_argument("--out", default="agentpress/evidence/repo-sync-doctor.json"); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("cli-gap-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/cli-gap-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("release-promote-checklist"); p.add_argument("root", nargs="?", default="."); p.add_argument("--from-tag", default="rc"); p.add_argument("--to-tag", default="latest"); p.add_argument("--min-independent-proofs", type=int, default=1); p.add_argument("--out", default="agentpress/releases/release-promote-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("release-promote-checklist"); p.add_argument("root", nargs="?", default="."); p.add_argument("--from-tag", default="rc"); p.add_argument("--to-tag", default="latest"); p.add_argument("--min-independent-proofs", type=int, default=1); p.add_argument("--out", default="agentpress/releases/release-promote-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--evidence-bundle-out", default=""); p.add_argument("--verify-bundle", default=""); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("no-python-fallback-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--commands", default="doctor,validate,verify,agent-onboard"); p.add_argument("--python-path", default="/nonexistent/python3-agentpress-check"); p.add_argument("--out", default="agentpress/evidence/no-python-fallback-check.json"); p.add_argument("--timeout-seconds", type=int, default=20); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("context-package-init"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("handoff-root-pick"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
