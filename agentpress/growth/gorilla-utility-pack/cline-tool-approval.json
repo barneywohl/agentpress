@@ -1,0 +1,27 @@
+{
+  "schema_version": "2026-05-05.agentpress-gorilla-utility-target.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/cline-tool-approval.json",
+  "generated_utc": "2026-05-05T21:19:39Z",
+  "status": "ready_not_sent",
+  "target": {
+    "id": "cline-tool-approval",
+    "community": "Cline/MCP users",
+    "painpoint": "approval safety + provider tool mismatch",
+    "artifact": "agentpress/security/approval-bypass-risk-result.json",
+    "command": "python3 scripts/agentpress.py approval-bypass-risk-check --json",
+    "utility": "Attach a fail-closed approval/tool-call risk receipt to existing issues."
+  },
+  "rules": [
+    "Only use where the painpoint is already being discussed.",
+    "Lead with the utility command/artifact, not marketing.",
+    "No mass posting, fake adoption, scraped DMs, secrets, or private prompts.",
+    "Any external post/send requires explicit human approval."
+  ],
+  "comment_template": "I made this as a small machine-checkable utility for this exact issue class: `python3 scripts/agentpress.py approval-bypass-risk-check --json`. It emits `https://barneywohl.github.io/agentpress/agentpress/security/approval-bypass-risk-result.json` so maintainers can inspect a concrete receipt/repro instead of a vague claim.",
+  "proof_loop": [
+    "run command locally",
+    "attach sanitized JSON if relevant",
+    "if someone replies, ingest via external-proof-intake",
+    "convert blocker to backlog"
+  ]
+}

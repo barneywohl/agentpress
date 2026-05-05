@@ -3192,6 +3192,7 @@ def tools_manifest(args):
         {"name":"agentpress.next_build_spec_queue", "description":"Generate researched next-build specs after current cycle.", "command":"python3 scripts/agentpress.py next-build-spec-queue --json", "tags":["research","specs","next-build","cycle"]},
         {"name":"agentpress.external_proof_campaign_runner", "description":"Generate opt-in external proof acquisition campaign run plan.", "command":"python3 scripts/agentpress.py external-proof-campaign-runner --json", "tags":["external","proof","campaign","adoption"]},
         {"name":"agentpress.external_proof_intake", "description":"Submit, review, and summarize independent external proof packs with privacy/self-proof rejection guards.", "command":"python3 scripts/agentpress.py external-proof-intake status --json", "tags":["external","proof","intake","privacy","release"]},
+        {"name":"agentpress.gorilla_utility_pack", "description":"Generate utility-first AgentPress packs for places agents already look, without spam or unapproved external writes.", "command":"python3 scripts/agentpress.py gorilla-utility-pack --json", "tags":["growth","utility","agentpress","proof","community"]},
         {"name":"agentpress.host_transcript_batch_ingest", "description":"Batch ingest host transcript JSON files and summarize conformance.", "command":"python3 scripts/agentpress.py host-transcript-batch-ingest tests/fixtures/conformance --json", "tags":["host","transcript","batch","conformance"]},
         {"name":"agentpress.connector_failure_taxonomy", "description":"Generate connector failure taxonomy and backlog conversion rules.", "command":"python3 scripts/agentpress.py connector-failure-taxonomy --json", "tags":["connectors","failures","taxonomy","backlog"]},
         {"name":"agentpress.cycle_gap_radar", "description":"Generate post-cycle missed-gap radar.", "command":"python3 scripts/agentpress.py cycle-gap-radar --json", "tags":["cycle","radar","gaps","next"]},
@@ -5169,6 +5170,31 @@ def first_agent_attention_kit(args):
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else f"ok {len(hooks)} hooks")
+    return 0
+
+
+def gorilla_utility_pack(args):
+    """Build utility-first AgentPress packs for places agents already look; no spam or external writes."""
+    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    targets=[
+        {"id":"cline-tool-approval","community":"Cline/MCP users","painpoint":"approval safety + provider tool mismatch","artifact":"agentpress/security/approval-bypass-risk-result.json","command":"python3 scripts/agentpress.py approval-bypass-risk-check --json","utility":"Attach a fail-closed approval/tool-call risk receipt to existing issues."},
+        {"id":"cline-provider-repro","community":"Cline/provider adapters","painpoint":"execute_command/write_to_file vocabulary mismatch","artifact":"agentpress/compatibility/provider-adapter-repro-pack.json","command":"python3 scripts/agentpress.py provider-adapter-repro-pack --host cline --provider claude_code --json","utility":"Generate a maintainer-ready adapter mismatch repro, not a product pitch."},
+        {"id":"langgraph-checkpoint-replay","community":"LangChain/LangGraph","painpoint":"stale checkpoint/structured_response state","artifact":"agentpress/repro/checkpoint-replay-minimal-repro.json","command":"python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json","utility":"Turn state drift into a replayable minimal repro pack."},
+        {"id":"llamaindex-rag-safety","community":"LlamaIndex/RAG builders","painpoint":"file metadata + tool schema safety","artifact":"agentpress/rag/rag-tool-safety-bundle.json","command":"python3 scripts/agentpress.py rag-tool-safety-bundle --json","utility":"Validate file-path/tool-schema hazards before publishing RAG agents."},
+        {"id":"openhands-runtime-hang","community":"OpenHands/Roo/browser agents","painpoint":"runtime/browser/terminal hangs","artifact":"agentpress/repro/runtime-hang-repro-capsule.json","command":"python3 scripts/agentpress.py runtime-hang-repro-capsule --json","utility":"Convert stuck run evidence into a small maintainer capsule."}
+    ]
+    packs=[]
+    for t in targets:
+        pack={"schema_version":"2026-05-05.agentpress-gorilla-utility-target.v1","canonical_url":urljoin(base,(outdir/f"{t['id']}.json").as_posix()),"generated_utc":_utc_now(),"status":"ready_not_sent","target":t,"rules":["Only use where the painpoint is already being discussed.","Lead with the utility command/artifact, not marketing.","No mass posting, fake adoption, scraped DMs, secrets, or private prompts.","Any external post/send requires explicit human approval."],"comment_template":f"I made this as a small machine-checkable utility for this exact issue class: `{t['command']}`. It emits `{urljoin(base,t['artifact'])}` so maintainers can inspect a concrete receipt/repro instead of a vague claim.","proof_loop":["run command locally","attach sanitized JSON if relevant","if someone replies, ingest via external-proof-intake","convert blocker to backlog"]}
+        packs.append(pack)
+        if not args.no_write:
+            outdir.mkdir(parents=True,exist_ok=True); (outdir/f"{t['id']}.json").write_text(json.dumps(pack,indent=2)+"\n",encoding="utf-8")
+    manifest={"schema_version":"2026-05-05.agentpress-gorilla-utility-pack.v1","canonical_url":urljoin(base,(outdir/"manifest.json").as_posix()),"generated_utc":_utc_now(),"status":"ready_not_sent","purpose":"Execute Jake's gorilla plan internally: package useful AgentPress artifacts for materials agents already inspect, without spam or unapproved external writes.","target_count":len(packs),"targets":[{"id":p["target"]["id"],"community":p["target"]["community"],"painpoint":p["target"]["painpoint"],"artifact":urljoin(base,p["target"]["artifact"]),"pack":urljoin(base,(outdir/f"{p['target']['id']}.json").as_posix())} for p in packs],"next_internal_commands":["python3 scripts/agentpress.py agent-community-newswire --json","python3 scripts/agentpress.py first-agent-attention-kit --json","python3 scripts/agentpress.py external-proof-intake status --json"],"external_execution_gate":"Human approval required before posting/sending/commenting externally."}
+    if not args.no_write:
+        outdir.mkdir(parents=True,exist_ok=True)
+        (outdir/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
+        (outdir/"README.md").write_text("# AgentPress Gorilla Utility Pack\n\nUtility-first packs for public agent-builder painpoints. External posting requires explicit approval.\n",encoding="utf-8")
+    print(json.dumps(manifest,indent=2) if args.json else f"{manifest['status']} {len(packs)} packs")
     return 0
 
 
@@ -9831,6 +9857,7 @@ def main():
     p = sub.add_parser("current-agent-places-map"); p.add_argument("--out", default="agentpress/community/current-agent-places-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attention-painpoint-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/attention-painpoint-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("first-agent-attention-kit"); p.add_argument("--out", default="agentpress/outreach/first-agent-attention-kit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("gorilla-utility-pack"); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("next-attention-build-spec"); p.add_argument("--out", default="agentpress/specs/next-attention-build-spec.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-community-newswire"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/agent-community-newswire.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("immediate-agent-needs-radar"); p.add_argument("--out", default="agentpress/community/immediate-agent-needs-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -10205,6 +10232,7 @@ def main():
     if args.cmd == "current-agent-places-map": return current_agent_places_map(args)
     if args.cmd == "attention-painpoint-radar": return attention_painpoint_radar(args)
     if args.cmd == "first-agent-attention-kit": return first_agent_attention_kit(args)
+    if args.cmd == "gorilla-utility-pack": return gorilla_utility_pack(args)
     if args.cmd == "next-attention-build-spec": return next_attention_build_spec(args)
     if args.cmd == "agent-community-newswire": return agent_community_newswire(args)
     if args.cmd == "immediate-agent-needs-radar": return immediate_agent_needs_radar(args)
