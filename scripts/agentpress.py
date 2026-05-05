@@ -63,8 +63,8 @@ AGENTPRESS_REQUIRED = REQUIRED + [
 ]
 
 CANONICAL_BASE_URL = "https://barneywohl.github.io/agentpress/"
-# Fallback only until Cloudflare Pages root 403 is repaired.
-FALLBACK_BASE_URL = "https://agentpress.pages.dev/"
+# No broken fallback advertised; keep fallback equal to canonical until another mirror is healthy.
+FALLBACK_BASE_URL = "https://barneywohl.github.io/agentpress/"
 SCHEMA_REL_ROOT = "agentpress/schemas"
 CONTRACT_SCHEMA_MAP = {
     "agent-task-card.json": "agent-task-card.schema.json",
@@ -2665,7 +2665,7 @@ def consumer_demo_pack(args):
 import json
 import urllib.request
 
-BASE = \"https://agentpress.pages.dev/\"
+BASE = \"https://barneywohl.github.io/agentpress/\"
 for rel in [\"llms.txt\", \".well-known/agentpress.json\", \".well-known/ai-ingestion.json\"]:
     url = BASE + rel
     req = urllib.request.Request(url, headers={\"User-Agent\": \"agentpress-demo/0.1\"})
@@ -2687,7 +2687,7 @@ python3 agentpress/demos/consumer/consumer_demo.py
 agentpress lint . --json
 ```
 
-Acceptance evidence: the script fetches `llms.txt`, `.well-known/agentpress.json`, and `.well-known/ai-ingestion.json` from `https://agentpress.pages.dev/`.
+Acceptance evidence: the script fetches `llms.txt`, `.well-known/agentpress.json`, and `.well-known/ai-ingestion.json` from `https://barneywohl.github.io/agentpress/`.
 """, encoding="utf-8")
     result = {"schema_version": "2026-05-04.agentpress-consumer-demo.v1", "status": "ok", "out": str(out), "files": [str(out / "consumer_demo.py"), str(out / "README.md")], "run": "python3 agentpress/demos/consumer/consumer_demo.py"}
     print(json.dumps(result, indent=2) if args.json else "ok " + str(out))
@@ -4617,7 +4617,7 @@ def release_candidate(args):
 def package_registry_fallback_installer(args):
     """Generate a copy-paste AgentPress installer with npm, PyPI, git, and static fallbacks."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
-    script='#!/usr/bin/env bash\nset -euo pipefail\nwant="${AGENTPRESS_VERSION:-0.1.0}"\necho "AgentPress fallback installer (target ${want})"\ntry_cmd() { echo "+ $*" >&2; "$@"; }\nif command -v npm >/dev/null 2>&1; then\n  if try_cmd npm install -g "@agent_press/agentpress@${want}"; then\n    agentpress --help >/dev/null && echo "installed via npm" && exit 0\n  fi\nfi\nif command -v python3 >/dev/null 2>&1; then\n  tmp="$(mktemp -d)"\n  if python3 -m venv "$tmp/venv" && "$tmp/venv/bin/python" -m pip install -q "agentpress-static==${want}"; then\n    "$tmp/venv/bin/agentpress" --help >/dev/null && echo "installed via PyPI venv: $tmp/venv/bin/agentpress" && exit 0\n  fi\nfi\nif command -v git >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1; then\n  dir="${AGENTPRESS_DIR:-$HOME/.agentpress-src}"\n  rm -rf "$dir"\n  git clone --depth 1 https://github.com/barneywohl/agentpress.git "$dir"\n  python3 "$dir/scripts/agentpress.py" doctor --json >/dev/null && echo "installed from git source: python3 $dir/scripts/agentpress.py" && exit 0\nfi\nif command -v curl >/dev/null 2>&1; then\n  tmp="$(mktemp -d)"\n  curl -fsSL https://agentpress.pages.dev/llms.txt -o "$tmp/llms.txt"\n  curl -fsSL https://agentpress.pages.dev/.well-known/agentpress.json -o "$tmp/agentpress.json"\n  test -s "$tmp/llms.txt" -a -s "$tmp/agentpress.json" && echo "static fallback fetched: $tmp" && exit 0\nfi\necho "AgentPress install failed across npm/PyPI/git/static fallbacks" >&2\nexit 1\n'
+    script='#!/usr/bin/env bash\nset -euo pipefail\nwant="${AGENTPRESS_VERSION:-0.1.0}"\necho "AgentPress fallback installer (target ${want})"\ntry_cmd() { echo "+ $*" >&2; "$@"; }\nif command -v npm >/dev/null 2>&1; then\n  if try_cmd npm install -g "@agent_press/agentpress@${want}"; then\n    agentpress --help >/dev/null && echo "installed via npm" && exit 0\n  fi\nfi\nif command -v python3 >/dev/null 2>&1; then\n  tmp="$(mktemp -d)"\n  if python3 -m venv "$tmp/venv" && "$tmp/venv/bin/python" -m pip install -q "agentpress-static==${want}"; then\n    "$tmp/venv/bin/agentpress" --help >/dev/null && echo "installed via PyPI venv: $tmp/venv/bin/agentpress" && exit 0\n  fi\nfi\nif command -v git >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1; then\n  dir="${AGENTPRESS_DIR:-$HOME/.agentpress-src}"\n  rm -rf "$dir"\n  git clone --depth 1 https://github.com/barneywohl/agentpress.git "$dir"\n  python3 "$dir/scripts/agentpress.py" doctor --json >/dev/null && echo "installed from git source: python3 $dir/scripts/agentpress.py" && exit 0\nfi\nif command -v curl >/dev/null 2>&1; then\n  tmp="$(mktemp -d)"\n  curl -fsSL https://barneywohl.github.io/agentpress/llms.txt -o "$tmp/llms.txt"\n  curl -fsSL https://barneywohl.github.io/agentpress/.well-known/agentpress.json -o "$tmp/agentpress.json"\n  test -s "$tmp/llms.txt" -a -s "$tmp/agentpress.json" && echo "static fallback fetched: $tmp" && exit 0\nfi\necho "AgentPress install failed across npm/PyPI/git/static fallbacks" >&2\nexit 1\n'
     payload={"schema_version":"2026-05-04.agentpress-package-registry-fallback-installer.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give first agent users a copy-paste installer that survives npm/PyPI/registry/region failures.","install_order":["npm @agent_press/agentpress","PyPI agentpress-static isolated venv","GitHub source checkout","static llms/agentpress JSON fetch"],"script_path":str(out),"usage":["bash agentpress/install/install-agentpress.sh","AGENTPRESS_VERSION=0.1.0 bash agentpress/install/install-agentpress.sh"],"script_sha256":hashlib.sha256(script.encode()).hexdigest(),"privacy":"No telemetry, no secrets, no account login."}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(script,encoding="utf-8"); os.chmod(out,0o755)

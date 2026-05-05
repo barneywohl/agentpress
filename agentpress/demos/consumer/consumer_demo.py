@@ -3,7 +3,7 @@
 import json
 import urllib.request
 
-BASE = "https://agentpress.pages.dev/"
+BASE = "https://barneywohl.github.io/agentpress/"
 for rel in ["llms.txt", ".well-known/agentpress.json", ".well-known/ai-ingestion.json"]:
     url = BASE + rel
     req = urllib.request.Request(url, headers={"User-Agent": "agentpress-demo/0.1"})

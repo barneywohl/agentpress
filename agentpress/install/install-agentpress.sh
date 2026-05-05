@@ -22,8 +22,8 @@ if command -v git >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1; then
 fi
 if command -v curl >/dev/null 2>&1; then
   tmp="$(mktemp -d)"
-  curl -fsSL https://agentpress.pages.dev/llms.txt -o "$tmp/llms.txt"
-  curl -fsSL https://agentpress.pages.dev/.well-known/agentpress.json -o "$tmp/agentpress.json"
+  curl -fsSL https://barneywohl.github.io/agentpress/llms.txt -o "$tmp/llms.txt"
+  curl -fsSL https://barneywohl.github.io/agentpress/.well-known/agentpress.json -o "$tmp/agentpress.json"
   test -s "$tmp/llms.txt" -a -s "$tmp/agentpress.json" && echo "static fallback fetched: $tmp" && exit 0
 fi
 echo "AgentPress install failed across npm/PyPI/git/static fallbacks" >&2

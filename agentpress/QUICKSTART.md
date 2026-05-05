@@ -5,7 +5,7 @@ AgentPress makes any repo readable by agents in minutes.
 ## Install
 
 ```bash
-npx agentpress doctor --json
+npx @agent_press/agentpress doctor --json
 # or, after PyPI is live:
 pip install agentpress
 agentpress doctor --json

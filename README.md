@@ -66,7 +66,7 @@ This writes `doctor.json`, `first-run-wizard.json`, `self-test.jsonl`, `landing-
 ## Current live endpoints
 
 - Site: https://barneywohl.github.io/agentpress/
-- Fallback mirror: https://agentpress.pages.dev/
+- Cloudflare mirror: pending; canonical live base is https://barneywohl.github.io/agentpress/
 - npm: https://www.npmjs.com/package/@agent_press/agentpress
 - PyPI: https://pypi.org/project/agentpress-static/
 - Security/disclosure: `SECURITY.md`

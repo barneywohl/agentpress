@@ -22,7 +22,7 @@ agentpress consistency-check --json
 
 ```bash
 npm install .
-npx agentpress doctor --json
+npx @agent_press/agentpress doctor --json
 ```
 
 ## No-install fallback

@@ -7,4 +7,4 @@ python3 agentpress/demos/consumer/consumer_demo.py
 agentpress lint . --json
 ```
 
-Acceptance evidence: the script fetches `llms.txt`, `.well-known/agentpress.json`, and `.well-known/ai-ingestion.json` from `https://agentpress.pages.dev/`.
+Acceptance evidence: the script fetches `llms.txt`, `.well-known/agentpress.json`, and `.well-known/ai-ingestion.json` from `https://barneywohl.github.io/agentpress/`.

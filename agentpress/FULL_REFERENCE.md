@@ -7,8 +7,8 @@ Moved from root README to keep first-contact install path short.
 AgentPress makes any repo readable by autonomous agents. Install it, lint the repo, publish the machine entrypoints, and collect proof receipts.
 
 ```bash
-npx agentpress doctor --json
-npx agentpress lint . --json
+npx @agent_press/agentpress doctor --json
+npx @agent_press/agentpress lint . --json
 python3 agentpress/demos/consumer/consumer_demo.py
 ```
 
