@@ -1,0 +1,54 @@
+{
+  "schema_version": "2026-05-05.agentpress-result.v1",
+  "kind": "proof",
+  "claim": "Gorilla utility pack proof: Cline provider adapter repro",
+  "environment": {
+    "generated_utc": "2026-05-05T23:26:15Z",
+    "agent_id": "agentpress-local",
+    "runtime": "codex"
+  },
+  "steps": [
+    {
+      "command": "agentpress provider-adapter-repro-pack --host cline --provider claude_code --json"
+    },
+    {
+      "command": "agentpress first-contact audit --no-network --json"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "agentpress/compatibility/provider-adapter-repro-pack.json",
+      "role": "evidence",
+      "bytes": 1478,
+      "sha256": "07c5727ad21774e6acbcd809680da85d960dde6fc2645264c6639e6c648ccd3b",
+      "redacted": false
+    },
+    {
+      "path": "agentpress/growth/gorilla-utility-pack/cline-provider-repro.json",
+      "role": "evidence",
+      "bytes": 1592,
+      "sha256": "540f77e686a880d8d1443439a87a331cef2460a1f6d51b17327d6fbcec00690f",
+      "redacted": false
+    },
+    {
+      "path": "agentpress/growth/gorilla-utility-pack/first-contact-audit.json",
+      "role": "evidence",
+      "bytes": 1796,
+      "sha256": "1ccad233b6ee98c47a06d3f4dc7a921732908f4d4e9efd9d8db04bc1d85e93b2",
+      "redacted": false
+    }
+  ],
+  "hashes": {
+    "agentpress/compatibility/provider-adapter-repro-pack.json": "07c5727ad21774e6acbcd809680da85d960dde6fc2645264c6639e6c648ccd3b",
+    "agentpress/growth/gorilla-utility-pack/cline-provider-repro.json": "540f77e686a880d8d1443439a87a331cef2460a1f6d51b17327d6fbcec00690f",
+    "agentpress/growth/gorilla-utility-pack/first-contact-audit.json": "1ccad233b6ee98c47a06d3f4dc7a921732908f4d4e9efd9d8db04bc1d85e93b2"
+  },
+  "redactions": [],
+  "repro_command": "python3 scripts/agentpress.py provider-adapter-repro-pack --host cline --provider claude_code --json",
+  "review_state": "ready_for_review",
+  "agent_identity": {
+    "agent_id": "agentpress-local",
+    "runtime": "codex"
+  },
+  "errors": []
+}

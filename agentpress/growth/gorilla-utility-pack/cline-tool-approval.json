@@ -1,7 +1,7 @@
 {
-  "schema_version": "2026-05-05.agentpress-gorilla-utility-target.v1",
+  "schema_version": "2026-05-05.agentpress-gorilla-utility-target.v2",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/cline-tool-approval.json",
-  "generated_utc": "2026-05-05T21:19:39Z",
+  "generated_utc": "2026-05-05T23:54:57Z",
   "status": "ready_not_sent",
   "target": {
     "id": "cline-tool-approval",
@@ -11,16 +11,25 @@
     "command": "python3 scripts/agentpress.py approval-bypass-risk-check --json",
     "utility": "Attach a fail-closed approval/tool-call risk receipt to existing issues."
   },
+  "install_run_proof_flow": {
+    "run_command": "python3 scripts/agentpress.py approval-bypass-risk-check --json",
+    "first_contact_audit": "python3 scripts/agentpress.py first-contact audit --no-network --json",
+    "result_finalize": "python3 scripts/agentpress.py result finalize --kind proof --claim 'cline-tool-approval utility pack ran locally' --file agentpress/security/approval-bypass-risk-result.json --step 'python3 scripts/agentpress.py approval-bypass-risk-check --json' --out agentpress/growth/gorilla-utility-pack/receipts/cline-tool-approval-result.json --json",
+    "result_validate": "python3 scripts/agentpress.py result validate agentpress/growth/gorilla-utility-pack/receipts/cline-tool-approval-result.json --strict --json",
+    "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/cline-tool-approval-result.json"
+  },
   "rules": [
     "Only use where the painpoint is already being discussed.",
     "Lead with the utility command/artifact, not marketing.",
     "No mass posting, fake adoption, scraped DMs, secrets, or private prompts.",
     "Any external post/send requires explicit human approval."
   ],
-  "comment_template": "I made this as a small machine-checkable utility for this exact issue class: `python3 scripts/agentpress.py approval-bypass-risk-check --json`. It emits `https://barneywohl.github.io/agentpress/agentpress/security/approval-bypass-risk-result.json` so maintainers can inspect a concrete receipt/repro instead of a vague claim.",
+  "comment_template": "I made this as a small machine-checkable utility for this exact issue class: `python3 scripts/agentpress.py approval-bypass-risk-check --json`. It emits `https://barneywohl.github.io/agentpress/agentpress/security/approval-bypass-risk-result.json` and a local result receipt so maintainers can inspect a concrete repro/proof instead of a vague claim.",
   "proof_loop": [
-    "run command locally",
-    "attach sanitized JSON if relevant",
+    "run utility command locally",
+    "run first-contact audit",
+    "finalize + validate result receipt",
+    "attach sanitized JSON only if relevant and approved",
     "if someone replies, ingest via external-proof-intake",
     "convert blocker to backlog"
   ]

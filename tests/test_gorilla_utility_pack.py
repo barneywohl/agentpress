@@ -12,18 +12,23 @@ def test_gorilla_utility_pack_generates_target_packs(tmp_path):
     cp = run_cli("gorilla-utility-pack", "--out", str(out), "--json")
     assert cp.returncode == 0
     payload = json.loads(cp.stdout)
-    assert payload["schema_version"] == "2026-05-05.agentpress-gorilla-utility-pack.v1"
+    assert payload["schema_version"] == "2026-05-05.agentpress-gorilla-utility-pack.v2"
     assert payload["status"] == "ready_not_sent"
     assert payload["target_count"] >= 5
     assert "Human approval required" in payload["external_execution_gate"]
+    assert payload["canonical_flow"][-1].startswith("submit/attach only")
     assert (out / "manifest.json").exists()
     for target in payload["targets"]:
         pack = out / f"{target['id']}.json"
         assert pack.exists()
         data = json.loads(pack.read_text())
+        assert data["schema_version"].endswith("agentpress-gorilla-utility-target.v2")
         assert data["status"] == "ready_not_sent"
         assert any("not marketing" in rule for rule in data["rules"])
-        assert "external-proof-intake" in " ".join(data["proof_loop"])
+        assert "first-contact audit" in " ".join(data["proof_loop"])
+        assert "result_validate" in data["install_run_proof_flow"]
+    llama = json.loads((out / "llamaindex-rag-safety.json").read_text())
+    assert llama["target"]["artifact"] == "agentpress/safety/rag-tool-safety-bundle.json"
 
 
 def test_gorilla_utility_pack_no_write(tmp_path):

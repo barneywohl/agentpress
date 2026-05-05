@@ -11,16 +11,28 @@ def run_cmd(*args):
     return subprocess.run(["python3", str(_SCRIPT), *args], cwd=_ROOT, text=True, capture_output=True, check=False)
 
 
-def test_release_promote_checklist_blocks_without_external_proof_no_network(tmp_path):
+def test_release_promote_checklist_reports_external_proof_as_advisory_by_default(tmp_path):
     out = tmp_path / "promote.json"
     res = run_cmd("release-promote-checklist", ".", "--no-network", "--out", str(out), "--json")
     assert res.returncode == 0
     data = json.loads(res.stdout)
-    assert data["status"] == "blocked"
+    assert data["status"] == "pass"
     checks = {c["name"]: c for c in data["checks"]}
     assert "independent_external_proof" in checks
-    assert checks["independent_external_proof"]["status"] == "blocked"
-    assert data["promotion_allowed"] is False
+    assert checks["independent_external_proof"]["status"] == "needs_review"
+    assert checks["independent_external_proof"]["required"] is False
+    assert data["promotion_allowed"] is True
+
+
+def test_release_promote_checklist_enforces_external_proof_when_requested(tmp_path):
+    out = tmp_path / "promote-enforced.json"
+    res = run_cmd("release-promote-checklist", ".", "--no-network", "--out", str(out), "--json", "--strict", "--enforce-review-gates")
+    assert res.returncode == 1
+    data = json.loads(res.stdout)
+    assert data["status"] == "blocked"
+    checks = {c["name"]: c for c in data["checks"]}
+    assert checks["independent_external_proof"]["required"] is True
+    assert "independent_external_proof" in data["blocking_checks"]
 
 
 def test_context_package_init_writes_focused_root(tmp_path):

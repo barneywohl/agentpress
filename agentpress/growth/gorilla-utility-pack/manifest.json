@@ -1,7 +1,7 @@
 {
-  "schema_version": "2026-05-05.agentpress-gorilla-utility-pack.v1",
+  "schema_version": "2026-05-05.agentpress-gorilla-utility-pack.v2",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/manifest.json",
-  "generated_utc": "2026-05-05T21:19:39Z",
+  "generated_utc": "2026-05-05T23:54:57Z",
   "status": "ready_not_sent",
   "purpose": "Execute Jake's gorilla plan internally: package useful AgentPress artifacts for materials agents already inspect, without spam or unapproved external writes.",
   "target_count": 5,
@@ -11,40 +11,52 @@
       "community": "Cline/MCP users",
       "painpoint": "approval safety + provider tool mismatch",
       "artifact": "https://barneywohl.github.io/agentpress/agentpress/security/approval-bypass-risk-result.json",
-      "pack": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/cline-tool-approval.json"
+      "pack": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/cline-tool-approval.json",
+      "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/cline-tool-approval-result.json"
     },
     {
       "id": "cline-provider-repro",
       "community": "Cline/provider adapters",
       "painpoint": "execute_command/write_to_file vocabulary mismatch",
       "artifact": "https://barneywohl.github.io/agentpress/agentpress/compatibility/provider-adapter-repro-pack.json",
-      "pack": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/cline-provider-repro.json"
+      "pack": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/cline-provider-repro.json",
+      "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/cline-provider-repro-result.json"
     },
     {
       "id": "langgraph-checkpoint-replay",
       "community": "LangChain/LangGraph",
       "painpoint": "stale checkpoint/structured_response state",
       "artifact": "https://barneywohl.github.io/agentpress/agentpress/repro/checkpoint-replay-minimal-repro.json",
-      "pack": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/langgraph-checkpoint-replay.json"
+      "pack": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/langgraph-checkpoint-replay.json",
+      "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/langgraph-checkpoint-replay-result.json"
     },
     {
       "id": "llamaindex-rag-safety",
       "community": "LlamaIndex/RAG builders",
       "painpoint": "file metadata + tool schema safety",
-      "artifact": "https://barneywohl.github.io/agentpress/agentpress/rag/rag-tool-safety-bundle.json",
-      "pack": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/llamaindex-rag-safety.json"
+      "artifact": "https://barneywohl.github.io/agentpress/agentpress/safety/rag-tool-safety-bundle.json",
+      "pack": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/llamaindex-rag-safety.json",
+      "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/llamaindex-rag-safety-result.json"
     },
     {
       "id": "openhands-runtime-hang",
       "community": "OpenHands/Roo/browser agents",
       "painpoint": "runtime/browser/terminal hangs",
       "artifact": "https://barneywohl.github.io/agentpress/agentpress/repro/runtime-hang-repro-capsule.json",
-      "pack": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/openhands-runtime-hang.json"
+      "pack": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/openhands-runtime-hang.json",
+      "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/openhands-runtime-hang-result.json"
     }
   ],
+  "canonical_flow": [
+    "pick painpoint-matched pack",
+    "run utility command",
+    "run first-contact audit",
+    "finalize + validate result receipt",
+    "submit/attach only with human approval"
+  ],
   "next_internal_commands": [
-    "python3 scripts/agentpress.py agent-community-newswire --json",
-    "python3 scripts/agentpress.py first-agent-attention-kit --json",
+    "python3 scripts/agentpress.py gorilla-utility-pack --json",
+    "python3 scripts/agentpress.py first-contact audit --no-network --json",
     "python3 scripts/agentpress.py external-proof-intake status --json"
   ],
   "external_execution_gate": "Human approval required before posting/sending/commenting externally."

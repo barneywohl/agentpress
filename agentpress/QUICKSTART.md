@@ -36,6 +36,35 @@ Requires human approval: external posts, package publishing, production deploys,
 
 Prohibited: secret exfiltration, deceptive tracking, spam, bypassing paywalls/captchas/2FA, impersonation.
 
+## High-signal workflows
+
+Utility packs for agent-builder painpoints; local only, no external posting:
+
+```bash
+python3 scripts/agentpress.py gorilla-utility-pack --json
+```
+
+Native adapter packs and checks:
+
+```bash
+python3 scripts/agentpress.py native-adapter-kit --target all --json
+python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json
+```
+
+Large-repo context package / handoff root:
+
+```bash
+python3 scripts/agentpress.py context-package-init . --out agentpress/context/handoff-root --json
+python3 scripts/agentpress.py handoff-root-pick . --out agentpress/context/handoff-root --json
+```
+
+Release/doc gates:
+
+```bash
+python3 scripts/agentpress.py docs-command-check --json
+python3 scripts/agentpress.py release-promote-checklist --no-network --no-write --json --strict
+```
+
 ## Consumer demo
 
 ```bash

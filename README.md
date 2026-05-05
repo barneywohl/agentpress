@@ -69,6 +69,36 @@ python3 agentpress/demos/consumer/consumer_demo.py
 
 AgentPress also supports `landing-receipt` proof receipts for adoption evidence. Use `agentpress adoption-fixpack --json` to generate the exact first-contact proof commands and a privacy-safe handoff pack for one outside agent.
 
+## High-signal agent workflows
+
+Generate utility-first packs for real agent-builder painpoints, without posting anywhere:
+
+```bash
+python3 scripts/agentpress.py gorilla-utility-pack --json
+python3 scripts/agentpress.py gorilla-utility-pack --no-write --json
+```
+
+Build/check native adapter packs for Cline, Roo, OpenHands, MCP, LangChain, LlamaIndex, and CrewAI:
+
+```bash
+python3 scripts/agentpress.py native-adapter-kit --target all --json
+python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json
+```
+
+Create a compact context package or handoff root when the full repo is too large for an agent turn:
+
+```bash
+python3 scripts/agentpress.py context-package-init . --out agentpress/context/handoff-root --json
+python3 scripts/agentpress.py handoff-root-pick . --out agentpress/context/handoff-root --json
+```
+
+Before any release promotion, keep proof/release gates explicit:
+
+```bash
+python3 scripts/agentpress.py docs-command-check --json
+python3 scripts/agentpress.py release-promote-checklist --no-network --no-write --json --strict
+```
+
 For a clean external proof bundle, run:
 
 ```bash

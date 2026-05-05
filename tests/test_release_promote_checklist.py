@@ -11,21 +11,33 @@ def run_cli(*args):
     )
 
 
-def test_release_promote_checklist_strict_is_fail_closed_without_required_proofs():
+def test_release_promote_checklist_strict_allows_advisory_review_gates_by_default():
     cp = run_cli("release-promote-checklist", "--no-network", "--no-write", "--json", "--strict")
-    assert cp.returncode == 1
+    assert cp.returncode == 0
     payload = json.loads(cp.stdout)
     assert payload["schema_version"] == "2026-05-05.agentpress-release-promote-checklist.v1"
-    assert payload["status"] == "blocked"
-    assert payload["promotion_allowed"] is False
-    assert payload["decision"].startswith("Do not promote rc to latest")
-    assert "independent_external_proof" in payload["blocking_checks"]
+    assert payload["status"] == "pass"
+    assert payload["promotion_allowed"] is True
+    assert payload["review_gates_enforced"] is False
+    assert "independent_external_proof" not in payload["blocking_checks"]
     checks = {check["name"]: check for check in payload["checks"]}
     assert checks["cli_gap_audit"]["status"] == "pass"
     assert checks["tool_contract_check"]["status"] == "pass"
     assert checks["no_python_fallback_check"]["status"] == "pass"
     assert checks["npm_package_budget"]["status"] == "pass"
+    assert checks["independent_external_proof"]["required"] is False
+    assert checks["rflo_review"]["required"] is False
     assert "size=" in checks["npm_package_budget"]["detail"]
+
+
+def test_release_promote_checklist_can_enforce_review_gates_for_stable_promotion():
+    cp = run_cli("release-promote-checklist", "--no-network", "--no-write", "--json", "--strict", "--enforce-review-gates")
+    assert cp.returncode == 1
+    payload = json.loads(cp.stdout)
+    assert payload["status"] == "blocked"
+    assert payload["review_gates_enforced"] is True
+    assert "independent_external_proof" in payload["blocking_checks"]
+    assert "rflo_review" in payload["blocking_checks"]
 
 
 def test_release_promote_checklist_blocks_oversized_npm_package_budget():
@@ -51,7 +63,7 @@ def test_release_promote_checklist_no_network_skips_live_registry_probe():
     payload = json.loads(cp.stdout)
     check_names = {check["name"] for check in payload["checks"]}
     assert "npm_dist_tags" not in check_names
-    assert payload["promotion_allowed"] is False
+    assert payload["promotion_allowed"] is True
 
 
 def test_release_promote_checklist_writes_evidence_bundle(tmp_path):
@@ -76,8 +88,13 @@ def test_release_promote_checklist_verify_bundle_fails_missing_or_blocked(tmp_pa
     bundle = tmp_path / "bundle"
     run_cli("release-promote-checklist", "--no-network", "--json", "--evidence-bundle-out", str(bundle))
     verify = run_cli("release-promote-checklist", "--verify-bundle", str(bundle), "--no-write", "--json", "--strict")
-    assert verify.returncode == 1
+    assert verify.returncode == 0
     payload = json.loads(verify.stdout)
+    assert payload["status"] == "pass"
+
+    verify_enforced = run_cli("release-promote-checklist", "--verify-bundle", str(bundle), "--no-write", "--json", "--strict", "--enforce-review-gates")
+    assert verify_enforced.returncode == 1
+    payload = json.loads(verify_enforced.stdout)
     assert payload["status"] == "blocked"
     assert "independent_external_proof" in payload["blocking_checks"]
     assert "rflo_review" in payload["blocking_checks"]

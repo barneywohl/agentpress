@@ -1,0 +1,54 @@
+{
+  "schema_version": "2026-05-05.agentpress-result.v1",
+  "kind": "proof",
+  "claim": "Gorilla utility pack proof: Cline/MCP approval safety",
+  "environment": {
+    "generated_utc": "2026-05-05T23:26:14Z",
+    "agent_id": "agentpress-local",
+    "runtime": "codex"
+  },
+  "steps": [
+    {
+      "command": "agentpress approval-bypass-risk-check --json"
+    },
+    {
+      "command": "agentpress first-contact audit --no-network --json"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "agentpress/security/approval-bypass-risk-result.json",
+      "role": "evidence",
+      "bytes": 417,
+      "sha256": "15df73d086774634d31cf6884b8dccc915a85c8708acd81302a71e88b6ccc63e",
+      "redacted": false
+    },
+    {
+      "path": "agentpress/growth/gorilla-utility-pack/cline-tool-approval.json",
+      "role": "evidence",
+      "bytes": 1489,
+      "sha256": "90cc6f1ce66fc70a10cfe0bddfac1323f7ad21491d469e7dcb0b984bafb9cb44",
+      "redacted": false
+    },
+    {
+      "path": "agentpress/growth/gorilla-utility-pack/first-contact-audit.json",
+      "role": "evidence",
+      "bytes": 1796,
+      "sha256": "1ccad233b6ee98c47a06d3f4dc7a921732908f4d4e9efd9d8db04bc1d85e93b2",
+      "redacted": false
+    }
+  ],
+  "hashes": {
+    "agentpress/security/approval-bypass-risk-result.json": "15df73d086774634d31cf6884b8dccc915a85c8708acd81302a71e88b6ccc63e",
+    "agentpress/growth/gorilla-utility-pack/cline-tool-approval.json": "90cc6f1ce66fc70a10cfe0bddfac1323f7ad21491d469e7dcb0b984bafb9cb44",
+    "agentpress/growth/gorilla-utility-pack/first-contact-audit.json": "1ccad233b6ee98c47a06d3f4dc7a921732908f4d4e9efd9d8db04bc1d85e93b2"
+  },
+  "redactions": [],
+  "repro_command": "python3 scripts/agentpress.py approval-bypass-risk-check --json",
+  "review_state": "ready_for_review",
+  "agent_identity": {
+    "agent_id": "agentpress-local",
+    "runtime": "codex"
+  },
+  "errors": []
+}

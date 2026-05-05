@@ -1,16 +1,80 @@
 {
   "schema_version": "2026-05-03.agentpress-docs-command-check.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/evidence/docs-command-check.json",
-  "generated_utc": "2026-05-05T16:54:28Z",
+  "generated_utc": "2026-05-05T23:30:42Z",
   "status": "ok",
-  "checked": 507,
+  "checked": 515,
   "failed": 0,
-  "commands_known": 278,
+  "commands_known": 294,
   "results": [
     {
       "path": "README.md",
       "command": "python3 scripts/agentpress.py doctor --json",
       "cmd": "doctor",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py gorilla-utility-pack --json",
+      "cmd": "gorilla-utility-pack",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py gorilla-utility-pack --no-write --json",
+      "cmd": "gorilla-utility-pack",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py native-adapter-kit --target all --json",
+      "cmd": "native-adapter-kit",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json",
+      "cmd": "native-adapter-check",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py context-package-init . --out agentpress/context/handoff-root --json",
+      "cmd": "context-package-init",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py handoff-root-pick . --out agentpress/context/handoff-root --json",
+      "cmd": "handoff-root-pick",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py docs-command-check --json",
+      "cmd": "docs-command-check",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "README.md",
+      "command": "python3 scripts/agentpress.py release-promote-checklist --no-network --no-write --json --strict",
+      "cmd": "release-promote-checklist",
       "status": "ok",
       "errors": [],
       "warnings": []
@@ -3982,72 +4046,6 @@
       "status": "ok",
       "errors": [],
       "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_MISSION_COCKPIT_OBSERVABILITY_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py loop-guard-kit --json",
-      "cmd": "loop-guard-kit",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_MISSION_COCKPIT_OBSERVABILITY_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py mission-cockpit --json",
-      "cmd": "mission-cockpit",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_BROWSER_SMOKE_EVIDENCE_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py browser-smoke --json --require-json",
-      "cmd": "browser-smoke",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_PACKAGE_REGISTRY_PLAN_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py package-registry-plan --json",
-      "cmd": "package-registry-plan",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_IDENTITY_REPRO_BUNDLE_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py agent-identity-card --json",
-      "cmd": "agent-identity-card",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_IDENTITY_REPRO_BUNDLE_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py environment-fingerprint --json",
-      "cmd": "environment-fingerprint",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_IDENTITY_REPRO_BUNDLE_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py repro-bundle --json",
-      "cmd": "repro-bundle",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_STRICT_SCHEMA_VALIDATION_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py schema-validate <file> --schema <schema-name-or-file> --json",
-      "cmd": "schema-validate",
-      "status": "ok",
-      "errors": [],
-      "warnings": [
-        "contains placeholder; parser execution skipped"
-      ]
     }
   ],
   "principle": "Documented commands must not drift from parser command names or obvious flags."

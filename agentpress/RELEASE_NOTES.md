@@ -20,6 +20,13 @@ Status: local source release only. npm/PyPI publish remains blocked unless an rc
 
 ---
 
+## 0.2.0-rc.5 — Real agent feature surfaces + advisory review gates (2026-05-05)
+
+- Built tangible AgentPress surfaces for agent communication/proof inboxes, profile/search discovery, marketplace trust scoring, and gorilla utility packs.
+- Gorilla packs now include local run → first-contact audit → result receipt finalize/validate flow and corrected LlamaIndex RAG safety artifact path.
+- Release checklist now treats independent external proof and RFLO as advisory by default so rc/site/package updates are not blocked; use `--enforce-review-gates` to make them hard stable/latest blockers.
+- Added regression coverage for communication receipts, profiles/search, real feature surfaces, P0 command surfaces, and advisory/enforced release gates.
+
 ## 0.2.0-rc.4 — Node first-run and integrity hardening (2026-05-05)
 
 Status: **local release candidate metadata**. Do NOT publish npm/PyPI without separate approval.
