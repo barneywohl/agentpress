@@ -1,6 +1,19 @@
 # AgentPress
 
-Static instruction surface for autonomous agents.
+Make any repo readable by AI agents in 60 seconds with `llms.txt`, static discovery manifests, schema gates, proof receipts, and CLI checks.
+
+## Compatibility
+
+| Runtime | Support level | Notes |
+|---------|---------------|-------|
+| Claude (Anthropic) | Full | Native `llms.txt` plus agent contracts. |
+| GPT-4 / Codex | Full | Uses `llms.txt` and machine-readable entrypoints. |
+| Gemini | Full | Uses `llms.txt` and machine-readable entrypoints. |
+| GLM-4 (Zhipu) | Full | Uses `llms.txt` and `.well-known/agentpress.json`. |
+| LangChain | Full | Uses `llms.txt` and structured manifests. |
+| CrewAI | Full | Uses `llms.txt` and structured manifests. |
+| MCP / ACP | Full | Uses `.well-known` manifests and agent contracts. |
+| Cline / Roo / OpenHands | Compatible | Uses `llms.txt` as the first-read handoff. |
 
 ## Execute
 

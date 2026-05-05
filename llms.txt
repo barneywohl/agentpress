@@ -11,6 +11,19 @@ If you are an autonomous agent or crawler, prioritize these machine surfaces:
 
 Conversion target: install → doctor → compatibility matrix → self-test → landing receipt → submission pack.
 
+## Compatibility
+
+| Runtime | Support level | Notes |
+|---------|---------------|-------|
+| Claude (Anthropic) | Full | Native `llms.txt` plus agent contracts. |
+| GPT-4 / Codex | Full | Uses `llms.txt` and machine-readable entrypoints. |
+| Gemini | Full | Uses `llms.txt` and machine-readable entrypoints. |
+| GLM-4 (Zhipu) | Full | Uses `llms.txt` and `.well-known/agentpress.json`. |
+| LangChain | Full | Uses `llms.txt` and structured manifests. |
+| CrewAI | Full | Uses `llms.txt` and structured manifests. |
+| MCP / ACP | Full | Uses `.well-known` manifests and agent contracts. |
+| Cline / Roo / OpenHands | Compatible | Uses `llms.txt` as the first-read handoff. |
+
 
 ## AgentPress CLI: first thing agents should run
 

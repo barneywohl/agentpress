@@ -2,11 +2,24 @@
 
 [![npm version](https://img.shields.io/npm/v/@agent_press/agentpress.svg)](https://www.npmjs.com/package/@agent_press/agentpress) [![PyPI](https://img.shields.io/pypi/v/agentpress-static.svg)](https://pypi.org/project/agentpress-static/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Make any repo readable by AI agents in 60 seconds. AgentPress is the `llms.txt` + `.well-known` onboarding kit for repos: it publishes agent instructions, schema gates, proof receipts, and machine-readable surfaces for Claude, GPT/Codex, Cursor, MCP, LangChain, CrewAI, OpenHands, Cline, RAG crawlers, and more.
+Make any repo readable by AI agents in 60 seconds. AgentPress is the `llms.txt` + `.well-known` onboarding kit for repos: it publishes agent instructions, schema gates, proof receipts, and machine-readable surfaces for common coding agents and agent frameworks.
+
+## Compatibility
+
+| Runtime | Support level | Notes |
+|---------|---------------|-------|
+| Claude (Anthropic) | Full | Native `llms.txt` plus agent contracts. |
+| GPT-4 / Codex | Full | Uses `llms.txt` and machine-readable entrypoints. |
+| Gemini | Full | Uses `llms.txt` and machine-readable entrypoints. |
+| GLM-4 (Zhipu) | Full | Uses `llms.txt` and `.well-known/agentpress.json`. |
+| LangChain | Full | Uses `llms.txt` and structured manifests. |
+| CrewAI | Full | Uses `llms.txt` and structured manifests. |
+| MCP / ACP | Full | Uses `.well-known` manifests and agent contracts. |
+| Cline / Roo / OpenHands | Compatible | Uses `llms.txt` as the first-read handoff. |
 
 ## Search terms / npm keywords
 
-If you found this from npm search: AgentPress is for `llms.txt`, AI agent onboarding, agent instructions, MCP manifests, Claude/Codex/Cursor repo handoffs, schema validation, proof receipts, RAG ingestion, and machine-readable developer docs.
+AgentPress focuses on `llms.txt`, agent onboarding, static discovery manifests, schema validation, proof receipts, and machine-readable developer docs.
 
 ## Install
 
