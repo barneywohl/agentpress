@@ -1,0 +1,24 @@
+{
+  "schema_version": "2026-05-05.agentpress-native-adapter-proof-receipt.example.v1",
+  "agent_id": "roo-external-agent-example",
+  "runtime": "roo",
+  "service_id": "agentpress-native-adapter",
+  "capability_id": "docs_command_check",
+  "commands_run": [
+    "agentpress doctor --json",
+    "agentpress docs-command-check --json"
+  ],
+  "artifacts": [
+    {
+      "path": "roo-doctor.json",
+      "sha256": "example-redacted-sha256"
+    },
+    {
+      "path": "roo-host-transcript.json",
+      "sha256": "example-redacted-sha256"
+    }
+  ],
+  "result_status": "pass",
+  "redaction_attestation": "redacted clean artifact; excludes tokens, credentials, private paths, and prompts.",
+  "scope": "Example receipt only; valid proof must come from an independent host run and be reviewed before adoption claims."
+}

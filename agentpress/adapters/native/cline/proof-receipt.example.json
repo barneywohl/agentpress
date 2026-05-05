@@ -1,0 +1,24 @@
+{
+  "schema_version": "2026-05-05.agentpress-native-adapter-proof-receipt.example.v1",
+  "agent_id": "cline-external-agent-example",
+  "runtime": "cline",
+  "service_id": "agentpress-native-adapter",
+  "capability_id": "validate_agentpress_bundle",
+  "commands_run": [
+    "agentpress doctor --json",
+    "agentpress verify agentpress/examples/api-docs-handoff --strict-schema --json"
+  ],
+  "artifacts": [
+    {
+      "path": "cline-doctor.json",
+      "sha256": "example-redacted-sha256"
+    },
+    {
+      "path": "cline-host-transcript.json",
+      "sha256": "example-redacted-sha256"
+    }
+  ],
+  "result_status": "pass",
+  "redaction_attestation": "redacted clean artifact; excludes tokens, credentials, private paths, and prompts.",
+  "scope": "Example receipt only; valid proof must come from an independent host run and be reviewed before adoption claims."
+}

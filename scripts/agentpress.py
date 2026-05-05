@@ -7690,13 +7690,15 @@ def native_adapter_kit(args):
 def native_adapter_check(args):
     root=pathlib.Path(args.dir); errors=[]; checked=0; targets=[]
     required_targets=["cline","roo","openhands","mcp","langchain","llamaindex","crewai"]
+    proof_required_targets={"cline","roo","openhands","mcp"}
+    proof_required_fields=["agent_id","runtime","service_id","capability_id","commands_run","artifacts","result_status","redaction_attestation"]
     if not root.exists():
         errors.append(f"adapter root missing: {root}")
     for target in required_targets:
         d=root/target
         if not d.exists() or not d.is_dir():
             errors.append(f"{target}: missing adapter dir"); continue
-        files=list(d.glob("*.json"))
+        files=[p for p in d.glob("*.json") if p.name not in {"proof-receipt.example.json", "host-transcript.template.json"}]
         if not files: errors.append(f"{target}: missing json config"); continue
         target_ok=True
         for f in files:
@@ -7711,6 +7713,18 @@ def native_adapter_check(args):
                     errors.append(f"{f}: required_agentpress_surfaces must be non-empty list/dict"); target_ok=False
                 if not isinstance(data.get("smoke_commands"), list) or not data.get("smoke_commands"):
                     errors.append(f"{f}: smoke_commands must be non-empty list"); target_ok=False
+                if target in proof_required_targets:
+                    for key in ["proof_receipt_example","host_transcript_template","proof_receipt_required_fields"]:
+                        if key not in data: errors.append(f"{f}: missing {key}"); target_ok=False
+                    if data.get("proof_receipt_required_fields") != proof_required_fields:
+                        errors.append(f"{f}: proof_receipt_required_fields mismatch"); target_ok=False
+                    for key in ["proof_receipt_example","host_transcript_template"]:
+                        value=data.get(key,"")
+                        if not isinstance(value,str) or not value.startswith("https://barneywohl.github.io/agentpress/"):
+                            errors.append(f"{f}: {key} must be canonical AgentPress URL"); target_ok=False
+                        else:
+                            local=pathlib.Path(value.replace("https://barneywohl.github.io/agentpress/", "", 1))
+                            if not local.exists(): errors.append(f"{f}: missing {key} file {local}"); target_ok=False
                 surface_values=list(surfaces.values()) if isinstance(surfaces,dict) else (surfaces if isinstance(surfaces,list) else [])
                 for rel in surface_values:
                     if isinstance(rel,str) and rel.startswith("agentpress/") and not pathlib.Path(rel).exists(): errors.append(f"{f}: missing surface {rel}"); target_ok=False

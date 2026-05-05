@@ -1,0 +1,24 @@
+{
+  "schema_version": "2026-05-05.agentpress-native-adapter-proof-receipt.example.v1",
+  "agent_id": "mcp-external-agent-example",
+  "runtime": "mcp",
+  "service_id": "agentpress-native-adapter",
+  "capability_id": "static_catalog_read",
+  "commands_run": [
+    "agentpress mcp-catalog --json",
+    "agentpress tool-contract-check --json"
+  ],
+  "artifacts": [
+    {
+      "path": "mcp-doctor.json",
+      "sha256": "example-redacted-sha256"
+    },
+    {
+      "path": "mcp-host-transcript.json",
+      "sha256": "example-redacted-sha256"
+    }
+  ],
+  "result_status": "pass",
+  "redaction_attestation": "redacted clean artifact; excludes tokens, credentials, private paths, and prompts.",
+  "scope": "Example receipt only; valid proof must come from an independent host run and be reviewed before adoption claims."
+}

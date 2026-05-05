@@ -17,5 +17,17 @@
     "agentpress docs-command-check --json",
     "agentpress verify agentpress/examples/api-docs-handoff --strict-schema --json"
   ],
-  "safety": "Follow approval gates before external effects; emit action ledger and proof receipts."
+  "safety": "Follow approval gates before external effects; emit action ledger and proof receipts.",
+  "proof_receipt_example": "https://barneywohl.github.io/agentpress/agentpress/adapters/native/cline/proof-receipt.example.json",
+  "host_transcript_template": "https://barneywohl.github.io/agentpress/agentpress/adapters/native/cline/host-transcript.template.json",
+  "proof_receipt_required_fields": [
+    "agent_id",
+    "runtime",
+    "service_id",
+    "capability_id",
+    "commands_run",
+    "artifacts",
+    "result_status",
+    "redaction_attestation"
+  ]
 }
