@@ -12,3 +12,4 @@ Why: Provider/host rejected a tool call or schema.
 Commands:
 - `python3 scripts/agentpress.py tool-vocabulary-compatibility-check --json`
 - `python3 scripts/agentpress.py tool-schema-serialization-check --json`
+- `python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json`

@@ -1,7 +1,7 @@
 {
   "schema_version": "2026-05-04.agentpress-provider-error-explainer.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/diagnostics/provider-error-explainer.json",
-  "generated_utc": "2026-05-04T05:55:47Z",
+  "generated_utc": "2026-05-05T15:01:43Z",
   "status": "ok",
   "provider": "anthropic",
   "error_sample": "429 rate_limit_exceeded while tool_use schema invalid",
@@ -24,7 +24,8 @@
       "why": "Provider/host rejected a tool call or schema.",
       "exact_commands": [
         "python3 scripts/agentpress.py tool-vocabulary-compatibility-check --json",
-        "python3 scripts/agentpress.py tool-schema-serialization-check --json"
+        "python3 scripts/agentpress.py tool-schema-serialization-check --json",
+        "python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json"
       ],
       "docs": [],
       "safe_to_retry": true

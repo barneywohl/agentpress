@@ -2653,6 +2653,7 @@ def tools_manifest(args):
         {"name":"agentpress.external_proof_inbox_review_flow", "description":"Review external proof inbox files for acceptance candidates and privacy redaction blockers.", "command":"python3 scripts/agentpress.py external-proof-inbox-review-flow --json", "tags":["proof","inbox","review","privacy","adoption"]},
         {"name":"agentpress.release_registry_readiness_dashboard", "description":"Build a static release/package-registry readiness dashboard for npm/PyPI/source/static lanes.", "command":"python3 scripts/agentpress.py release-registry-readiness-dashboard --json", "tags":["release","registry","npm","pypi","dashboard"]},
         {"name":"agentpress.tool_schema_serialization_check", "description":"Check tool schema metadata is JSON-serializable.", "command":"python3 scripts/agentpress.py tool-schema-serialization-check --json", "tags":["tools","schema","serialization","gate"]},
+        {"name":"agentpress.tool_contract_check", "description":"Validate MCP-style tool input/output schemas, structuredContent samples, and CLI JSON-output contracts.", "command":"python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json", "tags":["tools","mcp","schema","structured-content","gate"]},
         {"name":"agentpress.agent_community_channel_map", "description":"Map agent communities/channels to problem signals.", "command":"python3 scripts/agentpress.py agent-community-channel-map --json", "tags":["community","channels","research","agents"]},
         {"name":"agentpress.community_issue_radar", "description":"Compile community issue radar from public issue signals.", "command":"python3 scripts/agentpress.py community-issue-radar --json", "tags":["community","issues","radar","research"]},
         {"name":"agentpress.unsolved_agent_problem_backlog", "description":"Generate prioritized backlog from community issue radar.", "command":"python3 scripts/agentpress.py unsolved-agent-problem-backlog --json", "tags":["backlog","problems","features"]},
@@ -5045,7 +5046,7 @@ def provider_error_explainer(args):
     if any(x in low for x in ["401","unauthorized","invalid api key","authentication"]): add("provider_auth", "Provider rejected credentials; do not paste keys into logs.", ["printenv | grep -E 'OPENAI|ANTHROPIC|GEMINI|GOOGLE' | sed 's/=.*$/=<redacted>/'", "python3 scripts/agentpress.py secret-permission-preflight-run --json"], severity="P0")
     if any(x in low for x in ["429","rate limit","quota","insufficient_quota"]): add("rate_limit_or_quota", "Provider throttled or quota is exhausted.", ["sleep 60 && retry the previous command", "python3 scripts/agentpress.py budget-check --tier small --json"])
     if any(x in low for x in ["context_length","maximum context","too many tokens","context window"]): add("context_window", "Prompt or retrieved context exceeds model window.", ["python3 scripts/agentpress.py context-budget . --json", "python3 scripts/agentpress.py context-compaction-risk-card --json", "rerun with a smaller file set or summarize first"])
-    if any(x in low for x in ["tool_use","invalid tool","tool call","schema"]): add("tool_schema_or_vocabulary", "Provider/host rejected a tool call or schema.", ["python3 scripts/agentpress.py tool-vocabulary-compatibility-check --json", "python3 scripts/agentpress.py tool-schema-serialization-check --json"])
+    if any(x in low for x in ["tool_use","invalid tool","tool call","schema"]): add("tool_schema_or_vocabulary", "Provider/host rejected a tool call or schema.", ["python3 scripts/agentpress.py tool-vocabulary-compatibility-check --json", "python3 scripts/agentpress.py tool-schema-serialization-check --json", "python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json"])
     if any(x in low for x in ["module not found","modulenotfounderror","cannot find module","no module named"]): add("missing_dependency", "Runtime dependency is missing or installed in the wrong environment.", [f"python3 scripts/agentpress.py dependency-error-remediation-map --error {shlex.quote(error[:200])} --json", "python3 -m pip install -e ."])
     if any(x in low for x in ["eacces","permission denied","operation not permitted"]): add("permission_denied", "Host sandbox or filesystem denied the action.", ["python3 scripts/agentpress.py safety-preflight . --json", "python3 scripts/agentpress.py sandbox-guard --scope read-only --paths . --json", "rerun in an approved workspace path"])
     if any(x in low for x in ["mcp", "mcps"]) and any(x in low for x in ["config", "settings", "json", "server"]): add("mcp_config", "MCP config/settings need a static shape and env-value safety check before mutation.", ["python3 scripts/agentpress.py mcp-config-doctor --config <mcp-config.json> --json", "python3 scripts/agentpress.py mcp-config-mutation-guard --config-path <mcp-config.json> --backup --planned-servers <csv> --json"])
@@ -5298,6 +5299,262 @@ def tool_schema_serialization_check(args):
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else status)
     return 1 if args.strict and status=='fail' else 0
+
+def _tool_contract_builtin_manifest():
+    return {
+        "tools": [
+            {
+                "name": "agentpress.example_lookup",
+                "description": "Example MCP-style tool contract with explicit schemas.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {"query": {"type": "string", "minLength": 1}},
+                    "required": ["query"],
+                    "additionalProperties": False,
+                },
+                "outputSchema": {
+                    "type": "object",
+                    "properties": {"answer": {"type": "string"}, "source_count": {"type": "integer"}},
+                    "required": ["answer", "source_count"],
+                    "additionalProperties": False,
+                },
+                "exampleResult": {
+                    "content": [{"type": "text", "text": "{\"answer\":\"ok\",\"source_count\":1}"}],
+                    "structuredContent": {"answer": "ok", "source_count": 1},
+                },
+            }
+        ]
+    }
+
+
+def _tool_contract_load_json(path, findings, label):
+    if not path:
+        return None
+    p = pathlib.Path(path).expanduser()
+    if _is_sensitive_path(p):
+        findings.append({
+            "code": f"{label}_sensitive_path_refused",
+            "status": "fail_closed",
+            "severity": "P0",
+            "path": str(p),
+            "message": f"refusing to read sensitive {label} path",
+            "no_secret_read": True,
+        })
+        return None
+    if not p.exists():
+        findings.append({
+            "code": f"{label}_missing",
+            "status": "fail",
+            "severity": "P0",
+            "path": str(p),
+            "message": f"{label} file does not exist",
+        })
+        return None
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except Exception as e:
+        findings.append({
+            "code": f"{label}_invalid_json",
+            "status": "fail",
+            "severity": "P0",
+            "path": str(p),
+            "message": f"{label} JSON parse failed: {e}",
+        })
+        return None
+
+
+def _tool_contract_tools(data):
+    if isinstance(data, list):
+        return [x for x in data if isinstance(x, dict)]
+    if not isinstance(data, dict):
+        return []
+    if isinstance(data.get("tools"), list):
+        return [x for x in data["tools"] if isinstance(x, dict)]
+    if isinstance(data.get("mcp_tools"), list):
+        return [x for x in data["mcp_tools"] if isinstance(x, dict)]
+    if data.get("name") or data.get("inputSchema") or data.get("command"):
+        return [data]
+    return []
+
+
+def _tool_contract_result_payload(tool, sample_data):
+    for key in ("exampleResult", "sampleResult", "result"):
+        if isinstance(tool.get(key), dict):
+            return tool[key]
+    if not isinstance(sample_data, dict):
+        return sample_data
+    name = tool.get("name")
+    if name and isinstance(sample_data.get(name), dict):
+        return sample_data[name]
+    if isinstance(sample_data.get("results"), dict) and name and isinstance(sample_data["results"].get(name), dict):
+        return sample_data["results"][name]
+    return sample_data
+
+
+def _tool_contract_structured_content(result):
+    if isinstance(result, dict) and isinstance(result.get("result"), dict):
+        result = result["result"]
+    if isinstance(result, dict):
+        for key in ("structuredContent", "structured_content"):
+            if key in result:
+                return result[key]
+    return result
+
+
+def _tool_contract_has_text_json_mirror(result):
+    if not isinstance(result, dict):
+        return False
+    if isinstance(result.get("result"), dict):
+        result = result["result"]
+    content = result.get("content")
+    if not isinstance(content, list):
+        return False
+    for item in content:
+        if not isinstance(item, dict) or item.get("type") != "text":
+            continue
+        text = item.get("text")
+        if not isinstance(text, str):
+            continue
+        try:
+            json.loads(text)
+            return True
+        except Exception:
+            pass
+    return False
+
+
+def tool_contract_check(args):
+    """Validate MCP-style and CLI-template tool contracts before agents invoke tools."""
+    out = pathlib.Path(args.out)
+    base = args.base_url.rstrip("/") + "/"
+    findings = []
+    manifest = _tool_contract_builtin_manifest()
+    source = "built_in_valid_example"
+    if args.manifest:
+        loaded = _tool_contract_load_json(args.manifest, findings, "manifest")
+        source = str(pathlib.Path(args.manifest).expanduser())
+        if loaded is not None:
+            manifest = loaded
+    sample_data = _tool_contract_load_json(args.sample_result, findings, "sample_result") if args.sample_result else None
+
+    tools = _tool_contract_tools(manifest)
+    if not tools and not findings:
+        findings.append({
+            "code": "no_tools_found",
+            "status": "fail",
+            "severity": "P0",
+            "message": "manifest must contain a tools array, mcp_tools array, or a single tool object",
+        })
+
+    rows = []
+
+    def add(tool_name, code, status, severity, message, remediation, field=""):
+        row = {
+            "tool": tool_name or "<unnamed>",
+            "code": code,
+            "status": status,
+            "severity": severity,
+            "message": message,
+            "remediation": remediation,
+        }
+        if field:
+            row["field"] = field
+        findings.append(row)
+
+    for i, tool in enumerate(tools):
+        name = tool.get("name") or tool.get("id") or ""
+        tool_mode = "mcp_schema" if any(k in tool for k in ("inputSchema", "outputSchema", "structuredContent", "structured_content", "exampleResult", "sampleResult")) else "cli_template"
+        row = {
+            "index": i,
+            "name": name or "<unnamed>",
+            "mode": tool_mode,
+            "has_input_schema": isinstance(tool.get("inputSchema"), dict),
+            "has_output_schema": isinstance(tool.get("outputSchema"), dict),
+            "has_structured_result_sample": False,
+        }
+        if not isinstance(name, str) or not name.strip():
+            add(name, "missing_tool_name", "fail", "P0", "tool name is required", "Add a stable unique name field to the tool contract.", "name")
+        if not isinstance(tool.get("description"), str) or not tool.get("description", "").strip():
+            add(name, "missing_description", "warn", "P1", "tool description is missing", "Add a concise description so agents know when to invoke the tool.", "description")
+
+        input_schema = tool.get("inputSchema")
+        if tool_mode == "mcp_schema":
+            if not isinstance(input_schema, dict):
+                add(name, "missing_input_schema", "fail", "P0", "MCP-style tools need an inputSchema object", 'Add `"inputSchema":{"type":"object","properties":{},"additionalProperties":false}`.', "inputSchema")
+            else:
+                try:
+                    json.dumps(input_schema)
+                except TypeError:
+                    add(name, "input_schema_not_serializable", "fail", "P0", "inputSchema is not JSON serializable", "Replace Python/callable objects with plain JSON Schema metadata.", "inputSchema")
+                if input_schema.get("type") != "object":
+                    add(name, "input_schema_not_object", "fail", "P0", "inputSchema.type should be object for tool arguments", 'Set `"inputSchema.type"` to `"object"` and put parameters under properties.', "inputSchema.type")
+                if "properties" not in input_schema:
+                    add(name, "input_schema_missing_properties", "warn", "P1", "inputSchema should include properties, even for zero-arg tools", 'Use `"properties": {}` for zero-argument tools.', "inputSchema.properties")
+            output_schema = tool.get("outputSchema")
+            result_payload = _tool_contract_result_payload(tool, sample_data)
+            structured = _tool_contract_structured_content(result_payload)
+            row["has_structured_result_sample"] = result_payload is not None
+            if isinstance(output_schema, dict):
+                try:
+                    json.dumps(output_schema)
+                except TypeError:
+                    add(name, "output_schema_not_serializable", "fail", "P0", "outputSchema is not JSON serializable", "Replace framework objects with plain JSON Schema.", "outputSchema")
+                if output_schema.get("type") != "object":
+                    add(name, "output_schema_not_object", "warn", "P1", "outputSchema.type should usually be object for structuredContent", 'Use an object outputSchema whose required fields mirror `structuredContent`.', "outputSchema.type")
+                if result_payload is None:
+                    add(name, "missing_structured_result_sample", "warn", "P1", "outputSchema is present but no sample result was provided", "Add exampleResult to the tool or pass --sample-result with structuredContent.", "exampleResult")
+                else:
+                    schema_errors = _strict_json_schema_errors(structured, output_schema, "$.structuredContent")
+                    if schema_errors:
+                        add(name, "structured_content_schema_mismatch", "fail", "P0", "structuredContent does not match outputSchema", "Update structuredContent or outputSchema so required fields and types match.", "structuredContent")
+                        rows.append({**row, "schema_errors": schema_errors})
+                        continue
+                    if args.require_text_mirror and isinstance(result_payload, dict) and not _tool_contract_has_text_json_mirror(result_payload):
+                        add(name, "missing_text_content_json_mirror", "warn", "P1", "structuredContent should also be serialized in a TextContent block for older clients", "Add a content item like {\"type\":\"text\",\"text\":\"<serialized structuredContent JSON>\"}.", "content")
+            elif result_payload is not None and isinstance(structured, dict):
+                add(name, "structured_content_without_output_schema", "warn", "P1", "structuredContent exists without outputSchema", "Add outputSchema so clients can validate structured results.", "outputSchema")
+        else:
+            command = tool.get("command")
+            if not isinstance(command, str) or not command.strip():
+                add(name, "missing_command", "fail", "P0", "CLI tool template is missing command", "Add a deterministic local command template.", "command")
+            elif "--json" not in command:
+                add(name, "command_missing_json_flag", "warn", "P1", "CLI command does not advertise JSON output", "Add --json where the command supports machine output, or mark the entry as prose-only.", "command")
+        rows.append(row)
+
+    fail_count = sum(1 for f in findings if f.get("status") in {"fail", "fail_closed"})
+    warn_count = sum(1 for f in findings if f.get("status") == "warn")
+    status = "ok" if fail_count == 0 and warn_count == 0 else ("fail" if fail_count else "needs_remediation")
+    exact_remediation = [
+        "For MCP-style tools, define name, description, inputSchema, and outputSchema as plain JSON objects.",
+        "Return structured results in structuredContent and validate them against outputSchema before exposing the tool.",
+        "Mirror structuredContent as serialized JSON in a TextContent block when older clients may consume the tool.",
+        "For CLI command templates, include --json whenever machine-readable output is available.",
+        "Run `python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json --strict` before publishing a tool catalog.",
+    ]
+    payload = {
+        "schema_version": "2026-05-05.agentpress-tool-contract-check.v1",
+        "canonical_url": urljoin(base, out.as_posix()),
+        "generated_utc": _utc_now(),
+        "status": status,
+        "purpose": "Validate agent tool contracts against MCP-style input/output schemas, structuredContent samples, and CLI JSON-output expectations.",
+        "source": source,
+        "sample_result": str(pathlib.Path(args.sample_result).expanduser()) if args.sample_result else "",
+        "no_secret_reads_by_default": True,
+        "tool_count": len(tools),
+        "fail_count": fail_count,
+        "warn_count": warn_count,
+        "tools": rows,
+        "finding_count": len(findings),
+        "findings": findings,
+        "mcp_alignment": {
+            "input_schema": "MCP tool definitions describe expected parameters with inputSchema.",
+            "output_schema": "MCP tools can declare outputSchema so clients validate structuredContent.",
+            "structured_content": "Structured tool results should be returned in structuredContent; text JSON mirrors improve backwards compatibility.",
+        },
+        "exact_remediation": exact_remediation,
+    }
+    _write_json_payload(payload, out, args.no_write, args.json)
+    return 1 if args.strict and status != "ok" else 0
 
 def agent_community_channel_map(args):
     """Map agent communities/channels to problem signals and ingestion methods."""
@@ -7172,10 +7429,10 @@ def mcp_catalog_export(args):
             "requires_human_approval":["external_write","payment","credential_access","production_change"],
             "source_tool_manifest":urljoin(base,args.tools)
         })
-    payload={"schema_version":"2026-05-03.agentpress-mcp-static-catalog.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Static MCP-compatible tool discovery export so MCP/Cline/Roo/Claude/Codex-style agents can discover AgentPress capabilities without a live server.","transport":"static_json_catalog","server_name":"agentpress-static-tools","mcp_alignment":{"resources":[{"uri":"agentpress://tools","url":urljoin(base,args.tools)},{"uri":"agentpress://community-radar","url":urljoin(base,"agentpress/community/community-radar.json")},{"uri":"agentpress://marketplace","url":urljoin(base,"agentpress/marketplace/marketplace-index.json")}],"tools_are_command_templates":True,"live_mcp_server":"not_required_for_static_discovery"},"tool_count":len(entries),"tools":entries,"safety":{"default_external_side_effects":"none","no_credentials_required_for_read":"true","approval_required_for":["external writes","payments","credential access","production mutations"]}}
+    payload={"schema_version":"2026-05-03.agentpress-mcp-static-catalog.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Static MCP-style tool discovery export: command templates and resource references for MCP/Cline/Roo/Claude/Codex-style agents, not a live stdio/SSE server.","transport":"static_json_catalog","server_name":"agentpress-static-tools","mcp_alignment":{"resources":[{"uri":"agentpress://tools","url":urljoin(base,args.tools)},{"uri":"agentpress://community-radar","url":urljoin(base,"agentpress/community/community-radar.json")},{"uri":"agentpress://marketplace","url":urljoin(base,"agentpress/marketplace/marketplace-index.json")}],"tools_are_command_templates":True,"live_mcp_server":"not_implemented_static_catalog_only","roadmap_command":"agentpress mcp-serve (roadmap; not available in this release)","server_transport":"none_static_json_only"},"tool_count":len(entries),"tools":entries,"safety":{"default_external_side_effects":"none","no_credentials_required_for_read":"true","approval_required_for":["external writes","payments","credential access","production mutations"]}}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
-        (out.parent/"README.md").write_text("# AgentPress MCP Static Catalog\n\nStatic MCP-style export for agents that discover tools through catalogs instead of prose.\n\n```bash\npython3 scripts/agentpress.py mcp-catalog-export --json\n```\n\nThis is read-only/static discovery; it does not start a server or grant credentials.\n",encoding="utf-8")
+        (out.parent/"README.md").write_text("# AgentPress MCP Static Catalog\n\nStatic MCP-style export for agents that discover tools through catalogs instead of prose.\n\n```bash\npython3 scripts/agentpress.py mcp-catalog-export --json\n```\n\nThis is read-only/static discovery; it does not start a server or grant credentials.\n\n## Does this start a live MCP server?\n\nNo. This directory is a static contract/reference surface: JSON resources, command templates, side-effect notes, and approval boundaries that MCP-style agents can ingest. It does not open stdio/SSE, mutate MCP host config, grant credentials, or register tools dynamically.\n\nRoadmap: `agentpress mcp-serve` may become a real local MCP server in a future release. Until that command exists and is documented with tests, describe AgentPress as **static MCP-style discovery**, not a live MCP server.\n",encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {payload['tool_count']} tools")
     return 0
 
@@ -9029,6 +9286,7 @@ def main():
     p = sub.add_parser("batch-painpoints"); p.add_argument("--input", required=True); p.add_argument("--output", required=True); p.add_argument("--limit", default="25"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("release-candidate"); p.add_argument("--version", default="0.2.0-rc"); p.add_argument("--out", default="agentpress/releases/release-candidate.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-schema-serialization-check"); p.add_argument("--schema", default=""); p.add_argument("--out", default="agentpress/tools/tool-schema-serialization-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("tool-contract-check"); p.add_argument("--manifest", default=""); p.add_argument("--sample-result", default=""); p.add_argument("--out", default="agentpress/tools/tool-contract-check-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--require-text-mirror", action="store_true", default=True); p.add_argument("--no-require-text-mirror", dest="require_text_mirror", action="store_false"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-issue-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/community-issue-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("unsolved-agent-problem-backlog"); p.add_argument("--out", default="agentpress/community/unsolved-agent-problem-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -9391,6 +9649,7 @@ def main():
     if args.cmd == "batch-painpoints": return batch_painpoints(args)
     if args.cmd == "release-candidate": return release_candidate(args)
     if args.cmd == "tool-schema-serialization-check": return tool_schema_serialization_check(args)
+    if args.cmd == "tool-contract-check": return tool_contract_check(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
     if args.cmd == "unsolved-agent-problem-backlog": return unsolved_agent_problem_backlog(args)
     if args.cmd == "tool-vocabulary-compatibility-check": return tool_vocabulary_compatibility_check(args)

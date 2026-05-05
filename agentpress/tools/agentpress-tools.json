@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-05T14:33:25Z",
+  "generated_at": "2026-05-05T14:57:40Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -762,6 +762,18 @@
         "tools",
         "schema",
         "serialization",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.tool_contract_check",
+      "description": "Validate MCP-style tool input/output schemas, structuredContent samples, and CLI JSON-output contracts.",
+      "command": "python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json",
+      "tags": [
+        "tools",
+        "mcp",
+        "schema",
+        "structured-content",
         "gate"
       ]
     },

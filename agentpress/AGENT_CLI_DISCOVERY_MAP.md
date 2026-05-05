@@ -9,6 +9,7 @@ Agents discover useful tools through more than websites. AgentPress must cover t
 | CLI help | run `--help`, inspect commands | `scripts/agentpress.py`, adapter quickstarts |
 | CLI JSON output | prefer `--json` for deterministic parsing | all core commands support JSON where useful |
 | Tool manifests | read static tool lists | `agentpress/tools/agentpress-tools.json` |
+| Tool contracts | verify tool input/output schemas before invocation | `tool-contract-check --json` |
 | Well-known URLs | crawl `llms.txt`, `.well-known/*` | shipped |
 | Project config | inspect `package.json`, `pyproject.toml`, agent configs | adapter quickstarts generate config files |
 | Agent-specific docs | Codex/Claude/Gemini/GLM/browser agents look for local instructions | adapter quickstarts generate per-agent entrypoints |

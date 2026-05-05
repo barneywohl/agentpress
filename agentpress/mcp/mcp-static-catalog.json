@@ -1,7 +1,7 @@
 {
   "schema_version": "2026-05-03.agentpress-mcp-static-catalog.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/mcp/mcp-static-catalog.json",
-  "generated_utc": "2026-05-03T20:10:50Z",
+  "generated_utc": "2026-05-05T15:03:39Z",
   "status": "ok",
   "purpose": "Static MCP-style tool discovery export: command templates and resource references for MCP/Cline/Roo/Claude/Codex-style agents, not a live stdio/SSE server.",
   "transport": "static_json_catalog",
@@ -26,7 +26,7 @@
     "roadmap_command": "agentpress mcp-serve (roadmap; not available in this release)",
     "server_transport": "none_static_json_only"
   },
-  "tool_count": 71,
+  "tool_count": 209,
   "tools": [
     {
       "name": "agentpress_fetch",
@@ -292,6 +292,28 @@
         "tools",
         "release",
         "self-register"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_schema_validate",
+      "title": "agentpress.schema_validate",
+      "description": "Strict dependency-free JSON Schema subset validation for AgentPress contract files.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py schema-validate <file> --schema <schema-name-or-file> --json",
+      "tags": [
+        "schema",
+        "strict",
+        "validate",
+        "contract",
+        "jsonschema"
       ],
       "side_effects": "none_by_default_or_explicitly_marked",
       "requires_human_approval": [
@@ -657,6 +679,28 @@
       "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
     },
     {
+      "name": "agentpress_adoption_fixpack",
+      "title": "agentpress.adoption_fixpack",
+      "description": "Generate a copy-paste first-contact fix pack from local adoption evidence.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py adoption-fixpack --json",
+      "tags": [
+        "adoption",
+        "first-contact",
+        "proof",
+        "fixpack",
+        "privacy"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
       "name": "agentpress_payment_status",
       "title": "agentpress.payment_status",
       "description": "Report payment/x402 readiness, budget guardrails, and fail-closed payment policy without performing payments.",
@@ -752,6 +796,2813 @@
         "trust",
         "score",
         "routing"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_mcp_consent_manifest_validator",
+      "title": "agentpress.mcp_consent_manifest_validator",
+      "description": "Validate MCP/tool consent manifests and approval evidence fail-closed.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py mcp-consent-manifest-validator --json",
+      "tags": [
+        "mcp",
+        "consent",
+        "approval",
+        "security",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_provider_adapter_repro_pack",
+      "title": "agentpress.provider_adapter_repro_pack",
+      "description": "Create provider/host tool vocabulary mismatch repro and adapter map.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py provider-adapter-repro-pack --json",
+      "tags": [
+        "provider",
+        "adapter",
+        "repro",
+        "tools"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_checkpoint_replay_minimal_repro_generator",
+      "title": "agentpress.checkpoint_replay_minimal_repro_generator",
+      "description": "Generate stale checkpoint/structured_response minimal repro artifact.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json",
+      "tags": [
+        "checkpoint",
+        "repro",
+        "langchain",
+        "state"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_runtime_hang_repro_capsule",
+      "title": "agentpress.runtime_hang_repro_capsule",
+      "description": "Turn stuck runtime/browser/terminal logs into maintainer-ready capsule.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py runtime-hang-repro-capsule --json",
+      "tags": [
+        "runtime",
+        "hang",
+        "browser",
+        "terminal",
+        "repro"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_first_agent_outreach_receipt_tracker",
+      "title": "agentpress.first_agent_outreach_receipt_tracker",
+      "description": "Track targeted first-agent outreach receipts/blockers privacy-safely.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py first-agent-outreach-receipt-tracker --json",
+      "tags": [
+        "outreach",
+        "receipts",
+        "growth",
+        "privacy"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_rag_tool_safety_bundle",
+      "title": "agentpress.rag_tool_safety_bundle",
+      "description": "Publish RAG/tool safety bundle for file-path metadata, zero-arg tools, and output contracts.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py rag-tool-safety-bundle --json",
+      "tags": [
+        "rag",
+        "tools",
+        "security",
+        "schema",
+        "safety"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_external_reply_to_proof_ingest_bridge",
+      "title": "agentpress.external_reply_to_proof_ingest_bridge",
+      "description": "Map external replies/blockers into proof-ingest compatible receipt records.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py external-reply-to-proof-ingest-bridge --json",
+      "tags": [
+        "proof",
+        "receipts",
+        "external",
+        "bridge"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_issue_comment_pack_generator",
+      "title": "agentpress.issue_comment_pack_generator",
+      "description": "Generate issue-specific non-spam comment packs tied to exact artifacts/commands.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py issue-comment-pack-generator --json",
+      "tags": [
+        "outreach",
+        "comments",
+        "issues",
+        "attention"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_continuous_research_build_cycle_audit",
+      "title": "agentpress.continuous_research_build_cycle_audit",
+      "description": "Audit shipped next-build cycle and emit remaining research/build backlog.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py continuous-research-build-cycle-audit --json",
+      "tags": [
+        "audit",
+        "cycle",
+        "backlog",
+        "research"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_current_agent_places_map",
+      "title": "agentpress.current_agent_places_map",
+      "description": "Map current places where agent builders communicate and how to engage them.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py current-agent-places-map --json",
+      "tags": [
+        "community",
+        "research",
+        "agents",
+        "attention"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_attention_painpoint_radar",
+      "title": "agentpress.attention_painpoint_radar",
+      "description": "Rank current unsolved agent painpoints most likely to get first-agent attention.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py attention-painpoint-radar --json",
+      "tags": [
+        "painpoints",
+        "attention",
+        "research",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_first_agent_attention_kit",
+      "title": "agentpress.first_agent_attention_kit",
+      "description": "Publish non-spam first-agent attention hooks tied to shipped AgentPress artifacts.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py first-agent-attention-kit --json",
+      "tags": [
+        "growth",
+        "outreach",
+        "attention",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_next_attention_build_spec",
+      "title": "agentpress.next_attention_build_spec",
+      "description": "Publish next build/deploy spec from live agent painpoint research.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py next-attention-build-spec --json",
+      "tags": [
+        "spec",
+        "build-queue",
+        "attention",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_agent_community_newswire",
+      "title": "agentpress.agent_community_newswire",
+      "description": "Compile current public agent-community issue/news signals.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py agent-community-newswire --json",
+      "tags": [
+        "community",
+        "newswire",
+        "issues",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_immediate_agent_needs_radar",
+      "title": "agentpress.immediate_agent_needs_radar",
+      "description": "Rank current agent needs from sampled community signals.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py immediate-agent-needs-radar --json",
+      "tags": [
+        "needs",
+        "radar",
+        "agents",
+        "research"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_solution_targeting_matrix",
+      "title": "agentpress.solution_targeting_matrix",
+      "description": "Map communities/problems to AgentPress solution gates.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py solution-targeting-matrix --json",
+      "tags": [
+        "targeting",
+        "solutions",
+        "community"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_approval_bypass_risk_check",
+      "title": "agentpress.approval_bypass_risk_check",
+      "description": "Detect tool/MCP approval bypass risk.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py approval-bypass-risk-check --json",
+      "tags": [
+        "approval",
+        "mcp",
+        "security",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_provider_tool_translation_map",
+      "title": "agentpress.provider_tool_translation_map",
+      "description": "Generate provider/host tool vocabulary translation hints.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py provider-tool-translation-map --json",
+      "tags": [
+        "provider",
+        "tools",
+        "translation"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_workflow_terminal_callback_check",
+      "title": "agentpress.workflow_terminal_callback_check",
+      "description": "Check workflow/terminal callback completion contract.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py workflow-terminal-callback-check --json",
+      "tags": [
+        "workflow",
+        "terminal",
+        "callback",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_context_compaction_risk_card",
+      "title": "agentpress.context_compaction_risk_card",
+      "description": "Generate context compaction risk envelope.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py context-compaction-risk-card --json",
+      "tags": [
+        "context",
+        "compaction",
+        "memory"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_context_budget",
+      "title": "agentpress.context_budget",
+      "description": "Gate agent context bloat by file count, bytes, estimated chars, source maps, and freshness hints.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py context-budget . --json",
+      "tags": [
+        "context",
+        "budget",
+        "source-map",
+        "freshness",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_package_registry_doctor",
+      "title": "agentpress.package_registry_doctor",
+      "description": "Diagnose package/install registry failures for agent CLIs.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py package-registry-doctor --json",
+      "tags": [
+        "package",
+        "registry",
+        "install",
+        "doctor"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_first_run_wizard",
+      "title": "agentpress.first_run_wizard",
+      "description": "Detect host/provider/install state and emit the exact next command for a first agent user.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py first-run-wizard --json",
+      "tags": [
+        "first-run",
+        "wizard",
+        "onboarding",
+        "host",
+        "provider"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_provider_error_explainer",
+      "title": "agentpress.provider_error_explainer",
+      "description": "Map raw provider/runtime errors to remediation packs with exact commands.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py provider-error-explainer --error '<sanitized error>' --json",
+      "tags": [
+        "provider",
+        "errors",
+        "remediation",
+        "doctor"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_safety_preflight",
+      "title": "agentpress.safety_preflight",
+      "description": "Run/link secret, redaction, file-access, and sandbox safety checks without reading secret paths by default.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py safety-preflight . --json",
+      "tags": [
+        "security",
+        "safety",
+        "preflight",
+        "redaction",
+        "sandbox"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_mcp_config_doctor",
+      "title": "agentpress.mcp_config_doctor",
+      "description": "Statically validate MCP config JSON, server names, env literal risks, and backup guidance without mutation.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py mcp-config-doctor --config <mcp-config.json> --json",
+      "tags": [
+        "mcp",
+        "config",
+        "doctor",
+        "security",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_adoption_scoreboard",
+      "title": "agentpress.adoption_scoreboard",
+      "description": "Build a static privacy-safe adoption scoreboard from opt-in proof artifacts.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py adoption-scoreboard --json",
+      "tags": [
+        "adoption",
+        "scoreboard",
+        "static",
+        "proof",
+        "privacy"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_external_proof_inbox_review_flow",
+      "title": "agentpress.external_proof_inbox_review_flow",
+      "description": "Review external proof inbox files for acceptance candidates and privacy redaction blockers.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py external-proof-inbox-review-flow --json",
+      "tags": [
+        "proof",
+        "inbox",
+        "review",
+        "privacy",
+        "adoption"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_release_registry_readiness_dashboard",
+      "title": "agentpress.release_registry_readiness_dashboard",
+      "description": "Build a static release/package-registry readiness dashboard for npm/PyPI/source/static lanes.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py release-registry-readiness-dashboard --json",
+      "tags": [
+        "release",
+        "registry",
+        "npm",
+        "pypi",
+        "dashboard"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_tool_schema_serialization_check",
+      "title": "agentpress.tool_schema_serialization_check",
+      "description": "Check tool schema metadata is JSON-serializable.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py tool-schema-serialization-check --json",
+      "tags": [
+        "tools",
+        "schema",
+        "serialization",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_tool_contract_check",
+      "title": "agentpress.tool_contract_check",
+      "description": "Validate MCP-style tool input/output schemas, structuredContent samples, and CLI JSON-output contracts.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json",
+      "tags": [
+        "tools",
+        "mcp",
+        "schema",
+        "structured-content",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_agent_community_channel_map",
+      "title": "agentpress.agent_community_channel_map",
+      "description": "Map agent communities/channels to problem signals.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py agent-community-channel-map --json",
+      "tags": [
+        "community",
+        "channels",
+        "research",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_community_issue_radar",
+      "title": "agentpress.community_issue_radar",
+      "description": "Compile community issue radar from public issue signals.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py community-issue-radar --json",
+      "tags": [
+        "community",
+        "issues",
+        "radar",
+        "research"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_unsolved_agent_problem_backlog",
+      "title": "agentpress.unsolved_agent_problem_backlog",
+      "description": "Generate prioritized backlog from community issue radar.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py unsolved-agent-problem-backlog --json",
+      "tags": [
+        "backlog",
+        "problems",
+        "features"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_tool_vocabulary_compatibility_check",
+      "title": "agentpress.tool_vocabulary_compatibility_check",
+      "description": "Check host/provider tool vocabulary compatibility.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py tool-vocabulary-compatibility-check --json",
+      "tags": [
+        "tools",
+        "provider",
+        "compatibility",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_agent_state_checkpoint_sanitizer",
+      "title": "agentpress.agent_state_checkpoint_sanitizer",
+      "description": "Detect stale checkpoint/state fields before next turn.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py agent-state-checkpoint-sanitizer --json",
+      "tags": [
+        "state",
+        "checkpoint",
+        "drift",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_dependency_error_remediation_map",
+      "title": "agentpress.dependency_error_remediation_map",
+      "description": "Map dependency/runtime errors to exact remediation.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py dependency-error-remediation-map --json",
+      "tags": [
+        "dependency",
+        "doctor",
+        "remediation"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_output_format_contract_tester",
+      "title": "agentpress.output_format_contract_tester",
+      "description": "Test output format against requested contract.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py output-format-contract-tester --json",
+      "tags": [
+        "output",
+        "format",
+        "contract",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_tool_file_access_risk_scanner",
+      "title": "agentpress.tool_file_access_risk_scanner",
+      "description": "Scan tool manifests for file access risks.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py tool-file-access-risk-scanner --json",
+      "tags": [
+        "security",
+        "file-access",
+        "scanner"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_memory_drift_check",
+      "title": "agentpress.memory_drift_check",
+      "description": "Executable memory/version drift validator.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py memory-drift-check --json",
+      "tags": [
+        "memory",
+        "drift",
+        "validator",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_handoff_validate",
+      "title": "agentpress.handoff_validate",
+      "description": "Validate task handoff contract.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py handoff-contract-validate --json",
+      "tags": [
+        "handoff",
+        "validate",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_pr_review_check",
+      "title": "agentpress.pr_review_check",
+      "description": "Evaluate PR/reviewer readiness.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py pr-review-check --json --allow-empty --tests local --risk low --rollback revert",
+      "tags": [
+        "pr",
+        "review",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_ci_flake_triage",
+      "title": "agentpress.ci_flake_triage",
+      "description": "Classify CI/test log failures.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py ci-flake-triage --json",
+      "tags": [
+        "ci",
+        "flake",
+        "triage",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_secret_permission_preflight_run",
+      "title": "agentpress.secret_permission_preflight_run",
+      "description": "Run secrets/permissions preflight against a manifest.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py secret-permission-preflight-run --json",
+      "tags": [
+        "secrets",
+        "permissions",
+        "preflight",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_budget_check",
+      "title": "agentpress.budget_check",
+      "description": "Check an agent run plan against a cost/context budget.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py budget-check --json",
+      "tags": [
+        "budget",
+        "cost",
+        "tokens",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_coordination_ledger_check",
+      "title": "agentpress.coordination_ledger_check",
+      "description": "Validate multi-agent coordination ledger.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py coordination-ledger-check --json",
+      "tags": [
+        "coordination",
+        "ledger",
+        "multi-agent",
+        "gate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_next_cycle_research",
+      "title": "agentpress.next_cycle_research",
+      "description": "Generate next research cycle after readiness layer.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py next-cycle-research --json",
+      "tags": [
+        "research",
+        "cycle",
+        "roadmap",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_agent_memory_drift_detector",
+      "title": "agentpress.agent_memory_drift_detector",
+      "description": "Detect stale memory/docs/connector assumptions.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py agent-memory-drift-detector --json",
+      "tags": [
+        "memory",
+        "drift",
+        "docs",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_task_handoff_contract",
+      "title": "agentpress.task_handoff_contract",
+      "description": "Generate explicit agent-to-agent handoff contract.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py task-handoff-contract --json",
+      "tags": [
+        "handoff",
+        "multi-agent",
+        "contracts"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_pr_review_readiness_pack",
+      "title": "agentpress.pr_review_readiness_pack",
+      "description": "Generate PR/review readiness package requirements.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py pr-review-readiness-pack --json",
+      "tags": [
+        "pr",
+        "review",
+        "patch",
+        "evidence"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_ci_flake_triage_report",
+      "title": "agentpress.ci_flake_triage_report",
+      "description": "Generate CI/test flake triage report schema.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py ci-flake-triage-report --json",
+      "tags": [
+        "ci",
+        "tests",
+        "flakes",
+        "triage"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_secret_permission_preflight",
+      "title": "agentpress.secret_permission_preflight",
+      "description": "Generate secrets/permissions preflight without exposing values.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py secret-permission-preflight --json",
+      "tags": [
+        "secrets",
+        "permissions",
+        "preflight"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_agent_cost_budget_card",
+      "title": "agentpress.agent_cost_budget_card",
+      "description": "Generate agent cost/context budget card.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py agent-cost-budget-card --json",
+      "tags": [
+        "cost",
+        "tokens",
+        "budget",
+        "context"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_multi_agent_coordination_ledger",
+      "title": "agentpress.multi_agent_coordination_ledger",
+      "description": "Generate multi-agent coordination ledger fields/rules.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py multi-agent-coordination-ledger --json",
+      "tags": [
+        "multi-agent",
+        "coordination",
+        "ledger"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_readiness_audit_cli",
+      "title": "agentpress.readiness_audit_cli",
+      "description": "Generate AgentPress readiness audit for a repo/url target.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py readiness-audit --json",
+      "tags": [
+        "audit",
+        "readiness",
+        "agents",
+        "repo"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_readiness_score",
+      "title": "agentpress.readiness_score",
+      "description": "Generate compact AgentPress readiness scorecard.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py readiness-score --json",
+      "tags": [
+        "score",
+        "readiness",
+        "audit"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_readiness_fix_plan",
+      "title": "agentpress.readiness_fix_plan",
+      "description": "Generate prioritized readiness fix plan.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py readiness-fix-plan --json",
+      "tags": [
+        "fix-plan",
+        "readiness",
+        "roadmap"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_runtime_install_doctor",
+      "title": "agentpress.runtime_install_doctor",
+      "description": "Generate runtime/install doctor checks and remediations.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py runtime-install-doctor --json",
+      "tags": [
+        "doctor",
+        "install",
+        "runtime",
+        "cli"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_connector_security_scanner",
+      "title": "agentpress.connector_security_scanner",
+      "description": "Generate connector security scanner rules.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py connector-security-scanner --json",
+      "tags": [
+        "security",
+        "connectors",
+        "mcp",
+        "scanner"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_deterministic_agent_eval_packs",
+      "title": "agentpress.deterministic_agent_eval_packs",
+      "description": "Generate deterministic eval packs for agent adoption paths.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py deterministic-agent-eval-packs --json",
+      "tags": [
+        "eval",
+        "deterministic",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_verifiable_run_evidence_bundle",
+      "title": "agentpress.verifiable_run_evidence_bundle",
+      "description": "Generate verifiable run evidence bundle manifest.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py verifiable-run-evidence-bundle --json",
+      "tags": [
+        "evidence",
+        "claims",
+        "hashes",
+        "runs"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_browser_agent_compatibility_harness",
+      "title": "agentpress.browser_agent_compatibility_harness",
+      "description": "Generate browser-agent compatibility harness spec.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py browser-agent-compatibility-harness --json",
+      "tags": [
+        "browser",
+        "compatibility",
+        "harness",
+        "evidence"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_deep_agent_painpoint_research",
+      "title": "agentpress.deep_agent_painpoint_research",
+      "description": "Generate deep research synthesis of what agents/operators actually want next.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py deep-agent-painpoint-research --json",
+      "tags": [
+        "research",
+        "painpoints",
+        "agents",
+        "features"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_mcp_connector_auth_readiness",
+      "title": "agentpress.mcp_connector_auth_readiness",
+      "description": "Generate MCP/connector auth readiness and permission handshake metadata.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py mcp-connector-auth-readiness --json",
+      "tags": [
+        "mcp",
+        "auth",
+        "connectors",
+        "permissions"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_tool_routing_decision_matrix",
+      "title": "agentpress.tool_routing_decision_matrix",
+      "description": "Generate compact tool routing matrix to reduce context/tool overload.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py tool-routing-decision-matrix --json",
+      "tags": [
+        "routing",
+        "tools",
+        "context",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_agent_eval_observability_bridge",
+      "title": "agentpress.agent_eval_observability_bridge",
+      "description": "Generate eval/observability bridge for agent runs.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py agent-eval-observability-bridge --json",
+      "tags": [
+        "eval",
+        "observability",
+        "traces",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_deployment_connector_matrix",
+      "title": "agentpress.deployment_connector_matrix",
+      "description": "Generate deployment/install connector matrix for npm/pip/docker/mcp/http/stdio.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py deployment-connector-matrix --json",
+      "tags": [
+        "deployment",
+        "npm",
+        "pip",
+        "docker",
+        "mcp"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_connector_first_run_checklist",
+      "title": "agentpress.connector_first_run_checklist",
+      "description": "Generate first-run checklist per connector category.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py connector-first-run-checklist --json",
+      "tags": [
+        "connectors",
+        "quickstart",
+        "first-run",
+        "checklist"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_agent_persona_quickstarts",
+      "title": "agentpress.agent_persona_quickstarts",
+      "description": "Generate connector quickstart bundles per agent persona.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py agent-persona-quickstarts --json",
+      "tags": [
+        "personas",
+        "quickstart",
+        "connectors",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_sdk_command_wrapper_catalog",
+      "title": "agentpress.sdk_command_wrapper_catalog",
+      "description": "Generate SDK wrapper catalog for proof/host/connector commands.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py sdk-command-wrapper-catalog --json",
+      "tags": [
+        "sdk",
+        "wrappers",
+        "commands",
+        "integrations"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_cycle_completion_audit",
+      "title": "agentpress.cycle_completion_audit",
+      "description": "Audit current cycle completion and remaining unfinished items.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py cycle-completion-audit --json",
+      "tags": [
+        "cycle",
+        "audit",
+        "completion",
+        "remaining"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_connector_failure_to_backlog",
+      "title": "agentpress.connector_failure_to_backlog",
+      "description": "Convert connector failure events/taxonomy into prioritized backlog items.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py connector-failure-to-backlog --json",
+      "tags": [
+        "connectors",
+        "failures",
+        "backlog",
+        "automation"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_host_transcript_dropbox_spec",
+      "title": "agentpress.host_transcript_dropbox_spec",
+      "description": "Generate drop-folder/upload convention for real host transcript ingestion.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py host-transcript-dropbox-spec --json",
+      "tags": [
+        "host",
+        "transcript",
+        "dropbox",
+        "ingest"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_proof_request_queue",
+      "title": "agentpress.proof_request_queue",
+      "description": "Generate opt-in proof request queue from campaign targets.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py proof-request-queue --json",
+      "tags": [
+        "proof",
+        "queue",
+        "external",
+        "adoption"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_next_build_spec_queue",
+      "title": "agentpress.next_build_spec_queue",
+      "description": "Generate researched next-build specs after current cycle.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py next-build-spec-queue --json",
+      "tags": [
+        "research",
+        "specs",
+        "next-build",
+        "cycle"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_external_proof_campaign_runner",
+      "title": "agentpress.external_proof_campaign_runner",
+      "description": "Generate opt-in external proof acquisition campaign run plan.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py external-proof-campaign-runner --json",
+      "tags": [
+        "external",
+        "proof",
+        "campaign",
+        "adoption"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_host_transcript_batch_ingest",
+      "title": "agentpress.host_transcript_batch_ingest",
+      "description": "Batch ingest host transcript JSON files and summarize conformance.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py host-transcript-batch-ingest tests/fixtures/conformance --json",
+      "tags": [
+        "host",
+        "transcript",
+        "batch",
+        "conformance"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_connector_failure_taxonomy",
+      "title": "agentpress.connector_failure_taxonomy",
+      "description": "Generate connector failure taxonomy and backlog conversion rules.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py connector-failure-taxonomy --json",
+      "tags": [
+        "connectors",
+        "failures",
+        "taxonomy",
+        "backlog"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_cycle_gap_radar",
+      "title": "agentpress.cycle_gap_radar",
+      "description": "Generate post-cycle missed-gap radar.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py cycle-gap-radar --json",
+      "tags": [
+        "cycle",
+        "radar",
+        "gaps",
+        "next"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_edge_case_gap_scan",
+      "title": "agentpress.edge_case_gap_scan",
+      "description": "Run adversarial edge-case checks for missed fail-open/no-write gaps.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py edge-case-gap-scan --json",
+      "tags": [
+        "audit",
+        "edge-cases",
+        "fail-closed",
+        "no-write"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_connector_catalog",
+      "title": "agentpress.connector_catalog",
+      "description": "Generate connector catalog for the tools/connectors agents need.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py connector-catalog --json",
+      "tags": [
+        "connectors",
+        "tools",
+        "catalog",
+        "agents"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_connector_health_check",
+      "title": "agentpress.connector_health_check",
+      "description": "Check connector catalog completeness and command coverage.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py connector-health-check --json",
+      "tags": [
+        "connectors",
+        "health",
+        "tools",
+        "gates"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_agent_wants_research",
+      "title": "agentpress.agent_wants_research",
+      "description": "Generate research-cycle list of agent wants/painpoints and build status.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py agent-wants-research --json",
+      "tags": [
+        "research",
+        "painpoints",
+        "agents",
+        "wants"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_missing_connector_backlog",
+      "title": "agentpress.missing_connector_backlog",
+      "description": "Generate next build backlog from connector health and wants research.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py missing-connector-backlog --json",
+      "tags": [
+        "backlog",
+        "connectors",
+        "next-cycle",
+        "painpoints"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_host_transcript_validate",
+      "title": "agentpress.host_transcript_validate",
+      "description": "Validate native host-run transcript evidence fail-closed.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py host-transcript-validate tests/fixtures/conformance/host-transcript-good.json --json",
+      "tags": [
+        "host",
+        "transcript",
+        "conformance",
+        "validate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_ttf_green_import",
+      "title": "agentpress.ttf_green_import",
+      "description": "Import time-to-first-green telemetry into adoption friction summary.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py ttf-green-import tests/fixtures/metrics/ttf-green-good.json --json",
+      "tags": [
+        "ttf",
+        "ux",
+        "telemetry",
+        "adoption"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_conformance_evidence_score",
+      "title": "agentpress.conformance_evidence_score",
+      "description": "Score host transcript + TTF evidence into conformance summary.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py conformance-evidence-score --json",
+      "tags": [
+        "conformance",
+        "score",
+        "evidence",
+        "host"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_approval_gate_eval",
+      "title": "agentpress.approval_gate_eval",
+      "description": "Evaluate an action against fail-closed approval gates.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py approval-gate-eval tests/fixtures/gates/approval-good.json --json",
+      "tags": [
+        "approval",
+        "gate",
+        "fail-closed",
+        "eval"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_reviewer_gate_eval",
+      "title": "agentpress.reviewer_gate_eval",
+      "description": "Evaluate reviewer gate result fail-closed.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py reviewer-gate-eval tests/fixtures/gates/reviewer-good.json --json",
+      "tags": [
+        "reviewer",
+        "gate",
+        "fail-closed",
+        "eval"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_action_ledger_adapter_wiring",
+      "title": "agentpress.action_ledger_adapter_wiring",
+      "description": "Wire native adapters to action-ledger/run-artifact evidence requirements.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py action-ledger-adapter-wiring --json",
+      "tags": [
+        "ledger",
+        "adapter",
+        "run-artifacts",
+        "evidence"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_external_proof_relay_status",
+      "title": "agentpress.external_proof_relay_status",
+      "description": "Generate external proof relay status and acceptance gates.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py external-proof-relay-status --json",
+      "tags": [
+        "proof",
+        "relay",
+        "external",
+        "trust"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_glm_concerns_closure",
+      "title": "agentpress.glm_concerns_closure",
+      "description": "Generate GLM DONE_WITH_CONCERNS closure matrix and next cycle.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py glm-concerns-closure --json",
+      "tags": [
+        "audit",
+        "glm",
+        "closure",
+        "next-cycle"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_registry_dry_run",
+      "title": "agentpress.registry_dry_run",
+      "description": "Generate safe registry dry-run validators without publishing or using credentials.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py registry-dry-run --json",
+      "tags": [
+        "registry",
+        "package",
+        "dry-run",
+        "distribution"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_proof_ingest_review",
+      "title": "agentpress.proof_ingest_review",
+      "description": "Ingest external proof/blocker receipts into review, scoped trust, and backlog inputs.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py proof-ingest-review --json",
+      "tags": [
+        "proof",
+        "ingest",
+        "trust",
+        "backlog"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_receipt_to_backlog",
+      "title": "agentpress.receipt_to_backlog",
+      "description": "Generate backlog items from proof ingest blockers and UX friction metrics.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py receipt-to-backlog --json",
+      "tags": [
+        "backlog",
+        "proof",
+        "blockers",
+        "automation"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_exponential_improvement_radar",
+      "title": "agentpress.exponential_improvement_radar",
+      "description": "Generate exponential improvement radar from adoption/proof/package/UX loops.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py exponential-improvement-radar --json",
+      "tags": [
+        "exponential",
+        "radar",
+        "adoption",
+        "improvements"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_json_schema_bundle",
+      "title": "agentpress.json_schema_bundle",
+      "description": "Generate draft-2020-12 JSON Schemas for key AgentPress public artifacts.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py json-schema-bundle --json",
+      "tags": [
+        "schema",
+        "json-schema",
+        "validation",
+        "draft2020-12"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_schema_validator",
+      "title": "agentpress.schema_validator",
+      "description": "Validate known AgentPress example artifacts against required schema fields.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py schema-validator --json",
+      "tags": [
+        "schema",
+        "validation",
+        "proof",
+        "blocker"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_proof_inbox_tracker",
+      "title": "agentpress.proof_inbox_tracker",
+      "description": "Generate proof inbox tracker for external receipts and blocker reports.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py proof-inbox-tracker --json",
+      "tags": [
+        "proof",
+        "inbox",
+        "external",
+        "adoption"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_host_run_harness",
+      "title": "agentpress.host_run_harness",
+      "description": "Generate host-run harness transcript templates for real native ecosystem conformance.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py host-run-harness --json",
+      "tags": [
+        "host",
+        "conformance",
+        "native",
+        "transcript"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_ttf_green_metric",
+      "title": "agentpress.ttf_green_metric",
+      "description": "Generate time-to-first-green UX metric pack for AgentPress adoption loops.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py ttf-green-metric --json",
+      "tags": [
+        "ux",
+        "metrics",
+        "adoption",
+        "friction"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_distribution_submission_pack",
+      "title": "agentpress.distribution_submission_pack",
+      "description": "Generate distribution submission packs for package registries and install channels.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py distribution-submission-pack --json",
+      "tags": [
+        "distribution",
+        "package",
+        "registry",
+        "submission"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_external_proof_pipeline",
+      "title": "agentpress.external_proof_pipeline",
+      "description": "Generate external proof pipeline queue and states.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py external-proof-pipeline --json",
+      "tags": [
+        "external",
+        "proof",
+        "pipeline",
+        "adoption"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_blocker_solution_matrix",
+      "title": "agentpress.blocker_solution_matrix",
+      "description": "Map known AgentPress bottlenecks to shipped solution layers and remaining blockers.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py blocker-solution-matrix --json",
+      "tags": [
+        "bottlenecks",
+        "solutions",
+        "matrix",
+        "roadmap"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_next_bottleneck_radar",
+      "title": "agentpress.next_bottleneck_radar",
+      "description": "Generate next bottleneck radar after current solution layers are shipped.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py next-bottleneck-radar --json",
+      "tags": [
+        "bottlenecks",
+        "radar",
+        "iteration",
+        "research"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_external_audit_run",
+      "title": "agentpress.external_audit_run",
+      "description": "Generate external first-contact audit run artifact for non-reference agents.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py external-audit-run --runtime codex --agent-id external-agent --json",
+      "tags": [
+        "external",
+        "audit",
+        "first-contact",
+        "proof",
+        "adoption"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_external_proof_review",
+      "title": "agentpress.external_proof_review",
+      "description": "Review external proof receipt and emit accepted/rejected/needs_fix decision.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py external-proof-review <proof.json> --json",
+      "tags": [
+        "external",
+        "proof",
+        "review",
+        "trust",
+        "redaction"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_task_quality_eval",
+      "title": "agentpress.task_quality_eval",
+      "description": "Generate deeper task-quality eval suite for AgentPress agent usability/safety.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py task-quality-eval --json",
+      "tags": [
+        "eval",
+        "quality",
+        "tasks",
+        "usability",
+        "safety"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_public_schema_bundle",
+      "title": "agentpress.public_schema_bundle",
+      "description": "Generate first-class schema bundle index for public AgentPress JSON artifacts.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py public-schema-bundle --json",
+      "tags": [
+        "schema",
+        "public-json",
+        "bundle",
+        "index"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_platform_audit_dashboard",
+      "title": "agentpress.platform_audit_dashboard",
+      "description": "Generate single audit dashboard for AgentPress gates, surfaces, and next actions.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py platform-audit-dashboard --json",
+      "tags": [
+        "audit",
+        "dashboard",
+        "gates",
+        "status"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_ecosystem_conformance_suite",
+      "title": "agentpress.ecosystem_conformance_suite",
+      "description": "Generate native ecosystem conformance suite for AgentPress.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py ecosystem-conformance-suite --json",
+      "tags": [
+        "ecosystem",
+        "conformance",
+        "native",
+        "adapters"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_iteration_cycle_engine",
+      "title": "agentpress.iteration_cycle_engine",
+      "description": "Generate recursive research-build-deploy iteration cycle plan.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py iteration-cycle-engine --json",
+      "tags": [
+        "iteration",
+        "cycle",
+        "research",
+        "build",
+        "deploy"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_mcp_registry_pack",
+      "title": "agentpress.mcp_registry_pack",
+      "description": "Generate MCP registry/server submission pack for AgentPress static catalog.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py mcp-registry-pack --json",
+      "tags": [
+        "mcp",
+        "registry",
+        "submission",
+        "catalog"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_native_adapter_kit",
+      "title": "agentpress.native_adapter_kit",
+      "description": "Generate native adapter kits for Cline/Roo/OpenHands/MCP/LangChain/LlamaIndex/CrewAI.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py native-adapter-kit --target all --json",
+      "tags": [
+        "adapter",
+        "native",
+        "cline",
+        "roo",
+        "mcp"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_native_adapter_check",
+      "title": "agentpress.native_adapter_check",
+      "description": "Validate generated native adapter kits.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json",
+      "tags": [
+        "adapter",
+        "check",
+        "native",
+        "validate"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_schema_validate_all",
+      "title": "agentpress.schema_validate_all",
+      "description": "Strictly validate all mapped/public AgentPress JSON surfaces.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py schema-validate-all --json",
+      "tags": [
+        "schema",
+        "validate",
+        "public-json",
+        "strict"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_trust_tier_evaluate",
+      "title": "agentpress.trust_tier_evaluate",
+      "description": "Evaluate service trust tiers without self-proof/global proof inflation.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py trust-tier-evaluate --json",
+      "tags": [
+        "trust",
+        "tier",
+        "proof",
+        "marketplace"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_plan_workflow_kit",
+      "title": "agentpress.plan_workflow_kit",
+      "description": "Generate Plan.md-native workflow templates for agent execution.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py plan-workflow-kit --json",
+      "tags": [
+        "plan",
+        "workflow",
+        "approval",
+        "verify",
+        "closeout"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_approval_gate_kit",
+      "title": "agentpress.approval_gate_kit",
+      "description": "Generate risk-based approval gates for agent actions.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py approval-gate-kit --json",
+      "tags": [
+        "approval",
+        "risk",
+        "safety",
+        "external-effects"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_reviewer_gate_kit",
+      "title": "agentpress.reviewer_gate_kit",
+      "description": "Generate built-in reviewer gate templates before agents claim done.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py reviewer-gate-kit --json",
+      "tags": [
+        "review",
+        "security",
+        "product",
+        "docs",
+        "runtime"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_provider_compatibility_kit",
+      "title": "agentpress.provider_compatibility_kit",
+      "description": "Generate provider/model compatibility matrix and fallback guidance.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py provider-compatibility-kit --json",
+      "tags": [
+        "provider",
+        "model",
+        "compatibility",
+        "fallback"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_runtime_validation_harness",
+      "title": "agentpress.runtime_validation_harness",
+      "description": "Generate standard runtime validation harness before claiming support.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py runtime-validation-harness --json",
+      "tags": [
+        "runtime",
+        "validation",
+        "harness",
+        "gates"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_run_artifact_pack",
+      "title": "agentpress.run_artifact_pack",
+      "description": "Generate shareable run artifact bundle manifest.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py run-artifact-pack --json",
+      "tags": [
+        "artifact",
+        "run",
+        "share",
+        "evidence"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_mission_keeper_kit",
+      "title": "agentpress.mission_keeper_kit",
+      "description": "Generate multi-agent mission keeper policy for recursive research-build-deploy cycles.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py mission-keeper-kit --json",
+      "tags": [
+        "mission",
+        "keeper",
+        "multi-agent",
+        "cycle"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_agent_platform_feature_backlog",
+      "title": "agentpress.agent_platform_feature_backlog",
+      "description": "Generate major AgentPress platform feature backlog from audits and agent painpoints.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py agent-platform-feature-backlog --json",
+      "tags": [
+        "backlog",
+        "features",
+        "painpoints",
+        "roadmap",
+        "audit"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_action_ledger_kit",
+      "title": "agentpress.action_ledger_kit",
+      "description": "Generate action ledger schema/example for agent observability and audit trails.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py action-ledger-kit --json",
+      "tags": [
+        "observability",
+        "ledger",
+        "audit",
+        "actions",
+        "trust"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_context_debugger_kit",
+      "title": "agentpress.context_debugger_kit",
+      "description": "Generate context debugger manifest/policy for agent runs.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py context-debugger-kit --json",
+      "tags": [
+        "context",
+        "debugger",
+        "budget",
+        "freshness",
+        "sources"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_loop_guard_kit",
+      "title": "agentpress.loop_guard_kit",
+      "description": "Generate loop detection and circuit breaker policy for agents.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py loop-guard-kit --json",
+      "tags": [
+        "loop",
+        "circuit-breaker",
+        "runtime",
+        "safety",
+        "stuck"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_mission_cockpit",
+      "title": "agentpress.mission_cockpit",
+      "description": "Generate mission cockpit linking AgentPress trust, runtime, proof, and backlog surfaces.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py mission-cockpit --json",
+      "tags": [
+        "mission",
+        "cockpit",
+        "operator",
+        "status",
+        "coordination"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_agent_identity_card",
+      "title": "agentpress.agent_identity_card",
+      "description": "Publish AgentPress identity/capability policy card for agent-to-agent trust.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py agent-identity-card --json",
+      "tags": [
+        "identity",
+        "trust",
+        "capability",
+        "policy",
+        "agent-to-agent"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_environment_fingerprint",
+      "title": "agentpress.environment_fingerprint",
+      "description": "Create reproducible environment fingerprint for AgentPress agent runs without secrets.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py environment-fingerprint --json",
+      "tags": [
+        "environment",
+        "repro",
+        "debug",
+        "runtime",
+        "fingerprint"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_repro_bundle",
+      "title": "agentpress.repro_bundle",
+      "description": "Publish reproducible run bundle manifest for AgentPress verification.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py repro-bundle --json",
+      "tags": [
+        "repro",
+        "bundle",
+        "verify",
+        "runtime",
+        "install"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_package_manager_bridge",
+      "title": "agentpress.package_manager_bridge",
+      "description": "Generate live pip/npm/git/offline install bridge and registry publish readiness for AgentPress.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py package-manager-bridge --json",
+      "tags": [
+        "package",
+        "registry",
+        "install",
+        "npm",
+        "pypi"
       ],
       "side_effects": "none_by_default_or_explicitly_marked",
       "requires_human_approval": [
@@ -927,6 +3778,72 @@
         "quote",
         "routing",
         "no-spend"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_proof_request_pack",
+      "title": "agentpress.proof_request_pack",
+      "description": "Generate runtime-specific external proof request pack for adoption receipts/blockers.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py proof-request-pack --runtime codex --json",
+      "tags": [
+        "proof",
+        "external",
+        "request",
+        "adoption",
+        "runtime"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_proof_receipt_verify",
+      "title": "agentpress.proof_receipt_verify",
+      "description": "Strictly verify a service-scoped external proof receipt JSON.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py proof-receipt-verify <proof.json> --json",
+      "tags": [
+        "proof",
+        "verify",
+        "service-scoped",
+        "redaction",
+        "trust"
+      ],
+      "side_effects": "none_by_default_or_explicitly_marked",
+      "requires_human_approval": [
+        "external_write",
+        "payment",
+        "credential_access",
+        "production_change"
+      ],
+      "source_tool_manifest": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json"
+    },
+    {
+      "name": "agentpress_scoped_trust_report",
+      "title": "agentpress.scoped_trust_report",
+      "description": "Report service-scoped proof/trust posture without global proof inflation.",
+      "input_mode": "local_cli_command_template",
+      "command_template": "python3 scripts/agentpress.py scoped-trust-report --json",
+      "tags": [
+        "trust",
+        "proof",
+        "marketplace",
+        "scoped",
+        "score"
       ],
       "side_effects": "none_by_default_or_explicitly_marked",
       "requires_human_approval": [
