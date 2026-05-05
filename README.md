@@ -17,10 +17,6 @@ Make any repo readable by AI agents in 60 seconds. AgentPress is the `llms.txt` 
 | MCP / ACP | Full | Uses `.well-known` manifests and agent contracts. |
 | Cline / Roo / OpenHands | Compatible | Uses `llms.txt` as the first-read handoff. |
 
-## Search terms / npm keywords
-
-AgentPress focuses on `llms.txt`, agent onboarding, static discovery manifests, schema validation, proof receipts, and machine-readable developer docs.
-
 ## Install
 
 ```bash
@@ -42,9 +38,9 @@ agentpress lint . --json
 agentpress adoption-fixpack --json
 ```
 
-## Why agents find it
+## How discovery works
 
-AgentPress is built for npm search, AI crawler discovery, and agent-native onboarding. The package names the ecosystems developers actually search for — Claude, GPT, MCP, LangChain, CrewAI, `llms.txt`, schema validation, and agent contracts — then gives agents a predictable `.well-known/agentpress.json` entrypoint.
+AgentPress publishes a `.well-known/agentpress.json` entrypoint and `llms.txt` to your repo. Agent frameworks that follow the llms.txt spec — Claude, GPT-4, Gemini, LangChain, CrewAI, and MCP-compatible tools — fetch these on first contact and can act on your repo without reading every file.
 
 ## What it does
 

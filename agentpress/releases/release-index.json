@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "status": "ok",
-  "generated_utc": "2026-05-04T01:16:05Z",
+  "generated_utc": "2026-05-05T14:56:00Z",
   "name": "AgentPress offline release index",
   "latest": {
     "version": "2026-05-03-second-wave-research-build-loop",
@@ -24,5 +24,31 @@
     }
   ],
   "verify_command": "python3 scripts/agentpress.py package-verify agentpress-offline.tar.gz --manifest agentpress-offline.tar.gz.sha256.json --json",
-  "privacy": "static release index; no tracking"
+  "privacy": "static release index; no tracking",
+  "package_metadata": {
+    "local_npm": {
+      "name": "@agent_press/agentpress",
+      "version": "0.2.0-rc.3",
+      "publish_status": "not_published_by_this_sync"
+    },
+    "local_pypi": {
+      "name": "agentpress-static",
+      "version": "0.2.0rc3",
+      "publish_status": "not_published_by_this_sync"
+    },
+    "live_registry_drift": {
+      "npm_rc_dist_tag": "0.2.0-rc.3",
+      "npm_checked_version": "0.2.0-rc.2 metadata remains queryable",
+      "pypi_latest_rc_observed": "0.2.0rc1",
+      "pypi_0.2.0rc2": "not_found",
+      "pypi_0.2.0rc3": "not_found",
+      "publish_blocker": "PyPI/npm publish requires separate human approval; this sync performed no publish."
+    }
+  },
+  "dry_run_commands": [
+    "python3 -m json.tool package.json",
+    "python3 -m json.tool agentpress/releases/release-index.json",
+    "python3 scripts/check_agentpress_positioning.py",
+    "npm pack --dry-run"
+  ]
 }
