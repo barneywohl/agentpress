@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/sandbox-guard-v2.schema.json",
+  "title": "AgentPress Sandbox Guard v2",
+  "description": "Output schema for `agentpress sandbox-guard`. Generates a local sandbox boundary manifest + wrapper shell script. Fails closed on secret-sensitive paths.",
+  "type": "object",
+  "required": ["schema_version", "generated_utc", "status", "scope", "allowed_paths", "forbidden_markers", "wrapper_script", "policy", "finding_count", "findings"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "2026-05-04.agentpress-sandbox-guard.v2"},
+    "canonical_url": {"type": "string", "format": "uri"},
+    "generated_utc": {"type": "string"},
+    "status": {"type": "string", "enum": ["ok", "fail_closed"]},
+    "scope": {"type": "string", "enum": ["read-only", "read-write", "full"]},
+    "allowed_paths": {"type": "array", "items": {"type": "string"}},
+    "forbidden_markers": {"type": "array", "items": {"type": "string"}},
+    "wrapper_script": {"type": "string"},
+    "policy": {
+      "type": "object",
+      "required": ["default_deny_secrets", "allowlist_enforced", "external_effects_require_approval", "read_only_means_no_write_commands"],
+      "properties": {
+        "default_deny_secrets": {"type": "boolean", "const": true},
+        "allowlist_enforced": {"type": "boolean"},
+        "external_effects_require_approval": {"type": "boolean", "const": true},
+        "read_only_means_no_write_commands": {"type": "boolean"}
+      }
+    },
+    "finding_count": {"type": "integer", "minimum": 0},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "message"],
+        "properties": {
+          "severity": {"type": "string", "enum": ["P0", "P1", "P2"]},
+          "path": {"type": "string"},
+          "message": {"type": "string"}
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

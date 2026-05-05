@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/batch-painpoints-v1.schema.json",
+  "title": "AgentPress Batch Painpoints v1",
+  "description": "Summary output schema for `agentpress batch-painpoints`. Batch-processes public agent painpoints into manual-approval target packs. All items require human approval before any external posting.",
+  "type": "object",
+  "required": ["schema_version", "generated_utc", "status", "processed_count", "output_dir", "items", "approval_required_for_all"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "2026-05-04.agentpress-batch-painpoints.v1"},
+    "canonical_url": {"type": "string", "format": "uri"},
+    "generated_utc": {"type": "string"},
+    "status": {"type": "string", "enum": ["ok", "fail", "partial"]},
+    "processed_count": {"type": "integer", "minimum": 0},
+    "output_dir": {"type": "string"},
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "status"],
+        "properties": {
+          "path": {"type": "string"},
+          "status": {"type": "string"},
+          "issue_url": {"type": "string"},
+          "matched_solution": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "approval_required_for_all": {"type": "boolean", "const": true}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/proof-capture-v2.schema.json",
+  "title": "AgentPress Proof Capture v2",
+  "description": "Output schema for `agentpress proof-capture`. Creates a no-secret, shareable proof bundle for first agent runs with secret scanning and SHA-256 integrity.",
+  "type": "object",
+  "required": ["schema_version", "generated_utc", "status", "task_id", "purpose", "environment", "commands", "artifacts", "acceptance", "privacy", "reviewer_checklist"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "2026-05-04.agentpress-proof-capture.v2"},
+    "generated_utc": {"type": "string"},
+    "status": {"type": "string", "enum": ["ok", "fail"]},
+    "task_id": {"type": "string"},
+    "purpose": {"type": "string"},
+    "summary": {"type": ["string", "null"]},
+    "bundle_sha256": {"type": "string", "minLength": 64, "maxLength": 64},
+    "environment": {
+      "type": "object",
+      "required": ["python", "platform", "cwd", "agentpress_file"],
+      "properties": {
+        "python": {"type": "string"},
+        "platform": {"type": "string"},
+        "cwd": {"type": "string"},
+        "agentpress_file": {"type": "string"}
+      }
+    },
+    "commands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["command", "recorded_only"],
+        "properties": {
+          "command": {"type": "string"},
+          "recorded_only": {"type": "boolean"}
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path"],
+        "properties": {
+          "path": {"type": "string"},
+          "bytes": {"type": "integer", "minimum": 0},
+          "sha256": {"type": "string"},
+          "missing": {"type": "boolean"},
+          "secret_scan": {
+            "type": "object",
+            "properties": {
+              "hits": {"type": "integer", "minimum": 0},
+              "safe": {"type": "boolean"}
+            }
+          }
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "required": ["artifact_count", "missing_count", "review_required"],
+      "properties": {
+        "artifact_count": {"type": "integer", "minimum": 0},
+        "missing_count": {"type": "integer", "minimum": 0},
+        "review_required": {"type": "boolean"}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "required": ["secret_scan_status", "secret_hit_count", "operator_must_review_before_external_share"],
+      "properties": {
+        "secret_scan_status": {"type": "string", "enum": ["no_obvious_secrets", "secret_hits_found"]},
+        "secret_hit_count": {"type": "integer", "minimum": 0},
+        "operator_must_review_before_external_share": {"type": "boolean", "const": true}
+      }
+    },
+    "reviewer_checklist": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

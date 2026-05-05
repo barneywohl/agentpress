@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/first-user-bootstrap-v2.schema.json",
+  "title": "AgentPress First-User Bootstrap v2",
+  "description": "Output schema for `agentpress first-user-bootstrap`. Provides a platform-specific install + MCP snippet + proof-capture workflow for a first agent user.",
+  "type": "object",
+  "required": ["schema_version", "generated_utc", "status", "platform", "purpose", "steps", "mcp_snippet", "safety", "acceptance_gates", "finding_count", "findings"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "2026-05-04.agentpress-first-user-bootstrap.v2"},
+    "canonical_url": {"type": "string", "format": "uri"},
+    "generated_utc": {"type": "string"},
+    "status": {"type": "string", "enum": ["ready_for_paste", "unsupported_platform"]},
+    "platform": {"type": "string", "enum": ["cline", "roo", "claude", "cursor", "windsurf", "generic"]},
+    "purpose": {"type": "string"},
+    "first_run_workflow": {
+      "type": "object",
+      "required": ["user_goal", "copy_paste_order", "agent_prompt", "success_looks_like", "if_blocked"],
+      "properties": {
+        "user_goal": {"type": "string"},
+        "copy_paste_order": {"type": "array", "items": {"type": "string"}},
+        "agent_prompt": {"type": "string"},
+        "success_looks_like": {"type": "array", "items": {"type": "string"}},
+        "if_blocked": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step", "name"],
+        "properties": {
+          "step": {"type": "integer", "minimum": 1},
+          "name": {"type": "string"},
+          "command": {"type": "string"},
+          "target": {"type": "string"},
+          "snippet": {"type": "object"},
+          "instruction": {"type": "string"}
+        }
+      }
+    },
+    "mcp_snippet": {"type": "object"},
+    "safety": {
+      "type": "object",
+      "properties": {
+        "no_secrets_required": {"type": "boolean"},
+        "external_posts": {"type": "boolean", "const": false},
+        "rollback": {"type": "string"}
+      }
+    },
+    "agent_affordances": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "why", "command"],
+        "properties": {
+          "name": {"type": "string"},
+          "why": {"type": "string"},
+          "command": {"type": "string"}
+        }
+      }
+    },
+    "acceptance_gates": {"type": "array", "items": {"type": "string"}},
+    "finding_count": {"type": "integer", "minimum": 0},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "message"],
+        "properties": {
+          "severity": {"type": "string", "enum": ["P0", "P1", "P2"]},
+          "message": {"type": "string"}
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

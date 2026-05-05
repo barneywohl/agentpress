@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/handoff-pack-v1.schema.json",
+  "title": "AgentPress Handoff Pack v1",
+  "description": "Output schema for `agentpress handoff-pack`. Packages a task handoff between agents with objective, constraints, evidence paths, and acceptance gates.",
+  "type": "object",
+  "required": ["schema_version", "generated_utc", "status", "from_agent", "to_agent", "task_id", "objective", "constraints", "evidence_paths", "acceptance_gates", "pending_actions", "handoff_manifest"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "2026-05-04.agentpress-handoff-pack.v1"},
+    "canonical_url": {"type": "string", "format": "uri"},
+    "generated_utc": {"type": "string"},
+    "status": {"type": "string", "enum": ["ready", "blocked", "pending"]},
+    "from_agent": {"type": "string"},
+    "to_agent": {"type": "string"},
+    "task_id": {"type": "string"},
+    "objective": {"type": ["string", "null"]},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "evidence_paths": {"type": "array", "items": {"type": "string"}},
+    "acceptance_gates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    },
+    "pending_actions": {"type": "array", "items": {"type": "string"}},
+    "handoff_manifest": {
+      "type": "object",
+      "required": ["context", "do_not", "review"],
+      "properties": {
+        "context": {"type": "string"},
+        "do_not": {"type": "string"},
+        "review": {"type": "string"}
+      }
+    }
+  },
+  "additionalProperties": true
+}

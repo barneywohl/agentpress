@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://barneywohl.github.io/agentpress/agentpress/schemas/adoption-fixpack-v1.schema.json",
+  "title": "AgentPress Adoption Fix Pack v1",
+  "description": "Output schema for `agentpress adoption-fixpack`. Generates a copy-paste first-contact fix pack from local adoption evidence — no hidden telemetry, no external posts without human approval.",
+  "type": "object",
+  "required": ["schema_version", "generated_utc", "status", "purpose", "inputs", "privacy", "blockers", "commands", "acceptance_gates", "errors"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "2026-05-04.agentpress-adoption-fixpack.v1"},
+    "canonical_url": {"type": "string", "format": "uri"},
+    "generated_utc": {"type": "string"},
+    "status": {"type": "string", "enum": ["ready", "needs_external_proof", "blocked"]},
+    "purpose": {"type": "string"},
+    "inputs": {
+      "type": "object",
+      "required": ["root", "adoption_status", "docs_check", "lint_result"],
+      "properties": {
+        "root": {"type": "string"},
+        "adoption_status": {"type": "string"},
+        "docs_check": {"type": "string"},
+        "lint_result": {"type": "string"}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "required": ["hidden_telemetry", "external_posts", "local_files_only", "redact_before_submission"],
+      "properties": {
+        "hidden_telemetry": {"type": "boolean", "const": false},
+        "external_posts": {"type": "boolean", "const": false},
+        "local_files_only": {"type": "boolean", "const": true},
+        "redact_before_submission": {"type": "boolean", "const": true}
+      }
+    },
+    "metrics": {"type": "object"},
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "severity", "fix"],
+        "properties": {
+          "id": {"type": "string"},
+          "severity": {"type": "string", "enum": ["P0", "P1", "P2"]},
+          "fix": {"type": "string"}
+        }
+      }
+    },
+    "commands": {"type": "array", "items": {"type": "string"}},
+    "acceptance_gates": {"type": "array", "items": {"type": "string"}},
+    "errors": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}
