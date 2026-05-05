@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.2.0-rc.2 — 2026-05-05
+
+Safe pre-publish cleanup for the next AgentPress release candidate. No npm or PyPI publish performed in this commit.
+
+### Added
+- `SECURITY.md` with supported versions, private disclosure path, no-secrets guidance, scope, and SLA.
+- Compatibility matrix rows with status, proof command, limits, and explicit MCP static-vs-live boundary.
+
+### Changed
+- npm tarball whitelist tightened for a smaller install surface while keeping CLI, schemas, MCP static catalog, compatibility docs, and core docs.
+- README and npm shim now state that the npm package requires Python >=3.10.
+- MCP copy now says static discovery/catalog only; live `agentpress mcp-serve` remains roadmap.
+- Local Python metadata aligned to `0.2.0rc2`; PyPI publish remains separate and unperformed.
+
+### Validation target
+- `python3 -m json.tool package.json`
+- `python3 scripts/check_agentpress_positioning.py`
+- `python3 scripts/validate_agentpress_assets.py`
+- `npm pack --dry-run`
+
+
 ## 0.2.0-rc.1 — 2026-05-04
 
 Release-candidate packaging/distribution pass for AgentPress.

@@ -3,7 +3,7 @@
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/mcp/mcp-static-catalog.json",
   "generated_utc": "2026-05-03T20:10:50Z",
   "status": "ok",
-  "purpose": "Static MCP-compatible tool discovery export so MCP/Cline/Roo/Claude/Codex-style agents can discover AgentPress capabilities without a live server.",
+  "purpose": "Static MCP-style tool discovery export: command templates and resource references for MCP/Cline/Roo/Claude/Codex-style agents, not a live stdio/SSE server.",
   "transport": "static_json_catalog",
   "server_name": "agentpress-static-tools",
   "mcp_alignment": {
@@ -22,7 +22,9 @@
       }
     ],
     "tools_are_command_templates": true,
-    "live_mcp_server": "not_required_for_static_discovery"
+    "live_mcp_server": "not_implemented_static_catalog_only",
+    "roadmap_command": "agentpress mcp-serve (roadmap; not available in this release)",
+    "server_transport": "none_static_json_only"
   },
   "tool_count": 71,
   "tools": [

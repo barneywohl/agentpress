@@ -17,6 +17,8 @@ agentpress lint . --json
 agentpress adoption-fixpack --json
 ```
 
+**Runtime note:** the npm package is currently a small Node shim over the Python CLI. It requires Python >=3.10 on `PATH` (or set `PYTHON=/path/to/python3.10+`). If Python is unavailable, the shim exits with a clear install warning instead of failing later.
+
 Python fallback:
 
 ```bash
@@ -39,7 +41,10 @@ AgentPress publishes a small, machine-readable surface for agents:
 - `.well-known/ai-ingestion.json` — crawler/agent ingestion policy
 - `agentpress/agent-instructions.json` — agent operating contract
 - `agentpress/schemas/index.json` — schema index
+- `agentpress/mcp/mcp-static-catalog.json` — static MCP-style command-template catalog
 - schema validation, receipts, proof packs, and CLI gates
+
+MCP framing: AgentPress ships static MCP-style manifests for discovery today. It does **not** run a live stdio/SSE MCP server yet; `agentpress mcp-serve` is roadmap work unless a later release explicitly implements it.
 
 ## Try the consumer demo
 
@@ -64,6 +69,7 @@ This writes `doctor.json`, `first-run-wizard.json`, `self-test.jsonl`, `landing-
 - Fallback mirror: https://agentpress.pages.dev/
 - npm: https://www.npmjs.com/package/@agent_press/agentpress
 - PyPI: https://pypi.org/project/agentpress-static/
+- Security/disclosure: `SECURITY.md`
 - Full reference: `agentpress/FULL_REFERENCE.md`
 - Quickstart: `agentpress/QUICKSTART.md`
 
