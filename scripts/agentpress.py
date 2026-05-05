@@ -75,6 +75,97 @@ CONTRACT_SCHEMA_MAP = {
     "article-card.json": "article-card.schema.json",
 }
 
+AGENT_PAINPOINT_MAP = [
+    {
+        "rank": 1,
+        "id": "first_run_onboarding_friction",
+        "priority": "P0",
+        "painpoint": "Agents do not know what to run first / onboarding friction.",
+        "target_approach": "Keep every first-contact surface pointed at a short, ranked, JSON-producing first-run path.",
+        "target_features": ["start --json", "doctor --json", "llms-init", "first-run-wizard"],
+        "safe_now": ["ranked_first_actions in start output", "painpoint-map CLI"],
+    },
+    {
+        "rank": 2,
+        "id": "python_runtime_dependency_friction",
+        "priority": "P0",
+        "painpoint": "Python/runtime dependency friction from npm shim.",
+        "target_approach": "Make the npm shim useful before Python exists and point to the full CLI only when Python >=3.10 is available.",
+        "target_features": ["Node start fast path", "Node doctor fast path", "package-registry-doctor"],
+        "safe_now": ["version_channel guidance in start/doctor/package-registry-doctor"],
+    },
+    {
+        "rank": 3,
+        "id": "secret_path_guardrails",
+        "priority": "P0",
+        "painpoint": "Agents can leak/read secret paths unless guardrails are obvious and enforced.",
+        "target_approach": "Fail closed on sensitive roots and make sandbox/approval boundaries machine-readable.",
+        "target_features": ["secret path guard", "sandbox-guard", "redaction-check"],
+        "safe_now": ["handoff evidence hashing refuses sensitive paths"],
+    },
+    {
+        "rank": 4,
+        "id": "proof_handoff_evidence",
+        "priority": "P0",
+        "painpoint": "Agents need proof/evidence bundles for handoffs, not prose claims.",
+        "target_approach": "Attach hashes, commands, acceptance gates, and proof bundle paths to handoffs.",
+        "target_features": ["proof-capture", "handoff-pack", "submission-pack"],
+        "safe_now": ["handoff evidence_manifest with sha256/missing/refused status"],
+    },
+    {
+        "rank": 5,
+        "id": "docs_command_drift",
+        "priority": "P1",
+        "painpoint": "Docs are long/stale; command examples drift.",
+        "target_approach": "Prefer compact command cards and keep docs command lint in CI gates.",
+        "target_features": ["docs-command-check", "start --json", "AGENT_START_HERE"],
+        "safe_now": ["status artifact with sprint scope and deferred items"],
+    },
+    {
+        "rank": 6,
+        "id": "stable_vs_rc_confusion",
+        "priority": "P1",
+        "painpoint": "Version confusion: stable latest vs rc lane.",
+        "target_approach": "Label local rc builds as rc and avoid claiming registry-stable status without live registry proof.",
+        "target_features": ["version_channel", "package-registry-doctor", "release-registry-readiness-dashboard"],
+        "safe_now": ["version_channel in start/doctor/package-registry-doctor"],
+    },
+    {
+        "rank": 7,
+        "id": "compact_task_cards_source_maps",
+        "priority": "P1",
+        "painpoint": "Agents need compact task cards/source maps rather than huge docs.",
+        "target_approach": "Expose task cards, source maps, and exact next commands before long-form docs.",
+        "target_features": ["agent-task-card.json", "source-map.json", "task-handoff-contract"],
+        "safe_now": ["painpoint-map includes compact target feature mapping"],
+    },
+    {
+        "rank": 8,
+        "id": "offline_mirror_freshness_hashes",
+        "priority": "P1",
+        "painpoint": "Offline/mirror/freshness gaps: raw fallback URLs, signed/hash manifests, freshness checks.",
+        "target_approach": "Keep fallback URLs, hash manifests, and freshness reports adjacent to install/proof flows.",
+        "target_features": ["package-verify", "verify_manifest_integrity", "freshness-citation-report", "failover-plan"],
+        "safe_now": ["documented as P1 continuation; no live mirror changes in this sprint"],
+    },
+    {
+        "rank": 9,
+        "id": "native_adapter_ecosystem_gaps",
+        "priority": "P2",
+        "painpoint": "Native adapter ecosystem gaps: Cline/Roo/OpenHands/MCP/LangChain/LlamaIndex/CrewAI.",
+        "target_approach": "Keep static adapter kits and conformance artifacts ready, but defer external submissions until manual approval.",
+        "target_features": ["native-adapter-kit", "ecosystem-conformance-suite", "mcp-registry-pack"],
+        "safe_now": ["blocked/deferred for external submission; local packs remain safe"],
+    },
+]
+
+SPRINT_SHIPPED_FEATURES = [
+    "painpoint-map CLI emits ranked agent painpoints, target features, P0/P1/P2 backlog, and sprint scope",
+    "start --json exposes ranked_first_actions and stable-vs-rc version_channel clarity",
+    "doctor/package-registry-doctor include version_channel so rc builds are not mislabeled as stable",
+    "handoff-pack includes evidence_manifest hashes and refuses sensitive evidence paths before reading",
+]
+
 FETCH_ASSETS = [
     "llms.txt",
     ".well-known/agentpress.json",
@@ -152,6 +243,134 @@ def _secret_path_guard(root: pathlib.Path) -> list[dict]:
             "message": "Refusing to lint/doctor a secret-bearing path (.env, SSH/AWS/GCloud credentials, key/pem files, netrc, npm/pypi auth, or clawd_secrets). Choose the public project root instead.",
         }]
     return []
+
+
+def _repo_root() -> pathlib.Path:
+    return pathlib.Path(__file__).resolve().parent.parent if "__file__" in globals() else pathlib.Path(".")
+
+
+def _local_package_versions() -> dict:
+    root = _repo_root()
+    versions = {"npm_package": "@agent_press/agentpress", "npm_version": "", "python_package": "agentpress-static", "python_version": ""}
+    package_json = root / "package.json"
+    if package_json.exists():
+        try:
+            meta = json.loads(package_json.read_text(encoding="utf-8"))
+            versions["npm_package"] = meta.get("name") or versions["npm_package"]
+            versions["npm_version"] = meta.get("version") or ""
+        except Exception:
+            pass
+    init_py = root / "agentpress_cli" / "__init__.py"
+    if init_py.exists():
+        m = re.search(r'__version__\s*=\s*"([^"]+)"', init_py.read_text(encoding="utf-8", errors="replace"))
+        if m:
+            versions["python_version"] = m.group(1)
+    return versions
+
+
+def _version_channel_info() -> dict:
+    versions = _local_package_versions()
+    npm_version = versions.get("npm_version") or "unknown"
+    py_version = versions.get("python_version") or "unknown"
+    is_rc = any("rc" in str(v).lower() for v in [npm_version, py_version])
+    return {
+        "channel": "release_candidate" if is_rc else "stable_or_local",
+        "local": versions,
+        "stable_latest": {
+            "status": "not_asserted_without_registry_check",
+            "rule": "Do not call a release candidate the stable latest. Verify npm/PyPI live registry state before using stable labels.",
+        },
+        "rc_lane": {
+            "status": "active" if is_rc else "not_detected",
+            "npm_install_hint": f"npm package metadata in this checkout is {npm_version}",
+            "python_install_hint": f"Python package metadata in this checkout is {py_version}",
+        },
+        "safe_publish_policy": "No npm/PyPI publish is implied by this CLI output; dry-run/pack checks are local evidence only.",
+    }
+
+
+def _ranked_first_actions(root: pathlib.Path | str = ".") -> list[dict]:
+    root_arg = shlex.quote(str(root))
+    return [
+        {
+            "rank": 1,
+            "id": "doctor",
+            "command": f"python3 scripts/agentpress.py doctor {root_arg} --json",
+            "targets_painpoints": ["first_run_onboarding_friction", "secret_path_guardrails", "stable_vs_rc_confusion"],
+            "why": "Start with a bounded health check and machine-readable next_steps.",
+        },
+        {
+            "rank": 2,
+            "id": "llms_init_if_missing",
+            "command": f"python3 scripts/agentpress.py llms-init {root_arg} --json",
+            "targets_painpoints": ["first_run_onboarding_friction", "compact_task_cards_source_maps"],
+            "why": "Create the minimal agent-readable entrypoints when doctor reports missing surfaces.",
+        },
+        {
+            "rank": 3,
+            "id": "first_run_wizard",
+            "command": f"python3 scripts/agentpress.py first-run-wizard {root_arg} --json",
+            "targets_painpoints": ["first_run_onboarding_friction", "python_runtime_dependency_friction", "proof_handoff_evidence"],
+            "why": "Emit the exact next command, host/provider blockers, and proof command.",
+        },
+        {
+            "rank": 4,
+            "id": "proof_capture",
+            "command": "python3 scripts/agentpress.py proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --commands 'python3 scripts/agentpress.py doctor --json' --json",
+            "targets_painpoints": ["proof_handoff_evidence"],
+            "why": "Turn the run into a local proof bundle instead of a prose claim.",
+        },
+    ]
+
+
+def _painpoint_backlog() -> dict:
+    return {
+        "P0": [
+            "Keep first-run commands ranked and copy/pasteable.",
+            "Keep no-Python npm shim paths useful without claiming full CLI readiness.",
+            "Fail closed on secret-bearing paths before read/write attempts.",
+            "Hash handoff/proof evidence so claims are reviewable.",
+        ],
+        "P1": [
+            "Expand docs-command-check coverage and keep examples close to machine entrypoints.",
+            "Add freshness/hash manifest checks to more release and mirror surfaces.",
+            "Generate more compact task cards/source maps for large docs.",
+            "Make stable-vs-rc labels visible in every install/registry diagnostic.",
+        ],
+        "P2": [
+            "Submit native adapter packs to Cline/Roo/OpenHands/MCP/LangChain/LlamaIndex/CrewAI communities after manual approval.",
+            "Upgrade hash-only manifests to signed manifests after key ownership is approved.",
+        ],
+    }
+
+
+def _evidence_manifest(paths: list[str]) -> tuple[list[dict], int]:
+    rows = []
+    secret_hit_count = 0
+    for item in paths:
+        path = pathlib.Path(item).expanduser()
+        row = {"path": item}
+        if _is_sensitive_path(path):
+            row.update({"status": "refused_sensitive_path", "safe_to_share": False, "sha256": None})
+            rows.append(row)
+            continue
+        if not path.exists() or not path.is_file():
+            row.update({"status": "missing", "safe_to_share": False})
+            rows.append(row)
+            continue
+        content = path.read_bytes()
+        text = content.decode("utf-8", "replace")
+        hits = _scan_for_secrets(text)
+        secret_hit_count += len(hits)
+        row.update({
+            "status": "present",
+            "bytes": len(content),
+            "sha256": hashlib.sha256(content).hexdigest(),
+            "secret_scan": {"hits": len(hits), "safe": len(hits) == 0},
+            "safe_to_share": len(hits) == 0,
+        })
+        rows.append(row)
+    return rows, secret_hit_count
 
 
 def write(path: pathlib.Path, text: str) -> None:
@@ -2931,6 +3150,8 @@ def _attach_doctor_recommendations(payload: dict, root: pathlib.Path) -> dict:
     missing = [row.get("path") for row in payload.get("entrypoints", []) if row.get("status") == "MISSING" and row.get("path")]
     errors = list(payload.get("errors") or payload.get("primary_reference_errors") or [])
     payload["next_steps"] = _doctor_next_steps(str(payload.get("mode", "local")), root, errors, missing)
+    payload["ranked_first_actions"] = _ranked_first_actions(root)
+    payload["version_channel"] = _version_channel_info()
     payload["recommendations"] = [
         {
             "priority": "P0" if payload.get("status") != "ok" else "P2",
@@ -4253,7 +4474,8 @@ def package_registry_doctor(args):
     if '404' in low or 'not found' in low: fixes.append({"class":"missing_package_or_registry_name","fix":"check package name, registry, scope ownership, and fallback to git/github release tarball"})
     if 'permission' in low or 'eacces' in low: fixes.append({"class":"permission","fix":"use user install prefix or documented package manager path"})
     if 'auth' in low or 'token' in low: fixes.append({"class":"registry_auth","fix":"do not print token; verify logged-in account/scope separately"})
-    payload={"schema_version":"2026-05-03.agentpress-package-registry-doctor.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if fixes else "unknown","error_sample":error,"fixes":fixes,"fallback_channels":["git clone","GitHub release tarball","pip git","npm github:owner/repo","static HTTP bundle"]}
+    version_channel = _version_channel_info()
+    payload={"schema_version":"2026-05-05.agentpress-package-registry-doctor.v2","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if fixes else "unknown","error_sample":error,"fixes":fixes,"fallback_channels":["git clone","GitHub release tarball","pip git","npm github:owner/repo","static HTTP bundle"],"version_channel":version_channel,"stable_vs_rc_explanation":"This checkout can report local rc metadata, but it does not prove what npm/PyPI currently publish. Treat stable latest as unknown until a live registry check passes.","honest_labels":["local_rc" if version_channel.get("channel") == "release_candidate" else "local_stable_or_dev","registry_stable_unknown_without_network","no_publish_performed"]}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else payload['status'])
@@ -4312,11 +4534,14 @@ def adoption_tracker(args):
 def handoff_pack(args):
     """Package a task handoff between agents with evidence and acceptance gates."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; evidence=[x for x in _csv_list(args.evidence, [])]
-    payload={"schema_version":"2026-05-04.agentpress-handoff-pack.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ready","from_agent":args.from_agent,"to_agent":args.to_agent,"task_id":args.task_id,"objective":args.objective,"constraints":_csv_list(args.constraints, []),"evidence_paths":evidence,"acceptance_gates":_csv_list(args.acceptance, ["evidence artifact written","verification command passes","reviewer signs off"]),"pending_actions":_csv_list(args.pending_actions, []),"handoff_manifest":{"context":"read objective/constraints/evidence before acting","do_not":"claim completion without artifacts","review":"required if touching external effects or secrets"}}
+    evidence_manifest, secret_hits = _evidence_manifest(evidence)
+    proof_command = f"python3 scripts/agentpress.py proof-capture --task-id {shlex.quote(args.task_id)} --evidence-dir /tmp/agentpress-proof-{shlex.quote(slugify(args.task_id))} --artifacts {shlex.quote(','.join(evidence)) if evidence else '<artifact-paths>'} --json"
+    payload={"schema_version":"2026-05-05.agentpress-handoff-pack.v2","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ready","from_agent":args.from_agent,"to_agent":args.to_agent,"task_id":args.task_id,"objective":args.objective,"constraints":_csv_list(args.constraints, []),"evidence_paths":evidence,"evidence_manifest":evidence_manifest,"evidence_summary":{"present_count":sum(1 for row in evidence_manifest if row.get("status")=="present"),"missing_count":sum(1 for row in evidence_manifest if row.get("status")=="missing"),"refused_sensitive_path_count":sum(1 for row in evidence_manifest if row.get("status")=="refused_sensitive_path"),"secret_hit_count":secret_hits},"proof_command":proof_command,"acceptance_gates":_csv_list(args.acceptance, ["evidence artifact written","verification command passes","reviewer signs off"]),"pending_actions":_csv_list(args.pending_actions, []),"handoff_manifest":{"context":"read objective/constraints/evidence_manifest before acting","do_not":"claim completion without artifacts or hashes","review":"required if touching external effects, secrets, or any evidence_summary count is non-zero"}}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding='utf-8')
         _c=payload['constraints']; _e=payload['evidence_paths']; _g=payload['acceptance_gates']; _p=payload['pending_actions']
-        _md=["# Handoff "+args.task_id,"","**From:** "+args.from_agent+"  **→ To:** "+args.to_agent,"","**Objective:** "+(payload['objective'] or '(none)'),"","## Constraints"]+(_c if _c else ["(none)"])+["","## Evidence paths"]+(["`"+x+"`" for x in _e] if _e else ["(none)"])+["","## Acceptance gates"]+["- [ ] "+x for x in _g]+["","## Pending actions"]+(["- [ ] "+x for x in _p] if _p else ["(none)"])+["","**Generated:** "+payload['generated_utc']]
+        _hashes=[f"- `{row.get('path')}`: {row.get('status')} {row.get('sha256','')}".rstrip() for row in evidence_manifest]
+        _md=["# Handoff "+args.task_id,"","**From:** "+args.from_agent+"  **-> To:** "+args.to_agent,"","**Objective:** "+(payload['objective'] or '(none)'),"","## Constraints"]+(_c if _c else ["(none)"])+["","## Evidence paths"]+(["`"+x+"`" for x in _e] if _e else ["(none)"])+["","## Evidence manifest"]+(_hashes if _hashes else ["(none)"])+["","## Proof command","`"+proof_command+"`","","## Acceptance gates"]+["- [ ] "+x for x in _g]+["","## Pending actions"]+(["- [ ] "+x for x in _p] if _p else ["(none)"])+["","**Generated:** "+payload['generated_utc']]
         out.with_suffix('.md').write_text("\n".join(_md)+"\n",encoding='utf-8')
     print(json.dumps(payload,indent=2) if args.json else 'ready'); return 0
 
@@ -4376,14 +4601,15 @@ def proof_capture(args):
         commands.append({"command":cmd,"recorded_only":True})
     env={"python":sys.version.split()[0],"platform":platform.platform(),"cwd":str(pathlib.Path.cwd()),"agentpress_file":"scripts/agentpress.py"}
     scan_status="secret_hits_found" if secret_hits else "no_obvious_secrets"
-    payload={"schema_version":"2026-05-04.agentpress-proof-capture.v2","generated_utc":_utc_now(),"status":"ok","task_id":args.task_id,"purpose":"Create a shareable no-secret proof bundle for first-agent runs.","summary":args.summary,"environment":env,"commands":commands,"artifacts":artifacts,"acceptance":{"artifact_count":len([a for a in artifacts if not a.get('missing')]),"missing_count":len([a for a in artifacts if a.get('missing')]),"review_required":args.review_required},"privacy":{"secret_scan_status":scan_status,"secret_hit_count":len(secret_hits),"operator_must_review_before_external_share":True},"reviewer_checklist":["commands are reproducible","artifacts are public-safe","no tokens/secrets/private prompts","expected vs observed is clear"]}
+    handoff_command = f"python3 scripts/agentpress.py handoff-pack --from <current-agent> --to <next-agent> --task-id {shlex.quote(args.task_id)} --evidence {shlex.quote(str(out))} --json"
+    payload={"schema_version":"2026-05-05.agentpress-proof-capture.v3","generated_utc":_utc_now(),"status":"ok","task_id":args.task_id,"purpose":"Create a shareable no-secret proof bundle for first-agent runs.","summary":args.summary,"environment":env,"commands":commands,"artifacts":artifacts,"acceptance":{"artifact_count":len([a for a in artifacts if not a.get('missing')]),"missing_count":len([a for a in artifacts if a.get('missing')]),"review_required":args.review_required},"privacy":{"secret_scan_status":scan_status,"secret_hit_count":len(secret_hits),"operator_must_review_before_external_share":True},"reviewer_checklist":["commands are reproducible","artifacts are public-safe","no tokens/secrets/private prompts","expected vs observed is clear"],"handoff_command":handoff_command}
     evidence_dir.mkdir(parents=True,exist_ok=True)
     initial=json.dumps(payload,indent=2)+"\n"
     payload["bundle_sha256"] = hashlib.sha256(initial.encode("utf-8")).hexdigest()
     out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
     scan_note = f"\n\n**Secret scan:** {scan_status} ({len(secret_hits)} hits)" if secret_hits else "\n\n**Secret scan:** no obvious secrets detected"
     card.write_text(f"# AgentPress proof card: {args.task_id}\n\nGenerated: {payload['generated_utc']}\n\nStatus: {payload['status']}\n\nSummary: {args.summary or '(none)'}\n\nArtifacts: {payload['acceptance']['artifact_count']} present / {payload['acceptance']['missing_count']} missing\n\nBundle: `{out}`{scan_note}\n",encoding="utf-8")
-    result={"status":"ok","task_id":args.task_id,"proof_bundle":str(out),"proof_card":str(card),"bundle_sha256":payload["bundle_sha256"],"artifact_count":payload['acceptance']['artifact_count'],"secret_scan_status":scan_status}
+    result={"status":"ok","task_id":args.task_id,"proof_bundle":str(out),"proof_card":str(card),"bundle_sha256":payload["bundle_sha256"],"artifact_count":payload['acceptance']['artifact_count'],"secret_scan_status":scan_status,"handoff_command":handoff_command}
     print(json.dumps(result,indent=2) if args.json else str(out))
     return 1 if secret_hits and getattr(args,"strict",False) else 0
 
@@ -8181,13 +8407,59 @@ def feedback_submit(args):
     return 0 if not errors else 1
 
 
+def painpoint_map(args):
+    """Emit the ranked current agent painpoints and target feature map."""
+    root = pathlib.Path(getattr(args, "root", ".") or ".")
+    out = pathlib.Path(args.out)
+    base = args.base_url.rstrip("/") + "/"
+    payload = {
+        "schema_version": "2026-05-05.agentpress-painpoint-map.v1",
+        "canonical_url": urljoin(base, out.as_posix()),
+        "generated_utc": _utc_now(),
+        "mission_id": getattr(args, "mission_id", "") or "",
+        "status": "ok",
+        "purpose": "Rank the biggest current agent pain points and map each to concrete AgentPress features agents can run or verify.",
+        "root": str(root),
+        "ranked_painpoints": AGENT_PAINPOINT_MAP,
+        "feature_backlog": _painpoint_backlog(),
+        "shipped_this_sprint": SPRINT_SHIPPED_FEATURES,
+        "safe_scope": {
+            "package_publish": False,
+            "external_posts": False,
+            "secrets_required": False,
+            "nexio_prod_or_mainnet": False,
+        },
+        "first_actions": _ranked_first_actions(root),
+        "version_channel": _version_channel_info(),
+        "blocked_or_deferred": [
+            {
+                "id": "live_package_publish",
+                "reason": "No npm/PyPI publish approval; package labels stay local rc/dry-run only.",
+            },
+            {
+                "id": "external_adapter_submissions",
+                "reason": "Requires manual outreach/submission approval; local adapter packs are safe, external posting is deferred.",
+            },
+            {
+                "id": "signed_manifest",
+                "reason": "Requires approved signing key ownership and rotation policy; hash manifests remain safe now.",
+            },
+        ],
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0
+
+
 
 def start(args):
     """Print the shortest safe first-user path."""
     root = pathlib.Path(getattr(args, "root", ".") or ".")
     root_arg = shlex.quote(str(root))
     payload = {
-        "schema_version": "2026-05-05.agentpress-start.v1",
+        "schema_version": "2026-05-05.agentpress-start.v2",
         "status": "ok",
         "purpose": "Concise first-user path for agents/users who should not scan the full command catalog first.",
         "commands": [
@@ -8210,6 +8482,9 @@ def start(args):
                 "why": "Produce exact_next_command, proof command, blockers, and safety boundaries.",
             },
         ],
+        "ranked_first_actions": _ranked_first_actions(root),
+        "version_channel": _version_channel_info(),
+        "painpoint_map_command": "python3 scripts/agentpress.py painpoint-map --json",
         "safety": {
             "external_writes": False,
             "secrets_required": False,
@@ -8224,6 +8499,7 @@ def start(args):
         print("AgentPress start: run these three commands first")
         for cmd in payload["commands"]:
             print(f"{cmd['step']}. {cmd['command']}  # {cmd['why']}")
+        print(f"Version channel: {payload['version_channel']['channel']} (registry stable latest not asserted)")
         print("Safety: local-only; no external writes or secrets.")
     return 0
 
@@ -8326,6 +8602,7 @@ def main():
         print("AgentPress — agent-readable repo surfaces")
         print("\nStart here (fresh-user path):")
         print("  python3 scripts/agentpress.py start --json")
+        print("  python3 scripts/agentpress.py painpoint-map --json")
         print("  python3 scripts/agentpress.py doctor . --json")
         print("  python3 scripts/agentpress.py llms-init . --json")
         print("  python3 scripts/agentpress.py first-run-wizard . --json")
@@ -8337,6 +8614,7 @@ def main():
     ap = argparse.ArgumentParser(add_help=True)
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("start", aliases=["help-start"]); p.add_argument("root", nargs="?", default="."); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("painpoint-map"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/planning/current-agent-painpoint-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--mission-id", default=""); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("llms-init"); p.add_argument("root", nargs="?", default="."); p.add_argument("--title"); p.add_argument("--base-url", default=""); p.add_argument("--force", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("init"); p.add_argument("out"); p.add_argument("--title", required=True); p.add_argument("--canonical"); p.add_argument("--summary"); p.add_argument("--primary-task"); p.add_argument("--task-type", default="agent_native_publication")
     p = sub.add_parser("validate"); p.add_argument("out"); p.add_argument("--json", action="store_true")
@@ -8622,6 +8900,7 @@ def main():
     p = sub.add_parser("package-index"); p.add_argument("package"); p.add_argument("--manifest"); p.add_argument("--out", default="dist/agentpress-offline-index.json")
     args = ap.parse_args()
     if args.cmd in {"start", "help-start"}: return start(args)
+    if args.cmd == "painpoint-map": return painpoint_map(args)
     if args.cmd == "llms-init": return llms_init(args)
     if args.cmd == "init": init(args); return 0
     if args.cmd == "validate": return validate(args)

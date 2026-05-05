@@ -38,6 +38,68 @@ function shellQuote(value) {
   return `'${s.replace(/'/g, `'\\''`)}'`;
 }
 
+function localPackageVersion() {
+  const pkgPath = path.resolve(__dirname, '..', 'package.json');
+  try {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+    return { npm_package: pkg.name || '@agent_press/agentpress', npm_version: pkg.version || 'unknown' };
+  } catch (e) {
+    return { npm_package: '@agent_press/agentpress', npm_version: 'unknown' };
+  }
+}
+
+function versionChannelInfo() {
+  const local = localPackageVersion();
+  const isRc = String(local.npm_version || '').toLowerCase().includes('rc');
+  return {
+    channel: isRc ? 'release_candidate' : 'stable_or_local',
+    local,
+    stable_latest: {
+      status: 'not_asserted_without_registry_check',
+      rule: 'Do not call a release candidate the stable latest. Verify npm/PyPI live registry state before using stable labels.',
+    },
+    rc_lane: {
+      status: isRc ? 'active' : 'not_detected',
+      npm_install_hint: `npm package metadata in this checkout is ${local.npm_version}`,
+    },
+    safe_publish_policy: 'No npm/PyPI publish is implied by this CLI output; dry-run/pack checks are local evidence only.',
+  };
+}
+
+function rankedFirstActions(root = '.') {
+  const rootArg = shellQuote(root);
+  return [
+    {
+      rank: 1,
+      id: 'doctor',
+      command: `agentpress doctor ${rootArg} --json`,
+      targets_painpoints: ['first_run_onboarding_friction', 'secret_path_guardrails', 'stable_vs_rc_confusion'],
+      why: 'Start with a bounded health check and machine-readable next_steps.',
+    },
+    {
+      rank: 2,
+      id: 'llms_init_if_missing',
+      command: `agentpress llms-init ${rootArg} --json`,
+      targets_painpoints: ['first_run_onboarding_friction', 'compact_task_cards_source_maps'],
+      why: 'Create the minimal agent-readable entrypoints when doctor reports missing surfaces.',
+    },
+    {
+      rank: 3,
+      id: 'first_run_wizard',
+      command: `agentpress first-run-wizard ${rootArg} --json`,
+      targets_painpoints: ['first_run_onboarding_friction', 'python_runtime_dependency_friction', 'proof_handoff_evidence'],
+      why: 'Emit the exact next command, host/provider blockers, and proof command once Python is available.',
+    },
+    {
+      rank: 4,
+      id: 'proof_capture',
+      command: "agentpress proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --commands 'agentpress doctor --json' --json",
+      targets_painpoints: ['proof_handoff_evidence'],
+      why: 'Turn the run into a local proof bundle instead of a prose claim.',
+    },
+  ];
+}
+
 function firstPositional(argv, start = 1) {
   for (let i = start; i < argv.length; i += 1) {
     const item = argv[i];
@@ -72,6 +134,7 @@ function sensitivePathPayload(command, dir) {
       path: dir,
       default_deny_secrets: true,
     },
+    version_channel: versionChannelInfo(),
     next_steps: [
       { command: 'cd /path/to/public/repo && agentpress doctor --json', why: 'Run AgentPress from the public project root.' },
     ],
@@ -85,7 +148,7 @@ function printPayload(payload, json, textLine) {
 
 function printStart(json = false) {
   const payload = {
-    schema_version: '2026-05-05.agentpress-node-fast-start.v1',
+    schema_version: '2026-05-05.agentpress-node-fast-start.v2',
     status: 'ok',
     purpose: 'No-Python fast path for fresh users; install Python >=3.10 for the full CLI.',
     commands: [
@@ -93,6 +156,9 @@ function printStart(json = false) {
       { step: 2, name: 'llms-init', command: 'agentpress llms-init . --json', why: 'Create minimal llms.txt + .well-known/agentpress.json when missing.' },
       { step: 3, name: 'first-run-wizard', command: 'agentpress first-run-wizard . --json', why: 'Get exact_next_command, proof command, blockers, and safety notes.' },
     ],
+    ranked_first_actions: rankedFirstActions('.'),
+    version_channel: versionChannelInfo(),
+    painpoint_map_command: 'agentpress painpoint-map --json',
     safety: { external_writes: false, secrets_required: false, destructive_actions: false },
     full_cli_requires: 'Python >=3.10',
   };
@@ -102,6 +168,7 @@ function printStart(json = false) {
   }
   console.log('AgentPress start: run these first');
   for (const item of payload.commands) console.log(`${item.step}. ${item.command}  # ${item.why}`);
+  console.log(`Version channel: ${payload.version_channel.channel} (registry stable latest not asserted)`);
   console.log('Safety: local-only guidance; no external writes or secrets. Full CLI requires Python >=3.10.');
 }
 
@@ -119,6 +186,7 @@ function printNoPythonDoctor(json = false, py = 'python3', err = '') {
       { id: 'install_python', command: 'python3 --version', why: 'Install/verify Python >=3.10, or set PYTHON=/path/to/python3.10+' },
       { id: 'start_guidance', command: 'agentpress start --json', why: 'Show no-Python first-run guidance.' },
     ],
+    version_channel: versionChannelInfo(),
     recommendations: [
       { priority: 'P0', summary: 'Install Python >=3.10 for full AgentPress CLI execution.', command: 'python3 --version' },
     ],
@@ -148,6 +216,8 @@ function nodeDoctor(targetDir, opts = {}) {
       root: dir,
       errors: ['Online URL health checks require the full Python CLI; the Node fast path only performs local first-run checks.'],
       checked_urls: [],
+      ranked_first_actions: rankedFirstActions(dir),
+      version_channel: versionChannelInfo(),
       next_steps: [
         { command: 'python3 --version', why: 'Install or verify Python >=3.10.' },
         { command: 'agentpress doctor --json', why: 'Rerun after Python is available for full online checks.' },
@@ -172,6 +242,8 @@ function nodeDoctor(targetDir, opts = {}) {
         local_file_reads: false,
       },
       errors: [],
+      ranked_first_actions: rankedFirstActions(dir),
+      version_channel: versionChannelInfo(),
       next_steps: [
         { command: 'agentpress doctor . --json', why: 'Check local AgentPress entrypoints.' },
         { command: 'agentpress llms-init . --json', why: 'Create minimal entrypoints if they are missing.' },
@@ -227,6 +299,8 @@ function nodeDoctor(targetDir, opts = {}) {
     root: dir,
     entrypoints,
     errors,
+    ranked_first_actions: rankedFirstActions(dir),
+    version_channel: versionChannelInfo(),
     next_steps: errors.length ? [
       { command: `agentpress llms-init ${shellQuote(dir)} --json`, why: 'Create minimal llms.txt and .well-known/agentpress.json.' },
       { command: `agentpress doctor ${shellQuote(dir)} --json`, why: 'Re-check the generated first-run surface.' },
@@ -347,6 +421,7 @@ function llmsInit(targetDir, opts) {
     would_write: wouldWrite,
     skipped,
     errors,
+    version_channel: versionChannelInfo(),
     next_steps: [
       { command: `agentpress doctor ${shellQuote(dir)} --json`, why: 'Fast local check without Python.' },
       { command: `agentpress first-run-wizard ${shellQuote(dir)} --json`, why: 'Full first-run plan (requires Python >=3.10).' },
