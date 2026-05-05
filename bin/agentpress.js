@@ -176,6 +176,37 @@ function printHelp() {
   console.log(`AgentPress — agent-readable repo surfaces\n\nStart here (concise first-user path):\n  agentpress start\n  agentpress doctor --json\n  agentpress llms-init . --json\n  agentpress first-run-wizard . --json\n\nCommon commands:\n  agentpress verify <dir> --json\n  agentpress self-test --agent-id local-agent --out /tmp/agentpress-self-test.jsonl\n  agentpress agent-onboard --agent-id local-agent --runtime codex --json\n\nRun with Python available for the full command catalog.`);
 }
 
+
+function noPythonCommandPayload(command, argv, py = 'python3', err = '') {
+  const root = firstPositional(argv, 1) || '.';
+  return {
+    schema_version: '2026-05-05.agentpress-node-no-python-command.v1',
+    status: 'fail',
+    mode: 'node-fast-path',
+    command,
+    args: argv,
+    root,
+    errors: [`Python not found or not runnable (tried '${py}'). ${err}`.trim()],
+    next_steps: [
+      { id: 'start_guidance', command: 'agentpress start --json', why: 'Get safe no-Python first-run guidance.' },
+      { id: 'doctor_fast_path', command: `agentpress doctor ${shellQuote(root)} --json`, why: 'Run the Node fast-path doctor while Python is unavailable.' },
+      { id: 'install_python', command: 'python3 --version', why: 'Install/verify Python >=3.10, or set PYTHON=/path/to/python3.10+' },
+    ],
+    full_cli_requires: 'Python >=3.10',
+    version_channel: versionChannelInfo(),
+    safety: { external_writes: false, secrets_required: false, destructive_actions: false },
+  };
+}
+
+function printNoPythonCommand(command, argv, json = false, py = 'python3', err = '') {
+  const payload = noPythonCommandPayload(command, argv, py, err);
+  if (json) console.log(JSON.stringify(payload, null, 2));
+  else {
+    console.error(payload.errors[0]);
+    console.error('Next: agentpress start');
+  }
+}
+
 function printNoPythonDoctor(json = false, py = 'python3', err = '') {
   const payload = {
     schema_version: '2026-05-05.agentpress-node-fast-doctor.v1',
@@ -477,8 +508,7 @@ if (vcheck.error) {
     printNoPythonDoctor(false, py, vcheck.error.message);
     process.exit(1);
   }
-  console.error(`agentpress: Python not found (tried '${py}'). Install Python >= 3.10 or set PYTHON=/path/to/python3.10+.`);
-  console.error(`Try 'agentpress start' for no-Python first-run guidance.`);
+  printNoPythonCommand(args[0], args, wantsJson(args), py, vcheck.error.message);
   process.exit(1);
 }
 const vstr = (vcheck.stdout || vcheck.stderr || '').trim(); // "Python 3.x.y"
@@ -492,8 +522,7 @@ if (!vm || parseInt(vm[1], 10) < 3 || (parseInt(vm[1], 10) === 3 && parseInt(vm[
     printNoPythonDoctor(false, py, `Found ${vstr}; need Python >=3.10.`);
     process.exit(1);
   }
-  console.error(`agentpress: Python >= 3.10 required, found: ${vstr}. Install a newer Python or set PYTHON=/path/to/python3.10+.`);
-  console.error(`Try 'agentpress start' for no-Python first-run guidance.`);
+  printNoPythonCommand(args[0], args, wantsJson(args), py, `Found ${vstr}; need Python >=3.10.`);
   process.exit(1);
 }
 

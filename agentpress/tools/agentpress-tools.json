@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-05T18:16:25Z",
+  "generated_at": "2026-05-05T18:42:27Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -858,6 +858,18 @@
         "proof",
         "rflo",
         "gate"
+      ]
+    },
+    {
+      "name": "agentpress.no_python_fallback_check",
+      "description": "Verify npm/Node shim emits JSON remediation for commands when Python is missing.",
+      "command": "python3 scripts/agentpress.py no-python-fallback-check --json",
+      "tags": [
+        "npm",
+        "python",
+        "fallback",
+        "first-run",
+        "json"
       ]
     },
     {

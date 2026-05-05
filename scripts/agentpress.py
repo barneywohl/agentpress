@@ -2063,6 +2063,36 @@ def broker_scope_guard(args):
     return 1 if args.strict and payload["status"] != "ok" else 0
 
 
+def no_python_fallback_check(args):
+    """Verify the npm Node shim emits machine-readable remediation when Python is missing."""
+    root = pathlib.Path(args.root)
+    out = pathlib.Path(args.out)
+    import subprocess, os
+    commands = [c.strip() for c in args.commands.split(",") if c.strip()]
+    results = []
+    env = dict(os.environ)
+    env["PYTHON"] = args.python_path
+    for cmd in commands:
+        argv = ["node", str(root / "bin" / "agentpress.js"), cmd, ".", "--json"]
+        try:
+            proc = subprocess.run(argv, cwd=str(root), env=env, text=True, capture_output=True, timeout=args.timeout_seconds)
+            try:
+                data = json.loads(proc.stdout or "{}")
+            except Exception as e:
+                data = {"parse_error": str(e), "stdout_tail": (proc.stdout or "")[-500:]}
+            ok = proc.returncode != 0 and data.get("schema_version") == "2026-05-05.agentpress-node-no-python-command.v1" and data.get("next_steps")
+            # doctor is a special fast path and may return node-fast-doctor instead.
+            if cmd == "doctor":
+                ok = data.get("schema_version", "").startswith("2026-05-05.agentpress-node-fast-doctor") and data.get("next_steps")
+            results.append({"command": cmd, "status": "pass" if ok else "fail", "returncode": proc.returncode, "schema_version": data.get("schema_version"), "next_steps_count": len(data.get("next_steps", [])) if isinstance(data.get("next_steps"), list) else 0, "stderr_tail": (proc.stderr or "")[-300:]})
+        except Exception as e:
+            results.append({"command": cmd, "status": "fail", "error": str(e)})
+    failures = [r for r in results if r.get("status") != "pass"]
+    payload = {"schema_version":"2026-05-05.agentpress-no-python-fallback-check.v1","generated_utc":_utc_now(),"status":"ok" if not failures else "fail","root":str(root),"python_path":args.python_path,"results":results,"fail_count":len(failures),"purpose":"Ensure npm users without Python receive JSON remediation instead of generic text-only errors."}
+    _write_json_payload(payload, out, args.no_write, args.json)
+    return 1 if args.strict and failures else 0
+
+
 def release_promote_checklist(args):
     """Block rc->latest promotion until evidence, RFLO, CI, package, and external-proof gates are green."""
     root = pathlib.Path(args.root)
@@ -2095,6 +2125,14 @@ def release_promote_checklist(args):
         ("agentpress/evidence/agent-needs-painpoint-build-list-20260505.md", "painpoint_build_list"),
     ]:
         add(name, "pass" if exists(rel) else "missing", rel)
+    try:
+        ns = argparse.Namespace(root=str(root), commands="validate,verify,agent-onboard", python_path="/nonexistent/python3-agentpress-check", out="/tmp/agentpress-release-promote-no-python.json", timeout_seconds=20, no_write=True, json=True, strict=False)
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf): no_python_fallback_check(ns)
+        data = json.loads(buf.getvalue() or "{}")
+        add("no_python_fallback_check", "pass" if data.get("status") == "ok" else "blocked", "no-python-fallback-check", detail=f"fail_count={data.get('fail_count')}")
+    except Exception as e:
+        add("no_python_fallback_check", "blocked", "no-python-fallback-check", detail=str(e))
     # These are intentionally hard gates for latest promotion.
     proof_index = root / "agentpress/external-proofs/external-proof-index.json"
     independent = 0
@@ -3040,6 +3078,7 @@ def tools_manifest(args):
         {"name":"agentpress.repo_sync_doctor", "description":"Detect stale or dirty AgentPress checkouts before agents judge package/version truth.", "command":"python3 scripts/agentpress.py repo-sync-doctor . --json", "tags":["repo","sync","release","doctor","truth"]},
         {"name":"agentpress.cli_gap_audit", "description":"Audit AgentPress CLI/parser/dispatch/docs/tool manifest drift and remaining CLI build gaps.", "command":"python3 scripts/agentpress.py cli-gap-audit --json", "tags":["cli","audit","drift","docs","tools"]},
         {"name":"agentpress.release_promote_checklist", "description":"Block rc-to-latest promotion until RFLO, independent proof, CI, package, smoke, and tool gates are green.", "command":"python3 scripts/agentpress.py release-promote-checklist --json", "tags":["release","promotion","npm","proof","rflo","gate"]},
+        {"name":"agentpress.no_python_fallback_check", "description":"Verify npm/Node shim emits JSON remediation for commands when Python is missing.", "command":"python3 scripts/agentpress.py no-python-fallback-check --json", "tags":["npm","python","fallback","first-run","json"]},
         {"name":"agentpress.context_package_init", "description":"Create a focused handoff root with source-map, freshness, and task card for large repos.", "command":"python3 scripts/agentpress.py context-package-init . --json", "tags":["context","handoff","large-repo","source-map","freshness"]},
         {"name":"agentpress.handoff_root_pick", "description":"Pick/create a compact handoff root for an agent task when the full repo is too large.", "command":"python3 scripts/agentpress.py handoff-root-pick . --json", "tags":["context","handoff","task-card","large-repo"]},
         {"name":"agentpress.agent_community_channel_map", "description":"Map agent communities/channels to problem signals.", "command":"python3 scripts/agentpress.py agent-community-channel-map --json", "tags":["community","channels","research","agents"]},
@@ -9692,6 +9731,7 @@ def main():
     p = sub.add_parser("repo-sync-doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--remote", default="https://github.com/barneywohl/agentpress.git"); p.add_argument("--ref", default="refs/heads/main"); p.add_argument("--out", default="agentpress/evidence/repo-sync-doctor.json"); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("cli-gap-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/cli-gap-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("release-promote-checklist"); p.add_argument("root", nargs="?", default="."); p.add_argument("--from-tag", default="rc"); p.add_argument("--to-tag", default="latest"); p.add_argument("--min-independent-proofs", type=int, default=1); p.add_argument("--out", default="agentpress/releases/release-promote-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("no-python-fallback-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--commands", default="validate,verify,agent-onboard"); p.add_argument("--python-path", default="/nonexistent/python3-agentpress-check"); p.add_argument("--out", default="agentpress/evidence/no-python-fallback-check.json"); p.add_argument("--timeout-seconds", type=int, default=20); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("context-package-init"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("handoff-root-pick"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -10063,6 +10103,7 @@ def main():
     if args.cmd == "repo-sync-doctor": return repo_sync_doctor(args)
     if args.cmd == "cli-gap-audit": return cli_gap_audit(args)
     if args.cmd == "release-promote-checklist": return release_promote_checklist(args)
+    if args.cmd == "no-python-fallback-check": return no_python_fallback_check(args)
     if args.cmd == "context-package-init": return context_package_init(args)
     if args.cmd == "handoff-root-pick": return handoff_root_pick(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
