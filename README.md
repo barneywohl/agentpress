@@ -26,11 +26,12 @@ AgentPress focuses on `llms.txt`, agent onboarding, static discovery manifests, 
 ```bash
 npm install -g @agent_press/agentpress
 agentpress doctor --json
+agentpress llms-init . --json
 agentpress lint . --json
 agentpress adoption-fixpack --json
 ```
 
-**Runtime note:** the npm package is currently a small Node shim over the Python CLI. It requires Python >=3.10 on `PATH` (or set `PYTHON=/path/to/python3.10+`). If Python is unavailable, the shim exits with a clear install warning instead of failing later.
+**Runtime note:** the npm package includes a Node-native first-run path for `agentpress doctor --json`, `agentpress start`, and `agentpress llms-init . --json`. The full command catalog still requires Python >=3.10 on `PATH` (or set `PYTHON=/path/to/python3.10+`).
 
 Python fallback:
 

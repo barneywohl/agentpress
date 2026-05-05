@@ -8231,12 +8231,27 @@ def start(args):
 def llms_init(args):
     """Create minimal AgentPress first-contact surfaces without duplicating the full wizard."""
     root = pathlib.Path(args.root)
+    guard_findings = _secret_path_guard(root)
+    if guard_findings:
+        payload = {
+            "schema_version": "2026-05-05.agentpress-llms-init.v1",
+            "status": "fail",
+            "root": str(root),
+            "checked": ["secret_path_guard"],
+            "written": [],
+            "skipped": [],
+            "errors": ["Refusing to read or write a secret-bearing path. Choose the public project root instead."],
+            "security_guard": guard_findings[0],
+            "no_write": bool(getattr(args, "no_write", False)),
+        }
+        print(json.dumps(payload, indent=2) if getattr(args, "json", False) else "AgentPress llms-init: refused sensitive path")
+        return 1
     title = getattr(args, "title", None) or root.resolve().name or "AgentPress project"
     base_url = (getattr(args, "base_url", None) or "").rstrip("/") + "/" if getattr(args, "base_url", None) else ""
     force = bool(getattr(args, "force", False))
     no_write = bool(getattr(args, "no_write", False))
     files = {
-        "llms.txt": f"""# {title}\n\n## AgentPress quick start\n\nThis repository exposes a minimal agent-readable surface. Start with:\n\n```bash\npython3 scripts/agentpress.py doctor . --json\npython3 scripts/agentpress.py first-run-wizard . --json\n```\n\n## Safe operating boundary\n\n- Read and summarize public repository files.\n- Do not access secrets, credentials, private data, payments, or external posting flows without explicit human approval.\n- Prefer machine-readable JSON outputs and attach command evidence when reporting blockers.\n""",
+        "llms.txt": f"""# {title}\n# llms.txt - agent-readable repo surface\n\n## AgentPress quick start\n\nThis repository exposes a minimal agent-readable surface. Start with:\n\n```bash\nagentpress doctor . --json\nagentpress first-run-wizard . --json\n```\n\n## Safe operating boundary\n\n- Read and summarize public repository files.\n- Do not access secrets, credentials, private data, payments, or external posting flows without explicit human approval.\n- Prefer machine-readable JSON outputs and attach command evidence when reporting blockers.\n""",
         ".well-known/agentpress.json": json.dumps({
             "schema_version": "2026-05-05.agentpress-minimal-entrypoint.v1",
             "name": title,
@@ -8244,9 +8259,9 @@ def llms_init(args):
             "canonical_url": base_url,
             "entrypoints": ["llms.txt", ".well-known/agentpress.json"],
             "commands": {
-                "doctor": "python3 scripts/agentpress.py doctor . --json",
-                "start": "python3 scripts/agentpress.py start --json",
-                "first_run_wizard": "python3 scripts/agentpress.py first-run-wizard . --json",
+                "doctor": "agentpress doctor . --json",
+                "start": "agentpress start --json",
+                "first_run_wizard": "agentpress first-run-wizard . --json",
             },
             "safety": {"external_writes": False, "secrets_required": False, "human_approval_required_for_mutations": True},
         }, indent=2) + "\n",
@@ -8269,8 +8284,8 @@ def llms_init(args):
         "written": written,
         "skipped": skipped,
         "next_steps": [
-            {"command": f"python3 scripts/agentpress.py doctor {shlex.quote(str(root))} --json", "why": "Verify the new minimal surface."},
-            {"command": f"python3 scripts/agentpress.py first-run-wizard {shlex.quote(str(root))} --json", "why": "Generate a first-run plan and proof command."},
+            {"command": f"agentpress doctor {shlex.quote(str(root))} --json", "why": "Verify the new minimal surface."},
+            {"command": f"agentpress first-run-wizard {shlex.quote(str(root))} --json", "why": "Generate a first-run plan and proof command."},
         ],
         "no_write": no_write,
     }
@@ -8278,7 +8293,7 @@ def llms_init(args):
         print(json.dumps(payload, indent=2))
     else:
         print(f"AgentPress llms-init: {payload['status']} written={written} skipped={len(skipped)}")
-    return 0 if not skipped or force else 1
+    return 0
 
 
 def consistency_check(args):

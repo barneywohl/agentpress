@@ -47,3 +47,20 @@ def test_doctor_refuses_sensitive_root_without_reading(tmp_path):
     assert payload["entrypoints"] == []
     assert "aws_secret_access_key" not in result.stdout
     assert "aws_secret_access_key" not in result.stderr
+
+
+def test_llms_init_refuses_sensitive_root_without_reading(tmp_path):
+    secret_root = tmp_path / ".npmrc"
+    secret_root.mkdir()
+    (secret_root / "README.md").write_text("//registry.npmjs.org/:_authToken=example\n", encoding="utf-8")
+
+    result = run_cli("llms-init", str(secret_root), "--json")
+
+    assert result.returncode == 1
+    payload = json.loads(result.stdout)
+    assert payload["status"] == "fail"
+    assert payload["checked"] == ["secret_path_guard"]
+    assert payload["security_guard"]["code"] == "sensitive_root_refused"
+    assert not (secret_root / "llms.txt").exists()
+    assert "_authToken" not in result.stdout
+    assert "_authToken" not in result.stderr

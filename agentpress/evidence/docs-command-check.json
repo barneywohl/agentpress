@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-03.agentpress-docs-command-check.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/evidence/docs-command-check.json",
-  "generated_utc": "2026-05-04T19:45:43Z",
+  "generated_utc": "2026-05-05T13:23:36Z",
   "status": "ok",
-  "checked": 494,
+  "checked": 503,
   "failed": 0,
-  "commands_known": 265,
+  "commands_known": 269,
   "results": [
     {
       "path": "README.md",
@@ -287,6 +287,16 @@
       "path": "llms.txt",
       "command": "python3 scripts/agentpress.py submission-pack --receipt /tmp/<your-agent-id>-landing.json --out /tmp/<your-agent-id>-submission --json",
       "cmd": "submission-pack",
+      "status": "ok",
+      "errors": [],
+      "warnings": [
+        "contains placeholder; parser execution skipped"
+      ]
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py external-proof-run --agent-id <your-agent-id> --runtime codex --out /tmp/agentpress-proof-<your-agent-id> --json",
+      "cmd": "external-proof-run",
       "status": "ok",
       "errors": [],
       "warnings": [
@@ -1996,6 +2006,68 @@
       "warnings": []
     },
     {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py first-user-bootstrap --platform <cline|roo|claude|cursor|windsurf|generic> --json",
+      "cmd": "first-user-bootstrap",
+      "status": "ok",
+      "errors": [],
+      "warnings": [
+        "contains placeholder; parser execution skipped"
+      ]
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py proof-capture --task-id <id> --evidence-dir <dir> --json",
+      "cmd": "proof-capture",
+      "status": "ok",
+      "errors": [],
+      "warnings": [
+        "contains placeholder; parser execution skipped"
+      ]
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py sandbox-guard --scope read-only --paths ./src --json",
+      "cmd": "sandbox-guard",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py adoption-tracker --period 7d --json",
+      "cmd": "adoption-tracker",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py handoff-pack --from glm --to rflo --task-id <id> --json",
+      "cmd": "handoff-pack",
+      "status": "ok",
+      "errors": [],
+      "warnings": [
+        "contains placeholder; parser execution skipped"
+      ]
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py batch-painpoints --input issues.json --output /tmp/out --json",
+      "cmd": "batch-painpoints",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "path": "llms.txt",
+      "command": "python3 scripts/agentpress.py schema --json  # lists all registered schemas including v2 entries",
+      "cmd": "schema",
+      "status": "ok",
+      "errors": [],
+      "warnings": []
+    },
+    {
       "path": "agentpress/CLI_AGENT_LAUNCH.md",
       "command": "python3 scripts/agentpress.py doctor --json",
       "cmd": "doctor",
@@ -2056,6 +2128,16 @@
       "status": "ok",
       "errors": [],
       "warnings": []
+    },
+    {
+      "path": "agentpress/AGENT_START_HERE.md",
+      "command": "python3 scripts/agentpress.py external-proof-run --agent-id <agent-id> --runtime codex --out /tmp/agentpress-proof-<agent-id> --json",
+      "cmd": "external-proof-run",
+      "status": "ok",
+      "errors": [],
+      "warnings": [
+        "contains placeholder; parser execution skipped"
+      ]
     },
     {
       "path": "agentpress/AGENT_START_HERE.md",
@@ -3965,30 +4047,6 @@
       "path": "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md",
       "command": "python3 scripts/agentpress.py audience-kit --json",
       "cmd": "audience-kit",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py audience-kit --agent-id gate-agent --topic agentpress-updates --out /tmp/audience-kit.json --json",
-      "cmd": "audience-kit",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py tools-manifest && python3 scripts/agentpress.py tools-manifest-check --json",
-      "cmd": "tools-manifest",
-      "status": "ok",
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "path": "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md",
-      "command": "python3 scripts/agentpress.py index-search --json",
-      "cmd": "index-search",
       "status": "ok",
       "errors": [],
       "warnings": []

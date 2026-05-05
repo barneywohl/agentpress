@@ -11,10 +11,10 @@ Status meanings: **green** = local/static proof exists; **amber** = usable stati
 | GPT / Codex | green | `agentpress/adapters/codex/`, `llms.txt`, CLI gates | `python3 scripts/agentpress.py compatibility-matrix --runtime codex --json` | Keep first-run docs copy-paste safe. |
 | Cursor / Cline / Roo | amber | static manifests and permission policy | `python3 scripts/agentpress.py tool-permission-policy --json` | Native IDE/extension config writers must remain opt-in. |
 | MCP-style consumers | amber | `agentpress/mcp/mcp-static-catalog.json` | `python3 scripts/agentpress.py mcp-catalog-export --json` | Static catalog only; no live stdio/SSE server until `agentpress mcp-serve` lands. |
-| LangChain / LangGraph | amber | native adapter skeleton + SDK docs | `python3 scripts/agentpress.py native-adapter-check --json` | Add tested loader package examples. |
-| CrewAI | amber | native adapter skeleton + command templates | `python3 scripts/agentpress.py native-adapter-check --json` | Add live crew tool wrapper proof. |
-| OpenHands | amber | native adapter skeleton + proof commands | `python3 scripts/agentpress.py native-adapter-check --json` | Add host transcript proof. |
-| LlamaIndex | amber | native adapter skeleton + RAG surfaces | `python3 scripts/agentpress.py native-adapter-check --json` | Add tested reader/loader. |
+| LangChain / LangGraph | amber | native adapter skeleton + SDK docs | `python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json` | Add tested loader package examples. |
+| CrewAI | amber | native adapter skeleton + command templates | `python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json` | Add live crew tool wrapper proof. |
+| OpenHands | amber | native adapter skeleton + proof commands | `python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json` | Add host transcript proof. |
+| LlamaIndex | amber | native adapter skeleton + RAG surfaces | `python3 scripts/agentpress.py native-adapter-check agentpress/adapters/native --json` | Add tested reader/loader. |
 | Live MCP server | roadmap | none | n/a | Implement and test `agentpress mcp-serve`; do not claim current live server support. |
 
-Packaging note: npm `0.2.0-rc.2` is local metadata for the next approved publish; PyPI may remain at `0.2.0rc1` until a separate approved PyPI release.
+Packaging note: npm `0.2.0-rc.3` / PyPI `0.2.0rc3` are current local metadata. Live registry proof defaults remain `0.1.0` until separate human-approved npm/PyPI publishes.

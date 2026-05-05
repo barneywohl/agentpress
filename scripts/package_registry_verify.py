@@ -123,7 +123,7 @@ def verify_pypi(version: str, workdir: pathlib.Path) -> dict:
         result["errors"].append(f"pypi verify error: {e}")
     return result
 
-def smoke_test_cli(workdir: pathlib.Path) -> dict:
+def smoke_test_cli(workdir: pathlib.Path, pypi_version: str = "0.1.0") -> dict:
     """Install PyPI package in fresh venv, run agentpress --help smoke test."""
     result = {"test": "cli_smoke", "status": "fail", "errors": []}
     venv = workdir / "venv"
@@ -133,7 +133,7 @@ def smoke_test_cli(workdir: pathlib.Path) -> dict:
         pip = str(venv / "bin" / "pip")
         agentpress_bin = str(venv / "bin" / "agentpress")
         subprocess.run([pip, "install", "--quiet", "--upgrade", "pip"], check=True, capture_output=True, timeout=30)
-        subprocess.run([pip, "install", "--quiet", f"{PYPI_PACKAGE}==0.1.0"], check=True, capture_output=True, timeout=60)
+        subprocess.run([pip, "install", "--quiet", f"{PYPI_PACKAGE}=={pypi_version}"], check=True, capture_output=True, timeout=60)
         proc = subprocess.run([agentpress_bin, "--help"], capture_output=True, timeout=15)
         result["exit_code"] = proc.returncode
         help_text = (proc.stdout + proc.stderr).decode("utf-8", errors="replace")
@@ -197,7 +197,7 @@ def main():
             "static": static_fetch_check(),
         }
         if not args.skip_smoke:
-            receipt["smoke_test"] = smoke_test_cli(workdir)
+            receipt["smoke_test"] = smoke_test_cli(workdir, pypi_version=args.pypi_version)
 
         all_ok = (
             receipt["npm"]["status"] == "ok"

@@ -1,5 +1,26 @@
 # AgentPress Release Notes
 
+## 0.2.0-rc.3 — Node first-run and integrity hardening (2026-05-05)
+
+Status: **local release candidate metadata**. Do NOT publish npm/PyPI without separate approval.
+
+### New features
+
+| Feature | CLI | Status |
+|---|---|---|
+| Node fast-path doctor | `agentpress doctor --json` with Python unavailable | Implemented |
+| Node llms-init | `agentpress llms-init . --json` | Implemented |
+| External proof run | `python3 scripts/agentpress.py external-proof-run --agent-id <id> --runtime codex --json` | Implemented |
+| CI integrity gate | manifest integrity, npm pack dry-run, Node fast-path tests | Implemented |
+
+### Release drift policy
+
+- Local metadata: npm `0.2.0-rc.3`, PyPI `0.2.0rc3`.
+- Live registry proof defaults: npm/PyPI `0.1.0` until approved publish.
+- Package publish commands remain out of scope for this repo change.
+
+---
+
 ## 0.2.0-rc.1 — first-user major feature sprint (2026-05-04)
 
 Status: **release candidate** — locally verified, pending CI gate + Jake go/no-go. Do NOT publish to npm/PyPI without explicit directive keyword.

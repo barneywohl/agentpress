@@ -39,7 +39,7 @@ def test_llms_init_creates_minimal_surfaces(tmp_path):
     assert sorted(payload["written"]) == [".well-known/agentpress.json", "llms.txt"]
     assert (tmp_path / "llms.txt").exists()
     manifest = json.loads((tmp_path / ".well-known" / "agentpress.json").read_text())
-    assert manifest["commands"]["doctor"] == "python3 scripts/agentpress.py doctor . --json"
+    assert manifest["commands"]["doctor"] == "agentpress doctor . --json"
 
 
 def test_node_shim_start_fast_path_does_not_require_python():
@@ -58,7 +58,8 @@ def test_node_shim_doctor_no_python_returns_actionable_json():
         stderr=subprocess.PIPE,
         env={**os.environ, "PYTHON": "/definitely/missing/python"},
     )
-    assert proc.returncode == 1
+    assert proc.returncode == 0
     payload = json.loads(proc.stdout)
+    assert payload["mode"] == "node-fast-path"
     assert payload["next_steps"]
-    assert payload["recommendations"][0]["command"] == "python3 --version"
+    assert payload["entrypoints"]

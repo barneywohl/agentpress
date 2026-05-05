@@ -6,14 +6,16 @@ AgentPress makes any repo readable by agents in minutes.
 
 ```bash
 npx @agent_press/agentpress doctor --json
-# or, after PyPI is live:
-pip install agentpress
+npx @agent_press/agentpress llms-init . --json
+# Python package path:
+pip install agentpress-static
 agentpress doctor --json
 ```
 
 ## Make a repo agent-readable
 
 ```bash
+agentpress llms-init . --json
 agentpress lint . --json
 agentpress doctor --json
 agentpress schema-validate-all --json

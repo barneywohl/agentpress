@@ -25,9 +25,7 @@ from datetime import datetime, timezone
 from typing import Iterable
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
-DEFAULT_STATUS_OUT = pathlib.Path(
-    "/Volumes/X10/clawd/shared/status/agentpress_karpathy_mini_eval_harness_20260505.md"
-)
+DEFAULT_STATUS_OUT = pathlib.Path(tempfile.gettempdir()) / "agentpress-first-user-eval-report.md"
 DEFAULT_SCENARIOS = (
     "empty-repo",
     "js-app",

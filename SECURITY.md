@@ -4,8 +4,8 @@
 
 | Package | Supported line | Notes |
 |---|---:|---|
-| `@agent_press/agentpress` | `0.2.0-rc.2` and later release candidates | npm package / Node shim over Python CLI. |
-| `agentpress-static` | `0.2.0rc2` local metadata, `0.2.0rc1` live on PyPI until next approved publish | PyPI publishing is intentionally separate from this repo commit. |
+| `@agent_press/agentpress` | `0.2.0-rc.3` local metadata; `0.1.0` live registry default until next approved publish | Node shim with no-Python first-run fast path plus Python full CLI. |
+| `agentpress-static` | `0.2.0rc3` local metadata; `0.1.0` live registry default until next approved publish | PyPI publishing is intentionally separate from this repo commit. |
 
 Older release candidates are best-effort only. Please reproduce issues against the current GitHub `main` branch when possible.
 

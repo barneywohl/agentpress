@@ -12,8 +12,30 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install test dependencies
+        run: python3 -m pip install pytest
       - name: AgentPress consistency gate
         run: python3 scripts/agentpress.py consistency-check --json
+      - name: AgentPress manifest integrity gate
+        run: python3 scripts/verify_manifest_integrity.py
+      - name: AgentPress npm pack smoke
+        run: |
+          npm_config_cache=/tmp/agentpress-npm-cache npm pack --dry-run --json > /tmp/agentpress-pack.json
+          node - <<'NODE'
+          const fs = require('fs');
+          const pack = JSON.parse(fs.readFileSync('/tmp/agentpress-pack.json', 'utf8'))[0];
+          if (!pack || !pack.files || !pack.files.some((f) => f.path === 'bin/agentpress.js')) {
+            throw new Error('npm pack smoke missing bin/agentpress.js');
+          }
+          console.log(JSON.stringify({ filename: pack.filename, files: pack.files.length, size: pack.size }, null, 2));
+          NODE
+      - name: AgentPress Node fast-path gate
+        run: |
+          PYTHON=/definitely/missing/python3 node bin/agentpress.js doctor --json | python3 -m json.tool >/dev/null
+          python3 -m pytest tests/test_first_user_p0_paths.py tests/test_llms_init_node_fast_path.py tests/test_node_shim_shell_metachar.py tests/test_lint_doctor_secret_guard.py -q
       - name: AgentPress feedback gate
         run: python3 scripts/agentpress.py feedback-submit --example | python3 -m json.tool >/dev/null
       - name: AgentPress negative fixture gate

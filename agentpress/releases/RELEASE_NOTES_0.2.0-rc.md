@@ -1,9 +1,9 @@
 # AgentPress 0.2.0-rc — Release Notes & Deployment Checklist
 
 **Release branch:** `0.2.0-rc`
-**Package version:** `0.2.0rc1` (pyproject.toml) / `0.2.0-rc.1` (package.json)
-**Mission:** `mission-20260504-053454-927a17`
-**Generated:** 2026-05-04
+**Package version:** `0.2.0rc3` (pyproject.toml) / `0.2.0-rc.3` (package.json)
+**Mission:** `mission-20260505-130940-7d8123`
+**Generated:** 2026-05-05
 
 ---
 
@@ -17,6 +17,9 @@
 | Adoption tracker | `agentpress adoption-tracker --period 7d --json` | Implemented ✓ |
 | Handoff pack | `agentpress handoff-pack --from <a> --to <b> --task-id <id> --json` | Implemented ✓ |
 | Batch painpoints | `agentpress batch-painpoints --input issues.json --output /tmp/out --json` | Implemented ✓ |
+| Node fast-path doctor | `agentpress doctor --json` without Python | Implemented ✓ |
+| Node llms-init | `agentpress llms-init . --json` | Implemented ✓ |
+| External proof run | `agentpress external-proof-run --agent-id <id> --runtime codex --json` | Implemented ✓ |
 
 ---
 
@@ -43,6 +46,9 @@ find . -name "*.json" -not -path "*/node_modules/*" -not -path "*/__pycache__/*"
 
 # 6. npm pack dry-run (no publish)
 npm pack --dry-run
+
+# 7. Node fast-path tests
+python3 -m pytest tests/test_first_user_p0_paths.py tests/test_llms_init_node_fast_path.py tests/test_node_shim_shell_metachar.py tests/test_lint_doctor_secret_guard.py -q
 ```
 
 ---

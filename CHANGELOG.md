@@ -8,9 +8,15 @@ Post-rc2 hardening and first-user evaluation release candidate.
 - Supply-chain risk controls doc and CI gate for zero runtime npm dependencies, tarball budget, forbidden file checks, manifest integrity, and script-disabled smoke install.
 - Safe Karpathy-style first-user eval harness with synthetic repo scenarios and temp-dir cleanup guardrails.
 - First-user eval tests and package inclusion for the harness.
+- Node-native first-run fast path for `doctor --json` when Python is unavailable, plus `llms-init` generation for arbitrary repo roots.
+- CI coverage for manifest integrity, npm pack smoke, Node fast-path behavior, shell metachar argv safety, and sensitive-root refusal.
+
+### Changed
+- Registry proof defaults remain on live `0.1.0` packages until a separate approved npm/PyPI publish, while local package metadata stays at rc3.
 
 ### Validation
 - `python3 -m pytest tests/test_eval_first_user_harness.py -q`
+- `python3 -m pytest tests/test_first_user_p0_paths.py tests/test_llms_init_node_fast_path.py tests/test_node_shim_shell_metachar.py tests/test_lint_doctor_secret_guard.py -q`
 - `npm run validate`
 - `python3 -m py_compile scripts/eval_first_user_harness.py`
 - `python3 scripts/eval_first_user_harness.py --json`

@@ -7,8 +7,9 @@
     "agentpress": "bin/agentpress.js"
   },
   "scripts": {
-    "doctor": "python3 scripts/agentpress.py doctor --json",
-    "validate": "python3 scripts/validate_agentpress_assets.py && python3 scripts/agentpress.py consistency-check --json && python3 scripts/verify_manifest_integrity.py"
+    "doctor": "node bin/agentpress.js doctor --json",
+    "validate": "python3 scripts/validate_agentpress_assets.py && python3 scripts/agentpress.py consistency-check --json && python3 scripts/verify_manifest_integrity.py",
+    "test": "python3 -m pytest tests/ -q"
   },
   "keywords": [
     "agentpress",
