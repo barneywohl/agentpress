@@ -2879,6 +2879,68 @@ def _doctor_self_check() -> dict:
     return {"checks": checks, "errors": errors}
 
 
+
+def _doctor_next_steps(mode: str, root: pathlib.Path, errors: list[str], missing_paths: list[str] | None = None) -> list[dict]:
+    """Machine-readable remediation commands for first-run agents.
+
+    Keep this intentionally small and copy/pasteable: doctor is often the first
+    command a fresh agent sees, so every branch should answer "what exactly do I
+    run next?" without forcing the agent to infer from prose.
+    """
+    root_arg = shlex.quote(str(root))
+    steps = []
+    if missing_paths:
+        steps.append({
+            "id": "bootstrap_llms_surface",
+            "why": "Required agent-readable entrypoints are missing.",
+            "command": f"python3 scripts/agentpress.py llms-init {root_arg} --json",
+            "expected_result": "Creates llms.txt plus .well-known/agentpress.json without external writes.",
+            "paths": missing_paths,
+        })
+    if errors:
+        steps.append({
+            "id": "run_first_run_wizard",
+            "why": "Doctor found blockers; produce a concise local plan before broad docs traversal.",
+            "command": f"python3 scripts/agentpress.py first-run-wizard {root_arg} --json",
+            "expected_result": "JSON with exact_next_command, then_command, blockers, and safety notes.",
+        })
+    if mode in {"local", "self-check"}:
+        steps.append({
+            "id": "verify_again",
+            "why": "Confirm the remediation changed the machine-readable status.",
+            "command": f"python3 scripts/agentpress.py doctor {root_arg} --mode local --json",
+            "expected_result": "status ok or fewer missing entrypoints with updated recommendations.",
+        })
+    else:
+        steps.append({
+            "id": "retry_online_or_use_static_fallback",
+            "why": "Remote checks failed or were unavailable.",
+            "command": "python3 scripts/agentpress.py fetch --base https://barneywohl.github.io/agentpress/ --out /tmp/agentpress-fetch --json",
+            "expected_result": "Downloads core static entrypoints for offline inspection.",
+        })
+    steps.append({
+        "id": "start_here",
+        "why": "Use the concise first-user path instead of scanning the whole command catalog.",
+        "command": "python3 scripts/agentpress.py start --json",
+        "expected_result": "Three-command first-run path with safety boundaries.",
+    })
+    return steps
+
+
+def _attach_doctor_recommendations(payload: dict, root: pathlib.Path) -> dict:
+    missing = [row.get("path") for row in payload.get("entrypoints", []) if row.get("status") == "MISSING" and row.get("path")]
+    errors = list(payload.get("errors") or payload.get("primary_reference_errors") or [])
+    payload["next_steps"] = _doctor_next_steps(str(payload.get("mode", "local")), root, errors, missing)
+    payload["recommendations"] = [
+        {
+            "priority": "P0" if payload.get("status") != "ok" else "P2",
+            "summary": "Run the first listed next_steps command exactly; it is safe/local and emits JSON.",
+            "command": payload["next_steps"][0]["command"] if payload["next_steps"] else "python3 scripts/agentpress.py start --json",
+        }
+    ]
+    return payload
+
+
 def _doctor_local_payload(root: pathlib.Path, guard_findings: list[dict]) -> tuple[dict, bool]:
     if guard_findings:
         payload = {
@@ -2897,7 +2959,7 @@ def _doctor_local_payload(root: pathlib.Path, guard_findings: list[dict]) -> tup
             "raw_fallback": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
             "security_guard": guard_findings[0],
         }
-        return payload, False
+        return _attach_doctor_recommendations(payload, root), False
     entrypoints = [
         "llms.txt",
         ".well-known/agentpress.json",
@@ -2946,7 +3008,7 @@ def _doctor_local_payload(root: pathlib.Path, guard_findings: list[dict]) -> tup
         "canonical_url": CANONICAL_BASE_URL,
         "raw_fallback": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
     }
-    return payload, ok
+    return _attach_doctor_recommendations(payload, root), ok
 
 
 def doctor(args):
@@ -2968,6 +3030,7 @@ def doctor(args):
             "errors": self_check["errors"],
             **self_check,
         }
+        payload = _attach_doctor_recommendations(payload, root)
         if getattr(args, "json", False):
             print(json.dumps(payload, indent=2))
         else:
@@ -2990,6 +3053,7 @@ def doctor(args):
             "root": str(root),
             "canonical_url": base,
         }
+        payload = _attach_doctor_recommendations(payload, root)
         if getattr(args, "json", False):
             print(json.dumps(payload, indent=2))
         else:
@@ -8117,6 +8181,106 @@ def feedback_submit(args):
     return 0 if not errors else 1
 
 
+
+def start(args):
+    """Print the shortest safe first-user path."""
+    root = pathlib.Path(getattr(args, "root", ".") or ".")
+    root_arg = shlex.quote(str(root))
+    payload = {
+        "schema_version": "2026-05-05.agentpress-start.v1",
+        "status": "ok",
+        "purpose": "Concise first-user path for agents/users who should not scan the full command catalog first.",
+        "commands": [
+            {
+                "step": 1,
+                "name": "doctor",
+                "command": f"python3 scripts/agentpress.py doctor {root_arg} --json",
+                "why": "Detect existing AgentPress surfaces and emit machine-readable next_steps.",
+            },
+            {
+                "step": 2,
+                "name": "llms-init",
+                "command": f"python3 scripts/agentpress.py llms-init {root_arg} --json",
+                "why": "Create the minimal llms.txt + discovery manifest when a repo has no agent-readable entrypoint.",
+            },
+            {
+                "step": 3,
+                "name": "first-run-wizard",
+                "command": f"python3 scripts/agentpress.py first-run-wizard {root_arg} --json",
+                "why": "Produce exact_next_command, proof command, blockers, and safety boundaries.",
+            },
+        ],
+        "safety": {
+            "external_writes": False,
+            "secrets_required": False,
+            "destructive_actions": False,
+            "note": "Do not publish, post, mutate MCP config, or access secrets without explicit human approval.",
+        },
+        "if_python_missing": "Use `npx @agent_press/agentpress start` for the Node shim's no-Python guidance, then install Python >=3.10 before running full CLI commands.",
+    }
+    if getattr(args, "json", False):
+        print(json.dumps(payload, indent=2))
+    else:
+        print("AgentPress start: run these three commands first")
+        for cmd in payload["commands"]:
+            print(f"{cmd['step']}. {cmd['command']}  # {cmd['why']}")
+        print("Safety: local-only; no external writes or secrets.")
+    return 0
+
+
+def llms_init(args):
+    """Create minimal AgentPress first-contact surfaces without duplicating the full wizard."""
+    root = pathlib.Path(args.root)
+    title = getattr(args, "title", None) or root.resolve().name or "AgentPress project"
+    base_url = (getattr(args, "base_url", None) or "").rstrip("/") + "/" if getattr(args, "base_url", None) else ""
+    force = bool(getattr(args, "force", False))
+    no_write = bool(getattr(args, "no_write", False))
+    files = {
+        "llms.txt": f"""# {title}\n\n## AgentPress quick start\n\nThis repository exposes a minimal agent-readable surface. Start with:\n\n```bash\npython3 scripts/agentpress.py doctor . --json\npython3 scripts/agentpress.py first-run-wizard . --json\n```\n\n## Safe operating boundary\n\n- Read and summarize public repository files.\n- Do not access secrets, credentials, private data, payments, or external posting flows without explicit human approval.\n- Prefer machine-readable JSON outputs and attach command evidence when reporting blockers.\n""",
+        ".well-known/agentpress.json": json.dumps({
+            "schema_version": "2026-05-05.agentpress-minimal-entrypoint.v1",
+            "name": title,
+            "status": "minimal",
+            "canonical_url": base_url,
+            "entrypoints": ["llms.txt", ".well-known/agentpress.json"],
+            "commands": {
+                "doctor": "python3 scripts/agentpress.py doctor . --json",
+                "start": "python3 scripts/agentpress.py start --json",
+                "first_run_wizard": "python3 scripts/agentpress.py first-run-wizard . --json",
+            },
+            "safety": {"external_writes": False, "secrets_required": False, "human_approval_required_for_mutations": True},
+        }, indent=2) + "\n",
+    }
+    written = []
+    skipped = []
+    for rel, text in files.items():
+        path = root / rel
+        if path.exists() and not force:
+            skipped.append({"path": rel, "reason": "exists; pass --force to overwrite"})
+            continue
+        if not no_write:
+            write(path, text)
+        written.append(rel)
+    payload = {
+        "schema_version": "2026-05-05.agentpress-llms-init.v1",
+        "status": "ok" if not skipped else "partial",
+        "root": str(root),
+        "title": title,
+        "written": written,
+        "skipped": skipped,
+        "next_steps": [
+            {"command": f"python3 scripts/agentpress.py doctor {shlex.quote(str(root))} --json", "why": "Verify the new minimal surface."},
+            {"command": f"python3 scripts/agentpress.py first-run-wizard {shlex.quote(str(root))} --json", "why": "Generate a first-run plan and proof command."},
+        ],
+        "no_write": no_write,
+    }
+    if getattr(args, "json", False):
+        print(json.dumps(payload, indent=2))
+    else:
+        print(f"AgentPress llms-init: {payload['status']} written={written} skipped={len(skipped)}")
+    return 0 if not skipped or force else 1
+
+
 def consistency_check(args):
     """Check that first-contact machine surfaces point to the same core contracts."""
     root=pathlib.Path(args.root)
@@ -8143,8 +8307,22 @@ def consistency_check(args):
     return 0 if not errors else 1
 
 def main():
-    ap = argparse.ArgumentParser()
+    if len(sys.argv) == 2 and sys.argv[1] in {"--help", "-h", "help"}:
+        print("AgentPress — agent-readable repo surfaces")
+        print("\nStart here (fresh-user path):")
+        print("  python3 scripts/agentpress.py start --json")
+        print("  python3 scripts/agentpress.py doctor . --json")
+        print("  python3 scripts/agentpress.py llms-init . --json")
+        print("  python3 scripts/agentpress.py first-run-wizard . --json")
+        print("\nCommon next commands:")
+        print("  python3 scripts/agentpress.py verify <dir> --json")
+        print("  python3 scripts/agentpress.py self-test --agent-id local-agent --out /tmp/agentpress-self-test.jsonl")
+        print("\nUse `python3 scripts/agentpress.py <command> --help` for command-specific options.")
+        return 0
+    ap = argparse.ArgumentParser(add_help=True)
     sub = ap.add_subparsers(dest="cmd", required=True)
+    p = sub.add_parser("start", aliases=["help-start"]); p.add_argument("root", nargs="?", default="."); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("llms-init"); p.add_argument("root", nargs="?", default="."); p.add_argument("--title"); p.add_argument("--base-url", default=""); p.add_argument("--force", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("init"); p.add_argument("out"); p.add_argument("--title", required=True); p.add_argument("--canonical"); p.add_argument("--summary"); p.add_argument("--primary-task"); p.add_argument("--task-type", default="agent_native_publication")
     p = sub.add_parser("validate"); p.add_argument("out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("audit"); p.add_argument("out"); p.add_argument("--json", action="store_true")
@@ -8428,6 +8606,8 @@ def main():
     p = sub.add_parser("package-verify"); p.add_argument("package"); p.add_argument("--manifest"); p.add_argument("--workdir", default="/tmp/agentpress-package-verify"); p.add_argument("--keep-workdir", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-index"); p.add_argument("package"); p.add_argument("--manifest"); p.add_argument("--out", default="dist/agentpress-offline-index.json")
     args = ap.parse_args()
+    if args.cmd in {"start", "help-start"}: return start(args)
+    if args.cmd == "llms-init": return llms_init(args)
     if args.cmd == "init": init(args); return 0
     if args.cmd == "validate": return validate(args)
     if args.cmd == "audit": return audit(args)
