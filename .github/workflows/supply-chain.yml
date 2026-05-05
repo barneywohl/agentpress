@@ -47,9 +47,9 @@ jobs:
 
       - name: Smoke install packed tarball with scripts disabled
         run: |
-          TGZ=$(node -e "console.log(JSON.parse(require('fs').readFileSync('/tmp/agentpress-pack.json','utf8'))[0].filename)")
           mkdir -p /tmp/agentpress-smoke
-          cp "$TGZ" /tmp/agentpress-smoke/
+          npm pack --pack-destination /tmp/agentpress-smoke --json > /tmp/agentpress-pack-real.json
+          TGZ=$(node -e "console.log(JSON.parse(require('fs').readFileSync('/tmp/agentpress-pack-real.json','utf8'))[0].filename)")
           cd /tmp/agentpress-smoke
           npm init -y >/dev/null
           npm install "./$TGZ" --ignore-scripts --no-audit --no-fund
