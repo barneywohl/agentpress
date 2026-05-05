@@ -2063,6 +2063,130 @@ def broker_scope_guard(args):
     return 1 if args.strict and payload["status"] != "ok" else 0
 
 
+def _tool_output_sample_for_schema(schema):
+    if not isinstance(schema, dict):
+        return {"status": "ok"}
+    typ = schema.get("type")
+    if typ == "object" or "properties" in schema:
+        out = {}
+        for key, spec in (schema.get("properties") or {}).items():
+            st = spec.get("type") if isinstance(spec, dict) else "string"
+            if st == "integer": out[key] = 1
+            elif st == "number": out[key] = 1.0
+            elif st == "boolean": out[key] = True
+            elif st == "array": out[key] = []
+            elif st == "object": out[key] = {}
+            else: out[key] = f"sample_{key}"
+        for key in schema.get("required") or []:
+            out.setdefault(key, f"sample_{key}")
+        return out or {"status": "ok"}
+    if typ == "array": return []
+    if typ == "boolean": return True
+    if typ == "integer": return 1
+    if typ == "number": return 1.0
+    return "sample"
+
+
+def tool_output_sample_generate(args):
+    """Generate structuredContent sample fixtures so agents can validate tool outputs before use."""
+    findings = []
+    manifest = _tool_contract_load_json(args.manifest, findings, "manifest") if args.manifest else _tool_contract_builtin_manifest()
+    tools = _tool_contract_tools(manifest) if manifest is not None else []
+    samples = {}
+    rows = []
+    for tool in tools:
+        name = tool.get("name") or tool.get("id") or "<unnamed>"
+        if isinstance(tool.get("outputSchema"), dict):
+            structured = _tool_output_sample_for_schema(tool["outputSchema"])
+            result = {"content": [{"type": "text", "text": json.dumps(structured, sort_keys=True)}], "structuredContent": structured}
+            samples[name] = result
+            rows.append({"name": name, "mode": "outputSchema", "status": "sampled"})
+        elif isinstance(tool.get("exampleResult"), dict):
+            samples[name] = tool["exampleResult"]
+            rows.append({"name": name, "mode": "exampleResult", "status": "copied"})
+        elif tool.get("machine_output") is False:
+            rows.append({"name": name, "mode": "file_or_prose_output", "status": "skipped", "output_contract": tool.get("output_contract", "")})
+        else:
+            samples[name] = {"content": [{"type": "text", "text": "{\"status\":\"ok\"}"}], "structuredContent": {"status": "ok"}}
+            rows.append({"name": name, "mode": "generic_status", "status": "sampled"})
+    payload = {"schema_version": "2026-05-05.agentpress-tool-output-samples.v1", "generated_utc": _utc_now(), "status": "ok" if not findings else "fail", "manifest": args.manifest or "built_in", "tool_count": len(tools), "sample_count": len(samples), "skipped_count": sum(1 for r in rows if r["status"] == "skipped"), "samples": samples, "tools": rows, "findings": findings}
+    _write_json_payload(payload, pathlib.Path(args.out), args.no_write, args.json)
+    return 1 if args.strict and payload["status"] != "ok" else 0
+
+
+def smoke_install(args):
+    """Run or plan clean npm/PyPI AgentPress install smoke checks with receipt output."""
+    out = pathlib.Path(args.out)
+    steps = []
+    errors = []
+    runtime = args.runtime
+    npm_version = args.version or "rc"
+    pypi_version = args.version or "0.2.0rc4"
+    commands = []
+    if runtime in {"npm", "all"}:
+        pkg = f"@agent_press/agentpress@{npm_version.lstrip('@')}"
+        commands.append(("npm", ["npx", "-y", pkg, "doctor", ".", "--mode", "online", "--json"]))
+    if runtime in {"pypi", "all"}:
+        commands.append(("pypi", ["python3", "-m", "venv", "<tmp>/venv", "&&", "<tmp>/venv/bin/pip", "install", f"agentpress-static=={pypi_version}", "&&", "<tmp>/venv/bin/agentpress", "doctor", ".", "--mode", "online", "--json"]))
+    if args.no_run:
+        for name, cmd in commands:
+            steps.append({"name": name, "status": "planned", "command": " ".join(cmd)})
+    else:
+        base = pathlib.Path(args.workdir or f"/tmp/agentpress-smoke-{uuid.uuid4().hex[:8]}")
+        base.mkdir(parents=True, exist_ok=True)
+        for name, cmd in commands:
+            stepdir = base / name; stepdir.mkdir(exist_ok=True)
+            try:
+                if name == "npm":
+                    run = subprocess.run(cmd, cwd=str(stepdir), text=True, capture_output=True, timeout=args.timeout_seconds)
+                else:
+                    venv = stepdir / "venv"
+                    subprocess.run(["python3", "-m", "venv", str(venv)], cwd=str(stepdir), check=True, text=True, capture_output=True, timeout=args.timeout_seconds)
+                    subprocess.run([str(venv/"bin/python"), "-m", "pip", "install", "-q", "--upgrade", "pip"], cwd=str(stepdir), check=True, text=True, capture_output=True, timeout=args.timeout_seconds)
+                    subprocess.run([str(venv/"bin/python"), "-m", "pip", "install", "-q", f"agentpress-static=={pypi_version}"], cwd=str(stepdir), check=True, text=True, capture_output=True, timeout=args.timeout_seconds)
+                    run = subprocess.run([str(venv/"bin/agentpress"), "doctor", ".", "--mode", "online", "--json"], cwd=str(stepdir), text=True, capture_output=True, timeout=args.timeout_seconds)
+                artifact = stepdir / "doctor.json"
+                artifact.write_text(run.stdout or "{}", encoding="utf-8")
+                status = "pass" if run.returncode == 0 else "fail"
+                steps.append({"name": name, "status": status, "exit_code": run.returncode, "artifact": str(artifact), "stderr_tail": run.stderr[-1000:]})
+                if run.returncode != 0: errors.append(f"{name} smoke failed")
+            except Exception as e:
+                errors.append(f"{name}: {e}"); steps.append({"name": name, "status": "fail", "error": str(e)})
+    payload = {"schema_version": "2026-05-05.agentpress-smoke-install.v1", "generated_utc": _utc_now(), "status": "ok" if not errors else "fail", "runtime": runtime, "npm_version": npm_version, "pypi_version": pypi_version, "no_run": bool(args.no_run), "steps": steps, "errors": errors}
+    _write_json_payload(payload, out, args.no_write, args.json)
+    return 1 if args.strict and payload["status"] != "ok" else 0
+
+
+def repo_sync_doctor(args):
+    """Tell agents whether a local checkout matches the published branch/package evidence."""
+    root = pathlib.Path(args.root)
+    findings = []
+    def git(cmd):
+        return subprocess.check_output(["git", *cmd], cwd=str(root), text=True, stderr=subprocess.STDOUT).strip()
+    local = remote = branch = ""
+    dirty = []
+    try:
+        local = git(["rev-parse", "HEAD"]); branch = git(["branch", "--show-current"]); dirty = git(["status", "--short"]).splitlines()
+    except Exception as e:
+        findings.append({"status": "fail", "code": "git_local_error", "message": str(e)})
+    if not args.no_network:
+        try:
+            raw = subprocess.check_output(["git", "ls-remote", args.remote, args.ref], text=True, stderr=subprocess.STDOUT).strip()
+            remote = raw.split()[0] if raw else ""
+        except Exception as e:
+            findings.append({"status": "warn", "code": "git_remote_error", "message": str(e)})
+    status = "ok"
+    if remote and local and remote != local:
+        findings.append({"status": "warn", "code": "behind_or_diverged", "message": "local HEAD does not equal remote ref", "local": local, "remote": remote})
+    if dirty:
+        findings.append({"status": "warn", "code": "dirty_worktree", "message": "working tree has uncommitted changes", "count": len(dirty), "sample": dirty[:20]})
+    if any(f["status"] == "fail" for f in findings): status = "fail"
+    elif findings: status = "needs_review"
+    payload = {"schema_version": "2026-05-05.agentpress-repo-sync-doctor.v1", "generated_utc": _utc_now(), "status": status, "root": str(root), "branch": branch, "local_head": local, "remote": args.remote, "ref": args.ref, "remote_head": remote, "dirty_count": len(dirty), "findings": findings, "next_steps": ["Use a clean worktree for release evidence", "Fast-forward before judging package/version truth", "Do not mix generated artifacts with product patches"]}
+    _write_json_payload(payload, pathlib.Path(args.out), args.no_write, args.json)
+    return 1 if args.strict and status != "ok" else 0
+
+
 def submission_validate(args):
     """Validate an AgentPress proof submission pack before issue/PR submission."""
     root=pathlib.Path(args.path)
@@ -2731,6 +2855,9 @@ def tools_manifest(args):
         {"name":"agentpress.tool_schema_serialization_check", "description":"Check tool schema metadata is JSON-serializable.", "command":"python3 scripts/agentpress.py tool-schema-serialization-check --json", "tags":["tools","schema","serialization","gate"]},
         {"name":"agentpress.tool_contract_check", "description":"Validate MCP-style tool input/output schemas, structuredContent samples, and CLI JSON-output contracts.", "command":"python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json", "tags":["tools","mcp","schema","structured-content","gate"]},
         {"name":"agentpress.broker_scope_guard", "description":"Fail closed when AgentPress broker/mission tasks reference unrelated project roots or stale scope tokens.", "command":"python3 scripts/agentpress.py broker-scope-guard <task.json-or-jsonl> --allowed-token agentpress --strict --json", "tags":["broker","mission","scope","guard","safety"]},
+        {"name":"agentpress.tool_output_sample_generate", "description":"Generate structuredContent sample fixtures for tool outputSchema validation.", "command":"python3 scripts/agentpress.py tool-output-sample-generate --manifest agentpress/tools/agentpress-tools.json --json", "tags":["tools","samples","schemas","structured-content","fixtures"]},
+        {"name":"agentpress.smoke_install", "description":"Run clean npm/PyPI rc install smoke checks and write machine-readable receipts.", "command":"python3 scripts/agentpress.py smoke-install --runtime all --json", "tags":["install","npm","pypi","smoke","receipts"]},
+        {"name":"agentpress.repo_sync_doctor", "description":"Detect stale or dirty AgentPress checkouts before agents judge package/version truth.", "command":"python3 scripts/agentpress.py repo-sync-doctor . --json", "tags":["repo","sync","release","doctor","truth"]},
         {"name":"agentpress.agent_community_channel_map", "description":"Map agent communities/channels to problem signals.", "command":"python3 scripts/agentpress.py agent-community-channel-map --json", "tags":["community","channels","research","agents"]},
         {"name":"agentpress.community_issue_radar", "description":"Compile community issue radar from public issue signals.", "command":"python3 scripts/agentpress.py community-issue-radar --json", "tags":["community","issues","radar","research"]},
         {"name":"agentpress.unsolved_agent_problem_backlog", "description":"Generate prioritized backlog from community issue radar.", "command":"python3 scripts/agentpress.py unsolved-agent-problem-backlog --json", "tags":["backlog","problems","features"]},
@@ -9376,6 +9503,9 @@ def main():
     p = sub.add_parser("release-candidate"); p.add_argument("--version", default="0.2.0-rc"); p.add_argument("--out", default="agentpress/releases/release-candidate.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-schema-serialization-check"); p.add_argument("--schema", default=""); p.add_argument("--out", default="agentpress/tools/tool-schema-serialization-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("tool-contract-check"); p.add_argument("--manifest", default=""); p.add_argument("--sample-result", default=""); p.add_argument("--out", default="agentpress/tools/tool-contract-check-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--require-text-mirror", action="store_true", default=True); p.add_argument("--no-require-text-mirror", dest="require_text_mirror", action="store_false"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("tool-output-sample-generate"); p.add_argument("--manifest", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/tools/samples/tool-output-samples.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("smoke-install"); p.add_argument("--runtime", choices=["npm","pypi","all"], default="all"); p.add_argument("--version", default=""); p.add_argument("--workdir", default=""); p.add_argument("--out", default="agentpress/evidence/smoke-install.json"); p.add_argument("--timeout-seconds", type=int, default=180); p.add_argument("--no-run", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("repo-sync-doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--remote", default="https://github.com/barneywohl/agentpress.git"); p.add_argument("--ref", default="refs/heads/main"); p.add_argument("--out", default="agentpress/evidence/repo-sync-doctor.json"); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-issue-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/community-issue-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("unsolved-agent-problem-backlog"); p.add_argument("--out", default="agentpress/community/unsolved-agent-problem-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -9740,6 +9870,9 @@ def main():
     if args.cmd == "release-candidate": return release_candidate(args)
     if args.cmd == "tool-schema-serialization-check": return tool_schema_serialization_check(args)
     if args.cmd == "tool-contract-check": return tool_contract_check(args)
+    if args.cmd == "tool-output-sample-generate": return tool_output_sample_generate(args)
+    if args.cmd == "smoke-install": return smoke_install(args)
+    if args.cmd == "repo-sync-doctor": return repo_sync_doctor(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
     if args.cmd == "unsolved-agent-problem-backlog": return unsolved_agent_problem_backlog(args)
     if args.cmd == "tool-vocabulary-compatibility-check": return tool_vocabulary_compatibility_check(args)

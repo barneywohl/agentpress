@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-05T16:40:50Z",
+  "generated_at": "2026-05-05T16:50:27Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -797,6 +797,42 @@
         "scope",
         "guard",
         "safety"
+      ]
+    },
+    {
+      "name": "agentpress.tool_output_sample_generate",
+      "description": "Generate structuredContent sample fixtures for tool outputSchema validation.",
+      "command": "python3 scripts/agentpress.py tool-output-sample-generate --manifest agentpress/tools/agentpress-tools.json --json",
+      "tags": [
+        "tools",
+        "samples",
+        "schemas",
+        "structured-content",
+        "fixtures"
+      ]
+    },
+    {
+      "name": "agentpress.smoke_install",
+      "description": "Run clean npm/PyPI rc install smoke checks and write machine-readable receipts.",
+      "command": "python3 scripts/agentpress.py smoke-install --runtime all --json",
+      "tags": [
+        "install",
+        "npm",
+        "pypi",
+        "smoke",
+        "receipts"
+      ]
+    },
+    {
+      "name": "agentpress.repo_sync_doctor",
+      "description": "Detect stale or dirty AgentPress checkouts before agents judge package/version truth.",
+      "command": "python3 scripts/agentpress.py repo-sync-doctor . --json",
+      "tags": [
+        "repo",
+        "sync",
+        "release",
+        "doctor",
+        "truth"
       ]
     },
     {
