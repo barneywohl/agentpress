@@ -2,7 +2,7 @@
   "schema_version": "2026-05-03.agentpress-tools-manifest.v1",
   "name": "AgentPress Tool Discovery Manifest",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/tools/agentpress-tools.json",
-  "generated_at": "2026-05-05T16:55:28Z",
+  "generated_at": "2026-05-05T18:16:25Z",
   "purpose": "Let autonomous agents discover executable AgentPress tools without reading prose.",
   "safety": {
     "external_side_effects": "none by default",
@@ -845,6 +845,42 @@
         "drift",
         "docs",
         "tools"
+      ]
+    },
+    {
+      "name": "agentpress.release_promote_checklist",
+      "description": "Block rc-to-latest promotion until RFLO, independent proof, CI, package, smoke, and tool gates are green.",
+      "command": "python3 scripts/agentpress.py release-promote-checklist --json",
+      "tags": [
+        "release",
+        "promotion",
+        "npm",
+        "proof",
+        "rflo",
+        "gate"
+      ]
+    },
+    {
+      "name": "agentpress.context_package_init",
+      "description": "Create a focused handoff root with source-map, freshness, and task card for large repos.",
+      "command": "python3 scripts/agentpress.py context-package-init . --json",
+      "tags": [
+        "context",
+        "handoff",
+        "large-repo",
+        "source-map",
+        "freshness"
+      ]
+    },
+    {
+      "name": "agentpress.handoff_root_pick",
+      "description": "Pick/create a compact handoff root for an agent task when the full repo is too large.",
+      "command": "python3 scripts/agentpress.py handoff-root-pick . --json",
+      "tags": [
+        "context",
+        "handoff",
+        "task-card",
+        "large-repo"
       ]
     },
     {

@@ -1,0 +1,65 @@
+{
+  "schema_version": "2026-05-05.agentpress-release-promote-checklist.v1",
+  "generated_utc": "2026-05-05T18:16:26Z",
+  "status": "blocked",
+  "root": ".",
+  "from_tag": "rc",
+  "to_tag": "latest",
+  "promotion_allowed": false,
+  "checks": [
+    {
+      "name": "cli_gap_audit",
+      "status": "pass",
+      "required": true,
+      "evidence": "cli-gap-audit",
+      "detail": "status=ok parser_count=280"
+    },
+    {
+      "name": "tool_contract_check",
+      "status": "pass",
+      "required": true,
+      "evidence": "tool-contract-check",
+      "detail": "tools=217 fails=0 warnings=0"
+    },
+    {
+      "name": "clean_install_smoke",
+      "status": "pass",
+      "required": true,
+      "evidence": "agentpress/evidence/smoke-install.json",
+      "detail": ""
+    },
+    {
+      "name": "cli_surface_audit",
+      "status": "pass",
+      "required": true,
+      "evidence": "agentpress/evidence/cli-surface-audit-20260505.md",
+      "detail": ""
+    },
+    {
+      "name": "painpoint_build_list",
+      "status": "pass",
+      "required": true,
+      "evidence": "agentpress/evidence/agent-needs-painpoint-build-list-20260505.md",
+      "detail": ""
+    },
+    {
+      "name": "independent_external_proof",
+      "status": "blocked",
+      "required": true,
+      "evidence": "agentpress/external-proofs/external-proof-index.json",
+      "detail": "accepted_independent_real=0; ignored_examples=1; required=1"
+    },
+    {
+      "name": "rflo_review",
+      "status": "blocked",
+      "required": true,
+      "evidence": "/Volumes/X10/clawd/shared/status/mission-20260505-180235-88298a_ruflo_sonnet_1.txt,/Volumes/X10/clawd/shared/status/mission-20260505-180235-88298a_ruflo_opus_1.txt",
+      "detail": "RFLO Opus/Sonnet review required; any RFLO no-go blocks latest promotion"
+    }
+  ],
+  "blocking_checks": [
+    "independent_external_proof",
+    "rflo_review"
+  ],
+  "decision": "Do not promote rc to latest until every required check passes."
+}

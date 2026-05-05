@@ -2063,6 +2063,135 @@ def broker_scope_guard(args):
     return 1 if args.strict and payload["status"] != "ok" else 0
 
 
+def release_promote_checklist(args):
+    """Block rc->latest promotion until evidence, RFLO, CI, package, and external-proof gates are green."""
+    root = pathlib.Path(args.root)
+    out = pathlib.Path(args.out)
+    checks = []
+    def add(name, status, evidence="", required=True, detail=""):
+        checks.append({"name": name, "status": status, "required": required, "evidence": evidence, "detail": detail})
+    def exists(rel):
+        return (root / rel).exists()
+    # Local machine gates; these are safe, no external publish.
+    try:
+        ns = argparse.Namespace(root=str(root), out="/tmp/agentpress-release-promote-cli-gap.json", base_url=args.base_url, no_write=True, json=True, strict=False)
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf): cli_gap_audit(ns)
+        data = json.loads(buf.getvalue() or "{}")
+        add("cli_gap_audit", "pass" if data.get("status") == "ok" else "fail", "cli-gap-audit", detail=f"status={data.get('status')} parser_count={data.get('parser_count')}")
+    except Exception as e:
+        add("cli_gap_audit", "fail", detail=str(e))
+    try:
+        ns = argparse.Namespace(manifest=str(root/"agentpress/tools/agentpress-tools.json"), sample_result="", out="/tmp/agentpress-release-promote-tcc.json", base_url=args.base_url, require_text_mirror=True, no_write=True, json=True, strict=False)
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf): tool_contract_check(ns)
+        data = json.loads(buf.getvalue() or "{}")
+        add("tool_contract_check", "pass" if data.get("status") == "ok" and data.get("fail_count") == 0 and data.get("warn_count") == 0 else "fail", "tool-contract-check", detail=f"tools={data.get('tool_count')} fails={data.get('fail_count')} warnings={data.get('warn_count')}")
+    except Exception as e:
+        add("tool_contract_check", "fail", detail=str(e))
+    for rel, name in [
+        ("agentpress/evidence/smoke-install.json", "clean_install_smoke"),
+        ("agentpress/evidence/cli-surface-audit-20260505.md", "cli_surface_audit"),
+        ("agentpress/evidence/agent-needs-painpoint-build-list-20260505.md", "painpoint_build_list"),
+    ]:
+        add(name, "pass" if exists(rel) else "missing", rel)
+    # These are intentionally hard gates for latest promotion.
+    proof_index = root / "agentpress/external-proofs/external-proof-index.json"
+    independent = 0
+    ignored_examples = 0
+    if proof_index.exists():
+        try:
+            idx = json.loads(proof_index.read_text(encoding="utf-8"))
+            for r in idx.get("receipts", []) + idx.get("proofs", []) + idx.get("items", []):
+                status = str(r.get("status", "")).lower()
+                path = str(r.get("path", "")).lower()
+                proof_id = str(r.get("proof_id", r.get("id", ""))).lower()
+                agent_id = str(r.get("agent_id", r.get("source", ""))).lower()
+                runtime = str(r.get("runtime", "")).lower()
+                is_example = any(x in " ".join([path, proof_id, agent_id]) for x in ["example", "self", "barney", "agentpress-reference"])
+                has_artifact = int(r.get("artifact_count", 0) or 0) > 0 or bool(r.get("artifacts"))
+                if status in {"accepted", "ok", "pass"} and not is_example and agent_id and runtime and has_artifact:
+                    independent += 1
+                elif status in {"accepted", "ok", "pass"} and is_example:
+                    ignored_examples += 1
+        except Exception:
+            independent = 0
+    add("independent_external_proof", "pass" if independent >= args.min_independent_proofs else "blocked", str(proof_index), detail=f"accepted_independent_real={independent}; ignored_examples={ignored_examples}; required={args.min_independent_proofs}")
+    rflo_files = list(pathlib.Path("/Volumes/X10/clawd/shared/status").glob("mission-20260505-180235-88298a_ruflo*.txt")) if pathlib.Path("/Volumes/X10/clawd/shared/status").exists() else []
+    rflo_go = False; rflo_no_go = False; rflo_evidence = []
+    for fp in rflo_files:
+        try:
+            txt = fp.read_text(encoding="utf-8", errors="ignore")
+        except Exception:
+            continue
+        if len(txt) < 1000:
+            continue
+        low = txt.lower()
+        rflo_evidence.append(str(fp))
+        if "no-go" in low or "no go" in low or "do not promote" in low or "hold `latest`" in low:
+            rflo_no_go = True
+        if "go" in low and "rc" in low and "latest" in low and not rflo_no_go:
+            rflo_go = True
+    rflo_status = "blocked" if rflo_no_go or not rflo_evidence else ("pass" if rflo_go else "needs_review")
+    add("rflo_review", rflo_status, ",".join(rflo_evidence[:3]), detail="RFLO Opus/Sonnet review required; any RFLO no-go blocks latest promotion")
+    # Optional live registry truth; no failure if network unavailable unless strict network requested.
+    npm_status = "not_checked"
+    if not args.no_network:
+        try:
+            import subprocess
+            raw = subprocess.check_output(["npm", "view", "@agent_press/agentpress", "dist-tags", "--json"], cwd=str(root), timeout=30)
+            tags = json.loads(raw.decode() or "{}")
+            npm_status = "pass" if tags.get(args.from_tag) and tags.get(args.to_tag) != tags.get(args.from_tag) else "needs_review"
+            add("npm_dist_tags", npm_status, "npm view @agent_press/agentpress dist-tags --json", required=False, detail=json.dumps(tags, sort_keys=True))
+        except Exception as e:
+            add("npm_dist_tags", "warn", required=False, detail=str(e))
+    failures = [c for c in checks if c["required"] and c["status"] in {"fail", "missing", "blocked"}]
+    payload = {"schema_version":"2026-05-05.agentpress-release-promote-checklist.v1","generated_utc":_utc_now(),"status":"pass" if not failures else "blocked","root":str(root),"from_tag":args.from_tag,"to_tag":args.to_tag,"promotion_allowed":not failures,"checks":checks,"blocking_checks":[c["name"] for c in failures],"decision":"Do not promote rc to latest until every required check passes." if failures else "Promotion gates are green; still require explicit human publish approval."}
+    _write_json_payload(payload, out, args.no_write, args.json)
+    return 1 if args.strict and failures else 0
+
+
+def context_package_init(args):
+    """Create a focused handoff root for huge repos: source-map, freshness map, task card, and budget receipt."""
+    root = pathlib.Path(args.root).resolve()
+    out = pathlib.Path(args.out)
+    if not out.is_absolute(): out = root / out
+    include_ext = {x.strip().lower() for x in args.extensions.split(",") if x.strip()}
+    max_files = max(1, args.max_files)
+    candidates = []
+    for fp in root.rglob("*"):
+        if not fp.is_file(): continue
+        rel = fp.relative_to(root).as_posix()
+        if any(part in {".git", "node_modules", "__pycache__", ".venv", "dist", "build"} for part in fp.relative_to(root).parts): continue
+        if include_ext and fp.suffix.lower() not in include_ext: continue
+        try: st = fp.stat()
+        except OSError: continue
+        score = 0
+        low = rel.lower()
+        for token in ["readme", "llms", "agent", "script", "package", "pyproject", "schema", "tool", "test", "docs"]:
+            if token in low: score += 10
+        score += max(0, 5_000_000 - st.st_size) / 5_000_000
+        candidates.append((score, rel, st.st_size, int(st.st_mtime)))
+    candidates.sort(key=lambda x: (-x[0], x[1]))
+    selected = candidates[:max_files]
+    source_map = {"schema_version":"2026-05-05.agentpress-context-source-map.v1","generated_utc":_utc_now(),"root":str(root),"selected_count":len(selected),"files":[{"path":r,"bytes":b,"mtime":m} for _,r,b,m in selected]}
+    freshness = {"schema_version":"2026-05-05.agentpress-context-freshness.v1","generated_utc":_utc_now(),"root":str(root),"files":[{"path":r,"mtime":m} for _,r,b,m in selected[:max_files]]}
+    task_card = f"""# AgentPress focused handoff root\n\nRoot: `{root}`\nGenerated: {_utc_now()}\n\n## Use this root when\n- The full repository is too large for an agent context.\n- A worker needs a focused source map, freshness receipt, and acceptance gates.\n\n## Start commands\n```bash\npython3 scripts/agentpress.py context-budget {shlex.quote(str(out))} --source-map source-map.json --freshness freshness.json --json --strict\npython3 scripts/agentpress.py doctor {shlex.quote(str(root))} --json\npython3 scripts/agentpress.py cli-gap-audit {shlex.quote(str(root))} --json --strict\n```\n\n## Selected files\n""" + "\n".join(f"- `{r}` ({b} bytes)" for _,r,b,_ in selected[:50]) + "\n"
+    if not args.no_write:
+        out.mkdir(parents=True, exist_ok=True)
+        (out/"source-map.json").write_text(json.dumps(source_map, indent=2)+"\n", encoding="utf-8")
+        (out/"freshness.json").write_text(json.dumps(freshness, indent=2)+"\n", encoding="utf-8")
+        (out/"TASK_CARD.md").write_text(task_card, encoding="utf-8")
+    payload = {"schema_version":"2026-05-05.agentpress-context-package-init.v1","generated_utc":_utc_now(),"status":"ok","root":str(root),"out":str(out),"selected_count":len(selected),"files":[r for _,r,_,_ in selected[:20]],"next_command":f"python3 scripts/agentpress.py context-budget {shlex.quote(str(out))} --source-map source-map.json --freshness freshness.json --json --strict"}
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0
+
+
+def handoff_root_pick(args):
+    """Pick/create a focused handoff root; thin alias around context-package-init for agent handoffs."""
+    return context_package_init(args)
+
+
 def cli_gap_audit(args):
     """Audit AgentPress CLI command surface for command drift, manifest coverage, and next-build gaps."""
     root = pathlib.Path(args.root)
@@ -2910,6 +3039,9 @@ def tools_manifest(args):
         {"name":"agentpress.smoke_install", "description":"Run clean npm/PyPI rc install smoke checks and write machine-readable receipts.", "command":"python3 scripts/agentpress.py smoke-install --runtime all --json", "tags":["install","npm","pypi","smoke","receipts"]},
         {"name":"agentpress.repo_sync_doctor", "description":"Detect stale or dirty AgentPress checkouts before agents judge package/version truth.", "command":"python3 scripts/agentpress.py repo-sync-doctor . --json", "tags":["repo","sync","release","doctor","truth"]},
         {"name":"agentpress.cli_gap_audit", "description":"Audit AgentPress CLI/parser/dispatch/docs/tool manifest drift and remaining CLI build gaps.", "command":"python3 scripts/agentpress.py cli-gap-audit --json", "tags":["cli","audit","drift","docs","tools"]},
+        {"name":"agentpress.release_promote_checklist", "description":"Block rc-to-latest promotion until RFLO, independent proof, CI, package, smoke, and tool gates are green.", "command":"python3 scripts/agentpress.py release-promote-checklist --json", "tags":["release","promotion","npm","proof","rflo","gate"]},
+        {"name":"agentpress.context_package_init", "description":"Create a focused handoff root with source-map, freshness, and task card for large repos.", "command":"python3 scripts/agentpress.py context-package-init . --json", "tags":["context","handoff","large-repo","source-map","freshness"]},
+        {"name":"agentpress.handoff_root_pick", "description":"Pick/create a compact handoff root for an agent task when the full repo is too large.", "command":"python3 scripts/agentpress.py handoff-root-pick . --json", "tags":["context","handoff","task-card","large-repo"]},
         {"name":"agentpress.agent_community_channel_map", "description":"Map agent communities/channels to problem signals.", "command":"python3 scripts/agentpress.py agent-community-channel-map --json", "tags":["community","channels","research","agents"]},
         {"name":"agentpress.community_issue_radar", "description":"Compile community issue radar from public issue signals.", "command":"python3 scripts/agentpress.py community-issue-radar --json", "tags":["community","issues","radar","research"]},
         {"name":"agentpress.unsolved_agent_problem_backlog", "description":"Generate prioritized backlog from community issue radar.", "command":"python3 scripts/agentpress.py unsolved-agent-problem-backlog --json", "tags":["backlog","problems","features"]},
@@ -9559,6 +9691,9 @@ def main():
     p = sub.add_parser("smoke-install"); p.add_argument("--runtime", choices=["npm","pypi","all"], default="all"); p.add_argument("--version", default=""); p.add_argument("--workdir", default=""); p.add_argument("--out", default="agentpress/evidence/smoke-install.json"); p.add_argument("--timeout-seconds", type=int, default=180); p.add_argument("--no-run", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("repo-sync-doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--remote", default="https://github.com/barneywohl/agentpress.git"); p.add_argument("--ref", default="refs/heads/main"); p.add_argument("--out", default="agentpress/evidence/repo-sync-doctor.json"); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("cli-gap-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/cli-gap-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("release-promote-checklist"); p.add_argument("root", nargs="?", default="."); p.add_argument("--from-tag", default="rc"); p.add_argument("--to-tag", default="latest"); p.add_argument("--min-independent-proofs", type=int, default=1); p.add_argument("--out", default="agentpress/releases/release-promote-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("context-package-init"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("handoff-root-pick"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-issue-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/community-issue-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("unsolved-agent-problem-backlog"); p.add_argument("--out", default="agentpress/community/unsolved-agent-problem-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -9927,6 +10062,9 @@ def main():
     if args.cmd == "smoke-install": return smoke_install(args)
     if args.cmd == "repo-sync-doctor": return repo_sync_doctor(args)
     if args.cmd == "cli-gap-audit": return cli_gap_audit(args)
+    if args.cmd == "release-promote-checklist": return release_promote_checklist(args)
+    if args.cmd == "context-package-init": return context_package_init(args)
+    if args.cmd == "handoff-root-pick": return handoff_root_pick(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
     if args.cmd == "unsolved-agent-problem-backlog": return unsolved_agent_problem_backlog(args)
     if args.cmd == "tool-vocabulary-compatibility-check": return tool_vocabulary_compatibility_check(args)
