@@ -2164,6 +2164,22 @@ def release_promote_checklist(args):
         add("no_python_fallback_check", "pass" if data.get("status") == "ok" else "blocked", "no-python-fallback-check", detail=f"fail_count={data.get('fail_count')}")
     except Exception as e:
         add("no_python_fallback_check", "blocked", "no-python-fallback-check", detail=str(e))
+    try:
+        import subprocess
+        raw = subprocess.check_output(["npm", "pack", "--dry-run", "--json"], cwd=str(root), timeout=args.pack_timeout_seconds)
+        pack_data = json.loads(raw.decode() or "[]")
+        pack = pack_data[0] if isinstance(pack_data, list) and pack_data else (pack_data if isinstance(pack_data, dict) else {})
+        size = int(pack.get("size", 0) or 0)
+        files = pack.get("files", []) if isinstance(pack.get("files"), list) else []
+        file_count = len(files)
+        forbidden = [str(f.get("path", "")) for f in files if re.search(r"(^|/)(\.env|.*secret.*|.*token.*|node_modules|\.git|sprint-|runtimes|ops/state)", str(f.get("path", "")), re.I)]
+        ok = size <= args.max_npm_package_bytes and file_count <= args.max_npm_package_files and not forbidden
+        detail = f"size={size}; max_size={args.max_npm_package_bytes}; files={file_count}; max_files={args.max_npm_package_files}"
+        if forbidden:
+            detail += f"; forbidden={','.join(forbidden[:5])}"
+        add("npm_package_budget", "pass" if ok else "blocked", "npm pack --dry-run --json", detail=detail)
+    except Exception as e:
+        add("npm_package_budget", "blocked", "npm pack --dry-run --json", detail=str(e))
     # These are intentionally hard gates for latest promotion.
     proof_index = root / "agentpress/external-proofs/external-proof-index.json"
     independent = 0
@@ -9900,7 +9916,7 @@ def main():
     p = sub.add_parser("smoke-install"); p.add_argument("--runtime", choices=["npm","pypi","all"], default="all"); p.add_argument("--version", default=""); p.add_argument("--workdir", default=""); p.add_argument("--out", default="agentpress/evidence/smoke-install.json"); p.add_argument("--timeout-seconds", type=int, default=180); p.add_argument("--no-run", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("repo-sync-doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--remote", default="https://github.com/barneywohl/agentpress.git"); p.add_argument("--ref", default="refs/heads/main"); p.add_argument("--out", default="agentpress/evidence/repo-sync-doctor.json"); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("cli-gap-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/cli-gap-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("release-promote-checklist"); p.add_argument("root", nargs="?", default="."); p.add_argument("--from-tag", default="rc"); p.add_argument("--to-tag", default="latest"); p.add_argument("--min-independent-proofs", type=int, default=1); p.add_argument("--out", default="agentpress/releases/release-promote-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--evidence-bundle-out", default=""); p.add_argument("--verify-bundle", default=""); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("release-promote-checklist"); p.add_argument("root", nargs="?", default="."); p.add_argument("--from-tag", default="rc"); p.add_argument("--to-tag", default="latest"); p.add_argument("--min-independent-proofs", type=int, default=1); p.add_argument("--max-npm-package-bytes", type=int, default=295000); p.add_argument("--max-npm-package-files", type=int, default=100); p.add_argument("--pack-timeout-seconds", type=int, default=30); p.add_argument("--out", default="agentpress/releases/release-promote-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--evidence-bundle-out", default=""); p.add_argument("--verify-bundle", default=""); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("no-python-fallback-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--commands", default="doctor,validate,verify,agent-onboard"); p.add_argument("--python-path", default="/nonexistent/python3-agentpress-check"); p.add_argument("--out", default="agentpress/evidence/no-python-fallback-check.json"); p.add_argument("--timeout-seconds", type=int, default=20); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("context-package-init"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("handoff-root-pick"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")

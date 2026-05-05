@@ -24,6 +24,25 @@ def test_release_promote_checklist_strict_is_fail_closed_without_required_proofs
     assert checks["cli_gap_audit"]["status"] == "pass"
     assert checks["tool_contract_check"]["status"] == "pass"
     assert checks["no_python_fallback_check"]["status"] == "pass"
+    assert checks["npm_package_budget"]["status"] == "pass"
+    assert "size=" in checks["npm_package_budget"]["detail"]
+
+
+def test_release_promote_checklist_blocks_oversized_npm_package_budget():
+    cp = run_cli(
+        "release-promote-checklist",
+        "--no-network",
+        "--no-write",
+        "--json",
+        "--strict",
+        "--max-npm-package-bytes",
+        "1",
+    )
+    assert cp.returncode == 1
+    payload = json.loads(cp.stdout)
+    assert "npm_package_budget" in payload["blocking_checks"]
+    checks = {check["name"]: check for check in payload["checks"]}
+    assert checks["npm_package_budget"]["status"] == "blocked"
 
 
 def test_release_promote_checklist_no_network_skips_live_registry_probe():
