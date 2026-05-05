@@ -61,6 +61,10 @@ jobs:
           python3 -m pytest tests/test_release_promote_checklist.py -q
       - name: AgentPress tool output sample drift gate
         run: python3 scripts/agentpress.py tool-output-sample-generate --manifest agentpress/tools/agentpress-tools.json --check --json
+      - name: AgentPress freshness/citation coverage gate
+        run: |
+          python3 scripts/agentpress.py freshness-citation-report --no-write --json --strict --min-citation-ratio 0.55 --min-canonical-json-ratio 0.50 --max-unknown-machine 100
+          python3 -m pytest tests/test_freshness_citation_report.py -q
       - name: AgentPress native adapter gate
         run: |
           python3 scripts/agentpress.py native-adapter-check --json
