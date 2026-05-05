@@ -590,9 +590,50 @@ class TestExternalProofRun:
         monkeypatch.setattr(_MOD, "submission_pack", ok_submission)
         monkeypatch.setattr(_MOD, "redaction_check", ok_redaction)
         out = tmp_path / "proof"
-        rc = external_proof_run(argparse.Namespace(agent_id="ci-agent", runtime="codex", base_url="https://example.com/agentpress/", out=str(out), no_external_write=True, json=True))
+        rc = external_proof_run(argparse.Namespace(agent_id="ci-agent", runtime="codex", base_url="https://example.com/agentpress/", out=str(out), no_external_write=True, strict=True, json=True))
         data = json.loads(capsys.readouterr().out)
         assert rc == 0
         assert data["status"] == "ok"
         assert data["human_approval_required_for_external_post"] is True
+        assert data["doctor"]["status"] == "pass"
+        assert data["receipt"]["status"] == "pass"
+        assert data["self_test"]["status"] == "pass"
+        assert data["submission"]["status"] == "pass"
+        assert data["redaction_check"]["status"] == "ok"
         assert (out / "external-proof-run.json").exists()
+
+    def test_external_proof_run_secret_detection_flags_without_leaking_value(self, tmp_path, monkeypatch, capsys):
+        def ok_json_step(args):
+            if hasattr(args, "out") and args.out:
+                path = pathlib.Path(args.out)
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(json.dumps({"status":"ok", "agent_id": getattr(args, "agent_id", "ci-agent")}) + "\n")
+            print(json.dumps({"status":"ok"}))
+            return 0
+        def ok_doctor(args):
+            print(json.dumps({"status":"ok", "mode":"online", "checked_urls": []}))
+            return 0
+        def ok_self_test_with_secret(args):
+            path = pathlib.Path(args.out); path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps({"status":"pass", "api_key":"REDACT_ME_TEST_VALUE"}) + "\n")
+            print(json.dumps({"status":"ok"}))
+            return 0
+        def ok_submission(args):
+            out = pathlib.Path(args.out); out.mkdir(parents=True, exist_ok=True)
+            (out / "submission-pack.json").write_text(json.dumps({"status":"ok"}) + "\n")
+            print(json.dumps({"status":"ok"}))
+            return 0
+        monkeypatch.setattr(_MOD, "doctor", ok_doctor)
+        monkeypatch.setattr(_MOD, "first_run_wizard", ok_json_step)
+        monkeypatch.setattr(_MOD, "self_test", ok_self_test_with_secret)
+        monkeypatch.setattr(_MOD, "landing_receipt", ok_json_step)
+        monkeypatch.setattr(_MOD, "submission_pack", ok_submission)
+        out = tmp_path / "proof"
+        rc = external_proof_run(argparse.Namespace(agent_id="ci-agent", runtime="codex", base_url="https://example.com/agentpress/", out=str(out), no_external_write=True, strict=True, json=True))
+        stdout = capsys.readouterr().out
+        data = json.loads(stdout)
+        assert rc != 0
+        assert data["status"] == "fail"
+        assert data["redaction_check"]["status"] == "fail"
+        assert data["redaction_check"]["rejected"] >= 1
+        assert "REDACT_ME_TEST_VALUE" not in stdout

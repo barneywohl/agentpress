@@ -1720,6 +1720,13 @@ def external_proof_run(args):
         errors.append("redaction-check found candidate private/secret markers")
 
     files=[str(fp) for fp in sorted(out.rglob("*")) if fp.is_file() and "work/" not in fp.as_posix()]
+    artifacts={
+        "doctor": str(doctor_out),
+        "receipt": str(landing_out),
+        "self_test": str(self_test_out),
+        "submission_pack": str(submission_out),
+        "redaction_check": str(redaction_out),
+    }
     payload={
         "schema_version":"2026-05-05.agentpress-external-proof-run.v1",
         "generated_utc":_utc_now(),
@@ -1728,7 +1735,14 @@ def external_proof_run(args):
         "runtime":args.runtime,
         "base_url":base,
         "out":str(out),
+        "strict": bool(getattr(args, "strict", False)),
         "steps":steps,
+        "artifacts": artifacts,
+        "doctor": {"status": next((s["status"] for s in steps if s["name"] == "doctor"), "unknown"), "artifact": str(doctor_out)},
+        "receipt": {"status": next((s["status"] for s in steps if s["name"] == "landing-receipt"), "unknown"), "artifact": str(landing_out)},
+        "self_test": {"status": next((s["status"] for s in steps if s["name"] == "self-test"), "unknown"), "artifact": str(self_test_out)},
+        "submission": {"status": next((s["status"] for s in steps if s["name"] == "submission-pack"), "unknown"), "artifact": str(submission_out/"submission-pack.json")},
+        "redaction_check": {"status": redaction_result.get("status"), "artifact": str(redaction_out), "checked": redaction_result.get("checked"), "rejected": redaction_result.get("rejected")},
         "files":files,
         "submit_next":{
             "human_review_required": True,
@@ -8375,7 +8389,7 @@ def main():
     p = sub.add_parser("submission-validate"); p.add_argument("path"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("blocker-report"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--severity", choices=["P0","P1","P2","P3"], default="P1"); p.add_argument("--command", required=True); p.add_argument("--error-summary", required=True); p.add_argument("--missing-field"); p.add_argument("--desired-fix", required=True); p.add_argument("--blocker-id"); p.add_argument("--out", default="agentpress/submissions/blocker-report.example.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("submission-pack"); p.add_argument("--receipt", required=True); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("external-proof-run"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True, choices=["codex","claude","gemini","glm","browser","workflow","other"]); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--out"); p.add_argument("--no-external-write", action="store_true", default=True); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("external-proof-run"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True, choices=["codex","claude","gemini","glm","browser","workflow","other"]); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--out"); p.add_argument("--no-external-write", action="store_true", default=True); p.add_argument("--strict", action="store_true", help="Return non-zero on any failed proof, submission, or secret-scan step"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("reputation-index"); p.add_argument("--landing-dir", default="agentpress/landing"); p.add_argument("--self-test-dir", default="agentpress/self-test"); p.add_argument("--receipt-dir", default="agentpress/receipts"); p.add_argument("--external-proof-index", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-receipt"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--discovery-channel", required=True); p.add_argument("--capability", action="append"); p.add_argument("--self-test-ref"); p.add_argument("--contact"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--landing-id"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-index"); p.add_argument("dir"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
