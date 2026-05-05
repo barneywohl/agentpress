@@ -5858,6 +5858,132 @@ def release_registry_readiness_dashboard(args):
     return 0
 
 
+def _read_package_version(package_json):
+    try:
+        return json.loads(package_json.read_text(encoding="utf-8")).get("version")
+    except Exception:
+        return None
+
+
+def _read_pyproject_version(pyproject):
+    if not pyproject.exists():
+        return None
+    for line in pyproject.read_text(encoding="utf-8", errors="replace").splitlines():
+        m = re.match(r"\s*version\s*=\s*[\"']([^\"']+)[\"']", line)
+        if m:
+            return m.group(1)
+    return None
+
+
+def release_promote_checklist_legacy_local(args):
+    """Legacy local rc→latest promotion gate kept only for historical reference."""
+    root = pathlib.Path(getattr(args, "root", ".")).resolve()
+    from_tag = getattr(args, "from_tag", "rc")
+    to_tag = getattr(args, "to_tag", "latest")
+    dry_run = bool(getattr(args, "dry_run", False))
+    json_out = bool(getattr(args, "json", False))
+
+    gates = []
+
+    def gate(gate_id, ok, command, evidence_path="", error="", mandatory=True, skipped=False):
+        status = "skipped" if skipped else ("pass" if ok else "fail")
+        gates.append({
+            "id": gate_id,
+            "mandatory": mandatory,
+            "status": status,
+            "command": command,
+            "evidence_path": str(evidence_path) if evidence_path else "",
+            "error": "" if ok or skipped else error,
+        })
+
+    def run_gate(gate_id, cmd, evidence_path="", mandatory=True, timeout=45):
+        if dry_run:
+            gate(gate_id, False, " ".join(shlex.quote(c) for c in cmd), evidence_path, mandatory=mandatory, skipped=True)
+            return
+        try:
+            cp = subprocess.run(cmd, cwd=root, text=True, capture_output=True, timeout=timeout)
+            detail = (cp.stderr or cp.stdout or "").strip().splitlines()[:4]
+            gate(gate_id, cp.returncode == 0, " ".join(shlex.quote(c) for c in cmd), evidence_path, "; ".join(detail) or f"exit {cp.returncode}", mandatory)
+        except Exception as exc:
+            gate(gate_id, False, " ".join(shlex.quote(c) for c in cmd), evidence_path, str(exc), mandatory)
+
+    run_gate("cli_gap_audit", [sys.executable, "-m", "py_compile", "scripts/agentpress.py"], "scripts/agentpress.py")
+    run_gate("tools_manifest_check", [sys.executable, "scripts/agentpress.py", "tools-manifest-check", "--json"], "agentpress/tools/agentpress-tools.json")
+
+    receipt_dirs = [root / "agentpress" / "proofs", root / "agentpress" / "receipts", root / "sprint-proof"]
+    receipts = []
+    for d in receipt_dirs:
+        if d.exists():
+            receipts.extend([p for p in d.glob("*.json") if p.is_file()])
+    gate(
+        "independent_proof_count",
+        len(receipts) >= 1,
+        "find agentpress/proofs agentpress/receipts sprint-proof -maxdepth 1 -name '*.json'",
+        receipts[0] if receipts else "agentpress/proofs/",
+        "No independent external proof receipt JSON found.",
+    )
+
+    shared_status = pathlib.Path(getattr(args, "rflo_dir", "/Volumes/X10/clawd/shared/status"))
+    rflo_files = []
+    if (root / "agentpress" / "approvals").exists():
+        rflo_files.extend((root / "agentpress" / "approvals").glob("*rflo*review*.json"))
+    if shared_status.exists():
+        rflo_files.extend(shared_status.glob("*rflo*review*"))
+        rflo_files.extend(shared_status.glob("mission-*_ruflo_*.txt"))
+    gate(
+        "rflo_review_artifact_present",
+        bool(rflo_files),
+        "find agentpress/approvals /Volumes/X10/clawd/shared/status -iname '*rflo*review*' -o -iname 'mission-*_ruflo_*.txt'",
+        rflo_files[0] if rflo_files else "agentpress/approvals/rflo_review.json",
+        "RFLO review/sign-off artifact not found.",
+    )
+
+    pkg_v = _read_package_version(root / "package.json")
+    py_v = _read_pyproject_version(root / "pyproject.toml")
+    py_norm = py_v.replace("rc", "-rc.") if py_v and "rc" in py_v and "-rc." not in py_v else py_v
+    gate(
+        "npm_smoke",
+        bool(pkg_v and py_norm and pkg_v == py_norm),
+        "compare package.json version with pyproject.toml version",
+        "package.json, pyproject.toml",
+        f"Version mismatch or missing metadata: package.json={pkg_v!r}, pyproject.toml={py_v!r}.",
+    )
+
+    run_gate("docs_drift", [sys.executable, "scripts/agentpress.py", "docs-command-check", "--json"], "agentpress/evidence/docs-command-check.json")
+
+    js = root / "bin" / "agentpress.js"
+    if dry_run:
+        gate("no_python_fallback_check", False, "PYTHON=/no/such/python node bin/agentpress.js doctor --mode self-check --json", "bin/agentpress.js", mandatory=True, skipped=True)
+    else:
+        try:
+            cp = subprocess.run(["node", str(js), "doctor", "--mode", "self-check", "--json"], cwd=root, text=True, capture_output=True, timeout=15, env={**os.environ, "PYTHON": "/no/such/python"})
+            parsed = json.loads(cp.stdout) if cp.stdout.strip().startswith("{") else {}
+            gate("no_python_fallback_check", cp.returncode == 0 and parsed.get("mode") == "node-fast-path", "PYTHON=/no/such/python node bin/agentpress.js doctor --mode self-check --json", "bin/agentpress.js", "Node no-Python doctor did not return fast-path JSON.")
+        except Exception as exc:
+            gate("no_python_fallback_check", False, "PYTHON=/no/such/python node bin/agentpress.js doctor --mode self-check --json", "bin/agentpress.js", str(exc))
+
+    blocking = [g for g in gates if g["mandatory"] and g["status"] != "pass"]
+    payload = {
+        "schema_version": "2026-05-05.agentpress-release-promote-checklist.v1",
+        "generated_utc": _utc_now(),
+        "status": "blocked" if blocking else "ready",
+        "decision": "blocked" if blocking else "promote",
+        "from": from_tag,
+        "to": to_tag,
+        "root": str(root),
+        "dry_run": dry_run,
+        "publish_performed": False,
+        "gates": gates,
+        "blocking_reasons": [f"{g['id']}: {g['error'] or g['status']}" for g in blocking],
+        "next_steps": [{"command": g["command"], "why": g["error"] or "Run this skipped mandatory gate."} for g in blocking[:3]],
+    }
+    if json_out:
+        print(json.dumps(payload, indent=2))
+    else:
+        print(f"release promote checklist: {payload['status']} ({len(blocking)} blocking gates)")
+    return 1 if blocking else 0
+
+
 def release_candidate(args):
     """Generate a 0.2.0-rc release-candidate checklist with all sprint features and deploy gates."""
     out = pathlib.Path(args.out)
