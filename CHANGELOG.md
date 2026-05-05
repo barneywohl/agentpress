@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.2.0-rc.3 — 2026-05-05
+
+Post-rc2 hardening and first-user evaluation release candidate.
+
+### Added
+- Supply-chain risk controls doc and CI gate for zero runtime npm dependencies, tarball budget, forbidden file checks, manifest integrity, and script-disabled smoke install.
+- Safe Karpathy-style first-user eval harness with synthetic repo scenarios and temp-dir cleanup guardrails.
+- First-user eval tests and package inclusion for the harness.
+
+### Validation
+- `python3 -m pytest tests/test_eval_first_user_harness.py -q`
+- `npm run validate`
+- `python3 -m py_compile scripts/eval_first_user_harness.py`
+- `python3 scripts/eval_first_user_harness.py --json`
+- GitHub Actions: CI, Validate, Supply Chain Gate, Pages deploy.
+
 ## 0.2.0-rc.2 — 2026-05-05
 
 Safe pre-publish cleanup for the next AgentPress release candidate. No npm or PyPI publish performed in this commit.
