@@ -72,3 +72,21 @@ def test_external_proof_intake_blocker_review_counts(tmp_path):
     assert run_cli("external-proof-intake", "review", "--submission-id", "p2", "--decision", "blocker", "--out", str(out), "--json").returncode == 0
     status = json.loads(run_cli("external-proof-intake", "status", "--out", str(out), "--json").stdout)
     assert status["counts"]["blockers"] == 1
+
+
+def test_external_proof_intake_exports_release_gate_index(tmp_path):
+    pack = tmp_path / "proof.json"
+    pack.write_text(json.dumps(proof()), encoding="utf-8")
+    out = tmp_path / "intake"
+    index = tmp_path / "external-proof-index.json"
+
+    assert run_cli("external-proof-intake", "submit", "--pack", str(pack), "--submission-id", "p3", "--out", str(out), "--json").returncode == 0
+    assert run_cli("external-proof-intake", "review", "--submission-id", "p3", "--decision", "accept", "--out", str(out), "--json").returncode == 0
+    export = run_cli("external-proof-intake", "export-index", "--out", str(out), "--index-out", str(index), "--json")
+    assert export.returncode == 0
+    payload = json.loads(export.stdout)
+    assert payload["counts"]["accepted_independent_real"] == 1
+    written = json.loads(index.read_text())
+    assert written["receipts"][0]["status"] == "accepted"
+    assert written["receipts"][0]["proof_id"] == "p3"
+    assert written["receipts"][0]["artifact_count"] == 1

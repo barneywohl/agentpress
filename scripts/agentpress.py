@@ -7542,6 +7542,30 @@ def external_proof_intake(args):
             found["reviewed_utc"]=_utc_now(); found["review_decision"]=args.decision; found["status"]={"accept":"accepted","reject":"rejected","blocker":"blocker"}[args.decision]
         payload={"schema_version":"2026-05-05.agentpress-external-proof-intake-review.v1","generated_utc":_utc_now(),"action":"review","status":"ok" if not errors else "fail","decision":args.decision,"submission":found,"errors":errors}
         save(payload); return 0 if not errors else 1
+    if args.action == "export-index":
+        index_path=pathlib.Path(args.index_out)
+        receipts=[]; blockers=[]
+        for item in state.get("submissions",[]):
+            if item.get("status") == "accepted":
+                receipts.append({
+                    "id": item.get("id"),
+                    "proof_id": item.get("id"),
+                    "status": "accepted",
+                    "path": item.get("pack", ""),
+                    "agent_id": item.get("agent_id", ""),
+                    "runtime": item.get("runtime", ""),
+                    "service_id": item.get("service_id", "agentpress"),
+                    "artifact_count": item.get("artifact_count", 0),
+                    "reviewed_utc": item.get("reviewed_utc", ""),
+                })
+            elif item.get("status") == "blocker":
+                blockers.append({"id": item.get("id"), "runtime": item.get("runtime", ""), "service_id": item.get("service_id", "agentpress"), "path": item.get("pack", "")})
+        payload={"schema_version":"2026-05-05.agentpress-external-proof-index.v1","generated_utc":_utc_now(),"status":"ok","source_state":str(state_path),"receipts":receipts,"blockers":blockers,"counts":{"accepted_independent_real":len(receipts),"blockers":len(blockers)}}
+        if not args.no_write:
+            index_path.parent.mkdir(parents=True,exist_ok=True); index_path.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+            if args.receipt_out: pathlib.Path(args.receipt_out).write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+        print(json.dumps(payload,indent=2) if args.json else f"accepted={len(receipts)} blockers={len(blockers)} index={index_path}")
+        return 0
     counts={"submitted":0,"accepted_independent_real":0,"blockers":0,"rejected":0,"runtimes":{}}
     for item in state.get("submissions",[]):
         counts["submitted"]+=1; st=item.get("status")
@@ -9965,7 +9989,7 @@ def main():
     p = sub.add_parser("proof-request-queue"); p.add_argument("--out", default="agentpress/proof-outreach/proof-request-queue.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("next-build-spec-queue"); p.add_argument("--out", default="agentpress/planning/next-build-spec-queue.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("external-proof-campaign-runner"); p.add_argument("--out", default="agentpress/proof-outreach/external-proof-campaign-runner.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("external-proof-intake"); p.add_argument("action", choices=["submit","review","status"]); p.add_argument("root", nargs="?", default="."); p.add_argument("--pack", default=""); p.add_argument("--submission-id", default=""); p.add_argument("--decision", default=""); p.add_argument("--out", default="agentpress/external-proofs/intake"); p.add_argument("--receipt-out", default=""); p.add_argument("--include-submissions", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("external-proof-intake"); p.add_argument("action", choices=["submit","review","status","export-index"]); p.add_argument("root", nargs="?", default="."); p.add_argument("--pack", default=""); p.add_argument("--submission-id", default=""); p.add_argument("--decision", default=""); p.add_argument("--out", default="agentpress/external-proofs/intake"); p.add_argument("--index-out", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--receipt-out", default=""); p.add_argument("--include-submissions", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("host-transcript-batch-ingest"); p.add_argument("dir"); p.add_argument("--out", default="agentpress/conformance/host-transcript-batch-ingest.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("connector-failure-taxonomy"); p.add_argument("--out", default="agentpress/connectors/connector-failure-taxonomy.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("cycle-gap-radar"); p.add_argument("--out", default="agentpress/planning/cycle-gap-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
