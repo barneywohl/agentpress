@@ -1,0 +1,56 @@
+name: AgentPress Supply Chain Gate
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  npm-package-safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate package metadata and manifests
+        run: |
+          python3 -m json.tool package.json >/dev/null
+          python3 -m json.tool .well-known/agentpress.json >/dev/null
+          python3 scripts/verify_manifest_integrity.py
+          python3 scripts/check_agentpress_positioning.py
+
+      - name: Assert package has no runtime npm dependencies
+        run: |
+          node -e "const p=require('./package.json'); const bad=['dependencies','optionalDependencies','bundledDependencies','bundleDependencies'].filter(k => p[k] && Object.keys(p[k]).length); if (bad.length) { console.error('runtime dependency sections present:', bad); process.exit(1); } console.log('no runtime npm dependencies');"
+
+      - name: Pack and enforce tarball budget
+        run: |
+          npm pack --dry-run --json > /tmp/agentpress-pack.json
+          node - <<'NODE'
+          const fs = require('fs');
+          const pack = JSON.parse(fs.readFileSync('/tmp/agentpress-pack.json','utf8'))[0];
+          console.log(JSON.stringify({filename: pack.filename, size: pack.size, files: pack.files.length}, null, 2));
+          if (pack.size > 300000) throw new Error(`package too large: ${pack.size}`);
+          if (pack.files.length > 100) throw new Error(`too many package files: ${pack.files.length}`);
+          const forbidden = pack.files.map(f => f.path).filter(p => /(^|\/)(\.env|.*secret.*|.*token.*|node_modules|\.git|sprint-|runtimes|ops\/state)/i.test(p));
+          if (forbidden.length) throw new Error(`forbidden package entries: ${forbidden.join(', ')}`);
+          NODE
+
+      - name: Smoke install packed tarball with scripts disabled
+        run: |
+          TGZ=$(node -e "console.log(JSON.parse(require('fs').readFileSync('/tmp/agentpress-pack.json','utf8'))[0].filename)")
+          mkdir -p /tmp/agentpress-smoke
+          cp "$TGZ" /tmp/agentpress-smoke/
+          cd /tmp/agentpress-smoke
+          npm init -y >/dev/null
+          npm install "./$TGZ" --ignore-scripts --no-audit --no-fund
+          ./node_modules/.bin/agentpress --help >/dev/null
