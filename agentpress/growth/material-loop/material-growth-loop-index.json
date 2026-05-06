@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:32:34Z",
+  "generated_utc": "2026-05-06T04:32:44Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 866,
+  "kit_count": 916,
   "by_ecosystem": {
     "Anthropic": 201,
     "Cline": 6,
@@ -14,7 +14,7 @@
     "DSPy": 9,
     "Haystack": 149,
     "LangGraph": 2,
-    "LiteLLM": 183,
+    "LiteLLM": 201,
     "LlamaIndex": 1,
     "mcp": 1,
     "MCP": 31,
@@ -24,10 +24,10 @@
     "Roo Code": 6,
     "api-schema": 1,
     "onboarding": 1,
-    "Vercel AI SDK": 38
+    "Vercel AI SDK": 70
   },
   "by_status": {
-    "ready_local_static_not_posted": 866
+    "ready_local_static_not_posted": 916
   },
   "kits": [
     {
@@ -10678,6 +10678,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-guardrail-providers",
+      "title": "LiteLLM: guardrail providers",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/guardrail_providers",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: guardrail providers",
+      "manifest_path": "agentpress/material-kits/litellm-docs-guardrail-providers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-guardrail-providers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-guardrail-providers/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-guardrail-providers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-guides-finetuned-models",
       "title": "LiteLLM: finetuned models",
       "ecosystem": "LiteLLM",
@@ -11035,6 +11056,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-mcp-usage",
+      "title": "LiteLLM: mcp usage",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/mcp_usage",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: mcp usage",
+      "manifest_path": "agentpress/material-kits/litellm-docs-mcp-usage/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-mcp-usage/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-mcp-usage/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-mcp-usage/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-mcp-zero-trust",
       "title": "LiteLLM: mcp zero trust",
       "ecosystem": "LiteLLM",
@@ -11119,6 +11161,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-observability-ramp-integration",
+      "title": "LiteLLM: ramp integration",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/observability/ramp_integration",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: ramp integration",
+      "manifest_path": "agentpress/material-kits/litellm-docs-observability-ramp-integration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-observability-ramp-integration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-observability-ramp-integration/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-observability-ramp-integration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-observability-wandb-integration",
       "title": "LiteLLM: wandb integration",
       "ecosystem": "LiteLLM",
@@ -11129,6 +11192,27 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-observability-wandb-integration/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-observability-wandb-integration/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-observability-wandb-integration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-projects-graphrag",
+      "title": "LiteLLM: GraphRAG",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/projects/GraphRAG",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: GraphRAG",
+      "manifest_path": "agentpress/material-kits/litellm-docs-projects-graphrag/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-projects-graphrag/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-projects-graphrag/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-projects-graphrag/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -11234,6 +11318,27 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-providers-abliteration/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-providers-abliteration/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-providers-abliteration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-aiml",
+      "title": "LiteLLM: aiml",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/aiml",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: aiml",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-aiml/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-aiml/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-aiml/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-aiml/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -11644,6 +11749,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-providers-chutes",
+      "title": "LiteLLM: chutes",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/chutes",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: chutes",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-chutes/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-chutes/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-chutes/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-chutes/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-providers-cloudflare-workers",
       "title": "LiteLLM: cloudflare workers",
       "ecosystem": "LiteLLM",
@@ -11675,6 +11801,27 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-providers-codestral/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-providers-codestral/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-providers-codestral/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-cohere",
+      "title": "LiteLLM: cohere",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/cohere",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: cohere",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-cohere/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-cohere/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-cohere/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-cohere/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -11833,6 +11980,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-providers-fireworks-ai",
+      "title": "LiteLLM: fireworks ai",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/fireworks_ai",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: fireworks ai",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-fireworks-ai/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-fireworks-ai/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-fireworks-ai/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-fireworks-ai/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-providers-friendliai",
       "title": "LiteLLM: friendliai",
       "ecosystem": "LiteLLM",
@@ -11843,6 +12011,27 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-providers-friendliai/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-providers-friendliai/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-providers-friendliai/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-galadriel",
+      "title": "LiteLLM: galadriel",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/galadriel",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: galadriel",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-galadriel/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-galadriel/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-galadriel/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-galadriel/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -12011,6 +12200,48 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-providers-litellm-proxy/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-providers-litellm-proxy/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-providers-litellm-proxy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-lm-studio",
+      "title": "LiteLLM: lm studio",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/lm_studio",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: lm studio",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-lm-studio/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-lm-studio/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-lm-studio/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-lm-studio/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-manus",
+      "title": "LiteLLM: manus",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/manus",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: manus",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-manus/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-manus/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-manus/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-manus/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -12316,6 +12547,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-providers-v0",
+      "title": "LiteLLM: v0",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/v0",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: v0",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-v0/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-v0/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-v0/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-v0/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-providers-vertex",
       "title": "LiteLLM: vertex",
       "ecosystem": "LiteLLM",
@@ -12389,6 +12641,48 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-providers-vertex-self-deployed/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-providers-vertex-self-deployed/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-providers-vertex-self-deployed/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-vllm-batches",
+      "title": "LiteLLM: vllm batches",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/vllm_batches",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: vllm batches",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-vllm-batches/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-vllm-batches/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-vllm-batches/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-vllm-batches/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-volcano",
+      "title": "LiteLLM: volcano",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/volcano",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: volcano",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-volcano/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-volcano/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-volcano/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-volcano/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -13093,6 +13387,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-proxy-guardrails-pangea",
+      "title": "LiteLLM: pangea",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/guardrails/pangea",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: pangea",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-guardrails-pangea/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-guardrails-pangea/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-guardrails-pangea/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-guardrails-pangea/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-proxy-guardrails-policy-flow-builder",
       "title": "LiteLLM: policy flow builder",
       "ecosystem": "LiteLLM",
@@ -13103,6 +13418,27 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-proxy-guardrails-policy-flow-builder/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-proxy-guardrails-policy-flow-builder/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-proxy-guardrails-policy-flow-builder/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-guardrails-qualifire",
+      "title": "LiteLLM: qualifire",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/guardrails/qualifire",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: qualifire",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-guardrails-qualifire/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-guardrails-qualifire/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-guardrails-qualifire/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-guardrails-qualifire/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -13555,6 +13891,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-proxy-prometheus",
+      "title": "LiteLLM: prometheus",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/prometheus",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: prometheus",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-prometheus/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-prometheus/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-prometheus/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-prometheus/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-proxy-provider-budget-routing",
       "title": "LiteLLM: provider budget routing",
       "ecosystem": "LiteLLM",
@@ -13670,6 +14027,27 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-proxy-reject-clientside-metadata-tags/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-proxy-reject-clientside-metadata-tags/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-proxy-reject-clientside-metadata-tags/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-request-tags",
+      "title": "LiteLLM: request tags",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/request_tags",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: request tags",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-request-tags/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-request-tags/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-request-tags/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-request-tags/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -17419,6 +17797,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-ai-sdk-cookbook-guides-agent-skills",
+      "title": "Vercel AI SDK: agent skills",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/cookbook/guides/agent-skills",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: agent skills",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-agent-skills/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-agent-skills/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-agent-skills/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-agent-skills/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-ai-sdk-cookbook-guides-custom-memory-tool",
       "title": "Vercel AI SDK: custom memory tool",
       "ecosystem": "Vercel AI SDK",
@@ -17429,6 +17828,27 @@
       "receipt_path": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-custom-memory-tool/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-custom-memory-tool/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-custom-memory-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-cookbook-guides-rag-chatbot",
+      "title": "Vercel AI SDK: rag chatbot",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/cookbook/guides/rag-chatbot",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: rag chatbot",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-rag-chatbot/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-rag-chatbot/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-rag-chatbot/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-rag-chatbot/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
@@ -17471,6 +17891,48 @@
       "receipt_path": "agentpress/material-kits/vercel-ai-sdk-cookbook-node-mcp-tools/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-ai-sdk-cookbook-node-mcp-tools/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-ai-sdk-cookbook-node-mcp-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-advanced-model-as-router",
+      "title": "Vercel AI SDK: model as router",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/advanced/model-as-router",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: model as router",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-advanced-model-as-router/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-advanced-model-as-router/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-advanced-model-as-router/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-advanced-model-as-router/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-advanced-vercel-deployment-guide",
+      "title": "Vercel AI SDK: vercel deployment guide",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/advanced/vercel-deployment-guide",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: vercel deployment guide",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-advanced-vercel-deployment-guide/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-advanced-vercel-deployment-guide/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-advanced-vercel-deployment-guide/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-advanced-vercel-deployment-guide/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
@@ -17692,6 +18154,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-ai-sdk-docs-ai-sdk-core-provider-management",
+      "title": "Vercel AI SDK: provider management",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/ai-sdk-core/provider-management",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: provider management",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-core-provider-management/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-core-provider-management/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-core-provider-management/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-core-provider-management/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-ai-sdk-docs-ai-sdk-core-tools-and-tool-calling",
       "title": "Vercel AI SDK: tools and tool calling",
       "ecosystem": "Vercel AI SDK",
@@ -17702,6 +18185,90 @@
       "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-core-tools-and-tool-calling/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-core-tools-and-tool-calling/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-core-tools-and-tool-calling/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-ai-sdk-rsc-authentication",
+      "title": "Vercel AI SDK: authentication",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/ai-sdk-rsc/authentication",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: authentication",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-rsc-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-rsc-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-rsc-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-rsc-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-ai-sdk-ui-chatbot-tool-usage",
+      "title": "Vercel AI SDK: chatbot tool usage",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-tool-usage",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: chatbot tool usage",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-ui-chatbot-tool-usage/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-ui-chatbot-tool-usage/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-ui-chatbot-tool-usage/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-ui-chatbot-tool-usage/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-ai-sdk-ui-error-handling",
+      "title": "Vercel AI SDK: error handling",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/ai-sdk-ui/error-handling",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: error handling",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-ui-error-handling/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-ui-error-handling/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-ui-error-handling/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-ai-sdk-ui-error-handling/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-foundations-provider-options",
+      "title": "Vercel AI SDK: provider options",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/foundations/provider-options",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: provider options",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-foundations-provider-options/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-foundations-provider-options/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-foundations-provider-options/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-foundations-provider-options/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
@@ -17755,6 +18322,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-ai-sdk-docs-getting-started",
+      "title": "Vercel AI SDK: getting started",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/getting-started",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: getting started",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-ai-sdk-docs-getting-started-choosing-a-provider",
       "title": "Vercel AI SDK: choosing a provider",
       "ecosystem": "Vercel AI SDK",
@@ -17797,6 +18385,111 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-ai-sdk-docs-getting-started-expo",
+      "title": "Vercel AI SDK: expo",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/getting-started/expo",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: expo",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-expo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-expo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-expo/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-expo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-getting-started-nextjs-pages-router",
+      "title": "Vercel AI SDK: nextjs pages router",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/getting-started/nextjs-pages-router",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: nextjs pages router",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-nextjs-pages-router/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-nextjs-pages-router/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-nextjs-pages-router/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-nextjs-pages-router/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-getting-started-nuxt",
+      "title": "Vercel AI SDK: nuxt",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/getting-started/nuxt",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: nuxt",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-nuxt/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-nuxt/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-nuxt/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-getting-started-nuxt/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-core-add-tool-input-examples-middlew",
+      "title": "Vercel AI SDK: add tool input examples middleware",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/add-tool-input-examples-middleware",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: add tool input examples middleware",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-add-tool-input-examples-middlew/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-add-tool-input-examples-middlew/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-add-tool-input-examples-middlew/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-add-tool-input-examples-middlew/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-core-create-agent-ui-stream",
+      "title": "Vercel AI SDK: create agent ui stream",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/create-agent-ui-stream",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: create agent ui stream",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-create-agent-ui-stream/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-create-agent-ui-stream/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-create-agent-ui-stream/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-create-agent-ui-stream/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-ai-sdk-docs-reference-ai-sdk-core-create-mcp-client",
       "title": "Vercel AI SDK: create mcp client",
       "ecosystem": "Vercel AI SDK",
@@ -17807,6 +18500,111 @@
       "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-create-mcp-client/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-create-mcp-client/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-create-mcp-client/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-core-dynamic-tool",
+      "title": "Vercel AI SDK: dynamic tool",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/dynamic-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: dynamic tool",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-dynamic-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-dynamic-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-dynamic-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-dynamic-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-core-json-schema",
+      "title": "Vercel AI SDK: json schema",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/json-schema",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: json schema",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-json-schema/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-json-schema/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-json-schema/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-json-schema/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-core-mcp-stdio-transport",
+      "title": "Vercel AI SDK: mcp stdio transport",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/mcp-stdio-transport",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: mcp stdio transport",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-mcp-stdio-transport/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-mcp-stdio-transport/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-mcp-stdio-transport/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-mcp-stdio-transport/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-core-model-message",
+      "title": "Vercel AI SDK: model message",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/model-message",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: model message",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-model-message/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-model-message/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-model-message/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-model-message/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-core-tool",
+      "title": "Vercel AI SDK: tool",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: tool",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-tool/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
@@ -17839,6 +18637,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-core-wrap-language-model",
+      "title": "Vercel AI SDK: wrap language model",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/wrap-language-model",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: wrap language model",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-wrap-language-model/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-wrap-language-model/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-wrap-language-model/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-core-wrap-language-model/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-api-call-error",
       "title": "Vercel AI SDK: ai api call error",
       "ecosystem": "Vercel AI SDK",
@@ -17849,6 +18668,90 @@
       "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-api-call-error/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-api-call-error/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-api-call-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-empty-response-body-error",
+      "title": "Vercel AI SDK: ai empty response body error",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-empty-response-body-error",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: ai empty response body error",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-empty-response-body-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-empty-response-body-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-empty-response-body-error/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-empty-response-body-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-argument-error",
+      "title": "Vercel AI SDK: ai invalid argument error",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-invalid-argument-error",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: ai invalid argument error",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-argument-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-argument-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-argument-error/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-argument-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-message-role-error",
+      "title": "Vercel AI SDK: ai invalid message role error",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-invalid-message-role-error",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: ai invalid message role error",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-message-role-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-message-role-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-message-role-error/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-message-role-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-response-data-erro",
+      "title": "Vercel AI SDK: ai invalid response data error",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-invalid-response-data-error",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: ai invalid response data error",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-response-data-erro/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-response-data-erro/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-response-data-erro/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-invalid-response-data-erro/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
@@ -17923,6 +18826,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-output-generated-error",
+      "title": "Vercel AI SDK: ai no output generated error",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-output-generated-error",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: ai no output generated error",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-output-generated-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-output-generated-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-output-generated-error/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-output-generated-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-speech-generated-error",
+      "title": "Vercel AI SDK: ai no speech generated error",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-speech-generated-error",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: ai no speech generated error",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-speech-generated-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-speech-generated-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-speech-generated-error/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-speech-generated-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-such-model-error",
       "title": "Vercel AI SDK: ai no such model error",
       "ecosystem": "Vercel AI SDK",
@@ -17975,6 +18920,27 @@
       "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-such-tool-error/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-such-tool-error/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-such-tool-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-transcript-generated-er",
+      "title": "Vercel AI SDK: ai no transcript generated error",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-transcript-generated-error",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: ai no transcript generated error",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-transcript-generated-er/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-transcript-generated-er/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-transcript-generated-er/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-reference-ai-sdk-errors-ai-no-transcript-generated-er/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
@@ -18112,6 +19078,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-ai-sdk-docs-troubleshooting-model-is-not-assignable-to-type",
+      "title": "Vercel AI SDK: model is not assignable to type",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/troubleshooting/model-is-not-assignable-to-type",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: model is not assignable to type",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-model-is-not-assignable-to-type/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-model-is-not-assignable-to-type/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-model-is-not-assignable-to-type/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-model-is-not-assignable-to-type/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-ai-sdk-docs-troubleshooting-server-actions-in-client-components",
       "title": "Vercel AI SDK: server actions in client components",
       "ecosystem": "Vercel AI SDK",
@@ -18122,6 +19109,69 @@
       "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-server-actions-in-client-components/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-server-actions-in-client-components/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-server-actions-in-client-components/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-troubleshooting-streamable-ui-errors",
+      "title": "Vercel AI SDK: streamable ui errors",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/troubleshooting/streamable-ui-errors",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: streamable ui errors",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-streamable-ui-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-streamable-ui-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-streamable-ui-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-streamable-ui-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-troubleshooting-streaming-not-working-when-deployed",
+      "title": "Vercel AI SDK: streaming not working when deployed",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/troubleshooting/streaming-not-working-when-deployed",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: streaming not working when deployed",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-streaming-not-working-when-deployed/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-streaming-not-working-when-deployed/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-streaming-not-working-when-deployed/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-streaming-not-working-when-deployed/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-docs-troubleshooting-unsupported-model-version",
+      "title": "Vercel AI SDK: unsupported model version",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/troubleshooting/unsupported-model-version",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: unsupported model version",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-unsupported-model-version/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-unsupported-model-version/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-unsupported-model-version/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-docs-troubleshooting-unsupported-model-version/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
