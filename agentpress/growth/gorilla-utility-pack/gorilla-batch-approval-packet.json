@@ -1,0 +1,147 @@
+{
+  "schema_version": "2026-05-05.agentpress-gorilla-batch-approval-packet.v1",
+  "generated_utc": "2026-05-06T02:49:09Z",
+  "status": "prepared_not_posted",
+  "purpose": "First actionable gorilla batch for Jake approval: utility-first, painpoint-matched, no external automation.",
+  "posting_policy": {
+    "default": "Do not post/comment/DM externally without explicit human approval of the exact target and draft.",
+    "allowed_now": [
+      "publish static queue and draft packets on AgentPress site",
+      "use internally for feature prioritization",
+      "prepare PR/comment drafts"
+    ],
+    "prohibited_without_approval": [
+      "public issue comments",
+      "DMs",
+      "mass posting",
+      "security/credential issue comments",
+      "claims of adoption"
+    ]
+  },
+  "safety_summary": {
+    "safe_internal": 3,
+    "approval_required_public": 10,
+    "prohibited_spam_security_risk": 3
+  },
+  "targets": [
+    {
+      "rank": 1,
+      "ecosystem": "OpenHands",
+      "url": "https://github.com/OpenHands/OpenHands/issues/12316",
+      "painpoint": "git marketplace/plugin distribution without packaging overhead",
+      "pack": "openhands-runtime-hang",
+      "artifact": "https://barneywohl.github.io/agentpress/agentpress/repro/runtime-hang-repro-capsule.json",
+      "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/openhands-runtime-hang-result.json",
+      "risk": "low-medium",
+      "safety_classification": "approval_required_public",
+      "approval_required": true,
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ],
+      "recommended_action": "prepare neutral static plugin/connector manifest compatibility note",
+      "draft": "I saw the plugin marketplace discussion and made a small static manifest/receipt pattern that may be useful as a neutral fixture: it keeps connector metadata, expected runtime behavior, and proof receipts in repo-native JSON. If useful, I can adapt it into a minimal OpenHands-specific example without telemetry or external writes.",
+      "go_no_go": "READY_FOR_JAKE_APPROVAL"
+    },
+    {
+      "rank": 2,
+      "ecosystem": "Roo Code",
+      "url": "https://github.com/RooCodeInc/Roo-Code/issues/12185",
+      "painpoint": "malformed/partial tool call response stops task",
+      "pack": "cline-provider-repro",
+      "artifact": "https://barneywohl.github.io/agentpress/agentpress/compatibility/provider-adapter-repro-pack.json",
+      "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/cline-provider-repro-result.json",
+      "risk": "medium-low",
+      "safety_classification": "approval_required_public",
+      "approval_required": true,
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ],
+      "recommended_action": "prepare minimal malformed-tool-call fixture attachment",
+      "draft": "This looks like a good candidate for a tiny machine-checkable repro fixture rather than a long issue thread. I have a static provider/tool-call repro pack format that records the failing tool payload, expected adapter contract, and result receipt; happy to trim it into a Roo-specific fixture if useful.",
+      "go_no_go": "READY_FOR_JAKE_APPROVAL"
+    },
+    {
+      "rank": 3,
+      "ecosystem": "OpenHands",
+      "url": "https://github.com/OpenHands/OpenHands/issues/13475",
+      "painpoint": "repo cloned into subdirectory breaks setup/hook root assumptions",
+      "pack": "openhands-runtime-hang",
+      "artifact": "https://barneywohl.github.io/agentpress/agentpress/repro/runtime-hang-repro-capsule.json",
+      "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/openhands-runtime-hang-result.json",
+      "risk": "medium-low",
+      "safety_classification": "approval_required_public",
+      "approval_required": true,
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ],
+      "recommended_action": "prepare root/cwd manifest example",
+      "draft": "For the workspace-root ambiguity here, a small static root manifest may help make expected repo root, setup hooks, cwd, and runtime evidence explicit. I can attach a minimal JSON fixture showing root path, hook discovery paths, and validation receipt if that would help the reproduction.",
+      "go_no_go": "READY_FOR_JAKE_APPROVAL"
+    },
+    {
+      "rank": 4,
+      "ecosystem": "LangGraph",
+      "url": "https://github.com/langchain-ai/langgraph/issues/6064",
+      "painpoint": "sub-agent handoff routes back incorrectly / waiting state ambiguity",
+      "pack": "langgraph-checkpoint-replay",
+      "artifact": "https://barneywohl.github.io/agentpress/agentpress/repro/checkpoint-replay-minimal-repro.json",
+      "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/langgraph-checkpoint-replay-result.json",
+      "risk": "medium-low",
+      "safety_classification": "approval_required_public",
+      "approval_required": true,
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ],
+      "recommended_action": "prepare handoff/task-card fixture",
+      "draft": "This seems like a state/handoff ambiguity where an explicit task-card + handoff receipt could make the expected next actor and waiting state machine-checkable. I can attach a minimal static fixture/replay packet if useful.",
+      "go_no_go": "READY_FOR_JAKE_APPROVAL"
+    },
+    {
+      "rank": 5,
+      "ecosystem": "Cline",
+      "url": "https://github.com/cline/cline/issues/10499",
+      "painpoint": "MCP auto-approve disabled but tool calls execute without prompt",
+      "pack": "cline-tool-approval",
+      "artifact": "https://barneywohl.github.io/agentpress/agentpress/security/approval-bypass-risk-result.json",
+      "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/cline-tool-approval-result.json",
+      "risk": "high",
+      "safety_classification": "prohibited_spam_security_risk",
+      "approval_required": true,
+      "required_controls": [
+        "do_not_post",
+        "do_not_send",
+        "escalate_to_human_owner"
+      ],
+      "recommended_action": "hold unless maintainer invites; security-sensitive",
+      "draft": "Security-sensitive; do not post unsolicited. If maintainers request fixtures, provide only a minimal fail-closed approval receipt format and avoid exploit details.",
+      "go_no_go": "HOLD"
+    }
+  ],
+  "next_internal_commands": [
+    "python3 scripts/agentpress.py gorilla-action-safety-gate --json",
+    "python3 scripts/agentpress.py discovery-bridge queue --json",
+    "python3 scripts/agentpress.py search \"prepared_not_posted queue\" --json"
+  ],
+  "hard_rules": [
+    "No public post/comment/DM until Jake approves exact target + draft.",
+    "No mass posting.",
+    "Skip security-sensitive/high-risk targets unless maintainer explicitly invites.",
+    "Lead with fixture/artifact utility, not marketing."
+  ]
+}
