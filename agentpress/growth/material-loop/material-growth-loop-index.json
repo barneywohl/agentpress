@@ -1,16 +1,16 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:37:52Z",
+  "generated_utc": "2026-05-06T04:38:11Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 1726,
+  "kit_count": 1825,
   "by_ecosystem": {
     "Anthropic": 287,
     "Auth0": 11,
     "AWS": 54,
-    "Bun": 52,
+    "Bun": 151,
     "Cline": 6,
     "Cloudflare": 47,
     "docs": 1,
@@ -43,7 +43,7 @@
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 1726
+    "ready_local_static_not_posted": 1825
   },
   "kits": [
     {
@@ -7439,6 +7439,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-bun-buildartifact-formdata",
+      "title": "Bun: formData",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/BuildArtifact/formData",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: formData",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-buildartifact-formdata/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-buildartifact-formdata/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-buildartifact-formdata/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-buildartifact-formdata/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-bun-buildconfig-bytecode",
+      "title": "Bun: bytecode",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/BuildConfig/bytecode",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: bytecode",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-buildconfig-bytecode/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-buildconfig-bytecode/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-buildconfig-bytecode/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-buildconfig-bytecode/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-bun-buildconfig-define",
+      "title": "Bun: define",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/BuildConfig/define",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: define",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-buildconfig-define/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-buildconfig-define/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-buildconfig-define/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-buildconfig-define/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-bun-buildconfig-format",
       "title": "Bun: format",
       "ecosystem": "Bun",
@@ -7449,6 +7512,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-bun-buildconfig-format/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-bun-buildconfig-format/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-bun-buildconfig-format/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-bun-buildconfig-minify",
+      "title": "Bun: minify",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/BuildConfig/minify",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: minify",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-buildconfig-minify/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-buildconfig-minify/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-buildconfig-minify/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-buildconfig-minify/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7481,6 +7565,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-bun-buildconfig-sourcemap",
+      "title": "Bun: sourcemap",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/BuildConfig/sourcemap",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: sourcemap",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-buildconfig-sourcemap/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-buildconfig-sourcemap/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-buildconfig-sourcemap/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-buildconfig-sourcemap/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-bun-internal-libemptyorperformanceobserver",
+      "title": "Bun: LibEmptyOrPerformanceObserver",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/__internal/LibEmptyOrPerformanceObserver",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: LibEmptyOrPerformanceObserver",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-internal-libemptyorperformanceobserver/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-internal-libemptyorperformanceobserver/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-internal-libemptyorperformanceobserver/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-internal-libemptyorperformanceobserver/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-bun-pluginbuilder-config",
       "title": "Bun: config",
       "ecosystem": "Bun",
@@ -7502,6 +7628,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-bun-pluginbuilder-onload",
+      "title": "Bun: onLoad",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/PluginBuilder/onLoad",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: onLoad",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-pluginbuilder-onload/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-pluginbuilder-onload/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-pluginbuilder-onload/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-pluginbuilder-onload/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-bun-pluginbuilder-onstart",
       "title": "Bun: onStart",
       "ecosystem": "Bun",
@@ -7512,6 +7659,48 @@
       "receipt_path": "agentpress/material-kits/bun-reference-bun-pluginbuilder-onstart/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-bun-pluginbuilder-onstart/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-bun-pluginbuilder-onstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-bun-sql-postgreserror-schema",
+      "title": "Bun: schema",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/SQL/PostgresError/schema",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: schema",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-sql-postgreserror-schema/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-sql-postgreserror-schema/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-sql-postgreserror-schema/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-sql-postgreserror-schema/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-bun-sql-postgresormysqloptions-database",
+      "title": "Bun: database",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/SQL/PostgresOrMySQLOptions/database",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: database",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-sql-postgresormysqloptions-database/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-sql-postgresormysqloptions-database/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-sql-postgresormysqloptions-database/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-sql-postgresormysqloptions-database/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7586,6 +7775,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-bun-test-matchersbuiltin-tobevaliddate",
+      "title": "Bun: toBeValidDate",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/test/MatchersBuiltin/toBeValidDate",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: toBeValidDate",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-test-matchersbuiltin-tobevaliddate/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-test-matchersbuiltin-tobevaliddate/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-test-matchersbuiltin-tobevaliddate/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-test-matchersbuiltin-tobevaliddate/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-bun-test-matchersbuiltin-tothrowerrormatchinginlinesnapsho",
       "title": "Bun: toThrowErrorMatchingInlineSnapshot",
       "ecosystem": "Bun",
@@ -7617,6 +7827,69 @@
       "receipt_path": "agentpress/material-kits/bun-reference-bun-test-matchersbuiltin-tothrowerrormatchingsnapshot/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-bun-test-matchersbuiltin-tothrowerrormatchingsnapshot/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-bun-test-matchersbuiltin-tothrowerrormatchingsnapshot/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-bun-webassembly-runtimeerror",
+      "title": "Bun: RuntimeError",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/WebAssembly/RuntimeError",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: RuntimeError",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-webassembly-runtimeerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-webassembly-runtimeerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-webassembly-runtimeerror/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-webassembly-runtimeerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-bun-webassembly-runtimeerror-stack",
+      "title": "Bun: stack",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/WebAssembly/RuntimeError/stack",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: stack",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-webassembly-runtimeerror-stack/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-webassembly-runtimeerror-stack/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-webassembly-runtimeerror-stack/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-webassembly-runtimeerror-stack/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-bun-worker-onmessageerror",
+      "title": "Bun: onmessageerror",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/Worker/onmessageerror",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: onmessageerror",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-worker-onmessageerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-worker-onmessageerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-worker-onmessageerror/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-worker-onmessageerror/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7670,6 +7943,132 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-globals-performanceobserver-disconnect",
+      "title": "Bun: disconnect",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceObserver/disconnect",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: disconnect",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceobserver-disconnect/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceobserver-disconnect/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceobserver-disconnect/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceobserver-disconnect/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-performanceobserver-supportedentrytypes",
+      "title": "Bun: supportedEntryTypes",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceObserver/supportedEntryTypes",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: supportedEntryTypes",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceobserver-supportedentrytypes/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceobserver-supportedentrytypes/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceobserver-supportedentrytypes/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceobserver-supportedentrytypes/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-performanceobserverentrylist",
+      "title": "Bun: PerformanceObserverEntryList",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceObserverEntryList",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: PerformanceObserverEntryList",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceobserverentrylist/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceobserverentrylist/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceobserverentrylist/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceobserverentrylist/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-performanceobserverentrylist-getentriesbyname",
+      "title": "Bun: getEntriesByName",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceObserverEntryList/getEntriesByName",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: getEntriesByName",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceobserverentrylist-getentriesbyname/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceobserverentrylist-getentriesbyname/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceobserverentrylist-getentriesbyname/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceobserverentrylist-getentriesbyname/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-performanceresourcetiming-connectstart",
+      "title": "Bun: connectStart",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceResourceTiming/connectStart",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: connectStart",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-connectstart/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-connectstart/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-connectstart/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-connectstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-performanceresourcetiming-decodedbodysize",
+      "title": "Bun: decodedBodySize",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceResourceTiming/decodedBodySize",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: decodedBodySize",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-decodedbodysize/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-decodedbodysize/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-decodedbodysize/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-decodedbodysize/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-globals-performanceresourcetiming-servertiming",
       "title": "Bun: serverTiming",
       "ecosystem": "Bun",
@@ -7680,6 +8079,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-servertiming/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-servertiming/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-servertiming/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-performanceresourcetiming-starttime",
+      "title": "Bun: startTime",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceResourceTiming/startTime",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: startTime",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-starttime/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-starttime/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-starttime/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-starttime/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7733,6 +8153,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-globals-transformer-start",
+      "title": "Bun: start",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/Transformer/start",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: start",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-transformer-start/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-transformer-start/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-transformer-start/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-transformer-start/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-worker-onerror",
+      "title": "Bun: onerror",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/Worker/onerror",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: onerror",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-worker-onerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-worker-onerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-worker-onerror/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-worker-onerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-assert-default-assertionerroroptions-stackstartfn",
+      "title": "Bun: stackStartFn",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/assert/default/AssertionErrorOptions/stackStartFn",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: stackStartFn",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-assert-default-assertionerroroptions-stackstartfn/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-assert-default-assertionerroroptions-stackstartfn/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-assert-default-assertionerroroptions-stackstartfn/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-assert-default-assertionerroroptions-stackstartfn/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-async-hooks-asyncwrapproviders-httpclientrequest",
+      "title": "Bun: HTTPCLIENTREQUEST",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/async_hooks/asyncWrapProviders/HTTPCLIENTREQUEST",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: HTTPCLIENTREQUEST",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-async-hooks-asyncwrapproviders-httpclientrequest/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-async-hooks-asyncwrapproviders-httpclientrequest/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-async-hooks-asyncwrapproviders-httpclientrequest/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-async-hooks-asyncwrapproviders-httpclientrequest/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-crypto-cipherccm-readableflowing",
       "title": "Bun: readableFlowing",
       "ecosystem": "Bun",
@@ -7743,6 +8247,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-cipherccm-readableflowing/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-cipherccm-readableflowing/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-crypto-cipherccm-readableflowing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-ciphergcm-getauthtag",
+      "title": "Bun: getAuthTag",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/CipherGCM/getAuthTag",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: getAuthTag",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-ciphergcm-getauthtag/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-ciphergcm-getauthtag/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-ciphergcm-getauthtag/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-ciphergcm-getauthtag/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7775,6 +8300,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-crypto-cipheriv-errored",
+      "title": "Bun: errored",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/Cipheriv/errored",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: errored",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-cipheriv-errored/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-cipheriv-errored/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-cipheriv-errored/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-cipheriv-errored/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-cipherocb-errored",
+      "title": "Bun: errored",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/CipherOCB/errored",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: errored",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-errored/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-errored/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-errored/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-errored/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-cipherocb-transform",
+      "title": "Bun:  transform",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/CipherOCB/_transform",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups:  transform",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-transform/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-transform/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-transform/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-transform/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-decipherccm-errored",
+      "title": "Bun: errored",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/DecipherCCM/errored",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: errored",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-errored/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-errored/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-errored/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-errored/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-crypto-decipherccm-readableflowing",
       "title": "Bun: readableFlowing",
       "ecosystem": "Bun",
@@ -7796,6 +8405,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-crypto-decipherccm-transform",
+      "title": "Bun:  transform",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/DecipherCCM/_transform",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups:  transform",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-transform/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-transform/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-transform/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-transform/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-decipherchacha20poly1305-errored",
+      "title": "Bun: errored",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/DecipherChaCha20Poly1305/errored",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: errored",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-errored/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-errored/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-errored/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-errored/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-decipherchacha20poly1305-setauthtag",
+      "title": "Bun: setAuthTag",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/DecipherChaCha20Poly1305/setAuthTag",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: setAuthTag",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-setauthtag/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-setauthtag/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-setauthtag/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-setauthtag/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-decipheriv-readableflowing",
+      "title": "Bun: readableFlowing",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/Decipheriv/readableFlowing",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: readableFlowing",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-decipheriv-readableflowing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-decipheriv-readableflowing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-decipheriv-readableflowing/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-decipheriv-readableflowing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-crypto-decipherocb-errored",
       "title": "Bun: errored",
       "ecosystem": "Bun",
@@ -7806,6 +8499,69 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-decipherocb-errored/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-decipherocb-errored/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-crypto-decipherocb-errored/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http-clientrequest-errored",
+      "title": "Bun: errored",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http/ClientRequest/errored",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: errored",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http-clientrequest-errored/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http-clientrequest-errored/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http-clientrequest-errored/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http-clientrequest-errored/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http-incominghttpheaders-proxy-authenticate",
+      "title": "Bun: proxy authenticate",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http/IncomingHttpHeaders/proxy-authenticate",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: proxy authenticate",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http-incominghttpheaders-proxy-authenticate/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http-incominghttpheaders-proxy-authenticate/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http-incominghttpheaders-proxy-authenticate/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http-incominghttpheaders-proxy-authenticate/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http-outgoinghttpheaders-proxy-authenticate",
+      "title": "Bun: proxy authenticate",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http/OutgoingHttpHeaders/proxy-authenticate",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: proxy authenticate",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http-outgoinghttpheaders-proxy-authenticate/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http-outgoinghttpheaders-proxy-authenticate/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http-outgoinghttpheaders-proxy-authenticate/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http-outgoinghttpheaders-proxy-authenticate/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7859,6 +8615,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-http2-clienthttp2stream-readableflowing",
+      "title": "Bun: readableFlowing",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/ClientHttp2Stream/readableFlowing",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: readableFlowing",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-clienthttp2stream-readableflowing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-clienthttp2stream-readableflowing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-clienthttp2stream-readableflowing/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-clienthttp2stream-readableflowing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http2-clientsessionoptions-maxreservedremotestreams",
+      "title": "Bun: maxReservedRemoteStreams",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/ClientSessionOptions/maxReservedRemoteStreams",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: maxReservedRemoteStreams",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-clientsessionoptions-maxreservedremotestreams/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-clientsessionoptions-maxreservedremotestreams/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-clientsessionoptions-maxreservedremotestreams/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-clientsessionoptions-maxreservedremotestreams/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-http2-clientsessionoptions-strictfieldwhitespacevalid",
       "title": "Bun: strictFieldWhitespaceValidation",
       "ecosystem": "Bun",
@@ -7869,6 +8667,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-http2-clientsessionoptions-strictfieldwhitespacevalid/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-http2-clientsessionoptions-strictfieldwhitespacevalid/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-http2-clientsessionoptions-strictfieldwhitespacevalid/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http2-constants-http-status-proxy-authentication-requ",
+      "title": "Bun: HTTP STATUS PROXY AUTHENTICATION REQUIRED",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/constants/HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: HTTP STATUS PROXY AUTHENTICATION REQUIRED",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-constants-http-status-proxy-authentication-requ/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-constants-http-status-proxy-authentication-requ/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-constants-http-status-proxy-authentication-requ/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-constants-http-status-proxy-authentication-requ/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7901,6 +8720,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-http2-http2servereventmap-sessionerror",
+      "title": "Bun: sessionError",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/Http2ServerEventMap/sessionError",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: sessionError",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-http2servereventmap-sessionerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-http2servereventmap-sessionerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-http2servereventmap-sessionerror/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-http2servereventmap-sessionerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http2-secureclientsessionoptions-servername",
+      "title": "Bun: servername",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/SecureClientSessionOptions/servername",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: servername",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-secureclientsessionoptions-servername/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-secureclientsessionoptions-servername/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-secureclientsessionoptions-servername/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-secureclientsessionoptions-servername/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http2-secureserveroptions-strictfieldwhitespacevalida",
+      "title": "Bun: strictFieldWhitespaceValidation",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/SecureServerOptions/strictFieldWhitespaceValidation",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: strictFieldWhitespaceValidation",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-secureserveroptions-strictfieldwhitespacevalida/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-secureserveroptions-strictfieldwhitespacevalida/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-secureserveroptions-strictfieldwhitespacevalida/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-secureserveroptions-strictfieldwhitespacevalida/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-http2-serverhttp2stream-readableflowing",
       "title": "Bun: readableFlowing",
       "ecosystem": "Bun",
@@ -7911,6 +8793,48 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-http2-serverhttp2stream-readableflowing/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-http2-serverhttp2stream-readableflowing/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-http2-serverhttp2stream-readableflowing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http2-serverstreamfileresponseoptionswitherror-length",
+      "title": "Bun: length",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/ServerStreamFileResponseOptionsWithError/length",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: length",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-serverstreamfileresponseoptionswitherror-length/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-serverstreamfileresponseoptionswitherror-length/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-serverstreamfileresponseoptionswitherror-length/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-serverstreamfileresponseoptionswitherror-length/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http2-serverstreamfileresponseoptionswitherror-onerro",
+      "title": "Bun: onError",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/ServerStreamFileResponseOptionsWithError/onError",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: onError",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-serverstreamfileresponseoptionswitherror-onerro/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-serverstreamfileresponseoptionswitherror-onerro/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-serverstreamfileresponseoptionswitherror-onerro/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-serverstreamfileresponseoptionswitherror-onerro/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7964,6 +8888,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-e",
+      "title": "Bun: expression",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Debugger/EvaluateOnCallFrameParameterType/expression",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: expression",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-e/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-e/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-e/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-e/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-i",
       "title": "Bun: includeCommandLineAPI",
       "ecosystem": "Bun",
@@ -7974,6 +8919,48 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-i/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-i/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-i/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-s",
+      "title": "Bun: silent",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Debugger/EvaluateOnCallFrameParameterType/silent",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: silent",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-s/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-s/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-s/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-s/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-debugger-evaluateoncallframereturntype",
+      "title": "Bun: EvaluateOnCallFrameReturnType",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Debugger/EvaluateOnCallFrameReturnType",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: EvaluateOnCallFrameReturnType",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframereturntype/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframereturntype/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframereturntype/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframereturntype/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8027,6 +9014,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-inspector-nodetracing-traceconfig",
+      "title": "Bun: TraceConfig",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/NodeTracing/TraceConfig",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: TraceConfig",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-nodetracing-traceconfig/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-nodetracing-traceconfig/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-nodetracing-traceconfig/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-nodetracing-traceconfig/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-nodeworker-attachedtoworkereventdatatype-wa",
+      "title": "Bun: waitingForDebugger",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/NodeWorker/AttachedToWorkerEventDataType/waitingForDebugger",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: waitingForDebugger",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-nodeworker-attachedtoworkereventdatatype-wa/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-nodeworker-attachedtoworkereventdatatype-wa/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-nodeworker-attachedtoworkereventdatatype-wa/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-nodeworker-attachedtoworkereventdatatype-wa/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-inspector-nodeworker-enableparametertype-waitfordebug",
       "title": "Bun: waitForDebuggerOnStart",
       "ecosystem": "Bun",
@@ -8048,6 +9077,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-inspector-profiler-functioncoverage-ranges",
+      "title": "Bun: ranges",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Profiler/FunctionCoverage/ranges",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: ranges",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-profiler-functioncoverage-ranges/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-profiler-functioncoverage-ranges/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-profiler-functioncoverage-ranges/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-profiler-functioncoverage-ranges/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-inspector-profiler-startprecisecoverageparametertype",
       "title": "Bun: detailed",
       "ecosystem": "Bun",
@@ -8058,6 +9108,90 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-profiler-startprecisecoverageparametertype/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-profiler-startprecisecoverageparametertype/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-inspector-profiler-startprecisecoverageparametertype/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-callargument-unserializablevalue",
+      "title": "Bun: unserializableValue",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/CallArgument/unserializableValue",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: unserializableValue",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callargument-unserializablevalue/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callargument-unserializablevalue/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-callargument-unserializablevalue/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-callargument-unserializablevalue/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-callframe-functionname",
+      "title": "Bun: functionName",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/CallFrame/functionName",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: functionName",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callframe-functionname/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callframe-functionname/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-callframe-functionname/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-callframe-functionname/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-callfunctiononparametertype-awaitpr",
+      "title": "Bun: awaitPromise",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/CallFunctionOnParameterType/awaitPromise",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: awaitPromise",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-awaitpr/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-awaitpr/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-awaitpr/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-awaitpr/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-callfunctiononparametertype-executi",
+      "title": "Bun: executionContextId",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/CallFunctionOnParameterType/executionContextId",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: executionContextId",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-executi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-executi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-executi/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-executi/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8111,6 +9245,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-inspector-runtime-consoleapicalledeventdatatype-type",
+      "title": "Bun: type",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/ConsoleAPICalledEventDataType/type",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: type",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-consoleapicalledeventdatatype-type/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-consoleapicalledeventdatatype-type/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-consoleapicalledeventdatatype-type/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-consoleapicalledeventdatatype-type/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-custompreview-bindremoteobjectfunct",
+      "title": "Bun: bindRemoteObjectFunctionId",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/CustomPreview/bindRemoteObjectFunctionId",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: bindRemoteObjectFunctionId",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-custompreview-bindremoteobjectfunct/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-custompreview-bindremoteobjectfunct/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-custompreview-bindremoteobjectfunct/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-custompreview-bindremoteobjectfunct/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-evaluateparametertype",
+      "title": "Bun: EvaluateParameterType",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/EvaluateParameterType",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: EvaluateParameterType",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-evaluateparametertype-generateprevi",
+      "title": "Bun: generatePreview",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/EvaluateParameterType/generatePreview",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: generatePreview",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-generateprevi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-generateprevi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-generateprevi/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-generateprevi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-inspector-runtime-evaluateparametertype-includecomman",
       "title": "Bun: includeCommandLineAPI",
       "ecosystem": "Bun",
@@ -8121,6 +9339,48 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-includecomman/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-includecomman/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-includecomman/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-objectpreview-overflow",
+      "title": "Bun: overflow",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/ObjectPreview/overflow",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: overflow",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-objectpreview-overflow/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-objectpreview-overflow/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-objectpreview-overflow/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-objectpreview-overflow/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-propertydescriptor-configurable",
+      "title": "Bun: configurable",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/PropertyDescriptor/configurable",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: configurable",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-propertydescriptor-configurable/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-propertydescriptor-configurable/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-propertydescriptor-configurable/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-propertydescriptor-configurable/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8153,6 +9413,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-inspector-target-setautoattachparametertype-waitforde",
+      "title": "Bun: waitForDebuggerOnStart",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Target/SetAutoAttachParameterType/waitForDebuggerOnStart",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: waitForDebuggerOnStart",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-target-setautoattachparametertype-waitforde/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-target-setautoattachparametertype-waitforde/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-target-setautoattachparametertype-waitforde/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-target-setautoattachparametertype-waitforde/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-perf-hooks-performancenodetiming-starttime",
       "title": "Bun: startTime",
       "ecosystem": "Bun",
@@ -8174,6 +9455,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-perf-hooks-performancenodetiming-v8start",
+      "title": "Bun: v8Start",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceNodeTiming/v8Start",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: v8Start",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performancenodetiming-v8start/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performancenodetiming-v8start/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performancenodetiming-v8start/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performancenodetiming-v8start/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-perf-hooks-performanceobservercallback",
       "title": "Bun: PerformanceObserverCallback",
       "ecosystem": "Bun",
@@ -8184,6 +9486,69 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobservercallback/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobservercallback/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobservercallback/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-perf-hooks-performanceobserverentrylist",
+      "title": "Bun: PerformanceObserverEntryList",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceObserverEntryList",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: PerformanceObserverEntryList",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-perf-hooks-performanceobserverentrylist-getentriesbyn",
+      "title": "Bun: getEntriesByName",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceObserverEntryList/getEntriesByName",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: getEntriesByName",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist-getentriesbyn/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist-getentriesbyn/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist-getentriesbyn/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist-getentriesbyn/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-perf-hooks-performanceresourcetiming-domainlookupstar",
+      "title": "Bun: domainLookupStart",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceResourceTiming/domainLookupStart",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: domainLookupStart",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-domainlookupstar/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-domainlookupstar/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-domainlookupstar/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-domainlookupstar/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8300,6 +9665,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-repl-replserversetuphistoryoptions",
+      "title": "Bun: REPLServerSetupHistoryOptions",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/repl/REPLServerSetupHistoryOptions",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: REPLServerSetupHistoryOptions",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-repl-replserversetuphistoryoptions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-repl-replserversetuphistoryoptions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-repl-replserversetuphistoryoptions/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-repl-replserversetuphistoryoptions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-repl-replserversetuphistoryoptions-onhistoryfileloade",
       "title": "Bun: onHistoryFileLoaded",
       "ecosystem": "Bun",
@@ -8321,6 +9707,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-sqlite-databasesync-loadextension",
+      "title": "Bun: loadExtension",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/sqlite/DatabaseSync/loadExtension",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: loadExtension",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-sqlite-databasesync-loadextension/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-sqlite-databasesync-loadextension/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-sqlite-databasesync-loadextension/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-sqlite-databasesync-loadextension/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-sqlite-databasesyncoptions-allowextension",
       "title": "Bun: allowExtension",
       "ecosystem": "Bun",
@@ -8331,6 +9738,90 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-sqlite-databasesyncoptions-allowextension/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-sqlite-databasesyncoptions-allowextension/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-sqlite-databasesyncoptions-allowextension/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-stream-default-transform-asynciterator",
+      "title": "Bun: [asyncIterator]",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/stream/default/Transform/[asyncIterator]",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: [asyncIterator]",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-stream-default-transform-asynciterator/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-stream-default-transform-asynciterator/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-stream-default-transform-asynciterator/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-stream-default-transform-asynciterator/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-stream-default-transform-errored",
+      "title": "Bun: errored",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/stream/default/Transform/errored",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: errored",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-stream-default-transform-errored/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-stream-default-transform-errored/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-stream-default-transform-errored/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-stream-default-transform-errored/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-stream-web-readablebytestreamcontroller-enqueue",
+      "title": "Bun: enqueue",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/stream/web/ReadableByteStreamController/enqueue",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: enqueue",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-stream-web-readablebytestreamcontroller-enqueue/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-stream-web-readablebytestreamcontroller-enqueue/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-stream-web-readablebytestreamcontroller-enqueue/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-stream-web-readablebytestreamcontroller-enqueue/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-eventdata-error-cause",
+      "title": "Bun: cause",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/Error/cause",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: cause",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-cause/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-cause/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-cause/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-cause/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8384,6 +9875,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-test-default-eventdata-testdequeue",
+      "title": "Bun: TestDequeue",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/TestDequeue",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: TestDequeue",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-eventdata-testdequeue-column",
+      "title": "Bun: column",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/TestDequeue/column",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: column",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue-column/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue-column/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue-column/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue-column/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-test-default-eventdata-testdequeue-nesting",
       "title": "Bun: nesting",
       "ecosystem": "Bun",
@@ -8394,6 +9927,132 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue-nesting/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue-nesting/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue-nesting/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-eventdata-testenqueue",
+      "title": "Bun: TestEnqueue",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/TestEnqueue",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: TestEnqueue",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-eventdata-testenqueue-column",
+      "title": "Bun: column",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/TestEnqueue/column",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: column",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-column/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-column/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-column/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-column/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-eventdata-testenqueue-file",
+      "title": "Bun: file",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/TestEnqueue/file",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: file",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-file/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-file/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-file/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-file/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-eventdata-testenqueue-line",
+      "title": "Bun: line",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/TestEnqueue/line",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: line",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-line/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-line/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-line/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-line/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-eventdata-teststart",
+      "title": "Bun: TestStart",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/TestStart",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: TestStart",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-teststart/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-teststart/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-teststart/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-teststart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-mockfunctioncall-arguments",
+      "title": "Bun: arguments",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/MockFunctionCall/arguments",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: arguments",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-arguments/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-arguments/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-arguments/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-arguments/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8426,6 +10085,111 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-test-default-mockfunctioncall-stack",
+      "title": "Bun: stack",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/MockFunctionCall/stack",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: stack",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-stack/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-stack/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-stack/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-stack/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-mockfunctioncall-target",
+      "title": "Bun: target",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/MockFunctionCall/target",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: target",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-target/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-target/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-target/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-target/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-mockfunctioncall-this",
+      "title": "Bun: this",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/MockFunctionCall/this",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: this",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-this/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-this/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-this/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-this/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-mockfunctioncontext-mockimplementation",
+      "title": "Bun: mockImplementation",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/MockFunctionContext/mockImplementation",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: mockImplementation",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncontext-mockimplementation/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncontext-mockimplementation/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncontext-mockimplementation/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncontext-mockimplementation/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-mockfunctionoptions-times",
+      "title": "Bun: times",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/MockFunctionOptions/times",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: times",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctionoptions-times/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctionoptions-times/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-mockfunctionoptions-times/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-mockfunctionoptions-times/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-test-default-runoptions-coverage",
       "title": "Bun: coverage",
       "ecosystem": "Bun",
@@ -8436,6 +10200,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-runoptions-coverage/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-runoptions-coverage/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-test-default-runoptions-coverage/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-runoptions-coverageincludeglobs",
+      "title": "Bun: coverageIncludeGlobs",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/RunOptions/coverageIncludeGlobs",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: coverageIncludeGlobs",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-runoptions-coverageincludeglobs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-runoptions-coverageincludeglobs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-runoptions-coverageincludeglobs/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-runoptions-coverageincludeglobs/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8468,6 +10253,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-test-default-runoptions-linecoverage",
+      "title": "Bun: lineCoverage",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/RunOptions/lineCoverage",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: lineCoverage",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-runoptions-linecoverage/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-runoptions-linecoverage/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-runoptions-linecoverage/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-runoptions-linecoverage/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-testsstream-readableflowing",
+      "title": "Bun: readableFlowing",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/TestsStream/readableFlowing",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: readableFlowing",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-testsstream-readableflowing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-testsstream-readableflowing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-testsstream-readableflowing/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-testsstream-readableflowing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-testsstreameventmap-test-dequeue",
+      "title": "Bun: test:dequeue",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/TestsStreamEventMap/test:dequeue",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: test:dequeue",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-testsstreameventmap-test-dequeue/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-testsstreameventmap-test-dequeue/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-testsstreameventmap-test-dequeue/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-testsstreameventmap-test-dequeue/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-tls-servereventmap-tlsclienterror",
       "title": "Bun: tlsClientError",
       "ecosystem": "Bun",
@@ -8478,6 +10326,153 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-tls-servereventmap-tlsclienterror/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-tls-servereventmap-tlsclienterror/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-tls-servereventmap-tlsclienterror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-tls-tlssocket-authorizationerror",
+      "title": "Bun: authorizationError",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/tls/TLSSocket/authorizationError",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: authorizationError",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-tls-tlssocket-authorizationerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-tls-tlssocket-authorizationerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-tls-tlssocket-authorizationerror/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-tls-tlssocket-authorizationerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-tty-writestream-asynciterator",
+      "title": "Bun: [asyncIterator]",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/tty/WriteStream/[asyncIterator]",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: [asyncIterator]",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-tty-writestream-asynciterator/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-tty-writestream-asynciterator/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-tty-writestream-asynciterator/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-tty-writestream-asynciterator/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-tty-writestream-readableflowing",
+      "title": "Bun: readableFlowing",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/tty/WriteStream/readableFlowing",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: readableFlowing",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-tty-writestream-readableflowing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-tty-writestream-readableflowing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-tty-writestream-readableflowing/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-tty-writestream-readableflowing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-util-getsystemerrormessage",
+      "title": "Bun: getSystemErrorMessage",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/util/getSystemErrorMessage",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: getSystemErrorMessage",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-util-getsystemerrormessage/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-util-getsystemerrormessage/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-util-getsystemerrormessage/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-util-getsystemerrormessage/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-v8-startupsnapshot-isbuildingsnapshot",
+      "title": "Bun: isBuildingSnapshot",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/v8/startupSnapshot/isBuildingSnapshot",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: isBuildingSnapshot",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-v8-startupsnapshot-isbuildingsnapshot/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-v8-startupsnapshot-isbuildingsnapshot/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-v8-startupsnapshot-isbuildingsnapshot/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-v8-startupsnapshot-isbuildingsnapshot/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-worker-threads-messageport-onmessageerror",
+      "title": "Bun: onmessageerror",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/worker_threads/MessagePort/onmessageerror",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: onmessageerror",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-worker-threads-messageport-onmessageerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-worker-threads-messageport-onmessageerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-worker-threads-messageport-onmessageerror/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-worker-threads-messageport-onmessageerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-worker-threads-messageporteventmap-messageerror",
+      "title": "Bun: messageerror",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/worker_threads/MessagePortEventMap/messageerror",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: messageerror",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-worker-threads-messageporteventmap-messageerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-worker-threads-messageporteventmap-messageerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-worker-threads-messageporteventmap-messageerror/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-worker-threads-messageporteventmap-messageerror/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8510,6 +10505,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-zlib-constants-brotli-decoder-error-format-context-ma",
+      "title": "Bun: BROTLI DECODER ERROR FORMAT CONTEXT MAP REPEAT",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/zlib/constants/BROTLI_DECODER_ERROR_FORMAT_CONTEXT_MAP_REPEAT",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: BROTLI DECODER ERROR FORMAT CONTEXT MAP REPEAT",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-context-ma/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-context-ma/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-context-ma/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-context-ma/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-zlib-constants-brotli-decoder-error-format-dictionary",
       "title": "Bun: BROTLI DECODER ERROR FORMAT DICTIONARY",
       "ecosystem": "Bun",
@@ -8520,6 +10536,69 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-dictionary/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-dictionary/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-dictionary/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-zlib-constants-brotli-decoder-error-format-exuberant",
+      "title": "Bun: BROTLI DECODER ERROR FORMAT EXUBERANT META NIBBLE",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/zlib/constants/BROTLI_DECODER_ERROR_FORMAT_EXUBERANT_META_NIBBLE",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: BROTLI DECODER ERROR FORMAT EXUBERANT META NIBBLE",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-exuberant/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-exuberant/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-exuberant/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-exuberant/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-2",
+      "title": "Bun: BROTLI DECODER ERROR FORMAT PADDING 2",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/zlib/constants/BROTLI_DECODER_ERROR_FORMAT_PADDING_2",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: BROTLI DECODER ERROR FORMAT PADDING 2",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-2/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-2/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-2/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-2/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-zlib-constants-zstd-error-tablelog-toolarge",
+      "title": "Bun: ZSTD error tableLog tooLarge",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/zlib/constants/ZSTD_error_tableLog_tooLarge",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: ZSTD error tableLog tooLarge",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-zlib-constants-zstd-error-tablelog-toolarge/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-zlib-constants-zstd-error-tablelog-toolarge/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-zlib-constants-zstd-error-tablelog-toolarge/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-zlib-constants-zstd-error-tablelog-toolarge/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
