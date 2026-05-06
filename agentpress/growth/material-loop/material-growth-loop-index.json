@@ -1,15 +1,15 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T05:00:40Z",
+  "generated_utc": "2026-05-06T05:01:00Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 4818,
+  "kit_count": 4910,
   "by_ecosystem": {
-    "Algolia": 2,
+    "Algolia": 7,
     "Anthropic": 387,
-    "Astro": 1,
+    "Astro": 20,
     "Auth0": 189,
     "AWS": 178,
     "Bun": 208,
@@ -27,7 +27,7 @@
     "FastAPI": 12,
     "GCP": 185,
     "Gradle": 1,
-    "Grafana": 94,
+    "Grafana": 98,
     "Haystack": 211,
     "Kubernetes": 77,
     "LangGraph": 2,
@@ -53,18 +53,81 @@
     "onboarding": 1,
     "Stripe": 37,
     "Supabase": 288,
-    "TanStack": 64,
-    "Turborepo": 1,
-    "Twilio": 7,
+    "TanStack": 86,
+    "Turborepo": 13,
+    "Twilio": 37,
     "TypeScript": 1,
     "Vercel": 226,
     "Vercel AI SDK": 111,
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 4818
+    "ready_local_static_not_posted": 4910
   },
   "kits": [
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-agent-configuration",
+      "title": "Algolia: agent configuration",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/agent-configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: agent configuration",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-agent-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-agent-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-agent-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-agent-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-recommen",
+      "title": "Algolia: algolia recommend",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/tools/algolia-recommend",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: algolia recommend",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-recommen/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-recommen/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-recommen/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-recommen/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-search",
+      "title": "Algolia: algolia search",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/tools/algolia-search",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: algolia search",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-search/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-search/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-search/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-search/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
     {
       "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-client-side-tool",
       "title": "Algolia: client side tools",
@@ -97,6 +160,48 @@
       "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-mcp-tools/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-mcp-tools/llms.txt",
       "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-mcp-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-overview",
+      "title": "Algolia: overview",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/tools/overview",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: overview",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-overview/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-overview/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-overview/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-overview/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-security",
+      "title": "Algolia: security",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/tools/security",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: security",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-security/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-security/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-security/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-security/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -8226,6 +8331,405 @@
       "run_guide": "agentpress/material-kits/anthropic-tool-use-docs/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-edgeone-pages",
+      "title": "Astro: edgeone pages",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/edgeone-pages",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: edgeone pages",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-edgeone-pages/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-edgeone-pages/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-edgeone-pages/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-edgeone-pages/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-sevalla",
+      "title": "Astro: sevalla",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/sevalla",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: sevalla",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-sevalla/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-sevalla/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-sevalla/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-sevalla/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-stormkit",
+      "title": "Astro: stormkit",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/stormkit",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: stormkit",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-stormkit/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-stormkit/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-stormkit/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-stormkit/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-testing",
+      "title": "Astro: testing",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/testing",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: testing",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-action-called-from-server-error",
+      "title": "Astro: action called from server error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/action-called-from-server-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: action called from server error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-action-called-from-server-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-action-called-from-server-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-action-called-from-server-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-action-called-from-server-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-actions-without-server-output-error",
+      "title": "Astro: actions without server output error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/actions-without-server-output-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: actions without server output error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-actions-without-server-output-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-actions-without-server-output-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-actions-without-server-output-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-actions-without-server-output-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-cache-query-config-conflict",
+      "title": "Astro: cache query config conflict",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/cache-query-config-conflict",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: cache query config conflict",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-cache-query-config-conflict/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-cache-query-config-conflict/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-cache-query-config-conflict/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-cache-query-config-conflict/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-invalid-i18n-middleware-configuration",
+      "title": "Astro: invalid i18n middleware configuration",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/invalid-i18n-middleware-configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: invalid i18n middleware configuration",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-invalid-i18n-middleware-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-invalid-i18n-middleware-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-invalid-i18n-middleware-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-invalid-i18n-middleware-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-logger-configuration-not-serializable",
+      "title": "Astro: logger configuration not serializable",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/logger-configuration-not-serializable",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: logger configuration not serializable",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-logger-configuration-not-serializable/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-logger-configuration-not-serializable/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-logger-configuration-not-serializable/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-logger-configuration-not-serializable/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-unsupported-config-transform-error",
+      "title": "Astro: unsupported config transform error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/unsupported-config-transform-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: unsupported config transform error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-unsupported-config-transform-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-unsupported-config-transform-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-unsupported-config-transform-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-unsupported-config-transform-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-guides-deploy-edgeone-pages",
+      "title": "Astro: edgeone pages",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/guides/deploy/edgeone-pages",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: edgeone pages",
+      "manifest_path": "agentpress/material-kits/astro-hi-guides-deploy-edgeone-pages/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-guides-deploy-edgeone-pages/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-guides-deploy-edgeone-pages/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-guides-deploy-edgeone-pages/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-guides-deploy-sevalla",
+      "title": "Astro: sevalla",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/guides/deploy/sevalla",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: sevalla",
+      "manifest_path": "agentpress/material-kits/astro-hi-guides-deploy-sevalla/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-guides-deploy-sevalla/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-guides-deploy-sevalla/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-guides-deploy-sevalla/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-guides-deploy-stormkit",
+      "title": "Astro: stormkit",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/guides/deploy/stormkit",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: stormkit",
+      "manifest_path": "agentpress/material-kits/astro-hi-guides-deploy-stormkit/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-guides-deploy-stormkit/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-guides-deploy-stormkit/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-guides-deploy-stormkit/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-guides-testing",
+      "title": "Astro: testing",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/guides/testing",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: testing",
+      "manifest_path": "agentpress/material-kits/astro-hi-guides-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-guides-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-guides-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-guides-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-reference-errors-action-called-from-server-error",
+      "title": "Astro: action called from server error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/reference/errors/action-called-from-server-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: action called from server error",
+      "manifest_path": "agentpress/material-kits/astro-hi-reference-errors-action-called-from-server-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-reference-errors-action-called-from-server-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-reference-errors-action-called-from-server-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-reference-errors-action-called-from-server-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-reference-errors-actions-without-server-output-error",
+      "title": "Astro: actions without server output error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/reference/errors/actions-without-server-output-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: actions without server output error",
+      "manifest_path": "agentpress/material-kits/astro-hi-reference-errors-actions-without-server-output-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-reference-errors-actions-without-server-output-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-reference-errors-actions-without-server-output-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-reference-errors-actions-without-server-output-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-reference-errors-cache-query-config-conflict",
+      "title": "Astro: cache query config conflict",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/reference/errors/cache-query-config-conflict",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: cache query config conflict",
+      "manifest_path": "agentpress/material-kits/astro-hi-reference-errors-cache-query-config-conflict/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-reference-errors-cache-query-config-conflict/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-reference-errors-cache-query-config-conflict/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-reference-errors-cache-query-config-conflict/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-reference-errors-invalid-i18n-middleware-configuration",
+      "title": "Astro: invalid i18n middleware configuration",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/reference/errors/invalid-i18n-middleware-configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: invalid i18n middleware configuration",
+      "manifest_path": "agentpress/material-kits/astro-hi-reference-errors-invalid-i18n-middleware-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-reference-errors-invalid-i18n-middleware-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-reference-errors-invalid-i18n-middleware-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-reference-errors-invalid-i18n-middleware-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-reference-errors-logger-configuration-not-serializable",
+      "title": "Astro: logger configuration not serializable",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/reference/errors/logger-configuration-not-serializable",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: logger configuration not serializable",
+      "manifest_path": "agentpress/material-kits/astro-hi-reference-errors-logger-configuration-not-serializable/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-reference-errors-logger-configuration-not-serializable/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-reference-errors-logger-configuration-not-serializable/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-reference-errors-logger-configuration-not-serializable/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
         "python3 -m json.tool proof-receipt.json"
       ],
@@ -40167,6 +40671,90 @@
       "run_guide": "agentpress/material-kits/gradle-current-javadoc-org-gradle-api-plugins-objectconfigurationaction/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --error \"common implementation failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-developers-plugin-tools-how-to-guides-extend-configurations",
+      "title": "Grafana: extend configurations",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/developers/plugin-tools/how-to-guides/extend-configurations",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: extend configurations",
+      "manifest_path": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-extend-configurations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-extend-configurations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-extend-configurations/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-extend-configurations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-developers-plugin-tools-how-to-guides-ui-extensions-debug-logs",
+      "title": "Grafana: debug logs",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/developers/plugin-tools/how-to-guides/ui-extensions/debug-logs",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: debug logs",
+      "manifest_path": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-debug-logs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-debug-logs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-debug-logs/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-debug-logs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-developers-plugin-tools-how-to-guides-ui-extensions-extension-us",
+      "title": "Grafana: extension user use function",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/developers/plugin-tools/how-to-guides/ui-extensions/extension-user-use-function",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: extension user use function",
+      "manifest_path": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-extension-us/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-extension-us/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-extension-us/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-extension-us/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-developers-plugin-tools-migration-guides-angular-react-migrate-a",
+      "title": "Grafana: migrate angularjs configuration settings to react",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/developers/plugin-tools/migration-guides/angular-react/migrate-angularjs-configuration-settings-to-react",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: migrate angularjs configuration settings to react",
+      "manifest_path": "agentpress/material-kits/grafana-developers-plugin-tools-migration-guides-angular-react-migrate-a/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-developers-plugin-tools-migration-guides-angular-react-migrate-a/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-developers-plugin-tools-migration-guides-angular-react-migrate-a/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-developers-plugin-tools-migration-guides-angular-react-migrate-a/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
         "python3 -m json.tool proof-receipt.json"
       ],
@@ -93915,6 +94503,405 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "tanstack-query-latest-docs-framework-preact-reference-type-aliases-query",
+      "title": "TanStack: QueryErrorResetFunction",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/preact/reference/type-aliases/QueryErrorResetFunction",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: QueryErrorResetFunction",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-preact-reference-type-aliases-query/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-preact-reference-type-aliases-query/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-preact-reference-type-aliases-query/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-preact-reference-type-aliases-query/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-react-guides-default-query-function",
+      "title": "TanStack: default query function",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: default query function",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-default-query-function/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-default-query-function/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-default-query-function/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-default-query-function/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-react-guides-does-this-replace-clie",
+      "title": "TanStack: does this replace client state",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/react/guides/does-this-replace-client-state",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: does this replace client state",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-does-this-replace-clie/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-does-this-replace-clie/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-does-this-replace-clie/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-does-this-replace-clie/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-react-guides-query-functions",
+      "title": "TanStack: query functions",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/react/guides/query-functions",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: query functions",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-query-functions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-query-functions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-query-functions/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-query-functions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-react-guides-testing",
+      "title": "TanStack: testing",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/react/guides/testing",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: testing",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-react-guides-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-solid-guides-default-query-function",
+      "title": "TanStack: default query function",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/solid/guides/default-query-function",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: default query function",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-default-query-function/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-default-query-function/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-default-query-function/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-default-query-function/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-solid-guides-does-this-replace-clie",
+      "title": "TanStack: does this replace client state",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/solid/guides/does-this-replace-client-state",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: does this replace client state",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-does-this-replace-clie/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-does-this-replace-clie/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-does-this-replace-clie/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-does-this-replace-clie/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-solid-guides-query-functions",
+      "title": "TanStack: query functions",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/solid/guides/query-functions",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: query functions",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-query-functions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-query-functions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-query-functions/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-query-functions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-solid-guides-testing",
+      "title": "TanStack: testing",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/solid/guides/testing",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: testing",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-solid-guides-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-svelte-reference-functions-getquery",
+      "title": "TanStack: getQueryClientContext",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/svelte/reference/functions/getQueryClientContext",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: getQueryClientContext",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-getquery/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-getquery/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-getquery/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-getquery/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-svelte-reference-functions-setquery",
+      "title": "TanStack: setQueryClientContext",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/svelte/reference/functions/setQueryClientContext",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: setQueryClientContext",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-setquery/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-setquery/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-setquery/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-setquery/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-svelte-reference-functions-usequery",
+      "title": "TanStack: useQueryClient",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/svelte/reference/functions/useQueryClient",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: useQueryClient",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-usequery/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-usequery/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-usequery/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-svelte-reference-functions-usequery/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-vue-guides-custom-client",
+      "title": "TanStack: custom client",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/vue/guides/custom-client",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: custom client",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-custom-client/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-custom-client/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-custom-client/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-custom-client/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-vue-guides-default-query-function",
+      "title": "TanStack: default query function",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/vue/guides/default-query-function",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: default query function",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-default-query-function/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-default-query-function/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-default-query-function/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-default-query-function/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-vue-guides-does-this-replace-client",
+      "title": "TanStack: does this replace client state",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/vue/guides/does-this-replace-client-state",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: does this replace client state",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-does-this-replace-client/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-does-this-replace-client/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-does-this-replace-client/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-does-this-replace-client/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-vue-guides-query-functions",
+      "title": "TanStack: query functions",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/vue/guides/query-functions",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: query functions",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-query-functions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-query-functions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-query-functions/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-query-functions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-query-latest-docs-framework-vue-guides-testing",
+      "title": "TanStack: testing",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/query/latest/docs/framework/vue/guides/testing",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: testing",
+      "manifest_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-query-latest-docs-framework-vue-guides-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-start-latest-docs-framework-react-guide-server-functions",
+      "title": "TanStack: server functions",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/start/latest/docs/framework/react/guide/server-functions",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: server functions",
+      "manifest_path": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-server-functions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-server-functions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-server-functions/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-server-functions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-start-latest-docs-framework-react-guide-static-server-functions",
+      "title": "TanStack: static server functions",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/start/latest/docs/framework/react/guide/static-server-functions",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: static server functions",
+      "manifest_path": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-static-server-functions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-static-server-functions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-static-server-functions/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-static-server-functions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "tanstack-start-latest-docs-framework-react-guide-streaming-data-from-ser",
       "title": "TanStack: streaming data from server functions",
       "ecosystem": "TanStack",
@@ -93925,6 +94912,321 @@
       "receipt_path": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-streaming-data-from-ser/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-streaming-data-from-ser/llms.txt",
       "run_guide": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-streaming-data-from-ser/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-start-latest-docs-framework-solid-guide-server-functions",
+      "title": "TanStack: server functions",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/start/latest/docs/framework/solid/guide/server-functions",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: server functions",
+      "manifest_path": "agentpress/material-kits/tanstack-start-latest-docs-framework-solid-guide-server-functions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-start-latest-docs-framework-solid-guide-server-functions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-start-latest-docs-framework-solid-guide-server-functions/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-start-latest-docs-framework-solid-guide-server-functions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-start-latest-docs-framework-solid-guide-static-server-functions",
+      "title": "TanStack: static server functions",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/start/latest/docs/framework/solid/guide/static-server-functions",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: static server functions",
+      "manifest_path": "agentpress/material-kits/tanstack-start-latest-docs-framework-solid-guide-static-server-functions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-start-latest-docs-framework-solid-guide-static-server-functions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-start-latest-docs-framework-solid-guide-static-server-functions/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-start-latest-docs-framework-solid-guide-static-server-functions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-store-latest-docs-reference-functions-toobserver",
+      "title": "TanStack: toObserver",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/store/latest/docs/reference/functions/toObserver",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: toObserver",
+      "manifest_path": "agentpress/material-kits/tanstack-store-latest-docs-reference-functions-toobserver/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-store-latest-docs-reference-functions-toobserver/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-store-latest-docs-reference-functions-toobserver/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-store-latest-docs-reference-functions-toobserver/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-biome",
+      "title": "Turborepo: biome",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/biome",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: biome",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-biome/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-biome/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-biome/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-biome/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-docker",
+      "title": "Turborepo: docker",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/docker",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: docker",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-docker/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-docker/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-docker/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-docker/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-eslint",
+      "title": "Turborepo: eslint",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/eslint",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: eslint",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-eslint/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-eslint/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-eslint/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-eslint/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-index",
+      "title": "Turborepo: index",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/index",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: index",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-index/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-index/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-index/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-index/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-jest",
+      "title": "Turborepo: jest",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/jest",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: jest",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-jest/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-jest/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-jest/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-jest/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-oxc",
+      "title": "Turborepo: oxc",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/oxc",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: oxc",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-oxc/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-oxc/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-oxc/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-oxc/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-playwright",
+      "title": "Turborepo: playwright",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/playwright",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: playwright",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-playwright/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-playwright/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-playwright/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-playwright/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-prisma",
+      "title": "Turborepo: prisma",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/prisma",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: prisma",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-prisma/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-prisma/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-prisma/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-prisma/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-shadcn-ui",
+      "title": "Turborepo: shadcn ui",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/shadcn-ui",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: shadcn ui",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-shadcn-ui/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-shadcn-ui/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-shadcn-ui/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-shadcn-ui/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-storybook",
+      "title": "Turborepo: storybook",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/storybook",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: storybook",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-storybook/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-storybook/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-storybook/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-storybook/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-tailwind",
+      "title": "Turborepo: tailwind",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/tailwind",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: tailwind",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-tailwind/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-tailwind/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-tailwind/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-tailwind/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "turborepo-docs-guides-tools-typescript",
+      "title": "Turborepo: typescript",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/typescript",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: typescript",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-typescript/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-typescript/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-typescript/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-typescript/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -93957,6 +95259,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "twilio-docs-authy-twilioauth-sdk-quickstart-obtaining-authy-api-key",
+      "title": "Twilio: obtaining authy api key",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/authy/twilioauth-sdk/quickstart/obtaining-authy-api-key",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: obtaining authy api key",
+      "manifest_path": "agentpress/material-kits/twilio-docs-authy-twilioauth-sdk-quickstart-obtaining-authy-api-key/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-authy-twilioauth-sdk-quickstart-obtaining-authy-api-key/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-authy-twilioauth-sdk-quickstart-obtaining-authy-api-key/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-authy-twilioauth-sdk-quickstart-obtaining-authy-api-key/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-conversations-classic-api-webhook-configuration-resource",
+      "title": "Twilio: webhook configuration resource",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/conversations-classic/api/webhook-configuration-resource",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: webhook configuration resource",
+      "manifest_path": "agentpress/material-kits/twilio-docs-conversations-classic-api-webhook-configuration-resource/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-conversations-classic-api-webhook-configuration-resource/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-conversations-classic-api-webhook-configuration-resource/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-conversations-classic-api-webhook-configuration-resource/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "twilio-docs-flex-admin-guide-setup-configure-pre-agent-workflow-with-stu",
       "title": "Twilio: configure pre agent workflow with studio",
       "ecosystem": "Twilio",
@@ -93967,6 +95311,132 @@
       "receipt_path": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-configure-pre-agent-workflow-with-stu/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-configure-pre-agent-workflow-with-stu/llms.txt",
       "run_guide": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-configure-pre-agent-workflow-with-stu/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-flex-admin-guide-setup-conversations-configure-interactions",
+      "title": "Twilio: configure interactions webhook",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/flex/admin-guide/setup/conversations/configure-interactions-webhook",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: configure interactions webhook",
+      "manifest_path": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-conversations-configure-interactions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-conversations-configure-interactions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-conversations-configure-interactions/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-conversations-configure-interactions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-flex-admin-guide-setup-sso-configuration-auth0",
+      "title": "Twilio: auth0",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/flex/admin-guide/setup/sso-configuration/auth0",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: auth0",
+      "manifest_path": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-sso-configuration-auth0/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-sso-configuration-auth0/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-sso-configuration-auth0/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-sso-configuration-auth0/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-flex-admin-guide-setup-sso-configuration-migration-guide",
+      "title": "Twilio: migration guide",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/flex/admin-guide/setup/sso-configuration/migration-guide",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: migration guide",
+      "manifest_path": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-sso-configuration-migration-guide/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-sso-configuration-migration-guide/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-sso-configuration-migration-guide/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-sso-configuration-migration-guide/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-flex-developer-plugins-api-plugin-configuration",
+      "title": "Twilio: plugin configuration",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: plugin configuration",
+      "manifest_path": "agentpress/material-kits/twilio-docs-flex-developer-plugins-api-plugin-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-flex-developer-plugins-api-plugin-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-flex-developer-plugins-api-plugin-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-flex-developer-plugins-api-plugin-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-labs-serverless-toolkit-configuration",
+      "title": "Twilio: configuration",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/labs/serverless-toolkit/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-labs-serverless-toolkit-examples",
+      "title": "Twilio: examples",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/labs/serverless-toolkit/examples",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: examples",
+      "manifest_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-examples/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-examples/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-examples/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-examples/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -93999,6 +95469,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "twilio-docs-labs-serverless-toolkit-guides-front-end-framework-serverles",
+      "title": "Twilio: front end framework serverless",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/labs/serverless-toolkit/guides/front-end-framework-serverless",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: front end framework serverless",
+      "manifest_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-front-end-framework-serverles/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-front-end-framework-serverles/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-front-end-framework-serverles/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-front-end-framework-serverles/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-labs-serverless-toolkit-guides-multiple-twilio-projects",
+      "title": "Twilio: multiple twilio projects",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/labs/serverless-toolkit/guides/multiple-twilio-projects",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: multiple twilio projects",
+      "manifest_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-multiple-twilio-projects/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-multiple-twilio-projects/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-multiple-twilio-projects/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-multiple-twilio-projects/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "twilio-docs-labs-serverless-toolkit-guides-terraform",
       "title": "Twilio: terraform",
       "ecosystem": "Twilio",
@@ -94009,6 +95521,27 @@
       "receipt_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-terraform/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-terraform/llms.txt",
       "run_guide": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-terraform/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-labs-serverless-toolkit-guides-typescript",
+      "title": "Twilio: typescript",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/labs/serverless-toolkit/guides/typescript",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: typescript",
+      "manifest_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-typescript/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-typescript/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-typescript/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-typescript/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -94062,6 +95595,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "twilio-docs-segment-getting-started-06-testing-debugging",
+      "title": "Twilio: 06 testing debugging",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/segment/getting-started/06-testing-debugging",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: 06 testing debugging",
+      "manifest_path": "agentpress/material-kits/twilio-docs-segment-getting-started-06-testing-debugging/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-segment-getting-started-06-testing-debugging/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-segment-getting-started-06-testing-debugging/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-segment-getting-started-06-testing-debugging/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "twilio-docs-segment-guides-how-to-guides-migrate-from-other-tools",
       "title": "Twilio: migrate from other tools",
       "ecosystem": "Twilio",
@@ -94083,6 +95637,321 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "twilio-docs-sendgrid-api-reference-domain-authentication-associate-an-au",
+      "title": "Twilio: associate an authenticated domain with a subuser multiple",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/associate-an-authenticated-domain-with-a-subuser-multiple",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: associate an authenticated domain with a subuser multiple",
+      "manifest_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-associate-an-au/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-associate-an-au/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-associate-an-au/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-associate-an-au/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-sendgrid-api-reference-domain-authentication-disassociate-an",
+      "title": "Twilio: disassociate an authenticated domain from a subuser multiple",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/disassociate-an-authenticated-domain-from-a-subuser-multiple",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: disassociate an authenticated domain from a subuser multiple",
+      "manifest_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-disassociate-an/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-disassociate-an/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-disassociate-an/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-disassociate-an/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-sendgrid-api-reference-domain-authentication-list-the-authen",
+      "title": "Twilio: list the authenticated domain associated with a subuser multiple",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/list-the-authenticated-domain-associated-with-a-subuser-multiple",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: list the authenticated domain associated with a subuser multiple",
+      "manifest_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-list-the-authen/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-list-the-authen/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-list-the-authen/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-domain-authentication-list-the-authen/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-authen",
+      "title": "Twilio: authentication",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/sendgrid/api-reference/how-to-use-the-sendgrid-v3-api/authentication",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: authentication",
+      "manifest_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-authen/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-authen/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-authen/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-authen/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-author",
+      "title": "Twilio: authorization",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/sendgrid/api-reference/how-to-use-the-sendgrid-v3-api/authorization",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: authorization",
+      "manifest_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-author/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-author/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-author/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-author/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-errors",
+      "title": "Twilio: errors",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/sendgrid/api-reference/how-to-use-the-sendgrid-v3-api/errors",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: errors",
+      "manifest_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-how-to-use-the-sendgrid-v3-api-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-sendgrid-api-reference-webhooks-test-event-notification-sett",
+      "title": "Twilio: test event notification settings",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/sendgrid/api-reference/webhooks/test-event-notification-settings",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: test event notification settings",
+      "manifest_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-webhooks-test-event-notification-sett/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-webhooks-test-event-notification-sett/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-webhooks-test-event-notification-sett/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-sendgrid-api-reference-webhooks-test-event-notification-sett/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-serverless-api-resource-deployment",
+      "title": "Twilio: deployment",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/serverless/api/resource/deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: deployment",
+      "manifest_path": "agentpress/material-kits/twilio-docs-serverless-api-resource-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-serverless-api-resource-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-serverless-api-resource-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-serverless-api-resource-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-serverless-functions-assets-quickstart-api-request",
+      "title": "Twilio: api request",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/serverless/functions-assets/quickstart/api-request",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: api request",
+      "manifest_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-api-request/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-api-request/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-api-request/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-api-request/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-serverless-functions-assets-quickstart-basic-auth",
+      "title": "Twilio: basic auth",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/serverless/functions-assets/quickstart/basic-auth",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: basic auth",
+      "manifest_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-basic-auth/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-basic-auth/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-basic-auth/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-basic-auth/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-serverless-functions-assets-quickstart-enabling-cors-between",
+      "title": "Twilio: enabling cors between flex plugins and functions",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/serverless/functions-assets/quickstart/enabling-cors-between-flex-plugins-and-functions",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: enabling cors between flex plugins and functions",
+      "manifest_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-enabling-cors-between/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-enabling-cors-between/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-enabling-cors-between/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-enabling-cors-between/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-serverless-functions-assets-quickstart-how-to-call-twilio-fu",
+      "title": "Twilio: how to call twilio functions ios",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/serverless/functions-assets/quickstart/how-to-call-twilio-functions-ios",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: how to call twilio functions ios",
+      "manifest_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-how-to-call-twilio-fu/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-how-to-call-twilio-fu/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-how-to-call-twilio-fu/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-how-to-call-twilio-fu/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-serverless-functions-assets-quickstart-normalize-telephone-n",
+      "title": "Twilio: normalize telephone numbers",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/serverless/functions-assets/quickstart/normalize-telephone-numbers",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: normalize telephone numbers",
+      "manifest_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-normalize-telephone-n/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-normalize-telephone-n/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-normalize-telephone-n/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-normalize-telephone-n/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-serverless-functions-assets-quickstart-validate-webhook-requ",
+      "title": "Twilio: validate webhook requests from sendgrid",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/serverless/functions-assets/quickstart/validate-webhook-requests-from-sendgrid",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: validate webhook requests from sendgrid",
+      "manifest_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-validate-webhook-requ/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-validate-webhook-requ/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-validate-webhook-requ/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-serverless-functions-assets-quickstart-validate-webhook-requ/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-taskrouter-workflow-configuration",
+      "title": "Twilio: workflow configuration",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/taskrouter/workflow-configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: workflow configuration",
+      "manifest_path": "agentpress/material-kits/twilio-docs-taskrouter-workflow-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-taskrouter-workflow-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-taskrouter-workflow-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-taskrouter-workflow-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "twilio-docs-taskrouter-workflow-configuration-known-agent-routing",
       "title": "Twilio: known agent routing",
       "ecosystem": "Twilio",
@@ -94093,6 +95962,69 @@
       "receipt_path": "agentpress/material-kits/twilio-docs-taskrouter-workflow-configuration-known-agent-routing/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/twilio-docs-taskrouter-workflow-configuration-known-agent-routing/llms.txt",
       "run_guide": "agentpress/material-kits/twilio-docs-taskrouter-workflow-configuration-known-agent-routing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-usage-tutorials-serverless-webhooks-azure-functions-and-csha",
+      "title": "Twilio: serverless webhooks azure functions and csharp",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/usage/tutorials/serverless-webhooks-azure-functions-and-csharp",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: serverless webhooks azure functions and csharp",
+      "manifest_path": "agentpress/material-kits/twilio-docs-usage-tutorials-serverless-webhooks-azure-functions-and-csha/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-usage-tutorials-serverless-webhooks-azure-functions-and-csha/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-usage-tutorials-serverless-webhooks-azure-functions-and-csha/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-usage-tutorials-serverless-webhooks-azure-functions-and-csha/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-usage-tutorials-serverless-webhooks-azure-functions-and-node",
+      "title": "Twilio: serverless webhooks azure functions and node js",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/usage/tutorials/serverless-webhooks-azure-functions-and-node-js",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: serverless webhooks azure functions and node js",
+      "manifest_path": "agentpress/material-kits/twilio-docs-usage-tutorials-serverless-webhooks-azure-functions-and-node/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-usage-tutorials-serverless-webhooks-azure-functions-and-node/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-usage-tutorials-serverless-webhooks-azure-functions-and-node/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-usage-tutorials-serverless-webhooks-azure-functions-and-node/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-verify-verify-silent-network-auth-headspin-testing-guide",
+      "title": "Twilio: verify silent network auth headspin testing guide",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/verify/verify-silent-network-auth-headspin-testing-guide",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: verify silent network auth headspin testing guide",
+      "manifest_path": "agentpress/material-kits/twilio-docs-verify-verify-silent-network-auth-headspin-testing-guide/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-verify-verify-silent-network-auth-headspin-testing-guide/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-verify-verify-silent-network-auth-headspin-testing-guide/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-verify-verify-silent-network-auth-headspin-testing-guide/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -101246,6 +103178,21 @@
   ],
   "next_build_signals": [
     {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-agent-configuration",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: agent configuration",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-recommen",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: algolia recommend",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-algolia-search",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: algolia search",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
       "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-client-side-tool",
       "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: client side tools",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
@@ -101253,6 +103200,16 @@
     {
       "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-mcp-tools",
       "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: mcp tools",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-overview",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: overview",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-security",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: security",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
@@ -101343,31 +103300,6 @@
     {
       "slug": "anthropic-docs-de-managed-agents-quickstart",
       "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: quickstart",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-en-agents-and-tools-agent-skills-best-practices",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: best practices",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-en-agents-and-tools-agent-skills-enterprise",
-      "signal": "agents frequently need compact, citation-ready context for Claude/tool/API docs agents need for provider adapters: enterprise",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-en-agents-and-tools-agent-skills-overview",
-      "signal": "agents frequently need compact, citation-ready context for Claude/tool/API docs agents need for provider adapters: overview",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-en-agents-and-tools-agent-skills-quickstart",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: quickstart",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-en-agents-and-tools-mcp-connector",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     }
   ],
