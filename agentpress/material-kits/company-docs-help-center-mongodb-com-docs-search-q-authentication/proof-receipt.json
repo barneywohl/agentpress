@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+  "claim": "Material kit prepared for Company docs/help center painpoint: agents and first users need compact wrappers for company product docs/help centers agents can wrap for first-user adoption; company=mongodb; doc=authentication",
+  "target_url": "https://mongodb.com/docs/search?q=authentication",
+  "commands_to_verify": [
+    "python3 scripts/agentpress.py context-budget . --json --strict",
+    "python3 -m json.tool material-manifest.json",
+    "python3 -m json.tool proof-receipt.json"
+  ],
+  "evidence_files": [
+    "llms.txt",
+    "material-manifest.json",
+    "RUN_THIS.md"
+  ],
+  "external_effects": [],
+  "status": "prepared_not_posted"
+}
