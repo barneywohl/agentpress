@@ -5807,6 +5807,77 @@ def gorilla_action_safety_gate(args):
 
 
 
+
+def material_kit(args):
+    """Turn one public agent painpoint into a runnable AgentPress material kit."""
+    root = pathlib.Path(args.root)
+    base = args.base_url.rstrip() + "/"
+    ecosystem = args.ecosystem.strip() or "agent"
+    painpoint = args.painpoint.strip() or "agent workflow painpoint"
+    target_url = args.target_url.strip()
+    title = args.title.strip() or f"{ecosystem}: {painpoint}"
+    slug = slugify(args.slug or f"{ecosystem}-{painpoint}")
+    outdir = root / args.out / slug
+    artifact = args.artifact.strip()
+    utility_command = args.command.strip() or "python3 scripts/agentpress.py doctor --json"
+    risks = [r.strip() for r in args.risks.split(",") if r.strip()]
+    manifest_rel = (pathlib.Path(args.out) / slug / "material-manifest.json").as_posix()
+    receipt_rel = (pathlib.Path(args.out) / slug / "proof-receipt.json").as_posix()
+    llms_rel = (pathlib.Path(args.out) / slug / "llms.txt").as_posix()
+    guide_rel = (pathlib.Path(args.out) / slug / "RUN_THIS.md").as_posix()
+    manifest = {
+        "schema_version": "2026-05-05.agentpress-material-kit.v1",
+        "canonical_url": urljoin(base, manifest_rel),
+        "generated_utc": _utc_now(),
+        "status": "ready_local_static_not_posted",
+        "purpose": "Make one public agent-builder painpoint easier for agents to inspect, reproduce, and discuss with machine-readable context.",
+        "title": title,
+        "ecosystem": ecosystem,
+        "target_url": target_url,
+        "painpoint": painpoint,
+        "artifact_under_test": artifact,
+        "utility_command": utility_command,
+        "files": {
+            "llms_txt": urljoin(base, llms_rel),
+            "manifest": urljoin(base, manifest_rel),
+            "proof_receipt": urljoin(base, receipt_rel),
+            "run_guide": urljoin(base, guide_rel),
+        },
+        "safety": {
+            "external_posting": False,
+            "requires_human_approval_before_commenting": True,
+            "contains_secrets": False,
+            "contains_private_prompts": False,
+            "risks": risks,
+        },
+        "agent_instructions": [
+            "Read llms.txt first.",
+            "Run the utility command locally if the repo has AgentPress installed.",
+            "Inspect proof-receipt.json for exact claims and commands.",
+            "Do not post externally without human approval of the exact draft.",
+        ],
+    }
+    llms = f"""# AgentPress Material Kit: {title}\n\nPurpose: help agents inspect one real painpoint without scraping private context or posting externally.\n\nTarget: {target_url or 'not-specified'}\nEcosystem: {ecosystem}\nPainpoint: {painpoint}\n\nRun locally:\n```bash\n{utility_command}\n```\n\nMachine files:\n- material-manifest.json\n- proof-receipt.json\n- RUN_THIS.md\n\nRules:\n- No external comments/DMs without explicit human approval.\n- No claims of maintainer adoption.\n- Keep examples small, sanitized, and reproducible.\n"""
+    receipt = {
+        "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+        "claim": f"Material kit prepared for {ecosystem} painpoint: {painpoint}",
+        "target_url": target_url,
+        "commands_to_verify": [utility_command, "python3 -m json.tool material-manifest.json", "python3 -m json.tool proof-receipt.json"],
+        "evidence_files": ["llms.txt", "material-manifest.json", "RUN_THIS.md"],
+        "external_effects": [],
+        "status": "prepared_not_posted",
+    }
+    guide = f"""# Run this AgentPress material kit\n\n1. Read `llms.txt`.\n2. Inspect `material-manifest.json`.\n3. Run:\n\n```bash\n{utility_command}\n```\n\n4. Compare the output with `proof-receipt.json`.\n5. If using this for outreach, get human approval for the exact target and draft first.\n\nTarget: {target_url or 'not-specified'}\n"""
+    payload = {"status": "ok", "slug": slug, "out": str(outdir), "manifest": manifest, "files": manifest["files"]}
+    if not args.no_write:
+        outdir.mkdir(parents=True, exist_ok=True)
+        (outdir / "llms.txt").write_text(llms, encoding="utf-8")
+        (outdir / "material-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        (outdir / "proof-receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+        (outdir / "RUN_THIS.md").write_text(guide, encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"ok {slug}")
+    return 0
+
 def gorilla_approval_packets(args):
     """Generate exact approval packets for the gorilla queue without external posting."""
     root = pathlib.Path(args.root)
@@ -10868,6 +10939,7 @@ def main():
     p = sub.add_parser("gorilla-utility-pack"); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("gorilla-action-safety-gate"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/growth/gorilla-utility-pack/execution-queue.json"); p.add_argument("--action-json", default=""); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack/external-action-safety-gate.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("gorilla-approval-packets"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/growth/gorilla-utility-pack/execution-queue.json"); p.add_argument("--safety", default="agentpress/growth/gorilla-utility-pack/external-action-safety-gate.json"); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack/approval-packets"); p.add_argument("--limit", type=int, default=5); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("material-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--target-url", default=""); p.add_argument("--ecosystem", default="agent"); p.add_argument("--painpoint", default=""); p.add_argument("--title", default=""); p.add_argument("--slug", default=""); p.add_argument("--artifact", default=""); p.add_argument("--command", default=""); p.add_argument("--risks", default="public-comment-requires-approval"); p.add_argument("--out", default="agentpress/material-kits"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("next-attention-build-spec"); p.add_argument("--out", default="agentpress/specs/next-attention-build-spec.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-community-newswire"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/agent-community-newswire.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("immediate-agent-needs-radar"); p.add_argument("--out", default="agentpress/community/immediate-agent-needs-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -11260,6 +11332,7 @@ def main():
     if args.cmd == "first-agent-attention-kit": return first_agent_attention_kit(args)
     if args.cmd == "gorilla-utility-pack": return gorilla_utility_pack(args)
     if args.cmd == "gorilla-action-safety-gate": return gorilla_action_safety_gate(args)
+    if args.cmd == "material-kit": return material_kit(args)
     if args.cmd == "gorilla-approval-packets": return gorilla_approval_packets(args)
     if args.cmd == "next-attention-build-spec": return next_attention_build_spec(args)
     if args.cmd == "agent-community-newswire": return agent_community_newswire(args)
