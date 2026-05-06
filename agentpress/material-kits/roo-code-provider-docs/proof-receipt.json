@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+  "claim": "Material kit prepared for Roo Code painpoint: agents need provider/tool-call compatibility context for Roo Code setup failures",
+  "target_url": "https://docs.roocode.com/",
+  "commands_to_verify": [
+    "python3 scripts/agentpress.py provider-adapter-repro-pack --host roo-code --provider unknown --json",
+    "python3 -m json.tool material-manifest.json",
+    "python3 -m json.tool proof-receipt.json"
+  ],
+  "evidence_files": [
+    "llms.txt",
+    "material-manifest.json",
+    "RUN_THIS.md"
+  ],
+  "external_effects": [],
+  "status": "prepared_not_posted"
+}

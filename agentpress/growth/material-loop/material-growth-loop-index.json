@@ -1,25 +1,74 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T03:50:32Z",
+  "generated_utc": "2026-05-06T04:21:39Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 8,
+  "kit_count": 18,
   "by_ecosystem": {
+    "Anthropic": 1,
+    "Cline": 1,
     "docs": 1,
-    "LangGraph": 1,
+    "LangGraph": 2,
+    "LiteLLM": 1,
+    "LlamaIndex": 1,
     "mcp": 1,
-    "OpenHands": 1,
+    "MCP": 1,
+    "OpenAI Agents SDK": 1,
+    "OpenHands": 2,
     "repo-docs": 1,
-    "Roo Code": 1,
+    "Roo Code": 2,
     "api-schema": 1,
-    "onboarding": 1
+    "onboarding": 1,
+    "Vercel AI SDK": 1
   },
   "by_status": {
-    "ready_local_static_not_posted": 8
+    "ready_local_static_not_posted": 18
   },
   "kits": [
+    {
+      "slug": "anthropic-tool-use-docs",
+      "title": "Anthropic tool-use docs wrapper",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/overview",
+      "painpoint": "agents need compact schema/error guidance for Claude tool-use integration",
+      "manifest_path": "agentpress/material-kits/anthropic-tool-use-docs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-tool-use-docs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-tool-use-docs/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-tool-use-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cline-mcp-docs",
+      "title": "Cline MCP docs wrapper",
+      "ecosystem": "Cline",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.cline.bot/mcp-servers/mcp",
+      "painpoint": "agents need safe MCP config mutation guidance before editing Cline settings",
+      "manifest_path": "agentpress/material-kits/cline-mcp-docs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cline-mcp-docs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cline-mcp-docs/llms.txt",
+      "run_guide": "agentpress/material-kits/cline-mcp-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py mcp-config-mutation-guard --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
     {
       "slug": "compressed-context-page",
       "title": "Compressed context page for huge docs",
@@ -33,6 +82,27 @@
       "run_guide": "agentpress/material-kits/compressed-context-page/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "langgraph-checkpoint-docs",
+      "title": "LangGraph checkpoint docs wrapper",
+      "ecosystem": "LangGraph",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://langchain-ai.github.io/langgraph/concepts/persistence/",
+      "painpoint": "agents need checkpoint/persistence replay context for stuck handoffs",
+      "manifest_path": "agentpress/material-kits/langgraph-checkpoint-docs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/langgraph-checkpoint-docs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/langgraph-checkpoint-docs/llms.txt",
+      "run_guide": "agentpress/material-kits/langgraph-checkpoint-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json",
         "python3 -m json.tool material-manifest.json",
         "python3 -m json.tool proof-receipt.json"
       ],
@@ -63,6 +133,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-proxy-docs",
+      "title": "LiteLLM proxy docs wrapper",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/quick_start",
+      "painpoint": "agents need proxy/provider error remediation before routing model traffic",
+      "manifest_path": "agentpress/material-kits/litellm-proxy-docs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-proxy-docs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-proxy-docs/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-proxy-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "llamaindex-tools-docs",
+      "title": "LlamaIndex tools/RAG docs wrapper",
+      "ecosystem": "LlamaIndex",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.llamaindex.ai/en/stable/module_guides/deploying/agents/tools/",
+      "painpoint": "agents need compact tool/RAG safety and source-map context before using LlamaIndex tools",
+      "manifest_path": "agentpress/material-kits/llamaindex-tools-docs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/llamaindex-tools-docs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/llamaindex-tools-docs/llms.txt",
+      "run_guide": "agentpress/material-kits/llamaindex-tools-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "mcp-404-rescue-card",
       "title": "MCP 404 rescue card",
       "ecosystem": "mcp",
@@ -84,6 +196,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "mcp-server-quickstart-docs",
+      "title": "MCP server quickstart docs wrapper",
+      "ecosystem": "MCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://modelcontextprotocol.io/docs/getting-started/intro",
+      "painpoint": "agents need compact setup and permission context before wiring MCP servers",
+      "manifest_path": "agentpress/material-kits/mcp-server-quickstart-docs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mcp-server-quickstart-docs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mcp-server-quickstart-docs/llms.txt",
+      "run_guide": "agentpress/material-kits/mcp-server-quickstart-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py mcp-config-doctor --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "openai-agents-sdk-tools-docs",
+      "title": "OpenAI Agents SDK tools docs wrapper",
+      "ecosystem": "OpenAI Agents SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://openai.github.io/openai-agents-python/tools/",
+      "painpoint": "agents need a quick tool-calling orientation before implementing Agents SDK tools",
+      "manifest_path": "agentpress/material-kits/openai-agents-sdk-tools-docs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/openai-agents-sdk-tools-docs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/openai-agents-sdk-tools-docs/llms.txt",
+      "run_guide": "agentpress/material-kits/openai-agents-sdk-tools-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "openhands-plugin-marketplace-proof",
       "title": "OpenHands: plugin marketplace metadata needs repo-native proof",
       "ecosystem": "OpenHands",
@@ -94,6 +248,27 @@
       "receipt_path": "agentpress/material-kits/openhands-plugin-marketplace-proof/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/openhands-plugin-marketplace-proof/llms.txt",
       "run_guide": "agentpress/material-kits/openhands-plugin-marketplace-proof/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py discovery-bridge queue --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "openhands-runtime-docs",
+      "title": "OpenHands runtime docs wrapper",
+      "ecosystem": "OpenHands",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.all-hands.dev/",
+      "painpoint": "agents need runtime/plugin setup context plus proof commands before debugging OpenHands flows",
+      "manifest_path": "agentpress/material-kits/openhands-runtime-docs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/openhands-runtime-docs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/openhands-runtime-docs/llms.txt",
+      "run_guide": "agentpress/material-kits/openhands-runtime-docs/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py discovery-bridge queue --json",
         "python3 -m json.tool material-manifest.json",
@@ -147,6 +322,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "roo-code-provider-docs",
+      "title": "Roo Code provider docs wrapper",
+      "ecosystem": "Roo Code",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.roocode.com/",
+      "painpoint": "agents need provider/tool-call compatibility context for Roo Code setup failures",
+      "manifest_path": "agentpress/material-kits/roo-code-provider-docs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/roo-code-provider-docs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/roo-code-provider-docs/llms.txt",
+      "run_guide": "agentpress/material-kits/roo-code-provider-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --host roo-code --provider unknown --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "schema-diff-wrapper",
       "title": "Schema diff wrapper for tool/API drift",
       "ecosystem": "api-schema",
@@ -187,12 +383,48 @@
       "receipt_status": "prepared_not_posted",
       "safe_for_public_contact": false,
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-tools-docs",
+      "title": "Vercel AI SDK tool-calling docs wrapper",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling",
+      "painpoint": "agents need concise tool-calling schema and proof context before building AI SDK tools",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-tools-docs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-tools-docs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-tools-docs/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-tools-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
     }
   ],
   "next_build_signals": [
     {
+      "slug": "anthropic-tool-use-docs",
+      "signal": "agents need compact schema/error guidance for Claude tool-use integration",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "cline-mcp-docs",
+      "signal": "agents need safe MCP config mutation guidance before editing Cline settings",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
       "slug": "compressed-context-page",
       "signal": "agents need budgeted summaries for huge docs without losing source/freshness proof",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "langgraph-checkpoint-docs",
+      "signal": "agents need checkpoint/persistence replay context for stuck handoffs",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
@@ -201,13 +433,38 @@
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
+      "slug": "litellm-proxy-docs",
+      "signal": "agents need proxy/provider error remediation before routing model traffic",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "llamaindex-tools-docs",
+      "signal": "agents need compact tool/RAG safety and source-map context before using LlamaIndex tools",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
       "slug": "mcp-404-rescue-card",
       "signal": "agents hit ambiguous MCP server setup or permission failures and need a compact remediation card",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
+      "slug": "mcp-server-quickstart-docs",
+      "signal": "agents need compact setup and permission context before wiring MCP servers",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "openai-agents-sdk-tools-docs",
+      "signal": "agents need a quick tool-calling orientation before implementing Agents SDK tools",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
       "slug": "openhands-plugin-marketplace-proof",
       "signal": "plugin marketplace metadata needs repo-native proof",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "openhands-runtime-docs",
+      "signal": "agents need runtime/plugin setup context plus proof commands before debugging OpenHands flows",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
@@ -221,6 +478,11 @@
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
+      "slug": "roo-code-provider-docs",
+      "signal": "agents need provider/tool-call compatibility context for Roo Code setup failures",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
       "slug": "schema-diff-wrapper",
       "signal": "agents need a compact schema-drift summary when tools break against moving specs",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
@@ -228,6 +490,11 @@
     {
       "slug": "setup-proof-receipt-generator",
       "signal": "agents need a machine-checkable receipt after install/doctor/self-test succeeds",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "vercel-ai-sdk-tools-docs",
+      "signal": "agents need concise tool-calling schema and proof context before building AI SDK tools",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     }
   ],
