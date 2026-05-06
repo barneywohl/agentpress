@@ -1,14 +1,14 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:39:39Z",
+  "generated_utc": "2026-05-06T04:39:56Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 2280,
+  "kit_count": 2377,
   "by_ecosystem": {
     "Anthropic": 287,
-    "Auth0": 11,
+    "Auth0": 62,
     "AWS": 65,
     "Bun": 197,
     "Cline": 6,
@@ -33,18 +33,18 @@
     "OpenHands": 75,
     "Pinecone": 4,
     "Playwright": 12,
-    "Postgres": 1,
+    "Postgres": 22,
     "repo-docs": 1,
     "Roo Code": 6,
     "api-schema": 1,
     "onboarding": 1,
-    "Stripe": 3,
-    "Vercel": 145,
+    "Stripe": 4,
+    "Vercel": 169,
     "Vercel AI SDK": 111,
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 2280
+    "ready_local_static_not_posted": 2377
   },
   "kits": [
     {
@@ -6075,6 +6075,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "auth0-docs-api-authentication-authorization-code-flow-get-token",
+      "title": "Auth0: get token",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/authentication/authorization-code-flow/get-token",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get token",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-get-token/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-get-token/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-get-token/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-get-token/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-authentication-authorization-code-flow-with-pkce-authoriz",
+      "title": "Auth0: authorize with pkce",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/authentication/authorization-code-flow-with-pkce/authorize-with-pkce",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: authorize with pkce",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-with-pkce-authoriz/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-with-pkce-authoriz/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-with-pkce-authoriz/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-with-pkce-authoriz/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-authentication-authorization-code-flow-with-pkce-get-toke",
+      "title": "Auth0: get token pkce",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/authentication/authorization-code-flow-with-pkce/get-token-pkce",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get token pkce",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-with-pkce-get-toke/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-with-pkce-get-toke/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-with-pkce-get-toke/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-authorization-code-flow-with-pkce-get-toke/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "auth0-docs-api-authentication-client-credential-flow-get-token",
       "title": "Auth0: get token",
       "ecosystem": "Auth0",
@@ -6085,6 +6148,48 @@
       "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-client-credential-flow-get-token/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-client-credential-flow-get-token/llms.txt",
       "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-client-credential-flow-get-token/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-authentication-device-authorization-flow-authorize-device",
+      "title": "Auth0: authorize device",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/authentication/device-authorization-flow/authorize-device",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: authorize device",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-authentication-device-authorization-flow-authorize-device/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-device-authorization-flow-authorize-device/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-device-authorization-flow-authorize-device/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-device-authorization-flow-authorize-device/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-authentication-dynamic-application-client-registration-dy",
+      "title": "Auth0: dynamic application registration",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/authentication/dynamic-application-client-registration/dynamic-application-registration",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: dynamic application registration",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-authentication-dynamic-application-client-registration-dy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-dynamic-application-client-registration-dy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-dynamic-application-client-registration-dy/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-dynamic-application-client-registration-dy/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -6138,6 +6243,363 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "auth0-docs-api-authentication-token-exchange-for-native-social-token-exc",
+      "title": "Auth0: token exchange native social",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/authentication/token-exchange-for-native-social/token-exchange-native-social",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: token exchange native social",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-authentication-token-exchange-for-native-social-token-exc/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-token-exchange-for-native-social-token-exc/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-token-exchange-for-native-social-token-exc/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-token-exchange-for-native-social-token-exc/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-post-deploy-action",
+      "title": "Auth0: post deploy action",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/post-deploy-action",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: post deploy action",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-deploy-action/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-deploy-action/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-deploy-action/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-deploy-action/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-post-deploy-draft-version",
+      "title": "Auth0: post deploy draft version",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/post-deploy-draft-version",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: post deploy draft version",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-deploy-draft-version/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-deploy-draft-version/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-deploy-draft-version/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-deploy-draft-version/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-branding-create-phone-provider",
+      "title": "Auth0: create phone provider",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/branding/create-phone-provider",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: create phone provider",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-branding-create-phone-provider/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-branding-create-phone-provider/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-branding-create-phone-provider/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-branding-create-phone-provider/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-branding-get-branding-phone-providers",
+      "title": "Auth0: get branding phone providers",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/branding/get-branding-phone-providers",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get branding phone providers",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-branding-get-branding-phone-providers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-branding-get-branding-phone-providers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-branding-get-branding-phone-providers/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-branding-get-branding-phone-providers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-branding-try-phone-provider",
+      "title": "Auth0: try phone provider",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/branding/try-phone-provider",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: try phone provider",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-branding-try-phone-provider/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-branding-try-phone-provider/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-branding-try-phone-provider/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-branding-try-phone-provider/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-client-grants-delete-client-grants-by-id",
+      "title": "Auth0: delete client grants by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/client-grants/delete-client-grants-by-id",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: delete client grants by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-delete-client-grants-by-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-delete-client-grants-by-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-delete-client-grants-by-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-delete-client-grants-by-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-client-grants-get-client-grant",
+      "title": "Auth0: get client grant",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/client-grants/get-client-grant",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get client grant",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-get-client-grant/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-get-client-grant/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-get-client-grant/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-get-client-grant/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-client-grants-get-client-grant-organization",
+      "title": "Auth0: get client grant organizations",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/client-grants/get-client-grant-organizations",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get client grant organizations",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-get-client-grant-organization/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-get-client-grant-organization/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-get-client-grant-organization/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-get-client-grant-organization/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-client-grants-patch-client-grants-by-id",
+      "title": "Auth0: patch client grants by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/client-grants/patch-client-grants-by-id",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: patch client grants by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-patch-client-grants-by-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-patch-client-grants-by-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-patch-client-grants-by-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-client-grants-patch-client-grants-by-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-clients-delete-credentials-by-credential-id",
+      "title": "Auth0: delete credentials by credential id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/clients/delete-credentials-by-credential-id",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: delete credentials by credential id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-delete-credentials-by-credential-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-delete-credentials-by-credential-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-clients-delete-credentials-by-credential-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-clients-delete-credentials-by-credential-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-clients-get-client-connections",
+      "title": "Auth0: get client connections",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/clients/get-client-connections",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get client connections",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-client-connections/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-client-connections/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-client-connections/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-client-connections/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-clients-get-clients-by-id",
+      "title": "Auth0: get clients by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/clients/get-clients-by-id",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get clients by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-clients-by-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-clients-by-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-clients-by-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-clients-by-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-clients-get-credentials",
+      "title": "Auth0: get credentials",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/clients/get-credentials",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get credentials",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-credentials/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-credentials/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-credentials/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-clients-get-credentials/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-clients-patch-clients-by-id",
+      "title": "Auth0: patch clients by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/clients/patch-clients-by-id",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: patch clients by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-patch-clients-by-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-patch-clients-by-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-clients-patch-clients-by-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-clients-patch-clients-by-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-clients-patch-credentials-by-credential-id",
+      "title": "Auth0: patch credentials by credential id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/clients/patch-credentials-by-credential-id",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: patch credentials by credential id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-patch-credentials-by-credential-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-patch-credentials-by-credential-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-clients-patch-credentials-by-credential-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-clients-patch-credentials-by-credential-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-clients-post-clients",
+      "title": "Auth0: post clients",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/clients/post-clients",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: post clients",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-post-clients/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-post-clients/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-clients-post-clients/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-clients-post-clients/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "auth0-docs-api-management-v2-clients-post-clients-cimd-preview",
       "title": "Auth0: post clients cimd preview",
       "ecosystem": "Auth0",
@@ -6180,6 +6642,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "auth0-docs-api-management-v2-clients-post-rotate-secret",
+      "title": "Auth0: post rotate secret",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/clients/post-rotate-secret",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: post rotate secret",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-post-rotate-secret/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-clients-post-rotate-secret/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-clients-post-rotate-secret/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-clients-post-rotate-secret/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "auth0-docs-api-management-v2-connections-delete-scim-configuration",
       "title": "Auth0: delete scim configuration",
       "ecosystem": "Auth0",
@@ -6201,6 +6684,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "auth0-docs-api-management-v2-connections-get-connection-clients",
+      "title": "Auth0: get connection clients",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/connections/get-connection-clients",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get connection clients",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-connections-get-connection-clients/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-connections-get-connection-clients/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-connections-get-connection-clients/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-connections-get-connection-clients/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "auth0-docs-api-management-v2-connections-get-scim-configuration",
       "title": "Auth0: get scim configuration",
       "ecosystem": "Auth0",
@@ -6211,6 +6715,27 @@
       "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-connections-get-scim-configuration/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-connections-get-scim-configuration/llms.txt",
       "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-connections-get-scim-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-connections-patch-clients",
+      "title": "Auth0: patch clients",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/connections/patch-clients",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: patch clients",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-connections-patch-clients/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-connections-patch-clients/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-connections-patch-clients/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-connections-patch-clients/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -6285,6 +6810,363 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "auth0-docs-api-management-v2-custom-domains-post-test-domain",
+      "title": "Auth0: post test domain",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/custom-domains/post-test-domain",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: post test domain",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-custom-domains-post-test-domain/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-custom-domains-post-test-domain/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-custom-domains-post-test-domain/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-custom-domains-post-test-domain/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-emails-delete-provider",
+      "title": "Auth0: delete provider",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/emails/delete-provider",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: delete provider",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-emails-delete-provider/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-emails-delete-provider/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-emails-delete-provider/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-emails-delete-provider/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-emails-post-provider",
+      "title": "Auth0: post provider",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/emails/post-provider",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: post provider",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-emails-post-provider/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-emails-post-provider/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-emails-post-provider/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-emails-post-provider/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-event-streams-post-test-event",
+      "title": "Auth0: post test event",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/event-streams/post-test-event",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: post test event",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-test-event/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-test-event/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-test-event/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-test-event/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-flows-delete-flows-vault-connections-by-id",
+      "title": "Auth0: delete flows vault connections by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/flows/delete-flows-vault-connections-by-id",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: delete flows vault connections by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-delete-flows-vault-connections-by-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-delete-flows-vault-connections-by-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-flows-delete-flows-vault-connections-by-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-flows-delete-flows-vault-connections-by-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-flows-get-flows",
+      "title": "Auth0: get flows",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/flows/get-flows",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get flows",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-get-flows/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-get-flows/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-flows-get-flows/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-flows-get-flows/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-flows-get-flows-executions",
+      "title": "Auth0: get flows executions",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/flows/get-flows-executions",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get flows executions",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-get-flows-executions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-get-flows-executions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-flows-get-flows-executions/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-flows-get-flows-executions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-flows-patch-flows-by-id",
+      "title": "Auth0: patch flows by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/flows/patch-flows-by-id",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: patch flows by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-patch-flows-by-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-patch-flows-by-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-flows-patch-flows-by-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-flows-patch-flows-by-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-flows-post-flows-vault-connections",
+      "title": "Auth0: post flows vault connections",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/flows/post-flows-vault-connections",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: post flows vault connections",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-post-flows-vault-connections/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-post-flows-vault-connections/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-flows-post-flows-vault-connections/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-flows-post-flows-vault-connections/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-forms-create-form",
+      "title": "Auth0: create form",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/forms/create-form",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: create form",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-forms-create-form/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-forms-create-form/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-forms-create-form/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-forms-create-form/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-forms-get-forms",
+      "title": "Auth0: get forms",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/forms/get-forms",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get forms",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-forms-get-forms/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-forms-get-forms/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-forms-get-forms/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-forms-get-forms/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-forms-patch-form",
+      "title": "Auth0: patch form",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/forms/patch-form",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: patch form",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-forms-patch-form/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-forms-patch-form/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-forms-patch-form/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-forms-patch-form/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-guardian-get-pn-providers",
+      "title": "Auth0: get pn providers",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/guardian/get-pn-providers",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get pn providers",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-get-pn-providers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-get-pn-providers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-get-pn-providers/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-get-pn-providers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-guardian-put-phone-providers",
+      "title": "Auth0: put phone providers",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/guardian/put-phone-providers",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: put phone providers",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-phone-providers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-phone-providers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-phone-providers/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-phone-providers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-guardian-put-pn-providers",
+      "title": "Auth0: put pn providers",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/guardian/put-pn-providers",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: put pn providers",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-pn-providers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-pn-providers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-pn-providers/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-pn-providers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-guardian-put-sms-providers",
+      "title": "Auth0: put sms providers",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/guardian/put-sms-providers",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: put sms providers",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-sms-providers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-sms-providers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-sms-providers/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-sms-providers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-guardian-put-sms-twilio-factor-provider",
+      "title": "Auth0: put sms twilio factor provider",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/guardian/put-sms-twilio-factor-provider",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: put sms twilio factor provider",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-sms-twilio-factor-provider/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-sms-twilio-factor-provider/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-sms-twilio-factor-provider/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-guardian-put-sms-twilio-factor-provider/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "auth0-docs-api-management-v2-jobs-get-errors",
       "title": "Auth0: get errors",
       "ecosystem": "Auth0",
@@ -6295,6 +7177,195 @@
       "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-jobs-get-errors/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-jobs-get-errors/llms.txt",
       "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-jobs-get-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-organizations-create-organization-client-gr",
+      "title": "Auth0: create organization client grants",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/organizations/create-organization-client-grants",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: create organization client grants",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-organizations-create-organization-client-gr/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-organizations-create-organization-client-gr/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-organizations-create-organization-client-gr/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-organizations-create-organization-client-gr/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-resource-servers-delete-resource-servers-by",
+      "title": "Auth0: delete resource servers by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/resource-servers/delete-resource-servers-by-id",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: delete resource servers by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-delete-resource-servers-by/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-delete-resource-servers-by/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-delete-resource-servers-by/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-delete-resource-servers-by/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-resource-servers-get-resource-servers-by-id",
+      "title": "Auth0: get resource servers by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/resource-servers/get-resource-servers-by-id",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get resource servers by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-get-resource-servers-by-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-get-resource-servers-by-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-get-resource-servers-by-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-get-resource-servers-by-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-resource-servers-patch-resource-servers-by",
+      "title": "Auth0: patch resource servers by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/resource-servers/patch-resource-servers-by-id",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: patch resource servers by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-patch-resource-servers-by/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-patch-resource-servers-by/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-patch-resource-servers-by/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-patch-resource-servers-by/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-resource-servers-post-resource-servers",
+      "title": "Auth0: post resource servers",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/resource-servers/post-resource-servers",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: post resource servers",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-post-resource-servers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-post-resource-servers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-post-resource-servers/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-resource-servers-post-resource-servers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-rules-configs-put-rules-configs-by-key",
+      "title": "Auth0: put rules configs by key",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/rules-configs/put-rules-configs-by-key",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: put rules configs by key",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-rules-configs-put-rules-configs-by-key/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-rules-configs-put-rules-configs-by-key/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-rules-configs-put-rules-configs-by-key/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-rules-configs-put-rules-configs-by-key/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-users-delete-permissions",
+      "title": "Auth0: delete permissions",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/users/delete-permissions",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: delete permissions",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-users-delete-permissions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-users-delete-permissions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-users-delete-permissions/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-users-delete-permissions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-users-get-permissions",
+      "title": "Auth0: get permissions",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/users/get-permissions",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: get permissions",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-users-get-permissions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-users-get-permissions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-users-get-permissions/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-users-get-permissions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-users-post-permissions",
+      "title": "Auth0: post permissions",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/users/post-permissions",
+      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: post permissions",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-users-post-permissions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-users-post-permissions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-users-post-permissions/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-users-post-permissions/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -42258,6 +43329,447 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "postgres-docs-10-runtime-config-client-html",
+      "title": "Postgres: runtime config client.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/10/runtime-config-client.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config client.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-10-runtime-config-client-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-10-runtime-config-client-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-10-runtime-config-client-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-10-runtime-config-client-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-10-runtime-config-error-handling-html",
+      "title": "Postgres: runtime config error handling.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/10/runtime-config-error-handling.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config error handling.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-10-runtime-config-error-handling-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-10-runtime-config-error-handling-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-10-runtime-config-error-handling-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-10-runtime-config-error-handling-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-11-runtime-config-client-html",
+      "title": "Postgres: runtime config client.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/11/runtime-config-client.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config client.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-11-runtime-config-client-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-11-runtime-config-client-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-11-runtime-config-client-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-11-runtime-config-client-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-11-runtime-config-error-handling-html",
+      "title": "Postgres: runtime config error handling.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/11/runtime-config-error-handling.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config error handling.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-11-runtime-config-error-handling-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-11-runtime-config-error-handling-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-11-runtime-config-error-handling-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-11-runtime-config-error-handling-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-12-runtime-config-client-html",
+      "title": "Postgres: runtime config client.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/12/runtime-config-client.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config client.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-12-runtime-config-client-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-12-runtime-config-client-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-12-runtime-config-client-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-12-runtime-config-client-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-12-runtime-config-error-handling-html",
+      "title": "Postgres: runtime config error handling.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/12/runtime-config-error-handling.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config error handling.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-12-runtime-config-error-handling-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-12-runtime-config-error-handling-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-12-runtime-config-error-handling-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-12-runtime-config-error-handling-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-13-runtime-config-client-html",
+      "title": "Postgres: runtime config client.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/13/runtime-config-client.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config client.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-13-runtime-config-client-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-13-runtime-config-client-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-13-runtime-config-client-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-13-runtime-config-client-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-13-runtime-config-error-handling-html",
+      "title": "Postgres: runtime config error handling.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/13/runtime-config-error-handling.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config error handling.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-13-runtime-config-error-handling-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-13-runtime-config-error-handling-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-13-runtime-config-error-handling-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-13-runtime-config-error-handling-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-14-runtime-config-client-html",
+      "title": "Postgres: runtime config client.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/14/runtime-config-client.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config client.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-14-runtime-config-client-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-14-runtime-config-client-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-14-runtime-config-client-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-14-runtime-config-client-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-14-runtime-config-error-handling-html",
+      "title": "Postgres: runtime config error handling.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/14/runtime-config-error-handling.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config error handling.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-14-runtime-config-error-handling-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-14-runtime-config-error-handling-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-14-runtime-config-error-handling-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-14-runtime-config-error-handling-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-15-runtime-config-client-html",
+      "title": "Postgres: runtime config client.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/15/runtime-config-client.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config client.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-15-runtime-config-client-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-15-runtime-config-client-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-15-runtime-config-client-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-15-runtime-config-client-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-15-runtime-config-error-handling-html",
+      "title": "Postgres: runtime config error handling.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/15/runtime-config-error-handling.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config error handling.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-15-runtime-config-error-handling-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-15-runtime-config-error-handling-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-15-runtime-config-error-handling-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-15-runtime-config-error-handling-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-16-runtime-config-client-html",
+      "title": "Postgres: runtime config client.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/16/runtime-config-client.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config client.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-16-runtime-config-client-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-16-runtime-config-client-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-16-runtime-config-client-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-16-runtime-config-client-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-16-runtime-config-error-handling-html",
+      "title": "Postgres: runtime config error handling.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/16/runtime-config-error-handling.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config error handling.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-16-runtime-config-error-handling-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-16-runtime-config-error-handling-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-16-runtime-config-error-handling-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-16-runtime-config-error-handling-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-17-runtime-config-client-html",
+      "title": "Postgres: runtime config client.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/17/runtime-config-client.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config client.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-17-runtime-config-client-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-17-runtime-config-client-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-17-runtime-config-client-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-17-runtime-config-client-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-17-runtime-config-error-handling-html",
+      "title": "Postgres: runtime config error handling.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/17/runtime-config-error-handling.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config error handling.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-17-runtime-config-error-handling-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-17-runtime-config-error-handling-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-17-runtime-config-error-handling-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-17-runtime-config-error-handling-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-18-runtime-config-client-html",
+      "title": "Postgres: runtime config client.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/18/runtime-config-client.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config client.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-18-runtime-config-client-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-18-runtime-config-client-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-18-runtime-config-client-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-18-runtime-config-client-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-18-runtime-config-error-handling-html",
+      "title": "Postgres: runtime config error handling.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/18/runtime-config-error-handling.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config error handling.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-18-runtime-config-error-handling-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-18-runtime-config-error-handling-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-18-runtime-config-error-handling-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-18-runtime-config-error-handling-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-9-6-runtime-config-error-handling-html",
+      "title": "Postgres: runtime config error handling.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/9.6/runtime-config-error-handling.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config error handling.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-9-6-runtime-config-error-handling-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-9-6-runtime-config-error-handling-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-9-6-runtime-config-error-handling-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-9-6-runtime-config-error-handling-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-current-runtime-config-client-html",
+      "title": "Postgres: runtime config client.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/current/runtime-config-client.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config client.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-current-runtime-config-client-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-current-runtime-config-client-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-current-runtime-config-client-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-current-runtime-config-client-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "postgres-docs-current-runtime-config-error-handling-html",
+      "title": "Postgres: runtime config error handling.html",
+      "ecosystem": "Postgres",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.postgresql.org/docs/current/runtime-config-error-handling.html",
+      "painpoint": "agents need compact AgentPress wrapper for Postgres docs agents need for SQL/index/error debugging: runtime config error handling.html",
+      "manifest_path": "agentpress/material-kits/postgres-docs-current-runtime-config-error-handling-html/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/postgres-docs-current-runtime-config-error-handling-html/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/postgres-docs-current-runtime-config-error-handling-html/llms.txt",
+      "run_guide": "agentpress/material-kits/postgres-docs-current-runtime-config-error-handling-html/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "repo-quickstart-llms-template",
       "title": "Quick-start llms.txt wrapper for large repos",
       "ecosystem": "repo-docs",
@@ -42499,6 +44011,27 @@
       "receipt_path": "agentpress/material-kits/stripe-payments-quickstart/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/stripe-payments-quickstart/llms.txt",
       "run_guide": "agentpress/material-kits/stripe-payments-quickstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "stripe-stripe-apps-reference-extensions-sdk-api",
+      "title": "Stripe: extensions sdk api",
+      "ecosystem": "Stripe",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.stripe.com/stripe-apps/reference/extensions-sdk-api",
+      "painpoint": "agents need compact AgentPress wrapper for Stripe payment/webhook docs agents constantly need and must implement safely: extensions sdk api",
+      "manifest_path": "agentpress/material-kits/stripe-stripe-apps-reference-extensions-sdk-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/stripe-stripe-apps-reference-extensions-sdk-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/stripe-stripe-apps-reference-extensions-sdk-api/llms.txt",
+      "run_guide": "agentpress/material-kits/stripe-stripe-apps-reference-extensions-sdk-api/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -44925,6 +46458,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-agent-resources-integrations-for-models-deepinfra",
+      "title": "Vercel: deepinfra",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/agent-resources/integrations-for-models/deepinfra",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: deepinfra",
+      "manifest_path": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-deepinfra/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-deepinfra/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-deepinfra/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-deepinfra/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-agent-resources-integrations-for-models-groq",
+      "title": "Vercel: groq",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/agent-resources/integrations-for-models/groq",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: groq",
+      "manifest_path": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-groq/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-groq/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-groq/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-groq/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-agent-resources-integrations-for-models-lmnt",
       "title": "Vercel: lmnt",
       "ecosystem": "Vercel",
@@ -44956,6 +46531,27 @@
       "receipt_path": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-openai/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-openai/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-openai/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-agent-resources-integrations-for-models-perplexity",
+      "title": "Vercel: perplexity",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/agent-resources/integrations-for-models/perplexity",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: perplexity",
+      "manifest_path": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-perplexity/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-perplexity/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-perplexity/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-agent-resources-integrations-for-models-perplexity/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -45040,6 +46636,27 @@
       "receipt_path": "agentpress/material-kits/vercel-docs-cron-jobs-quickstart/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-docs-cron-jobs-quickstart/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-docs-cron-jobs-quickstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-deployment-protection-methods-to-protect-deployments-vercel",
+      "title": "Vercel: vercel authentication",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/deployment-protection/methods-to-protect-deployments/vercel-authentication",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: vercel authentication",
+      "manifest_path": "agentpress/material-kits/vercel-docs-deployment-protection-methods-to-protect-deployments-vercel/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-deployment-protection-methods-to-protect-deployments-vercel/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-deployment-protection-methods-to-protect-deployments-vercel/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-deployment-protection-methods-to-protect-deployments-vercel/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -45492,6 +47109,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-errors-internal-function-invocation-failed",
+      "title": "Vercel: internal function invocation failed",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/errors/internal_function_invocation_failed",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: internal function invocation failed",
+      "manifest_path": "agentpress/material-kits/vercel-docs-errors-internal-function-invocation-failed/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-errors-internal-function-invocation-failed/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-errors-internal-function-invocation-failed/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-errors-internal-function-invocation-failed/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-errors-internal-function-invocation-timeout",
+      "title": "Vercel: internal function invocation timeout",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/errors/internal_function_invocation_timeout",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: internal function invocation timeout",
+      "manifest_path": "agentpress/material-kits/vercel-docs-errors-internal-function-invocation-timeout/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-errors-internal-function-invocation-timeout/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-errors-internal-function-invocation-timeout/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-errors-internal-function-invocation-timeout/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-errors-internal-function-not-found",
       "title": "Vercel: internal function not found",
       "ecosystem": "Vercel",
@@ -45702,6 +47361,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-functions-configuring-functions-memory",
+      "title": "Vercel: memory",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/functions/configuring-functions/memory",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: memory",
+      "manifest_path": "agentpress/material-kits/vercel-docs-functions-configuring-functions-memory/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-functions-configuring-functions-memory/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-functions-configuring-functions-memory/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-functions-configuring-functions-memory/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-functions-quickstart",
       "title": "Vercel: quickstart",
       "ecosystem": "Vercel",
@@ -45838,6 +47518,27 @@
       "receipt_path": "agentpress/material-kits/vercel-docs-integrations-install-an-integration-agent-tools/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-docs-integrations-install-an-integration-agent-tools/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-docs-integrations-install-an-integration-agent-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-microfrontends-quickstart",
+      "title": "Vercel: quickstart",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/microfrontends/quickstart",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: quickstart",
+      "manifest_path": "agentpress/material-kits/vercel-docs-microfrontends-quickstart/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-microfrontends-quickstart/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-microfrontends-quickstart/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-microfrontends-quickstart/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -46006,6 +47707,27 @@
       "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-edge-cache-dangerously-delete-by-tag/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-edge-cache-dangerously-delete-by-tag/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-docs-rest-api-edge-cache-dangerously-delete-by-tag/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-edge-cache-invalidate-by-source-image",
+      "title": "Vercel: invalidate by source image",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/edge-cache/invalidate-by-source-image",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: invalidate by source image",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-edge-cache-invalidate-by-source-image/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-edge-cache-invalidate-by-source-image/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-edge-cache-invalidate-by-source-image/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-edge-cache-invalidate-by-source-image/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -46458,6 +48180,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-rest-api-sandboxes-get-a-command",
+      "title": "Vercel: get a command",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sandboxes/get-a-command",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: get a command",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-get-a-command/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-get-a-command/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-get-a-command/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-get-a-command/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-rest-api-sandboxes-get-a-sandbox",
       "title": "Vercel: get a sandbox",
       "ecosystem": "Vercel",
@@ -46710,6 +48453,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-rest-api-sandboxes-v2-beta-get-a-command",
+      "title": "Vercel: get a command",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sandboxes-v2-beta/get-a-command",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: get a command",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-get-a-command/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-get-a-command/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-get-a-command/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-get-a-command/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-rest-api-sandboxes-v2-beta-get-a-snapshot",
       "title": "Vercel: get a snapshot",
       "ecosystem": "Vercel",
@@ -46794,6 +48558,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-rest-api-sandboxes-v2-beta-update-network-policy",
+      "title": "Vercel: update network policy",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sandboxes-v2-beta/update-network-policy",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: update network policy",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-update-network-policy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-update-network-policy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-update-network-policy/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-update-network-policy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-rest-api-sandboxes-v2-beta-write-files",
       "title": "Vercel: write files",
       "ecosystem": "Vercel",
@@ -46815,6 +48600,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-rest-api-sandboxes-write-files",
+      "title": "Vercel: write files",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sandboxes/write-files",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: write files",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-write-files/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-write-files/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-write-files/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-write-files/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-rest-api-sdk-deployments-create-a-new-deployment",
       "title": "Vercel: create a new deployment",
       "ecosystem": "Vercel",
@@ -46825,6 +48631,69 @@
       "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-create-a-new-deployment/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-create-a-new-deployment/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-create-a-new-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-sdk-deployments-delete-a-deployment",
+      "title": "Vercel: delete a deployment",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/deployments/delete-a-deployment",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: delete a deployment",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-delete-a-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-delete-a-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-delete-a-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-delete-a-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-sdk-deployments-get-a-deployment-by-id-or-url",
+      "title": "Vercel: get a deployment by id or url",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/deployments/get-a-deployment-by-id-or-url",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: get a deployment by id or url",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-get-a-deployment-by-id-or-url/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-get-a-deployment-by-id-or-url/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-get-a-deployment-by-id-or-url/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-get-a-deployment-by-id-or-url/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-sdk-deployments-list-deployment-files",
+      "title": "Vercel: list deployment files",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/deployments/list-deployment-files",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: list deployment files",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-list-deployment-files/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-list-deployment-files/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-list-deployment-files/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-list-deployment-files/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -46983,6 +48852,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-rest-api-sdk-edge-config-get-an-edge-config-item",
+      "title": "Vercel: get an edge config item",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/edge-config/get-an-edge-config-item",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: get an edge config item",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-edge-config-get-an-edge-config-item/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-edge-config-get-an-edge-config-item/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-edge-config-get-an-edge-config-item/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-edge-config-get-an-edge-config-item/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-rest-api-sdk-edge-config-get-edge-config-backups",
       "title": "Vercel: get edge config backups",
       "ecosystem": "Vercel",
@@ -47035,6 +48925,27 @@
       "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-edge-config-get-edge-config-schema/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-edge-config-get-edge-config-schema/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-edge-config-get-edge-config-schema/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-sdk-edge-config-update-an-edge-config",
+      "title": "Vercel: update an edge config",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/edge-config/update-an-edge-config",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: update an edge config",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-edge-config-update-an-edge-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-edge-config-update-an-edge-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-edge-config-update-an-edge-config/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-edge-config-update-an-edge-config/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -47193,6 +49104,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-rest-api-sdk-logs-get-logs-for-a-deployment",
+      "title": "Vercel: get logs for a deployment",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/logs/get-logs-for-a-deployment",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: get logs for a deployment",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-logs-get-logs-for-a-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-logs-get-logs-for-a-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-logs-get-logs-for-a-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-logs-get-logs-for-a-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-rest-api-sdk-marketplace-get-the-data-of-a-user-provided-edg",
       "title": "Vercel: get the data of a user provided edge config",
       "ecosystem": "Vercel",
@@ -47287,6 +49219,27 @@
       "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-extend-sandbox-timeout/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-extend-sandbox-timeout/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-extend-sandbox-timeout/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-sdk-sandboxes-get-a-command",
+      "title": "Vercel: get a command",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/sandboxes/get-a-command",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: get a command",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-get-a-command/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-get-a-command/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-get-a-command/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-get-a-command/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -47592,6 +49545,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-rest-api-sdk-sandboxes-v2-beta-get-a-session",
+      "title": "Vercel: get a session",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/sandboxes-v2-beta/get-a-session",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: get a session",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-get-a-session/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-get-a-session/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-get-a-session/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-get-a-session/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-sdk-sandboxes-v2-beta-get-a-snapshot",
+      "title": "Vercel: get a snapshot",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/sandboxes-v2-beta/get-a-snapshot",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: get a snapshot",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-get-a-snapshot/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-get-a-snapshot/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-get-a-snapshot/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-get-a-snapshot/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-sdk-sandboxes-v2-beta-kill-a-command",
+      "title": "Vercel: kill a command",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/sandboxes-v2-beta/kill-a-command",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: kill a command",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-kill-a-command/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-kill-a-command/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-kill-a-command/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-kill-a-command/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-rest-api-sdk-sandboxes-v2-beta-list-commands",
       "title": "Vercel: list commands",
       "ecosystem": "Vercel",
@@ -47686,6 +49702,27 @@
       "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-write-files/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-write-files/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-write-files/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-sdk-security-put-firewall-configuration",
+      "title": "Vercel: put firewall configuration",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/security/put-firewall-configuration",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: put firewall configuration",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-security-put-firewall-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-security-put-firewall-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-security-put-firewall-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-security-put-firewall-configuration/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
