@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:50:39Z",
+  "generated_utc": "2026-05-06T04:50:53Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 2664,
+  "kit_count": 2725,
   "by_ecosystem": {
     "Anthropic": 287,
     "Auth0": 111,
@@ -29,26 +29,27 @@
     "LlamaIndex": 1,
     "mcp": 1,
     "MCP": 32,
+    "MongoDB": 3,
     "Next.js": 184,
     "OpenAI Agents SDK": 37,
     "OpenHands": 75,
     "Pinecone": 44,
     "Playwright": 16,
     "Postgres": 22,
-    "Prisma": 2,
-    "Redis": 4,
+    "Prisma": 36,
+    "Redis": 12,
     "repo-docs": 1,
     "Roo Code": 6,
     "api-schema": 1,
     "onboarding": 1,
     "Stripe": 4,
-    "Supabase": 17,
+    "Supabase": 33,
     "Vercel": 170,
     "Vercel AI SDK": 111,
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 2664
+    "ready_local_static_not_posted": 2725
   },
   "kits": [
     {
@@ -41359,6 +41360,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "mongodb-docs-v8-2-tutorial-configure-scram-client-authentication",
+      "title": "MongoDB: configure scram client authentication",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/v8.2/tutorial/configure-scram-client-authentication",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: configure scram client authentication",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-configure-scram-client-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-configure-scram-client-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-configure-scram-client-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-configure-scram-client-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-v8-2-tutorial-configure-x509-client-authentication",
+      "title": "MongoDB: configure x509 client authentication",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/v8.2/tutorial/configure-x509-client-authentication",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: configure x509 client authentication",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-configure-x509-client-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-configure-x509-client-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-configure-x509-client-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-configure-x509-client-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-v8-2-tutorial-deploy-replica-set-for-testing",
+      "title": "MongoDB: deploy replica set for testing",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/v8.2/tutorial/deploy-replica-set-for-testing",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: deploy replica set for testing",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-deploy-replica-set-for-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-deploy-replica-set-for-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-deploy-replica-set-for-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-v8-2-tutorial-deploy-replica-set-for-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-adapters-configuration",
       "title": "Next.js: configuration",
       "ecosystem": "Next.js",
@@ -49297,6 +49361,216 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "prisma-docs-guides-deployment-cloudflare-workers",
+      "title": "Prisma: cloudflare workers",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/guides/deployment/cloudflare-workers",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: cloudflare workers",
+      "manifest_path": "agentpress/material-kits/prisma-docs-guides-deployment-cloudflare-workers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-guides-deployment-cloudflare-workers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-guides-deployment-cloudflare-workers/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-guides-deployment-cloudflare-workers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-guides-integrations-vercel-deployment",
+      "title": "Prisma: vercel deployment",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/guides/integrations/vercel-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: vercel deployment",
+      "manifest_path": "agentpress/material-kits/prisma-docs-guides-integrations-vercel-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-guides-integrations-vercel-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-guides-integrations-vercel-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-guides-integrations-vercel-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-debugging-and-troubleshooting-handling-exc",
+      "title": "Prisma: handling exceptions and errors",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/debugging-and-troubleshooting/handling-exceptions-and-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: handling exceptions and errors",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-debugging-and-troubleshooting-handling-exc/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-debugging-and-troubleshooting-handling-exc/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-debugging-and-troubleshooting-handling-exc/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-debugging-and-troubleshooting-handling-exc/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-deployment-deploy-database-changes-with-pr",
+      "title": "Prisma: deploy database changes with prisma migrate",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/deployment/deploy-database-changes-with-prisma-migrate",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy database changes with prisma migrate",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-deploy-database-changes-with-pr/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-deploy-database-changes-with-pr/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-deploy-database-changes-with-pr/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-deploy-database-changes-with-pr/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-deployment-deploy-migrations-from-a-local",
+      "title": "Prisma: deploy migrations from a local environment",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/deployment/deploy-migrations-from-a-local-environment",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy migrations from a local environment",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-deploy-migrations-from-a-local/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-deploy-migrations-from-a-local/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-deploy-migrations-from-a-local/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-deploy-migrations-from-a-local/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-deployment-edge-deploy-to-cloudflare",
+      "title": "Prisma: deploy to cloudflare",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/deployment/edge/deploy-to-cloudflare",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to cloudflare",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-cloudflare/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-cloudflare/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-cloudflare/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-cloudflare/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-deployment-edge-deploy-to-deno-deploy",
+      "title": "Prisma: deploy to deno deploy",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/deployment/edge/deploy-to-deno-deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to deno deploy",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-deno-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-deno-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-deno-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-deno-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-deployment-edge-deploy-to-vercel",
+      "title": "Prisma: deploy to vercel",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/deployment/edge/deploy-to-vercel",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to vercel",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-vercel/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-vercel/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-vercel/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-deploy-to-vercel/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-deployment-edge-overview",
+      "title": "Prisma: overview",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/deployment/edge/overview",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: overview",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-overview/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-overview/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-overview/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-edge-overview/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-aws-lambda",
+      "title": "Prisma: deploy to aws lambda",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/deployment/serverless/deploy-to-aws-lambda",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to aws lambda",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-aws-lambda/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-aws-lambda/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-aws-lambda/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-aws-lambda/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-azure-func",
       "title": "Prisma: deploy to azure functions",
       "ecosystem": "Prisma",
@@ -49307,6 +49581,363 @@
       "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-azure-func/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-azure-func/llms.txt",
       "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-azure-func/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-netlify",
+      "title": "Prisma: deploy to netlify",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/deployment/serverless/deploy-to-netlify",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to netlify",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-netlify/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-netlify/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-netlify/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-netlify/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-vercel",
+      "title": "Prisma: deploy to vercel",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/deployment/serverless/deploy-to-vercel",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to vercel",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-vercel/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-vercel/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-vercel/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-serverless-deploy-to-vercel/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-deployment-traditional-deploy-to-sevalla",
+      "title": "Prisma: deploy to sevalla",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/deployment/traditional/deploy-to-sevalla",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to sevalla",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-traditional-deploy-to-sevalla/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-traditional-deploy-to-sevalla/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-traditional-deploy-to-sevalla/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-deployment-traditional-deploy-to-sevalla/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-setup-and-configuration-database-polyfills",
+      "title": "Prisma: database polyfills",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/database-polyfills",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: database polyfills",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-database-polyfills/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-database-polyfills/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-database-polyfills/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-database-polyfills/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-setup-and-configuration-databases-connecti",
+      "title": "Prisma: pgbouncer",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections/pgbouncer",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: pgbouncer",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-databases-connecti/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-databases-connecti/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-databases-connecti/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-databases-connecti/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-setup-and-configuration-error-formatting",
+      "title": "Prisma: error formatting",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/error-formatting",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: error formatting",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-error-formatting/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-error-formatting/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-error-formatting/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-setup-and-configuration-error-formatting/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-client-testing-integration-testing",
+      "title": "Prisma: integration testing",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-client/testing/integration-testing",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: integration testing",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-testing-integration-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-testing-integration-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-testing-integration-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-testing-integration-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-debugging-and-troubleshooting-handling",
+      "title": "Prisma: handling exceptions and errors",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/debugging-and-troubleshooting/handling-exceptions-and-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: handling exceptions and errors",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-debugging-and-troubleshooting-handling/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-debugging-and-troubleshooting-handling/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-debugging-and-troubleshooting-handling/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-debugging-and-troubleshooting-handling/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-deploy-database-changes-with",
+      "title": "Prisma: deploy database changes with prisma migrate",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/deploy-database-changes-with-prisma-migrate",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy database changes with prisma migrate",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-deploy-database-changes-with/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-deploy-database-changes-with/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-deploy-database-changes-with/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-deploy-database-changes-with/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-deploy-migrations-from-a-loc",
+      "title": "Prisma: deploy migrations from a local environment",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/deploy-migrations-from-a-local-environment",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy migrations from a local environment",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-deploy-migrations-from-a-loc/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-deploy-migrations-from-a-loc/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-deploy-migrations-from-a-loc/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-deploy-migrations-from-a-loc/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-edge",
+      "title": "Prisma: edge",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/edge",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: edge",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-cloudflare",
+      "title": "Prisma: deploy to cloudflare",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/edge/deploy-to-cloudflare",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to cloudflare",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-cloudflare/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-cloudflare/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-cloudflare/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-cloudflare/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-deno-deploy",
+      "title": "Prisma: deploy to deno deploy",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/edge/deploy-to-deno-deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to deno deploy",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-deno-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-deno-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-deno-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-deno-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-vercel",
+      "title": "Prisma: deploy to vercel",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/edge/deploy-to-vercel",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to vercel",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-vercel/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-vercel/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-vercel/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-deploy-to-vercel/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-edge-overview",
+      "title": "Prisma: overview",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/edge/overview",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: overview",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-overview/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-overview/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-overview/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-edge-overview/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-serverless",
+      "title": "Prisma: serverless",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/serverless",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: serverless",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-aws-lam",
+      "title": "Prisma: deploy to aws lambda",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/serverless/deploy-to-aws-lambda",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to aws lambda",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-aws-lam/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-aws-lam/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-aws-lam/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-aws-lam/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -49339,6 +49970,237 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-netlify",
+      "title": "Prisma: deploy to netlify",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/serverless/deploy-to-netlify",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to netlify",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-netlify/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-netlify/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-netlify/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-netlify/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-vercel",
+      "title": "Prisma: deploy to vercel",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/serverless/deploy-to-vercel",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to vercel",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-vercel/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-vercel/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-vercel/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-serverless-deploy-to-vercel/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-deployment-traditional-deploy-to-sevall",
+      "title": "Prisma: deploy to sevalla",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/deployment/traditional/deploy-to-sevalla",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: deploy to sevalla",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-traditional-deploy-to-sevall/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-traditional-deploy-to-sevall/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-traditional-deploy-to-sevall/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-deployment-traditional-deploy-to-sevall/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-setup-and-configuration-database-polyfi",
+      "title": "Prisma: database polyfills",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/setup-and-configuration/database-polyfills",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: database polyfills",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-database-polyfi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-database-polyfi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-database-polyfi/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-database-polyfi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-setup-and-configuration-databases-conne",
+      "title": "Prisma: pgbouncer",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/setup-and-configuration/databases-connections/pgbouncer",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: pgbouncer",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-databases-conne/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-databases-conne/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-databases-conne/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-databases-conne/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-setup-and-configuration-error-formattin",
+      "title": "Prisma: error formatting",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/setup-and-configuration/error-formatting",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: error formatting",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-error-formattin/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-error-formattin/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-error-formattin/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-setup-and-configuration-error-formattin/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-v6-prisma-client-testing-integration-testing",
+      "title": "Prisma: integration testing",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-client/testing/integration-testing",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: integration testing",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-testing-integration-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-testing-integration-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-testing-integration-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-client-testing-integration-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-develop-ai-langcache-api-examples",
+      "title": "Redis: api examples",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/develop/ai/langcache/api-examples",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: api examples",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-develop-ai-langcache-api-examples/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-develop-ai-langcache-api-examples/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-develop-ai-langcache-api-examples/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-develop-ai-langcache-api-examples/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-develop-ai-redisvl-user-guide-how-to-guides-embeddings",
+      "title": "Redis: embeddings cache",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/develop/ai/redisvl/user_guide/how_to_guides/embeddings_cache",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: embeddings cache",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-develop-ai-redisvl-user-guide-how-to-guides-embeddings/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-develop-ai-redisvl-user-guide-how-to-guides-embeddings/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-develop-ai-redisvl-user-guide-how-to-guides-embeddings/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-develop-ai-redisvl-user-guide-how-to-guides-embeddings/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-develop-clients-hiredis-int-examples-libevent-integrat",
+      "title": "Redis: libevent integration",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/develop/clients/hiredis/int-examples/libevent-integration",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: libevent integration",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-develop-clients-hiredis-int-examples-libevent-integrat/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-develop-clients-hiredis-int-examples-libevent-integrat/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-develop-clients-hiredis-int-examples-libevent-integrat/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-develop-clients-hiredis-int-examples-libevent-integrat/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-develop-clients-hiredis-int-examples-qt-integration",
+      "title": "Redis: qt integration",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/develop/clients/hiredis/int-examples/qt-integration",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: qt integration",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-develop-clients-hiredis-int-examples-qt-integration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-develop-clients-hiredis-int-examples-qt-integration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-develop-clients-hiredis-int-examples-qt-integration/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-develop-clients-hiredis-int-examples-qt-integration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-integrate-redis-data-integration-data-pipelines-transf",
       "title": "Redis: redis stream example",
       "ecosystem": "Redis",
@@ -49349,6 +50211,69 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-redis-data-integration-data-pipelines-transf/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-redis-data-integration-data-pipelines-transf/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-redis-data-integration-data-pipelines-transf/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-examples-create-database",
+      "title": "Redis: create database",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/examples/create-database",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: create database",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-create-database/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-create-database/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-create-database/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-create-database/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-databases-configuration-data-eviction-polic",
+      "title": "Redis: data eviction policies",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/databases/configuration/data-eviction-policies",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: data eviction policies",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-data-eviction-polic/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-data-eviction-polic/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-data-eviction-polic/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-data-eviction-polic/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-databases-configuration-data-persistence",
+      "title": "Redis: data persistence",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/databases/configuration/data-persistence",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: data persistence",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-data-persistence/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-data-persistence/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-data-persistence/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-data-persistence/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -49391,6 +50316,27 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-crdb-health-rep/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-crdb-health-rep/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-crdb-health-rep/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-objects-db-conns-auditi",
+      "title": "Redis: db conns auditing config",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/objects/db-conns-auditing-config",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: db conns auditing config",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-db-conns-auditi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-db-conns-auditi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-db-conns-auditi/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-db-conns-auditi/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -49696,6 +50642,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "supabase-docs-guides-auth-debugging-error-codes",
+      "title": "Supabase: error codes",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/debugging/error-codes",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: error codes",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-debugging-error-codes/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-debugging-error-codes/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-debugging-error-codes/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-debugging-error-codes/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-general-configuration",
+      "title": "Supabase: general configuration",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/general-configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: general configuration",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-general-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-general-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-general-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-general-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-oauth-server",
+      "title": "Supabase: oauth server",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/oauth-server",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: oauth server",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-oauth-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-oauth-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-oauth-server/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-oauth-server/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "supabase-docs-guides-auth-oauth-server-getting-started",
       "title": "Supabase: getting started",
       "ecosystem": "Supabase",
@@ -49759,6 +50768,132 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "supabase-docs-guides-auth-oauth-server-token-security",
+      "title": "Supabase: token security",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/oauth-server/token-security",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: token security",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-oauth-server-token-security/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-oauth-server-token-security/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-oauth-server-token-security/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-oauth-server-token-security/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-quickstarts-with-expo-react-native-social-auth",
+      "title": "Supabase: with expo react native social auth",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/quickstarts/with-expo-react-native-social-auth",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: with expo react native social auth",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-with-expo-react-native-social-auth/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-with-expo-react-native-social-auth/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-with-expo-react-native-social-auth/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-with-expo-react-native-social-auth/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-server-side-creating-a-client",
+      "title": "Supabase: creating a client",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/server-side/creating-a-client",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: creating a client",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-server-side-creating-a-client/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-server-side-creating-a-client/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-server-side-creating-a-client/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-server-side-creating-a-client/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-sessions-implicit-flow",
+      "title": "Supabase: implicit flow",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/sessions/implicit-flow",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: implicit flow",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-sessions-implicit-flow/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-sessions-implicit-flow/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-sessions-implicit-flow/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-sessions-implicit-flow/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-database-postgres-configuration",
+      "title": "Supabase: configuration",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/database/postgres/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: configuration",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-database-postgres-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-database-postgres-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-database-postgres-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-database-postgres-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-database-testing",
+      "title": "Supabase: testing",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/database/testing",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: testing",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-database-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-database-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-database-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-database-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "supabase-docs-guides-deployment-branching-configuration",
       "title": "Supabase: configuration",
       "ecosystem": "Supabase",
@@ -49769,6 +50904,69 @@
       "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-configuration/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment-branching-configuration/llms.txt",
       "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment-branching-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-deployment-branching-github-integration",
+      "title": "Supabase: github integration",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/deployment/branching/github-integration",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: github integration",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-github-integration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-github-integration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment-branching-github-integration/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment-branching-github-integration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-deployment-branching-integrations",
+      "title": "Supabase: integrations",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/deployment/branching/integrations",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: integrations",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-integrations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-integrations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment-branching-integrations/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment-branching-integrations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-deployment-branching-troubleshooting",
+      "title": "Supabase: troubleshooting",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/deployment/branching/troubleshooting",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: troubleshooting",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-troubleshooting/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-troubleshooting/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment-branching-troubleshooting/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment-branching-troubleshooting/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -49864,6 +51062,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "supabase-docs-guides-functions-function-configuration",
+      "title": "Supabase: function configuration",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/functions/function-configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: function configuration",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-functions-function-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-functions-function-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-functions-function-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-functions-function-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "supabase-docs-guides-integrations-build-a-supabase-oauth-integration",
       "title": "Supabase: build a supabase oauth integration",
       "ecosystem": "Supabase",
@@ -49874,6 +51093,48 @@
       "receipt_path": "agentpress/material-kits/supabase-docs-guides-integrations-build-a-supabase-oauth-integration/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/supabase-docs-guides-integrations-build-a-supabase-oauth-integration/llms.txt",
       "run_guide": "agentpress/material-kits/supabase-docs-guides-integrations-build-a-supabase-oauth-integration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-platform-sso-testing-best-practices",
+      "title": "Supabase: testing best practices",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/platform/sso/testing-best-practices",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: testing best practices",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-platform-sso-testing-best-practices/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-platform-sso-testing-best-practices/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-platform-sso-testing-best-practices/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-platform-sso-testing-best-practices/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-storage-debugging-error-codes",
+      "title": "Supabase: error codes",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/storage/debugging/error-codes",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: error codes",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-storage-debugging-error-codes/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-storage-debugging-error-codes/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-storage-debugging-error-codes/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-storage-debugging-error-codes/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -50042,6 +51303,27 @@
       "receipt_path": "agentpress/material-kits/supabase-docs-guides-troubleshooting-unable-to-deploy-edge-function/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/supabase-docs-guides-troubleshooting-unable-to-deploy-edge-function/llms.txt",
       "run_guide": "agentpress/material-kits/supabase-docs-guides-troubleshooting-unable-to-deploy-edge-function/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-troubleshooting-webhook-debugging-guide-m8sk47",
+      "title": "Supabase: webhook debugging guide M8sk47",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/troubleshooting/webhook-debugging-guide-M8sk47",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: webhook debugging guide M8sk47",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-troubleshooting-webhook-debugging-guide-m8sk47/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-troubleshooting-webhook-debugging-guide-m8sk47/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-troubleshooting-webhook-debugging-guide-m8sk47/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-troubleshooting-webhook-debugging-guide-m8sk47/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
