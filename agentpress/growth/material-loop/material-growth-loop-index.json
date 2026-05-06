@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:36:11Z",
+  "generated_utc": "2026-05-06T04:36:23Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 1254,
+  "kit_count": 1293,
   "by_ecosystem": {
     "Anthropic": 287,
     "Auth0": 5,
@@ -22,7 +22,7 @@
     "FastAPI": 1,
     "GCP": 16,
     "Haystack": 175,
-    "Kubernetes": 20,
+    "Kubernetes": 59,
     "LangGraph": 2,
     "LiteLLM": 201,
     "LlamaIndex": 1,
@@ -41,7 +41,7 @@
     "Weaviate": 1
   },
   "by_status": {
-    "ready_local_static_not_posted": 1254
+    "ready_local_static_not_posted": 1293
   },
   "kits": [
     {
@@ -15228,6 +15228,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "kubernetes-docs-reference-config-api-apiserver-admission-v1",
+      "title": "Kubernetes: apiserver admission.v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/config-api/apiserver-admission.v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: apiserver admission.v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-admission-v1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-admission-v1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-admission-v1/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-admission-v1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-config-api-apiserver-audit-v1",
+      "title": "Kubernetes: apiserver audit.v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/config-api/apiserver-audit.v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: apiserver audit.v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-audit-v1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-audit-v1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-audit-v1/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-audit-v1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-config-api-apiserver-config-v1",
+      "title": "Kubernetes: apiserver config.v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/config-api/apiserver-config.v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: apiserver config.v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-config-v1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-config-v1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-config-v1/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-config-v1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "kubernetes-docs-reference-config-api-apiserver-config-v1alpha1",
       "title": "Kubernetes: apiserver config.v1alpha1",
       "ecosystem": "Kubernetes",
@@ -15238,6 +15301,48 @@
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-config-v1alpha1/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-config-v1alpha1/llms.txt",
       "run_guide": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-config-v1alpha1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-config-api-apiserver-config-v1beta1",
+      "title": "Kubernetes: apiserver config.v1beta1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/config-api/apiserver-config.v1beta1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: apiserver config.v1beta1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-config-v1beta1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-config-v1beta1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-config-v1beta1/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-config-v1beta1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-config-api-apiserver-eventratelimit-v1alpha1",
+      "title": "Kubernetes: apiserver eventratelimit.v1alpha1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: apiserver eventratelimit.v1alpha1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-eventratelimit-v1alpha1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-eventratelimit-v1alpha1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-eventratelimit-v1alpha1/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-eventratelimit-v1alpha1/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -15312,6 +15417,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "kubernetes-docs-reference-config-api-kube-proxy-config-v1alpha1",
+      "title": "Kubernetes: kube proxy config.v1alpha1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/config-api/kube-proxy-config.v1alpha1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kube proxy config.v1alpha1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-kube-proxy-config-v1alpha1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-kube-proxy-config-v1alpha1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-config-api-kube-proxy-config-v1alpha1/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-config-api-kube-proxy-config-v1alpha1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-config-api-kubelet-credentialprovider-v1",
+      "title": "Kubernetes: kubelet credentialprovider.v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/config-api/kubelet-credentialprovider.v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubelet credentialprovider.v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-kubelet-credentialprovider-v1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-kubelet-credentialprovider-v1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-config-api-kubelet-credentialprovider-v1/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-config-api-kubelet-credentialprovider-v1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-kubernetes-api-config-and-storage-resources",
+      "title": "Kubernetes: config and storage resources",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: config and storage resources",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-cs",
       "title": "Kubernetes: csi storage capacity v1",
       "ecosystem": "Kubernetes",
@@ -15333,6 +15501,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-pe",
+      "title": "Kubernetes: persistent volume v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: persistent volume v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-pe/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-pe/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-pe/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-pe/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-se",
+      "title": "Kubernetes: secret v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: secret v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-se/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-se/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-se/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-se/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-st",
       "title": "Kubernetes: storage version migration v1beta1",
       "ecosystem": "Kubernetes",
@@ -15343,6 +15553,27 @@
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-st/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-st/llms.txt",
       "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-st/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-vo",
+      "title": "Kubernetes: volume",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/volume/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: volume",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-vo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-vo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-vo/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-vo/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -15417,6 +15648,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "kubernetes-docs-reference-kubernetes-api-policy-resources-priority-level",
+      "title": "Kubernetes: priority level configuration v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/priority-level-configuration-v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: priority level configuration v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-policy-resources-priority-level/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-policy-resources-priority-level/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-policy-resources-priority-level/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-policy-resources-priority-level/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm",
+      "title": "Kubernetes: kubeadm",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm",
+      "title": "Kubernetes: kubeadm",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-certs",
+      "title": "Kubernetes: kubeadm certs",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_certs/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm certs",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-certs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-certs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-certs/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-certs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-certs-ku",
       "title": "Kubernetes: kubeadm certs renew apiserver kubelet client",
       "ecosystem": "Kubernetes",
@@ -15427,6 +15742,27 @@
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-certs-ku/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-certs-ku/llms.txt",
       "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-certs-ku/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-completi",
+      "title": "Kubernetes: kubeadm completion",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_completion/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm completion",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-completi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-completi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-completi/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-completi/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -15480,6 +15816,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init",
+      "title": "Kubernetes: kubeadm init",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_init/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm init",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init-kub",
       "title": "Kubernetes: kubeadm init phase certs apiserver kubelet client",
       "ecosystem": "Kubernetes",
@@ -15490,6 +15847,27 @@
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init-kub/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init-kub/llms.txt",
       "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init-kub/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-join",
+      "title": "Kubernetes: kubeadm join",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_join/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm join",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-join/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-join/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-join/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-join/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -15543,16 +15921,163 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
-      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade",
-      "title": "Kubernetes: kubeadm upgrade apply",
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-reset",
+      "title": "Kubernetes: kubeadm reset",
       "ecosystem": "Kubernetes",
       "status": "ready_local_static_not_posted",
-      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade/kubeadm_upgrade_apply/",
-      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm upgrade apply",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_reset/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm reset",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-reset/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-reset/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-reset/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-reset/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-reset-ku",
+      "title": "Kubernetes: kubeadm reset phase cleanup node",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_reset/kubeadm_reset_phase_cleanup-node/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm reset phase cleanup node",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-reset-ku/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-reset-ku/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-reset-ku/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-reset-ku/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-token-ku",
+      "title": "Kubernetes: kubeadm token list",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_token/kubeadm_token_list/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm token list",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-token-ku/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-token-ku/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-token-ku/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-token-ku/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade",
+      "title": "Kubernetes: kubeadm upgrade node",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade/kubeadm_upgrade_node/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm upgrade node",
       "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/material-manifest.json",
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/llms.txt",
       "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-version",
+      "title": "Kubernetes: kubeadm version",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_version/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm version",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-version/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-version/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-version/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-version/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-readme",
+      "title": "Kubernetes: readme",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/readme/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: readme",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-readme/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-readme/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-readme/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-readme/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-implementation-details",
+      "title": "Kubernetes: implementation details",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/implementation-details/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: implementation details",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-implementation-details/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-implementation-details/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-implementation-details/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-implementation-details/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-certs",
+      "title": "Kubernetes: kubeadm certs",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-certs/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm certs",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-certs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-certs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-certs/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-certs/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -15585,6 +16110,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-init",
+      "title": "Kubernetes: kubeadm init",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm init",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-init/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-init/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-init/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-init/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-init-phase",
+      "title": "Kubernetes: kubeadm init phase",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm init phase",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-init-phase/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-init-phase/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-init-phase/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-init-phase/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-join",
+      "title": "Kubernetes: kubeadm join",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm join",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-join/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-join/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-join/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-join/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-join-phase",
+      "title": "Kubernetes: kubeadm join phase",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join-phase/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm join phase",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-join-phase/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-join-phase/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-join-phase/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-join-phase/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig",
       "title": "Kubernetes: kubeadm kubeconfig",
       "ecosystem": "Kubernetes",
@@ -15595,6 +16204,216 @@
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig/llms.txt",
       "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-reset-phase",
+      "title": "Kubernetes: kubeadm reset phase",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-reset-phase/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm reset phase",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-reset-phase/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-reset-phase/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-reset-phase/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-reset-phase/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-token",
+      "title": "Kubernetes: kubeadm token",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-token/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm token",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-token/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-token/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-token/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-token/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-upgrade",
+      "title": "Kubernetes: kubeadm upgrade",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm upgrade",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-upgrade/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-upgrade/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-upgrade/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-upgrade/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-upgrade-phase",
+      "title": "Kubernetes: kubeadm upgrade phase",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-upgrade-phase/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm upgrade phase",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-upgrade-phase/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-upgrade-phase/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-upgrade-phase/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-upgrade-phase/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-version",
+      "title": "Kubernetes: kubeadm version",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-version/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm version",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-version/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-version/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-version/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-version/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-setup-production-environment-tools-kubeadm-install-kubea",
+      "title": "Kubernetes: install kubeadm",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: install kubeadm",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-install-kubea/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-install-kubea/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-install-kubea/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-install-kubea/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-setup-production-environment-tools-kubeadm-kubelet-integ",
+      "title": "Kubernetes: kubelet integration",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/kubelet-integration/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubelet integration",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-kubelet-integ/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-kubelet-integ/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-kubelet-integ/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-kubelet-integ/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-setup-production-environment-tools-kubeadm-troubleshooti",
+      "title": "Kubernetes: troubleshooting kubeadm",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: troubleshooting kubeadm",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-troubleshooti/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-troubleshooti/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-troubleshooti/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-setup-production-environment-tools-kubeadm-troubleshooti/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-tasks-administer-cluster-migrating-from-dockershim-troub",
+      "title": "Kubernetes: troubleshooting cni plugin related errors",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: troubleshooting cni plugin related errors",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-tasks-administer-cluster-migrating-from-dockershim-troub/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-tasks-administer-cluster-migrating-from-dockershim-troub/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-tasks-administer-cluster-migrating-from-dockershim-troub/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-tasks-administer-cluster-migrating-from-dockershim-troub/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-tutorials-configuration-configure-persistent-volume-stor",
+      "title": "Kubernetes: configure persistent volume storage",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/tutorials/configuration/configure-persistent-volume-storage/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: configure persistent volume storage",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-tutorials-configuration-configure-persistent-volume-stor/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-tutorials-configuration-configure-persistent-volume-stor/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-tutorials-configuration-configure-persistent-volume-stor/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-tutorials-configuration-configure-persistent-volume-stor/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
