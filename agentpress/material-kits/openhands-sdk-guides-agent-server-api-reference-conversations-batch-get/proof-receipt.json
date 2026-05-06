@@ -1,9 +1,9 @@
 {
   "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
-  "claim": "Material kit prepared for OpenHands painpoint: agents need compact AgentPress wrapper for OpenHands runtime/plugin docs: batch get conversations",
+  "claim": "Material kit prepared for OpenHands painpoint: agents frequently need compact, citation-ready context for runtime/plugin/sandbox docs: batch get conversations",
   "target_url": "https://docs.openhands.dev/sdk/guides/agent-server/api-reference/conversations/batch-get-conversations",
   "commands_to_verify": [
-    "python3 scripts/agentpress.py discovery-bridge queue --json",
+    "python3 scripts/agentpress.py context-budget . --json --strict",
     "python3 -m json.tool material-manifest.json",
     "python3 -m json.tool proof-receipt.json"
   ],

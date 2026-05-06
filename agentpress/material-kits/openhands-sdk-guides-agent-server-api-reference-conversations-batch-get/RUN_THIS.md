@@ -5,7 +5,7 @@
 3. Run:
 
 ```bash
-python3 scripts/agentpress.py discovery-bridge queue --json
+python3 scripts/agentpress.py context-budget . --json --strict
 ```
 
 4. Compare the output with `proof-receipt.json`.
