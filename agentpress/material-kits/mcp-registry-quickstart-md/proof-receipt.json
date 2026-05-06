@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+  "claim": "Material kit prepared for MCP painpoint: agents need compact AgentPress wrapper for MCP server/tool setup docs: quickstart.md",
+  "target_url": "https://modelcontextprotocol.io/registry/quickstart.md",
+  "commands_to_verify": [
+    "python3 scripts/agentpress.py mcp-config-doctor --json",
+    "python3 -m json.tool material-manifest.json",
+    "python3 -m json.tool proof-receipt.json"
+  ],
+  "evidence_files": [
+    "llms.txt",
+    "material-manifest.json",
+    "RUN_THIS.md"
+  ],
+  "external_effects": [],
+  "status": "prepared_not_posted"
+}
