@@ -11,4 +11,4 @@ python3 scripts/agentpress.py context-budget . --json --strict
 4. Compare the output with `proof-receipt.json`.
 5. If using this for outreach, get human approval for the exact target and draft first.
 
-Target: https://grafana.com/docs/agent/latest/flow/reference/components/prometheus.exporter.memcached
+Target: https://grafana.com/docs/agent/latest/flow/reference/components/prometheus.exporter.apache
