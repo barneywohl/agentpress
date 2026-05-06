@@ -1,14 +1,15 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T05:00:22Z",
+  "generated_utc": "2026-05-06T05:00:40Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 4734,
+  "kit_count": 4818,
   "by_ecosystem": {
     "Algolia": 2,
     "Anthropic": 387,
+    "Astro": 1,
     "Auth0": 189,
     "AWS": 178,
     "Bun": 208,
@@ -22,9 +23,11 @@
     "Docker": 171,
     "Drizzle": 5,
     "DSPy": 9,
+    "Electron": 1,
     "FastAPI": 12,
     "GCP": 185,
-    "Grafana": 13,
+    "Gradle": 1,
+    "Grafana": 94,
     "Haystack": 211,
     "Kubernetes": 77,
     "LangGraph": 2,
@@ -59,7 +62,7 @@
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 4734
+    "ready_local_static_not_posted": 4818
   },
   "kits": [
     {
@@ -8223,6 +8226,27 @@
       "run_guide": "agentpress/material-kits/anthropic-tool-use-docs/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-reference-errors-unsupported-config-transform-error",
+      "title": "Astro: unsupported config transform error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/reference/errors/unsupported-config-transform-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: unsupported config transform error",
+      "manifest_path": "agentpress/material-kits/astro-hi-reference-errors-unsupported-config-transform-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-reference-errors-unsupported-config-transform-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-reference-errors-unsupported-config-transform-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-reference-errors-unsupported-config-transform-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
         "python3 -m json.tool proof-receipt.json"
       ],
@@ -35973,6 +35997,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "electron-docs-latest-tutorial-devtools-extension",
+      "title": "Electron: devtools extension",
+      "ecosystem": "Electron",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://electronjs.org/docs/latest/tutorial/devtools-extension",
+      "painpoint": "agents frequently need compact, citation-ready context for desktop app/security/build docs agents need: devtools extension",
+      "manifest_path": "agentpress/material-kits/electron-docs-latest-tutorial-devtools-extension/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/electron-docs-latest-tutorial-devtools-extension/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/electron-docs-latest-tutorial-devtools-extension/llms.txt",
+      "run_guide": "agentpress/material-kits/electron-docs-latest-tutorial-devtools-extension/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "fastapi-advanced-testing-dependencies",
       "title": "FastAPI: testing dependencies",
       "ecosystem": "FastAPI",
@@ -40110,6 +40155,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "gradle-current-javadoc-org-gradle-api-plugins-objectconfigurationaction",
+      "title": "Gradle: ObjectConfigurationAction.html",
+      "ecosystem": "Gradle",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.gradle.org/current/javadoc/org/gradle/api/plugins/ObjectConfigurationAction.html",
+      "painpoint": "agents frequently need compact, citation-ready context for build/dependency docs agents need: ObjectConfigurationAction.html",
+      "manifest_path": "agentpress/material-kits/gradle-current-javadoc-org-gradle-api-plugins-objectconfigurationaction/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gradle-current-javadoc-org-gradle-api-plugins-objectconfigurationaction/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gradle-current-javadoc-org-gradle-api-plugins-objectconfigurationaction/llms.txt",
+      "run_guide": "agentpress/material-kits/gradle-current-javadoc-org-gradle-api-plugins-objectconfigurationaction/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --error \"common implementation failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-developers-plugin-tools-reference-ui-extensions-reference-extens",
+      "title": "Grafana: extensions api deprecated",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/developers/plugin-tools/reference/ui-extensions-reference/extensions-api-deprecated",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: extensions api deprecated",
+      "manifest_path": "agentpress/material-kits/grafana-developers-plugin-tools-reference-ui-extensions-reference-extens/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-developers-plugin-tools-reference-ui-extensions-reference-extens/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-developers-plugin-tools-reference-ui-extensions-reference-extens/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-developers-plugin-tools-reference-ui-extensions-reference-extens/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "grafana-docs-agent-latest-flow-reference-cli-tools",
       "title": "Grafana: tools",
       "ecosystem": "Grafana",
@@ -40120,6 +40207,132 @@
       "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-cli-tools/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-cli-tools/llms.txt",
       "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-cli-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-discovery-puppetdb",
+      "title": "Grafana: discovery.puppetdb",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/discovery.puppetdb",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: discovery.puppetdb",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-discovery-puppetdb/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-discovery-puppetdb/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-discovery-puppetdb/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-discovery-puppetdb/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-discovery-serverset",
+      "title": "Grafana: discovery.serverset",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/discovery.serverset",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: discovery.serverset",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-discovery-serverset/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-discovery-serverset/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-discovery-serverset/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-discovery-serverset/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-loki-source-api",
+      "title": "Grafana: loki.source.api",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/loki.source.api",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: loki.source.api",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-loki-source-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-loki-source-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-loki-source-api/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-loki-source-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-otelcol-auth-basic",
+      "title": "Grafana: otelcol.auth.basic",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.auth.basic",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: otelcol.auth.basic",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-basic/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-basic/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-basic/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-basic/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-otelcol-auth-bearer",
+      "title": "Grafana: otelcol.auth.bearer",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.auth.bearer",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: otelcol.auth.bearer",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-bearer/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-bearer/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-bearer/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-bearer/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-otelcol-auth-headers",
+      "title": "Grafana: otelcol.auth.headers",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.auth.headers",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: otelcol.auth.headers",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-headers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-headers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-headers/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-headers/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -40152,6 +40365,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-otelcol-auth-sigv4",
+      "title": "Grafana: otelcol.auth.sigv4",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.auth.sigv4",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: otelcol.auth.sigv4",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-sigv4/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-sigv4/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-sigv4/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-sigv4/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-otelcol-exporter-deb",
+      "title": "Grafana: otelcol.exporter.debug",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.exporter.debug",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: otelcol.exporter.debug",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-exporter-deb/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-exporter-deb/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-exporter-deb/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-exporter-deb/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "grafana-docs-agent-latest-flow-reference-components-otelcol-exporter-loa",
       "title": "Grafana: otelcol.exporter.loadbalancing",
       "ecosystem": "Grafana",
@@ -40173,6 +40428,342 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-otelcol-extension-ja",
+      "title": "Grafana: otelcol.extension.jaeger remote sampling",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.extension.jaeger_remote_sampling",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: otelcol.extension.jaeger remote sampling",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-extension-ja/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-extension-ja/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-extension-ja/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-extension-ja/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-otelcol-processor-me",
+      "title": "Grafana: otelcol.processor.memory limiter",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.processor.memory_limiter",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: otelcol.processor.memory limiter",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-processor-me/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-processor-me/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-processor-me/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-processor-me/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-otelcol-processor-tr",
+      "title": "Grafana: otelcol.processor.transform",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.processor.transform",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: otelcol.processor.transform",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-processor-tr/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-processor-tr/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-processor-tr/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-processor-tr/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-prometheus-exporter",
+      "title": "Grafana: prometheus.exporter.memcached",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/prometheus.exporter.memcached",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: prometheus.exporter.memcached",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-prometheus-exporter/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-prometheus-exporter/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-prometheus-exporter/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-prometheus-exporter/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-remote-kubernetes-co",
+      "title": "Grafana: remote.kubernetes.configmap",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/remote.kubernetes.configmap",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: remote.kubernetes.configmap",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-remote-kubernetes-co/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-remote-kubernetes-co/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-remote-kubernetes-co/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-remote-kubernetes-co/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks",
+      "title": "Grafana: config blocks",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: config blocks",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-argument",
+      "title": "Grafana: argument",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks/argument",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: argument",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-argument/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-argument/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-argument/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-argument/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-declare",
+      "title": "Grafana: declare",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks/declare",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: declare",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-declare/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-declare/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-declare/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-declare/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-export",
+      "title": "Grafana: export",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks/export",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: export",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-export/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-export/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-export/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-export/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-http",
+      "title": "Grafana: http",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks/http",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: http",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-http/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-http/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-http/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-http/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-import-file",
+      "title": "Grafana: import.file",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks/import.file",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: import.file",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-file/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-file/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-file/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-file/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-import-git",
+      "title": "Grafana: import.git",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks/import.git",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: import.git",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-git/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-git/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-git/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-git/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-import-http",
+      "title": "Grafana: import.http",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks/import.http",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: import.http",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-http/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-http/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-http/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-http/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-import-string",
+      "title": "Grafana: import.string",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks/import.string",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: import.string",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-string/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-string/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-string/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-import-string/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-logging",
+      "title": "Grafana: logging",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks/logging",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: logging",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-logging/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-logging/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-logging/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-logging/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-remotecfg",
+      "title": "Grafana: remotecfg",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks/remotecfg",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: remotecfg",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-remotecfg/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-remotecfg/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-remotecfg/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-remotecfg/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-tracing",
       "title": "Grafana: tracing",
       "ecosystem": "Grafana",
@@ -40183,6 +40774,405 @@
       "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-tracing/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-tracing/llms.txt",
       "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-tracing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-stdlib-format",
+      "title": "Grafana: format",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/stdlib/format",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: format",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-stdlib-format/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-stdlib-format/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-stdlib-format/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-stdlib-format/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-tutorials-flow-by-example",
+      "title": "Grafana: flow by example",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/tutorials/flow-by-example",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: flow by example",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-tutorials-flow-by-example-first-component",
+      "title": "Grafana: first components and stdlib",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/tutorials/flow-by-example/first-components-and-stdlib",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: first components and stdlib",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-first-component/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-first-component/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-first-component/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-first-component/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-tutorials-flow-by-example-get-started",
+      "title": "Grafana: get started",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/tutorials/flow-by-example/get-started",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: get started",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-get-started/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-get-started/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-get-started/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-get-started/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-tutorials-flow-by-example-logs-and-relabe",
+      "title": "Grafana: logs and relabeling basics",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/tutorials/flow-by-example/logs-and-relabeling-basics",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: logs and relabeling basics",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-logs-and-relabe/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-logs-and-relabe/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-logs-and-relabe/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-logs-and-relabe/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-tutorials-flow-by-example-processing-logs",
+      "title": "Grafana: processing logs",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/tutorials/flow-by-example/processing-logs",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: processing logs",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-processing-logs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-processing-logs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-processing-logs/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-tutorials-flow-by-example-processing-logs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations",
+      "title": "Grafana: integrations",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: integrations",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-apache-expor",
+      "title": "Grafana: apache exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/apache-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: apache exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-apache-expor/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-apache-expor/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-apache-expor/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-apache-expor/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-azure-export",
+      "title": "Grafana: azure exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/azure-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: azure exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-azure-export/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-azure-export/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-azure-export/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-azure-export/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-blackbox-con",
+      "title": "Grafana: blackbox config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/blackbox-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: blackbox config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-blackbox-con/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-blackbox-con/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-blackbox-con/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-blackbox-con/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-cadvisor-con",
+      "title": "Grafana: cadvisor config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/cadvisor-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: cadvisor config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-cadvisor-con/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-cadvisor-con/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-cadvisor-con/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-cadvisor-con/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-cloudwatch-e",
+      "title": "Grafana: cloudwatch exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/cloudwatch-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: cloudwatch exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-cloudwatch-e/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-cloudwatch-e/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-cloudwatch-e/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-cloudwatch-e/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-consul-expor",
+      "title": "Grafana: consul exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/consul-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: consul exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-consul-expor/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-consul-expor/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-consul-expor/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-consul-expor/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-dnsmasq-expo",
+      "title": "Grafana: dnsmasq exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/dnsmasq-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: dnsmasq exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-dnsmasq-expo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-dnsmasq-expo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-dnsmasq-expo/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-dnsmasq-expo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-elasticsearc",
+      "title": "Grafana: elasticsearch exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/elasticsearch-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: elasticsearch exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-elasticsearc/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-elasticsearc/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-elasticsearc/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-elasticsearc/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-gcp-exporter",
+      "title": "Grafana: gcp exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/gcp-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: gcp exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-gcp-exporter/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-gcp-exporter/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-gcp-exporter/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-gcp-exporter/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-github-expor",
+      "title": "Grafana: github exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/github-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: github exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-github-expor/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-github-expor/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-github-expor/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-github-expor/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-integrations",
+      "title": "Grafana: vsphere config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/integrations-next/vsphere-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: vsphere config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-integrations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-integrations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-integrations/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-integrations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-kafka-export",
+      "title": "Grafana: kafka exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/kafka-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: kafka exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-kafka-export/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-kafka-export/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-kafka-export/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-kafka-export/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -40236,6 +41226,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-mssql-config",
+      "title": "Grafana: mssql config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/mssql-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: mssql config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mssql-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mssql-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mssql-config/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mssql-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-mysqld-expor",
+      "title": "Grafana: mysqld exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/mysqld-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: mysqld exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mysqld-expor/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mysqld-expor/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mysqld-expor/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mysqld-expor/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-node-exporte",
+      "title": "Grafana: node exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/node-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: node exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-node-exporte/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-node-exporte/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-node-exporte/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-node-exporte/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "grafana-docs-agent-latest-static-configuration-integrations-oracledb-con",
       "title": "Grafana: oracledb config",
       "ecosystem": "Grafana",
@@ -40246,6 +41299,489 @@
       "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-oracledb-con/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-oracledb-con/llms.txt",
       "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-oracledb-con/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-postgres-exp",
+      "title": "Grafana: postgres exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/postgres-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: postgres exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-postgres-exp/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-postgres-exp/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-postgres-exp/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-postgres-exp/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-process-expo",
+      "title": "Grafana: process exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/process-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: process exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-process-expo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-process-expo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-process-expo/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-process-expo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-redis-export",
+      "title": "Grafana: redis exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/redis-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: redis exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-redis-export/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-redis-export/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-redis-export/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-redis-export/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-snmp-config",
+      "title": "Grafana: snmp config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/snmp-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: snmp config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-snmp-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-snmp-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-snmp-config/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-snmp-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-snowflake-co",
+      "title": "Grafana: snowflake config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/snowflake-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: snowflake config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-snowflake-co/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-snowflake-co/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-snowflake-co/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-snowflake-co/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-squid-config",
+      "title": "Grafana: squid config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/squid-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: squid config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-squid-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-squid-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-squid-config/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-squid-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-statsd-expor",
+      "title": "Grafana: statsd exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/statsd-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: statsd exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-statsd-expor/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-statsd-expor/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-statsd-expor/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-statsd-expor/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-windows-expo",
+      "title": "Grafana: windows exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/windows-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: windows exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-windows-expo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-windows-expo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-windows-expo/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-windows-expo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-scraping-service",
+      "title": "Grafana: scraping service",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/scraping-service",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: scraping service",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-scraping-service/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-scraping-service/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-scraping-service/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-scraping-service/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-server-config",
+      "title": "Grafana: server config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/server-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: server config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-server-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-server-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-server-config/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-server-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-enterprise-logs-latest-reference-python-client-examples",
+      "title": "Grafana: python client examples",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/enterprise-logs/latest/reference/python-client-examples",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: python client examples",
+      "manifest_path": "agentpress/material-kits/grafana-docs-enterprise-logs-latest-reference-python-client-examples/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-enterprise-logs-latest-reference-python-client-examples/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-enterprise-logs-latest-reference-python-client-examples/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-enterprise-logs-latest-reference-python-client-examples/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-enterprise-logs-latest-setup-install-helm-deployment-guides",
+      "title": "Grafana: gcp",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/enterprise-logs/latest/setup/install/helm/deployment-guides/gcp",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: gcp",
+      "manifest_path": "agentpress/material-kits/grafana-docs-enterprise-logs-latest-setup-install-helm-deployment-guides/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-enterprise-logs-latest-setup-install-helm-deployment-guides/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-enterprise-logs-latest-setup-install-helm-deployment-guides/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-enterprise-logs-latest-setup-install-helm-deployment-guides/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-grafana-cloud-send-data-metrics-metrics-prometheus-promethe",
+      "title": "Grafana: specialized applications platforms",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-prometheus/prometheus-config-examples/open-source-projects/specialized-applications-platforms",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: specialized applications platforms",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-cloud-send-data-metrics-metrics-prometheus-promethe/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-cloud-send-data-metrics-metrics-prometheus-promethe/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-cloud-send-data-metrics-metrics-prometheus-promethe/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-cloud-send-data-metrics-metrics-prometheus-promethe/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-grafana-cloud-testing-k6-reference-cloud-rest-api-authoriza",
+      "title": "Grafana: authorization",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana-cloud/testing/k6/reference/cloud-rest-api/authorization",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: authorization",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-cloud-testing-k6-reference-cloud-rest-api-authoriza/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-cloud-testing-k6-reference-cloud-rest-api-authoriza/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-cloud-testing-k6-reference-cloud-rest-api-authoriza/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-cloud-testing-k6-reference-cloud-rest-api-authoriza/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-grafana-cloud-testing-k6-reference-cloud-rest-api-deprecate",
+      "title": "Grafana: error reference",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana-cloud/testing/k6/reference/cloud-rest-api/deprecated-rest-api/error-reference",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: error reference",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-cloud-testing-k6-reference-cloud-rest-api-deprecate/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-cloud-testing-k6-reference-cloud-rest-api-deprecate/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-cloud-testing-k6-reference-cloud-rest-api-deprecate/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-cloud-testing-k6-reference-cloud-rest-api-deprecate/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-grafana-latest-as-code-infrastructure-as-code-terraform-ter",
+      "title": "Grafana: trace configurations",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana/latest/as-code/infrastructure-as-code/terraform/terraform-knowledge-graph/trace-configurations",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: trace configurations",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-latest-as-code-infrastructure-as-code-terraform-ter/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-latest-as-code-infrastructure-as-code-terraform-ter/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-latest-as-code-infrastructure-as-code-terraform-ter/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-latest-as-code-infrastructure-as-code-terraform-ter/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-grafana-latest-developer-resources-api-reference-http-api-e",
+      "title": "Grafana: curl examples",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/examples/curl-examples",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: curl examples",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-api-reference-http-api-e/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-api-reference-http-api-e/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-api-reference-http-api-e/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-api-reference-http-api-e/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-grafana-latest-developer-resources-mcp-configure-enable-and",
+      "title": "Grafana: enable and disable tools",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana/latest/developer-resources/mcp/configure/enable-and-disable-tools",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: enable and disable tools",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-enable-and/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-enable-and/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-enable-and/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-enable-and/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-grafana-latest-developer-resources-mcp-configure-proxied-to",
+      "title": "Grafana: proxied tools",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana/latest/developer-resources/mcp/configure/proxied-tools",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: proxied tools",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-proxied-to/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-proxied-to/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-proxied-to/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-proxied-to/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-grafana-latest-developer-resources-mcp-configure-server-tls",
+      "title": "Grafana: server tls streamable http",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana/latest/developer-resources/mcp/configure/server-tls-streamable-http",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: server tls streamable http",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-server-tls/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-server-tls/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-server-tls/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-configure-server-tls/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-grafana-latest-developer-resources-mcp-guides-query-metrics",
+      "title": "Grafana: query metrics with influxdb",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana/latest/developer-resources/mcp/guides/query-metrics-with-influxdb",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: query metrics with influxdb",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-guides-query-metrics/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-guides-query-metrics/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-guides-query-metrics/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-guides-query-metrics/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-grafana-latest-developer-resources-mcp-guides-use-grafana-i",
+      "title": "Grafana: use grafana incident and sift",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana/latest/developer-resources/mcp/guides/use-grafana-incident-and-sift",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: use grafana incident and sift",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-guides-use-grafana-i/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-guides-use-grafana-i/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-guides-use-grafana-i/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-guides-use-grafana-i/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-grafana-latest-developer-resources-mcp-reference-mcp-tools",
+      "title": "Grafana: mcp tools table",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana/latest/developer-resources/mcp/reference/mcp-tools-table",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: mcp tools table",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-reference-mcp-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-reference-mcp-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-reference-mcp-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-reference-mcp-tools/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -40278,6 +41814,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "grafana-docs-k6-latest-examples-functional-testing",
+      "title": "Grafana: functional testing",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/k6/latest/examples/functional-testing",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: functional testing",
+      "manifest_path": "agentpress/material-kits/grafana-docs-k6-latest-examples-functional-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-k6-latest-examples-functional-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-k6-latest-examples-functional-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-k6-latest-examples-functional-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-k6-latest-examples-oauth-authentication",
+      "title": "Grafana: oauth authentication",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/k6/latest/examples/oauth-authentication",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: oauth authentication",
+      "manifest_path": "agentpress/material-kits/grafana-docs-k6-latest-examples-oauth-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-k6-latest-examples-oauth-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-k6-latest-examples-oauth-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-k6-latest-examples-oauth-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-k6-latest-testing-guides-api-load-testing",
+      "title": "Grafana: api load testing",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/k6/latest/testing-guides/api-load-testing",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: api load testing",
+      "manifest_path": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-api-load-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-api-load-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-api-load-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-api-load-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-k6-latest-testing-guides-automated-performance-testing",
+      "title": "Grafana: automated performance testing",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/k6/latest/testing-guides/automated-performance-testing",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: automated performance testing",
+      "manifest_path": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-automated-performance-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-automated-performance-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-automated-performance-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-automated-performance-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "grafana-docs-k6-latest-testing-guides-injecting-faults-with-xk6-disrupto",
       "title": "Grafana: inject http faults into pod",
       "ecosystem": "Grafana",
@@ -40288,6 +41908,153 @@
       "receipt_path": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-injecting-faults-with-xk6-disrupto/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-injecting-faults-with-xk6-disrupto/llms.txt",
       "run_guide": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-injecting-faults-with-xk6-disrupto/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-k6-latest-testing-guides-performance-testing-grpc-services",
+      "title": "Grafana: performance testing grpc services",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/k6/latest/testing-guides/performance-testing-grpc-services",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: performance testing grpc services",
+      "manifest_path": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-performance-testing-grpc-services/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-performance-testing-grpc-services/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-performance-testing-grpc-services/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-performance-testing-grpc-services/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-loki-latest-configure-examples-configuration-examples",
+      "title": "Grafana: configuration examples",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/loki/latest/configure/examples/configuration-examples",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: configuration examples",
+      "manifest_path": "agentpress/material-kits/grafana-docs-loki-latest-configure-examples-configuration-examples/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-loki-latest-configure-examples-configuration-examples/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-loki-latest-configure-examples-configuration-examples/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-loki-latest-configure-examples-configuration-examples/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-loki-latest-configure-examples-thanos-storage-configs",
+      "title": "Grafana: thanos storage configs",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/loki/latest/configure/examples/thanos-storage-configs",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: thanos storage configs",
+      "manifest_path": "agentpress/material-kits/grafana-docs-loki-latest-configure-examples-thanos-storage-configs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-loki-latest-configure-examples-thanos-storage-configs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-loki-latest-configure-examples-thanos-storage-configs/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-loki-latest-configure-examples-thanos-storage-configs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-loki-latest-reference-python-client-examples",
+      "title": "Grafana: python client examples",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/loki/latest/reference/python-client-examples",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: python client examples",
+      "manifest_path": "agentpress/material-kits/grafana-docs-loki-latest-reference-python-client-examples/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-loki-latest-reference-python-client-examples/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-loki-latest-reference-python-client-examples/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-loki-latest-reference-python-client-examples/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-loki-latest-setup-install-helm-deployment-guides",
+      "title": "Grafana: deployment guides",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/loki/latest/setup/install/helm/deployment-guides",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: deployment guides",
+      "manifest_path": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-loki-latest-setup-install-helm-deployment-guides-aws",
+      "title": "Grafana: aws",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/loki/latest/setup/install/helm/deployment-guides/aws",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: aws",
+      "manifest_path": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-aws/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-aws/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-aws/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-aws/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-loki-latest-setup-install-helm-deployment-guides-azure",
+      "title": "Grafana: azure",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/loki/latest/setup/install/helm/deployment-guides/azure",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: azure",
+      "manifest_path": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-azure/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-azure/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-azure/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-azure/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
