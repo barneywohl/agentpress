@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+  "claim": "Material kit prepared for ai-agent-stack painpoint: AI agents need compact, citation-ready, task-specific wrappers for ai-agent-stack/langchain; source item 738 is a placeholder/seed pattern for harvesting real public docs at scale.",
+  "target_url": "https://registry.example-source.org/guides/ai-agent-stack/langchain/738",
+  "commands_to_verify": [
+    "python3 scripts/agentpress.py context-budget . --json --strict",
+    "python3 -m json.tool material-manifest.json",
+    "python3 -m json.tool proof-receipt.json"
+  ],
+  "evidence_files": [
+    "llms.txt",
+    "material-manifest.json",
+    "RUN_THIS.md"
+  ],
+  "external_effects": [],
+  "status": "prepared_not_posted"
+}
