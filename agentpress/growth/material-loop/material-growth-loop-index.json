@@ -1,26 +1,27 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:35:36Z",
+  "generated_utc": "2026-05-06T04:35:48Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 1095,
+  "kit_count": 1145,
   "by_ecosystem": {
-    "Anthropic": 273,
+    "Anthropic": 287,
     "Cline": 6,
-    "Cloudflare": 1,
+    "Cloudflare": 3,
     "docs": 1,
     "CrewAI": 160,
     "DSPy": 9,
-    "GCP": 3,
+    "GCP": 15,
     "Haystack": 175,
-    "Kubernetes": 2,
+    "Kubernetes": 17,
     "LangGraph": 2,
     "LiteLLM": 201,
     "LlamaIndex": 1,
     "mcp": 1,
     "MCP": 31,
+    "Next.js": 7,
     "OpenAI Agents SDK": 33,
     "OpenHands": 75,
     "repo-docs": 1,
@@ -31,7 +32,7 @@
     "Vercel": 1
   },
   "by_status": {
-    "ready_local_static_not_posted": 1095
+    "ready_local_static_not_posted": 1145
   },
   "kits": [
     {
@@ -864,6 +865,48 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-en-api-cli-beta-vaults-credentials-mcp-oauth-validate/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-en-api-cli-beta-vaults-credentials-mcp-oauth-validate/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-en-api-cli-beta-vaults-credentials-mcp-oauth-validate/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-en-api-go-beta-vaults-credentials-mcp-oauth-validate",
+      "title": "Anthropic: mcp oauth validate",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/api/go/beta/vaults/credentials/mcp_oauth_validate",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp oauth validate",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-api-go-beta-vaults-credentials-mcp-oauth-validate/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-api-go-beta-vaults-credentials-mcp-oauth-validate/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-api-go-beta-vaults-credentials-mcp-oauth-validate/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-api-go-beta-vaults-credentials-mcp-oauth-validate/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-en-api-php-beta-vaults-credentials-mcp-oauth-validate",
+      "title": "Anthropic: mcp oauth validate",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/mcp_oauth_validate",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp oauth validate",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-api-php-beta-vaults-credentials-mcp-oauth-validate/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-api-php-beta-vaults-credentials-mcp-oauth-validate/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-api-php-beta-vaults-credentials-mcp-oauth-validate/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-api-php-beta-vaults-credentials-mcp-oauth-validate/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -1778,6 +1821,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-fr-agents-and-tools-tool-use-parallel-tool-use",
+      "title": "Anthropic: parallel tool use",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/fr/agents-and-tools/tool-use/parallel-tool-use",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: parallel tool use",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-tool-use-parallel-tool-use/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-tool-use-parallel-tool-use/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-tool-use-parallel-tool-use/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-tool-use-parallel-tool-use/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-fr-agents-and-tools-tool-use-server-tools",
       "title": "Anthropic: server tools",
       "ecosystem": "Anthropic",
@@ -2198,6 +2262,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-id-agents-and-tools-tool-use-manage-tool-context",
+      "title": "Anthropic: manage tool context",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/id/agents-and-tools/tool-use/manage-tool-context",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: manage tool context",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-manage-tool-context/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-manage-tool-context/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-manage-tool-context/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-manage-tool-context/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-id-agents-and-tools-tool-use-memory-tool",
       "title": "Anthropic: memory tool",
       "ecosystem": "Anthropic",
@@ -2292,6 +2377,27 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-tool-reference/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-tool-reference/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-tool-reference/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-id-agents-and-tools-tool-use-tool-search-tool",
+      "title": "Anthropic: tool search tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/id/agents-and-tools/tool-use/tool-search-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool search tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-tool-search-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-tool-search-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-tool-search-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-tool-search-tool/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -2891,6 +2997,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-it-managed-agents-permission-policies",
+      "title": "Anthropic: permission policies",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/it/managed-agents/permission-policies",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: permission policies",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-it-managed-agents-permission-policies/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-it-managed-agents-permission-policies/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-it-managed-agents-permission-policies/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-it-managed-agents-permission-policies/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-it-managed-agents-quickstart",
       "title": "Anthropic: quickstart",
       "ecosystem": "Anthropic",
@@ -3122,6 +3249,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-ja-agents-and-tools-tool-use-computer-use-tool",
+      "title": "Anthropic: computer use tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ja/agents-and-tools/tool-use/computer-use-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: computer use tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-computer-use-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-computer-use-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-computer-use-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-computer-use-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-ja-agents-and-tools-tool-use-fine-grained-tool-streaming",
       "title": "Anthropic: fine grained tool streaming",
       "ecosystem": "Anthropic",
@@ -3300,6 +3448,27 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-tool-reference/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-tool-reference/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-tool-reference/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ja-agents-and-tools-tool-use-tool-runner",
+      "title": "Anthropic: tool runner",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ja/agents-and-tools/tool-use/tool-runner",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool runner",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-tool-runner/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-tool-runner/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-tool-runner/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-tool-runner/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -3678,6 +3847,27 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-server-tools/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-server-tools/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-server-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ko-agents-and-tools-tool-use-strict-tool-use",
+      "title": "Anthropic: strict tool use",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ko/agents-and-tools/tool-use/strict-tool-use",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: strict tool use",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-strict-tool-use/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-strict-tool-use/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-strict-tool-use/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-strict-tool-use/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -4319,6 +4509,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-pt-br-managed-agents-tools",
+      "title": "Anthropic: tools",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/pt-BR/managed-agents/tools",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tools",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-pt-br-managed-agents-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-pt-br-managed-agents-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-pt-br-managed-agents-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-pt-br-managed-agents-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-ru-agents-and-tools-agent-skills-claude-api-skill",
       "title": "Anthropic: claude api skill",
       "ecosystem": "Anthropic",
@@ -4497,6 +4708,27 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-tool-use-computer-use-tool/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-tool-use-computer-use-tool/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-tool-use-computer-use-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ru-agents-and-tools-tool-use-define-tools",
+      "title": "Anthropic: define tools",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ru/agents-and-tools/tool-use/define-tools",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: define tools",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-tool-use-define-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-tool-use-define-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-tool-use-define-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-tool-use-define-tools/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -4980,6 +5212,48 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-build-a-tool-using-agent/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-build-a-tool-using-agent/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-build-a-tool-using-agent/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-zh-cn-agents-and-tools-tool-use-code-execution-tool",
+      "title": "Anthropic: code execution tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/zh-CN/agents-and-tools/tool-use/code-execution-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: code execution tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-code-execution-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-code-execution-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-code-execution-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-code-execution-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-zh-cn-agents-and-tools-tool-use-define-tools",
+      "title": "Anthropic: define tools",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/zh-CN/agents-and-tools/tool-use/define-tools",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: define tools",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-define-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-define-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-define-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-define-tools/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -5516,6 +5790,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-zh-tw-agents-and-tools-tool-use-code-execution-tool",
+      "title": "Anthropic: code execution tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/zh-TW/agents-and-tools/tool-use/code-execution-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: code execution tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-tool-use-code-execution-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-tool-use-code-execution-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-tool-use-code-execution-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-tool-use-code-execution-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-zh-tw-agents-and-tools-tool-use-computer-use-tool",
       "title": "Anthropic: computer use tool",
       "ecosystem": "Anthropic",
@@ -5904,6 +6199,48 @@
       "receipt_path": "agentpress/material-kits/cloudflare-agents-guides-oauth-mcp-client/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-agents-guides-oauth-mcp-client/llms.txt",
       "run_guide": "agentpress/material-kits/cloudflare-agents-guides-oauth-mcp-client/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-agents-guides-test-remote-mcp-server",
+      "title": "Cloudflare: test remote mcp server",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/agents/guides/test-remote-mcp-server/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: test remote mcp server",
+      "manifest_path": "agentpress/material-kits/cloudflare-agents-guides-test-remote-mcp-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-agents-guides-test-remote-mcp-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-agents-guides-test-remote-mcp-server/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-agents-guides-test-remote-mcp-server/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-vite-plugin-reference-programmatic-configuration",
+      "title": "Cloudflare: programmatic configuration",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/vite-plugin/reference/programmatic-configuration/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: programmatic configuration",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-programmatic-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-programmatic-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-programmatic-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-programmatic-configuration/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -9506,6 +9843,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-latest-google",
+      "title": "GCP: Google.Cloud.AIPlatform.V1Beta1.ModelMonitoringServiceClientImpl",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.AIPlatform.V1Beta1/latest/Google.Cloud.AIPlatform.V1Beta1.ModelMonitoringServiceClientImpl",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.AIPlatform.V1Beta1.ModelMonitoringServiceClientImpl",
+      "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-latest-google/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-latest-google/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-latest-google/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-latest-google/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "gcp-dotnet-docs-reference-google-cloud-dataform-v1beta1-latest-google-cl",
       "title": "GCP: Google.Cloud.Dataform.V1Beta1.DeleteWorkflowConfigRequest",
       "ecosystem": "GCP",
@@ -9516,6 +9874,237 @@
       "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dataform-v1beta1-latest-google-cl/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dataform-v1beta1-latest-google-cl/llms.txt",
       "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dataform-v1beta1-latest-google-cl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-17-0-google-cloud",
+      "title": "GCP: Google.Cloud.Dialogflow.V2.ParticipantsClientBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.Dialogflow.V2/4.17.0/Google.Cloud.Dialogflow.V2.ParticipantsClientBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.Dialogflow.V2.ParticipantsClientBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-17-0-google-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-17-0-google-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-17-0-google-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-17-0-google-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-dialogflow-cx-0-13-0-com-google-clo",
+      "title": "GCP: com.google.cloud.dialogflow.cx.v3beta1.Environment.TestCasesConfig.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-dialogflow-cx/0.13.0/com.google.cloud.dialogflow.cx.v3beta1.Environment.TestCasesConfig.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.dialogflow.cx.v3beta1.Environment.TestCasesConfig.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-cx-0-13-0-com-google-clo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-cx-0-13-0-com-google-clo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-cx-0-13-0-com-google-clo/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-cx-0-13-0-com-google-clo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-dialogflow-cx-latest-com-google-clo",
+      "title": "GCP: com.google.cloud.dialogflow.cx.v3.AgentsGrpc.AgentsBlockingV2Stub",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-dialogflow-cx/latest/com.google.cloud.dialogflow.cx.v3.AgentsGrpc.AgentsBlockingV2Stub",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.dialogflow.cx.v3.AgentsGrpc.AgentsBlockingV2Stub",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-cx-latest-com-google-clo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-cx-latest-com-google-clo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-cx-latest-com-google-clo/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-cx-latest-com-google-clo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-gkehub-1-3-4-com-google-cloud-gkehu",
+      "title": "GCP: com.google.cloud.gkehub.configmanagement.v1beta.GatekeeperDeploymentState.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-gkehub/1.3.4/com.google.cloud.gkehub.configmanagement.v1beta.GatekeeperDeploymentState.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.gkehub.configmanagement.v1beta.GatekeeperDeploymentState.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-3-4-com-google-cloud-gkehu/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-3-4-com-google-cloud-gkehu/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-3-4-com-google-cloud-gkehu/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-3-4-com-google-cloud-gkehu/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-licensemanager-latest-com-google-cl",
+      "title": "GCP: com.google.cloud.licensemanager.v1.QueryConfigurationLicenseUsageResponse.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-licensemanager/latest/com.google.cloud.licensemanager.v1.QueryConfigurationLicenseUsageResponse.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.licensemanager.v1.QueryConfigurationLicenseUsageResponse.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-licensemanager-latest-com-google-cl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-licensemanager-latest-com-google-cl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-licensemanager-latest-com-google-cl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-licensemanager-latest-com-google-cl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-os-config-2-4-0-com-google-cloud-os",
+      "title": "GCP: com.google.cloud.osconfig.v1beta.PatchDeployments.RecurringScheduleOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-os-config/2.4.0/com.google.cloud.osconfig.v1beta.PatchDeployments.RecurringScheduleOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.osconfig.v1beta.PatchDeployments.RecurringScheduleOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-4-0-com-google-cloud-os/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-4-0-com-google-cloud-os/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-4-0-com-google-cloud-os/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-4-0-com-google-cloud-os/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-os-config-2-41-0-com-google-cloud-o",
+      "title": "GCP: com.google.cloud.osconfig.v1.PatchDeployments.WeekDayOfMonth.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-os-config/2.41.0/com.google.cloud.osconfig.v1.PatchDeployments.WeekDayOfMonth.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.osconfig.v1.PatchDeployments.WeekDayOfMonth.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-41-0-com-google-cloud-o/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-41-0-com-google-cloud-o/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-41-0-com-google-cloud-o/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-41-0-com-google-cloud-o/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-os-config-2-59-0-com-google-cloud-o",
+      "title": "GCP: com.google.cloud.osconfig.v1.OsConfigServiceClient.ListPatchDeploymentsPage",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-os-config/2.59.0/com.google.cloud.osconfig.v1.OsConfigServiceClient.ListPatchDeploymentsPage",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.osconfig.v1.OsConfigServiceClient.ListPatchDeploymentsPage",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-59-0-com-google-cloud-o/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-59-0-com-google-cloud-o/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-59-0-com-google-cloud-o/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-59-0-com-google-cloud-o/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-securitycenter-2-62-0-com-google-cl",
+      "title": "GCP: com.google.cloud.securitycenter.v1.CustomModuleValidationErrors.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-securitycenter/2.62.0/com.google.cloud.securitycenter.v1.CustomModuleValidationErrors.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.securitycenter.v1.CustomModuleValidationErrors.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-securitycenter-2-62-0-com-google-cl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-securitycenter-2-62-0-com-google-cl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-securitycenter-2-62-0-com-google-cl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-securitycenter-2-62-0-com-google-cl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-telcoautomation-latest-com-google-c",
+      "title": "GCP: com.google.cloud.telcoautomation.v1alpha1.ListHydratedDeploymentsRequest.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-telcoautomation/latest/com.google.cloud.telcoautomation.v1alpha1.ListHydratedDeploymentsRequest.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.telcoautomation.v1alpha1.ListHydratedDeploymentsRequest.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-latest-com-google-c/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-latest-com-google-c/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-latest-com-google-c/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-latest-com-google-c/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-oauth-client-1-38-0-com-google-api-client",
+      "title": "GCP: com.google.api.client.auth.openidconnect.IdTokenResponse",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-oauth-client/1.38.0/com.google.api.client.auth.openidconnect.IdTokenResponse",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.api.client.auth.openidconnect.IdTokenResponse",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-oauth-client-1-38-0-com-google-api-client/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-oauth-client-1-38-0-com-google-api-client/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-oauth-client-1-38-0-com-google-api-client/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-oauth-client-1-38-0-com-google-api-client/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -13223,6 +13812,174 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "kubernetes-docs-reference-command-line-tools-reference-kube-apiserver",
+      "title": "Kubernetes: kube apiserver",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kube apiserver",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-command-line-tools-reference-kube-apiserver/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-command-line-tools-reference-kube-apiserver/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-command-line-tools-reference-kube-apiserver/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-command-line-tools-reference-kube-apiserver/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-config-api-apiserver-webhookadmission-v1",
+      "title": "Kubernetes: apiserver webhookadmission.v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/config-api/apiserver-webhookadmission.v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: apiserver webhookadmission.v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-webhookadmission-v1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-webhookadmission-v1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-webhookadmission-v1/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-config-api-apiserver-webhookadmission-v1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-config-api-client-authentication-v1",
+      "title": "Kubernetes: client authentication.v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/config-api/client-authentication.v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: client authentication.v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-client-authentication-v1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-client-authentication-v1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-config-api-client-authentication-v1/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-config-api-client-authentication-v1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-config-api-client-authentication-v1beta1",
+      "title": "Kubernetes: client authentication.v1beta1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/config-api/client-authentication.v1beta1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: client authentication.v1beta1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-client-authentication-v1beta1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-config-api-client-authentication-v1beta1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-config-api-client-authentication-v1beta1/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-config-api-client-authentication-v1beta1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-cs",
+      "title": "Kubernetes: csi storage capacity v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/csi-storage-capacity-v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: csi storage capacity v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-cs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-cs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-cs/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-cs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-st",
+      "title": "Kubernetes: storage version migration v1beta1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/storage-version-migration-v1beta1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: storage version migration v1beta1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-st/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-st/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-st/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-st/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-kubernetes-api-extend-resources-mutating-webho",
+      "title": "Kubernetes: mutating webhook configuration v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/kubernetes-api/extend-resources/mutating-webhook-configuration-v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: mutating webhook configuration v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-extend-resources-mutating-webho/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-extend-resources-mutating-webho/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-extend-resources-mutating-webho/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-extend-resources-mutating-webho/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-kubernetes-api-extend-resources-validating-web",
+      "title": "Kubernetes: validating webhook configuration v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/kubernetes-api/extend-resources/validating-webhook-configuration-v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: validating webhook configuration v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-extend-resources-validating-web/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-extend-resources-validating-web/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-extend-resources-validating-web/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-extend-resources-validating-web/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-certs-ku",
       "title": "Kubernetes: kubeadm certs renew apiserver kubelet client",
       "ecosystem": "Kubernetes",
@@ -13244,6 +14001,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-config",
+      "title": "Kubernetes: kubeadm config",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_config/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm config",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-config/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-config-k",
+      "title": "Kubernetes: kubeadm config images pull",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_config/kubeadm_config_images_pull/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm config images pull",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-config-k/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-config-k/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-config-k/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-config-k/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init-kub",
       "title": "Kubernetes: kubeadm init phase certs apiserver kubelet client",
       "ecosystem": "Kubernetes",
@@ -13254,6 +14053,111 @@
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init-kub/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init-kub/llms.txt",
       "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-init-kub/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-join-kub",
+      "title": "Kubernetes: kubeadm join phase kubelet start",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_join/kubeadm_join_phase_kubelet-start/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm join phase kubelet start",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-join-kub/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-join-kub/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-join-kub/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-join-kub/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-kubeconf",
+      "title": "Kubernetes: kubeadm kubeconfig user",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_kubeconfig/kubeadm_kubeconfig_user/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm kubeconfig user",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-kubeconf/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-kubeconf/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-kubeconf/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-kubeconf/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade",
+      "title": "Kubernetes: kubeadm upgrade apply phase kubelet config",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_kubelet-config/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm upgrade apply phase kubelet config",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-config",
+      "title": "Kubernetes: kubeadm config",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-config/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm config",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-config/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig",
+      "title": "Kubernetes: kubeadm kubeconfig",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm kubeconfig",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -18212,6 +19116,153 @@
       "run_guide": "agentpress/material-kits/mcp-specification-2025-11-25-server-tools-md/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py mcp-config-doctor --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-deploymentid",
+      "title": "Next.js: deploymentId",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/deploymentId",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: deploymentId",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-deploymentid/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-deploymentid/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-deploymentid/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-deploymentid/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-proxyclientmaxbodys",
+      "title": "Next.js: proxyClientMaxBodySize",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/proxyClientMaxBodySize",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: proxyClientMaxBodySize",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-proxyclientmaxbodys/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-proxyclientmaxbodys/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-proxyclientmaxbodys/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-proxyclientmaxbodys/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-servercomponentshmr",
+      "title": "Next.js: serverComponentsHmrCache",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/serverComponentsHmrCache",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: serverComponentsHmrCache",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-servercomponentshmr/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-servercomponentshmr/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-servercomponentshmr/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-servercomponentshmr/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-functions-useragent",
+      "title": "Next.js: userAgent",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/userAgent",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: userAgent",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-useragent/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-useragent/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-useragent/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-useragent/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-deploymentid",
+      "title": "Next.js: deploymentId",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/deploymentId",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: deploymentId",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-deploymentid/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-deploymentid/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-deploymentid/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-deploymentid/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-proxyclientmaxbod",
+      "title": "Next.js: proxyClientMaxBodySize",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/proxyClientMaxBodySize",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: proxyClientMaxBodySize",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-proxyclientmaxbod/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-proxyclientmaxbod/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-proxyclientmaxbod/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-proxyclientmaxbod/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-functions-useragent",
+      "title": "Next.js: userAgent",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/functions/userAgent",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: userAgent",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-useragent/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-useragent/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-useragent/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-useragent/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
         "python3 -m json.tool proof-receipt.json"
       ],
