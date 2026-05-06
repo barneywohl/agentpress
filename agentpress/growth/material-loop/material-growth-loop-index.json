@@ -1,15 +1,16 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T05:04:15Z",
+  "generated_utc": "2026-05-06T05:04:40Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 5669,
+  "kit_count": 5765,
   "by_ecosystem": {
-    "Algolia": 7,
+    "Algolia": 23,
+    "Angular": 6,
     "Anthropic": 387,
-    "Astro": 77,
+    "Astro": 144,
     "Auth0": 189,
     "AWS": 178,
     "Bun": 208,
@@ -29,7 +30,7 @@
     "FastAPI": 12,
     "GCP": 185,
     "Gradle": 7,
-    "Grafana": 394,
+    "Grafana": 398,
     "Haystack": 211,
     "Kubernetes": 77,
     "LangGraph": 2,
@@ -57,7 +58,7 @@
     "onboarding": 1,
     "Stripe": 37,
     "Supabase": 288,
-    "TanStack": 454,
+    "TanStack": 457,
     "Turborepo": 13,
     "Twilio": 37,
     "TypeScript": 1,
@@ -66,9 +67,114 @@
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 5669
+    "ready_local_static_not_posted": 5765
   },
   "kits": [
+    {
+      "slug": "algolia-doc-guides-ab-testing-how-to-read-your-a-b-test-results",
+      "title": "Algolia: how to read your a b test results",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/ab-testing/how-to-read-your-a-b-test-results",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: how to read your a b test results",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-ab-testing-how-to-read-your-a-b-test-results/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-ab-testing-how-to-read-your-a-b-test-results/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-ab-testing-how-to-read-your-a-b-test-results/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-ab-testing-how-to-read-your-a-b-test-results/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-adopt-ab-test-wi",
+      "title": "Algolia: adopt ab test winner",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/ab-testing/what-is-ab-testing/how-to/adopt-ab-test-winner",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: adopt ab test winner",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-adopt-ab-test-wi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-adopt-ab-test-wi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-adopt-ab-test-wi/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-adopt-ab-test-wi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-create-and-run-a",
+      "title": "Algolia: create and run an ab test",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/ab-testing/what-is-ab-testing/how-to/create-and-run-an-ab-test",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: create and run an ab test",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-create-and-run-a/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-create-and-run-a/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-create-and-run-a/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-create-and-run-a/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-setup-an-index-f",
+      "title": "Algolia: setup an index for index settings ab test",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/ab-testing/what-is-ab-testing/how-to/setup-an-index-for-index-settings-ab-test",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: setup an index for index settings ab test",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-setup-an-index-f/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-setup-an-index-f/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-setup-an-index-f/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-setup-an-index-f/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-ab-testing-what-is-ab-testing-in-depth-api-version-3",
+      "title": "Algolia: api version 3",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/ab-testing/what-is-ab-testing/in-depth/api-version-3",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: api version 3",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-in-depth-api-version-3/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-in-depth-api-version-3/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-in-depth-api-version-3/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-ab-testing-what-is-ab-testing-in-depth-api-version-3/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
     {
       "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-agent-configuration",
       "title": "Algolia: agent configuration",
@@ -80,6 +186,90 @@
       "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-agent-configuration/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-agent-configuration/llms.txt",
       "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-agent-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-feedback",
+      "title": "Algolia: feedback",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/feedback",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: feedback",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-feedback/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-feedback/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-feedback/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-feedback/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-integration",
+      "title": "Algolia: integration",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/integration",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: integration",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-integration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-integration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-integration/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-integration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-memory-overview",
+      "title": "Algolia: overview",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/memory/overview",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: overview",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-memory-overview/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-memory-overview/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-memory-overview/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-memory-overview/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-quickstart",
+      "title": "Algolia: quickstart",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/quickstart",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: quickstart",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-quickstart/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-quickstart/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-quickstart/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-quickstart/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -206,6 +396,279 @@
       "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-security/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-security/llms.txt",
       "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-security/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-user-authentication",
+      "title": "Algolia: user authentication",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/user-authentication",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: user authentication",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-user-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-user-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-user-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-user-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-building-search-ui-getting-started-how-to-declarative",
+      "title": "Algolia: ios",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/building-search-ui/getting-started/how-to/declarative/ios",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: ios",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-building-search-ui-getting-started-how-to-declarative/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-building-search-ui-getting-started-how-to-declarative/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-building-search-ui-getting-started-how-to-declarative/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-building-search-ui-getting-started-how-to-declarative/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-building-search-ui-getting-started-how-to-programmati",
+      "title": "Algolia: ios",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/building-search-ui/getting-started/how-to/programmatically/ios",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: ios",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-building-search-ui-getting-started-how-to-programmati/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-building-search-ui-getting-started-how-to-programmati/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-building-search-ui-getting-started-how-to-programmati/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-building-search-ui-getting-started-how-to-programmati/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-managing-results-optimize-search-results-handling-nat",
+      "title": "Algolia: language specific configurations",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: language specific configurations",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-managing-results-optimize-search-results-handling-nat/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-managing-results-optimize-search-results-handling-nat/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-managing-results-optimize-search-results-handling-nat/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-managing-results-optimize-search-results-handling-nat/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-personalization-classic-personalization-going-to-prod",
+      "title": "Algolia: ab testing personalization",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/personalization/classic-personalization/going-to-production/how-to/ab-testing-personalization",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: ab testing personalization",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-personalization-classic-personalization-going-to-prod/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-personalization-classic-personalization-going-to-prod/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-personalization-classic-personalization-going-to-prod/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-personalization-classic-personalization-going-to-prod/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-integration-magento-2-guides-create-a-custom-extension",
+      "title": "Algolia: create a custom extension",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/integration/magento-2/guides/create-a-custom-extension",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: create a custom extension",
+      "manifest_path": "agentpress/material-kits/algolia-doc-integration-magento-2-guides-create-a-custom-extension/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-integration-magento-2-guides-create-a-custom-extension/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-integration-magento-2-guides-create-a-custom-extension/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-integration-magento-2-guides-create-a-custom-extension/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-integration-magento-2-guides-transform-indexed-attribute",
+      "title": "Algolia: transform indexed attribute",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/integration/magento-2/guides/transform-indexed-attribute",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: transform indexed attribute",
+      "manifest_path": "agentpress/material-kits/algolia-doc-integration-magento-2-guides-transform-indexed-attribute/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-integration-magento-2-guides-transform-indexed-attribute/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-integration-magento-2-guides-transform-indexed-attribute/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-integration-magento-2-guides-transform-indexed-attribute/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "angular-api-common-testing-mock-platform-location-config",
+      "title": "Angular: MOCK PLATFORM LOCATION CONFIG",
+      "ecosystem": "Angular",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://angular.dev/api/common/testing/MOCK_PLATFORM_LOCATION_CONFIG",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: MOCK PLATFORM LOCATION CONFIG",
+      "manifest_path": "agentpress/material-kits/angular-api-common-testing-mock-platform-location-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/angular-api-common-testing-mock-platform-location-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/angular-api-common-testing-mock-platform-location-config/llms.txt",
+      "run_guide": "agentpress/material-kits/angular-api-common-testing-mock-platform-location-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "angular-api-common-testing-mockplatformlocationconfig",
+      "title": "Angular: MockPlatformLocationConfig",
+      "ecosystem": "Angular",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://angular.dev/api/common/testing/MockPlatformLocationConfig",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: MockPlatformLocationConfig",
+      "manifest_path": "agentpress/material-kits/angular-api-common-testing-mockplatformlocationconfig/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/angular-api-common-testing-mockplatformlocationconfig/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/angular-api-common-testing-mockplatformlocationconfig/llms.txt",
+      "run_guide": "agentpress/material-kits/angular-api-common-testing-mockplatformlocationconfig/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "angular-api-platform-browser-disabledebugtools",
+      "title": "Angular: disableDebugTools",
+      "ecosystem": "Angular",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://angular.dev/api/platform-browser/disableDebugTools",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: disableDebugTools",
+      "manifest_path": "agentpress/material-kits/angular-api-platform-browser-disabledebugtools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/angular-api-platform-browser-disabledebugtools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/angular-api-platform-browser-disabledebugtools/llms.txt",
+      "run_guide": "agentpress/material-kits/angular-api-platform-browser-disabledebugtools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "angular-api-platform-browser-enabledebugtools",
+      "title": "Angular: enableDebugTools",
+      "ecosystem": "Angular",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://angular.dev/api/platform-browser/enableDebugTools",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: enableDebugTools",
+      "manifest_path": "agentpress/material-kits/angular-api-platform-browser-enabledebugtools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/angular-api-platform-browser-enabledebugtools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/angular-api-platform-browser-enabledebugtools/llms.txt",
+      "run_guide": "agentpress/material-kits/angular-api-platform-browser-enabledebugtools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "angular-api-platform-server-testing-platformservertesting",
+      "title": "Angular: platformServerTesting",
+      "ecosystem": "Angular",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://angular.dev/api/platform-server/testing/platformServerTesting",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: platformServerTesting",
+      "manifest_path": "agentpress/material-kits/angular-api-platform-server-testing-platformservertesting/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/angular-api-platform-server-testing-platformservertesting/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/angular-api-platform-server-testing-platformservertesting/llms.txt",
+      "run_guide": "agentpress/material-kits/angular-api-platform-server-testing-platformservertesting/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "angular-api-platform-server-testing-servertestingmodule",
+      "title": "Angular: ServerTestingModule",
+      "ecosystem": "Angular",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://angular.dev/api/platform-server/testing/ServerTestingModule",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: ServerTestingModule",
+      "manifest_path": "agentpress/material-kits/angular-api-platform-server-testing-servertestingmodule/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/angular-api-platform-server-testing-servertestingmodule/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/angular-api-platform-server-testing-servertestingmodule/llms.txt",
+      "run_guide": "agentpress/material-kits/angular-api-platform-server-testing-servertestingmodule/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -8344,6 +8807,300 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "astro-en-guides-authentication",
+      "title": "Astro: authentication",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/authentication",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: authentication",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-configuring-astro",
+      "title": "Astro: configuring astro",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/configuring-astro",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: configuring astro",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-configuring-astro/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-configuring-astro/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-configuring-astro/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-configuring-astro/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy",
+      "title": "Astro: deploy",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: deploy",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-aws",
+      "title": "Astro: aws",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/aws",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: aws",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-aws/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-aws/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-aws/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-aws/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-aws-via-flightcontrol",
+      "title": "Astro: aws via flightcontrol",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/aws-via-flightcontrol",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: aws via flightcontrol",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-aws-via-flightcontrol/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-aws-via-flightcontrol/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-aws-via-flightcontrol/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-aws-via-flightcontrol/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-aws-via-sst",
+      "title": "Astro: aws via sst",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/aws-via-sst",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: aws via sst",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-aws-via-sst/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-aws-via-sst/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-aws-via-sst/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-aws-via-sst/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-azion",
+      "title": "Astro: azion",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/azion",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: azion",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-azion/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-azion/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-azion/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-azion/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-buddy",
+      "title": "Astro: buddy",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/buddy",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: buddy",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-buddy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-buddy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-buddy/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-buddy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-cleavr",
+      "title": "Astro: cleavr",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/cleavr",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: cleavr",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-cleavr/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-cleavr/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-cleavr/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-cleavr/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-clever-cloud",
+      "title": "Astro: clever cloud",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/clever-cloud",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: clever cloud",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-clever-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-clever-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-clever-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-clever-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-cloudflare",
+      "title": "Astro: cloudflare",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/cloudflare",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: cloudflare",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-cloudflare/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-cloudflare/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-cloudflare/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-cloudflare/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-cloudray",
+      "title": "Astro: cloudray",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/cloudray",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: cloudray",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-cloudray/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-cloudray/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-cloudray/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-cloudray/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-deno",
+      "title": "Astro: deno",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/deno",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: deno",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-deno/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-deno/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-deno/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-deno/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-deployhq",
+      "title": "Astro: deployhq",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/deployhq",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: deployhq",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-deployhq/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-deployhq/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-deployhq/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-deployhq/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "astro-en-guides-deploy-edgeone-pages",
       "title": "Astro: edgeone pages",
       "ecosystem": "Astro",
@@ -8354,6 +9111,279 @@
       "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-edgeone-pages/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-edgeone-pages/llms.txt",
       "run_guide": "agentpress/material-kits/astro-en-guides-deploy-edgeone-pages/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-firebase",
+      "title": "Astro: firebase",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/firebase",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: firebase",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-firebase/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-firebase/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-firebase/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-firebase/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-fleek",
+      "title": "Astro: fleek",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/fleek",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: fleek",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-fleek/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-fleek/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-fleek/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-fleek/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-flyio",
+      "title": "Astro: flyio",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/flyio",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: flyio",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-flyio/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-flyio/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-flyio/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-flyio/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-github",
+      "title": "Astro: github",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/github",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: github",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-github/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-github/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-github/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-github/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-gitlab",
+      "title": "Astro: gitlab",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/gitlab",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: gitlab",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-gitlab/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-gitlab/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-gitlab/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-gitlab/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-google-cloud",
+      "title": "Astro: google cloud",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/google-cloud",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: google cloud",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-google-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-google-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-google-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-google-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-heroku",
+      "title": "Astro: heroku",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/heroku",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: heroku",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-heroku/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-heroku/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-heroku/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-heroku/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-juno",
+      "title": "Astro: juno",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/juno",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: juno",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-juno/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-juno/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-juno/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-juno/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-microsoft-azure",
+      "title": "Astro: microsoft azure",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/microsoft-azure",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: microsoft azure",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-microsoft-azure/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-microsoft-azure/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-microsoft-azure/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-microsoft-azure/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-netlify",
+      "title": "Astro: netlify",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/netlify",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: netlify",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-netlify/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-netlify/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-netlify/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-netlify/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-railway",
+      "title": "Astro: railway",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/railway",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: railway",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-railway/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-railway/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-railway/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-railway/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-render",
+      "title": "Astro: render",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/render",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: render",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-render/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-render/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-render/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-render/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-seenode",
+      "title": "Astro: seenode",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/seenode",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: seenode",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-seenode/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-seenode/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-seenode/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-seenode/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -8407,6 +9437,132 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "astro-en-guides-deploy-surge",
+      "title": "Astro: surge",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/surge",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: surge",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-surge/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-surge/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-surge/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-surge/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-vercel",
+      "title": "Astro: vercel",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/vercel",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: vercel",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-vercel/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-vercel/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-vercel/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-vercel/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-zeabur",
+      "title": "Astro: zeabur",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/zeabur",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: zeabur",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-zeabur/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-zeabur/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-zeabur/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-zeabur/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-zephyr",
+      "title": "Astro: zephyr",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/zephyr",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: zephyr",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-zephyr/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-zephyr/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-zephyr/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-zephyr/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-deploy-zerops",
+      "title": "Astro: zerops",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/deploy/zerops",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: zerops",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-deploy-zerops/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-deploy-zerops/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-deploy-zerops/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-deploy-zerops/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-guides-dev-toolbar",
+      "title": "Astro: dev toolbar",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/guides/dev-toolbar",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: dev toolbar",
+      "manifest_path": "agentpress/material-kits/astro-en-guides-dev-toolbar/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-guides-dev-toolbar/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-guides-dev-toolbar/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-guides-dev-toolbar/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "astro-en-guides-testing",
       "title": "Astro: testing",
       "ecosystem": "Astro",
@@ -8417,6 +9573,27 @@
       "receipt_path": "agentpress/material-kits/astro-en-guides-testing/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/astro-en-guides-testing/llms.txt",
       "run_guide": "agentpress/material-kits/astro-en-guides-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-configuration-reference",
+      "title": "Astro: configuration reference",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/configuration-reference",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: configuration reference",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-configuration-reference/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-configuration-reference/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-configuration-reference/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-configuration-reference/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -8449,6 +9626,111 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "astro-en-reference-errors-action-not-found-error",
+      "title": "Astro: action not found error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/action-not-found-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: action not found error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-action-not-found-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-action-not-found-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-action-not-found-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-action-not-found-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-action-query-string-invalid-error",
+      "title": "Astro: action query string invalid error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/action-query-string-invalid-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: action query string invalid error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-action-query-string-invalid-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-action-query-string-invalid-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-action-query-string-invalid-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-action-query-string-invalid-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-actions-cant-be-loaded",
+      "title": "Astro: actions cant be loaded",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/actions-cant-be-loaded",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: actions cant be loaded",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-actions-cant-be-loaded/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-actions-cant-be-loaded/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-actions-cant-be-loaded/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-actions-cant-be-loaded/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-actions-returned-invalid-data-error",
+      "title": "Astro: actions returned invalid data error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/actions-returned-invalid-data-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: actions returned invalid data error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-actions-returned-invalid-data-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-actions-returned-invalid-data-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-actions-returned-invalid-data-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-actions-returned-invalid-data-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-actions-used-with-for-get-error",
+      "title": "Astro: actions used with for get error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/actions-used-with-for-get-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: actions used with for get error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-actions-used-with-for-get-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-actions-used-with-for-get-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-actions-used-with-for-get-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-actions-used-with-for-get-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "astro-en-reference-errors-actions-without-server-output-error",
       "title": "Astro: actions without server output error",
       "ecosystem": "Astro",
@@ -8459,6 +9741,48 @@
       "receipt_path": "agentpress/material-kits/astro-en-reference-errors-actions-without-server-output-error/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/astro-en-reference-errors-actions-without-server-output-error/llms.txt",
       "run_guide": "agentpress/material-kits/astro-en-reference-errors-actions-without-server-output-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-cache-not-enabled",
+      "title": "Astro: cache not enabled",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/cache-not-enabled",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: cache not enabled",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-cache-not-enabled/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-cache-not-enabled/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-cache-not-enabled/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-cache-not-enabled/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-cache-provider-not-found",
+      "title": "Astro: cache provider not found",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/cache-provider-not-found",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: cache provider not found",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-cache-provider-not-found/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-cache-provider-not-found/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-cache-provider-not-found/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-cache-provider-not-found/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -8491,6 +9815,153 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "astro-en-reference-errors-cant-use-astro-config-module-error",
+      "title": "Astro: cant use astro config module error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/cant-use-astro-config-module-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: cant use astro config module error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-cant-use-astro-config-module-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-cant-use-astro-config-module-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-cant-use-astro-config-module-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-cant-use-astro-config-module-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-client-address-not-available",
+      "title": "Astro: client address not available",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/client-address-not-available",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: client address not available",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-client-address-not-available/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-client-address-not-available/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-client-address-not-available/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-client-address-not-available/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-config-legacy-key",
+      "title": "Astro: config legacy key",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/config-legacy-key",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: config legacy key",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-config-legacy-key/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-config-legacy-key/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-config-legacy-key/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-config-legacy-key/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-config-not-found",
+      "title": "Astro: config not found",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/config-not-found",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: config not found",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-config-not-found/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-config-not-found/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-config-not-found/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-config-not-found/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-content-schema-contains-slug-error",
+      "title": "Astro: content schema contains slug error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/content-schema-contains-slug-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: content schema contains slug error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-content-schema-contains-slug-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-content-schema-contains-slug-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-content-schema-contains-slug-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-content-schema-contains-slug-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-could-not-transform-image",
+      "title": "Astro: could not transform image",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/could-not-transform-image",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: could not transform image",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-could-not-transform-image/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-could-not-transform-image/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-could-not-transform-image/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-could-not-transform-image/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-get-image-not-used-on-server",
+      "title": "Astro: get image not used on server",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/get-image-not-used-on-server",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: get image not used on server",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-get-image-not-used-on-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-get-image-not-used-on-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-get-image-not-used-on-server/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-get-image-not-used-on-server/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "astro-en-reference-errors-invalid-i18n-middleware-configuration",
       "title": "Astro: invalid i18n middleware configuration",
       "ecosystem": "Astro",
@@ -8501,6 +9972,48 @@
       "receipt_path": "agentpress/material-kits/astro-en-reference-errors-invalid-i18n-middleware-configuration/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/astro-en-reference-errors-invalid-i18n-middleware-configuration/llms.txt",
       "run_guide": "agentpress/material-kits/astro-en-reference-errors-invalid-i18n-middleware-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-legacy-content-config-error",
+      "title": "Astro: legacy content config error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/legacy-content-config-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: legacy content config error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-legacy-content-config-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-legacy-content-config-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-legacy-content-config-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-legacy-content-config-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-live-content-config-error",
+      "title": "Astro: live content config error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/live-content-config-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: live content config error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-live-content-config-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-live-content-config-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-live-content-config-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-live-content-config-error/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -8533,6 +10046,216 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "astro-en-reference-errors-markdown-content-schema-validation-error",
+      "title": "Astro: markdown content schema validation error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/markdown-content-schema-validation-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: markdown content schema validation error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-markdown-content-schema-validation-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-markdown-content-schema-validation-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-markdown-content-schema-validation-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-markdown-content-schema-validation-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-mdx-integration-missing-error",
+      "title": "Astro: mdx integration missing error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/mdx-integration-missing-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: mdx integration missing error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-mdx-integration-missing-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-mdx-integration-missing-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-mdx-integration-missing-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-mdx-integration-missing-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-prerender-client-address-not-available",
+      "title": "Astro: prerender client address not available",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/prerender-client-address-not-available",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: prerender client address not available",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-prerender-client-address-not-available/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-prerender-client-address-not-available/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-prerender-client-address-not-available/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-prerender-client-address-not-available/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-server-only-module",
+      "title": "Astro: server only module",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/server-only-module",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: server only module",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-server-only-module/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-server-only-module/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-server-only-module/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-server-only-module/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-session-config-missing-error",
+      "title": "Astro: session config missing error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/session-config-missing-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: session config missing error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-session-config-missing-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-session-config-missing-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-session-config-missing-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-session-config-missing-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-session-config-without-flag-error",
+      "title": "Astro: session config without flag error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/session-config-without-flag-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: session config without flag error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-session-config-without-flag-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-session-config-without-flag-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-session-config-without-flag-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-session-config-without-flag-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-session-storage-init-error",
+      "title": "Astro: session storage init error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/session-storage-init-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: session storage init error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-session-storage-init-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-session-storage-init-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-session-storage-init-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-session-storage-init-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-session-storage-save-error",
+      "title": "Astro: session storage save error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/session-storage-save-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: session storage save error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-session-storage-save-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-session-storage-save-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-session-storage-save-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-session-storage-save-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-static-client-address-not-available",
+      "title": "Astro: static client address not available",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/static-client-address-not-available",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: static client address not available",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-static-client-address-not-available/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-static-client-address-not-available/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-static-client-address-not-available/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-static-client-address-not-available/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-unknown-config-error",
+      "title": "Astro: unknown config error",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/unknown-config-error",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: unknown config error",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-unknown-config-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-unknown-config-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-unknown-config-error/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-unknown-config-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "astro-en-reference-errors-unsupported-config-transform-error",
       "title": "Astro: unsupported config transform error",
       "ecosystem": "Astro",
@@ -8543,6 +10266,153 @@
       "receipt_path": "agentpress/material-kits/astro-en-reference-errors-unsupported-config-transform-error/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/astro-en-reference-errors-unsupported-config-transform-error/llms.txt",
       "run_guide": "agentpress/material-kits/astro-en-reference-errors-unsupported-config-transform-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-errors-unsupported-image-format",
+      "title": "Astro: unsupported image format",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/errors/unsupported-image-format",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: unsupported image format",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-errors-unsupported-image-format/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-errors-unsupported-image-format/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-errors-unsupported-image-format/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-errors-unsupported-image-format/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-en-reference-experimental-flags-chrome-devtools-workspace",
+      "title": "Astro: chrome devtools workspace",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/en/reference/experimental-flags/chrome-devtools-workspace",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: chrome devtools workspace",
+      "manifest_path": "agentpress/material-kits/astro-en-reference-experimental-flags-chrome-devtools-workspace/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-en-reference-experimental-flags-chrome-devtools-workspace/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-en-reference-experimental-flags-chrome-devtools-workspace/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-en-reference-experimental-flags-chrome-devtools-workspace/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-guides-authentication",
+      "title": "Astro: authentication",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/guides/authentication",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: authentication",
+      "manifest_path": "agentpress/material-kits/astro-hi-guides-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-guides-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-guides-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-guides-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-guides-configuring-astro",
+      "title": "Astro: configuring astro",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/guides/configuring-astro",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: configuring astro",
+      "manifest_path": "agentpress/material-kits/astro-hi-guides-configuring-astro/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-guides-configuring-astro/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-guides-configuring-astro/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-guides-configuring-astro/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-guides-deploy",
+      "title": "Astro: deploy",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/guides/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: deploy",
+      "manifest_path": "agentpress/material-kits/astro-hi-guides-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-guides-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-guides-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-guides-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-guides-deploy-aws",
+      "title": "Astro: aws",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/guides/deploy/aws",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: aws",
+      "manifest_path": "agentpress/material-kits/astro-hi-guides-deploy-aws/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-guides-deploy-aws/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-guides-deploy-aws/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-guides-deploy-aws/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "astro-hi-guides-deploy-aws-via-flightcontrol",
+      "title": "Astro: aws via flightcontrol",
+      "ecosystem": "Astro",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.astro.build/hi/guides/deploy/aws-via-flightcontrol",
+      "painpoint": "agents frequently need compact, citation-ready context for framework/docs agents need: aws via flightcontrol",
+      "manifest_path": "agentpress/material-kits/astro-hi-guides-deploy-aws-via-flightcontrol/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/astro-hi-guides-deploy-aws-via-flightcontrol/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/astro-hi-guides-deploy-aws-via-flightcontrol/llms.txt",
+      "run_guide": "agentpress/material-kits/astro-hi-guides-deploy-aws-via-flightcontrol/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -42280,6 +44150,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "grafana-developers-plugin-tools-how-to-guides-ui-extensions-versioning-e",
+      "title": "Grafana: versioning extensions",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/developers/plugin-tools/how-to-guides/ui-extensions/versioning-extensions",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: versioning extensions",
+      "manifest_path": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-versioning-e/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-versioning-e/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-versioning-e/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-developers-plugin-tools-how-to-guides-ui-extensions-versioning-e/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-developers-plugin-tools-migration-guides-angular-react-custom-co",
+      "title": "Grafana: custom config components",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/developers/plugin-tools/migration-guides/angular-react/custom-config-components",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: custom config components",
+      "manifest_path": "agentpress/material-kits/grafana-developers-plugin-tools-migration-guides-angular-react-custom-co/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-developers-plugin-tools-migration-guides-angular-react-custom-co/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-developers-plugin-tools-migration-guides-angular-react-custom-co/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-developers-plugin-tools-migration-guides-angular-react-custom-co/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "grafana-developers-plugin-tools-migration-guides-angular-react-migrate-a",
       "title": "Grafana: migrate angularjs configuration settings to react",
       "ecosystem": "Grafana",
@@ -42374,6 +44286,27 @@
       "receipt_path": "agentpress/material-kits/grafana-developers-plugin-tools-reference-ui-extensions-reference-ui-ext/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/grafana-developers-plugin-tools-reference-ui-extensions-reference-ui-ext/llms.txt",
       "run_guide": "agentpress/material-kits/grafana-developers-plugin-tools-reference-ui-extensions-reference-ui-ext/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-developers-plugin-tools-tutorials-build-a-streaming-data-source",
+      "title": "Grafana: build a streaming data source plugin",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/developers/plugin-tools/tutorials/build-a-streaming-data-source-plugin",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: build a streaming data source plugin",
+      "manifest_path": "agentpress/material-kits/grafana-developers-plugin-tools-tutorials-build-a-streaming-data-source/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-developers-plugin-tools-tutorials-build-a-streaming-data-source/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-developers-plugin-tools-tutorials-build-a-streaming-data-source/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-developers-plugin-tools-tutorials-build-a-streaming-data-source/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -50438,6 +52371,27 @@
       "receipt_path": "agentpress/material-kits/grafana-docs-tempo-latest-configuration-network-sidecar-proxy/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/grafana-docs-tempo-latest-configuration-network-sidecar-proxy/llms.txt",
       "run_guide": "agentpress/material-kits/grafana-docs-tempo-latest-configuration-network-sidecar-proxy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-tempo-latest-set-up-for-tracing-setup-tempo-deploy-kubernet",
+      "title": "Grafana: quickstart",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/tempo/latest/set-up-for-tracing/setup-tempo/deploy/kubernetes/operator/quickstart",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: quickstart",
+      "manifest_path": "agentpress/material-kits/grafana-docs-tempo-latest-set-up-for-tracing-setup-tempo-deploy-kubernet/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-tempo-latest-set-up-for-tracing-setup-tempo-deploy-kubernet/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-tempo-latest-set-up-for-tracing-setup-tempo-deploy-kubernet/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-tempo-latest-set-up-for-tracing-setup-tempo-deploy-kubernet/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -106288,6 +108242,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-creat",
+      "title": "TanStack: createResidualWhere",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/@tanstack/namespaces/IR/functions/createResidualWhere",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: createResidualWhere",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-creat/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-creat/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-creat/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-creat/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-follo",
+      "title": "TanStack: followRef",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/@tanstack/namespaces/IR/functions/followRef",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: followRef",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-follo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-follo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-follo/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-follo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-isres",
+      "title": "TanStack: isResidualWhere",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/@tanstack/namespaces/IR/functions/isResidualWhere",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: isResidualWhere",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-isres/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-isres/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-isres/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-tanstack-namespaces-ir-functions-isres/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "tanstack-db-latest-docs-reference-trailbase-db-collection-classes-expect",
       "title": "TanStack: ExpectedUpdateTypeError",
       "ecosystem": "TanStack",
@@ -119121,8 +121138,53 @@
   ],
   "next_build_signals": [
     {
+      "slug": "algolia-doc-guides-ab-testing-how-to-read-your-a-b-test-results",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: how to read your a b test results",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-adopt-ab-test-wi",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: adopt ab test winner",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-create-and-run-a",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: create and run an ab test",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-ab-testing-what-is-ab-testing-how-to-setup-an-index-f",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: setup an index for index settings ab test",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-ab-testing-what-is-ab-testing-in-depth-api-version-3",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: api version 3",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
       "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-agent-configuration",
       "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: agent configuration",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-feedback",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: feedback",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-integration",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: integration",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-memory-overview",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: overview",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-quickstart",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: quickstart",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
@@ -119156,93 +121218,48 @@
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-de-agents-and-tools-agent-skills-claude-api-skill",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: claude api skill",
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-user-authentication",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: user authentication",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-de-agents-and-tools-agent-skills-overview",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: overview",
+      "slug": "algolia-doc-guides-building-search-ui-getting-started-how-to-declarative",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: ios",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-de-agents-and-tools-agent-skills-quickstart",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: quickstart",
+      "slug": "algolia-doc-guides-building-search-ui-getting-started-how-to-programmati",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: ios",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-de-agents-and-tools-mcp-connector",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
+      "slug": "algolia-doc-guides-managing-results-optimize-search-results-handling-nat",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: language specific configurations",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-de-agents-and-tools-remote-mcp-servers",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: remote mcp servers",
+      "slug": "algolia-doc-guides-personalization-classic-personalization-going-to-prod",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: ab testing personalization",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-bash-tool",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: bash tool",
+      "slug": "algolia-doc-integration-magento-2-guides-create-a-custom-extension",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: create a custom extension",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-build-a-tool-using-agent",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: build a tool using agent",
+      "slug": "algolia-doc-integration-magento-2-guides-transform-indexed-attribute",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: transform indexed attribute",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-computer-use-tool",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: computer use tool",
+      "slug": "angular-api-common-testing-mock-platform-location-config",
+      "signal": "agents frequently need compact, citation-ready context for framework/docs agents need: MOCK PLATFORM LOCATION CONFIG",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-handle-tool-calls",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: handle tool calls",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-memory-tool",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: memory tool",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-overview",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: overview",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-server-tools",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: server tools",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-tool-reference",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool reference",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-tool-runner",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool runner",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-troubleshooting-tool-use",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: troubleshooting tool use",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-web-fetch-tool",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: web fetch tool",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-de-agents-and-tools-tool-use-web-search-tool",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: web search tool",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-de-managed-agents-quickstart",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: quickstart",
+      "slug": "angular-api-common-testing-mockplatformlocationconfig",
+      "signal": "agents frequently need compact, citation-ready context for framework/docs agents need: MockPlatformLocationConfig",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     }
   ],
