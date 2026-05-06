@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+  "claim": "Material kit prepared for OpenHands painpoint: agents need compact AgentPress wrapper for OpenHands runtime/plugin docs: start bash command",
+  "target_url": "https://docs.openhands.dev/sdk/guides/agent-server/api-reference/bash/start-bash-command",
+  "commands_to_verify": [
+    "python3 scripts/agentpress.py discovery-bridge queue --json",
+    "python3 -m json.tool material-manifest.json",
+    "python3 -m json.tool proof-receipt.json"
+  ],
+  "evidence_files": [
+    "llms.txt",
+    "material-manifest.json",
+    "RUN_THIS.md"
+  ],
+  "external_effects": [],
+  "status": "prepared_not_posted"
+}
