@@ -173,7 +173,7 @@ function printStart(json = false) {
 }
 
 function printHelp() {
-  console.log(`AgentPress — agent-readable repo surfaces\n\nStart here (concise first-user path):\n  agentpress start\n  agentpress doctor --json\n  agentpress llms-init . --json\n  agentpress first-run-wizard . --json\n\nCommon commands:\n  agentpress verify <dir> --json\n  agentpress self-test --agent-id local-agent --out /tmp/agentpress-self-test.jsonl\n  agentpress agent-onboard --agent-id local-agent --runtime codex --json\n\nRun with Python available for the full command catalog.`);
+  console.log(`AgentPress — agent-readable repo surfaces\n\nStart here (concise first-user path):\n  agentpress start\n  agentpress doctor --json\n  agentpress llms-init . --json\n  agentpress first-run-wizard . --json\n\nCommon commands:\n  agentpress pinpoint-packet . --json\n  agentpress verify <dir> --json\n  agentpress self-test --agent-id local-agent --out /tmp/agentpress-self-test.jsonl\n  agentpress agent-onboard --agent-id local-agent --runtime codex --json\n\nRun with Python available for the full command catalog.`);
 }
 
 
@@ -347,6 +347,85 @@ function nodeDoctor(targetDir, opts = {}) {
   return errors.length ? 1 : 0;
 }
 
+function pinpointPacket(targetDir, opts = {}) {
+  const json = opts.json || false;
+  const noWrite = opts.noWrite || false;
+  const out = opts.out || '';
+  const dir = path.resolve(targetDir || '.');
+  const now = new Date().toISOString();
+  if (isSensitivePath(dir)) {
+    printPayload(sensitivePathPayload('pinpoint-packet', dir), json, 'AgentPress pinpoint-packet: refused sensitive path');
+    return 1;
+  }
+
+  const files = [
+    ['llms.txt', path.join(dir, 'llms.txt')],
+    ['.well-known/agentpress.json', path.join(dir, '.well-known', 'agentpress.json')],
+    ['README.md', path.join(dir, 'README.md')],
+    ['package.json', path.join(dir, 'package.json')],
+    ['pyproject.toml', path.join(dir, 'pyproject.toml')],
+  ];
+  const surfaces = files.map(([rel, full]) => {
+    if (!fs.existsSync(full)) return { path: rel, status: 'missing' };
+    try {
+      const stat = fs.statSync(full);
+      const item = { path: rel, status: stat.isFile() ? 'present' : 'not_file', bytes: stat.size };
+      if (rel.endsWith('.json') && stat.isFile()) {
+        try { JSON.parse(fs.readFileSync(full, 'utf8')); item.json_valid = true; }
+        catch (e) { item.json_valid = false; item.error = e.message; }
+      }
+      return item;
+    } catch (e) {
+      return { path: rel, status: 'error', error: e.message };
+    }
+  });
+  const missing = surfaces.filter((s) => s.status === 'missing').map((s) => s.path);
+  const invalid = surfaces.filter((s) => s.json_valid === false).map((s) => s.path);
+  const blockers = [];
+  if (missing.includes('llms.txt')) blockers.push('missing_agent_readme_surface: llms.txt');
+  if (missing.includes('.well-known/agentpress.json')) blockers.push('missing_discovery_manifest: .well-known/agentpress.json');
+  for (const p of invalid) blockers.push(`invalid_json: ${p}`);
+
+  const payload = {
+    schema_version: '2026-05-06.agentpress-pinpoint-packet.v1',
+    status: blockers.length ? 'needs_action' : 'ok',
+    generated_utc: now,
+    mode: 'node-fast-path',
+    root: dir,
+    surfaces,
+    blockers,
+    ranked_first_actions: rankedFirstActions(dir),
+    version_channel: versionChannelInfo(),
+    utility_first_summary: blockers.length
+      ? 'Share this packet with a human or maintainer to pinpoint the missing first-agent adoption surface before asking for external action.'
+      : 'Repo has the minimum first-agent discovery surfaces; next useful proof is a local doctor/self-test receipt.',
+    next_steps: blockers.length ? [
+      { command: `agentpress llms-init ${shellQuote(dir)} --json`, why: 'Create the missing local agent-readable surfaces without external writes.' },
+      { command: `agentpress pinpoint-packet ${shellQuote(dir)} --json`, why: 'Regenerate this packet as evidence after remediation.' },
+    ] : [
+      { command: `agentpress doctor ${shellQuote(dir)} --json`, why: 'Run a bounded health check with next steps.' },
+      { command: `agentpress proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --commands 'agentpress doctor --json' --json`, why: 'Turn the run into a local proof bundle.' },
+    ],
+    safety: { external_writes: false, secrets_required: false, destructive_actions: false, default_deny_secret_paths: true },
+  };
+
+  if (out) {
+    try {
+      if (noWrite) payload.would_write = out;
+      else {
+        fs.mkdirSync(path.dirname(path.resolve(out)), { recursive: true });
+        fs.writeFileSync(out, JSON.stringify(payload, null, 2) + '\n', 'utf8');
+        payload.written = path.resolve(out);
+      }
+    } catch (e) {
+      payload.status = 'error';
+      payload.blockers.push(`write_failed: ${e.message}`);
+    }
+  }
+  printPayload(payload, json, `AgentPress pinpoint-packet: ${payload.status}`);
+  return payload.status === 'error' ? 1 : 0;
+}
+
 function llmsInit(targetDir, opts) {
   const json = (opts && opts.json) || false;
   const force = (opts && opts.force) || false;
@@ -475,7 +554,7 @@ if (args.length === 0 || args[0] === '--help' || args[0] === '-h' || args[0] ===
   process.exit(0);
 }
 
-if ((args[0] === 'llms-init' || args[0] === 'doctor') && (args.includes('--help') || args.includes('-h'))) {
+if ((args[0] === 'llms-init' || args[0] === 'doctor' || args[0] === 'pinpoint-packet') && (args.includes('--help') || args.includes('-h'))) {
   printHelp();
   process.exit(0);
 }
@@ -493,6 +572,16 @@ if (args[0] === 'llms-init') {
     noWrite: args.includes('--no-write'),
     title: flagValue(args, '--title', ''),
     baseUrl: flagValue(args, '--base-url', ''),
+  });
+  process.exit(exitCode);
+}
+
+if (args[0] === 'pinpoint-packet' || args[0] === 'gorilla-pinpoint') {
+  const targetDir = firstPositional(args, 1);
+  const exitCode = pinpointPacket(targetDir, {
+    json: wantsJson(args),
+    noWrite: args.includes('--no-write'),
+    out: flagValue(args, '--out', ''),
   });
   process.exit(exitCode);
 }
