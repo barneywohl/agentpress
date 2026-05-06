@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:52:35Z",
+  "generated_utc": "2026-05-06T04:52:46Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 3185,
+  "kit_count": 3233,
   "by_ecosystem": {
     "Anthropic": 305,
     "Auth0": 122,
@@ -25,11 +25,11 @@
     "Haystack": 211,
     "Kubernetes": 77,
     "LangGraph": 2,
-    "LiteLLM": 203,
+    "LiteLLM": 204,
     "LlamaIndex": 1,
     "mcp": 1,
     "MCP": 32,
-    "MongoDB": 110,
+    "MongoDB": 157,
     "Next.js": 194,
     "OpenAI Agents SDK": 37,
     "OpenHands": 75,
@@ -50,7 +50,7 @@
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 3185
+    "ready_local_static_not_posted": 3233
   },
   "kits": [
     {
@@ -37582,11 +37582,11 @@
     },
     {
       "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade",
-      "title": "Kubernetes: kubeadm upgrade node phase",
+      "title": "Kubernetes: kubeadm upgrade apply phase addon kube proxy",
       "ecosystem": "Kubernetes",
       "status": "ready_local_static_not_posted",
-      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade/kubeadm_upgrade_node_phase/",
-      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm upgrade node phase",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_addon_kube-proxy",
+      "painpoint": "agents frequently need compact, citation-ready context for K8s deploy/resource/config docs: kubeadm upgrade apply phase addon kube proxy",
       "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/material-manifest.json",
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/llms.txt",
@@ -38517,6 +38517,27 @@
       "run_guide": "agentpress/material-kits/litellm-docs-guides-finetuned-models/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-guides-reliability-testing-spend",
+      "title": "LiteLLM: reliability testing spend",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/guides/reliability_testing_spend",
+      "painpoint": "agents frequently need compact, citation-ready context for proxy/provider/error routing docs: reliability testing spend",
+      "manifest_path": "agentpress/material-kits/litellm-docs-guides-reliability-testing-spend/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-guides-reliability-testing-spend/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-guides-reliability-testing-spend/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-guides-reliability-testing-spend/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --error \"common implementation failure\" --json",
         "python3 -m json.tool material-manifest.json",
         "python3 -m json.tool proof-receipt.json"
       ],
@@ -43230,6 +43251,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "mongodb-docs-kubernetes-current-tutorial-edit-deployment",
+      "title": "MongoDB: edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/current/tutorial/edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-current-tutorial-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-current-tutorial-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-current-tutorial-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-current-tutorial-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-current-tutorial-multi-cluster-edit-deployment",
+      "title": "MongoDB: multi cluster edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/current/tutorial/multi-cluster-edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: multi cluster edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-current-tutorial-multi-cluster-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-current-tutorial-multi-cluster-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-current-tutorial-multi-cluster-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-current-tutorial-multi-cluster-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "mongodb-docs-kubernetes-v1-1-tutorial-configure-mongodb-specific-storage",
       "title": "MongoDB: configure mongodb specific storage",
       "ecosystem": "MongoDB",
@@ -43240,6 +43303,48 @@
       "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-1-tutorial-configure-mongodb-specific-storage/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-1-tutorial-configure-mongodb-specific-storage/llms.txt",
       "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-1-tutorial-configure-mongodb-specific-storage/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-v1-1-tutorial-edit-deployment",
+      "title": "MongoDB: edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.1/tutorial/edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-1-tutorial-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-1-tutorial-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-1-tutorial-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-1-tutorial-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-v1-1-tutorial-multi-cluster-edit-deployment",
+      "title": "MongoDB: multi cluster edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.1/tutorial/multi-cluster-edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: multi cluster edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-1-tutorial-multi-cluster-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-1-tutorial-multi-cluster-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-1-tutorial-multi-cluster-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-1-tutorial-multi-cluster-edit-deployment/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -43272,6 +43377,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "mongodb-docs-kubernetes-v1-2-tutorial-edit-deployment",
+      "title": "MongoDB: edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.2/tutorial/edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-2-tutorial-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-2-tutorial-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-2-tutorial-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-2-tutorial-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-v1-2-tutorial-multi-cluster-edit-deployment",
+      "title": "MongoDB: multi cluster edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.2/tutorial/multi-cluster-edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: multi cluster edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-2-tutorial-multi-cluster-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-2-tutorial-multi-cluster-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-2-tutorial-multi-cluster-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-2-tutorial-multi-cluster-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "mongodb-docs-kubernetes-v1-3-tutorial-configure-mongodb-specific-storage",
       "title": "MongoDB: configure mongodb specific storage",
       "ecosystem": "MongoDB",
@@ -43282,6 +43429,48 @@
       "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-3-tutorial-configure-mongodb-specific-storage/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-3-tutorial-configure-mongodb-specific-storage/llms.txt",
       "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-3-tutorial-configure-mongodb-specific-storage/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-v1-3-tutorial-edit-deployment",
+      "title": "MongoDB: edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.3/tutorial/edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-3-tutorial-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-3-tutorial-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-3-tutorial-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-3-tutorial-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-v1-3-tutorial-multi-cluster-edit-deployment",
+      "title": "MongoDB: multi cluster edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.3/tutorial/multi-cluster-edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: multi cluster edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-3-tutorial-multi-cluster-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-3-tutorial-multi-cluster-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-3-tutorial-multi-cluster-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-3-tutorial-multi-cluster-edit-deployment/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -43314,6 +43503,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "mongodb-docs-kubernetes-v1-4-tutorial-edit-deployment",
+      "title": "MongoDB: edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.4/tutorial/edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-4-tutorial-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-4-tutorial-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-4-tutorial-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-4-tutorial-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-v1-4-tutorial-multi-cluster-edit-deployment",
+      "title": "MongoDB: multi cluster edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.4/tutorial/multi-cluster-edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: multi cluster edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-4-tutorial-multi-cluster-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-4-tutorial-multi-cluster-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-4-tutorial-multi-cluster-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-4-tutorial-multi-cluster-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "mongodb-docs-kubernetes-v1-5-tutorial-configure-mongodb-specific-storage",
       "title": "MongoDB: configure mongodb specific storage",
       "ecosystem": "MongoDB",
@@ -43324,6 +43555,48 @@
       "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-5-tutorial-configure-mongodb-specific-storage/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-5-tutorial-configure-mongodb-specific-storage/llms.txt",
       "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-5-tutorial-configure-mongodb-specific-storage/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-v1-5-tutorial-edit-deployment",
+      "title": "MongoDB: edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.5/tutorial/edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-5-tutorial-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-5-tutorial-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-5-tutorial-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-5-tutorial-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-v1-5-tutorial-multi-cluster-edit-deployment",
+      "title": "MongoDB: multi cluster edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.5/tutorial/multi-cluster-edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: multi cluster edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-5-tutorial-multi-cluster-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-5-tutorial-multi-cluster-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-5-tutorial-multi-cluster-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-5-tutorial-multi-cluster-edit-deployment/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -43356,6 +43629,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "mongodb-docs-kubernetes-v1-6-tutorial-edit-deployment",
+      "title": "MongoDB: edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.6/tutorial/edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-6-tutorial-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-6-tutorial-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-6-tutorial-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-6-tutorial-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-v1-6-tutorial-multi-cluster-edit-deployment",
+      "title": "MongoDB: multi cluster edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.6/tutorial/multi-cluster-edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: multi cluster edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-6-tutorial-multi-cluster-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-6-tutorial-multi-cluster-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-6-tutorial-multi-cluster-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-6-tutorial-multi-cluster-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "mongodb-docs-kubernetes-v1-7-tutorial-configure-mongodb-specific-storage",
       "title": "MongoDB: configure mongodb specific storage",
       "ecosystem": "MongoDB",
@@ -43366,6 +43681,489 @@
       "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-7-tutorial-configure-mongodb-specific-storage/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-7-tutorial-configure-mongodb-specific-storage/llms.txt",
       "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-7-tutorial-configure-mongodb-specific-storage/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-v1-7-tutorial-edit-deployment",
+      "title": "MongoDB: edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.7/tutorial/edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-7-tutorial-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-7-tutorial-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-7-tutorial-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-7-tutorial-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-kubernetes-v1-7-tutorial-multi-cluster-edit-deployment",
+      "title": "MongoDB: multi cluster edit deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/kubernetes/v1.7/tutorial/multi-cluster-edit-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: multi cluster edit deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-7-tutorial-multi-cluster-edit-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-kubernetes-v1-7-tutorial-multi-cluster-edit-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-kubernetes-v1-7-tutorial-multi-cluster-edit-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-kubernetes-v1-7-tutorial-multi-cluster-edit-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-languages-java-reactive-streams-driver-current-get-started",
+      "title": "MongoDB: create a deployment",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/languages/java/reactive-streams-driver/current/get-started/create-a-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: create a deployment",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-languages-java-reactive-streams-driver-current-get-started/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-languages-java-reactive-streams-driver-current-get-started/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-languages-java-reactive-streams-driver-current-get-started/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-languages-java-reactive-streams-driver-current-get-started/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-languages-java-reactive-streams-driver-current-read-write-c",
+      "title": "MongoDB: read write configuration",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/languages/java/reactive-streams-driver/current/read-write-configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: read write configuration",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-languages-java-reactive-streams-driver-current-read-write-c/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-languages-java-reactive-streams-driver-current-read-write-c/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-languages-java-reactive-streams-driver-current-read-write-c/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-languages-java-reactive-streams-driver-current-read-write-c/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-command-committransitiontodedicatedconfigs",
+      "title": "MongoDB: commitTransitionToDedicatedConfigServer",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/command/commitTransitionToDedicatedConfigServer",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: commitTransitionToDedicatedConfigServer",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-committransitiontodedicatedconfigs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-committransitiontodedicatedconfigs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-command-committransitiontodedicatedconfigs/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-command-committransitiontodedicatedconfigs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-command-configurecollectionbalancing",
+      "title": "MongoDB: configureCollectionBalancing",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/command/configureCollectionBalancing",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: configureCollectionBalancing",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-configurecollectionbalancing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-configurecollectionbalancing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-command-configurecollectionbalancing/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-command-configurecollectionbalancing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-command-gettransitiontodedicatedconfigserv",
+      "title": "MongoDB: getTransitionToDedicatedConfigServerStatus",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/command/getTransitionToDedicatedConfigServerStatus",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: getTransitionToDedicatedConfigServerStatus",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-gettransitiontodedicatedconfigserv/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-gettransitiontodedicatedconfigserv/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-command-gettransitiontodedicatedconfigserv/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-command-gettransitiontodedicatedconfigserv/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-command-starttransitiontodedicatedconfigse",
+      "title": "MongoDB: startTransitionToDedicatedConfigServer",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/command/startTransitionToDedicatedConfigServer",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: startTransitionToDedicatedConfigServer",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-starttransitiontodedicatedconfigse/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-starttransitiontodedicatedconfigse/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-command-starttransitiontodedicatedconfigse/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-command-starttransitiontodedicatedconfigse/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-command-stoptransitiontodedicatedconfigser",
+      "title": "MongoDB: stopTransitionToDedicatedConfigServer",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/command/stopTransitionToDedicatedConfigServer",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: stopTransitionToDedicatedConfigServer",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-stoptransitiontodedicatedconfigser/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-stoptransitiontodedicatedconfigser/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-command-stoptransitiontodedicatedconfigser/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-command-stoptransitiontodedicatedconfigser/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-command-transitionfromdedicatedconfigserve",
+      "title": "MongoDB: transitionFromDedicatedConfigServer",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/command/transitionFromDedicatedConfigServer",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: transitionFromDedicatedConfigServer",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-transitionfromdedicatedconfigserve/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-transitionfromdedicatedconfigserve/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-command-transitionfromdedicatedconfigserve/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-command-transitionfromdedicatedconfigserve/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-command-transitiontodedicatedconfigserver",
+      "title": "MongoDB: transitionToDedicatedConfigServer",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/command/transitionToDedicatedConfigServer",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: transitionToDedicatedConfigServer",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-transitiontodedicatedconfigserver/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-command-transitiontodedicatedconfigserver/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-command-transitiontodedicatedconfigserver/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-command-transitiontodedicatedconfigserver/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-config-database",
+      "title": "MongoDB: config database",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/config-database",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: config database",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-config-database/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-config-database/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-config-database/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-config-database/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-configuration-file-settings-command-line-o",
+      "title": "MongoDB: configuration file settings command line options mapping",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/configuration-file-settings-command-line-options-mapping",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: configuration file settings command line options mapping",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-configuration-file-settings-command-line-o/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-configuration-file-settings-command-line-o/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-configuration-file-settings-command-line-o/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-configuration-file-settings-command-line-o/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-configuration-options",
+      "title": "MongoDB: configuration options",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/configuration-options",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: configuration options",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-configuration-options/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-configuration-options/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-configuration-options/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-configuration-options/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-method-sp-createstreamprocessor",
+      "title": "MongoDB: sp.createStreamProcessor",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/method/sp.createStreamProcessor",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: sp.createStreamProcessor",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-method-sp-createstreamprocessor/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-method-sp-createstreamprocessor/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-method-sp-createstreamprocessor/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-method-sp-createstreamprocessor/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-reference-replica-configuration",
+      "title": "MongoDB: replica configuration",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/reference/replica-configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: replica configuration",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-reference-replica-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-reference-replica-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-reference-replica-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-reference-replica-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-aggregation-complete-examples",
+      "title": "MongoDB: aggregation complete examples",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/aggregation-complete-examples",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: aggregation complete examples",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-complete-examples/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-complete-examples/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-complete-examples/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-complete-examples/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-aggregation-examples-filtered-subset",
+      "title": "MongoDB: filtered subset",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/aggregation-examples/filtered-subset",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: filtered subset",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-filtered-subset/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-filtered-subset/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-filtered-subset/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-filtered-subset/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-aggregation-examples-group-and-total",
+      "title": "MongoDB: group and total",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/aggregation-examples/group-and-total",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: group and total",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-group-and-total/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-group-and-total/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-group-and-total/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-group-and-total/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-aggregation-examples-multi-field-join",
+      "title": "MongoDB: multi field join",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/aggregation-examples/multi-field-join",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: multi field join",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-multi-field-join/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-multi-field-join/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-multi-field-join/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-multi-field-join/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-aggregation-examples-one-to-one-join",
+      "title": "MongoDB: one to one join",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/aggregation-examples/one-to-one-join",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: one to one join",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-one-to-one-join/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-one-to-one-join/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-one-to-one-join/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-one-to-one-join/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-aggregation-examples-unpack-arrays",
+      "title": "MongoDB: unpack arrays",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/aggregation-examples/unpack-arrays",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: unpack arrays",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-unpack-arrays/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-unpack-arrays/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-unpack-arrays/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-aggregation-examples-unpack-arrays/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-backup-and-restore-tools",
+      "title": "MongoDB: backup and restore tools",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/backup-and-restore-tools",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: backup and restore tools",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-backup-and-restore-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-backup-and-restore-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-backup-and-restore-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-backup-and-restore-tools/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -43398,6 +44196,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "mongodb-docs-manual-tutorial-configure-ssl-clients",
+      "title": "MongoDB: configure ssl clients",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/configure-ssl-clients",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: configure ssl clients",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-configure-ssl-clients/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-configure-ssl-clients/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-configure-ssl-clients/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-configure-ssl-clients/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "mongodb-docs-manual-tutorial-configure-x509-client-authentication",
       "title": "MongoDB: configure x509 client authentication",
       "ecosystem": "MongoDB",
@@ -43419,6 +44238,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "mongodb-docs-manual-tutorial-configure-x509-member-authentication",
+      "title": "MongoDB: configure x509 member authentication",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/configure-x509-member-authentication",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: configure x509 member authentication",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-configure-x509-member-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-configure-x509-member-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-configure-x509-member-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-configure-x509-member-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-convert-replica-set-to-embedded-config-serv",
+      "title": "MongoDB: convert replica set to embedded config server",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/convert-replica-set-to-embedded-config-server",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: convert replica set to embedded config server",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-convert-replica-set-to-embedded-config-serv/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-convert-replica-set-to-embedded-config-serv/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-convert-replica-set-to-embedded-config-serv/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-convert-replica-set-to-embedded-config-serv/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "mongodb-docs-manual-tutorial-deploy-replica-set-for-testing",
       "title": "MongoDB: deploy replica set for testing",
       "ecosystem": "MongoDB",
@@ -43429,6 +44290,153 @@
       "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-deploy-replica-set-for-testing/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-deploy-replica-set-for-testing/llms.txt",
       "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-deploy-replica-set-for-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-evaluate-operation-performance",
+      "title": "MongoDB: evaluate operation performance",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/evaluate-operation-performance",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: evaluate operation performance",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-evaluate-operation-performance/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-evaluate-operation-performance/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-evaluate-operation-performance/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-evaluate-operation-performance/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-map-reduce-examples",
+      "title": "MongoDB: map reduce examples",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/map-reduce-examples",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: map reduce examples",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-map-reduce-examples/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-map-reduce-examples/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-map-reduce-examples/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-map-reduce-examples/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-replace-config-server",
+      "title": "MongoDB: replace config server",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/replace-config-server",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: replace config server",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-replace-config-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-replace-config-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-replace-config-server/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-replace-config-server/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-store-javascript-function-on-server",
+      "title": "MongoDB: store javascript function on server",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/store-javascript-function-on-server",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: store javascript function on server",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-store-javascript-function-on-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-store-javascript-function-on-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-store-javascript-function-on-server/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-store-javascript-function-on-server/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-troubleshoot-map-function",
+      "title": "MongoDB: troubleshoot map function",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/troubleshoot-map-function",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: troubleshoot map function",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-troubleshoot-map-function/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-troubleshoot-map-function/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-troubleshoot-map-function/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-troubleshoot-map-function/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-troubleshoot-reduce-function",
+      "title": "MongoDB: troubleshoot reduce function",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/troubleshoot-reduce-function",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: troubleshoot reduce function",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-troubleshoot-reduce-function/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-troubleshoot-reduce-function/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-troubleshoot-reduce-function/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-troubleshoot-reduce-function/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mongodb-docs-manual-tutorial-view-sharded-cluster-configuration",
+      "title": "MongoDB: view sharded cluster configuration",
+      "ecosystem": "MongoDB",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.mongodb.com/docs/manual/tutorial/view-sharded-cluster-configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for Mongo query/schema/atlas docs: view sharded cluster configuration",
+      "manifest_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-view-sharded-cluster-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mongodb-docs-manual-tutorial-view-sharded-cluster-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mongodb-docs-manual-tutorial-view-sharded-cluster-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/mongodb-docs-manual-tutorial-view-sharded-cluster-configuration/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
