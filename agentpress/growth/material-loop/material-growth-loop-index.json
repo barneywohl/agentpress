@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:58:23Z",
+  "generated_utc": "2026-05-06T04:58:42Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 4775,
+  "kit_count": 4862,
   "by_ecosystem": {
     "Anthropic": 387,
     "Auth0": 189,
@@ -13,12 +13,12 @@
     "Bun": 208,
     "Clerk": 221,
     "Cline": 6,
-    "Cloudflare": 134,
+    "Cloudflare": 137,
     "docs": 1,
-    "CrewAI": 171,
+    "CrewAI": 172,
     "Cypress": 8,
-    "Deno": 20,
-    "Docker": 178,
+    "Deno": 28,
+    "Docker": 253,
     "Drizzle": 5,
     "DSPy": 9,
     "FastAPI": 12,
@@ -51,7 +51,7 @@
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 4775
+    "ready_local_static_not_posted": 4862
   },
   "kits": [
     {
@@ -26998,6 +26998,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cloudflare-workers-ai-guides-tutorials-image-generation-playground",
+      "title": "Cloudflare: image generation playground",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers-ai/guides/tutorials/image-generation-playground",
+      "painpoint": "agents frequently need compact, citation-ready context for Workers/R2/D1/Pages/AI docs: image generation playground",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-image-generation-playground/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-image-generation-playground/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-image-generation-playground/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-image-generation-playground/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cloudflare-workers-ai-guides-tutorials-image-generation-playground-image",
       "title": "Cloudflare: image generator flux newmodels",
       "ecosystem": "Cloudflare",
@@ -27008,6 +27029,48 @@
       "receipt_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-image-generation-playground-image/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-image-generation-playground-image/llms.txt",
       "run_guide": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-image-generation-playground-image/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-ai-guides-tutorials-llama-vision-tutorial",
+      "title": "Cloudflare: llama vision tutorial",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers-ai/guides/tutorials/llama-vision-tutorial",
+      "painpoint": "agents frequently need compact, citation-ready context for Workers/R2/D1/Pages/AI docs: llama vision tutorial",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-llama-vision-tutorial/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-llama-vision-tutorial/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-llama-vision-tutorial/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-llama-vision-tutorial/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-ai-guides-tutorials-using-bigquery-with-workers-ai",
+      "title": "Cloudflare: using bigquery with workers ai",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers-ai/guides/tutorials/using-bigquery-with-workers-ai",
+      "painpoint": "agents frequently need compact, citation-ready context for Workers/R2/D1/Pages/AI docs: using bigquery with workers ai",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-using-bigquery-with-workers-ai/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-using-bigquery-with-workers-ai/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-using-bigquery-with-workers-ai/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-using-bigquery-with-workers-ai/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -28898,6 +28961,27 @@
       "receipt_path": "agentpress/material-kits/crewai-en-enterprise-guides-vertex-ai-workload-identity-setup/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/crewai-en-enterprise-guides-vertex-ai-workload-identity-setup/llms.txt",
       "run_guide": "agentpress/material-kits/crewai-en-enterprise-guides-vertex-ai-workload-identity-setup/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-en-enterprise-guides-webhook-automation",
+      "title": "CrewAI: webhook automation",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/en/enterprise/guides/webhook-automation",
+      "painpoint": "agents frequently need compact, citation-ready context for agent/flow/tool docs: webhook automation",
+      "manifest_path": "agentpress/material-kits/crewai-en-enterprise-guides-webhook-automation/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-en-enterprise-guides-webhook-automation/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-en-enterprise-guides-webhook-automation/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-en-enterprise-guides-webhook-automation/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -31618,6 +31702,174 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "deno-deploy-classic-api-runtime-broadcast-channel",
+      "title": "Deno: runtime broadcast channel",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/deploy/classic/api/runtime-broadcast-channel",
+      "painpoint": "agents frequently need compact, citation-ready context for Deno runtime/deploy/API docs: runtime broadcast channel",
+      "manifest_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-broadcast-channel/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-broadcast-channel/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-deploy-classic-api-runtime-broadcast-channel/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-deploy-classic-api-runtime-broadcast-channel/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-deploy-classic-api-runtime-fetch",
+      "title": "Deno: runtime fetch",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/deploy/classic/api/runtime-fetch",
+      "painpoint": "agents frequently need compact, citation-ready context for Deno runtime/deploy/API docs: runtime fetch",
+      "manifest_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-fetch/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-fetch/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-deploy-classic-api-runtime-fetch/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-deploy-classic-api-runtime-fetch/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-deploy-classic-api-runtime-fs",
+      "title": "Deno: runtime fs",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/deploy/classic/api/runtime-fs",
+      "painpoint": "agents frequently need compact, citation-ready context for Deno runtime/deploy/API docs: runtime fs",
+      "manifest_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-fs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-fs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-deploy-classic-api-runtime-fs/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-deploy-classic-api-runtime-fs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-deploy-classic-api-runtime-headers",
+      "title": "Deno: runtime headers",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/deploy/classic/api/runtime-headers",
+      "painpoint": "agents frequently need compact, citation-ready context for Deno runtime/deploy/API docs: runtime headers",
+      "manifest_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-headers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-headers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-deploy-classic-api-runtime-headers/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-deploy-classic-api-runtime-headers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-deploy-classic-api-runtime-node",
+      "title": "Deno: runtime node",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/deploy/classic/api/runtime-node",
+      "painpoint": "agents frequently need compact, citation-ready context for Deno runtime/deploy/API docs: runtime node",
+      "manifest_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-node/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-node/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-deploy-classic-api-runtime-node/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-deploy-classic-api-runtime-node/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-deploy-classic-api-runtime-request",
+      "title": "Deno: runtime request",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/deploy/classic/api/runtime-request",
+      "painpoint": "agents frequently need compact, citation-ready context for Deno runtime/deploy/API docs: runtime request",
+      "manifest_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-request/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-request/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-deploy-classic-api-runtime-request/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-deploy-classic-api-runtime-request/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-deploy-classic-api-runtime-response",
+      "title": "Deno: runtime response",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/deploy/classic/api/runtime-response",
+      "painpoint": "agents frequently need compact, citation-ready context for Deno runtime/deploy/API docs: runtime response",
+      "manifest_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-response/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-response/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-deploy-classic-api-runtime-response/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-deploy-classic-api-runtime-response/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-deploy-classic-api-runtime-sockets",
+      "title": "Deno: runtime sockets",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/deploy/classic/api/runtime-sockets",
+      "painpoint": "agents frequently need compact, citation-ready context for Deno runtime/deploy/API docs: runtime sockets",
+      "manifest_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-sockets/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-deploy-classic-api-runtime-sockets/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-deploy-classic-api-runtime-sockets/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-deploy-classic-api-runtime-sockets/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "deno-deploy-reference-builds",
       "title": "Deno: builds",
       "ecosystem": "Deno",
@@ -32479,6 +32731,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-admin-set-up-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/admin-set-up/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-admin-set-up-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-admin-set-up-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-admin-set-up-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-admin-set-up-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-admin-set-up-testing",
       "title": "Docker: testing",
       "ecosystem": "Docker",
@@ -32489,6 +32762,27 @@
       "receipt_path": "agentpress/material-kits/docker-guides-admin-set-up-testing/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-admin-set-up-testing/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-admin-set-up-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-agentic-ai",
+      "title": "Docker: agentic ai",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/agentic-ai",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: agentic ai",
+      "manifest_path": "agentpress/material-kits/docker-guides-agentic-ai/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-agentic-ai/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-agentic-ai/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-agentic-ai/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -32521,6 +32815,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-angular-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/angular/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-angular-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-angular-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-angular-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-angular-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-angular-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/angular/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-angular-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-angular-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-angular-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-angular-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-bun-configure-ci-cd",
       "title": "Docker: configure ci cd",
       "ecosystem": "Docker",
@@ -32531,6 +32867,27 @@
       "receipt_path": "agentpress/material-kits/docker-guides-bun-configure-ci-cd/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-bun-configure-ci-cd/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-bun-configure-ci-cd/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-bun-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/bun/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-bun-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-bun-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-bun-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-bun-deploy/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -32563,6 +32920,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-cpp-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/cpp/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-cpp-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-cpp-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-cpp-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-cpp-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-deno-configure-ci-cd",
       "title": "Docker: configure ci cd",
       "ecosystem": "Docker",
@@ -32584,6 +32962,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-deno-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/deno/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-deno-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-deno-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-deno-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-deno-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-docker-scout-attestations",
+      "title": "Docker: attestations",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/docker-scout/attestations",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: attestations",
+      "manifest_path": "agentpress/material-kits/docker-guides-docker-scout-attestations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-docker-scout-attestations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-docker-scout-attestations/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-docker-scout-attestations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-dotnet-configure-ci-cd",
       "title": "Docker: configure ci cd",
       "ecosystem": "Docker",
@@ -32594,6 +33014,69 @@
       "receipt_path": "agentpress/material-kits/docker-guides-dotnet-configure-ci-cd/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-dotnet-configure-ci-cd/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-dotnet-configure-ci-cd/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-dotnet-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/dotnet/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-dotnet-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-dotnet-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-dotnet-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-dotnet-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-dotnet-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/dotnet/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-dotnet-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-dotnet-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-dotnet-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-dotnet-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-genai-claude-code-mcp-claude-code-mcp-guide",
+      "title": "Docker: claude code mcp guide",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/genai-claude-code-mcp/claude-code-mcp-guide",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: claude code mcp guide",
+      "manifest_path": "agentpress/material-kits/docker-guides-genai-claude-code-mcp-claude-code-mcp-guide/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-genai-claude-code-mcp-claude-code-mcp-guide/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-genai-claude-code-mcp-claude-code-mcp-guide/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-genai-claude-code-mcp-claude-code-mcp-guide/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -32647,6 +33130,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-golang-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/golang/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-golang-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-golang-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-golang-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-golang-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-golang-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/golang/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-golang-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-golang-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-golang-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-golang-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-java-configure-ci-cd",
       "title": "Docker: configure ci cd",
       "ecosystem": "Docker",
@@ -32657,6 +33182,111 @@
       "receipt_path": "agentpress/material-kits/docker-guides-java-configure-ci-cd/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-java-configure-ci-cd/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-java-configure-ci-cd/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-java-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/java/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-java-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-java-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-java-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-java-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-java-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/java/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-java-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-java-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-java-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-java-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-kube-deploy",
+      "title": "Docker: kube deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/kube-deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: kube deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-kube-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-kube-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-kube-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-kube-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-lab-agentic-apps",
+      "title": "Docker: lab agentic apps",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/lab-agentic-apps",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: lab agentic apps",
+      "manifest_path": "agentpress/material-kits/docker-guides-lab-agentic-apps/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-lab-agentic-apps/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-lab-agentic-apps/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-lab-agentic-apps/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-lab-attestation-basics",
+      "title": "Docker: lab attestation basics",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/lab-attestation-basics",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: lab attestation basics",
+      "manifest_path": "agentpress/material-kits/docker-guides-lab-attestation-basics/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-lab-attestation-basics/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-lab-attestation-basics/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-lab-attestation-basics/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -32689,6 +33319,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-lab-container-getting-started",
+      "title": "Docker: lab container getting started",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/lab-container-getting-started",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: lab container getting started",
+      "manifest_path": "agentpress/material-kits/docker-guides-lab-container-getting-started/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-lab-container-getting-started/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-lab-container-getting-started/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-lab-container-getting-started/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-lab-docker-agent",
+      "title": "Docker: lab docker agent",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/lab-docker-agent",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: lab docker agent",
+      "manifest_path": "agentpress/material-kits/docker-guides-lab-docker-agent/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-lab-docker-agent/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-lab-docker-agent/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-lab-docker-agent/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-lab-mcp-gateway",
+      "title": "Docker: lab mcp gateway",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/lab-mcp-gateway",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: lab mcp gateway",
+      "manifest_path": "agentpress/material-kits/docker-guides-lab-mcp-gateway/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-lab-mcp-gateway/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-lab-mcp-gateway/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-lab-mcp-gateway/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-nextjs-configure-github-actions",
       "title": "Docker: configure github actions",
       "ecosystem": "Docker",
@@ -32699,6 +33392,48 @@
       "receipt_path": "agentpress/material-kits/docker-guides-nextjs-configure-github-actions/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-nextjs-configure-github-actions/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-nextjs-configure-github-actions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-nextjs-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/nextjs/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-nextjs-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-nextjs-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-nextjs-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-nextjs-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-nextjs-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/nextjs/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-nextjs-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-nextjs-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-nextjs-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-nextjs-run-tests/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -32731,6 +33466,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-nodejs-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/nodejs/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-nodejs-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-nodejs-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-nodejs-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-nodejs-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-nodejs-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/nodejs/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-nodejs-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-nodejs-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-nodejs-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-nodejs-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-php-configure-ci-cd",
       "title": "Docker: configure ci cd",
       "ecosystem": "Docker",
@@ -32741,6 +33518,48 @@
       "receipt_path": "agentpress/material-kits/docker-guides-php-configure-ci-cd/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-php-configure-ci-cd/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-php-configure-ci-cd/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-php-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/php/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-php-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-php-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-php-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-php-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-php-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/php/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-php-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-php-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-php-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-php-run-tests/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -32794,6 +33613,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-python-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/python/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-python-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-python-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-python-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-python-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-r-configure-ci-cd",
       "title": "Docker: configure ci cd",
       "ecosystem": "Docker",
@@ -32804,6 +33644,27 @@
       "receipt_path": "agentpress/material-kits/docker-guides-r-configure-ci-cd/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-r-configure-ci-cd/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-r-configure-ci-cd/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-r-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/r/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-r-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-r-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-r-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-r-deploy/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -32836,6 +33697,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-reactjs-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/reactjs/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-reactjs-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-reactjs-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-reactjs-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-reactjs-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-reactjs-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/reactjs/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-reactjs-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-reactjs-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-reactjs-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-reactjs-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-ruby-configure-github-actions",
       "title": "Docker: configure github actions",
       "ecosystem": "Docker",
@@ -32846,6 +33749,27 @@
       "receipt_path": "agentpress/material-kits/docker-guides-ruby-configure-github-actions/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-ruby-configure-github-actions/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-ruby-configure-github-actions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-ruby-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/ruby/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-ruby-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-ruby-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-ruby-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-ruby-deploy/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -32878,6 +33802,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-rust-deploy",
+      "title": "Docker: deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/rust/deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-rust-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-rust-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-rust-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-rust-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-swarm-deploy",
+      "title": "Docker: swarm deploy",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/swarm-deploy",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: swarm deploy",
+      "manifest_path": "agentpress/material-kits/docker-guides-swarm-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-swarm-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-swarm-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-swarm-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-cloud",
+      "title": "Docker: testcontainers cloud",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-cloud",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: testcontainers cloud",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-cloud-common-questions",
+      "title": "Docker: common questions",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-cloud/common-questions",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: common questions",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-cloud-common-questions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-cloud-common-questions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-cloud-common-questions/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-cloud-common-questions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-testcontainers-cloud-demo-ci",
       "title": "Docker: demo ci",
       "ecosystem": "Docker",
@@ -32888,6 +33896,132 @@
       "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-cloud-demo-ci/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-cloud-demo-ci/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-testcontainers-cloud-demo-ci/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-cloud-demo-local",
+      "title": "Docker: demo local",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-cloud/demo-local",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: demo local",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-cloud-demo-local/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-cloud-demo-local/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-cloud-demo-local/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-cloud-demo-local/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-cloud-why",
+      "title": "Docker: why",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-cloud/why",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: why",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-cloud-why/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-cloud-why/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-cloud-why/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-cloud-why/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-dotnet-aspnet-core",
+      "title": "Docker: testcontainers dotnet aspnet core",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-dotnet-aspnet-core",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: testcontainers dotnet aspnet core",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-dotnet-aspnet-core-create-project",
+      "title": "Docker: create project",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-dotnet-aspnet-core/create-project",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: create project",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-create-project/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-create-project/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-create-project/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-create-project/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-dotnet-aspnet-core-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-dotnet-aspnet-core/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-dotnet-aspnet-core-write-tests",
+      "title": "Docker: write tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-dotnet-aspnet-core/write-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: write tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-write-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-write-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-write-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-dotnet-aspnet-core-write-tests/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -33088,6 +34222,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-testcontainers-java-aws-localstack",
+      "title": "Docker: testcontainers java aws localstack",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-aws-localstack",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: testcontainers java aws localstack",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-aws-localstack-create-project",
+      "title": "Docker: create project",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-aws-localstack/create-project",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: create project",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-create-project/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-create-project/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-create-project/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-create-project/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-aws-localstack-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-aws-localstack/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-aws-localstack-write-tests",
+      "title": "Docker: write tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-aws-localstack/write-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: write tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-write-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-write-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-write-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-aws-localstack-write-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-testcontainers-java-getting-started",
       "title": "Docker: testcontainers java getting started",
       "ecosystem": "Docker",
@@ -33172,6 +34390,216 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-testcontainers-java-jooq-flyway",
+      "title": "Docker: testcontainers java jooq flyway",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-jooq-flyway",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: testcontainers java jooq flyway",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-jooq-flyway-create-project",
+      "title": "Docker: create project",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-jooq-flyway/create-project",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: create project",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-create-project/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-create-project/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-create-project/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-create-project/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-jooq-flyway-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-jooq-flyway/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-jooq-flyway-write-tests",
+      "title": "Docker: write tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-jooq-flyway/write-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: write tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-write-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-write-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-write-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-jooq-flyway-write-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-keycloak-spring-boot",
+      "title": "Docker: testcontainers java keycloak spring boot",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-keycloak-spring-boot",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: testcontainers java keycloak spring boot",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-keycloak-spring-boot-create-project",
+      "title": "Docker: create project",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-keycloak-spring-boot/create-project",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: create project",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-create-project/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-create-project/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-create-project/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-create-project/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-keycloak-spring-boot-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-keycloak-spring-boot/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-keycloak-spring-boot-write-tests",
+      "title": "Docker: write tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-keycloak-spring-boot/write-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: write tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-write-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-write-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-write-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-keycloak-spring-boot-write-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-lifecycle",
+      "title": "Docker: testcontainers java lifecycle",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-lifecycle",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: testcontainers java lifecycle",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-lifecycle-create-project",
+      "title": "Docker: create project",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-lifecycle/create-project",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: create project",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-create-project/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-create-project/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-create-project/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-create-project/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-testcontainers-java-lifecycle-extension-annotations",
       "title": "Docker: extension annotations",
       "ecosystem": "Docker",
@@ -33182,6 +34610,216 @@
       "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-extension-annotations/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-extension-annotations/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-extension-annotations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-lifecycle-lifecycle-callbacks",
+      "title": "Docker: lifecycle callbacks",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-lifecycle/lifecycle-callbacks",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: lifecycle callbacks",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-lifecycle-callbacks/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-lifecycle-callbacks/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-lifecycle-callbacks/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-lifecycle-callbacks/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-lifecycle-singleton-containers",
+      "title": "Docker: singleton containers",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-lifecycle/singleton-containers",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: singleton containers",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-singleton-containers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-singleton-containers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-singleton-containers/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-lifecycle-singleton-containers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-micronaut-kafka",
+      "title": "Docker: testcontainers java micronaut kafka",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-micronaut-kafka",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: testcontainers java micronaut kafka",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-micronaut-kafka-create-project",
+      "title": "Docker: create project",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-micronaut-kafka/create-project",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: create project",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-create-project/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-create-project/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-create-project/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-create-project/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-micronaut-kafka-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-micronaut-kafka/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-micronaut-kafka-write-tests",
+      "title": "Docker: write tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-micronaut-kafka/write-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: write tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-write-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-write-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-write-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-kafka-write-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-micronaut-wiremock",
+      "title": "Docker: testcontainers java micronaut wiremock",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-micronaut-wiremock",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: testcontainers java micronaut wiremock",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-micronaut-wiremock-create-project",
+      "title": "Docker: create project",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-micronaut-wiremock/create-project",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: create project",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-create-project/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-create-project/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-create-project/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-create-project/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-micronaut-wiremock-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-micronaut-wiremock/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-micronaut-wiremock-write-tests",
+      "title": "Docker: write tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-micronaut-wiremock/write-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: write tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-write-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-write-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-write-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-micronaut-wiremock-write-tests/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -33277,6 +34915,111 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-testcontainers-java-quarkus",
+      "title": "Docker: testcontainers java quarkus",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-quarkus",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: testcontainers java quarkus",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-quarkus-create-project",
+      "title": "Docker: create project",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-quarkus/create-project",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: create project",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-create-project/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-create-project/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-create-project/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-create-project/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-quarkus-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-quarkus/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-run-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-quarkus-write-tests",
+      "title": "Docker: write tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-quarkus/write-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: write tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-write-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-write-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-write-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-quarkus-write-tests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-replace-h2",
+      "title": "Docker: testcontainers java replace h2",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-replace-h2",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: testcontainers java replace h2",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-replace-h2/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-replace-h2/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-replace-h2/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-replace-h2/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-guides-testcontainers-java-replace-h2-jdbc-url-approach",
       "title": "Docker: jdbc url approach",
       "ecosystem": "Docker",
@@ -33308,6 +35051,27 @@
       "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-replace-h2-junit-extension-approach/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-replace-h2-junit-extension-approach/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-replace-h2-junit-extension-approach/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-replace-h2-problem-with-h2",
+      "title": "Docker: problem with h2",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-replace-h2/problem-with-h2",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: problem with h2",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-replace-h2-problem-with-h2/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-replace-h2-problem-with-h2/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-replace-h2-problem-with-h2/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-replace-h2-problem-with-h2/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -33371,6 +35135,69 @@
       "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-service-configuration-exec-in-containe/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-service-configuration-exec-in-containe/llms.txt",
       "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-service-configuration-exec-in-containe/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-spring-boot-kafka",
+      "title": "Docker: testcontainers java spring boot kafka",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-spring-boot-kafka",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: testcontainers java spring boot kafka",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-spring-boot-kafka-create-project",
+      "title": "Docker: create project",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-spring-boot-kafka/create-project",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: create project",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka-create-project/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka-create-project/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka-create-project/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka-create-project/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-guides-testcontainers-java-spring-boot-kafka-run-tests",
+      "title": "Docker: run tests",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-spring-boot-kafka/run-tests",
+      "painpoint": "agents frequently need compact, citation-ready context for Dockerfile/compose/build/MCP/sandbox docs: run tests",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka-run-tests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka-run-tests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka-run-tests/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-spring-boot-kafka-run-tests/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
