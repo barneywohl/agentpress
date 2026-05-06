@@ -1,0 +1,376 @@
+{
+  "schema_version": "2026-05-06.agentpress-source-universe-catalog.v1",
+  "generated_utc": "2026-05-06T04:59:42Z",
+  "purpose": "Massive source catalog for docs not optimized for agents; bootstrap first users by wrapping common/painful information into AgentPress surfaces.",
+  "source_count": 25,
+  "sources": [
+    {
+      "category": "Technical",
+      "document_type": "API references / SDK refs",
+      "why_agents_need_it": "agents implement integrations and need exact params/errors",
+      "where_to_get_it": [
+        "OpenAPI specs: APIs.guru, provider /openapi.json, developer portals, GitHub repos",
+        "SDK docs sitemaps: Stripe, Twilio, Slack, Discord, Notion, Linear, Shopify, Plaid, GitHub, GitLab, Cloudflare",
+        "Package docs: npm/PyPI/RubyGems/Crates docs, typedoc/sphinx/rustdoc/go pkg pages"
+      ],
+      "priority": "P0",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Technical",
+      "document_type": "Framework docs",
+      "why_agents_need_it": "agents constantly build apps and need compact recipes",
+      "where_to_get_it": [
+        "React/Next/Vue/Svelte/Angular/Astro/Nuxt/Remix/TanStack docs sitemaps",
+        "Django/FastAPI/Flask/Rails/Spring/.NET/Laravel/Phoenix docs",
+        "Mobile/desktop: React Native, Expo, Android, Apple Developer, Electron, Tauri"
+      ],
+      "priority": "P0",
+      "scale": "hundreds-thousands",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Technical",
+      "document_type": "Infra / DevOps docs",
+      "why_agents_need_it": "agents debug deployments and config",
+      "where_to_get_it": [
+        "Docker/Kubernetes/Terraform/Helm/Ansible/Nix docs",
+        "AWS/GCP/Azure/Cloudflare/Vercel/Netlify/Fly/Render/Railway docs",
+        "GitHub Actions/GitLab CI/CircleCI/Buildkite docs"
+      ],
+      "priority": "P0",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Technical",
+      "document_type": "Database/search/vector docs",
+      "why_agents_need_it": "agents build persistence/RAG and need query/config examples",
+      "where_to_get_it": [
+        "Postgres/MySQL/SQLite/MongoDB/Redis/Elasticsearch/OpenSearch docs",
+        "Prisma/Drizzle/SQLAlchemy/TypeORM/Sequelize docs",
+        "Pinecone/Qdrant/Weaviate/Chroma/Milvus/LanceDB docs"
+      ],
+      "priority": "P0",
+      "scale": "hundreds-thousands",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Technical",
+      "document_type": "Error/troubleshooting docs",
+      "why_agents_need_it": "agents waste time resolving opaque failures",
+      "where_to_get_it": [
+        "Provider error docs, status docs, troubleshooting pages, GitHub issues tagged error/bug",
+        "StackOverflow canonical Q&A dumps, GitHub Discussions, release notes/changelogs",
+        "Sentry/Datadog/OpenTelemetry/Grafana/Prometheus docs"
+      ],
+      "priority": "P0",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Technical",
+      "document_type": "Security/auth docs",
+      "why_agents_need_it": "agents implement auth incorrectly without compact instructions",
+      "where_to_get_it": [
+        "OAuth/OIDC/SAML specs and vendor docs: Auth0, Clerk, Okta, WorkOS, Cognito, Firebase Auth, Supabase Auth",
+        "OWASP cheat sheets, NIST docs, CIS benchmarks, cloud IAM docs",
+        "Webhook signing/security docs for Stripe/GitHub/Slack/Shopify/Twilio"
+      ],
+      "priority": "P0",
+      "scale": "hundreds-thousands",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Technical",
+      "document_type": "AI/agent docs",
+      "why_agents_need_it": "first-user wedge: agents use docs to build agents",
+      "where_to_get_it": [
+        "MCP registries/docs, OpenAI/Anthropic/Google/Groq/Mistral/Cohere docs",
+        "LangChain/LangGraph/LlamaIndex/CrewAI/AutoGen/Haystack/DSPy docs",
+        "Agent platform docs: Cline/Roo/OpenHands/Cursor/Windsurf/Replit/StackBlitz/Bolt"
+      ],
+      "priority": "P0",
+      "scale": "hundreds-thousands",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Government/Law",
+      "document_type": "Statutes, regulations, administrative codes",
+      "why_agents_need_it": "agents/legal ops need structured legal answers and compliance mapping",
+      "where_to_get_it": [
+        "US: congress.gov bulk, GovInfo bulkdata, eCFR XML/API, Federal Register API, state legislature APIs",
+        "EU: EUR-Lex, EBA/ESMA/EIOPA, national gazettes",
+        "UK legislation.gov.uk, Canada Justice Laws, Australia Federal Register, UN/OECD/World Bank docs"
+      ],
+      "priority": "P0",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Government/Law",
+      "document_type": "Court opinions/dockets/filings",
+      "why_agents_need_it": "agents research precedent and risk signals",
+      "where_to_get_it": [
+        "CourtListener/RECAP API, Justia, Google Scholar legal, state court portals where permitted",
+        "SEC litigation releases, DOJ/FTC/CFPB enforcement releases",
+        "Bankruptcy/RECAP filings and docket PDFs"
+      ],
+      "priority": "P0",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Government/Law",
+      "document_type": "Regulatory guidance / supervisory manuals",
+      "why_agents_need_it": "finance/compliance agents need exact citations",
+      "where_to_get_it": [
+        "SEC/FINRA/CFTC/FDIC/OCC/Fed/CFPB/FCA/MAS/HKMA/ADGM/VARA/ESMA/BIS/IOSCO sites",
+        "Examination manuals, no-action letters, enforcement orders, consultation papers",
+        "Crypto-specific guidance from regulators and FATF/OFAC"
+      ],
+      "priority": "P0",
+      "scale": "hundreds-thousands",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Government/Law",
+      "document_type": "Procurement/RFP/grants notices",
+      "why_agents_need_it": "BD agents need opportunity discovery and proposal prep",
+      "where_to_get_it": [
+        "SAM.gov API, Grants.gov, EU TED, state procurement portals, World Bank procurement",
+        "Municipal RFP portals, university procurement portals",
+        "Award databases and contract documents"
+      ],
+      "priority": "P1",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Government/Law",
+      "document_type": "Permits, zoning, municipal codes, land records",
+      "why_agents_need_it": "agents need local compliance/business intel",
+      "where_to_get_it": [
+        "Municode, city/county planning portals, zoning PDFs, GIS open data portals",
+        "Recorder/property tax portals, building permit APIs",
+        "State/local open data CKAN/Socrata endpoints"
+      ],
+      "priority": "P2",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Company/Finance",
+      "document_type": "Public company filings and transcripts",
+      "why_agents_need_it": "finance agents need precise, structured business facts",
+      "where_to_get_it": [
+        "SEC EDGAR submissions/companyfacts APIs, XBRL, 10-K/10-Q/8-K/S-1/DEF14A exhibits",
+        "Sedar+/Companies House/ASX/SGX/HKEX filings",
+        "Earnings call transcripts, investor day PDFs, investor relations sitemaps"
+      ],
+      "priority": "P0",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Company/Finance",
+      "document_type": "Private-company docs / startup surfaces",
+      "why_agents_need_it": "growth agents need target/account intelligence",
+      "where_to_get_it": [
+        "Company websites sitemaps, docs pages, pricing pages, changelogs, status pages, API docs",
+        "Crunchbase/Wellfound/Product Hunt/G2/Capterra where allowed, GitHub org repos",
+        "Job postings (Greenhouse/Lever/Ashby), help centers, support docs"
+      ],
+      "priority": "P0",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Company/Finance",
+      "document_type": "Market/industry reports",
+      "why_agents_need_it": "strategy agents need cited context",
+      "where_to_get_it": [
+        "IMF/World Bank/OECD/BIS/FRED/BLS/BEA/Eurostat data/docs",
+        "Consulting/industry PDFs, trade association reports, standards bodies",
+        "Central bank speeches/minutes/reports, rating agency methodology PDFs"
+      ],
+      "priority": "P1",
+      "scale": "hundreds-thousands",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Company/Finance",
+      "document_type": "Credit/risk/counterparty docs",
+      "why_agents_need_it": "Nexio-adjacent agents need risk intel",
+      "where_to_get_it": [
+        "Exchange proof-of-reserves pages, custodian docs, protocol docs, governance forums",
+        "Bank call reports, FDIC data, FFIEC, NCUA, broker/dealer filings",
+        "Audits, attestations, SOC reports landing pages, insurance docs"
+      ],
+      "priority": "P0",
+      "scale": "hundreds-thousands",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Research",
+      "document_type": "Papers, preprints, datasets",
+      "why_agents_need_it": "research agents need compressed literature maps",
+      "where_to_get_it": [
+        "arXiv, bioRxiv, SSRN, RePEc, PubMed/PMC, Semantic Scholar/OpenAlex/Crossref APIs",
+        "Papers with Code, Hugging Face papers/models/datasets, Kaggle datasets",
+        "University lab pages, conference proceedings, NBER/CEPR/Bank papers"
+      ],
+      "priority": "P1",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Research",
+      "document_type": "Standards/specifications/RFCs",
+      "why_agents_need_it": "agents implement protocols and need exact clauses",
+      "where_to_get_it": [
+        "IETF RFCs/datatracker, W3C, WHATWG, TC39, ISO landing pages where public",
+        "Kubernetes Enhancement Proposals, Python PEPs, Rust RFCs, OpenAPI/JSON Schema specs",
+        "Payments/finance standards: FIX, ISO 20022 public guides, NACHA public docs"
+      ],
+      "priority": "P0",
+      "scale": "hundreds-thousands",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Research",
+      "document_type": "Patents and technical disclosures",
+      "why_agents_need_it": "agents find invention/competitive intelligence",
+      "where_to_get_it": [
+        "USPTO PatentsView, Google Patents, EPO Espacenet, WIPO Patentscope",
+        "Patent PDFs, claims, citations, assignees, classifications",
+        "Defensive publications and standards contributions"
+      ],
+      "priority": "P2",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Public Data",
+      "document_type": "Open data portals and data dictionaries",
+      "why_agents_need_it": "agents need schema-aware datasets not human pages",
+      "where_to_get_it": [
+        "data.gov CKAN, Socrata portals, EU data portal, World Bank, OECD, IMF, FRED, BLS, Census APIs",
+        "City/state CKAN/Socrata portals, NOAA/NASA/USGS/EPA/CDC/FDA data docs",
+        "Dataset metadata, schemas, codebooks, API docs"
+      ],
+      "priority": "P1",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Health/Science",
+      "document_type": "Clinical/medical/public health docs",
+      "why_agents_need_it": "agents need cited medical/science context, not advice",
+      "where_to_get_it": [
+        "FDA labels/Orange Book/Drugs@FDA, ClinicalTrials.gov, PubMed/PMC, CDC/WHO/NIH docs",
+        "EMA/Health Canada/MHRA docs, adverse event docs, drug labels",
+        "Hospital guideline PDFs and clinical society guidelines where public"
+      ],
+      "priority": "P2",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Education",
+      "document_type": "Courses, textbooks, tutorials",
+      "why_agents_need_it": "agents need learning/curriculum compression",
+      "where_to_get_it": [
+        "MIT OCW, OpenStax, university course pages, lecture notes, syllabi",
+        "Khan/DeepLearning.AI/Fast.ai docs where public, GitHub course repos",
+        "Problem sets, rubrics, lab manuals"
+      ],
+      "priority": "P2",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Support/Help Centers",
+      "document_type": "Customer-support KBs",
+      "why_agents_need_it": "agents solving user problems need exact support steps",
+      "where_to_get_it": [
+        "Zendesk/Intercom/HelpScout/ReadMe/GitBook/Docusaurus/Mintlify/Nextra help centers",
+        "Status pages, changelogs, incident postmortems",
+        "Community forums, GitHub Discussions, Discord/Slack docs where public"
+      ],
+      "priority": "P0",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Sales/Marketing",
+      "document_type": "Product/pricing/integration pages",
+      "why_agents_need_it": "growth agents need targetable pain and current claims",
+      "where_to_get_it": [
+        "Company sitemaps, pricing pages, docs, changelogs, integrations directories, marketplace listings",
+        "G2/Capterra/Product Hunt/marketplaces where allowed",
+        "Case studies, whitepapers, webinars, partner directories"
+      ],
+      "priority": "P1",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    },
+    {
+      "category": "Media/News",
+      "document_type": "Newsletters, blogs, transcripts",
+      "why_agents_need_it": "agents need timely context and summaries",
+      "where_to_get_it": [
+        "RSS feeds, Substack/public newsletters, company blogs, YouTube transcripts where allowed",
+        "Podcasts transcripts, earnings/news transcripts, press releases",
+        "GDELT/news APIs and archive pages"
+      ],
+      "priority": "P2",
+      "scale": "millions",
+      "agentpress_use": "Wrap into llms.txt/RUN_THIS/material-manifest/proof-receipt; prefer citation-ready, task-specific slices."
+    }
+  ],
+  "acquisition_methods": [
+    {
+      "method": "sitemaps",
+      "where": "/sitemap.xml, /sitemap_index.xml, robots.txt Sitemap lines",
+      "scale": "best for company/docs/help centers"
+    },
+    {
+      "method": "llms.txt / ai manifests",
+      "where": "/llms.txt, /.well-known/ai-plugin.json, /.well-known/agentpress.json",
+      "scale": "best AI-optimized seed; also identifies gaps"
+    },
+    {
+      "method": "open APIs",
+      "where": "CKAN, Socrata, EDGAR, eCFR, Federal Register, CourtListener, OpenAlex, Crossref, PubMed, PatentsView",
+      "scale": "millions"
+    },
+    {
+      "method": "GitHub/GitLab repos",
+      "where": "docs/ folders, README, markdown, OpenAPI specs, typedoc/sphinx outputs",
+      "scale": "millions"
+    },
+    {
+      "method": "package registries",
+      "where": "npm, PyPI, crates.io, pkg.go.dev, Maven, RubyGems docs/readmes",
+      "scale": "millions"
+    },
+    {
+      "method": "public PDFs",
+      "where": "filings, laws, RFPs, research, standards, guidance PDFs",
+      "scale": "millions but needs PDF extraction"
+    },
+    {
+      "method": "RSS/changelog/status",
+      "where": "blogs, docs changelogs, status pages, release feeds",
+      "scale": "freshness and agent pain signals"
+    }
+  ],
+  "guardrails": [
+    "No spam, no external posts/comments/DMs without exact approval",
+    "Respect robots/TOS/rate limits",
+    "Prefer public/citable sources",
+    "Keep artifact generation separate from public outreach"
+  ]
+}
