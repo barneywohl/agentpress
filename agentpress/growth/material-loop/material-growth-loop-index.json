@@ -1,12 +1,13 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T05:00:03Z",
+  "generated_utc": "2026-05-06T05:00:22Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 4646,
+  "kit_count": 4734,
   "by_ecosystem": {
+    "Algolia": 2,
     "Anthropic": 387,
     "Auth0": 189,
     "AWS": 178,
@@ -23,12 +24,13 @@
     "DSPy": 9,
     "FastAPI": 12,
     "GCP": 185,
-    "Grafana": 1,
+    "Grafana": 13,
     "Haystack": 211,
     "Kubernetes": 77,
     "LangGraph": 2,
     "LiteLLM": 204,
     "LlamaIndex": 1,
+    "Mailgun": 6,
     "mcp": 1,
     "MCP": 32,
     "MongoDB": 212,
@@ -39,25 +41,69 @@
     "Playwright": 16,
     "Postgres": 61,
     "Prisma": 92,
+    "Prometheus": 1,
     "Redis": 288,
     "repo-docs": 1,
     "Roo Code": 6,
     "api-schema": 1,
-    "Sentry": 484,
+    "Sentry": 493,
     "onboarding": 1,
     "Stripe": 37,
     "Supabase": 288,
-    "TanStack": 13,
-    "Twilio": 1,
+    "TanStack": 64,
+    "Turborepo": 1,
+    "Twilio": 7,
     "TypeScript": 1,
     "Vercel": 226,
     "Vercel AI SDK": 111,
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 4646
+    "ready_local_static_not_posted": 4734
   },
   "kits": [
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-client-side-tool",
+      "title": "Algolia: client side tools",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/tools/client-side-tools",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: client side tools",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-client-side-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-client-side-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-client-side-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-client-side-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-mcp-tools",
+      "title": "Algolia: mcp tools",
+      "ecosystem": "Algolia",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://algolia.com/doc/guides/algolia-ai/agent-studio/how-to/tools/mcp-tools",
+      "painpoint": "agents frequently need compact, citation-ready context for search/indexing docs agents need: mcp tools",
+      "manifest_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-mcp-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-mcp-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-mcp-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-mcp-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
     {
       "slug": "anthropic-docs-de-agents-and-tools-agent-skills-claude-api-skill",
       "title": "Anthropic: claude api skill",
@@ -40064,6 +40110,153 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "grafana-docs-agent-latest-flow-reference-cli-tools",
+      "title": "Grafana: tools",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/cli/tools",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: tools",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-cli-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-cli-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-cli-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-cli-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-otelcol-auth-oauth2",
+      "title": "Grafana: otelcol.auth.oauth2",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.auth.oauth2",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: otelcol.auth.oauth2",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-oauth2/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-oauth2/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-oauth2/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-auth-oauth2/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-components-otelcol-exporter-loa",
+      "title": "Grafana: otelcol.exporter.loadbalancing",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.exporter.loadbalancing",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: otelcol.exporter.loadbalancing",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-exporter-loa/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-exporter-loa/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-exporter-loa/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-components-otelcol-exporter-loa/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-flow-reference-config-blocks-tracing",
+      "title": "Grafana: tracing",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/flow/reference/config-blocks/tracing",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: tracing",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-tracing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-tracing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-tracing/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-flow-reference-config-blocks-tracing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-memcached-ex",
+      "title": "Grafana: memcached exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/memcached-exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: memcached exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-memcached-ex/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-memcached-ex/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-memcached-ex/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-memcached-ex/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-mongodb-expo",
+      "title": "Grafana: mongodb exporter config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/mongodb_exporter-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: mongodb exporter config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mongodb-expo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mongodb-expo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mongodb-expo/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-mongodb-expo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-agent-latest-static-configuration-integrations-oracledb-con",
+      "title": "Grafana: oracledb config",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/agent/latest/static/configuration/integrations/oracledb-config",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: oracledb config",
+      "manifest_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-oracledb-con/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-oracledb-con/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-oracledb-con/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-agent-latest-static-configuration-integrations-oracledb-con/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "grafana-docs-grafana-latest-developer-resources-mcp-set-up-client-config",
       "title": "Grafana: client configuration examples",
       "ecosystem": "Grafana",
@@ -40074,6 +40267,111 @@
       "receipt_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-set-up-client-config/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-set-up-client-config/llms.txt",
       "run_guide": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-set-up-client-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-k6-latest-testing-guides-injecting-faults-with-xk6-disrupto",
+      "title": "Grafana: inject http faults into pod",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/k6/latest/testing-guides/injecting-faults-with-xk6-disruptor/examples/inject-http-faults-into-pod",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: inject http faults into pod",
+      "manifest_path": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-injecting-faults-with-xk6-disrupto/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-injecting-faults-with-xk6-disrupto/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-injecting-faults-with-xk6-disrupto/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-k6-latest-testing-guides-injecting-faults-with-xk6-disrupto/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-loki-latest-setup-install-helm-deployment-guides-gcp",
+      "title": "Grafana: gcp",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/loki/latest/setup/install/helm/deployment-guides/gcp",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: gcp",
+      "manifest_path": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-gcp/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-gcp/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-gcp/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-loki-latest-setup-install-helm-deployment-guides-gcp/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-oncall-latest-configure-integrations-references-kapacitor",
+      "title": "Grafana: kapacitor",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/oncall/latest/configure/integrations/references/kapacitor",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: kapacitor",
+      "manifest_path": "agentpress/material-kits/grafana-docs-oncall-latest-configure-integrations-references-kapacitor/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-oncall-latest-configure-integrations-references-kapacitor/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-oncall-latest-configure-integrations-references-kapacitor/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-oncall-latest-configure-integrations-references-kapacitor/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-oncall-latest-configure-integrations-references-webhook",
+      "title": "Grafana: webhook",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/oncall/latest/configure/integrations/references/webhook",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: webhook",
+      "manifest_path": "agentpress/material-kits/grafana-docs-oncall-latest-configure-integrations-references-webhook/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-oncall-latest-configure-integrations-references-webhook/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-oncall-latest-configure-integrations-references-webhook/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-oncall-latest-configure-integrations-references-webhook/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "grafana-docs-pyroscope-latest-configure-server-reference-configuration-p",
+      "title": "Grafana: reference configuration parameters",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/pyroscope/latest/configure-server/reference-configuration-parameters",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: reference configuration parameters",
+      "manifest_path": "agentpress/material-kits/grafana-docs-pyroscope-latest-configure-server-reference-configuration-p/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-pyroscope-latest-configure-server-reference-configuration-p/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-pyroscope-latest-configure-server-reference-configuration-p/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-pyroscope-latest-configure-server-reference-configuration-p/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -50469,6 +50767,132 @@
       "receipt_path": "agentpress/material-kits/llamaindex-tools-docs/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/llamaindex-tools-docs/llms.txt",
       "run_guide": "agentpress/material-kits/llamaindex-tools-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mailgun-docs-inboxready-api-reference-optimize-inboxready-google-postmas",
+      "title": "Mailgun: get v1 reputationanalytics gpt summary errors",
+      "ecosystem": "Mailgun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://documentation.mailgun.com/docs/inboxready/api-reference/optimize/inboxready/google-postmaster-tools/get-v1-reputationanalytics-gpt-summary-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for email/API docs agents need: get v1 reputationanalytics gpt summary errors",
+      "manifest_path": "agentpress/material-kits/mailgun-docs-inboxready-api-reference-optimize-inboxready-google-postmas/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mailgun-docs-inboxready-api-reference-optimize-inboxready-google-postmas/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mailgun-docs-inboxready-api-reference-optimize-inboxready-google-postmas/llms.txt",
+      "run_guide": "agentpress/material-kits/mailgun-docs-inboxready-api-reference-optimize-inboxready-google-postmas/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mailgun-docs-inboxready-api-reference-optimize-mailgun-account-managemen",
+      "title": "Mailgun: post v5 sandbox auth recipients",
+      "ecosystem": "Mailgun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://documentation.mailgun.com/docs/inboxready/api-reference/optimize/mailgun/account-management/post-v5-sandbox-auth_recipients",
+      "painpoint": "agents frequently need compact, citation-ready context for email/API docs agents need: post v5 sandbox auth recipients",
+      "manifest_path": "agentpress/material-kits/mailgun-docs-inboxready-api-reference-optimize-mailgun-account-managemen/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mailgun-docs-inboxready-api-reference-optimize-mailgun-account-managemen/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mailgun-docs-inboxready-api-reference-optimize-mailgun-account-managemen/llms.txt",
+      "run_guide": "agentpress/material-kits/mailgun-docs-inboxready-api-reference-optimize-mailgun-account-managemen/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mailgun-docs-mailgun-api-reference-send-inboxready-google-postmaster-too",
+      "title": "Mailgun: get v1 reputationanalytics gpt summary errors",
+      "ecosystem": "Mailgun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://documentation.mailgun.com/docs/mailgun/api-reference/send/inboxready/google-postmaster-tools/get-v1-reputationanalytics-gpt-summary-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for email/API docs agents need: get v1 reputationanalytics gpt summary errors",
+      "manifest_path": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-inboxready-google-postmaster-too/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-inboxready-google-postmaster-too/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-inboxready-google-postmaster-too/llms.txt",
+      "run_guide": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-inboxready-google-postmaster-too/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mailgun-docs-mailgun-api-reference-send-mailgun-account-management-delet",
+      "title": "Mailgun: delete v5 sandbox auth recipients email",
+      "ecosystem": "Mailgun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/account-management/delete-v5-sandbox-auth_recipients-email",
+      "painpoint": "agents frequently need compact, citation-ready context for email/API docs agents need: delete v5 sandbox auth recipients email",
+      "manifest_path": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-delet/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-delet/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-delet/llms.txt",
+      "run_guide": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-delet/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mailgun-docs-mailgun-api-reference-send-mailgun-account-management-get-v",
+      "title": "Mailgun: get v5 sandbox auth recipients",
+      "ecosystem": "Mailgun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/account-management/get-v5-sandbox-auth_recipients",
+      "painpoint": "agents frequently need compact, citation-ready context for email/API docs agents need: get v5 sandbox auth recipients",
+      "manifest_path": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-get-v/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-get-v/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-get-v/llms.txt",
+      "run_guide": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-get-v/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "mailgun-docs-mailgun-api-reference-send-mailgun-account-management-post",
+      "title": "Mailgun: post v5 sandbox auth recipients",
+      "ecosystem": "Mailgun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/account-management/post-v5-sandbox-auth_recipients",
+      "painpoint": "agents frequently need compact, citation-ready context for email/API docs agents need: post v5 sandbox auth recipients",
+      "manifest_path": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-post/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-post/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-post/llms.txt",
+      "run_guide": "agentpress/material-kits/mailgun-docs-mailgun-api-reference-send-mailgun-account-management-post/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -66965,6 +67389,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "prometheus-docs-prometheus-latest-configuration-template-examples",
+      "title": "Prometheus: template examples",
+      "ecosystem": "Prometheus",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://prometheus.io/docs/prometheus/latest/configuration/template_examples",
+      "painpoint": "agents frequently need compact, citation-ready context for monitoring/query/config docs agents need: template examples",
+      "manifest_path": "agentpress/material-kits/prometheus-docs-prometheus-latest-configuration-template-examples/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prometheus-docs-prometheus-latest-configuration-template-examples/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prometheus-docs-prometheus-latest-configuration-template-examples/llms.txt",
+      "run_guide": "agentpress/material-kits/prometheus-docs-prometheus-latest-configuration-template-examples/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-commands-json-debug-memory",
       "title": "Redis: json.debug memory",
       "ecosystem": "Redis",
@@ -79397,6 +79842,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "sentry-platforms-javascript-guides-remix-configuration-integrations-kafk",
+      "title": "Sentry: kafka",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/remix/configuration/integrations/kafka",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: kafka",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-kafk/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-kafk/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-kafk/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-kafk/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-remix-configuration-integrations-knex",
+      "title": "Sentry: knex",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/remix/configuration/integrations/knex",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: knex",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-knex/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-knex/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-knex/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-knex/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-remix-configuration-integrations-lang",
+      "title": "Sentry: langgraph",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/remix/configuration/integrations/langgraph",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: langgraph",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-lang/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-lang/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-lang/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-lang/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-remix-configuration-integrations-laun",
+      "title": "Sentry: launchdarkly",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/remix/configuration/integrations/launchdarkly",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: launchdarkly",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-laun/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-laun/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-laun/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-laun/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "sentry-platforms-javascript-guides-remix-configuration-integrations-link",
       "title": "Sentry: linkederrors",
       "ecosystem": "Sentry",
@@ -79407,6 +79936,111 @@
       "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-link/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-link/llms.txt",
       "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-link/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-remix-configuration-integrations-loca",
+      "title": "Sentry: localvariables",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/remix/configuration/integrations/localvariables",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: localvariables",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-loca/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-loca/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-loca/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-loca/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-remix-configuration-integrations-lrum",
+      "title": "Sentry: lrumemoizer",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/remix/configuration/integrations/lrumemoizer",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: lrumemoizer",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-lrum/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-lrum/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-lrum/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-lrum/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-remix-configuration-integrations-modu",
+      "title": "Sentry: modules",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/remix/configuration/integrations/modules",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: modules",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-modu/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-modu/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-modu/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-modu/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-remix-configuration-integrations-mong",
+      "title": "Sentry: mongoose",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/remix/configuration/integrations/mongoose",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: mongoose",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-mong/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-mong/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-mong/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-mong/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-remix-configuration-integrations-mysq",
+      "title": "Sentry: mysql2",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/remix/configuration/integrations/mysql2",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: mysql2",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-mysq/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-mysq/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-mysq/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-remix-configuration-integrations-mysq/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -90191,6 +90825,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "tanstack-db-latest-docs-guides-error-handling",
+      "title": "TanStack: error handling",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/guides/error-handling",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: error handling",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-guides-error-handling/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-guides-error-handling/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-guides-error-handling/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-guides-error-handling/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-guides-schemas",
+      "title": "TanStack: schemas",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/guides/schemas",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: schemas",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-guides-schemas/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-guides-schemas/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-guides-schemas/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-guides-schemas/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-aggregatefunctionnotinselecter",
+      "title": "TanStack: AggregateFunctionNotInSelectError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/AggregateFunctionNotInSelectError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: AggregateFunctionNotInSelectError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-aggregatefunctionnotinselecter/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-aggregatefunctionnotinselecter/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-aggregatefunctionnotinselecter/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-aggregatefunctionnotinselecter/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "tanstack-db-latest-docs-reference-classes-collectionconfigurationerror",
       "title": "TanStack: CollectionConfigurationError",
       "ecosystem": "TanStack",
@@ -90201,6 +90898,69 @@
       "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionconfigurationerror/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionconfigurationerror/llms.txt",
       "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionconfigurationerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-collectionrequiresconfigerror",
+      "title": "TanStack: CollectionRequiresConfigError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/CollectionRequiresConfigError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: CollectionRequiresConfigError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionrequiresconfigerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionrequiresconfigerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionrequiresconfigerror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionrequiresconfigerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-collectionrequiressyncconfiger",
+      "title": "TanStack: CollectionRequiresSyncConfigError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/CollectionRequiresSyncConfigError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: CollectionRequiresSyncConfigError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionrequiressyncconfiger/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionrequiressyncconfiger/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionrequiressyncconfiger/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionrequiressyncconfiger/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-invalidschemaerror",
+      "title": "TanStack: InvalidSchemaError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/InvalidSchemaError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: InvalidSchemaError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidschemaerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidschemaerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidschemaerror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidschemaerror/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -90243,6 +91003,720 @@
       "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidstorageobjectformaterro/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidstorageobjectformaterro/llms.txt",
       "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidstorageobjectformaterro/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-localstoragecollectionerror",
+      "title": "TanStack: LocalStorageCollectionError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/LocalStorageCollectionError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: LocalStorageCollectionError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-localstoragecollectionerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-localstoragecollectionerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-localstoragecollectionerror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-localstoragecollectionerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-missingmutationfunctionerror",
+      "title": "TanStack: MissingMutationFunctionError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/MissingMutationFunctionError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: MissingMutationFunctionError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-missingmutationfunctionerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-missingmutationfunctionerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-missingmutationfunctionerror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-missingmutationfunctionerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-nopendingsynctransactioncommit",
+      "title": "TanStack: NoPendingSyncTransactionCommitError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/NoPendingSyncTransactionCommitError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: NoPendingSyncTransactionCommitError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-nopendingsynctransactioncommit/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-nopendingsynctransactioncommit/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-nopendingsynctransactioncommit/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-nopendingsynctransactioncommit/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-nopendingsynctransactionwritee",
+      "title": "TanStack: NoPendingSyncTransactionWriteError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/NoPendingSyncTransactionWriteError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: NoPendingSyncTransactionWriteError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-nopendingsynctransactionwritee/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-nopendingsynctransactionwritee/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-nopendingsynctransactionwritee/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-nopendingsynctransactionwritee/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-querybuildererror",
+      "title": "TanStack: QueryBuilderError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/QueryBuilderError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: QueryBuilderError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-querybuildererror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-querybuildererror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-querybuildererror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-querybuildererror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-schemamustbesynchronouserror",
+      "title": "TanStack: SchemaMustBeSynchronousError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/SchemaMustBeSynchronousError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: SchemaMustBeSynchronousError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-schemamustbesynchronouserror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-schemamustbesynchronouserror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-schemamustbesynchronouserror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-schemamustbesynchronouserror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-schemavalidationerror",
+      "title": "TanStack: SchemaValidationError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/SchemaValidationError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: SchemaValidationError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-schemavalidationerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-schemavalidationerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-schemavalidationerror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-schemavalidationerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-storageerror",
+      "title": "TanStack: StorageError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/StorageError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: StorageError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-storageerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-storageerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-storageerror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-storageerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-storagekeyrequirederror",
+      "title": "TanStack: StorageKeyRequiredError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/StorageKeyRequiredError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: StorageKeyRequiredError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-storagekeyrequirederror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-storagekeyrequirederror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-storagekeyrequirederror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-storagekeyrequirederror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-synctransactionalreadycommitte",
+      "title": "TanStack: SyncTransactionAlreadyCommittedWriteError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/SyncTransactionAlreadyCommittedWriteError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: SyncTransactionAlreadyCommittedWriteError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-synctransactionalreadycommitte/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-synctransactionalreadycommitte/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-synctransactionalreadycommitte/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-synctransactionalreadycommitte/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-transactionalreadycompletedrol",
+      "title": "TanStack: TransactionAlreadyCompletedRollbackError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/TransactionAlreadyCompletedRollbackError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: TransactionAlreadyCompletedRollbackError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionalreadycompletedrol/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionalreadycompletedrol/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionalreadycompletedrol/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionalreadycompletedrol/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-transactionerror",
+      "title": "TanStack: TransactionError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/TransactionError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: TransactionError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionerror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-transactionnotpendingcommiterr",
+      "title": "TanStack: TransactionNotPendingCommitError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/TransactionNotPendingCommitError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: TransactionNotPendingCommitError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionnotpendingcommiterr/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionnotpendingcommiterr/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionnotpendingcommiterr/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionnotpendingcommiterr/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-transactionnotpendingmutateerr",
+      "title": "TanStack: TransactionNotPendingMutateError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/TransactionNotPendingMutateError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: TransactionNotPendingMutateError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionnotpendingmutateerr/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionnotpendingmutateerr/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionnotpendingmutateerr/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-transactionnotpendingmutateerr/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-unknownfunctionerror",
+      "title": "TanStack: UnknownFunctionError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/UnknownFunctionError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: UnknownFunctionError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-unknownfunctionerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-unknownfunctionerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-unknownfunctionerror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-unknownfunctionerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-unsupportedaggregatefunctioner",
+      "title": "TanStack: UnsupportedAggregateFunctionError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/UnsupportedAggregateFunctionError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: UnsupportedAggregateFunctionError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-unsupportedaggregatefunctioner/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-unsupportedaggregatefunctioner/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-unsupportedaggregatefunctioner/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-unsupportedaggregatefunctioner/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-electric-db-collection-classes-streama",
+      "title": "TanStack: StreamAbortedError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/electric-db-collection/classes/StreamAbortedError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: StreamAbortedError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-electric-db-collection-classes-streama/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-electric-db-collection-classes-streama/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-electric-db-collection-classes-streama/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-electric-db-collection-classes-streama/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-electric-db-collection-classes-timeout",
+      "title": "TanStack: TimeoutWaitingForMatchError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/electric-db-collection/classes/TimeoutWaitingForMatchError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: TimeoutWaitingForMatchError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-electric-db-collection-classes-timeout/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-electric-db-collection-classes-timeout/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-electric-db-collection-classes-timeout/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-electric-db-collection-classes-timeout/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-functions-configureindexdevmode",
+      "title": "TanStack: configureIndexDevMode",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/functions/configureIndexDevMode",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: configureIndexDevMode",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-configureindexdevmode/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-configureindexdevmode/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-configureindexdevmode/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-configureindexdevmode/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-functions-createarraychangeproxy",
+      "title": "TanStack: createArrayChangeProxy",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/functions/createArrayChangeProxy",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: createArrayChangeProxy",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createarraychangeproxy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createarraychangeproxy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createarraychangeproxy/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createarraychangeproxy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-functions-createchangeproxy",
+      "title": "TanStack: createChangeProxy",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/functions/createChangeProxy",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: createChangeProxy",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createchangeproxy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createchangeproxy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createchangeproxy/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createchangeproxy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-functions-createoptimisticaction",
+      "title": "TanStack: createOptimisticAction",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/functions/createOptimisticAction",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: createOptimisticAction",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createoptimisticaction/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createoptimisticaction/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createoptimisticaction/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createoptimisticaction/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-functions-createtransaction",
+      "title": "TanStack: createTransaction",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/functions/createTransaction",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: createTransaction",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createtransaction/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createtransaction/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createtransaction/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-createtransaction/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-functions-getactivetransaction",
+      "title": "TanStack: getActiveTransaction",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/functions/getActiveTransaction",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: getActiveTransaction",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-getactivetransaction/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-getactivetransaction/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-getactivetransaction/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-getactivetransaction/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-functions-getindexdevmodeconfig",
+      "title": "TanStack: getIndexDevModeConfig",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/functions/getIndexDevModeConfig",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: getIndexDevModeConfig",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-getindexdevmodeconfig/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-getindexdevmodeconfig/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-getindexdevmodeconfig/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-getindexdevmodeconfig/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-functions-localstoragecollectionoption",
+      "title": "TanStack: localStorageCollectionOptions",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/functions/localStorageCollectionOptions",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: localStorageCollectionOptions",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-localstoragecollectionoption/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-localstoragecollectionoption/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-localstoragecollectionoption/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-localstoragecollectionoption/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-functions-queuestrategy",
+      "title": "TanStack: queueStrategy",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/functions/queueStrategy",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: queueStrategy",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-queuestrategy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-queuestrategy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-queuestrategy/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-functions-queuestrategy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-interfaces-localstoragecollectionconfi",
+      "title": "TanStack: LocalStorageCollectionConfig",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/interfaces/LocalStorageCollectionConfig",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: LocalStorageCollectionConfig",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-interfaces-localstoragecollectionconfi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-interfaces-localstoragecollectionconfi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-interfaces-localstoragecollectionconfi/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-interfaces-localstoragecollectionconfi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-interfaces-transactionconfig",
+      "title": "TanStack: TransactionConfig",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/interfaces/TransactionConfig",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: TransactionConfig",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-interfaces-transactionconfig/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-interfaces-transactionconfig/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-interfaces-transactionconfig/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-interfaces-transactionconfig/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-query-db-collection-classes-queryclien",
+      "title": "TanStack: QueryClientRequiredError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/query-db-collection/classes/QueryClientRequiredError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: QueryClientRequiredError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-query-db-collection-classes-queryclien/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-query-db-collection-classes-queryclien/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-query-db-collection-classes-queryclien/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-query-db-collection-classes-queryclien/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-type-aliases-storageapi",
+      "title": "TanStack: StorageApi",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/type-aliases/StorageApi",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: StorageApi",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-type-aliases-storageapi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-type-aliases-storageapi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-type-aliases-storageapi/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-type-aliases-storageapi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-type-aliases-storageeventapi",
+      "title": "TanStack: StorageEventApi",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/type-aliases/StorageEventApi",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: StorageEventApi",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-type-aliases-storageeventapi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-type-aliases-storageeventapi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-type-aliases-storageeventapi/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-type-aliases-storageeventapi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-building-custom-plugins",
+      "title": "TanStack: building custom plugins",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/building-custom-plugins",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: building custom plugins",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-building-custom-plugins/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-building-custom-plugins/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-building-custom-plugins/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-building-custom-plugins/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-configuration",
+      "title": "TanStack: configuration",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-configuration/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -90401,6 +91875,132 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "tanstack-devtools-latest-docs-reference-interfaces-tanstackdevtoolsplugi",
+      "title": "TanStack: tanstackdevtoolsplugin",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/reference/interfaces/tanstackdevtoolsplugin",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: tanstackdevtoolsplugin",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-interfaces-tanstackdevtoolsplugi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-interfaces-tanstackdevtoolsplugi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-interfaces-tanstackdevtoolsplugi/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-interfaces-tanstackdevtoolsplugi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-reference-type-aliases-tanstackdevtoolscon",
+      "title": "TanStack: tanstackdevtoolsconfig",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/reference/type-aliases/tanstackdevtoolsconfig",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: tanstackdevtoolsconfig",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-type-aliases-tanstackdevtoolscon/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-type-aliases-tanstackdevtoolscon/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-type-aliases-tanstackdevtoolscon/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-type-aliases-tanstackdevtoolscon/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-reference-variables-plugin-container-id",
+      "title": "TanStack: plugin container id",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/reference/variables/plugin_container_id",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: plugin container id",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-variables-plugin-container-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-variables-plugin-container-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-variables-plugin-container-id/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-variables-plugin-container-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-reference-variables-plugin-title-container",
+      "title": "TanStack: plugin title container id",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/reference/variables/plugin_title_container_id",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: plugin title container id",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-variables-plugin-title-container/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-variables-plugin-title-container/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-variables-plugin-title-container/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-variables-plugin-title-container/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-form-latest-docs-framework-react-guides-custom-errors",
+      "title": "TanStack: custom errors",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/form/latest/docs/framework/react/guides/custom-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: custom errors",
+      "manifest_path": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-custom-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-custom-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-custom-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-custom-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-form-latest-docs-framework-react-guides-debugging",
+      "title": "TanStack: debugging",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/form/latest/docs/framework/react/guides/debugging",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: debugging",
+      "manifest_path": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-debugging/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-debugging/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-debugging/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-debugging/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "tanstack-form-latest-docs-framework-react-guides-devtools",
       "title": "TanStack: devtools",
       "ecosystem": "TanStack",
@@ -90443,6 +92043,111 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "tanstack-form-latest-docs-reference-functions-evaluate",
+      "title": "TanStack: evaluate",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/form/latest/docs/reference/functions/evaluate",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: evaluate",
+      "manifest_path": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-evaluate/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-evaluate/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-evaluate/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-evaluate/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-form-latest-docs-reference-functions-isglobalformvalidationerro",
+      "title": "TanStack: isGlobalFormValidationError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/form/latest/docs/reference/functions/isGlobalFormValidationError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: isGlobalFormValidationError",
+      "manifest_path": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-isglobalformvalidationerro/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-isglobalformvalidationerro/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-isglobalformvalidationerro/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-isglobalformvalidationerro/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-form-latest-docs-reference-functions-isstandardschemavalidator",
+      "title": "TanStack: isStandardSchemaValidator",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/form/latest/docs/reference/functions/isStandardSchemaValidator",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: isStandardSchemaValidator",
+      "manifest_path": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-isstandardschemavalidator/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-isstandardschemavalidator/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-isstandardschemavalidator/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-isstandardschemavalidator/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-form-latest-docs-reference-functions-revalidatelogic",
+      "title": "TanStack: revalidateLogic",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/form/latest/docs/reference/functions/revalidateLogic",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: revalidateLogic",
+      "manifest_path": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-revalidatelogic/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-revalidatelogic/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-revalidatelogic/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-form-latest-docs-reference-functions-revalidatelogic/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-pacer-latest-docs-reference-functions-getpacerdevtoolsinstance",
+      "title": "TanStack: getPacerDevtoolsInstance",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/pacer/latest/docs/reference/functions/getPacerDevtoolsInstance",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: getPacerDevtoolsInstance",
+      "manifest_path": "agentpress/material-kits/tanstack-pacer-latest-docs-reference-functions-getpacerdevtoolsinstance/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-pacer-latest-docs-reference-functions-getpacerdevtoolsinstance/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-pacer-latest-docs-reference-functions-getpacerdevtoolsinstance/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-pacer-latest-docs-reference-functions-getpacerdevtoolsinstance/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "tanstack-start-latest-docs-framework-react-guide-streaming-data-from-ser",
       "title": "TanStack: streaming data from server functions",
       "ecosystem": "TanStack",
@@ -90464,6 +92169,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "turborepo-docs-guides-tools-vitest",
+      "title": "Turborepo: vitest",
+      "ecosystem": "Turborepo",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://turborepo.dev/docs/guides/tools/vitest",
+      "painpoint": "agents frequently need compact, citation-ready context for monorepo/cache/build docs agents need: vitest",
+      "manifest_path": "agentpress/material-kits/turborepo-docs-guides-tools-vitest/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/turborepo-docs-guides-tools-vitest/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/turborepo-docs-guides-tools-vitest/llms.txt",
+      "run_guide": "agentpress/material-kits/turborepo-docs-guides-tools-vitest/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-flex-admin-guide-setup-configure-pre-agent-workflow-with-stu",
+      "title": "Twilio: configure pre agent workflow with studio",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/flex/admin-guide/setup/configure-pre-agent-workflow-with-studio",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: configure pre agent workflow with studio",
+      "manifest_path": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-configure-pre-agent-workflow-with-stu/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-configure-pre-agent-workflow-with-stu/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-configure-pre-agent-workflow-with-stu/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-flex-admin-guide-setup-configure-pre-agent-workflow-with-stu/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "twilio-docs-labs-serverless-toolkit-guides-continous-deployment",
       "title": "Twilio: continous deployment",
       "ecosystem": "Twilio",
@@ -90474,6 +92221,111 @@
       "receipt_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-continous-deployment/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-continous-deployment/llms.txt",
       "run_guide": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-continous-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-labs-serverless-toolkit-guides-terraform",
+      "title": "Twilio: terraform",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/labs/serverless-toolkit/guides/terraform",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: terraform",
+      "manifest_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-terraform/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-terraform/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-terraform/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-terraform/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-messaging-guides-debugging-tools",
+      "title": "Twilio: debugging tools",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/messaging/guides/debugging-tools",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: debugging tools",
+      "manifest_path": "agentpress/material-kits/twilio-docs-messaging-guides-debugging-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-messaging-guides-debugging-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-messaging-guides-debugging-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-messaging-guides-debugging-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-segment-connections-destinations-catalog-actions-webhook-ext",
+      "title": "Twilio: reddit ads conversion api integration recipe",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-webhook-extensible/reddit-ads-conversion-api-integration-recipe",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: reddit ads conversion api integration recipe",
+      "manifest_path": "agentpress/material-kits/twilio-docs-segment-connections-destinations-catalog-actions-webhook-ext/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-segment-connections-destinations-catalog-actions-webhook-ext/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-segment-connections-destinations-catalog-actions-webhook-ext/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-segment-connections-destinations-catalog-actions-webhook-ext/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-segment-guides-how-to-guides-migrate-from-other-tools",
+      "title": "Twilio: migrate from other tools",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/segment/guides/how-to-guides/migrate-from-other-tools",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: migrate from other tools",
+      "manifest_path": "agentpress/material-kits/twilio-docs-segment-guides-how-to-guides-migrate-from-other-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-segment-guides-how-to-guides-migrate-from-other-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-segment-guides-how-to-guides-migrate-from-other-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-segment-guides-how-to-guides-migrate-from-other-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-taskrouter-workflow-configuration-known-agent-routing",
+      "title": "Twilio: known agent routing",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/taskrouter/workflow-configuration/known-agent-routing",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: known agent routing",
+      "manifest_path": "agentpress/material-kits/twilio-docs-taskrouter-workflow-configuration-known-agent-routing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-taskrouter-workflow-configuration-known-agent-routing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-taskrouter-workflow-configuration-known-agent-routing/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-taskrouter-workflow-configuration-known-agent-routing/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -97627,6 +99479,16 @@
   ],
   "next_build_signals": [
     {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-client-side-tool",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: client side tools",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "algolia-doc-guides-algolia-ai-agent-studio-how-to-tools-mcp-tools",
+      "signal": "agents frequently need compact, citation-ready context for search/indexing docs agents need: mcp tools",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
       "slug": "anthropic-docs-de-agents-and-tools-agent-skills-claude-api-skill",
       "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: claude api skill",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
@@ -97739,16 +99601,6 @@
     {
       "slug": "anthropic-docs-en-agents-and-tools-mcp-connector",
       "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-en-agents-and-tools-remote-mcp-servers",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: remote mcp servers",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-en-agents-and-tools-tool-use-advisor-tool",
-      "signal": "agents frequently need compact, citation-ready context for Claude/tool/API docs agents need for provider adapters: advisor tool",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     }
   ],
