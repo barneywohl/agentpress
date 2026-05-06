@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+  "claim": "Material kit prepared for Anthropic painpoint: agents need compact AgentPress wrapper for Claude tool-use and agent docs: overview",
+  "target_url": "https://platform.claude.com/docs/es/agents-and-tools/agent-skills/overview",
+  "commands_to_verify": [
+    "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+    "python3 -m json.tool material-manifest.json",
+    "python3 -m json.tool proof-receipt.json"
+  ],
+  "evidence_files": [
+    "llms.txt",
+    "material-manifest.json",
+    "RUN_THIS.md"
+  ],
+  "external_effects": [],
+  "status": "prepared_not_posted"
+}
