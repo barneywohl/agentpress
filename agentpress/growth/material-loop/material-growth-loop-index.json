@@ -1,32 +1,32 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:31:45Z",
+  "generated_utc": "2026-05-06T04:31:55Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 616,
+  "kit_count": 666,
   "by_ecosystem": {
     "Anthropic": 201,
-    "Cline": 2,
+    "Cline": 6,
     "docs": 1,
-    "CrewAI": 25,
+    "CrewAI": 57,
     "Haystack": 149,
     "LangGraph": 2,
     "LiteLLM": 82,
     "LlamaIndex": 1,
     "mcp": 1,
     "MCP": 27,
-    "OpenAI Agents SDK": 30,
-    "OpenHands": 55,
+    "OpenAI Agents SDK": 33,
+    "OpenHands": 59,
     "repo-docs": 1,
-    "Roo Code": 2,
+    "Roo Code": 6,
     "api-schema": 1,
     "onboarding": 1,
-    "Vercel AI SDK": 35
+    "Vercel AI SDK": 38
   },
   "by_status": {
-    "ready_local_static_not_posted": 616
+    "ready_local_static_not_posted": 666
   },
   "kits": [
     {
@@ -4251,6 +4251,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cline-core-workflows-checkpoints",
+      "title": "Cline: checkpoints",
+      "ecosystem": "Cline",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.cline.bot/core-workflows/checkpoints",
+      "painpoint": "agents need compact AgentPress wrapper for Cline MCP/provider docs: checkpoints",
+      "manifest_path": "agentpress/material-kits/cline-core-workflows-checkpoints/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cline-core-workflows-checkpoints/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cline-core-workflows-checkpoints/llms.txt",
+      "run_guide": "agentpress/material-kits/cline-core-workflows-checkpoints/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py mcp-config-mutation-guard --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cline-enterprise-solutions-configuration-infrastructure-configuration-co",
+      "title": "Cline: mcp marketplace",
+      "ecosystem": "Cline",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.cline.bot/enterprise-solutions/configuration/infrastructure-configuration/control-other-cline-features/mcp-marketplace",
+      "painpoint": "agents need compact AgentPress wrapper for Cline MCP/provider docs: mcp marketplace",
+      "manifest_path": "agentpress/material-kits/cline-enterprise-solutions-configuration-infrastructure-configuration-co/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cline-enterprise-solutions-configuration-infrastructure-configuration-co/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cline-enterprise-solutions-configuration-infrastructure-configuration-co/llms.txt",
+      "run_guide": "agentpress/material-kits/cline-enterprise-solutions-configuration-infrastructure-configuration-co/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py mcp-config-mutation-guard --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cline-mcp-adding-and-configuring-servers",
+      "title": "Cline: adding and configuring servers",
+      "ecosystem": "Cline",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.cline.bot/mcp/adding-and-configuring-servers",
+      "painpoint": "agents need compact AgentPress wrapper for Cline MCP/provider docs: adding and configuring servers",
+      "manifest_path": "agentpress/material-kits/cline-mcp-adding-and-configuring-servers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cline-mcp-adding-and-configuring-servers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cline-mcp-adding-and-configuring-servers/llms.txt",
+      "run_guide": "agentpress/material-kits/cline-mcp-adding-and-configuring-servers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py mcp-config-mutation-guard --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cline-mcp-docs",
       "title": "Cline MCP docs wrapper",
       "ecosystem": "Cline",
@@ -4261,6 +4324,27 @@
       "receipt_path": "agentpress/material-kits/cline-mcp-docs/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cline-mcp-docs/llms.txt",
       "run_guide": "agentpress/material-kits/cline-mcp-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py mcp-config-mutation-guard --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cline-provider-config-aws-bedrock-api-key",
+      "title": "Cline: api key",
+      "ecosystem": "Cline",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.cline.bot/provider-config/aws-bedrock/api-key",
+      "painpoint": "agents need compact AgentPress wrapper for Cline MCP/provider docs: api key",
+      "manifest_path": "agentpress/material-kits/cline-provider-config-aws-bedrock-api-key/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cline-provider-config-aws-bedrock-api-key/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cline-provider-config-aws-bedrock-api-key/llms.txt",
+      "run_guide": "agentpress/material-kits/cline-provider-config-aws-bedrock-api-key/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py mcp-config-mutation-guard --json",
         "python3 -m json.tool material-manifest.json",
@@ -4419,6 +4503,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "crewai-ar-tools-automation-zapieractionstool",
+      "title": "CrewAI: zapieractionstool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ar/tools/automation/zapieractionstool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: zapieractionstool",
+      "manifest_path": "agentpress/material-kits/crewai-ar-tools-automation-zapieractionstool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ar-tools-automation-zapieractionstool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ar-tools-automation-zapieractionstool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ar-tools-automation-zapieractionstool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ar-tools-cloud-storage-s3readertool",
+      "title": "CrewAI: s3readertool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ar/tools/cloud-storage/s3readertool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: s3readertool",
+      "manifest_path": "agentpress/material-kits/crewai-ar-tools-cloud-storage-s3readertool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ar-tools-cloud-storage-s3readertool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ar-tools-cloud-storage-s3readertool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ar-tools-cloud-storage-s3readertool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "crewai-ar-tools-integration-bedrockinvokeagenttool",
       "title": "CrewAI: bedrockinvokeagenttool",
       "ecosystem": "CrewAI",
@@ -4429,6 +4555,153 @@
       "receipt_path": "agentpress/material-kits/crewai-ar-tools-integration-bedrockinvokeagenttool/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/crewai-ar-tools-integration-bedrockinvokeagenttool/llms.txt",
       "run_guide": "agentpress/material-kits/crewai-ar-tools-integration-bedrockinvokeagenttool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ar-tools-integration-overview",
+      "title": "CrewAI: overview",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ar/tools/integration/overview",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: overview",
+      "manifest_path": "agentpress/material-kits/crewai-ar-tools-integration-overview/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ar-tools-integration-overview/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ar-tools-integration-overview/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ar-tools-integration-overview/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ar-tools-web-scraping-firecrawlscrapewebsitetool",
+      "title": "CrewAI: firecrawlscrapewebsitetool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ar/tools/web-scraping/firecrawlscrapewebsitetool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: firecrawlscrapewebsitetool",
+      "manifest_path": "agentpress/material-kits/crewai-ar-tools-web-scraping-firecrawlscrapewebsitetool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ar-tools-web-scraping-firecrawlscrapewebsitetool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ar-tools-web-scraping-firecrawlscrapewebsitetool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ar-tools-web-scraping-firecrawlscrapewebsitetool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ar-tools-web-scraping-hyperbrowserloadtool",
+      "title": "CrewAI: hyperbrowserloadtool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ar/tools/web-scraping/hyperbrowserloadtool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: hyperbrowserloadtool",
+      "manifest_path": "agentpress/material-kits/crewai-ar-tools-web-scraping-hyperbrowserloadtool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ar-tools-web-scraping-hyperbrowserloadtool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ar-tools-web-scraping-hyperbrowserloadtool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ar-tools-web-scraping-hyperbrowserloadtool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ar-tools-web-scraping-scrapewebsitetool",
+      "title": "CrewAI: scrapewebsitetool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ar/tools/web-scraping/scrapewebsitetool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: scrapewebsitetool",
+      "manifest_path": "agentpress/material-kits/crewai-ar-tools-web-scraping-scrapewebsitetool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ar-tools-web-scraping-scrapewebsitetool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ar-tools-web-scraping-scrapewebsitetool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ar-tools-web-scraping-scrapewebsitetool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ar-tools-web-scraping-scrapflyscrapetool",
+      "title": "CrewAI: scrapflyscrapetool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ar/tools/web-scraping/scrapflyscrapetool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: scrapflyscrapetool",
+      "manifest_path": "agentpress/material-kits/crewai-ar-tools-web-scraping-scrapflyscrapetool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ar-tools-web-scraping-scrapflyscrapetool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ar-tools-web-scraping-scrapflyscrapetool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ar-tools-web-scraping-scrapflyscrapetool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ar-tools-web-scraping-spidertool",
+      "title": "CrewAI: spidertool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ar/tools/web-scraping/spidertool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: spidertool",
+      "manifest_path": "agentpress/material-kits/crewai-ar-tools-web-scraping-spidertool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ar-tools-web-scraping-spidertool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ar-tools-web-scraping-spidertool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ar-tools-web-scraping-spidertool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-en-enterprise-features-tools-and-integrations",
+      "title": "CrewAI: tools and integrations",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/en/enterprise/features/tools-and-integrations",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: tools and integrations",
+      "manifest_path": "agentpress/material-kits/crewai-en-enterprise-features-tools-and-integrations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-en-enterprise-features-tools-and-integrations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-en-enterprise-features-tools-and-integrations/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-en-enterprise-features-tools-and-integrations/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -4545,6 +4818,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "crewai-en-tools-automation-apifyactorstool",
+      "title": "CrewAI: apifyactorstool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/en/tools/automation/apifyactorstool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: apifyactorstool",
+      "manifest_path": "agentpress/material-kits/crewai-en-tools-automation-apifyactorstool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-en-tools-automation-apifyactorstool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-en-tools-automation-apifyactorstool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-en-tools-automation-apifyactorstool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "crewai-en-tools-integration-bedrockinvokeagenttool",
       "title": "CrewAI: bedrockinvokeagenttool",
       "ecosystem": "CrewAI",
@@ -4576,6 +4870,153 @@
       "receipt_path": "agentpress/material-kits/crewai-en-tools-integration-mergeagenthandlertool/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/crewai-en-tools-integration-mergeagenthandlertool/llms.txt",
       "run_guide": "agentpress/material-kits/crewai-en-tools-integration-mergeagenthandlertool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-en-tools-integration-overview",
+      "title": "CrewAI: overview",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/en/tools/integration/overview",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: overview",
+      "manifest_path": "agentpress/material-kits/crewai-en-tools-integration-overview/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-en-tools-integration-overview/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-en-tools-integration-overview/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-en-tools-integration-overview/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-en-tools-search-research-serpapi-googlesearchtool",
+      "title": "CrewAI: serpapi googlesearchtool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/en/tools/search-research/serpapi-googlesearchtool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: serpapi googlesearchtool",
+      "manifest_path": "agentpress/material-kits/crewai-en-tools-search-research-serpapi-googlesearchtool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-en-tools-search-research-serpapi-googlesearchtool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-en-tools-search-research-serpapi-googlesearchtool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-en-tools-search-research-serpapi-googlesearchtool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-en-tools-search-research-serpapi-googleshoppingtool",
+      "title": "CrewAI: serpapi googleshoppingtool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/en/tools/search-research/serpapi-googleshoppingtool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: serpapi googleshoppingtool",
+      "manifest_path": "agentpress/material-kits/crewai-en-tools-search-research-serpapi-googleshoppingtool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-en-tools-search-research-serpapi-googleshoppingtool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-en-tools-search-research-serpapi-googleshoppingtool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-en-tools-search-research-serpapi-googleshoppingtool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-en-tools-web-scraping-brightdata-tools",
+      "title": "CrewAI: brightdata tools",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/en/tools/web-scraping/brightdata-tools",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: brightdata tools",
+      "manifest_path": "agentpress/material-kits/crewai-en-tools-web-scraping-brightdata-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-en-tools-web-scraping-brightdata-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-en-tools-web-scraping-brightdata-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-en-tools-web-scraping-brightdata-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-en-tools-web-scraping-scrapegraphscrapetool",
+      "title": "CrewAI: scrapegraphscrapetool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/en/tools/web-scraping/scrapegraphscrapetool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: scrapegraphscrapetool",
+      "manifest_path": "agentpress/material-kits/crewai-en-tools-web-scraping-scrapegraphscrapetool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-en-tools-web-scraping-scrapegraphscrapetool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-en-tools-web-scraping-scrapegraphscrapetool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-en-tools-web-scraping-scrapegraphscrapetool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-en-tools-web-scraping-youai-contents",
+      "title": "CrewAI: youai contents",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/en/tools/web-scraping/youai-contents",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: youai contents",
+      "manifest_path": "agentpress/material-kits/crewai-en-tools-web-scraping-youai-contents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-en-tools-web-scraping-youai-contents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-en-tools-web-scraping-youai-contents/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-en-tools-web-scraping-youai-contents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ko-enterprise-features-tools-and-integrations",
+      "title": "CrewAI: tools and integrations",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ko/enterprise/features/tools-and-integrations",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: tools and integrations",
+      "manifest_path": "agentpress/material-kits/crewai-ko-enterprise-features-tools-and-integrations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ko-enterprise-features-tools-and-integrations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ko-enterprise-features-tools-and-integrations/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ko-enterprise-features-tools-and-integrations/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -4692,6 +5133,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "crewai-ko-tools-automation-zapieractionstool",
+      "title": "CrewAI: zapieractionstool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ko/tools/automation/zapieractionstool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: zapieractionstool",
+      "manifest_path": "agentpress/material-kits/crewai-ko-tools-automation-zapieractionstool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ko-tools-automation-zapieractionstool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ko-tools-automation-zapieractionstool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ko-tools-automation-zapieractionstool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ko-tools-cloud-storage-s3readertool",
+      "title": "CrewAI: s3readertool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ko/tools/cloud-storage/s3readertool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: s3readertool",
+      "manifest_path": "agentpress/material-kits/crewai-ko-tools-cloud-storage-s3readertool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ko-tools-cloud-storage-s3readertool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ko-tools-cloud-storage-s3readertool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ko-tools-cloud-storage-s3readertool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ko-tools-cloud-storage-s3writertool",
+      "title": "CrewAI: s3writertool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ko/tools/cloud-storage/s3writertool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: s3writertool",
+      "manifest_path": "agentpress/material-kits/crewai-ko-tools-cloud-storage-s3writertool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ko-tools-cloud-storage-s3writertool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ko-tools-cloud-storage-s3writertool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ko-tools-cloud-storage-s3writertool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "crewai-ko-tools-integration-bedrockinvokeagenttool",
       "title": "CrewAI: bedrockinvokeagenttool",
       "ecosystem": "CrewAI",
@@ -4702,6 +5206,132 @@
       "receipt_path": "agentpress/material-kits/crewai-ko-tools-integration-bedrockinvokeagenttool/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/crewai-ko-tools-integration-bedrockinvokeagenttool/llms.txt",
       "run_guide": "agentpress/material-kits/crewai-ko-tools-integration-bedrockinvokeagenttool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ko-tools-search-research-serpapi-googlesearchtool",
+      "title": "CrewAI: serpapi googlesearchtool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ko/tools/search-research/serpapi-googlesearchtool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: serpapi googlesearchtool",
+      "manifest_path": "agentpress/material-kits/crewai-ko-tools-search-research-serpapi-googlesearchtool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ko-tools-search-research-serpapi-googlesearchtool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ko-tools-search-research-serpapi-googlesearchtool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ko-tools-search-research-serpapi-googlesearchtool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ko-tools-web-scraping-firecrawlcrawlwebsitetool",
+      "title": "CrewAI: firecrawlcrawlwebsitetool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ko/tools/web-scraping/firecrawlcrawlwebsitetool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: firecrawlcrawlwebsitetool",
+      "manifest_path": "agentpress/material-kits/crewai-ko-tools-web-scraping-firecrawlcrawlwebsitetool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ko-tools-web-scraping-firecrawlcrawlwebsitetool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ko-tools-web-scraping-firecrawlcrawlwebsitetool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ko-tools-web-scraping-firecrawlcrawlwebsitetool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ko-tools-web-scraping-firecrawlscrapewebsitetool",
+      "title": "CrewAI: firecrawlscrapewebsitetool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ko/tools/web-scraping/firecrawlscrapewebsitetool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: firecrawlscrapewebsitetool",
+      "manifest_path": "agentpress/material-kits/crewai-ko-tools-web-scraping-firecrawlscrapewebsitetool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ko-tools-web-scraping-firecrawlscrapewebsitetool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ko-tools-web-scraping-firecrawlscrapewebsitetool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ko-tools-web-scraping-firecrawlscrapewebsitetool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ko-tools-web-scraping-hyperbrowserloadtool",
+      "title": "CrewAI: hyperbrowserloadtool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ko/tools/web-scraping/hyperbrowserloadtool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: hyperbrowserloadtool",
+      "manifest_path": "agentpress/material-kits/crewai-ko-tools-web-scraping-hyperbrowserloadtool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ko-tools-web-scraping-hyperbrowserloadtool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ko-tools-web-scraping-hyperbrowserloadtool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ko-tools-web-scraping-hyperbrowserloadtool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ko-tools-web-scraping-oxylabsscraperstool",
+      "title": "CrewAI: oxylabsscraperstool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ko/tools/web-scraping/oxylabsscraperstool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: oxylabsscraperstool",
+      "manifest_path": "agentpress/material-kits/crewai-ko-tools-web-scraping-oxylabsscraperstool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ko-tools-web-scraping-oxylabsscraperstool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ko-tools-web-scraping-oxylabsscraperstool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ko-tools-web-scraping-oxylabsscraperstool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-ko-tools-web-scraping-stagehandtool",
+      "title": "CrewAI: stagehandtool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/ko/tools/web-scraping/stagehandtool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: stagehandtool",
+      "manifest_path": "agentpress/material-kits/crewai-ko-tools-web-scraping-stagehandtool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-ko-tools-web-scraping-stagehandtool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-ko-tools-web-scraping-stagehandtool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-ko-tools-web-scraping-stagehandtool/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -4818,6 +5448,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "crewai-pt-br-tools-cloud-storage-bedrockkbretriever",
+      "title": "CrewAI: bedrockkbretriever",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/pt-BR/tools/cloud-storage/bedrockkbretriever",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: bedrockkbretriever",
+      "manifest_path": "agentpress/material-kits/crewai-pt-br-tools-cloud-storage-bedrockkbretriever/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-pt-br-tools-cloud-storage-bedrockkbretriever/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-pt-br-tools-cloud-storage-bedrockkbretriever/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-pt-br-tools-cloud-storage-bedrockkbretriever/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-pt-br-tools-cloud-storage-s3readertool",
+      "title": "CrewAI: s3readertool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/pt-BR/tools/cloud-storage/s3readertool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: s3readertool",
+      "manifest_path": "agentpress/material-kits/crewai-pt-br-tools-cloud-storage-s3readertool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-pt-br-tools-cloud-storage-s3readertool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-pt-br-tools-cloud-storage-s3readertool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-pt-br-tools-cloud-storage-s3readertool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "crewai-pt-br-tools-integration-bedrockinvokeagenttool",
       "title": "CrewAI: bedrockinvokeagenttool",
       "ecosystem": "CrewAI",
@@ -4828,6 +5500,90 @@
       "receipt_path": "agentpress/material-kits/crewai-pt-br-tools-integration-bedrockinvokeagenttool/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/crewai-pt-br-tools-integration-bedrockinvokeagenttool/llms.txt",
       "run_guide": "agentpress/material-kits/crewai-pt-br-tools-integration-bedrockinvokeagenttool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-pt-br-tools-integration-overview",
+      "title": "CrewAI: overview",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/pt-BR/tools/integration/overview",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: overview",
+      "manifest_path": "agentpress/material-kits/crewai-pt-br-tools-integration-overview/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-pt-br-tools-integration-overview/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-pt-br-tools-integration-overview/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-pt-br-tools-integration-overview/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-pt-br-tools-web-scraping-browserbaseloadtool",
+      "title": "CrewAI: browserbaseloadtool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/pt-BR/tools/web-scraping/browserbaseloadtool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: browserbaseloadtool",
+      "manifest_path": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-browserbaseloadtool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-browserbaseloadtool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-browserbaseloadtool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-browserbaseloadtool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-pt-br-tools-web-scraping-hyperbrowserloadtool",
+      "title": "CrewAI: hyperbrowserloadtool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/pt-BR/tools/web-scraping/hyperbrowserloadtool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: hyperbrowserloadtool",
+      "manifest_path": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-hyperbrowserloadtool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-hyperbrowserloadtool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-hyperbrowserloadtool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-hyperbrowserloadtool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "crewai-pt-br-tools-web-scraping-scrapeelementfromwebsitetool",
+      "title": "CrewAI: scrapeelementfromwebsitetool",
+      "ecosystem": "CrewAI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.crewai.com/pt-BR/tools/web-scraping/scrapeelementfromwebsitetool",
+      "painpoint": "agents need compact AgentPress wrapper for CrewAI agent/flow docs: scrapeelementfromwebsitetool",
+      "manifest_path": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-scrapeelementfromwebsitetool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-scrapeelementfromwebsitetool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-scrapeelementfromwebsitetool/llms.txt",
+      "run_guide": "agentpress/material-kits/crewai-pt-br-tools-web-scraping-scrapeelementfromwebsitetool/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -10404,6 +11160,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "openai-agents-sdk-noneja-ref-sandbox-capabilities-tools-shell-tool",
+      "title": "OpenAI Agents SDK: shell tool",
+      "ecosystem": "OpenAI Agents SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "Noneja/ref/sandbox/capabilities/tools/shell_tool/",
+      "painpoint": "agents need compact AgentPress wrapper for OpenAI Agents SDK tool and workflow docs: shell tool",
+      "manifest_path": "agentpress/material-kits/openai-agents-sdk-noneja-ref-sandbox-capabilities-tools-shell-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/openai-agents-sdk-noneja-ref-sandbox-capabilities-tools-shell-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/openai-agents-sdk-noneja-ref-sandbox-capabilities-tools-shell-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/openai-agents-sdk-noneja-ref-sandbox-capabilities-tools-shell-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "openai-agents-sdk-noneja-ref-sandbox-capabilities-tools-view-image",
       "title": "OpenAI Agents SDK: view image",
       "ecosystem": "OpenAI Agents SDK",
@@ -10824,6 +11601,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "openai-agents-sdk-nonezh-ref-extensions-models-any-llm-provider",
+      "title": "OpenAI Agents SDK: any llm provider",
+      "ecosystem": "OpenAI Agents SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "Nonezh/ref/extensions/models/any_llm_provider/",
+      "painpoint": "agents need compact AgentPress wrapper for OpenAI Agents SDK tool and workflow docs: any llm provider",
+      "manifest_path": "agentpress/material-kits/openai-agents-sdk-nonezh-ref-extensions-models-any-llm-provider/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/openai-agents-sdk-nonezh-ref-extensions-models-any-llm-provider/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/openai-agents-sdk-nonezh-ref-extensions-models-any-llm-provider/llms.txt",
+      "run_guide": "agentpress/material-kits/openai-agents-sdk-nonezh-ref-extensions-models-any-llm-provider/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "openai-agents-sdk-nonezh-ref-extensions-models-litellm-provider",
       "title": "OpenAI Agents SDK: litellm provider",
       "ecosystem": "OpenAI Agents SDK",
@@ -10834,6 +11632,27 @@
       "receipt_path": "agentpress/material-kits/openai-agents-sdk-nonezh-ref-extensions-models-litellm-provider/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/openai-agents-sdk-nonezh-ref-extensions-models-litellm-provider/llms.txt",
       "run_guide": "agentpress/material-kits/openai-agents-sdk-nonezh-ref-extensions-models-litellm-provider/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "openai-agents-sdk-nonezh-ref-sandbox-capabilities-tools-apply-patch-tool",
+      "title": "OpenAI Agents SDK: apply patch tool",
+      "ecosystem": "OpenAI Agents SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "Nonezh/ref/sandbox/capabilities/tools/apply_patch_tool/",
+      "painpoint": "agents need compact AgentPress wrapper for OpenAI Agents SDK tool and workflow docs: apply patch tool",
+      "manifest_path": "agentpress/material-kits/openai-agents-sdk-nonezh-ref-sandbox-capabilities-tools-apply-patch-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/openai-agents-sdk-nonezh-ref-sandbox-capabilities-tools-apply-patch-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/openai-agents-sdk-nonezh-ref-sandbox-capabilities-tools-apply-patch-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/openai-agents-sdk-nonezh-ref-sandbox-capabilities-tools-apply-patch-tool/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
@@ -10962,6 +11781,90 @@
       "run_guide": "agentpress/material-kits/openai-agents-sdk-tools-docs/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "openhands-api-reference-get-microagents",
+      "title": "OpenHands: get microagents",
+      "ecosystem": "OpenHands",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.openhands.dev/api-reference/get-microagents",
+      "painpoint": "agents need compact AgentPress wrapper for OpenHands runtime/plugin docs: get microagents",
+      "manifest_path": "agentpress/material-kits/openhands-api-reference-get-microagents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/openhands-api-reference-get-microagents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/openhands-api-reference-get-microagents/llms.txt",
+      "run_guide": "agentpress/material-kits/openhands-api-reference-get-microagents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py discovery-bridge queue --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "openhands-api-reference-get-remote-runtime-config",
+      "title": "OpenHands: get remote runtime config",
+      "ecosystem": "OpenHands",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.openhands.dev/api-reference/get-remote-runtime-config",
+      "painpoint": "agents need compact AgentPress wrapper for OpenHands runtime/plugin docs: get remote runtime config",
+      "manifest_path": "agentpress/material-kits/openhands-api-reference-get-remote-runtime-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/openhands-api-reference-get-remote-runtime-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/openhands-api-reference-get-remote-runtime-config/llms.txt",
+      "run_guide": "agentpress/material-kits/openhands-api-reference-get-remote-runtime-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py discovery-bridge queue --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "openhands-api-reference-get-repository-microagents",
+      "title": "OpenHands: get repository microagents",
+      "ecosystem": "OpenHands",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.openhands.dev/api-reference/get-repository-microagents",
+      "painpoint": "agents need compact AgentPress wrapper for OpenHands runtime/plugin docs: get repository microagents",
+      "manifest_path": "agentpress/material-kits/openhands-api-reference-get-repository-microagents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/openhands-api-reference-get-repository-microagents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/openhands-api-reference-get-repository-microagents/llms.txt",
+      "run_guide": "agentpress/material-kits/openhands-api-reference-get-repository-microagents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py discovery-bridge queue --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "openhands-api-reference-list-agents",
+      "title": "OpenHands: list agents",
+      "ecosystem": "OpenHands",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.openhands.dev/api-reference/list-agents",
+      "painpoint": "agents need compact AgentPress wrapper for OpenHands runtime/plugin docs: list agents",
+      "manifest_path": "agentpress/material-kits/openhands-api-reference-list-agents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/openhands-api-reference-list-agents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/openhands-api-reference-list-agents/llms.txt",
+      "run_guide": "agentpress/material-kits/openhands-api-reference-list-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py discovery-bridge queue --json",
         "python3 -m json.tool material-manifest.json",
         "python3 -m json.tool proof-receipt.json"
       ],
@@ -12147,6 +13050,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "roo-code-advanced-usage-available-tools-access-mcp-resource",
+      "title": "Roo Code: access mcp resource",
+      "ecosystem": "Roo Code",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.roocode.com/advanced-usage/available-tools/access-mcp-resource",
+      "painpoint": "agents need compact AgentPress wrapper for Roo Code provider/tool docs: access mcp resource",
+      "manifest_path": "agentpress/material-kits/roo-code-advanced-usage-available-tools-access-mcp-resource/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/roo-code-advanced-usage-available-tools-access-mcp-resource/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/roo-code-advanced-usage-available-tools-access-mcp-resource/llms.txt",
+      "run_guide": "agentpress/material-kits/roo-code-advanced-usage-available-tools-access-mcp-resource/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --host roo-code --provider unknown --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "roo-code-advanced-usage-available-tools-use-mcp-tool",
+      "title": "Roo Code: use mcp tool",
+      "ecosystem": "Roo Code",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.roocode.com/advanced-usage/available-tools/use-mcp-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Roo Code provider/tool docs: use mcp tool",
+      "manifest_path": "agentpress/material-kits/roo-code-advanced-usage-available-tools-use-mcp-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/roo-code-advanced-usage-available-tools-use-mcp-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/roo-code-advanced-usage-available-tools-use-mcp-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/roo-code-advanced-usage-available-tools-use-mcp-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --host roo-code --provider unknown --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "roo-code-features-api-configuration-profiles",
+      "title": "Roo Code: api configuration profiles",
+      "ecosystem": "Roo Code",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.roocode.com/features/api-configuration-profiles",
+      "painpoint": "agents need compact AgentPress wrapper for Roo Code provider/tool docs: api configuration profiles",
+      "manifest_path": "agentpress/material-kits/roo-code-features-api-configuration-profiles/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/roo-code-features-api-configuration-profiles/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/roo-code-features-api-configuration-profiles/llms.txt",
+      "run_guide": "agentpress/material-kits/roo-code-features-api-configuration-profiles/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --host roo-code --provider unknown --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "roo-code-getting-started-connecting-api-provider",
+      "title": "Roo Code: connecting api provider",
+      "ecosystem": "Roo Code",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.roocode.com/getting-started/connecting-api-provider",
+      "painpoint": "agents need compact AgentPress wrapper for Roo Code provider/tool docs: connecting api provider",
+      "manifest_path": "agentpress/material-kits/roo-code-getting-started-connecting-api-provider/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/roo-code-getting-started-connecting-api-provider/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/roo-code-getting-started-connecting-api-provider/llms.txt",
+      "run_guide": "agentpress/material-kits/roo-code-getting-started-connecting-api-provider/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --host roo-code --provider unknown --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "roo-code-malformed-tool-call-repro",
       "title": "Roo Code: malformed partial tool call response needs minimal adapter repro",
       "ecosystem": "Roo Code",
@@ -12241,6 +13228,48 @@
       "receipt_path": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-custom-memory-tool/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-custom-memory-tool/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-ai-sdk-cookbook-guides-custom-memory-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-cookbook-next-mcp-tools",
+      "title": "Vercel AI SDK: mcp tools",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/cookbook/next/mcp-tools",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: mcp tools",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-cookbook-next-mcp-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-cookbook-next-mcp-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-cookbook-next-mcp-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-cookbook-next-mcp-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-cookbook-node-mcp-tools",
+      "title": "Vercel AI SDK: mcp tools",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/cookbook/node/mcp-tools",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: mcp tools",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-cookbook-node-mcp-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-cookbook-node-mcp-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-cookbook-node-mcp-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-cookbook-node-mcp-tools/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
@@ -12934,6 +13963,27 @@
       "receipt_path": "agentpress/material-kits/vercel-ai-sdk-tools-docs/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-ai-sdk-tools-docs/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-ai-sdk-tools-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-ai-sdk-tools-registry-bedrock-agentcore",
+      "title": "Vercel AI SDK: bedrock agentcore",
+      "ecosystem": "Vercel AI SDK",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://ai-sdk.dev/tools-registry/bedrock-agentcore",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel AI SDK tool-calling docs: bedrock agentcore",
+      "manifest_path": "agentpress/material-kits/vercel-ai-sdk-tools-registry-bedrock-agentcore/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-ai-sdk-tools-registry-bedrock-agentcore/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-ai-sdk-tools-registry-bedrock-agentcore/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-ai-sdk-tools-registry-bedrock-agentcore/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
