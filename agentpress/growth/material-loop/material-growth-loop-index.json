@@ -1,18 +1,18 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:36:23Z",
+  "generated_utc": "2026-05-06T04:36:40Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 1293,
+  "kit_count": 1373,
   "by_ecosystem": {
     "Anthropic": 287,
     "Auth0": 5,
     "AWS": 5,
     "Bun": 22,
     "Cline": 6,
-    "Cloudflare": 10,
+    "Cloudflare": 15,
     "docs": 1,
     "CrewAI": 160,
     "Cypress": 1,
@@ -20,9 +20,9 @@
     "Docker": 19,
     "DSPy": 9,
     "FastAPI": 1,
-    "GCP": 16,
+    "GCP": 83,
     "Haystack": 175,
-    "Kubernetes": 59,
+    "Kubernetes": 67,
     "LangGraph": 2,
     "LiteLLM": 201,
     "LlamaIndex": 1,
@@ -41,7 +41,7 @@
     "Weaviate": 1
   },
   "by_status": {
-    "ready_local_static_not_posted": 1293
+    "ready_local_static_not_posted": 1373
   },
   "kits": [
     {
@@ -7017,6 +7017,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cloudflare-sandbox-guides-git-workflows",
+      "title": "Cloudflare: git workflows",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/sandbox/guides/git-workflows/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: git workflows",
+      "manifest_path": "agentpress/material-kits/cloudflare-sandbox-guides-git-workflows/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-sandbox-guides-git-workflows/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-sandbox-guides-git-workflows/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-sandbox-guides-git-workflows/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-sandbox-guides-production-deployment",
+      "title": "Cloudflare: production deployment",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/sandbox/guides/production-deployment/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: production deployment",
+      "manifest_path": "agentpress/material-kits/cloudflare-sandbox-guides-production-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-sandbox-guides-production-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-sandbox-guides-production-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-sandbox-guides-production-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-vectorize-reference-client-api",
+      "title": "Cloudflare: client api",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/vectorize/reference/client-api/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: client api",
+      "manifest_path": "agentpress/material-kits/cloudflare-vectorize-reference-client-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-vectorize-reference-client-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-vectorize-reference-client-api/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-vectorize-reference-client-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cloudflare-workers-ai-guides-tutorials-build-a-retrieval-augmented-gener",
       "title": "Cloudflare: build a retrieval augmented generation ai",
       "ecosystem": "Cloudflare",
@@ -7048,6 +7111,48 @@
       "receipt_path": "agentpress/material-kits/cloudflare-workers-testing-vitest-integration-configuration/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-workers-testing-vitest-integration-configuration/llms.txt",
       "run_guide": "agentpress/material-kits/cloudflare-workers-testing-vitest-integration-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-vite-plugin-reference-api",
+      "title": "Cloudflare: api",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/vite-plugin/reference/api/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: api",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-api/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-vite-plugin-reference-debugging",
+      "title": "Cloudflare: debugging",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/vite-plugin/reference/debugging/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: debugging",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-debugging/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-debugging/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-debugging/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-debugging/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -11196,6 +11301,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "gcp-cpp-docs-reference-dialogflow-es-2-21-0-classgoogle-1-1cloud-1-1dial",
+      "title": "GCP: classgoogle 1 1cloud 1 1dialogflow  es 1 1AgentsConnectionIdempotencyPolicy",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/cpp/docs/reference/dialogflow_es/2.21.0/classgoogle_1_1cloud_1_1dialogflow__es_1_1AgentsConnectionIdempotencyPolicy",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: classgoogle 1 1cloud 1 1dialogflow  es 1 1AgentsConnectionIdempotencyPolicy",
+      "manifest_path": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-21-0-classgoogle-1-1cloud-1-1dial/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-21-0-classgoogle-1-1cloud-1-1dial/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-21-0-classgoogle-1-1cloud-1-1dial/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-21-0-classgoogle-1-1cloud-1-1dial/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-cpp-docs-reference-dialogflow-es-2-32-0-dialogflow-es-1-1conversatio",
+      "title": "GCP: dialogflow es 1 1ConversationModelsClient retry snippet",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/cpp/docs/reference/dialogflow_es/2.32.0/dialogflow_es_1_1ConversationModelsClient-retry-snippet",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: dialogflow es 1 1ConversationModelsClient retry snippet",
+      "manifest_path": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-32-0-dialogflow-es-1-1conversatio/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-32-0-dialogflow-es-1-1conversatio/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-32-0-dialogflow-es-1-1conversatio/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-32-0-dialogflow-es-1-1conversatio/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-cpp-docs-reference-dialogflow-es-2-37-0-dialogflow-es-1-1conversatio",
+      "title": "GCP: dialogflow es 1 1ConversationModelsClient endpoint snippet",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/cpp/docs/reference/dialogflow_es/2.37.0/dialogflow_es_1_1ConversationModelsClient-endpoint-snippet",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: dialogflow es 1 1ConversationModelsClient endpoint snippet",
+      "manifest_path": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-37-0-dialogflow-es-1-1conversatio/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-37-0-dialogflow-es-1-1conversatio/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-37-0-dialogflow-es-1-1conversatio/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-cpp-docs-reference-dialogflow-es-2-37-0-dialogflow-es-1-1conversatio/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-dotnet-docs-reference-google-cloud-aiplatform-v1-2-22-0-google-cloud",
+      "title": "GCP: Google.Cloud.AIPlatform.V1.DeployModelResponse",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.AIPlatform.V1/2.22.0/Google.Cloud.AIPlatform.V1.DeployModelResponse",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.AIPlatform.V1.DeployModelResponse",
+      "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1-2-22-0-google-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1-2-22-0-google-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1-2-22-0-google-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1-2-22-0-google-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "gcp-dotnet-docs-reference-google-cloud-aiplatform-v1-2-26-0-google-cloud",
       "title": "GCP: Google.Cloud.AIPlatform.V1.ModelEvaluationSlice.Types.Slice.Types.SliceSpec.Types.SliceCon",
       "ecosystem": "GCP",
@@ -11217,16 +11406,100 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
-      "slug": "gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-latest-google",
-      "title": "GCP: Google.Cloud.AIPlatform.V1Beta1.ModelMonitoringServiceClientImpl",
+      "slug": "gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-1-0-0-beta27-g",
+      "title": "GCP: Google.Cloud.AIPlatform.V1Beta1.Retrieval.SourceOneofCase",
       "ecosystem": "GCP",
       "status": "ready_local_static_not_posted",
-      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.AIPlatform.V1Beta1/latest/Google.Cloud.AIPlatform.V1Beta1.ModelMonitoringServiceClientImpl",
-      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.AIPlatform.V1Beta1.ModelMonitoringServiceClientImpl",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.AIPlatform.V1Beta1/1.0.0-beta27/Google.Cloud.AIPlatform.V1Beta1.Retrieval.SourceOneofCase",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.AIPlatform.V1Beta1.Retrieval.SourceOneofCase",
+      "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-1-0-0-beta27-g/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-1-0-0-beta27-g/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-1-0-0-beta27-g/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-1-0-0-beta27-g/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-latest-google",
+      "title": "GCP: Google.Cloud.AIPlatform.V1Beta1.PublisherModelName",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.AIPlatform.V1Beta1/latest/Google.Cloud.AIPlatform.V1Beta1.PublisherModelName",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.AIPlatform.V1Beta1.PublisherModelName",
       "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-latest-google/material-manifest.json",
       "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-latest-google/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-latest-google/llms.txt",
       "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-aiplatform-v1beta1-latest-google/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-dotnet-docs-reference-google-cloud-appengine-v1-1-2-0-google-cloud-a",
+      "title": "GCP: Google.Cloud.AppEngine.V1.AuthorizedCertificatesClientBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.AppEngine.V1/1.2.0/Google.Cloud.AppEngine.V1.AuthorizedCertificatesClientBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.AppEngine.V1.AuthorizedCertificatesClientBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-appengine-v1-1-2-0-google-cloud-a/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-appengine-v1-1-2-0-google-cloud-a/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-appengine-v1-1-2-0-google-cloud-a/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-appengine-v1-1-2-0-google-cloud-a/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-dotnet-docs-reference-google-cloud-cloudbuild-v1-2-0-0-google-cloud",
+      "title": "GCP: Google.Cloud.CloudBuild.V1.ApprovalConfig",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.CloudBuild.V1/2.0.0/Google.Cloud.CloudBuild.V1.ApprovalConfig",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.CloudBuild.V1.ApprovalConfig",
+      "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-cloudbuild-v1-2-0-0-google-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-cloudbuild-v1-2-0-0-google-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-cloudbuild-v1-2-0-0-google-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-cloudbuild-v1-2-0-0-google-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-dotnet-docs-reference-google-cloud-cloudbuild-v1-2-10-0-google-cloud",
+      "title": "GCP: Google.Cloud.CloudBuild.V1.GithubEnterpriseConfigName.ResourceNameType",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.CloudBuild.V1/2.10.0/Google.Cloud.CloudBuild.V1.GithubEnterpriseConfigName.ResourceNameType",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.CloudBuild.V1.GithubEnterpriseConfigName.ResourceNameType",
+      "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-cloudbuild-v1-2-10-0-google-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-cloudbuild-v1-2-10-0-google-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-cloudbuild-v1-2-10-0-google-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-cloudbuild-v1-2-10-0-google-cloud/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -11259,6 +11532,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-3-10-0-google-cloud",
+      "title": "GCP: Google.Cloud.Dialogflow.V2.VersionsClientBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.Dialogflow.V2/3.10.0/Google.Cloud.Dialogflow.V2.VersionsClientBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.Dialogflow.V2.VersionsClientBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-3-10-0-google-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-3-10-0-google-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-3-10-0-google-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-3-10-0-google-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-3-9-0-google-cloud",
+      "title": "GCP: Google.Cloud.Dialogflow.V2.ParticipantsClientImpl",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.Dialogflow.V2/3.9.0/Google.Cloud.Dialogflow.V2.ParticipantsClientImpl",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.Dialogflow.V2.ParticipantsClientImpl",
+      "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-3-9-0-google-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-3-9-0-google-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-3-9-0-google-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-3-9-0-google-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-17-0-google-cloud",
       "title": "GCP: Google.Cloud.Dialogflow.V2.ParticipantsClientBuilder",
       "ecosystem": "GCP",
@@ -11269,6 +11584,153 @@
       "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-17-0-google-cloud/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-17-0-google-cloud/llms.txt",
       "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-17-0-google-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-9-0-google-cloud",
+      "title": "GCP: Google.Cloud.Dialogflow.V2.HumanAgentAssistantConfig.Types.SuggestionConfig",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.Dialogflow.V2/4.9.0/Google.Cloud.Dialogflow.V2.HumanAgentAssistantConfig.Types.SuggestionConfig",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.Dialogflow.V2.HumanAgentAssistantConfig.Types.SuggestionConfig",
+      "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-9-0-google-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-9-0-google-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-9-0-google-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-dialogflow-v2-4-9-0-google-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-dotnet-docs-reference-google-cloud-servicedirectory-v1-latest-google",
+      "title": "GCP: Google.Cloud.ServiceDirectory.V1.RegistrationServiceClientBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/dotnet/docs/reference/Google.Cloud.ServiceDirectory.V1/latest/Google.Cloud.ServiceDirectory.V1.RegistrationServiceClientBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: Google.Cloud.ServiceDirectory.V1.RegistrationServiceClientBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-servicedirectory-v1-latest-google/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-servicedirectory-v1-latest-google/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-servicedirectory-v1-latest-google/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-dotnet-docs-reference-google-cloud-servicedirectory-v1-latest-google/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-compute-latest-com-google-cloud-com",
+      "title": "GCP: com.google.cloud.compute.v1.ErrorInfo.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-compute/latest/com.google.cloud.compute.v1.ErrorInfo.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.compute.v1.ErrorInfo.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-compute-latest-com-google-cloud-com/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-compute-latest-com-google-cloud-com/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-compute-latest-com-google-cloud-com/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-compute-latest-com-google-cloud-com/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-dataform-latest-com-google-cloud-da",
+      "title": "GCP: com.google.cloud.dataform.v1.DirectoryEntryOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-dataform/latest/com.google.cloud.dataform.v1.DirectoryEntryOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.dataform.v1.DirectoryEntryOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dataform-latest-com-google-cloud-da/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dataform-latest-com-google-cloud-da/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dataform-latest-com-google-cloud-da/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dataform-latest-com-google-cloud-da/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-datalabeling-0-123-0-com-google-clo",
+      "title": "GCP: com.google.cloud.datalabeling.v1beta1.Evaluation.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-datalabeling/0.123.0/com.google.cloud.datalabeling.v1beta1.Evaluation.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.datalabeling.v1beta1.Evaluation.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-datalabeling-0-123-0-com-google-clo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-datalabeling-0-123-0-com-google-clo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-datalabeling-0-123-0-com-google-clo/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-datalabeling-0-123-0-com-google-clo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-dataproc-latest-com-google-cloud-da",
+      "title": "GCP: com.google.cloud.dataproc.v1.IdentityConfig.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-dataproc/latest/com.google.cloud.dataproc.v1.IdentityConfig.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.dataproc.v1.IdentityConfig.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dataproc-latest-com-google-cloud-da/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dataproc-latest-com-google-cloud-da/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dataproc-latest-com-google-cloud-da/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dataproc-latest-com-google-cloud-da/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-dialogflow-4-7-1-com-google-cloud-d",
+      "title": "GCP: com.google.cloud.dialogflow.v2.GetAgentRequest.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-dialogflow/4.7.1/com.google.cloud.dialogflow.v2.GetAgentRequest.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.dialogflow.v2.GetAgentRequest.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-4-7-1-com-google-cloud-d/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-4-7-1-com-google-cloud-d/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-4-7-1-com-google-cloud-d/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-4-7-1-com-google-cloud-d/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -11322,6 +11784,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "gcp-java-docs-reference-google-cloud-dialogflow-latest-com-google-cloud",
+      "title": "GCP: com.google.cloud.dialogflow.v2beta1.GetContextRequestOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-dialogflow/latest/com.google.cloud.dialogflow.v2beta1.GetContextRequestOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.dialogflow.v2beta1.GetContextRequestOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-latest-com-google-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-latest-com-google-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-latest-com-google-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-dialogflow-latest-com-google-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-document-ai-latest-com-google-cloud",
+      "title": "GCP: com.google.cloud.documentai.v1beta3.DocumentOutputConfig.GcsOutputConfig.ShardingConfig.Bu",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-document-ai/latest/com.google.cloud.documentai.v1beta3.DocumentOutputConfig.GcsOutputConfig.ShardingConfig.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.documentai.v1beta3.DocumentOutputConfig.GcsOutputConfig.ShardingConfig.Bu",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-document-ai-latest-com-google-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-document-ai-latest-com-google-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-document-ai-latest-com-google-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-document-ai-latest-com-google-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-gkehub-0-5-4-com-google-cloud-gkehu",
+      "title": "GCP: com.google.cloud.gkehub.configmanagement.v1beta.ErrorResource.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-gkehub/0.5.4/com.google.cloud.gkehub.configmanagement.v1beta.ErrorResource.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.gkehub.configmanagement.v1beta.ErrorResource.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-0-5-4-com-google-cloud-gkehu/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-0-5-4-com-google-cloud-gkehu/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-0-5-4-com-google-cloud-gkehu/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-0-5-4-com-google-cloud-gkehu/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "gcp-java-docs-reference-google-cloud-gkehub-1-3-4-com-google-cloud-gkehu",
       "title": "GCP: com.google.cloud.gkehub.configmanagement.v1beta.GatekeeperDeploymentState.Builder",
       "ecosystem": "GCP",
@@ -11343,6 +11868,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "gcp-java-docs-reference-google-cloud-gkehub-1-37-0-com-google-cloud-gkeh",
+      "title": "GCP: com.google.cloud.gkehub.configmanagement.v1alpha.BinauthzConfigOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-gkehub/1.37.0/com.google.cloud.gkehub.configmanagement.v1alpha.BinauthzConfigOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.gkehub.configmanagement.v1alpha.BinauthzConfigOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-37-0-com-google-cloud-gkeh/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-37-0-com-google-cloud-gkeh/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-37-0-com-google-cloud-gkeh/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-37-0-com-google-cloud-gkeh/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-gkehub-1-58-0-com-google-cloud-gkeh",
+      "title": "GCP: com.google.cloud.gkehub.configmanagement.v1beta.HierarchyControllerDeploymentState",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-gkehub/1.58.0/com.google.cloud.gkehub.configmanagement.v1beta.HierarchyControllerDeploymentState",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.gkehub.configmanagement.v1beta.HierarchyControllerDeploymentState",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-58-0-com-google-cloud-gkeh/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-58-0-com-google-cloud-gkeh/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-58-0-com-google-cloud-gkeh/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-gkehub-1-58-0-com-google-cloud-gkeh/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-infra-manager-0-4-0-com-google-clou",
+      "title": "GCP: com.google.cloud.config.v1.TerraformOutput.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-infra-manager/0.4.0/com.google.cloud.config.v1.TerraformOutput.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.config.v1.TerraformOutput.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-infra-manager-0-4-0-com-google-clou/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-infra-manager-0-4-0-com-google-clou/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-infra-manager-0-4-0-com-google-clou/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-infra-manager-0-4-0-com-google-clou/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "gcp-java-docs-reference-google-cloud-licensemanager-latest-com-google-cl",
       "title": "GCP: com.google.cloud.licensemanager.v1.QueryConfigurationLicenseUsageResponse.Builder",
       "ecosystem": "GCP",
@@ -11353,6 +11941,195 @@
       "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-licensemanager-latest-com-google-cl/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-licensemanager-latest-com-google-cl/llms.txt",
       "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-licensemanager-latest-com-google-cl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-memcache-2-18-0-com-google-cloud-me",
+      "title": "GCP: com.google.cloud.memcache.v1.Instance.NodeConfig.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-memcache/2.18.0/com.google.cloud.memcache.v1.Instance.NodeConfig.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.memcache.v1.Instance.NodeConfig.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-memcache-2-18-0-com-google-cloud-me/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-memcache-2-18-0-com-google-cloud-me/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-memcache-2-18-0-com-google-cloud-me/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-memcache-2-18-0-com-google-cloud-me/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-migrationcenter-0-12-0-com-google-c",
+      "title": "GCP: com.google.cloud.migrationcenter.v1.VmwarePlatformDetailsOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-migrationcenter/0.12.0/com.google.cloud.migrationcenter.v1.VmwarePlatformDetailsOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.migrationcenter.v1.VmwarePlatformDetailsOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-0-12-0-com-google-c/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-0-12-0-com-google-c/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-0-12-0-com-google-c/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-0-12-0-com-google-c/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-migrationcenter-0-35-0-com-google-c",
+      "title": "GCP: com.google.cloud.migrationcenter.v1.GetErrorFrameRequest.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-migrationcenter/0.35.0/com.google.cloud.migrationcenter.v1.GetErrorFrameRequest.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.migrationcenter.v1.GetErrorFrameRequest.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-0-35-0-com-google-c/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-0-35-0-com-google-c/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-0-35-0-com-google-c/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-0-35-0-com-google-c/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-migrationcenter-latest-com-google-c",
+      "title": "GCP: com.google.cloud.migrationcenter.v1.DeletePreferenceSetRequestOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-migrationcenter/latest/com.google.cloud.migrationcenter.v1.DeletePreferenceSetRequestOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.migrationcenter.v1.DeletePreferenceSetRequestOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-latest-com-google-c/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-latest-com-google-c/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-latest-com-google-c/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-migrationcenter-latest-com-google-c/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-notebooks-1-16-0-com-google-cloud-n",
+      "title": "GCP: com.google.cloud.notebooks.v1.RuntimeShieldedInstanceConfig.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-notebooks/1.16.0/com.google.cloud.notebooks.v1.RuntimeShieldedInstanceConfig.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.notebooks.v1.RuntimeShieldedInstanceConfig.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-notebooks-1-16-0-com-google-cloud-n/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-notebooks-1-16-0-com-google-cloud-n/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-notebooks-1-16-0-com-google-cloud-n/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-notebooks-1-16-0-com-google-cloud-n/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-optimization-1-45-0-com-google-clou",
+      "title": "GCP: com.google.cloud.optimization.v1.BatchOptimizeToursRequest.AsyncModelConfigOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-optimization/1.45.0/com.google.cloud.optimization.v1.BatchOptimizeToursRequest.AsyncModelConfigOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.optimization.v1.BatchOptimizeToursRequest.AsyncModelConfigOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-optimization-1-45-0-com-google-clou/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-optimization-1-45-0-com-google-clou/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-optimization-1-45-0-com-google-clou/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-optimization-1-45-0-com-google-clou/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-orchestration-airflow-1-41-0-com-go",
+      "title": "GCP: com.google.cloud.orchestration.airflow.service.v1.WorkloadsConfig.WorkerResource",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-orchestration-airflow/1.41.0/com.google.cloud.orchestration.airflow.service.v1.WorkloadsConfig.WorkerResource",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.orchestration.airflow.service.v1.WorkloadsConfig.WorkerResource",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-orchestration-airflow-1-41-0-com-go/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-orchestration-airflow-1-41-0-com-go/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-orchestration-airflow-1-41-0-com-go/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-orchestration-airflow-1-41-0-com-go/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-os-config-2-16-0-com-google-cloud-o",
+      "title": "GCP: com.google.cloud.osconfig.v1beta.GuestPolicies.SoftwareRecipe.Step.InstallRpm",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-os-config/2.16.0/com.google.cloud.osconfig.v1beta.GuestPolicies.SoftwareRecipe.Step.InstallRpm",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.osconfig.v1beta.GuestPolicies.SoftwareRecipe.Step.InstallRpm",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-16-0-com-google-cloud-o/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-16-0-com-google-cloud-o/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-16-0-com-google-cloud-o/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-16-0-com-google-cloud-o/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-os-config-2-23-0-com-google-cloud-o",
+      "title": "GCP: com.google.cloud.osconfig.v1beta.PatchDeployments.PausePatchDeploymentRequest",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-os-config/2.23.0/com.google.cloud.osconfig.v1beta.PatchDeployments.PausePatchDeploymentRequest",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.osconfig.v1beta.PatchDeployments.PausePatchDeploymentRequest",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-23-0-com-google-cloud-o/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-23-0-com-google-cloud-o/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-23-0-com-google-cloud-o/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-23-0-com-google-cloud-o/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -11406,6 +12183,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "gcp-java-docs-reference-google-cloud-os-config-2-49-0-com-google-cloud-o",
+      "title": "GCP: com.google.cloud.osconfig.v1.PatchDeployments.RecurringSchedule.Frequency",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-os-config/2.49.0/com.google.cloud.osconfig.v1.PatchDeployments.RecurringSchedule.Frequency",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.osconfig.v1.PatchDeployments.RecurringSchedule.Frequency",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-49-0-com-google-cloud-o/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-49-0-com-google-cloud-o/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-49-0-com-google-cloud-o/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-49-0-com-google-cloud-o/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-os-config-2-5-6-com-google-cloud-os",
+      "title": "GCP: com.google.cloud.osconfig.v1alpha.Inventory.WindowsQuickFixEngineeringPackage.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-os-config/2.5.6/com.google.cloud.osconfig.v1alpha.Inventory.WindowsQuickFixEngineeringPackage.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.osconfig.v1alpha.Inventory.WindowsQuickFixEngineeringPackage.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-5-6-com-google-cloud-os/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-5-6-com-google-cloud-os/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-5-6-com-google-cloud-os/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-5-6-com-google-cloud-os/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "gcp-java-docs-reference-google-cloud-os-config-2-59-0-com-google-cloud-o",
       "title": "GCP: com.google.cloud.osconfig.v1.OsConfigServiceClient.ListPatchDeploymentsPage",
       "ecosystem": "GCP",
@@ -11416,6 +12235,195 @@
       "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-59-0-com-google-cloud-o/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-59-0-com-google-cloud-o/llms.txt",
       "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-59-0-com-google-cloud-o/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-os-config-2-9-0-com-google-cloud-os",
+      "title": "GCP: com.google.cloud.osconfig.v1beta.GuestPolicies.YumRepositoryOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-os-config/2.9.0/com.google.cloud.osconfig.v1beta.GuestPolicies.YumRepositoryOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.osconfig.v1beta.GuestPolicies.YumRepositoryOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-9-0-com-google-cloud-os/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-9-0-com-google-cloud-os/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-9-0-com-google-cloud-os/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-os-config-2-9-0-com-google-cloud-os/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-profiler-2-59-0-com-google-devtools",
+      "title": "GCP: com.google.devtools.cloudprofiler.v2.ExportServiceClient.ListProfilesPagedResponse",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-profiler/2.59.0/com.google.devtools.cloudprofiler.v2.ExportServiceClient.ListProfilesPagedResponse",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.devtools.cloudprofiler.v2.ExportServiceClient.ListProfilesPagedResponse",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-profiler-2-59-0-com-google-devtools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-profiler-2-59-0-com-google-devtools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-profiler-2-59-0-com-google-devtools/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-profiler-2-59-0-com-google-devtools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-pubsub-1-125-3-com-google-pubsub-v1",
+      "title": "GCP: com.google.pubsub.v1.CloudStorageConfig.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-pubsub/1.125.3/com.google.pubsub.v1.CloudStorageConfig.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.pubsub.v1.CloudStorageConfig.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-pubsub-1-125-3-com-google-pubsub-v1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-pubsub-1-125-3-com-google-pubsub-v1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-pubsub-1-125-3-com-google-pubsub-v1/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-pubsub-1-125-3-com-google-pubsub-v1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-25-0-com",
+      "title": "GCP: com.google.cloud.rapidmigrationassessment.v1.Collector.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-rapidmigrationassessment/0.25.0/com.google.cloud.rapidmigrationassessment.v1.Collector.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.rapidmigrationassessment.v1.Collector.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-25-0-com/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-25-0-com/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-25-0-com/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-25-0-com/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-32-0-com",
+      "title": "GCP: com.google.cloud.rapidmigrationassessment.v1.ResumeCollectorRequestOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-rapidmigrationassessment/0.32.0/com.google.cloud.rapidmigrationassessment.v1.ResumeCollectorRequestOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.rapidmigrationassessment.v1.ResumeCollectorRequestOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-32-0-com/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-32-0-com/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-32-0-com/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-32-0-com/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-35-0-com",
+      "title": "GCP: com.google.cloud.rapidmigrationassessment.v1.CreateAnnotationRequestOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-rapidmigrationassessment/0.35.0/com.google.cloud.rapidmigrationassessment.v1.CreateAnnotationRequestOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.rapidmigrationassessment.v1.CreateAnnotationRequestOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-35-0-com/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-35-0-com/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-35-0-com/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-rapidmigrationassessment-0-35-0-com/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-retail-2-19-0-com-google-cloud-reta",
+      "title": "GCP: com.google.cloud.retail.v2beta.ImportErrorsConfig.DestinationCase",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-retail/2.19.0/com.google.cloud.retail.v2beta.ImportErrorsConfig.DestinationCase",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.retail.v2beta.ImportErrorsConfig.DestinationCase",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-2-19-0-com-google-cloud-reta/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-2-19-0-com-google-cloud-reta/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-2-19-0-com-google-cloud-reta/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-2-19-0-com-google-cloud-reta/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-retail-2-34-0-com-google-cloud-reta",
+      "title": "GCP: com.google.cloud.retail.v2alpha.Model.PageOptimizationConfigOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-retail/2.34.0/com.google.cloud.retail.v2alpha.Model.PageOptimizationConfigOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.retail.v2alpha.Model.PageOptimizationConfigOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-2-34-0-com-google-cloud-reta/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-2-34-0-com-google-cloud-reta/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-2-34-0-com-google-cloud-reta/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-2-34-0-com-google-cloud-reta/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-retail-latest-com-google-cloud-reta",
+      "title": "GCP: com.google.cloud.retail.v2beta.OutputConfig.GcsDestination.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2beta.OutputConfig.GcsDestination.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.retail.v2beta.OutputConfig.GcsDestination.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-latest-com-google-cloud-reta/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-latest-com-google-cloud-reta/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-latest-com-google-cloud-reta/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-retail-latest-com-google-cloud-reta/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -11448,6 +12456,216 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "gcp-java-docs-reference-google-cloud-service-management-3-35-0-com-googl",
+      "title": "GCP: com.google.api.servicemanagement.v1.ConfigRefOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-service-management/3.35.0/com.google.api.servicemanagement.v1.ConfigRefOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.api.servicemanagement.v1.ConfigRefOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-service-management-3-35-0-com-googl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-service-management-3-35-0-com-googl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-service-management-3-35-0-com-googl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-service-management-3-35-0-com-googl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-spanner-jdbc-2-16-1-com-google-clou",
+      "title": "GCP: com.google.cloud.spanner.InstanceConfigInfo.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-spanner-jdbc/2.16.1/com.google.cloud.spanner.InstanceConfigInfo.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.spanner.InstanceConfigInfo.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-spanner-jdbc-2-16-1-com-google-clou/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-spanner-jdbc-2-16-1-com-google-clou/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-spanner-jdbc-2-16-1-com-google-clou/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-spanner-jdbc-2-16-1-com-google-clou/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-storage-2-3-0-com-google-storage-v2",
+      "title": "GCP: com.google.storage.v2.StartResumableWriteRequestOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-storage/2.3.0/com.google.storage.v2.StartResumableWriteRequestOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.storage.v2.StartResumableWriteRequestOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-2-3-0-com-google-storage-v2/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-2-3-0-com-google-storage-v2/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-2-3-0-com-google-storage-v2/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-2-3-0-com-google-storage-v2/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-storage-2-49-0-com-google-cloud-sto",
+      "title": "GCP: com.google.cloud.storage.ParallelCompositeUploadBlobWriteSessionConfig.ExecutorSupplier",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-storage/2.49.0/com.google.cloud.storage.ParallelCompositeUploadBlobWriteSessionConfig.ExecutorSupplier",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.storage.ParallelCompositeUploadBlobWriteSessionConfig.ExecutorSupplier",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-2-49-0-com-google-cloud-sto/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-2-49-0-com-google-cloud-sto/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-2-49-0-com-google-cloud-sto/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-2-49-0-com-google-cloud-sto/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-storage-transfer-1-22-0-com-google",
+      "title": "GCP: com.google.storagetransfer.v1.proto.TransferProto.DeleteAgentPoolRequest.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-storage-transfer/1.22.0/com.google.storagetransfer.v1.proto.TransferProto.DeleteAgentPoolRequest.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.storagetransfer.v1.proto.TransferProto.DeleteAgentPoolRequest.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-transfer-1-22-0-com-google/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-transfer-1-22-0-com-google/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-transfer-1-22-0-com-google/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-storage-transfer-1-22-0-com-google/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-tasks-2-32-0-com-google-cloud-tasks",
+      "title": "GCP: com.google.cloud.tasks.v2.OAuthToken.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-tasks/2.32.0/com.google.cloud.tasks.v2.OAuthToken.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.tasks.v2.OAuthToken.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-tasks-2-32-0-com-google-cloud-tasks/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-tasks-2-32-0-com-google-cloud-tasks/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-tasks-2-32-0-com-google-cloud-tasks/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-tasks-2-32-0-com-google-cloud-tasks/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-telcoautomation-0-19-0-com-google-c",
+      "title": "GCP: com.google.cloud.telcoautomation.v1alpha1.ListDeploymentRevisionsResponseOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-telcoautomation/0.19.0/com.google.cloud.telcoautomation.v1alpha1.ListDeploymentRevisionsResponseOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.telcoautomation.v1alpha1.ListDeploymentRevisionsResponseOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-19-0-com-google-c/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-19-0-com-google-c/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-19-0-com-google-c/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-19-0-com-google-c/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-telcoautomation-0-27-0-com-google-c",
+      "title": "GCP: com.google.cloud.telcoautomation.v1.TelcoAutomationClient.SearchDeploymentRevisionsPage",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-telcoautomation/0.27.0/com.google.cloud.telcoautomation.v1.TelcoAutomationClient.SearchDeploymentRevisionsPage",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.telcoautomation.v1.TelcoAutomationClient.SearchDeploymentRevisionsPage",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-27-0-com-google-c/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-27-0-com-google-c/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-27-0-com-google-c/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-27-0-com-google-c/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-telcoautomation-0-4-0-com-google-cl",
+      "title": "GCP: com.google.cloud.telcoautomation.v1.TelcoAutomationClient.SearchDeploymentRevisionsPage",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-telcoautomation/0.4.0/com.google.cloud.telcoautomation.v1.TelcoAutomationClient.SearchDeploymentRevisionsPage",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.telcoautomation.v1.TelcoAutomationClient.SearchDeploymentRevisionsPage",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-4-0-com-google-cl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-4-0-com-google-cl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-4-0-com-google-cl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-4-0-com-google-cl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-telcoautomation-0-5-0-com-google-cl",
+      "title": "GCP: com.google.cloud.telcoautomation.v1.ListHydratedDeploymentsRequestOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-telcoautomation/0.5.0/com.google.cloud.telcoautomation.v1.ListHydratedDeploymentsRequestOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.telcoautomation.v1.ListHydratedDeploymentsRequestOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-5-0-com-google-cl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-5-0-com-google-cl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-5-0-com-google-cl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-0-5-0-com-google-cl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "gcp-java-docs-reference-google-cloud-telcoautomation-latest-com-google-c",
       "title": "GCP: com.google.cloud.telcoautomation.v1alpha1.ListHydratedDeploymentsRequest.Builder",
       "ecosystem": "GCP",
@@ -11458,6 +12676,216 @@
       "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-latest-com-google-c/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-latest-com-google-c/llms.txt",
       "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-telcoautomation-latest-com-google-c/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-trace-2-5-0-com-google-devtools-clo",
+      "title": "GCP: com.google.devtools.cloudtrace.v1.GetTraceRequest.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-trace/2.5.0/com.google.devtools.cloudtrace.v1.GetTraceRequest.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.devtools.cloudtrace.v1.GetTraceRequest.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-trace-2-5-0-com-google-devtools-clo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-trace-2-5-0-com-google-devtools-clo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-trace-2-5-0-com-google-devtools-clo/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-trace-2-5-0-com-google-devtools-clo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-video-intelligence-2-33-0-com-googl",
+      "title": "GCP: com.google.cloud.videointelligence.v1beta2.NormalizedBoundingBox.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-video-intelligence/2.33.0/com.google.cloud.videointelligence.v1beta2.NormalizedBoundingBox.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.videointelligence.v1beta2.NormalizedBoundingBox.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-video-intelligence-2-33-0-com-googl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-video-intelligence-2-33-0-com-googl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-video-intelligence-2-33-0-com-googl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-video-intelligence-2-33-0-com-googl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-vmmigration-latest-com-google-cloud",
+      "title": "GCP: com.google.cloud.vmmigration.v1.CreateMigratingVmRequest.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-vmmigration/latest/com.google.cloud.vmmigration.v1.CreateMigratingVmRequest.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.vmmigration.v1.CreateMigratingVmRequest.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-vmmigration-latest-com-google-cloud/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-vmmigration-latest-com-google-cloud/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-vmmigration-latest-com-google-cloud/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-vmmigration-latest-com-google-cloud/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-websecurityscanner-2-11-0-com-googl",
+      "title": "GCP: com.google.cloud.websecurityscanner.v1alpha.ScanConfig.Authentication.GoogleAccountOrBuild",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-websecurityscanner/2.11.0/com.google.cloud.websecurityscanner.v1alpha.ScanConfig.Authentication.GoogleAccountOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.websecurityscanner.v1alpha.ScanConfig.Authentication.GoogleAccountOrBuild",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-11-0-com-googl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-11-0-com-googl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-11-0-com-googl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-11-0-com-googl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-websecurityscanner-2-33-0-com-googl",
+      "title": "GCP: com.google.cloud.websecurityscanner.v1beta.ScanConfig.Authentication.CustomAccount.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-websecurityscanner/2.33.0/com.google.cloud.websecurityscanner.v1beta.ScanConfig.Authentication.CustomAccount.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.websecurityscanner.v1beta.ScanConfig.Authentication.CustomAccount.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-33-0-com-googl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-33-0-com-googl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-33-0-com-googl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-33-0-com-googl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-websecurityscanner-2-48-0-com-googl",
+      "title": "GCP: com.google.cloud.websecurityscanner.v1beta.ScanConfig.Authentication.CustomAccountOrBuilde",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-websecurityscanner/2.48.0/com.google.cloud.websecurityscanner.v1beta.ScanConfig.Authentication.CustomAccountOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.websecurityscanner.v1beta.ScanConfig.Authentication.CustomAccountOrBuilde",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-48-0-com-googl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-48-0-com-googl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-48-0-com-googl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-48-0-com-googl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-websecurityscanner-2-52-0-com-googl",
+      "title": "GCP: com.google.cloud.websecurityscanner.v1alpha.ScanConfig.Authentication.GoogleAccount.Builde",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-websecurityscanner/2.52.0/com.google.cloud.websecurityscanner.v1alpha.ScanConfig.Authentication.GoogleAccount.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.websecurityscanner.v1alpha.ScanConfig.Authentication.GoogleAccount.Builde",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-52-0-com-googl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-52-0-com-googl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-52-0-com-googl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-52-0-com-googl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-websecurityscanner-2-56-0-com-googl",
+      "title": "GCP: com.google.cloud.websecurityscanner.v1beta.ScanConfig.AuthenticationOrBuilder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-websecurityscanner/2.56.0/com.google.cloud.websecurityscanner.v1beta.ScanConfig.AuthenticationOrBuilder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.websecurityscanner.v1beta.ScanConfig.AuthenticationOrBuilder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-56-0-com-googl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-56-0-com-googl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-56-0-com-googl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-websecurityscanner-2-56-0-com-googl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-workflow-executions-2-1-7-com-googl",
+      "title": "GCP: com.google.cloud.workflows.executions.v1beta.CancelExecutionRequest.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-workflow-executions/2.1.7/com.google.cloud.workflows.executions.v1beta.CancelExecutionRequest.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.workflows.executions.v1beta.CancelExecutionRequest.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-workflow-executions-2-1-7-com-googl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-workflow-executions-2-1-7-com-googl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-workflow-executions-2-1-7-com-googl/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-workflow-executions-2-1-7-com-googl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-java-docs-reference-google-cloud-workflows-2-46-0-com-google-cloud-w",
+      "title": "GCP: com.google.cloud.workflows.v1.LocationName.Builder",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/java/docs/reference/google-cloud-workflows/2.46.0/com.google.cloud.workflows.v1.LocationName.Builder",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: com.google.cloud.workflows.v1.LocationName.Builder",
+      "manifest_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-workflows-2-46-0-com-google-cloud-w/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-workflows-2-46-0-com-google-cloud-w/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-workflows-2-46-0-com-google-cloud-w/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-java-docs-reference-google-cloud-workflows-2-46-0-com-google-cloud-w/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -11490,6 +12918,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "gcp-php-docs-reference-cloud-ai-platform-0-39-0-v1-client-specialistpool",
+      "title": "GCP: V1.Client.SpecialistPoolServiceClient",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/php/docs/reference/cloud-ai-platform/0.39.0/V1.Client.SpecialistPoolServiceClient",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: V1.Client.SpecialistPoolServiceClient",
+      "manifest_path": "agentpress/material-kits/gcp-php-docs-reference-cloud-ai-platform-0-39-0-v1-client-specialistpool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-php-docs-reference-cloud-ai-platform-0-39-0-v1-client-specialistpool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-php-docs-reference-cloud-ai-platform-0-39-0-v1-client-specialistpool/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-php-docs-reference-cloud-ai-platform-0-39-0-v1-client-specialistpool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-php-docs-reference-cloud-build-0-7-3-v1-privatepoolv1config-workerco",
+      "title": "GCP: V1.PrivatePoolV1Config.WorkerConfig",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/php/docs/reference/cloud-build/0.7.3/V1.PrivatePoolV1Config.WorkerConfig",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: V1.PrivatePoolV1Config.WorkerConfig",
+      "manifest_path": "agentpress/material-kits/gcp-php-docs-reference-cloud-build-0-7-3-v1-privatepoolv1config-workerco/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-php-docs-reference-cloud-build-0-7-3-v1-privatepoolv1config-workerco/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-php-docs-reference-cloud-build-0-7-3-v1-privatepoolv1config-workerco/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-php-docs-reference-cloud-build-0-7-3-v1-privatepoolv1config-workerco/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "gcp-ruby-docs-reference-google-cloud-life-sciences-v2beta-0-10-0-google",
       "title": "GCP: Google Cloud LifeSciences V2beta WorkflowsService Rest Client Configuration",
       "ecosystem": "GCP",
@@ -11500,6 +12970,48 @@
       "receipt_path": "agentpress/material-kits/gcp-ruby-docs-reference-google-cloud-life-sciences-v2beta-0-10-0-google/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/gcp-ruby-docs-reference-google-cloud-life-sciences-v2beta-0-10-0-google/llms.txt",
       "run_guide": "agentpress/material-kits/gcp-ruby-docs-reference-google-cloud-life-sciences-v2beta-0-10-0-google/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-sdk-gcloud-reference-alpha-iap-oauth-clients",
+      "title": "GCP: oauth clients",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/sdk/gcloud/reference/alpha/iap/oauth-clients",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: oauth clients",
+      "manifest_path": "agentpress/material-kits/gcp-sdk-gcloud-reference-alpha-iap-oauth-clients/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-sdk-gcloud-reference-alpha-iap-oauth-clients/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-sdk-gcloud-reference-alpha-iap-oauth-clients/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-sdk-gcloud-reference-alpha-iap-oauth-clients/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "gcp-workflows-docs-reference-googleapis-compute-beta-instances-setname",
+      "title": "GCP: setName",
+      "ecosystem": "GCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://cloud.google.com/workflows/docs/reference/googleapis/compute/beta/instances/setName",
+      "painpoint": "agents need compact AgentPress wrapper for Google Cloud docs agents need for infra and deployment: setName",
+      "manifest_path": "agentpress/material-kits/gcp-workflows-docs-reference-googleapis-compute-beta-instances-setname/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/gcp-workflows-docs-reference-googleapis-compute-beta-instances-setname/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/gcp-workflows-docs-reference-googleapis-compute-beta-instances-setname/llms.txt",
+      "run_guide": "agentpress/material-kits/gcp-workflows-docs-reference-googleapis-compute-beta-instances-setname/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -15480,6 +16992,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-co",
+      "title": "Kubernetes: config map v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/config-map-v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: config map v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-co/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-co/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-co/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-co/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "kubernetes-docs-reference-kubernetes-api-config-and-storage-resources-cs",
       "title": "Kubernetes: csi storage capacity v1",
       "ecosystem": "Kubernetes",
@@ -15669,6 +17202,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "kubernetes-docs-reference-kubernetes-api-workload-resources-deployment-v",
+      "title": "Kubernetes: deployment v1",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/deployment-v1/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: deployment v1",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-workload-resources-deployment-v/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-workload-resources-deployment-v/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-workload-resources-deployment-v/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-kubernetes-api-workload-resources-deployment-v/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools",
+      "title": "Kubernetes: setup tools",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: setup tools",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "kubernetes-docs-reference-setup-tools-kubeadm",
       "title": "Kubernetes: kubeadm",
       "ecosystem": "Kubernetes",
@@ -15679,6 +17254,27 @@
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm/llms.txt",
       "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated",
+      "title": "Kubernetes: generated",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: generated",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -15963,6 +17559,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-token",
+      "title": "Kubernetes: kubeadm token",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_token/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm token",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-token/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-token/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-token/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-token/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-token-ku",
       "title": "Kubernetes: kubeadm token list",
       "ecosystem": "Kubernetes",
@@ -15985,11 +17602,11 @@
     },
     {
       "slug": "kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade",
-      "title": "Kubernetes: kubeadm upgrade node",
+      "title": "Kubernetes: kubeadm upgrade node phase",
       "ecosystem": "Kubernetes",
       "status": "ready_local_static_not_posted",
-      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade/kubeadm_upgrade_node/",
-      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm upgrade node",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade/kubeadm_upgrade_node_phase/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm upgrade node phase",
       "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/material-manifest.json",
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-generated-kubeadm-upgrade/llms.txt",
@@ -16057,6 +17674,27 @@
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-implementation-details/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-implementation-details/llms.txt",
       "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-implementation-details/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-alpha",
+      "title": "Kubernetes: kubeadm alpha",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-alpha/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm alpha",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-alpha/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-alpha/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-alpha/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-alpha/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -16204,6 +17842,27 @@
       "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig/llms.txt",
       "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-kubeconfig/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-reset",
+      "title": "Kubernetes: kubeadm reset",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-reset/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: kubeadm reset",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-reset/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-reset/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-reset/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-reference-setup-tools-kubeadm-kubeadm-reset/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -16393,6 +18052,27 @@
       "receipt_path": "agentpress/material-kits/kubernetes-docs-tasks-administer-cluster-migrating-from-dockershim-troub/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/kubernetes-docs-tasks-administer-cluster-migrating-from-dockershim-troub/llms.txt",
       "run_guide": "agentpress/material-kits/kubernetes-docs-tasks-administer-cluster-migrating-from-dockershim-troub/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "kubernetes-docs-tasks-extend-kubernetes-setup-extension-api-server",
+      "title": "Kubernetes: setup extension api server",
+      "ecosystem": "Kubernetes",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://kubernetes.io/docs/tasks/extend-kubernetes/setup-extension-api-server/",
+      "painpoint": "agents need compact AgentPress wrapper for Kubernetes concepts/reference docs agents need but context-heavy: setup extension api server",
+      "manifest_path": "agentpress/material-kits/kubernetes-docs-tasks-extend-kubernetes-setup-extension-api-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/kubernetes-docs-tasks-extend-kubernetes-setup-extension-api-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/kubernetes-docs-tasks-extend-kubernetes-setup-extension-api-server/llms.txt",
+      "run_guide": "agentpress/material-kits/kubernetes-docs-tasks-extend-kubernetes-setup-extension-api-server/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",

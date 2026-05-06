@@ -11,4 +11,4 @@ python3 scripts/agentpress.py context-budget . --json --strict
 4. Compare the output with `proof-receipt.json`.
 5. If using this for outreach, get human approval for the exact target and draft first.
 
-Target: https://cloud.google.com/dotnet/docs/reference/Google.Cloud.AIPlatform.V1Beta1/latest/Google.Cloud.AIPlatform.V1Beta1.ModelMonitoringServiceClientImpl
+Target: https://cloud.google.com/dotnet/docs/reference/Google.Cloud.AIPlatform.V1Beta1/latest/Google.Cloud.AIPlatform.V1Beta1.PublisherModelName
