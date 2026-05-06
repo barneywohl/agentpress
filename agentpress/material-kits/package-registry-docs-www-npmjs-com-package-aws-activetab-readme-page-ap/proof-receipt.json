@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+  "claim": "Material kit prepared for Package registry docs painpoint: agents need compact wrappers for npm README/API docs millions of agents need; topic=aws; doc=api-reference",
+  "target_url": "https://www.npmjs.com/package/aws?activeTab=readme&page=api-reference",
+  "commands_to_verify": [
+    "python3 scripts/agentpress.py provider-tool-translation-map --json",
+    "python3 -m json.tool material-manifest.json",
+    "python3 -m json.tool proof-receipt.json"
+  ],
+  "evidence_files": [
+    "llms.txt",
+    "material-manifest.json",
+    "RUN_THIS.md"
+  ],
+  "external_effects": [],
+  "status": "prepared_not_posted"
+}
