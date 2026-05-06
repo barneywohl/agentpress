@@ -11,4 +11,4 @@ python3 scripts/agentpress.py context-budget . --json --strict
 4. Compare the output with `proof-receipt.json`.
 5. If using this for outreach, get human approval for the exact target and draft first.
 
-Target: https://docs.sentry.io/platforms/javascript/guides/sveltekit/configuration/integrations/amqplib
+Target: https://docs.sentry.io/platforms/javascript/guides/svelte/configuration/integrations/rewriteframes
