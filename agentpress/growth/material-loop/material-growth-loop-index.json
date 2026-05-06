@@ -1,25 +1,25 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:38:11Z",
+  "generated_utc": "2026-05-06T04:38:29Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 1825,
+  "kit_count": 1925,
   "by_ecosystem": {
     "Anthropic": 287,
     "Auth0": 11,
     "AWS": 54,
-    "Bun": 151,
+    "Bun": 197,
     "Cline": 6,
     "Cloudflare": 47,
     "docs": 1,
     "CrewAI": 163,
-    "Cypress": 1,
-    "Deno": 4,
-    "Docker": 19,
+    "Cypress": 6,
+    "Deno": 20,
+    "Docker": 38,
     "DSPy": 9,
-    "FastAPI": 2,
+    "FastAPI": 4,
     "GCP": 83,
     "Haystack": 211,
     "Kubernetes": 67,
@@ -32,6 +32,7 @@
     "OpenAI Agents SDK": 33,
     "OpenHands": 75,
     "Pinecone": 4,
+    "Playwright": 12,
     "Postgres": 1,
     "repo-docs": 1,
     "Roo Code": 6,
@@ -43,7 +44,7 @@
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 1825
+    "ready_local_static_not_posted": 1925
   },
   "kits": [
     {
@@ -7460,6 +7461,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-bun-buildconfig-banner",
+      "title": "Bun: banner",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/BuildConfig/banner",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: banner",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-buildconfig-banner/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-buildconfig-banner/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-buildconfig-banner/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-buildconfig-banner/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-bun-buildconfig-bytecode",
       "title": "Bun: bytecode",
       "ecosystem": "Bun",
@@ -7575,6 +7597,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-bun-buildconfig-sourcemap/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-bun-buildconfig-sourcemap/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-bun-buildconfig-sourcemap/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-bun-buildconfig-splitting",
+      "title": "Bun: splitting",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/BuildConfig/splitting",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: splitting",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-buildconfig-splitting/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-buildconfig-splitting/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-buildconfig-splitting/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-buildconfig-splitting/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7943,6 +7986,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-globals-performanceobserver",
+      "title": "Bun: PerformanceObserver",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceObserver",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: PerformanceObserver",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceobserver/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceobserver/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceobserver/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceobserver/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-globals-performanceobserver-disconnect",
       "title": "Bun: disconnect",
       "ecosystem": "Bun",
@@ -7953,6 +8017,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceobserver-disconnect/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceobserver-disconnect/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-globals-performanceobserver-disconnect/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-performanceobserver-observe",
+      "title": "Bun: observe",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceObserver/observe",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: observe",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceobserver-observe/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceobserver-observe/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceobserver-observe/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceobserver-observe/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8058,6 +8143,48 @@
       "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-decodedbodysize/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-decodedbodysize/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-decodedbodysize/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-performanceresourcetiming-domainlookupstart",
+      "title": "Bun: domainLookupStart",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceResourceTiming/domainLookupStart",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: domainLookupStart",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-domainlookupstart/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-domainlookupstart/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-domainlookupstart/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-domainlookupstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-performanceresourcetiming-fetchstart",
+      "title": "Bun: fetchStart",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceResourceTiming/fetchStart",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: fetchStart",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-fetchstart/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-fetchstart/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-fetchstart/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-fetchstart/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8321,6 +8448,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-crypto-cipheriv-transform",
+      "title": "Bun:  transform",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/Cipheriv/_transform",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups:  transform",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-cipheriv-transform/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-cipheriv-transform/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-cipheriv-transform/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-cipheriv-transform/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-crypto-cipherocb-errored",
       "title": "Bun: errored",
       "ecosystem": "Bun",
@@ -8331,6 +8479,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-errored/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-errored/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-errored/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-cipherocb-getauthtag",
+      "title": "Bun: getAuthTag",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/CipherOCB/getAuthTag",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: getAuthTag",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-getauthtag/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-getauthtag/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-getauthtag/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-cipherocb-getauthtag/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8468,6 +8637,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-crypto-decipherchacha20poly1305-transform",
+      "title": "Bun:  transform",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/DecipherChaCha20Poly1305/_transform",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups:  transform",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-transform/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-transform/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-transform/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-decipherchacha20poly1305-transform/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-crypto-decipheriv-readableflowing",
       "title": "Bun: readableFlowing",
       "ecosystem": "Bun",
@@ -8510,6 +8700,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-crypto-decipherocb-setauthtag",
+      "title": "Bun: setAuthTag",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/DecipherOCB/setAuthTag",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: setAuthTag",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-decipherocb-setauthtag/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-decipherocb-setauthtag/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-decipherocb-setauthtag/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-decipherocb-setauthtag/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-diagnostics-channel-tracingchannelcollection-error",
+      "title": "Bun: error",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/diagnostics_channel/TracingChannelCollection/error",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: error",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-diagnostics-channel-tracingchannelcollection-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-diagnostics-channel-tracingchannelcollection-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-diagnostics-channel-tracingchannelcollection-error/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-diagnostics-channel-tracingchannelcollection-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-diagnostics-channel-tracingchannelcollection-start",
+      "title": "Bun: start",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/diagnostics_channel/TracingChannelCollection/start",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: start",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-diagnostics-channel-tracingchannelcollection-start/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-diagnostics-channel-tracingchannelcollection-start/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-diagnostics-channel-tracingchannelcollection-start/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-diagnostics-channel-tracingchannelcollection-start/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-http-clientrequest-errored",
       "title": "Bun: errored",
       "ecosystem": "Bun",
@@ -8520,6 +8773,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-http-clientrequest-errored/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-http-clientrequest-errored/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-http-clientrequest-errored/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http-clientrequesteventmap-information",
+      "title": "Bun: information",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http/ClientRequestEventMap/information",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: information",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http-clientrequesteventmap-information/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http-clientrequesteventmap-information/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http-clientrequesteventmap-information/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http-clientrequesteventmap-information/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8562,6 +8836,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-http-outgoinghttpheaders-proxy-authenticate/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-http-outgoinghttpheaders-proxy-authenticate/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-http-outgoinghttpheaders-proxy-authenticate/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http-outgoinghttpheaders-proxy-authorization",
+      "title": "Bun: proxy authorization",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http/OutgoingHttpHeaders/proxy-authorization",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: proxy authorization",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http-outgoinghttpheaders-proxy-authorization/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http-outgoinghttpheaders-proxy-authorization/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http-outgoinghttpheaders-proxy-authorization/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http-outgoinghttpheaders-proxy-authorization/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8699,6 +8994,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-http2-http2secureservereventmap-error",
+      "title": "Bun: error",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/Http2SecureServerEventMap/error",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: error",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-http2secureservereventmap-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-http2secureservereventmap-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-http2secureservereventmap-error/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-http2secureservereventmap-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-http2-http2secureservereventmap-tlsclienterror",
       "title": "Bun: tlsClientError",
       "ecosystem": "Bun",
@@ -8741,6 +9057,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-http2-http2serverresponse-errored",
+      "title": "Bun: errored",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/Http2ServerResponse/errored",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: errored",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-http2serverresponse-errored/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-http2serverresponse-errored/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-http2serverresponse-errored/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-http2serverresponse-errored/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http2-incominghttpheaders-proxy-authenticate",
+      "title": "Bun: proxy authenticate",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/IncomingHttpHeaders/proxy-authenticate",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: proxy authenticate",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-incominghttpheaders-proxy-authenticate/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-incominghttpheaders-proxy-authenticate/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-incominghttpheaders-proxy-authenticate/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-incominghttpheaders-proxy-authenticate/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http2-incominghttpheaders-proxy-authorization",
+      "title": "Bun: proxy authorization",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/IncomingHttpHeaders/proxy-authorization",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: proxy authorization",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-incominghttpheaders-proxy-authorization/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-incominghttpheaders-proxy-authorization/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-incominghttpheaders-proxy-authorization/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-incominghttpheaders-proxy-authorization/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-http2-secureclientsessionoptions-servername",
       "title": "Bun: servername",
       "ecosystem": "Bun",
@@ -8772,6 +9151,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-http2-secureserveroptions-strictfieldwhitespacevalida/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-http2-secureserveroptions-strictfieldwhitespacevalida/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-http2-secureserveroptions-strictfieldwhitespacevalida/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http2-secureserversessionoptions-rejectunauthorized",
+      "title": "Bun: rejectUnauthorized",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/SecureServerSessionOptions/rejectUnauthorized",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: rejectUnauthorized",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-secureserversessionoptions-rejectunauthorized/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-secureserversessionoptions-rejectunauthorized/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-secureserversessionoptions-rejectunauthorized/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-secureserversessionoptions-rejectunauthorized/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -8867,6 +9267,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-https-servereventmap-error",
+      "title": "Bun: error",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/https/ServerEventMap/error",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: error",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-https-servereventmap-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-https-servereventmap-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-https-servereventmap-error/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-https-servereventmap-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-https-servereventmap-tlsclienterror",
       "title": "Bun: tlsClientError",
       "ecosystem": "Bun",
@@ -8888,6 +9309,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-https-serveroptions-ciphers",
+      "title": "Bun: ciphers",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/https/ServerOptions/ciphers",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: ciphers",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-https-serveroptions-ciphers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-https-serveroptions-ciphers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-https-serveroptions-ciphers/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-https-serveroptions-ciphers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-debugger-callframe-functionlocation",
+      "title": "Bun: functionLocation",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Debugger/CallFrame/functionLocation",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: functionLocation",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-callframe-functionlocation/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-callframe-functionlocation/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-debugger-callframe-functionlocation/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-debugger-callframe-functionlocation/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-e",
       "title": "Bun: expression",
       "ecosystem": "Bun",
@@ -8898,6 +9361,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-e/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-e/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-e/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-g",
+      "title": "Bun: generatePreview",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Debugger/EvaluateOnCallFrameParameterType/generatePreview",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: generatePreview",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-g/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-g/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-g/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-debugger-evaluateoncallframeparametertype-g/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -9077,6 +9561,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-inspector-profiler-coveragerange-startoffset",
+      "title": "Bun: startOffset",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Profiler/CoverageRange/startOffset",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: startOffset",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-profiler-coveragerange-startoffset/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-profiler-coveragerange-startoffset/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-profiler-coveragerange-startoffset/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-profiler-coveragerange-startoffset/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-profiler-functioncoverage-isblockcoverage",
+      "title": "Bun: isBlockCoverage",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Profiler/FunctionCoverage/isBlockCoverage",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: isBlockCoverage",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-profiler-functioncoverage-isblockcoverage/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-profiler-functioncoverage-isblockcoverage/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-profiler-functioncoverage-isblockcoverage/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-profiler-functioncoverage-isblockcoverage/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-inspector-profiler-functioncoverage-ranges",
       "title": "Bun: ranges",
       "ecosystem": "Bun",
@@ -9119,6 +9645,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-inspector-profiler-takeprecisecoveragereturntype",
+      "title": "Bun: TakePreciseCoverageReturnType",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Profiler/TakePreciseCoverageReturnType",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: TakePreciseCoverageReturnType",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-profiler-takeprecisecoveragereturntype/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-profiler-takeprecisecoveragereturntype/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-profiler-takeprecisecoveragereturntype/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-profiler-takeprecisecoveragereturntype/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-inspector-runtime-callargument-unserializablevalue",
       "title": "Bun: unserializableValue",
       "ecosystem": "Bun",
@@ -9150,6 +9697,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callframe-functionname/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-callframe-functionname/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-callframe-functionname/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-callfunctiononparametertype-argumen",
+      "title": "Bun: arguments",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/CallFunctionOnParameterType/arguments",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: arguments",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-argumen/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-argumen/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-argumen/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-argumen/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -9234,6 +9802,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononreturntype-exceptiond/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononreturntype-exceptiond/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononreturntype-exceptiond/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-consoleapicalledeventdatatype-times",
+      "title": "Bun: timestamp",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/ConsoleAPICalledEventDataType/timestamp",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: timestamp",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-consoleapicalledeventdatatype-times/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-consoleapicalledeventdatatype-times/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-consoleapicalledeventdatatype-times/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-consoleapicalledeventdatatype-times/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -9339,6 +9928,48 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-includecomman/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-includecomman/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-includecomman/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-evaluateparametertype-usergesture",
+      "title": "Bun: userGesture",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/EvaluateParameterType/userGesture",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: userGesture",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-usergesture/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-usergesture/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-usergesture/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-usergesture/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-evaluatereturntype-exceptiondetails",
+      "title": "Bun: exceptionDetails",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/EvaluateReturnType/exceptionDetails",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: exceptionDetails",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluatereturntype-exceptiondetails/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluatereturntype-exceptiondetails/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluatereturntype-exceptiondetails/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluatereturntype-exceptiondetails/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -9476,6 +10107,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-perf-hooks-performanceobserver-takerecords",
+      "title": "Bun: takeRecords",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceObserver/takeRecords",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: takeRecords",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserver-takerecords/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserver-takerecords/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserver-takerecords/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserver-takerecords/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-perf-hooks-performanceobservercallback",
       "title": "Bun: PerformanceObserverCallback",
       "ecosystem": "Bun",
@@ -9518,6 +10170,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-perf-hooks-performanceobserverentrylist-getentries",
+      "title": "Bun: getEntries",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceObserverEntryList/getEntries",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: getEntries",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist-getentries/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist-getentries/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist-getentries/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist-getentries/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-perf-hooks-performanceobserverentrylist-getentriesbyn",
       "title": "Bun: getEntriesByName",
       "ecosystem": "Bun",
@@ -9528,6 +10201,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist-getentriesbyn/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist-getentriesbyn/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverentrylist-getentriesbyn/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-perf-hooks-performanceobserverinit-buffered",
+      "title": "Bun: buffered",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceObserverInit/buffered",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: buffered",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverinit-buffered/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverinit-buffered/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverinit-buffered/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobserverinit-buffered/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -9591,6 +10285,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-fetchstart/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-fetchstart/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-fetchstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-perf-hooks-performanceresourcetiming-responsestart",
+      "title": "Bun: responseStart",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceResourceTiming/responseStart",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: responseStart",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-responsestart/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-responsestart/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-responsestart/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-responsestart/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -10022,6 +10737,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-test-default-eventdata-testenqueue-nesting",
+      "title": "Bun: nesting",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/TestEnqueue/nesting",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: nesting",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-nesting/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-nesting/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-nesting/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testenqueue-nesting/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-test-default-eventdata-teststart",
       "title": "Bun: TestStart",
       "ecosystem": "Bun",
@@ -10074,6 +10810,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-error/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-error/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-mockfunctioncall-result",
+      "title": "Bun: result",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/MockFunctionCall/result",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: result",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-result/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-result/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-result/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-result/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -10400,6 +11157,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-util-debugloggerfunction",
+      "title": "Bun: DebugLoggerFunction",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/util/DebugLoggerFunction",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: DebugLoggerFunction",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-util-debugloggerfunction/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-util-debugloggerfunction/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-util-debugloggerfunction/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-util-debugloggerfunction/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-util-getsystemerrormessage",
       "title": "Bun: getSystemErrorMessage",
       "ecosystem": "Bun",
@@ -10442,6 +11220,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-v8-startupsnapshot-setdeserializemainfunction",
+      "title": "Bun: setDeserializeMainFunction",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/v8/startupSnapshot/setDeserializeMainFunction",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: setDeserializeMainFunction",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-v8-startupsnapshot-setdeserializemainfunction/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-v8-startupsnapshot-setdeserializemainfunction/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-v8-startupsnapshot-setdeserializemainfunction/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-v8-startupsnapshot-setdeserializemainfunction/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-vm-runningcodeinnewcontextoptions-displayerrors",
+      "title": "Bun: displayErrors",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/vm/RunningCodeInNewContextOptions/displayErrors",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: displayErrors",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-vm-runningcodeinnewcontextoptions-displayerrors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-vm-runningcodeinnewcontextoptions-displayerrors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-vm-runningcodeinnewcontextoptions-displayerrors/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-vm-runningcodeinnewcontextoptions-displayerrors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-worker-threads-lockinfo-clientid",
+      "title": "Bun: clientId",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/worker_threads/LockInfo/clientId",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: clientId",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-worker-threads-lockinfo-clientid/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-worker-threads-lockinfo-clientid/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-worker-threads-lockinfo-clientid/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-worker-threads-lockinfo-clientid/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-worker-threads-messageport-onmessageerror",
       "title": "Bun: onmessageerror",
       "ecosystem": "Bun",
@@ -10473,6 +11314,90 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-worker-threads-messageporteventmap-messageerror/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-worker-threads-messageporteventmap-messageerror/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-worker-threads-messageporteventmap-messageerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-worker-threads-workereventmap-error",
+      "title": "Bun: error",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/worker_threads/WorkerEventMap/error",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: error",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-worker-threads-workereventmap-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-worker-threads-workereventmap-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-worker-threads-workereventmap-error/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-worker-threads-workereventmap-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-worker-threads-workereventmap-messageerror",
+      "title": "Bun: messageerror",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/worker_threads/WorkerEventMap/messageerror",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: messageerror",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-worker-threads-workereventmap-messageerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-worker-threads-workereventmap-messageerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-worker-threads-workereventmap-messageerror/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-worker-threads-workereventmap-messageerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-worker-threads-workerperformance",
+      "title": "Bun: WorkerPerformance",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/worker_threads/WorkerPerformance",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: WorkerPerformance",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-worker-threads-workerperformance/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-worker-threads-workerperformance/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-worker-threads-workerperformance/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-worker-threads-workerperformance/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-zlib-constants-brotli-decoder-error-format-block-leng",
+      "title": "Bun: BROTLI DECODER ERROR FORMAT BLOCK LENGTH 2",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/zlib/constants/BROTLI_DECODER_ERROR_FORMAT_BLOCK_LENGTH_2",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: BROTLI DECODER ERROR FORMAT BLOCK LENGTH 2",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-block-leng/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-block-leng/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-block-leng/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-block-leng/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -10568,6 +11493,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-1",
+      "title": "Bun: BROTLI DECODER ERROR FORMAT PADDING 1",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/zlib/constants/BROTLI_DECODER_ERROR_FORMAT_PADDING_1",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: BROTLI DECODER ERROR FORMAT PADDING 1",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-1/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-1/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-1/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-1/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-2",
       "title": "Bun: BROTLI DECODER ERROR FORMAT PADDING 2",
       "ecosystem": "Bun",
@@ -10578,6 +11524,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-2/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-2/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-padding-2/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-zlib-constants-brotli-decoder-error-format-reserved",
+      "title": "Bun: BROTLI DECODER ERROR FORMAT RESERVED",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/zlib/constants/BROTLI_DECODER_ERROR_FORMAT_RESERVED",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: BROTLI DECODER ERROR FORMAT RESERVED",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-reserved/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-reserved/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-reserved/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-reserved/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -15167,6 +16134,111 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cypress-app-guides-authentication-testing-amazon-cognito-authentication",
+      "title": "Cypress: amazon cognito authentication",
+      "ecosystem": "Cypress",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.cypress.io/app/guides/authentication-testing/amazon-cognito-authentication",
+      "painpoint": "agents need compact AgentPress wrapper for Cypress e2e testing docs agents need for QA flows: amazon cognito authentication",
+      "manifest_path": "agentpress/material-kits/cypress-app-guides-authentication-testing-amazon-cognito-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cypress-app-guides-authentication-testing-amazon-cognito-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cypress-app-guides-authentication-testing-amazon-cognito-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/cypress-app-guides-authentication-testing-amazon-cognito-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cypress-app-guides-authentication-testing-auth0-authentication",
+      "title": "Cypress: auth0 authentication",
+      "ecosystem": "Cypress",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.cypress.io/app/guides/authentication-testing/auth0-authentication",
+      "painpoint": "agents need compact AgentPress wrapper for Cypress e2e testing docs agents need for QA flows: auth0 authentication",
+      "manifest_path": "agentpress/material-kits/cypress-app-guides-authentication-testing-auth0-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cypress-app-guides-authentication-testing-auth0-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cypress-app-guides-authentication-testing-auth0-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/cypress-app-guides-authentication-testing-auth0-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cypress-app-guides-authentication-testing-azure-active-directory-authent",
+      "title": "Cypress: azure active directory authentication",
+      "ecosystem": "Cypress",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.cypress.io/app/guides/authentication-testing/azure-active-directory-authentication",
+      "painpoint": "agents need compact AgentPress wrapper for Cypress e2e testing docs agents need for QA flows: azure active directory authentication",
+      "manifest_path": "agentpress/material-kits/cypress-app-guides-authentication-testing-azure-active-directory-authent/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cypress-app-guides-authentication-testing-azure-active-directory-authent/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cypress-app-guides-authentication-testing-azure-active-directory-authent/llms.txt",
+      "run_guide": "agentpress/material-kits/cypress-app-guides-authentication-testing-azure-active-directory-authent/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cypress-app-guides-authentication-testing-google-authentication",
+      "title": "Cypress: google authentication",
+      "ecosystem": "Cypress",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.cypress.io/app/guides/authentication-testing/google-authentication",
+      "painpoint": "agents need compact AgentPress wrapper for Cypress e2e testing docs agents need for QA flows: google authentication",
+      "manifest_path": "agentpress/material-kits/cypress-app-guides-authentication-testing-google-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cypress-app-guides-authentication-testing-google-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cypress-app-guides-authentication-testing-google-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/cypress-app-guides-authentication-testing-google-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cypress-app-guides-authentication-testing-okta-authentication",
+      "title": "Cypress: okta authentication",
+      "ecosystem": "Cypress",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.cypress.io/app/guides/authentication-testing/okta-authentication",
+      "painpoint": "agents need compact AgentPress wrapper for Cypress e2e testing docs agents need for QA flows: okta authentication",
+      "manifest_path": "agentpress/material-kits/cypress-app-guides-authentication-testing-okta-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cypress-app-guides-authentication-testing-okta-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cypress-app-guides-authentication-testing-okta-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/cypress-app-guides-authentication-testing-okta-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cypress-app-guides-authentication-testing-social-authentication",
       "title": "Cypress: social authentication",
       "ecosystem": "Cypress",
@@ -15188,6 +16260,153 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "deno-deploy-reference-builds",
+      "title": "Deno: builds",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/deploy/reference/builds/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: builds",
+      "manifest_path": "agentpress/material-kits/deno-deploy-reference-builds/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-deploy-reference-builds/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-deploy-reference-builds/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-deploy-reference-builds/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-deploy-reference-databases",
+      "title": "Deno: databases",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/deploy/reference/databases/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: databases",
+      "manifest_path": "agentpress/material-kits/deno-deploy-reference-databases/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-deploy-reference-databases/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-deploy-reference-databases/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-deploy-reference-databases/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-deploy-reference-runtime",
+      "title": "Deno: runtime",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/deploy/reference/runtime/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: runtime",
+      "manifest_path": "agentpress/material-kits/deno-deploy-reference-runtime/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-deploy-reference-runtime/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-deploy-reference-runtime/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-deploy-reference-runtime/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-cli-coverage",
+      "title": "Deno: coverage",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/cli/coverage/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: coverage",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-cli-coverage/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-cli-coverage/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-cli-coverage/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-cli-coverage/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-cli-deploy",
+      "title": "Deno: deploy",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/cli/deploy/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: deploy",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-cli-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-cli-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-cli-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-cli-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-cli-eval",
+      "title": "Deno: eval",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/cli/eval/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: eval",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-cli-eval/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-cli-eval/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-cli-eval/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-cli-eval/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-cli-install",
+      "title": "Deno: install",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/cli/install/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: install",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-cli-install/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-cli-install/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-cli-install/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-cli-install/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "deno-runtime-reference-cli-sandbox",
       "title": "Deno: sandbox",
       "ecosystem": "Deno",
@@ -15198,6 +16417,195 @@
       "receipt_path": "agentpress/material-kits/deno-runtime-reference-cli-sandbox/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/deno-runtime-reference-cli-sandbox/llms.txt",
       "run_guide": "agentpress/material-kits/deno-runtime-reference-cli-sandbox/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-cli-test",
+      "title": "Deno: test",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/cli/test/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: test",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-cli-test/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-cli-test/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-cli-test/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-cli-test/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-cli-uninstall",
+      "title": "Deno: uninstall",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/cli/uninstall/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: uninstall",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-cli-uninstall/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-cli-uninstall/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-cli-uninstall/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-cli-uninstall/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-continuous-integration",
+      "title": "Deno: continuous integration",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/continuous_integration/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: continuous integration",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-continuous-integration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-continuous-integration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-continuous-integration/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-continuous-integration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-deno-namespace-apis",
+      "title": "Deno: deno namespace apis",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/deno_namespace_apis/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: deno namespace apis",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-deno-namespace-apis/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-deno-namespace-apis/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-deno-namespace-apis/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-deno-namespace-apis/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-lint-plugins",
+      "title": "Deno: lint plugins",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/lint_plugins/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: lint plugins",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-lint-plugins/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-lint-plugins/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-lint-plugins/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-lint-plugins/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-lsp-integration",
+      "title": "Deno: lsp integration",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/lsp_integration/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: lsp integration",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-lsp-integration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-lsp-integration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-lsp-integration/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-lsp-integration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-migration-guide",
+      "title": "Deno: migration guide",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/migration_guide/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: migration guide",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-migration-guide/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-migration-guide/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-migration-guide/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-migration-guide/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-node-apis",
+      "title": "Deno: node apis",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/node_apis/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: node apis",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-node-apis/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-node-apis/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-node-apis/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-node-apis/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "deno-runtime-reference-std-cache",
+      "title": "Deno: cache",
+      "ecosystem": "Deno",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.deno.com/runtime/reference/std/cache/",
+      "painpoint": "agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: cache",
+      "manifest_path": "agentpress/material-kits/deno-runtime-reference-std-cache/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/deno-runtime-reference-std-cache/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/deno-runtime-reference-std-cache/llms.txt",
+      "run_guide": "agentpress/material-kits/deno-runtime-reference-std-cache/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -15272,6 +16680,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-ai-docker-agent-reference-config",
+      "title": "Docker: config",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/ai/docker-agent/reference/config/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: config",
+      "manifest_path": "agentpress/material-kits/docker-ai-docker-agent-reference-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-ai-docker-agent-reference-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-ai-docker-agent-reference-config/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-ai-docker-agent-reference-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-ai-docker-agent-reference-toolsets",
       "title": "Docker: toolsets",
       "ecosystem": "Docker",
@@ -15335,6 +16764,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-guides-testcontainers-java-service-configuration",
+      "title": "Docker: testcontainers java service configuration",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/guides/testcontainers-java-service-configuration/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: testcontainers java service configuration",
+      "manifest_path": "agentpress/material-kits/docker-guides-testcontainers-java-service-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-guides-testcontainers-java-service-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-guides-testcontainers-java-service-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-guides-testcontainers-java-service-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-api-extensions-sdk-docker",
+      "title": "Docker: Docker",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/api/extensions-sdk/Docker/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: Docker",
+      "manifest_path": "agentpress/material-kits/docker-reference-api-extensions-sdk-docker/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-api-extensions-sdk-docker/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-api-extensions-sdk-docker/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-api-extensions-sdk-docker/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-reference-api-extensions-sdk-dockerdesktopclient",
       "title": "Docker: DockerDesktopClient",
       "ecosystem": "Docker",
@@ -15345,6 +16816,27 @@
       "receipt_path": "agentpress/material-kits/docker-reference-api-extensions-sdk-dockerdesktopclient/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-reference-api-extensions-sdk-dockerdesktopclient/llms.txt",
       "run_guide": "agentpress/material-kits/docker-reference-api-extensions-sdk-dockerdesktopclient/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-api-extensions-sdk-exec",
+      "title": "Docker: Exec",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/api/extensions-sdk/Exec/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: Exec",
+      "manifest_path": "agentpress/material-kits/docker-reference-api-extensions-sdk-exec/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-api-extensions-sdk-exec/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-api-extensions-sdk-exec/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-api-extensions-sdk-exec/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -15419,6 +16911,111 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-reference-api-extensions-sdk-spawnoptions",
+      "title": "Docker: SpawnOptions",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/api/extensions-sdk/SpawnOptions/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: SpawnOptions",
+      "manifest_path": "agentpress/material-kits/docker-reference-api-extensions-sdk-spawnoptions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-api-extensions-sdk-spawnoptions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-api-extensions-sdk-spawnoptions/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-api-extensions-sdk-spawnoptions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-api-registry-auth",
+      "title": "Docker: auth",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/api/registry/auth/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: auth",
+      "manifest_path": "agentpress/material-kits/docker-reference-api-registry-auth/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-api-registry-auth/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-api-registry-auth/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-api-registry-auth/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-build-checks-expose-invalid-format",
+      "title": "Docker: expose invalid format",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/build-checks/expose-invalid-format/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: expose invalid format",
+      "manifest_path": "agentpress/material-kits/docker-reference-build-checks-expose-invalid-format/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-build-checks-expose-invalid-format/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-build-checks-expose-invalid-format/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-build-checks-expose-invalid-format/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-build-checks-from-platform-flag-const-disallowed",
+      "title": "Docker: from platform flag const disallowed",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/build-checks/from-platform-flag-const-disallowed/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: from platform flag const disallowed",
+      "manifest_path": "agentpress/material-kits/docker-reference-build-checks-from-platform-flag-const-disallowed/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-build-checks-from-platform-flag-const-disallowed/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-build-checks-from-platform-flag-const-disallowed/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-build-checks-from-platform-flag-const-disallowed/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-cli-docker-buildx-debug",
+      "title": "Docker: debug",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/cli/docker/buildx/debug/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: debug",
+      "manifest_path": "agentpress/material-kits/docker-reference-cli-docker-buildx-debug/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-buildx-debug/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-buildx-debug/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-cli-docker-buildx-debug/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-reference-cli-docker-buildx-imagetools",
       "title": "Docker: imagetools",
       "ecosystem": "Docker",
@@ -15471,6 +17068,69 @@
       "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-buildx-imagetools-inspect/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-buildx-imagetools-inspect/llms.txt",
       "run_guide": "agentpress/material-kits/docker-reference-cli-docker-buildx-imagetools-inspect/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-cli-docker-mcp-client-disconnect",
+      "title": "Docker: disconnect",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/cli/docker/mcp/client/disconnect/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: disconnect",
+      "manifest_path": "agentpress/material-kits/docker-reference-cli-docker-mcp-client-disconnect/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-mcp-client-disconnect/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-mcp-client-disconnect/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-cli-docker-mcp-client-disconnect/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-cli-docker-mcp-profile-config",
+      "title": "Docker: config",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/cli/docker/mcp/profile/config/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: config",
+      "manifest_path": "agentpress/material-kits/docker-reference-cli-docker-mcp-profile-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-mcp-profile-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-mcp-profile-config/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-cli-docker-mcp-profile-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-cli-docker-mcp-profile-server",
+      "title": "Docker: server",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/cli/docker/mcp/profile/server/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: server",
+      "manifest_path": "agentpress/material-kits/docker-reference-cli-docker-mcp-profile-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-mcp-profile-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-mcp-profile-server/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-cli-docker-mcp-profile-server/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -15629,6 +17289,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-reference-cli-docker-model-reinstall-runner",
+      "title": "Docker: reinstall runner",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/cli/docker/model/reinstall-runner/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: reinstall runner",
+      "manifest_path": "agentpress/material-kits/docker-reference-cli-docker-model-reinstall-runner/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-model-reinstall-runner/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-model-reinstall-runner/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-cli-docker-model-reinstall-runner/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-cli-docker-model-uninstall-runner",
+      "title": "Docker: uninstall runner",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/cli/docker/model/uninstall-runner/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: uninstall runner",
+      "manifest_path": "agentpress/material-kits/docker-reference-cli-docker-model-uninstall-runner/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-model-uninstall-runner/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-model-uninstall-runner/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-cli-docker-model-uninstall-runner/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-reference-cli-docker-sandbox-create-cagent",
       "title": "Docker: cagent",
       "ecosystem": "Docker",
@@ -15650,6 +17352,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "docker-reference-cli-docker-sandbox-inspect",
+      "title": "Docker: inspect",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/cli/docker/sandbox/inspect/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: inspect",
+      "manifest_path": "agentpress/material-kits/docker-reference-cli-docker-sandbox-inspect/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-sandbox-inspect/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-sandbox-inspect/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-cli-docker-sandbox-inspect/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "docker-reference-cli-docker-sandbox-network-proxy",
       "title": "Docker: proxy",
       "ecosystem": "Docker",
@@ -15660,6 +17383,90 @@
       "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-sandbox-network-proxy/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-sandbox-network-proxy/llms.txt",
       "run_guide": "agentpress/material-kits/docker-reference-cli-docker-sandbox-network-proxy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-cli-docker-sandbox-rm",
+      "title": "Docker: rm",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/cli/docker/sandbox/rm/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: rm",
+      "manifest_path": "agentpress/material-kits/docker-reference-cli-docker-sandbox-rm/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-sandbox-rm/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-sandbox-rm/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-cli-docker-sandbox-rm/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-cli-docker-sandbox-run",
+      "title": "Docker: run",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/cli/docker/sandbox/run/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: run",
+      "manifest_path": "agentpress/material-kits/docker-reference-cli-docker-sandbox-run/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-sandbox-run/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-sandbox-run/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-cli-docker-sandbox-run/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-cli-docker-sandbox-save",
+      "title": "Docker: save",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/cli/docker/sandbox/save/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: save",
+      "manifest_path": "agentpress/material-kits/docker-reference-cli-docker-sandbox-save/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-sandbox-save/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-sandbox-save/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-cli-docker-sandbox-save/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "docker-reference-cli-docker-sandbox-version",
+      "title": "Docker: version",
+      "ecosystem": "Docker",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.docker.com/reference/cli/docker/sandbox/version/",
+      "painpoint": "agents need compact AgentPress wrapper for Docker build/compose/runtime docs agents need for deployment/debugging: version",
+      "manifest_path": "agentpress/material-kits/docker-reference-cli-docker-sandbox-version/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/docker-reference-cli-docker-sandbox-version/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/docker-reference-cli-docker-sandbox-version/llms.txt",
+      "run_guide": "agentpress/material-kits/docker-reference-cli-docker-sandbox-version/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -15870,6 +17677,48 @@
       "receipt_path": "agentpress/material-kits/fastapi-deployment-server-workers/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/fastapi-deployment-server-workers/llms.txt",
       "run_guide": "agentpress/material-kits/fastapi-deployment-server-workers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "fastapi-reference-dependencies",
+      "title": "FastAPI: dependencies",
+      "ecosystem": "FastAPI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://fastapi.tiangolo.com/reference/dependencies/",
+      "painpoint": "agents need compact AgentPress wrapper for FastAPI docs agents need for API/auth/deploy tasks: dependencies",
+      "manifest_path": "agentpress/material-kits/fastapi-reference-dependencies/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/fastapi-reference-dependencies/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/fastapi-reference-dependencies/llms.txt",
+      "run_guide": "agentpress/material-kits/fastapi-reference-dependencies/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "fastapi-reference-openapi-models",
+      "title": "FastAPI: models",
+      "ecosystem": "FastAPI",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://fastapi.tiangolo.com/reference/openapi/models/",
+      "painpoint": "agents need compact AgentPress wrapper for FastAPI docs agents need for API/auth/deploy tasks: models",
+      "manifest_path": "agentpress/material-kits/fastapi-reference-openapi-models/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/fastapi-reference-openapi-models/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/fastapi-reference-openapi-models/llms.txt",
+      "run_guide": "agentpress/material-kits/fastapi-reference-openapi-models/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -34686,6 +36535,258 @@
       "receipt_path": "agentpress/material-kits/pinecone-reference-cli-quickstart/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/pinecone-reference-cli-quickstart/llms.txt",
       "run_guide": "agentpress/material-kits/pinecone-reference-cli-quickstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-api-class-testconfig",
+      "title": "Playwright: class testconfig",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/api/class-testconfig",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: class testconfig",
+      "manifest_path": "agentpress/material-kits/playwright-docs-api-class-testconfig/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-api-class-testconfig/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-api-class-testconfig/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-api-class-testconfig/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-api-class-testerror",
+      "title": "Playwright: class testerror",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/api/class-testerror",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: class testerror",
+      "manifest_path": "agentpress/material-kits/playwright-docs-api-class-testerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-api-class-testerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-api-class-testerror/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-api-class-testerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-api-class-testinfoerror",
+      "title": "Playwright: class testinfoerror",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/api/class-testinfoerror",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: class testinfoerror",
+      "manifest_path": "agentpress/material-kits/playwright-docs-api-class-testinfoerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-api-class-testinfoerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-api-class-testinfoerror/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-api-class-testinfoerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-api-testing",
+      "title": "Playwright: api testing",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/api-testing",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: api testing",
+      "manifest_path": "agentpress/material-kits/playwright-docs-api-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-api-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-api-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-api-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-next-api-class-testconfig",
+      "title": "Playwright: class testconfig",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/next/api/class-testconfig",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: class testconfig",
+      "manifest_path": "agentpress/material-kits/playwright-docs-next-api-class-testconfig/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-next-api-class-testconfig/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-next-api-class-testconfig/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-next-api-class-testconfig/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-next-api-class-testerror",
+      "title": "Playwright: class testerror",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/next/api/class-testerror",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: class testerror",
+      "manifest_path": "agentpress/material-kits/playwright-docs-next-api-class-testerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-next-api-class-testerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-next-api-class-testerror/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-next-api-class-testerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-next-api-class-testinfoerror",
+      "title": "Playwright: class testinfoerror",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/next/api/class-testinfoerror",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: class testinfoerror",
+      "manifest_path": "agentpress/material-kits/playwright-docs-next-api-class-testinfoerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-next-api-class-testinfoerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-next-api-class-testinfoerror/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-next-api-class-testinfoerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-next-api-testing",
+      "title": "Playwright: api testing",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/next/api-testing",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: api testing",
+      "manifest_path": "agentpress/material-kits/playwright-docs-next-api-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-next-api-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-next-api-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-next-api-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-next-test-agents",
+      "title": "Playwright: test agents",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/next/test-agents",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: test agents",
+      "manifest_path": "agentpress/material-kits/playwright-docs-next-test-agents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-next-test-agents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-next-test-agents/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-next-test-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-next-test-configuration",
+      "title": "Playwright: test configuration",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/next/test-configuration",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: test configuration",
+      "manifest_path": "agentpress/material-kits/playwright-docs-next-test-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-next-test-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-next-test-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-next-test-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-test-agents",
+      "title": "Playwright: test agents",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/test-agents",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: test agents",
+      "manifest_path": "agentpress/material-kits/playwright-docs-test-agents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-test-agents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-test-agents/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-test-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "playwright-docs-test-configuration",
+      "title": "Playwright: test configuration",
+      "ecosystem": "Playwright",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://playwright.dev/docs/test-configuration",
+      "painpoint": "agents need compact AgentPress wrapper for Playwright test/automation docs agents constantly need: test configuration",
+      "manifest_path": "agentpress/material-kits/playwright-docs-test-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/playwright-docs-test-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/playwright-docs-test-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/playwright-docs-test-configuration/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",

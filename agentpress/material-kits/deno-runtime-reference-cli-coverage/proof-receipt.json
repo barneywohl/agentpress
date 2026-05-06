@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+  "claim": "Material kit prepared for Deno painpoint: agents need compact AgentPress wrapper for Deno runtime/deploy docs agents need for TS runtime work: coverage",
+  "target_url": "https://docs.deno.com/runtime/reference/cli/coverage/",
+  "commands_to_verify": [
+    "python3 scripts/agentpress.py context-budget . --json --strict",
+    "python3 -m json.tool material-manifest.json",
+    "python3 -m json.tool proof-receipt.json"
+  ],
+  "evidence_files": [
+    "llms.txt",
+    "material-manifest.json",
+    "RUN_THIS.md"
+  ],
+  "external_effects": [],
+  "status": "prepared_not_posted"
+}
