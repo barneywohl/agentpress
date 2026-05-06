@@ -1,16 +1,16 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:37:33Z",
+  "generated_utc": "2026-05-06T04:37:52Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 1626,
+  "kit_count": 1726,
   "by_ecosystem": {
     "Anthropic": 287,
     "Auth0": 11,
     "AWS": 54,
-    "Bun": 22,
+    "Bun": 52,
     "Cline": 6,
     "Cloudflare": 47,
     "docs": 1,
@@ -28,7 +28,7 @@
     "LlamaIndex": 1,
     "mcp": 1,
     "MCP": 31,
-    "Next.js": 114,
+    "Next.js": 184,
     "OpenAI Agents SDK": 33,
     "OpenHands": 75,
     "Pinecone": 4,
@@ -43,7 +43,7 @@
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 1626
+    "ready_local_static_not_posted": 1726
   },
   "kits": [
     {
@@ -7523,6 +7523,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-bun-test-matchers-tothrowerror",
+      "title": "Bun: toThrowError",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/bun/test/Matchers/toThrowError",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: toThrowError",
+      "manifest_path": "agentpress/material-kits/bun-reference-bun-test-matchers-tothrowerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-bun-test-matchers-tothrowerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-bun-test-matchers-tothrowerror/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-bun-test-matchers-tothrowerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-bun-test-matchers-tothrowerrormatchinginlinesnapshot",
       "title": "Bun: toThrowErrorMatchingInlineSnapshot",
       "ecosystem": "Bun",
@@ -7607,6 +7628,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-globals-consoleoptions-ignoreerrors",
+      "title": "Bun: ignoreErrors",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/ConsoleOptions/ignoreErrors",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: ignoreErrors",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-consoleoptions-ignoreerrors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-consoleoptions-ignoreerrors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-consoleoptions-ignoreerrors/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-consoleoptions-ignoreerrors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-performancemeasure-starttime",
+      "title": "Bun: startTime",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceMeasure/startTime",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: startTime",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performancemeasure-starttime/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performancemeasure-starttime/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performancemeasure-starttime/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performancemeasure-starttime/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-performanceresourcetiming-servertiming",
+      "title": "Bun: serverTiming",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/PerformanceResourceTiming/serverTiming",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: serverTiming",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-servertiming/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-servertiming/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-servertiming/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-servertiming/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-globals-performanceresourcetiming-workerstart",
       "title": "Bun: workerStart",
       "ecosystem": "Bun",
@@ -7617,6 +7701,111 @@
       "receipt_path": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-workerstart/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-workerstart/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-globals-performanceresourcetiming-workerstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-globals-readablebytestreamcontroller-enqueue",
+      "title": "Bun: enqueue",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/globals/ReadableByteStreamController/enqueue",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: enqueue",
+      "manifest_path": "agentpress/material-kits/bun-reference-globals-readablebytestreamcontroller-enqueue/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-globals-readablebytestreamcontroller-enqueue/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-globals-readablebytestreamcontroller-enqueue/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-globals-readablebytestreamcontroller-enqueue/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-cipherccm-readableflowing",
+      "title": "Bun: readableFlowing",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/CipherCCM/readableFlowing",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: readableFlowing",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-cipherccm-readableflowing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-cipherccm-readableflowing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-cipherccm-readableflowing/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-cipherccm-readableflowing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-ciphergcm-transform",
+      "title": "Bun:  transform",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/CipherGCM/_transform",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups:  transform",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-ciphergcm-transform/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-ciphergcm-transform/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-ciphergcm-transform/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-ciphergcm-transform/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-decipherccm-readableflowing",
+      "title": "Bun: readableFlowing",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/DecipherCCM/readableFlowing",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: readableFlowing",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-readableflowing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-readableflowing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-readableflowing/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-decipherccm-readableflowing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-crypto-decipherocb-errored",
+      "title": "Bun: errored",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/crypto/DecipherOCB/errored",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: errored",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-crypto-decipherocb-errored/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-crypto-decipherocb-errored/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-crypto-decipherocb-errored/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-crypto-decipherocb-errored/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7649,6 +7838,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-http2-clienthttp2stream-asynciterator",
+      "title": "Bun: [asyncIterator]",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/ClientHttp2Stream/[asyncIterator]",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: [asyncIterator]",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-clienthttp2stream-asynciterator/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-clienthttp2stream-asynciterator/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-clienthttp2stream-asynciterator/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-clienthttp2stream-asynciterator/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http2-clientsessionoptions-strictfieldwhitespacevalid",
+      "title": "Bun: strictFieldWhitespaceValidation",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/ClientSessionOptions/strictFieldWhitespaceValidation",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: strictFieldWhitespaceValidation",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-clientsessionoptions-strictfieldwhitespacevalid/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-clientsessionoptions-strictfieldwhitespacevalid/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-clientsessionoptions-strictfieldwhitespacevalid/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-clientsessionoptions-strictfieldwhitespacevalid/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-http2-http2secureservereventmap-tlsclienterror",
       "title": "Bun: tlsClientError",
       "ecosystem": "Bun",
@@ -7659,6 +7890,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-http2-http2secureservereventmap-tlsclienterror/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-http2-http2secureservereventmap-tlsclienterror/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-http2-http2secureservereventmap-tlsclienterror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-http2-serverhttp2stream-readableflowing",
+      "title": "Bun: readableFlowing",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/http2/ServerHttp2Stream/readableFlowing",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: readableFlowing",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-http2-serverhttp2stream-readableflowing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-http2-serverhttp2stream-readableflowing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-http2-serverhttp2stream-readableflowing/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-http2-serverhttp2stream-readableflowing/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7733,6 +7985,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-inspector-debugger-scriptfailedtoparseeventdatatype-s",
+      "title": "Bun: startLine",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Debugger/ScriptFailedToParseEventDataType/startLine",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: startLine",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-scriptfailedtoparseeventdatatype-s/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-debugger-scriptfailedtoparseeventdatatype-s/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-debugger-scriptfailedtoparseeventdatatype-s/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-debugger-scriptfailedtoparseeventdatatype-s/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-inspector-nodetracing-startparametertype-traceconfig",
       "title": "Bun: traceConfig",
       "ecosystem": "Bun",
@@ -7796,6 +8069,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-inspector-runtime-callfunctiononparametertype-returnb",
+      "title": "Bun: returnByValue",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/CallFunctionOnParameterType/returnByValue",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: returnByValue",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-returnb/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-returnb/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-returnb/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononparametertype-returnb/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-callfunctiononreturntype-exceptiond",
+      "title": "Bun: exceptionDetails",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/CallFunctionOnReturnType/exceptionDetails",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: exceptionDetails",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononreturntype-exceptiond/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononreturntype-exceptiond/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononreturntype-exceptiond/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-callfunctiononreturntype-exceptiond/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-inspector-runtime-evaluateparametertype-includecomman",
       "title": "Bun: includeCommandLineAPI",
       "ecosystem": "Bun",
@@ -7806,6 +8121,111 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-includecomman/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-includecomman/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-evaluateparametertype-includecomman/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-inspector-runtime-setcustomobjectformatterenabledpara",
+      "title": "Bun: SetCustomObjectFormatterEnabledParameterType",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/inspector/Runtime/SetCustomObjectFormatterEnabledParameterType",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: SetCustomObjectFormatterEnabledParameterType",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-setcustomobjectformatterenabledpara/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-inspector-runtime-setcustomobjectformatterenabledpara/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-inspector-runtime-setcustomobjectformatterenabledpara/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-inspector-runtime-setcustomobjectformatterenabledpara/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-perf-hooks-performancenodetiming-starttime",
+      "title": "Bun: startTime",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceNodeTiming/startTime",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: startTime",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performancenodetiming-starttime/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performancenodetiming-starttime/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performancenodetiming-starttime/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performancenodetiming-starttime/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-perf-hooks-performanceobservercallback",
+      "title": "Bun: PerformanceObserverCallback",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceObserverCallback",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: PerformanceObserverCallback",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobservercallback/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobservercallback/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobservercallback/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceobservercallback/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-perf-hooks-performanceresourcetiming-encodedbodysize",
+      "title": "Bun: encodedBodySize",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceResourceTiming/encodedBodySize",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: encodedBodySize",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-encodedbodysize/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-encodedbodysize/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-encodedbodysize/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-encodedbodysize/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-perf-hooks-performanceresourcetiming-fetchstart",
+      "title": "Bun: fetchStart",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/perf_hooks/PerformanceResourceTiming/fetchStart",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: fetchStart",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-fetchstart/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-fetchstart/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-fetchstart/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-perf-hooks-performanceresourcetiming-fetchstart/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7838,6 +8258,153 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "bun-reference-node-repl-replserver-asynciterator",
+      "title": "Bun: [asyncIterator]",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/repl/REPLServer/[asyncIterator]",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: [asyncIterator]",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-repl-replserver-asynciterator/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-repl-replserver-asynciterator/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-repl-replserver-asynciterator/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-repl-replserver-asynciterator/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-repl-replserver-editormode",
+      "title": "Bun: editorMode",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/repl/REPLServer/editorMode",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: editorMode",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-repl-replserver-editormode/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-repl-replserver-editormode/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-repl-replserver-editormode/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-repl-replserver-editormode/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-repl-replserversetuphistoryoptions-onhistoryfileloade",
+      "title": "Bun: onHistoryFileLoaded",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/repl/REPLServerSetupHistoryOptions/onHistoryFileLoaded",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: onHistoryFileLoaded",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-repl-replserversetuphistoryoptions-onhistoryfileloade/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-repl-replserversetuphistoryoptions-onhistoryfileloade/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-repl-replserversetuphistoryoptions-onhistoryfileloade/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-repl-replserversetuphistoryoptions-onhistoryfileloade/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-sqlite-databasesyncoptions-allowextension",
+      "title": "Bun: allowExtension",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/sqlite/DatabaseSyncOptions/allowExtension",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: allowExtension",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-sqlite-databasesyncoptions-allowextension/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-sqlite-databasesyncoptions-allowextension/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-sqlite-databasesyncoptions-allowextension/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-sqlite-databasesyncoptions-allowextension/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-eventdata-error-name",
+      "title": "Bun: name",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/Error/name",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: name",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-name/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-name/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-name/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-name/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-eventdata-error-stack",
+      "title": "Bun: stack",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/Error/stack",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: stack",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-stack/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-stack/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-stack/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-error-stack/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-eventdata-testdequeue-nesting",
+      "title": "Bun: nesting",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/EventData/TestDequeue/nesting",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: nesting",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue-nesting/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue-nesting/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue-nesting/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-eventdata-testdequeue-nesting/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "bun-reference-node-test-default-mockfunctioncall-error",
       "title": "Bun: error",
       "ecosystem": "Bun",
@@ -7848,6 +8415,27 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-error/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-error/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-test-default-mockfunctioncall-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-test-default-runoptions-coverage",
+      "title": "Bun: coverage",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/test/default/RunOptions/coverage",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: coverage",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-test-default-runoptions-coverage/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-test-default-runoptions-coverage/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-test-default-runoptions-coverage/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-test-default-runoptions-coverage/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -7890,6 +8478,48 @@
       "receipt_path": "agentpress/material-kits/bun-reference-node-tls-servereventmap-tlsclienterror/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/bun-reference-node-tls-servereventmap-tlsclienterror/llms.txt",
       "run_guide": "agentpress/material-kits/bun-reference-node-tls-servereventmap-tlsclienterror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-zlib-constants-brotli-decoder-error-format-cl-space",
+      "title": "Bun: BROTLI DECODER ERROR FORMAT CL SPACE",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/zlib/constants/BROTLI_DECODER_ERROR_FORMAT_CL_SPACE",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: BROTLI DECODER ERROR FORMAT CL SPACE",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-cl-space/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-cl-space/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-cl-space/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-cl-space/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "bun-reference-node-zlib-constants-brotli-decoder-error-format-dictionary",
+      "title": "Bun: BROTLI DECODER ERROR FORMAT DICTIONARY",
+      "ecosystem": "Bun",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://bun.com/reference/node/zlib/constants/BROTLI_DECODER_ERROR_FORMAT_DICTIONARY",
+      "painpoint": "agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: BROTLI DECODER ERROR FORMAT DICTIONARY",
+      "manifest_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-dictionary/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-dictionary/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-dictionary/llms.txt",
+      "run_guide": "agentpress/material-kits/bun-reference-node-zlib-constants-brotli-decoder-error-format-dictionary/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json",
         "python3 -m json.tool material-manifest.json",
@@ -25877,6 +26507,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-config",
+      "title": "Next.js: config",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: config",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-eslint",
+      "title": "Next.js: eslint",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/eslint",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: eslint",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-eslint/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-eslint/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-eslint/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-eslint/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-config-next-config-js",
       "title": "Next.js: next config js",
       "ecosystem": "Next.js",
@@ -25887,6 +26559,27 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-adapterpath",
+      "title": "Next.js: adapterPath",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/adapterPath",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: adapterPath",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-adapterpath/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-adapterpath/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-adapterpath/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-adapterpath/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -26066,6 +26759,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-compress",
+      "title": "Next.js: compress",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/compress",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: compress",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-compress/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-compress/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-compress/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-compress/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-config-next-config-js-crossorigin",
       "title": "Next.js: crossOrigin",
       "ecosystem": "Next.js",
@@ -26076,6 +26790,27 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-crossorigin/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-crossorigin/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-crossorigin/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-csschunking",
+      "title": "Next.js: cssChunking",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/cssChunking",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: cssChunking",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-csschunking/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-csschunking/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-csschunking/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-csschunking/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -26150,6 +26885,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-env",
+      "title": "Next.js: env",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/env",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: env",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-env/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-env/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-env/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-env/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-config-next-config-js-expiretime",
       "title": "Next.js: expireTime",
       "ecosystem": "Next.js",
@@ -26213,6 +26969,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-generateetags",
+      "title": "Next.js: generateEtags",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/generateEtags",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: generateEtags",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-generateetags/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-generateetags/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-generateetags/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-generateetags/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-headers",
+      "title": "Next.js: headers",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/headers",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: headers",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-headers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-headers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-headers/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-headers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-config-next-config-js-htmllimitedbots",
       "title": "Next.js: htmlLimitedBots",
       "ecosystem": "Next.js",
@@ -26255,6 +27053,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-images",
+      "title": "Next.js: images",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/images",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: images",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-images/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-images/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-images/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-images/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-config-next-config-js-incrementalcachehan",
       "title": "Next.js: incrementalCacheHandlerPath",
       "ecosystem": "Next.js",
@@ -26265,6 +27084,48 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-incrementalcachehan/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-incrementalcachehan/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-incrementalcachehan/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-inlinecss",
+      "title": "Next.js: inlineCss",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/inlineCss",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: inlineCss",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-inlinecss/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-inlinecss/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-inlinecss/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-inlinecss/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-logging",
+      "title": "Next.js: logging",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/logging",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: logging",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-logging/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-logging/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-logging/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-logging/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -26307,6 +27168,27 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-ondemandentries/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-ondemandentries/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-ondemandentries/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-optimizepackageimpo",
+      "title": "Next.js: optimizePackageImports",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/optimizePackageImports",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: optimizePackageImports",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-optimizepackageimpo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-optimizepackageimpo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-optimizepackageimpo/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-optimizepackageimpo/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -26381,6 +27263,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-productionbrowserso",
+      "title": "Next.js: productionBrowserSourceMaps",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/productionBrowserSourceMaps",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: productionBrowserSourceMaps",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-productionbrowserso/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-productionbrowserso/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-productionbrowserso/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-productionbrowserso/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-config-next-config-js-proxyclientmaxbodys",
       "title": "Next.js: proxyClientMaxBodySize",
       "ecosystem": "Next.js",
@@ -26444,6 +27347,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-reactstrictmode",
+      "title": "Next.js: reactStrictMode",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/reactStrictMode",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: reactStrictMode",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-reactstrictmode/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-reactstrictmode/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-reactstrictmode/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-reactstrictmode/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-redirects",
+      "title": "Next.js: redirects",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/redirects",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: redirects",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-redirects/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-redirects/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-redirects/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-redirects/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-config-next-config-js-rewrites",
       "title": "Next.js: rewrites",
       "ecosystem": "Next.js",
@@ -26454,6 +27399,27 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-rewrites/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-rewrites/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-rewrites/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-sassoptions",
+      "title": "Next.js: sassOptions",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/sassOptions",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: sassOptions",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-sassoptions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-sassoptions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-sassoptions/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-sassoptions/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -26549,6 +27515,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-staticgeneration",
+      "title": "Next.js: staticGeneration",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/staticGeneration",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: staticGeneration",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-staticgeneration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-staticgeneration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-staticgeneration/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-staticgeneration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-config-next-config-js-taint",
       "title": "Next.js: taint",
       "ecosystem": "Next.js",
@@ -26559,6 +27546,48 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-taint/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-taint/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-taint/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-trailingslash",
+      "title": "Next.js: trailingSlash",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/trailingSlash",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: trailingSlash",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-trailingslash/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-trailingslash/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-trailingslash/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-trailingslash/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-transpilepackages",
+      "title": "Next.js: transpilePackages",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/transpilePackages",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: transpilePackages",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-transpilepackages/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-transpilepackages/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-transpilepackages/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-transpilepackages/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -26696,6 +27725,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-uselightningcss",
+      "title": "Next.js: useLightningcss",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/useLightningcss",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: useLightningcss",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-uselightningcss/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-uselightningcss/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-uselightningcss/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-uselightningcss/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-viewtransition",
+      "title": "Next.js: viewTransition",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/viewTransition",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: viewTransition",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-viewtransition/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-viewtransition/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-viewtransition/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-viewtransition/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-webpack",
+      "title": "Next.js: webpack",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/webpack",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: webpack",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-webpack/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-webpack/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-webpack/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-webpack/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-config-next-config-js-webvitalsattributio",
+      "title": "Next.js: webVitalsAttribution",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/webVitalsAttribution",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: webVitalsAttribution",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-webvitalsattributio/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-webvitalsattributio/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-webvitalsattributio/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-config-next-config-js-webvitalsattributio/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-config-typescript",
       "title": "Next.js: typescript",
       "ecosystem": "Next.js",
@@ -26769,6 +27882,69 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-directives-use-cache-remote/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-directives-use-cache-remote/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-directives-use-cache-remote/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-directives-use-client",
+      "title": "Next.js: use client",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/directives/use-client",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: use client",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-directives-use-client/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-directives-use-client/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-directives-use-client/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-directives-use-client/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-directives-use-server",
+      "title": "Next.js: use server",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/directives/use-server",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: use server",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-directives-use-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-directives-use-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-directives-use-server/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-directives-use-server/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-edge",
+      "title": "Next.js: edge",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/edge",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: edge",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-edge/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-edge/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-edge/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-edge/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -26969,6 +28145,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-functions",
+      "title": "Next.js: functions",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: functions",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-functions-after",
       "title": "Next.js: after",
       "ecosystem": "Next.js",
@@ -27053,6 +28250,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-functions-connection",
+      "title": "Next.js: connection",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/connection",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: connection",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-connection/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-connection/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-connection/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-connection/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-functions-cookies",
       "title": "Next.js: cookies",
       "ecosystem": "Next.js",
@@ -27116,6 +28334,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-functions-forbidden",
+      "title": "Next.js: forbidden",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/forbidden",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: forbidden",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-forbidden/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-forbidden/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-forbidden/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-forbidden/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-functions-generate-image-metadata",
+      "title": "Next.js: generate image metadata",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/generate-image-metadata",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: generate image metadata",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-generate-image-metadata/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-generate-image-metadata/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-generate-image-metadata/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-generate-image-metadata/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-functions-generate-metadata",
       "title": "Next.js: generate metadata",
       "ecosystem": "Next.js",
@@ -27126,6 +28386,27 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-generate-metadata/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-generate-metadata/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-generate-metadata/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-functions-generate-sitemaps",
+      "title": "Next.js: generate sitemaps",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/generate-sitemaps",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: generate sitemaps",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-generate-sitemaps/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-generate-sitemaps/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-generate-sitemaps/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-generate-sitemaps/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -27179,6 +28460,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-functions-headers",
+      "title": "Next.js: headers",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/headers",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: headers",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-headers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-headers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-headers/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-headers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-functions-image-response",
+      "title": "Next.js: image response",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/image-response",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: image response",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-image-response/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-image-response/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-image-response/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-image-response/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-functions-next-request",
       "title": "Next.js: next request",
       "ecosystem": "Next.js",
@@ -27189,6 +28512,27 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-next-request/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-next-request/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-next-request/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-functions-next-response",
+      "title": "Next.js: next response",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/next-response",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: next response",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-next-response/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-next-response/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-next-response/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-next-response/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -27231,6 +28575,27 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-permanentredirect/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-permanentredirect/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-permanentredirect/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-functions-redirect",
+      "title": "Next.js: redirect",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/redirect",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: redirect",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-redirect/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-redirect/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-redirect/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-redirect/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -27347,6 +28712,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-functions-unstable-nostore",
+      "title": "Next.js: unstable noStore",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/unstable_noStore",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: unstable noStore",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-unstable-nostore/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-unstable-nostore/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-unstable-nostore/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-unstable-nostore/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-functions-unstable-rethrow",
+      "title": "Next.js: unstable rethrow",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/unstable_rethrow",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: unstable rethrow",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-unstable-rethrow/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-unstable-rethrow/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-unstable-rethrow/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-unstable-rethrow/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-functions-updatetag",
+      "title": "Next.js: updateTag",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/updateTag",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: updateTag",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-updatetag/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-updatetag/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-updatetag/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-updatetag/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-functions-use-link-status",
       "title": "Next.js: use link status",
       "ecosystem": "Next.js",
@@ -27357,6 +28785,27 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-link-status/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-link-status/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-link-status/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-functions-use-params",
+      "title": "Next.js: use params",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/use-params",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: use params",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-params/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-params/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-params/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-params/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -27431,6 +28880,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-app-api-reference-functions-use-search-params",
+      "title": "Next.js: use search params",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/use-search-params",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: use search params",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-search-params/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-search-params/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-search-params/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-search-params/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-functions-use-selected-layout-segment",
+      "title": "Next.js: use selected layout segment",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/use-selected-layout-segment",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: use selected layout segment",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-selected-layout-segment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-selected-layout-segment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-selected-layout-segment/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-selected-layout-segment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-api-reference-functions-use-selected-layout-segments",
+      "title": "Next.js: use selected layout segments",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/api-reference/functions/use-selected-layout-segments",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: use selected layout segments",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-selected-layout-segments/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-selected-layout-segments/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-selected-layout-segments/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-use-selected-layout-segments/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-app-api-reference-functions-useragent",
       "title": "Next.js: userAgent",
       "ecosystem": "Next.js",
@@ -27441,6 +28953,27 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-app-api-reference-functions-useragent/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-app-api-reference-functions-useragent/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-app-api-reference-functions-useragent/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-app-getting-started-server-and-client-components",
+      "title": "Next.js: server and client components",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/app/getting-started/server-and-client-components",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: server and client components",
+      "manifest_path": "agentpress/material-kits/next-js-docs-app-getting-started-server-and-client-components/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-app-getting-started-server-and-client-components/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-app-getting-started-server-and-client-components/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-app-getting-started-server-and-client-components/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -27578,6 +29111,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-pages-api-reference-config-eslint",
+      "title": "Next.js: eslint",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/eslint",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: eslint",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-eslint/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-eslint/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-eslint/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-eslint/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-pages-api-reference-config-next-config-js",
       "title": "Next.js: next config js",
       "ecosystem": "Next.js",
@@ -27588,6 +29142,90 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-adapterpath",
+      "title": "Next.js: adapterPath",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/adapterPath",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: adapterPath",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-adapterpath/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-adapterpath/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-adapterpath/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-adapterpath/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-alloweddevorigins",
+      "title": "Next.js: allowedDevOrigins",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/allowedDevOrigins",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: allowedDevOrigins",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-alloweddevorigins/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-alloweddevorigins/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-alloweddevorigins/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-alloweddevorigins/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-assetprefix",
+      "title": "Next.js: assetPrefix",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/assetPrefix",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: assetPrefix",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-assetprefix/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-assetprefix/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-assetprefix/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-assetprefix/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-basepath",
+      "title": "Next.js: basePath",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/basePath",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: basePath",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-basepath/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-basepath/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-basepath/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-basepath/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -27620,6 +29258,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-compress",
+      "title": "Next.js: compress",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/compress",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: compress",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-compress/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-compress/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-compress/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-compress/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-crossorigin",
+      "title": "Next.js: crossOrigin",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/crossOrigin",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: crossOrigin",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-crossorigin/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-crossorigin/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-crossorigin/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-crossorigin/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-pages-api-reference-config-next-config-js-deploymentid",
       "title": "Next.js: deploymentId",
       "ecosystem": "Next.js",
@@ -27630,6 +29310,69 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-deploymentid/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-deploymentid/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-deploymentid/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-devindicators",
+      "title": "Next.js: devIndicators",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/devIndicators",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: devIndicators",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-devindicators/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-devindicators/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-devindicators/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-devindicators/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-distdir",
+      "title": "Next.js: distDir",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/distDir",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: distDir",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-distdir/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-distdir/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-distdir/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-distdir/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-env",
+      "title": "Next.js: env",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/env",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: env",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-env/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-env/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-env/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-env/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -27672,6 +29415,48 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-generatebuildid/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-generatebuildid/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-generatebuildid/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-generateetags",
+      "title": "Next.js: generateEtags",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/generateEtags",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: generateEtags",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-generateetags/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-generateetags/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-generateetags/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-generateetags/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-headers",
+      "title": "Next.js: headers",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/headers",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: headers",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-headers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-headers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-headers/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-headers/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -27746,6 +29531,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-ondemandentries",
+      "title": "Next.js: onDemandEntries",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/onDemandEntries",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: onDemandEntries",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-ondemandentries/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-ondemandentries/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-ondemandentries/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-ondemandentries/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-optimizepackageim",
+      "title": "Next.js: optimizePackageImports",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/optimizePackageImports",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: optimizePackageImports",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-optimizepackageim/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-optimizepackageim/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-optimizepackageim/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-optimizepackageim/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-output",
+      "title": "Next.js: output",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/output",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: output",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-output/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-output/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-output/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-output/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-pages-api-reference-config-next-config-js-pageextensions",
       "title": "Next.js: pageExtensions",
       "ecosystem": "Next.js",
@@ -27788,6 +29636,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-productionbrowser",
+      "title": "Next.js: productionBrowserSourceMaps",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/productionBrowserSourceMaps",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: productionBrowserSourceMaps",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-productionbrowser/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-productionbrowser/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-productionbrowser/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-productionbrowser/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-pages-api-reference-config-next-config-js-proxyclientmaxbod",
       "title": "Next.js: proxyClientMaxBodySize",
       "ecosystem": "Next.js",
@@ -27809,6 +29678,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-reactstrictmode",
+      "title": "Next.js: reactStrictMode",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/reactStrictMode",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: reactStrictMode",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-reactstrictmode/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-reactstrictmode/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-reactstrictmode/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-reactstrictmode/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-pages-api-reference-config-next-config-js-redirects",
       "title": "Next.js: redirects",
       "ecosystem": "Next.js",
@@ -27819,6 +29709,27 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-redirects/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-redirects/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-redirects/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-rewrites",
+      "title": "Next.js: rewrites",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/rewrites",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: rewrites",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-rewrites/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-rewrites/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-rewrites/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-rewrites/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -27924,6 +29835,111 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-typescript/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-typescript/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-typescript/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-urlimports",
+      "title": "Next.js: urlImports",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/urlImports",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: urlImports",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-urlimports/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-urlimports/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-urlimports/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-urlimports/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-uselightningcss",
+      "title": "Next.js: useLightningcss",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/useLightningcss",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: useLightningcss",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-uselightningcss/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-uselightningcss/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-uselightningcss/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-uselightningcss/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-webpack",
+      "title": "Next.js: webpack",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/webpack",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: webpack",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-webpack/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-webpack/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-webpack/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-webpack/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-next-config-js-webvitalsattribut",
+      "title": "Next.js: webVitalsAttribution",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/next-config-js/webVitalsAttribution",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: webVitalsAttribution",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-webvitalsattribut/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-webvitalsattribut/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-webvitalsattribut/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-next-config-js-webvitalsattribut/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-api-reference-config-typescript",
+      "title": "Next.js: typescript",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/config/typescript",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: typescript",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-typescript/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-config-typescript/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-config-typescript/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-config-typescript/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -28082,6 +30098,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-pages-api-reference-functions-next-request",
+      "title": "Next.js: next request",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/functions/next-request",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: next request",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-next-request/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-next-request/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-next-request/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-next-request/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-pages-api-reference-functions-next-response",
       "title": "Next.js: next response",
       "ecosystem": "Next.js",
@@ -28124,6 +30161,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-pages-api-reference-functions-use-report-web-vitals",
+      "title": "Next.js: use report web vitals",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/functions/use-report-web-vitals",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: use report web vitals",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-use-report-web-vitals/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-use-report-web-vitals/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-use-report-web-vitals/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-use-report-web-vitals/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-pages-api-reference-functions-use-router",
       "title": "Next.js: use router",
       "ecosystem": "Next.js",
@@ -28145,6 +30203,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "next-js-docs-pages-api-reference-functions-use-search-params",
+      "title": "Next.js: use search params",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/api-reference/functions/use-search-params",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: use search params",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-use-search-params/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-use-search-params/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-use-search-params/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-use-search-params/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "next-js-docs-pages-api-reference-functions-useragent",
       "title": "Next.js: userAgent",
       "ecosystem": "Next.js",
@@ -28155,6 +30234,27 @@
       "receipt_path": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-useragent/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-useragent/llms.txt",
       "run_guide": "agentpress/material-kits/next-js-docs-pages-api-reference-functions-useragent/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "next-js-docs-pages-building-your-application-configuring-error-handling",
+      "title": "Next.js: error handling",
+      "ecosystem": "Next.js",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://nextjs.org/docs/pages/building-your-application/configuring/error-handling",
+      "painpoint": "agents need compact AgentPress wrapper for Next.js app router/deployment docs agents often need for full-stack builds: error handling",
+      "manifest_path": "agentpress/material-kits/next-js-docs-pages-building-your-application-configuring-error-handling/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/next-js-docs-pages-building-your-application-configuring-error-handling/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/next-js-docs-pages-building-your-application-configuring-error-handling/llms.txt",
+      "run_guide": "agentpress/material-kits/next-js-docs-pages-building-your-application-configuring-error-handling/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
