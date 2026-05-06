@@ -2840,7 +2840,7 @@ def smoke_install(args):
     errors = []
     runtime = args.runtime
     npm_version = args.version or "rc"
-    pypi_version = args.version or "0.2.0rc4"
+    pypi_version = args.version or "0.2.0rc5"
     commands = []
     if runtime in {"npm", "all"}:
         pkg = f"@agent_press/agentpress@{npm_version.lstrip('@')}"
@@ -5806,6 +5806,85 @@ def gorilla_action_safety_gate(args):
     return 0
 
 
+
+def gorilla_approval_packets(args):
+    """Generate exact approval packets for the gorilla queue without external posting."""
+    root = pathlib.Path(args.root)
+    base = args.base_url.rstrip() + "/"
+    queue_path = root / args.queue
+    safety_path = root / args.safety
+    outdir = root / args.out
+    queue = json.loads(queue_path.read_text(encoding="utf-8")) if queue_path.exists() else {}
+    safety = json.loads(safety_path.read_text(encoding="utf-8")) if safety_path.exists() else {}
+    decisions_by_url = {d.get("url"): d for d in safety.get("decisions", []) if d.get("source") == "targets" and d.get("url")}
+    packets = []
+    for target in (queue.get("targets", []) or [])[:max(1, args.limit)]:
+        decision = decisions_by_url.get(target.get("url"), {})
+        classification = decision.get("classification", "approval_required_public")
+        high_risk = classification == "prohibited_spam_security_risk" or str(target.get("risk", "")).lower() == "high"
+        slug = slugify(f"{target.get('rank')}-{target.get('ecosystem')}-{target.get('pack')}")
+        artifact = target.get("artifact", "")
+        receipt = target.get("receipt", "")
+        packet = {
+            "schema_version": "2026-05-05.agentpress-gorilla-approval-packet.v1",
+            "canonical_url": urljoin(base, (pathlib.Path(args.out) / f"{slug}.json").as_posix()),
+            "generated_utc": _utc_now(),
+            "status": "hold_security_sensitive" if high_risk else "ready_for_exact_human_approval",
+            "rank": target.get("rank"),
+            "ecosystem": target.get("ecosystem"),
+            "target_url": target.get("url"),
+            "painpoint": target.get("painpoint"),
+            "utility_pack": target.get("pack"),
+            "artifact_url": urljoin(base, artifact) if artifact else "",
+            "receipt_url": urljoin(base, receipt) if receipt else "",
+            "risk": target.get("risk"),
+            "safety_classification": classification,
+            "required_controls": decision.get("required_controls", [
+                "explicit_human_approval_of_exact_target_and_draft",
+                "one_target_only",
+                "painpoint_relevance_check",
+                "sanitize_json_no_secrets_private_prompts_or_personal_data",
+            ]),
+            "recommended_action": target.get("action"),
+            "draft": target.get("draft"),
+            "manual_execution_checklist": [
+                "confirm issue is still open/relevant",
+                "run or inspect linked utility artifact locally",
+                "sanitize draft and artifact links",
+                "get explicit human approval for this exact target and draft",
+                "post one contextual comment only; do not mass post",
+                "record reply/proof via external-proof-intake if anyone responds",
+            ],
+            "do_not": [
+                "do not DM maintainers",
+                "do not post to security-sensitive targets unless invited",
+                "do not claim adoption or maintainer endorsement",
+                "do not automate external posting",
+            ],
+        }
+        packets.append(packet)
+    index = {
+        "schema_version": "2026-05-05.agentpress-gorilla-approval-packet-index.v1",
+        "canonical_url": urljoin(base, (pathlib.Path(args.out) / "index.json").as_posix()),
+        "generated_utc": _utc_now(),
+        "status": "prepared_not_posted",
+        "purpose": "Exact per-target gorilla approval packets for utility-first manual execution.",
+        "queue": args.queue,
+        "safety_gate": args.safety,
+        "posting_policy": queue.get("posting_policy", {}),
+        "packet_count": len(packets),
+        "packets": [{"rank": p.get("rank"), "ecosystem": p.get("ecosystem"), "status": p.get("status"), "target_url": p.get("target_url"), "packet": p.get("canonical_url"), "safety_classification": p.get("safety_classification")} for p in packets],
+        "hard_gate": "No external post/send/comment until a human approves the exact packet target and draft.",
+    }
+    if not args.no_write:
+        outdir.mkdir(parents=True, exist_ok=True)
+        for p in packets:
+            filename = slugify(f"{p.get('rank')}-{p.get('ecosystem')}-{p.get('utility_pack')}") + ".json"
+            (outdir / filename).write_text(json.dumps(p, indent=2) + "\n", encoding="utf-8")
+        (outdir / "index.json").write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(index, indent=2) if args.json else f"ok {len(packets)} approval packets")
+    return 0
+
 def next_attention_build_spec(args):
     """Publish the next build/deploy spec derived from current agent painpoint research."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
@@ -8363,7 +8442,7 @@ def first_contact_audit(args):
         except Exception as e:
             row.update({"status":"fail","error":str(e)}); failures.append(f"unreachable:{rel}")
         checks.append(row)
-    package_channels={"npm":{"latest":"0.1.0","rc":"0.2.0-rc.4","policy":"latest remains stable until independent proof/RFLO gates pass"},"pypi":{"stable":"0.1.0","rc":"0.2.0rc4","policy":"pre-release channel only for rc builds"}}
+    package_channels={"npm":{"latest":"0.1.0","rc":"0.2.0-rc.5","policy":"latest remains stable until independent proof/RFLO gates pass"},"pypi":{"stable":"0.1.0","rc":"0.2.0rc5","policy":"pre-release channel only for rc builds"}}
     first_action_commands=["npx @agent_press/agentpress@rc doctor --json","python3 scripts/agentpress.py doctor . --json","python3 scripts/agentpress.py result init --kind proof --json"]
     for cmd in first_action_commands:
         if "latest" in cmd: failures.append("first action command must not imply latest promotion: "+cmd)
@@ -10788,6 +10867,7 @@ def main():
     p = sub.add_parser("first-agent-attention-kit"); p.add_argument("--out", default="agentpress/outreach/first-agent-attention-kit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("gorilla-utility-pack"); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("gorilla-action-safety-gate"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/growth/gorilla-utility-pack/execution-queue.json"); p.add_argument("--action-json", default=""); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack/external-action-safety-gate.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("gorilla-approval-packets"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/growth/gorilla-utility-pack/execution-queue.json"); p.add_argument("--safety", default="agentpress/growth/gorilla-utility-pack/external-action-safety-gate.json"); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack/approval-packets"); p.add_argument("--limit", type=int, default=5); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("next-attention-build-spec"); p.add_argument("--out", default="agentpress/specs/next-attention-build-spec.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-community-newswire"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/agent-community-newswire.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("immediate-agent-needs-radar"); p.add_argument("--out", default="agentpress/community/immediate-agent-needs-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -11180,6 +11260,7 @@ def main():
     if args.cmd == "first-agent-attention-kit": return first_agent_attention_kit(args)
     if args.cmd == "gorilla-utility-pack": return gorilla_utility_pack(args)
     if args.cmd == "gorilla-action-safety-gate": return gorilla_action_safety_gate(args)
+    if args.cmd == "gorilla-approval-packets": return gorilla_approval_packets(args)
     if args.cmd == "next-attention-build-spec": return next_attention_build_spec(args)
     if args.cmd == "agent-community-newswire": return agent_community_newswire(args)
     if args.cmd == "immediate-agent-needs-radar": return immediate_agent_needs_radar(args)
