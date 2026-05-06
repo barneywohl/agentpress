@@ -1,22 +1,22 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:29:57Z",
+  "generated_utc": "2026-05-06T04:30:06Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 68,
+  "kit_count": 118,
   "by_ecosystem": {
-    "Anthropic": 51,
+    "Anthropic": 99,
     "Cline": 1,
     "docs": 1,
     "LangGraph": 2,
     "LiteLLM": 1,
     "LlamaIndex": 1,
     "mcp": 1,
-    "MCP": 1,
+    "MCP": 2,
     "OpenAI Agents SDK": 1,
-    "OpenHands": 2,
+    "OpenHands": 3,
     "repo-docs": 1,
     "Roo Code": 2,
     "api-schema": 1,
@@ -24,7 +24,7 @@
     "Vercel AI SDK": 1
   },
   "by_status": {
-    "ready_local_static_not_posted": 68
+    "ready_local_static_not_posted": 118
   },
   "kits": [
     {
@@ -70,6 +70,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-de-agents-and-tools-mcp-connector",
+      "title": "Anthropic: mcp connector",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/de/agents-and-tools/mcp-connector",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-mcp-connector/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-mcp-connector/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-mcp-connector/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-mcp-connector/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-de-agents-and-tools-remote-mcp-servers",
       "title": "Anthropic: remote mcp servers",
       "ecosystem": "Anthropic",
@@ -80,6 +101,27 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-remote-mcp-servers/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-remote-mcp-servers/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-remote-mcp-servers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-de-agents-and-tools-tool-use-build-a-tool-using-agent",
+      "title": "Anthropic: build a tool using agent",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/de/agents-and-tools/tool-use/build-a-tool-using-agent",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: build a tool using agent",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-build-a-tool-using-agent/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-build-a-tool-using-agent/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-build-a-tool-using-agent/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-build-a-tool-using-agent/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -122,6 +164,48 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-server-tools/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-server-tools/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-server-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-de-agents-and-tools-tool-use-tool-reference",
+      "title": "Anthropic: tool reference",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/de/agents-and-tools/tool-use/tool-reference",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool reference",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-tool-reference/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-tool-reference/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-tool-reference/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-tool-reference/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-de-agents-and-tools-tool-use-tool-runner",
+      "title": "Anthropic: tool runner",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/de/agents-and-tools/tool-use/tool-runner",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool runner",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-tool-runner/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-tool-runner/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-tool-runner/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-de-agents-and-tools-tool-use-tool-runner/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -196,6 +280,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-en-agents-and-tools-tool-use-code-execution-tool",
+      "title": "Anthropic: code execution tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: code execution tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-code-execution-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-code-execution-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-code-execution-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-code-execution-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-en-agents-and-tools-tool-use-how-tool-use-works",
+      "title": "Anthropic: how tool use works",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/how-tool-use-works",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: how tool use works",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-how-tool-use-works/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-how-tool-use-works/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-how-tool-use-works/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-how-tool-use-works/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-en-agents-and-tools-tool-use-memory-tool",
+      "title": "Anthropic: memory tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: memory tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-memory-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-memory-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-memory-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-memory-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-en-agents-and-tools-tool-use-server-tools",
       "title": "Anthropic: server tools",
       "ecosystem": "Anthropic",
@@ -206,6 +353,48 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-server-tools/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-server-tools/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-server-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-en-agents-and-tools-tool-use-tool-use-with-prompt-caching",
+      "title": "Anthropic: tool use with prompt caching",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool use with prompt caching",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-tool-use-with-prompt-caching/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-tool-use-with-prompt-caching/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-tool-use-with-prompt-caching/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-agents-and-tools-tool-use-tool-use-with-prompt-caching/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-es-agents-and-tools-agent-skills-claude-api-skill",
+      "title": "Anthropic: claude api skill",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/es/agents-and-tools/agent-skills/claude-api-skill",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: claude api skill",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-agent-skills-claude-api-skill/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-agent-skills-claude-api-skill/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-agent-skills-claude-api-skill/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-agent-skills-claude-api-skill/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -269,6 +458,132 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-remote-mcp-servers/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-remote-mcp-servers/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-remote-mcp-servers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-es-agents-and-tools-tool-use-define-tools",
+      "title": "Anthropic: define tools",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/es/agents-and-tools/tool-use/define-tools",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: define tools",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-define-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-define-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-define-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-define-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-es-agents-and-tools-tool-use-handle-tool-calls",
+      "title": "Anthropic: handle tool calls",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/es/agents-and-tools/tool-use/handle-tool-calls",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: handle tool calls",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-handle-tool-calls/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-handle-tool-calls/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-handle-tool-calls/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-handle-tool-calls/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-es-agents-and-tools-tool-use-memory-tool",
+      "title": "Anthropic: memory tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/es/agents-and-tools/tool-use/memory-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: memory tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-memory-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-memory-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-memory-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-memory-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-es-agents-and-tools-tool-use-parallel-tool-use",
+      "title": "Anthropic: parallel tool use",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/es/agents-and-tools/tool-use/parallel-tool-use",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: parallel tool use",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-parallel-tool-use/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-parallel-tool-use/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-parallel-tool-use/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-parallel-tool-use/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-es-agents-and-tools-tool-use-server-tools",
+      "title": "Anthropic: server tools",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/es/agents-and-tools/tool-use/server-tools",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: server tools",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-server-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-server-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-server-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-es-agents-and-tools-tool-use-server-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-fr-agents-and-tools-agent-skills-claude-api-skill",
+      "title": "Anthropic: claude api skill",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/fr/agents-and-tools/agent-skills/claude-api-skill",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: claude api skill",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-agent-skills-claude-api-skill/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-agent-skills-claude-api-skill/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-agent-skills-claude-api-skill/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-agent-skills-claude-api-skill/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -385,6 +700,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-fr-agents-and-tools-tool-use-web-search-tool",
+      "title": "Anthropic: web search tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/fr/agents-and-tools/tool-use/web-search-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: web search tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-tool-use-web-search-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-tool-use-web-search-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-tool-use-web-search-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-fr-agents-and-tools-tool-use-web-search-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-id-agents-and-tools-agent-skills-claude-api-skill",
+      "title": "Anthropic: claude api skill",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/id/agents-and-tools/agent-skills/claude-api-skill",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: claude api skill",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-agent-skills-claude-api-skill/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-agent-skills-claude-api-skill/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-agent-skills-claude-api-skill/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-agent-skills-claude-api-skill/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-id-agents-and-tools-agent-skills-quickstart",
       "title": "Anthropic: quickstart",
       "ecosystem": "Anthropic",
@@ -395,6 +752,27 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-agent-skills-quickstart/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-agent-skills-quickstart/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-agent-skills-quickstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-id-agents-and-tools-mcp-connector",
+      "title": "Anthropic: mcp connector",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/id/agents-and-tools/mcp-connector",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-mcp-connector/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-mcp-connector/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-mcp-connector/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-mcp-connector/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -427,6 +805,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-id-agents-and-tools-tool-use-advisor-tool",
+      "title": "Anthropic: advisor tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/id/agents-and-tools/tool-use/advisor-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: advisor tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-advisor-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-advisor-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-advisor-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-advisor-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-id-agents-and-tools-tool-use-memory-tool",
       "title": "Anthropic: memory tool",
       "ecosystem": "Anthropic",
@@ -437,6 +836,48 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-memory-tool/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-memory-tool/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-memory-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-id-agents-and-tools-tool-use-server-tools",
+      "title": "Anthropic: server tools",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/id/agents-and-tools/tool-use/server-tools",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: server tools",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-server-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-server-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-server-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-id-agents-and-tools-tool-use-server-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-it-agents-and-tools-agent-skills-claude-api-skill",
+      "title": "Anthropic: claude api skill",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/it/agents-and-tools/agent-skills/claude-api-skill",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: claude api skill",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-agent-skills-claude-api-skill/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-agent-skills-claude-api-skill/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-agent-skills-claude-api-skill/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-agent-skills-claude-api-skill/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -511,6 +952,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-it-agents-and-tools-tool-use-how-tool-use-works",
+      "title": "Anthropic: how tool use works",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/it/agents-and-tools/tool-use/how-tool-use-works",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: how tool use works",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-how-tool-use-works/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-how-tool-use-works/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-how-tool-use-works/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-how-tool-use-works/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-it-agents-and-tools-tool-use-memory-tool",
       "title": "Anthropic: memory tool",
       "ecosystem": "Anthropic",
@@ -521,6 +983,48 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-memory-tool/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-memory-tool/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-memory-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-it-agents-and-tools-tool-use-server-tools",
+      "title": "Anthropic: server tools",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/it/agents-and-tools/tool-use/server-tools",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: server tools",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-server-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-server-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-server-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-server-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-it-agents-and-tools-tool-use-web-fetch-tool",
+      "title": "Anthropic: web fetch tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/it/agents-and-tools/tool-use/web-fetch-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: web fetch tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-web-fetch-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-web-fetch-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-web-fetch-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-it-agents-and-tools-tool-use-web-fetch-tool/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -574,6 +1078,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-ja-agents-and-tools-mcp-connector",
+      "title": "Anthropic: mcp connector",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ja/agents-and-tools/mcp-connector",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-mcp-connector/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-mcp-connector/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-mcp-connector/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-mcp-connector/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-ja-agents-and-tools-remote-mcp-servers",
       "title": "Anthropic: remote mcp servers",
       "ecosystem": "Anthropic",
@@ -605,6 +1130,69 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-memory-tool/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-memory-tool/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-memory-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ja-agents-and-tools-tool-use-server-tools",
+      "title": "Anthropic: server tools",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ja/agents-and-tools/tool-use/server-tools",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: server tools",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-server-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-server-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-server-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-server-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ja-agents-and-tools-tool-use-troubleshooting-tool-use",
+      "title": "Anthropic: troubleshooting tool use",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ja/agents-and-tools/tool-use/troubleshooting-tool-use",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: troubleshooting tool use",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-troubleshooting-tool-use/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-troubleshooting-tool-use/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-troubleshooting-tool-use/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ja-agents-and-tools-tool-use-troubleshooting-tool-use/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ja-managed-agents-quickstart",
+      "title": "Anthropic: quickstart",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ja/managed-agents/quickstart",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: quickstart",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ja-managed-agents-quickstart/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ja-managed-agents-quickstart/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ja-managed-agents-quickstart/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ja-managed-agents-quickstart/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -700,6 +1288,132 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-ko-agents-and-tools-tool-use-handle-tool-calls",
+      "title": "Anthropic: handle tool calls",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ko/agents-and-tools/tool-use/handle-tool-calls",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: handle tool calls",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-handle-tool-calls/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-handle-tool-calls/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-handle-tool-calls/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-handle-tool-calls/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ko-agents-and-tools-tool-use-how-tool-use-works",
+      "title": "Anthropic: how tool use works",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ko/agents-and-tools/tool-use/how-tool-use-works",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: how tool use works",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-how-tool-use-works/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-how-tool-use-works/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-how-tool-use-works/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-how-tool-use-works/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ko-agents-and-tools-tool-use-memory-tool",
+      "title": "Anthropic: memory tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ko/agents-and-tools/tool-use/memory-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: memory tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-memory-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-memory-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-memory-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-memory-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ko-agents-and-tools-tool-use-server-tools",
+      "title": "Anthropic: server tools",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ko/agents-and-tools/tool-use/server-tools",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: server tools",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-server-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-server-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-server-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-server-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ko-agents-and-tools-tool-use-tool-reference",
+      "title": "Anthropic: tool reference",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ko/agents-and-tools/tool-use/tool-reference",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool reference",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-tool-reference/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-tool-reference/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-tool-reference/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-tool-reference/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ko-agents-and-tools-tool-use-troubleshooting-tool-use",
+      "title": "Anthropic: troubleshooting tool use",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ko/agents-and-tools/tool-use/troubleshooting-tool-use",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: troubleshooting tool use",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-troubleshooting-tool-use/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-troubleshooting-tool-use/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-troubleshooting-tool-use/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ko-agents-and-tools-tool-use-troubleshooting-tool-use/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-pt-br-agents-and-tools-agent-skills-claude-api-skill",
       "title": "Anthropic: claude api skill",
       "ecosystem": "Anthropic",
@@ -742,6 +1456,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-pt-br-agents-and-tools-mcp-connector",
+      "title": "Anthropic: mcp connector",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/pt-BR/agents-and-tools/mcp-connector",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-mcp-connector/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-mcp-connector/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-mcp-connector/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-mcp-connector/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-pt-br-agents-and-tools-remote-mcp-servers",
       "title": "Anthropic: remote mcp servers",
       "ecosystem": "Anthropic",
@@ -752,6 +1487,27 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-remote-mcp-servers/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-remote-mcp-servers/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-remote-mcp-servers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-pt-br-agents-and-tools-tool-use-computer-use-tool",
+      "title": "Anthropic: computer use tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/pt-BR/agents-and-tools/tool-use/computer-use-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: computer use tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-computer-use-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-computer-use-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-computer-use-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-computer-use-tool/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -784,6 +1540,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-pt-br-agents-and-tools-tool-use-parallel-tool-use",
+      "title": "Anthropic: parallel tool use",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/pt-BR/agents-and-tools/tool-use/parallel-tool-use",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: parallel tool use",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-parallel-tool-use/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-parallel-tool-use/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-parallel-tool-use/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-parallel-tool-use/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-pt-br-agents-and-tools-tool-use-server-tools",
       "title": "Anthropic: server tools",
       "ecosystem": "Anthropic",
@@ -805,6 +1582,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-pt-br-agents-and-tools-tool-use-tool-combinations",
+      "title": "Anthropic: tool combinations",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/pt-BR/agents-and-tools/tool-use/tool-combinations",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool combinations",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-tool-combinations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-tool-combinations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-tool-combinations/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-tool-combinations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-pt-br-agents-and-tools-tool-use-web-search-tool",
+      "title": "Anthropic: web search tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/pt-BR/agents-and-tools/tool-use/web-search-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: web search tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-web-search-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-web-search-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-web-search-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-pt-br-agents-and-tools-tool-use-web-search-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ru-agents-and-tools-agent-skills-claude-api-skill",
+      "title": "Anthropic: claude api skill",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ru/agents-and-tools/agent-skills/claude-api-skill",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: claude api skill",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-agent-skills-claude-api-skill/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-agent-skills-claude-api-skill/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-agent-skills-claude-api-skill/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-agent-skills-claude-api-skill/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ru-agents-and-tools-agent-skills-overview",
+      "title": "Anthropic: overview",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ru/agents-and-tools/agent-skills/overview",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: overview",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-agent-skills-overview/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-agent-skills-overview/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-agent-skills-overview/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-agent-skills-overview/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-ru-agents-and-tools-agent-skills-quickstart",
       "title": "Anthropic: quickstart",
       "ecosystem": "Anthropic",
@@ -815,6 +1676,27 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-agent-skills-quickstart/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-agent-skills-quickstart/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-agent-skills-quickstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-ru-agents-and-tools-mcp-connector",
+      "title": "Anthropic: mcp connector",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/ru/agents-and-tools/mcp-connector",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-mcp-connector/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-mcp-connector/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-mcp-connector/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-ru-agents-and-tools-mcp-connector/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -889,6 +1771,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-zh-cn-agents-and-tools-agent-skills-claude-api-skill",
+      "title": "Anthropic: claude api skill",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/zh-CN/agents-and-tools/agent-skills/claude-api-skill",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: claude api skill",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-agent-skills-claude-api-skill/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-agent-skills-claude-api-skill/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-agent-skills-claude-api-skill/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-agent-skills-claude-api-skill/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-zh-cn-agents-and-tools-agent-skills-quickstart",
       "title": "Anthropic: quickstart",
       "ecosystem": "Anthropic",
@@ -952,6 +1855,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-zh-cn-agents-and-tools-tool-use-bash-tool",
+      "title": "Anthropic: bash tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/zh-CN/agents-and-tools/tool-use/bash-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: bash tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-bash-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-bash-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-bash-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-bash-tool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-zh-cn-agents-and-tools-tool-use-memory-tool",
       "title": "Anthropic: memory tool",
       "ecosystem": "Anthropic",
@@ -973,6 +1897,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-zh-cn-agents-and-tools-tool-use-overview",
+      "title": "Anthropic: overview",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/zh-CN/agents-and-tools/tool-use/overview",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: overview",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-overview/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-overview/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-overview/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-overview/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-zh-cn-agents-and-tools-tool-use-server-tools",
       "title": "Anthropic: server tools",
       "ecosystem": "Anthropic",
@@ -983,6 +1928,27 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-server-tools/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-server-tools/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-zh-cn-agents-and-tools-tool-use-server-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-zh-tw-agents-and-tools-agent-skills-best-practices",
+      "title": "Anthropic: best practices",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/zh-TW/agents-and-tools/agent-skills/best-practices",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: best practices",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-agent-skills-best-practices/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-agent-skills-best-practices/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-agent-skills-best-practices/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-agent-skills-best-practices/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -1036,6 +2002,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-zh-tw-agents-and-tools-mcp-connector",
+      "title": "Anthropic: mcp connector",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/zh-TW/agents-and-tools/mcp-connector",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-mcp-connector/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-mcp-connector/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-mcp-connector/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-mcp-connector/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-zh-tw-agents-and-tools-remote-mcp-servers",
       "title": "Anthropic: remote mcp servers",
       "ecosystem": "Anthropic",
@@ -1046,6 +2033,27 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-remote-mcp-servers/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-remote-mcp-servers/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-remote-mcp-servers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-zh-tw-agents-and-tools-tool-use-memory-tool",
+      "title": "Anthropic: memory tool",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/zh-TW/agents-and-tools/tool-use/memory-tool",
+      "painpoint": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: memory tool",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-tool-use-memory-tool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-tool-use-memory-tool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-tool-use-memory-tool/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-zh-tw-agents-and-tools-tool-use-memory-tool/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
         "python3 -m json.tool material-manifest.json",
@@ -1246,6 +2254,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "mcp-docs-tools-debugging-md",
+      "title": "MCP: debugging.md",
+      "ecosystem": "MCP",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://modelcontextprotocol.io/docs/tools/debugging.md",
+      "painpoint": "agents need compact AgentPress wrapper for MCP server/tool setup docs: debugging.md",
+      "manifest_path": "agentpress/material-kits/mcp-docs-tools-debugging-md/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/mcp-docs-tools-debugging-md/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/mcp-docs-tools-debugging-md/llms.txt",
+      "run_guide": "agentpress/material-kits/mcp-docs-tools-debugging-md/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py mcp-config-doctor --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "mcp-server-quickstart-docs",
       "title": "MCP server quickstart docs wrapper",
       "ecosystem": "MCP",
@@ -1319,6 +2348,27 @@
       "receipt_path": "agentpress/material-kits/openhands-runtime-docs/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/openhands-runtime-docs/llms.txt",
       "run_guide": "agentpress/material-kits/openhands-runtime-docs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py discovery-bridge queue --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "openhands-sdk-guides-agent-server-api-reference-tools-list-available-too",
+      "title": "OpenHands: list available tools",
+      "ecosystem": "OpenHands",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.openhands.dev/sdk/guides/agent-server/api-reference/tools/list-available-tools",
+      "painpoint": "agents need compact AgentPress wrapper for OpenHands runtime/plugin docs: list available tools",
+      "manifest_path": "agentpress/material-kits/openhands-sdk-guides-agent-server-api-reference-tools-list-available-too/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/openhands-sdk-guides-agent-server-api-reference-tools-list-available-too/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/openhands-sdk-guides-agent-server-api-reference-tools-list-available-too/llms.txt",
+      "run_guide": "agentpress/material-kits/openhands-sdk-guides-agent-server-api-reference-tools-list-available-too/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py discovery-bridge queue --json",
         "python3 -m json.tool material-manifest.json",
@@ -1468,8 +2518,18 @@
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
+      "slug": "anthropic-docs-de-agents-and-tools-mcp-connector",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
       "slug": "anthropic-docs-de-agents-and-tools-remote-mcp-servers",
       "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: remote mcp servers",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "anthropic-docs-de-agents-and-tools-tool-use-build-a-tool-using-agent",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: build a tool using agent",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
@@ -1480,6 +2540,16 @@
     {
       "slug": "anthropic-docs-de-agents-and-tools-tool-use-server-tools",
       "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: server tools",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "anthropic-docs-de-agents-and-tools-tool-use-tool-reference",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool reference",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "anthropic-docs-de-agents-and-tools-tool-use-tool-runner",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool runner",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
@@ -1498,8 +2568,33 @@
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
+      "slug": "anthropic-docs-en-agents-and-tools-tool-use-code-execution-tool",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: code execution tool",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "anthropic-docs-en-agents-and-tools-tool-use-how-tool-use-works",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: how tool use works",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "anthropic-docs-en-agents-and-tools-tool-use-memory-tool",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: memory tool",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
       "slug": "anthropic-docs-en-agents-and-tools-tool-use-server-tools",
       "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: server tools",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "anthropic-docs-en-agents-and-tools-tool-use-tool-use-with-prompt-caching",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: tool use with prompt caching",
+      "build_next": "add/run a proof command or blocker receipt for this painpoint"
+    },
+    {
+      "slug": "anthropic-docs-es-agents-and-tools-agent-skills-claude-api-skill",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: claude api skill",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
@@ -1518,68 +2613,23 @@
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-fr-agents-and-tools-agent-skills-quickstart",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: quickstart",
+      "slug": "anthropic-docs-es-agents-and-tools-tool-use-define-tools",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: define tools",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-fr-agents-and-tools-mcp-connector",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
+      "slug": "anthropic-docs-es-agents-and-tools-tool-use-handle-tool-calls",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: handle tool calls",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-fr-agents-and-tools-remote-mcp-servers",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: remote mcp servers",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-fr-agents-and-tools-tool-use-memory-tool",
+      "slug": "anthropic-docs-es-agents-and-tools-tool-use-memory-tool",
       "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: memory tool",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     },
     {
-      "slug": "anthropic-docs-fr-agents-and-tools-tool-use-server-tools",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: server tools",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-id-agents-and-tools-agent-skills-quickstart",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: quickstart",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-id-agents-and-tools-remote-mcp-servers",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: remote mcp servers",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-id-agents-and-tools-tool-use-memory-tool",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: memory tool",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-it-agents-and-tools-agent-skills-quickstart",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: quickstart",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-it-agents-and-tools-mcp-connector",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: mcp connector",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-it-agents-and-tools-remote-mcp-servers",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: remote mcp servers",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-it-agents-and-tools-tool-use-memory-tool",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: memory tool",
-      "build_next": "add/run a proof command or blocker receipt for this painpoint"
-    },
-    {
-      "slug": "anthropic-docs-ja-agents-and-tools-agent-skills-claude-api-skill",
-      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: claude api skill",
+      "slug": "anthropic-docs-es-agents-and-tools-tool-use-parallel-tool-use",
+      "signal": "agents need compact AgentPress wrapper for Claude tool-use and agent docs: parallel tool use",
       "build_next": "add/run a proof command or blocker receipt for this painpoint"
     }
   ],
