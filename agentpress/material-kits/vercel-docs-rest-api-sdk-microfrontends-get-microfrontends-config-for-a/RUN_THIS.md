@@ -11,4 +11,4 @@ python3 scripts/agentpress.py context-budget . --json --strict
 4. Compare the output with `proof-receipt.json`.
 5. If using this for outreach, get human approval for the exact target and draft first.
 
-Target: https://vercel.com/docs/rest-api/sdk/microfrontends/get-microfrontends-config-for-a-deployment
+Target: https://vercel.com/docs/rest-api/sdk/microfrontends/get-microfrontends-config-for-a-project
