@@ -5495,6 +5495,122 @@ def gorilla_utility_pack(args):
     return 0
 
 
+def _gorilla_action_safety_decision(action: dict) -> dict:
+    """Deterministically classify a gorilla queue action before any external effect."""
+    text = " ".join(str(action.get(k, "")) for k in ("action", "draft", "url", "painpoint", "risk", "ecosystem", "intent")).lower()
+    reasons = []
+
+    prohibited_patterns = [
+        ("mass", "mass outreach/posting is not allowed"),
+        ("bulk", "bulk outreach/posting is not allowed"),
+        ("scraped dm", "scraped DMs are not allowed"),
+        ("scrape", "scraped contact lists are not allowed"),
+        ("secret", "secret/credential-bearing material is not allowed"),
+        ("credential", "secret/credential-bearing material is not allowed"),
+        ("token", "secret/credential-bearing material is not allowed"),
+        ("private prompt", "private prompts are not allowed"),
+        ("fake adoption", "adoption claims require real third-party proof"),
+        ("claim adoption", "adoption claims require real third-party proof"),
+        ("exploit", "exploit/security-risk content is not allowed for unsolicited outreach"),
+    ]
+    for needle, reason in prohibited_patterns:
+        if needle in text:
+            reasons.append(reason)
+    if "security-sensitive" in text or "security/credential" in text or "hold unless maintainer invites" in text:
+        reasons.append("security-sensitive queue item must fail closed unless maintainer explicitly invites a fixture")
+    if str(action.get("risk", "")).lower() in {"high", "critical"}:
+        reasons.append("high-risk queue item must fail closed")
+    if reasons:
+        return {
+            "classification": "prohibited_spam_security_risk",
+            "allowed_to_execute": False,
+            "reasons": sorted(set(reasons)),
+            "required_controls": ["do_not_post", "do_not_send", "escalate_to_human_owner"],
+        }
+
+    if str(action.get("intent", "")).lower() == "internal" and not action.get("url"):
+        return {
+            "classification": "safe_internal",
+            "allowed_to_execute": True,
+            "reasons": ["explicitly internal/local preparation with no selected public target"],
+            "required_controls": ["keep_artifacts_local_or_static", "no_external_post_send_comment_without_reclassification"],
+        }
+
+    public_markers = ["github.com/", "http://", "https://", "comment", "post", "dm", "pull request", "issue", "submit", "attach", "external"]
+    prepare_only = any(s in text for s in ["prepare", "draft", "fixture", "static", "local", "internal"])
+    if any(marker in text for marker in public_markers):
+        reason = "draft/fixture preparation is safe internally, but public target/draft requires approval before posting" if prepare_only else "public/external action requires explicit human approval"
+        return {
+            "classification": "approval_required_public",
+            "allowed_to_execute": False,
+            "reasons": [reason],
+            "required_controls": [
+                "explicit_human_approval_of_exact_target_and_draft",
+                "one_target_only",
+                "painpoint_relevance_check",
+                "sanitize_json_no_secrets_private_prompts_or_personal_data",
+                "no_adoption_claim_without_external_receipt",
+            ],
+        }
+
+    return {
+        "classification": "safe_internal",
+        "allowed_to_execute": True,
+        "reasons": ["local/static/internal action with no public write or credential/private-data handling"],
+        "required_controls": ["keep_artifacts_local_or_static", "no_external_post_send_comment_without_reclassification"],
+    }
+
+
+def gorilla_action_safety_gate(args):
+    """Classify gorilla queue actions before external execution."""
+    root = pathlib.Path(args.root)
+    queue_path = root / args.queue
+    queue = json.loads(queue_path.read_text(encoding="utf-8")) if queue_path.exists() else {}
+    actions = []
+    for allowed in queue.get("posting_policy", {}).get("allowed_now", []):
+        actions.append({"source":"posting_policy.allowed_now", "action":allowed, "intent":"internal"})
+    for prohibited in queue.get("posting_policy", {}).get("prohibited_without_approval", []):
+        actions.append({"source":"posting_policy.prohibited_without_approval", "action":prohibited, "intent":"external"})
+    for target in queue.get("targets", []):
+        item = dict(target)
+        item["source"] = "targets"
+        actions.append(item)
+    if args.action_json:
+        actions.append(json.loads(args.action_json))
+
+    counts = {"safe_internal":0, "approval_required_public":0, "prohibited_spam_security_risk":0}
+    decisions = []
+    for idx, action in enumerate(actions, start=1):
+        decision = _gorilla_action_safety_decision(action)
+        counts[decision["classification"]] += 1
+        decisions.append({
+            "id": action.get("id") or action.get("rank") or idx,
+            "source": action.get("source", "ad_hoc"),
+            "action": action.get("action", ""),
+            "url": action.get("url", ""),
+            "risk": action.get("risk", ""),
+            **decision,
+        })
+    out = pathlib.Path(args.out)
+    payload = {
+        "schema_version":"2026-05-05.agentpress-gorilla-external-action-safety-gate.v1",
+        "canonical_url":urljoin(args.base_url.rstrip()+"/", out.as_posix()),
+        "generated_utc":_utc_now(),
+        "status":"ok",
+        "purpose":"Deterministic fail-closed guard for gorilla queue actions before any external effect.",
+        "queue":args.queue,
+        "classification_order":["prohibited_spam_security_risk", "approval_required_public", "safe_internal"],
+        "counts":counts,
+        "decisions":decisions,
+    }
+    if not args.no_write:
+        out_path = root / out
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else f"ok {counts}")
+    return 0
+
+
 def next_attention_build_spec(args):
     """Publish the next build/deploy spec derived from current agent painpoint research."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
@@ -10476,6 +10592,7 @@ def main():
     p = sub.add_parser("attention-painpoint-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/attention-painpoint-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("first-agent-attention-kit"); p.add_argument("--out", default="agentpress/outreach/first-agent-attention-kit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("gorilla-utility-pack"); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("gorilla-action-safety-gate"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/growth/gorilla-utility-pack/execution-queue.json"); p.add_argument("--action-json", default=""); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack/external-action-safety-gate.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("next-attention-build-spec"); p.add_argument("--out", default="agentpress/specs/next-attention-build-spec.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-community-newswire"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/agent-community-newswire.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("immediate-agent-needs-radar"); p.add_argument("--out", default="agentpress/community/immediate-agent-needs-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -10866,6 +10983,7 @@ def main():
     if args.cmd == "attention-painpoint-radar": return attention_painpoint_radar(args)
     if args.cmd == "first-agent-attention-kit": return first_agent_attention_kit(args)
     if args.cmd == "gorilla-utility-pack": return gorilla_utility_pack(args)
+    if args.cmd == "gorilla-action-safety-gate": return gorilla_action_safety_gate(args)
     if args.cmd == "next-attention-build-spec": return next_attention_build_spec(args)
     if args.cmd == "agent-community-newswire": return agent_community_newswire(args)
     if args.cmd == "immediate-agent-needs-radar": return immediate_agent_needs_radar(args)

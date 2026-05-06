@@ -1,0 +1,312 @@
+{
+  "schema_version": "2026-05-05.agentpress-gorilla-external-action-safety-gate.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/external-action-safety-gate.json",
+  "generated_utc": "2026-05-06T01:48:10Z",
+  "status": "ok",
+  "purpose": "Deterministic fail-closed guard for gorilla queue actions before any external effect.",
+  "queue": "agentpress/growth/gorilla-utility-pack/execution-queue.json",
+  "classification_order": [
+    "prohibited_spam_security_risk",
+    "approval_required_public",
+    "safe_internal"
+  ],
+  "counts": {
+    "safe_internal": 3,
+    "approval_required_public": 10,
+    "prohibited_spam_security_risk": 3
+  },
+  "decisions": [
+    {
+      "id": 1,
+      "source": "posting_policy.allowed_now",
+      "action": "publish static queue and draft packets on AgentPress site",
+      "url": "",
+      "risk": "",
+      "classification": "safe_internal",
+      "allowed_to_execute": true,
+      "reasons": [
+        "explicitly internal/local preparation with no selected public target"
+      ],
+      "required_controls": [
+        "keep_artifacts_local_or_static",
+        "no_external_post_send_comment_without_reclassification"
+      ]
+    },
+    {
+      "id": 2,
+      "source": "posting_policy.allowed_now",
+      "action": "use internally for feature prioritization",
+      "url": "",
+      "risk": "",
+      "classification": "safe_internal",
+      "allowed_to_execute": true,
+      "reasons": [
+        "explicitly internal/local preparation with no selected public target"
+      ],
+      "required_controls": [
+        "keep_artifacts_local_or_static",
+        "no_external_post_send_comment_without_reclassification"
+      ]
+    },
+    {
+      "id": 3,
+      "source": "posting_policy.allowed_now",
+      "action": "prepare PR/comment drafts",
+      "url": "",
+      "risk": "",
+      "classification": "safe_internal",
+      "allowed_to_execute": true,
+      "reasons": [
+        "explicitly internal/local preparation with no selected public target"
+      ],
+      "required_controls": [
+        "keep_artifacts_local_or_static",
+        "no_external_post_send_comment_without_reclassification"
+      ]
+    },
+    {
+      "id": 4,
+      "source": "posting_policy.prohibited_without_approval",
+      "action": "public issue comments",
+      "url": "",
+      "risk": "",
+      "classification": "approval_required_public",
+      "allowed_to_execute": false,
+      "reasons": [
+        "public/external action requires explicit human approval"
+      ],
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ]
+    },
+    {
+      "id": 5,
+      "source": "posting_policy.prohibited_without_approval",
+      "action": "DMs",
+      "url": "",
+      "risk": "",
+      "classification": "approval_required_public",
+      "allowed_to_execute": false,
+      "reasons": [
+        "public/external action requires explicit human approval"
+      ],
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ]
+    },
+    {
+      "id": 6,
+      "source": "posting_policy.prohibited_without_approval",
+      "action": "mass posting",
+      "url": "",
+      "risk": "",
+      "classification": "prohibited_spam_security_risk",
+      "allowed_to_execute": false,
+      "reasons": [
+        "mass outreach/posting is not allowed"
+      ],
+      "required_controls": [
+        "do_not_post",
+        "do_not_send",
+        "escalate_to_human_owner"
+      ]
+    },
+    {
+      "id": 7,
+      "source": "posting_policy.prohibited_without_approval",
+      "action": "security/credential issue comments",
+      "url": "",
+      "risk": "",
+      "classification": "prohibited_spam_security_risk",
+      "allowed_to_execute": false,
+      "reasons": [
+        "secret/credential-bearing material is not allowed",
+        "security-sensitive queue item must fail closed unless maintainer explicitly invites a fixture"
+      ],
+      "required_controls": [
+        "do_not_post",
+        "do_not_send",
+        "escalate_to_human_owner"
+      ]
+    },
+    {
+      "id": 8,
+      "source": "posting_policy.prohibited_without_approval",
+      "action": "claims of adoption",
+      "url": "",
+      "risk": "",
+      "classification": "approval_required_public",
+      "allowed_to_execute": false,
+      "reasons": [
+        "public/external action requires explicit human approval"
+      ],
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ]
+    },
+    {
+      "id": 1,
+      "source": "targets",
+      "action": "prepare neutral static plugin/connector manifest compatibility note",
+      "url": "https://github.com/OpenHands/OpenHands/issues/12316",
+      "risk": "low-medium",
+      "classification": "approval_required_public",
+      "allowed_to_execute": false,
+      "reasons": [
+        "draft/fixture preparation is safe internally, but public target/draft requires approval before posting"
+      ],
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ]
+    },
+    {
+      "id": 2,
+      "source": "targets",
+      "action": "prepare minimal malformed-tool-call fixture attachment",
+      "url": "https://github.com/RooCodeInc/Roo-Code/issues/12185",
+      "risk": "medium-low",
+      "classification": "approval_required_public",
+      "allowed_to_execute": false,
+      "reasons": [
+        "draft/fixture preparation is safe internally, but public target/draft requires approval before posting"
+      ],
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ]
+    },
+    {
+      "id": 3,
+      "source": "targets",
+      "action": "prepare root/cwd manifest example",
+      "url": "https://github.com/OpenHands/OpenHands/issues/13475",
+      "risk": "medium-low",
+      "classification": "approval_required_public",
+      "allowed_to_execute": false,
+      "reasons": [
+        "draft/fixture preparation is safe internally, but public target/draft requires approval before posting"
+      ],
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ]
+    },
+    {
+      "id": 4,
+      "source": "targets",
+      "action": "prepare handoff/task-card fixture",
+      "url": "https://github.com/langchain-ai/langgraph/issues/6064",
+      "risk": "medium-low",
+      "classification": "approval_required_public",
+      "allowed_to_execute": false,
+      "reasons": [
+        "draft/fixture preparation is safe internally, but public target/draft requires approval before posting"
+      ],
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ]
+    },
+    {
+      "id": 5,
+      "source": "targets",
+      "action": "hold unless maintainer invites; security-sensitive",
+      "url": "https://github.com/cline/cline/issues/10499",
+      "risk": "high",
+      "classification": "prohibited_spam_security_risk",
+      "allowed_to_execute": false,
+      "reasons": [
+        "exploit/security-risk content is not allowed for unsolicited outreach",
+        "high-risk queue item must fail closed",
+        "security-sensitive queue item must fail closed unless maintainer explicitly invites a fixture"
+      ],
+      "required_controls": [
+        "do_not_post",
+        "do_not_send",
+        "escalate_to_human_owner"
+      ]
+    },
+    {
+      "id": 6,
+      "source": "targets",
+      "action": "prepare runnable approval-flow replay packet only if code fixture can be specific",
+      "url": "https://github.com/langchain-ai/langgraph/issues/4397",
+      "risk": "medium",
+      "classification": "approval_required_public",
+      "allowed_to_execute": false,
+      "reasons": [
+        "draft/fixture preparation is safe internally, but public target/draft requires approval before posting"
+      ],
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ]
+    },
+    {
+      "id": 7,
+      "source": "targets",
+      "action": "prepare tiny tool context metadata fixture",
+      "url": "https://github.com/run-llama/llama_index/issues/21555",
+      "risk": "medium",
+      "classification": "approval_required_public",
+      "allowed_to_execute": false,
+      "reasons": [
+        "draft/fixture preparation is safe internally, but public target/draft requires approval before posting"
+      ],
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ]
+    },
+    {
+      "id": 8,
+      "source": "targets",
+      "action": "prepare focused source-map/context bundle example",
+      "url": "https://github.com/cline/cline/issues/4389",
+      "risk": "medium",
+      "classification": "approval_required_public",
+      "allowed_to_execute": false,
+      "reasons": [
+        "draft/fixture preparation is safe internally, but public target/draft requires approval before posting"
+      ],
+      "required_controls": [
+        "explicit_human_approval_of_exact_target_and_draft",
+        "one_target_only",
+        "painpoint_relevance_check",
+        "sanitize_json_no_secrets_private_prompts_or_personal_data",
+        "no_adoption_claim_without_external_receipt"
+      ]
+    }
+  ]
+}
