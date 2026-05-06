@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+  "claim": "Material kit prepared for Gradle painpoint: agents frequently need compact, citation-ready context for build/dependency docs agents need: ConfigurableFilePermissions.html",
+  "target_url": "https://docs.gradle.org/current/javadoc/org/gradle/api/file/ConfigurableFilePermissions.html",
+  "commands_to_verify": [
+    "python3 scripts/agentpress.py provider-error-explainer --error \"common implementation failure\" --json",
+    "python3 -m json.tool material-manifest.json",
+    "python3 -m json.tool proof-receipt.json"
+  ],
+  "evidence_files": [
+    "llms.txt",
+    "material-manifest.json",
+    "RUN_THIS.md"
+  ],
+  "external_effects": [],
+  "status": "prepared_not_posted"
+}
