@@ -1,0 +1,311 @@
+{
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/search/profile-search-discovery-bridge.json",
+  "counts_by_kind": {
+    "agent_profile": 1,
+    "execution_queue": 1,
+    "execution_queue_item": 8,
+    "marketplace_service": 27,
+    "profile_capability": 5,
+    "queue_adapter": 1,
+    "utility_pack": 5
+  },
+  "generated_by": "agentpress discovery-bridge",
+  "next_commands": [
+    "python3 scripts/agentpress.py discovery-bridge marketplace --json",
+    "python3 scripts/agentpress.py discovery-bridge queue --json",
+    "python3 scripts/agentpress.py search <query> --json"
+  ],
+  "purpose": "Single discovery path for agent profiles, profile capabilities, utility packs, marketplace services, and execution queues.",
+  "query": "queue",
+  "record_count": 48,
+  "result_count": 11,
+  "results": [
+    {
+      "files": [
+        "queue-message-schema.json",
+        "retry-policy.json",
+        "queue-message.example.json",
+        "queue-health.example.json"
+      ],
+      "id": "queue-adapter-agentpress-queue-manifest-json-agentpress-static-local-queue-adapter-kit",
+      "kind": "queue_adapter",
+      "path": "agentpress/queue/manifest.json",
+      "safety": "Static/local adapter first; no broker credentials, no external queue writes.",
+      "score": 18,
+      "status": "ok",
+      "tags": [
+        "dead-letter",
+        "idempotency",
+        "ok",
+        "queue",
+        "queue-adapter",
+        "retry"
+      ],
+      "title": "AgentPress static/local queue adapter kit",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/queue/manifest.json"
+    },
+    {
+      "capabilities": [
+        "gorilla-utility-pack",
+        "execution-queue",
+        "painpoint-routing",
+        "proof-first-outreach",
+        "no-spam"
+      ],
+      "command": "python3 scripts/agentpress.py gorilla-utility-pack --json",
+      "id": "marketplace-service-agentpress-marketplace-marketplace-index-json-gorilla-utility-pack-execution-queue",
+      "kind": "marketplace_service",
+      "path": "agentpress/marketplace/marketplace-index.json",
+      "pricing": {
+        "model": "free_static_pack",
+        "payment_required": false
+      },
+      "provider_agent_id": "agentpress-reference-agent",
+      "safety": {
+        "credentials": false,
+        "external_execution_gate": "Human approval required before posting/sending/commenting externally.",
+        "external_writes": false,
+        "live_payments": false,
+        "no_spam_guardrails": [
+          "Only use where the painpoint is already being discussed.",
+          "Lead with the utility command/artifact, not marketing.",
+          "No mass posting, fake adoption, scraped DMs, secrets, or private prompts.",
+          "Any external post/send requires explicit human approval."
+        ]
+      },
+      "score": 12,
+      "service_id": "gorilla-utility-execution-queue",
+      "tags": [
+        "agentpress-reference-agent",
+        "execution-queue",
+        "gorilla-utility-execution-queue",
+        "gorilla-utility-pack",
+        "marketplace",
+        "no-spam",
+        "painpoint-routing",
+        "proof-first-outreach",
+        "service"
+      ],
+      "title": "Gorilla utility pack execution queue",
+      "trust": {
+        "evidence": [
+          "agentpress/growth/gorilla-utility-pack/manifest.json",
+          "agentpress/growth/gorilla-utility-pack/execution-queue.json"
+        ],
+        "tier": "reference_utility_pack"
+      },
+      "url": "https://barneywohl.github.io/agentpress/agentpress/marketplace/marketplace-index.json"
+    },
+    {
+      "id": "execution-queue-agentpress-growth-gorilla-utility-pack-execution-queue-json-gorilla-utility-execution-queue",
+      "kind": "execution_queue",
+      "path": "agentpress/growth/gorilla-utility-pack/execution-queue.json",
+      "posting_policy": {
+        "allowed_now": [
+          "publish static queue and draft packets on AgentPress site",
+          "use internally for feature prioritization",
+          "prepare PR/comment drafts"
+        ],
+        "default": "Do not post/comment/DM externally without explicit human approval of the exact target and draft.",
+        "prohibited_without_approval": [
+          "public issue comments",
+          "DMs",
+          "mass posting",
+          "security/credential issue comments",
+          "claims of adoption"
+        ]
+      },
+      "score": 5,
+      "status": "prepared_not_posted",
+      "tags": [
+        "approval",
+        "execution-queue",
+        "gorilla-utility-pack",
+        "posting-policy",
+        "prepared_not_posted"
+      ],
+      "target_count": 8,
+      "title": "Gorilla utility execution queue",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json"
+    },
+    {
+      "action": "prepare neutral static plugin/connector manifest compatibility note",
+      "approval_required": true,
+      "ecosystem": "OpenHands",
+      "id": "execution-queue-item-agentpress-growth-gorilla-utility-pack-execution-queue-json-queue-target-1-openhands",
+      "kind": "execution_queue_item",
+      "pack": "openhands-runtime-hang",
+      "path": "agentpress/growth/gorilla-utility-pack/execution-queue.json",
+      "rank": 1,
+      "risk": "low-medium",
+      "score": 4,
+      "tags": [
+        "OpenHands",
+        "execution-queue",
+        "git marketplace/plugin distribution without packaging overhead",
+        "low-medium",
+        "openhands-runtime-hang",
+        "queue-item"
+      ],
+      "title": "Queue target 1: OpenHands",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json"
+    },
+    {
+      "action": "prepare minimal malformed-tool-call fixture attachment",
+      "approval_required": true,
+      "ecosystem": "Roo Code",
+      "id": "execution-queue-item-agentpress-growth-gorilla-utility-pack-execution-queue-json-queue-target-2-roo-code",
+      "kind": "execution_queue_item",
+      "pack": "cline-provider-repro",
+      "path": "agentpress/growth/gorilla-utility-pack/execution-queue.json",
+      "rank": 2,
+      "risk": "medium-low",
+      "score": 4,
+      "tags": [
+        "Roo Code",
+        "cline-provider-repro",
+        "execution-queue",
+        "malformed/partial tool call response stops task",
+        "medium-low",
+        "queue-item"
+      ],
+      "title": "Queue target 2: Roo Code",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json"
+    },
+    {
+      "action": "prepare root/cwd manifest example",
+      "approval_required": true,
+      "ecosystem": "OpenHands",
+      "id": "execution-queue-item-agentpress-growth-gorilla-utility-pack-execution-queue-json-queue-target-3-openhands",
+      "kind": "execution_queue_item",
+      "pack": "openhands-runtime-hang",
+      "path": "agentpress/growth/gorilla-utility-pack/execution-queue.json",
+      "rank": 3,
+      "risk": "medium-low",
+      "score": 4,
+      "tags": [
+        "OpenHands",
+        "execution-queue",
+        "medium-low",
+        "openhands-runtime-hang",
+        "queue-item",
+        "repo cloned into subdirectory breaks setup/hook root assumptions"
+      ],
+      "title": "Queue target 3: OpenHands",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json"
+    },
+    {
+      "action": "prepare handoff/task-card fixture",
+      "approval_required": true,
+      "ecosystem": "LangGraph",
+      "id": "execution-queue-item-agentpress-growth-gorilla-utility-pack-execution-queue-json-queue-target-4-langgraph",
+      "kind": "execution_queue_item",
+      "pack": "langgraph-checkpoint-replay",
+      "path": "agentpress/growth/gorilla-utility-pack/execution-queue.json",
+      "rank": 4,
+      "risk": "medium-low",
+      "score": 4,
+      "tags": [
+        "LangGraph",
+        "execution-queue",
+        "langgraph-checkpoint-replay",
+        "medium-low",
+        "queue-item",
+        "sub-agent handoff routes back incorrectly / waiting state ambiguity"
+      ],
+      "title": "Queue target 4: LangGraph",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json"
+    },
+    {
+      "action": "hold unless maintainer invites; security-sensitive",
+      "approval_required": true,
+      "ecosystem": "Cline",
+      "id": "execution-queue-item-agentpress-growth-gorilla-utility-pack-execution-queue-json-queue-target-5-cline",
+      "kind": "execution_queue_item",
+      "pack": "cline-tool-approval",
+      "path": "agentpress/growth/gorilla-utility-pack/execution-queue.json",
+      "rank": 5,
+      "risk": "high",
+      "score": 4,
+      "tags": [
+        "Cline",
+        "MCP auto-approve disabled but tool calls execute without prompt",
+        "cline-tool-approval",
+        "execution-queue",
+        "high",
+        "queue-item"
+      ],
+      "title": "Queue target 5: Cline",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json"
+    },
+    {
+      "action": "prepare runnable approval-flow replay packet only if code fixture can be specific",
+      "approval_required": true,
+      "ecosystem": "LangGraph",
+      "id": "execution-queue-item-agentpress-growth-gorilla-utility-pack-execution-queue-json-queue-target-6-langgraph",
+      "kind": "execution_queue_item",
+      "pack": "langgraph-checkpoint-replay",
+      "path": "agentpress/growth/gorilla-utility-pack/execution-queue.json",
+      "rank": 6,
+      "risk": "medium",
+      "score": 4,
+      "tags": [
+        "LangGraph",
+        "execution-queue",
+        "langgraph-checkpoint-replay",
+        "medium",
+        "multiple tool results for one tool call around human approval flow",
+        "queue-item"
+      ],
+      "title": "Queue target 6: LangGraph",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json"
+    },
+    {
+      "action": "prepare tiny tool context metadata fixture",
+      "approval_required": true,
+      "ecosystem": "LlamaIndex",
+      "id": "execution-queue-item-agentpress-growth-gorilla-utility-pack-execution-queue-json-queue-target-7-llamaindex",
+      "kind": "execution_queue_item",
+      "pack": "llamaindex-rag-safety",
+      "path": "agentpress/growth/gorilla-utility-pack/execution-queue.json",
+      "rank": 7,
+      "risk": "medium",
+      "score": 4,
+      "tags": [
+        "ContextVar propagation differs between FunctionTool sync/async paths",
+        "LlamaIndex",
+        "execution-queue",
+        "llamaindex-rag-safety",
+        "medium",
+        "queue-item"
+      ],
+      "title": "Queue target 7: LlamaIndex",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json"
+    },
+    {
+      "action": "prepare focused source-map/context bundle example",
+      "approval_required": true,
+      "ecosystem": "Cline",
+      "id": "execution-queue-item-agentpress-growth-gorilla-utility-pack-execution-queue-json-queue-target-8-cline",
+      "kind": "execution_queue_item",
+      "pack": "cline-provider-repro",
+      "path": "agentpress/growth/gorilla-utility-pack/execution-queue.json",
+      "rank": 8,
+      "risk": "medium",
+      "score": 4,
+      "tags": [
+        "Cline",
+        "cline-provider-repro",
+        "execution-queue",
+        "large files/context window failures with no recovery",
+        "medium",
+        "queue-item"
+      ],
+      "title": "Queue target 8: Cline",
+      "url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json"
+    }
+  ],
+  "safety": "Read-only local/static discovery. Queue entries that imply external posting still require explicit human approval.",
+  "schema_version": "2026-05-05.agentpress-profile-search-discovery-bridge.v1",
+  "status": "ok"
+}

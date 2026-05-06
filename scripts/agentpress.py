@@ -1346,14 +1346,154 @@ def agent_profile_registry(args):
         print(f"indexed {payload['profile_count']} agent profiles into {out}")
     return 0
 
+def _read_json_file(path: pathlib.Path, default=None):
+    try:
+        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else ({} if default is None else default)
+    except Exception:
+        return {} if default is None else default
+
+
+def _discovery_bridge_records(root: pathlib.Path, base_url: str) -> list[dict]:
+    """Join profiles, utility packs, marketplace services, and queues for one discovery path."""
+    base_url = base_url.rstrip("/") + "/"
+    records = []
+
+    def add(kind, title, path, text="", tags=None, url=None, **extra):
+        rel = pathlib.Path(path).as_posix()
+        payload = {
+            "id": slugify(f"{kind}-{rel}-{title}"),
+            "kind": kind,
+            "title": title,
+            "path": rel,
+            "url": url or urljoin(base_url, rel),
+            "tags": sorted(set(str(t) for t in (tags or []) if t)),
+        }
+        payload.update({k: v for k, v in extra.items() if v not in (None, "", [])})
+        payload["text"] = " ".join(str(x) for x in [title, rel, text, " ".join(payload["tags"]), json.dumps(extra, sort_keys=True)] if x).lower()[:5000]
+        records.append(payload)
+
+    for profile in _load_agent_profiles(root, base_url):
+        if profile.get("status") != "ok":
+            continue
+        add(
+            "agent_profile",
+            profile.get("display_name") or profile.get("agent_id"),
+            profile.get("profile_card_path"),
+            json.dumps(profile, sort_keys=True),
+            ["agent-profile", "profile-card", "agent", "identity"] + profile.get("capabilities", []) + profile.get("domains", []),
+            url=profile.get("profile_card"),
+            agent_id=profile.get("agent_id"),
+            profile_card=profile.get("profile_card"),
+            capabilities=profile.get("capabilities", []),
+            trust_tier=profile.get("trust_tier"),
+            can_receive_tasks=profile.get("can_receive_tasks"),
+        )
+        for cap in profile.get("capabilities", []):
+            add(
+                "profile_capability",
+                f"{cap} — {profile.get('display_name')}",
+                profile.get("profile_card_path"),
+                json.dumps(profile, sort_keys=True),
+                ["profile-capability", "capability", cap, profile.get("agent_id", "")],
+                url=profile.get("profile_card"),
+                agent_id=profile.get("agent_id"),
+                profile_card=profile.get("profile_card"),
+                capability=cap,
+            )
+
+    marketplace_path = root / "agentpress/marketplace/marketplace-index.json"
+    marketplace = _read_json_file(marketplace_path, {})
+    for service in marketplace.get("services", []) or []:
+        service_id = service.get("service_id", "service")
+        add(
+            "marketplace_service",
+            service.get("title") or service_id,
+            marketplace_path.relative_to(root).as_posix(),
+            json.dumps(service, sort_keys=True),
+            ["marketplace", "service", service_id, service.get("provider_agent_id", "")] + (service.get("capabilities", []) or []),
+            service_id=service_id,
+            provider_agent_id=service.get("provider_agent_id"),
+            command=service.get("command"),
+            capabilities=service.get("capabilities", []),
+            pricing=service.get("pricing", {}),
+            safety=service.get("safety", {}),
+            trust=service.get("trust", {}),
+        )
+
+    utility_manifest_path = root / "agentpress/growth/gorilla-utility-pack/manifest.json"
+    utility_manifest = _read_json_file(utility_manifest_path, {})
+    for target in utility_manifest.get("targets", []) or []:
+        pack_url = target.get("pack", "")
+        pack_path = pack_url.split("/agentpress/")[-1] if "/agentpress/" in pack_url else f"agentpress/growth/gorilla-utility-pack/{target.get('id','pack')}.json"
+        pack_json = _read_json_file(root / pack_path, {})
+        add(
+            "utility_pack",
+            f"Gorilla utility pack: {target.get('id','pack')}",
+            pack_path,
+            json.dumps({"target": target, "pack": pack_json}, sort_keys=True),
+            ["utility-pack", "gorilla-utility-pack", target.get("id", ""), target.get("community", ""), target.get("painpoint", "")],
+            url=pack_url or urljoin(base_url, pack_path),
+            pack_id=target.get("id"),
+            community=target.get("community"),
+            painpoint=target.get("painpoint"),
+            artifact=target.get("artifact"),
+            receipt=target.get("receipt"),
+            command=(pack_json.get("install_run_proof_flow", {}) or {}).get("run_command"),
+            external_execution_gate=utility_manifest.get("external_execution_gate"),
+        )
+
+    queue_path = root / "agentpress/growth/gorilla-utility-pack/execution-queue.json"
+    queue = _read_json_file(queue_path, {})
+    add(
+        "execution_queue",
+        "Gorilla utility execution queue",
+        queue_path.relative_to(root).as_posix(),
+        json.dumps(queue, sort_keys=True),
+        ["execution-queue", "gorilla-utility-pack", "approval", "posting-policy", queue.get("status", "")],
+        status=queue.get("status"),
+        target_count=len(queue.get("targets", []) or []),
+        posting_policy=queue.get("posting_policy", {}),
+    )
+    for target in queue.get("targets", []) or []:
+        add(
+            "execution_queue_item",
+            f"Queue target {target.get('rank')}: {target.get('ecosystem')}",
+            queue_path.relative_to(root).as_posix(),
+            json.dumps(target, sort_keys=True),
+            ["execution-queue", "queue-item", target.get("ecosystem", ""), target.get("pack", ""), target.get("risk", ""), target.get("painpoint", "")],
+            rank=target.get("rank"),
+            ecosystem=target.get("ecosystem"),
+            pack=target.get("pack"),
+            risk=target.get("risk"),
+            action=target.get("action"),
+            approval_required=True,
+        )
+
+    queue_manifest_path = root / "agentpress/queue/manifest.json"
+    queue_manifest = _read_json_file(queue_manifest_path, {})
+    if queue_manifest:
+        add(
+            "queue_adapter",
+            "AgentPress static/local queue adapter kit",
+            queue_manifest_path.relative_to(root).as_posix(),
+            json.dumps(queue_manifest, sort_keys=True),
+            ["queue", "queue-adapter", "retry", "idempotency", "dead-letter", queue_manifest.get("status", "")],
+            status=queue_manifest.get("status"),
+            files=queue_manifest.get("files", []),
+            safety=queue_manifest.get("safety"),
+        )
+
+    return sorted(records, key=lambda r: (r["kind"], r["title"], r["path"]))
+
+
 def build_search_index(args):
     root = pathlib.Path(args.root)
     out = pathlib.Path(args.out)
     base_url = args.base_url.rstrip("/") + "/"
     records = []
-    def add(kind, title, path, text="", tags=None, url=None):
+    def add(kind, title, path, text="", tags=None, url=None, **extra):
         rel = pathlib.Path(path).as_posix()
-        records.append({
+        rec = {
             "id": slugify(f"{kind}-{rel}"),
             "kind": kind,
             "title": title,
@@ -1361,7 +1501,9 @@ def build_search_index(args):
             "url": url or urljoin(base_url, rel),
             "tags": sorted(set(tags or [])),
             "text": " ".join(str(x) for x in [title, rel, text, " ".join(tags or [])] if x).lower()[:5000],
-        })
+        }
+        rec.update({k: v for k, v in extra.items() if v not in (None, "", [])})
+        records.append(rec)
     # Core commands/features
     add("cli_command", "Create AgentPress bundle from docs/API folder", "scripts/agentpress.py", "bundle source docs api generator valid verify", ["generate", "bundle", "docs", "api", "cli"])
     add("cli_command", "Agent message create/route/respond/thread/validate", "scripts/agentpress.py", "message create-request route create-response thread validate coordination", ["message", "route", "coordination", "cli"])
@@ -1429,6 +1571,13 @@ def build_search_index(args):
         add("agent_profile", profile.get("display_name") or profile.get("agent_id"), profile.get("profile_card_path"), profile_text, ["agent-profile", "profile-card", "agent", "identity"] + profile.get("capabilities", []) + profile.get("domains", []), url=profile.get("profile_card"))
         for cap in profile.get("capabilities", []):
             add("profile_capability", f"{cap} — {profile.get('display_name')}", profile.get("profile_card_path"), profile_text, ["profile-capability", "capability", cap, profile.get("agent_id", "")], url=profile.get("profile_card"))
+    # Unified discovery bridge: marketplace services, utility packs, and queue surfaces
+    seen = {(r.get("kind"), r.get("path"), r.get("title")) for r in records}
+    for rec in _discovery_bridge_records(root, base_url):
+        key = (rec.get("kind"), rec.get("path"), rec.get("title"))
+        if key not in seen:
+            records.append(rec)
+            seen.add(key)
     # Schemas
     for schema in sorted((root/"agentpress/schemas").glob("*.schema.json")):
         try: data=json.loads(schema.read_text(encoding="utf-8"))
@@ -1463,17 +1612,63 @@ def search_index(args):
         hay=rec.get("text", "")
         score=sum(hay.count(t) for t in terms) + sum(3 for t in terms if t in [x.lower() for x in rec.get("tags", [])])
         if score:
-            r={k:rec[k] for k in ["kind","title","path","url","tags", "profile_card", "agent_id", "capability"] if k in rec}
+            keep = ["kind","title","path","url","tags", "profile_card", "agent_id", "capability", "service_id", "provider_agent_id", "pack_id", "community", "painpoint", "command", "status", "target_count", "risk", "action", "approval_required", "external_execution_gate"]
+            r={k:rec[k] for k in keep if k in rec}
             if rec.get("kind") in {"agent_profile", "profile_capability"}:
                 r["profile_card"] = rec.get("url", "")
                 if rec.get("kind") == "profile_capability" and terms:
-                    r["capability"] = next((t for t in rec.get("tags", []) if t.lower() in terms), "")
+                    r["capability"] = rec.get("capability") or next((t for t in rec.get("tags", []) if t.lower() in terms), "")
             r["score"]=score
             rows.append(r)
     rows=sorted(rows, key=lambda r:(-r["score"], r["kind"], r["title"]))[:args.limit]
     payload={"status":"ok" if rows else "no_results", "query": args.query, "count": len(rows), "results": rows}
     print(json.dumps(payload, indent=2) if args.json else "\n".join(f"{r['score']} {r['kind']} {r['path']}" for r in rows))
     return 0 if rows else 1
+
+
+
+
+def discovery_bridge(args):
+    root = pathlib.Path(args.root)
+    out = pathlib.Path(args.out)
+    base_url = args.base_url.rstrip("/") + "/"
+    records = _discovery_bridge_records(root, base_url)
+    counts = {}
+    for rec in records:
+        counts[rec["kind"]] = counts.get(rec["kind"], 0) + 1
+    terms = [t.lower() for t in re.findall(r"[a-zA-Z0-9_.-]+", getattr(args, "query", "") or "")]
+    results = []
+    for rec in records:
+        hay = rec.get("text", "")
+        score = sum(hay.count(t) for t in terms) + sum(3 for t in terms if t in [x.lower() for x in rec.get("tags", [])]) if terms else 1
+        if score:
+            row = {k: v for k, v in rec.items() if k != "text"}
+            row["score"] = score
+            results.append(row)
+    results = sorted(results, key=lambda r: (-r["score"], r["kind"], r["title"]))[:args.limit]
+    payload = {
+        "schema_version": "2026-05-05.agentpress-profile-search-discovery-bridge.v1",
+        "canonical_url": urljoin(base_url, out.as_posix()),
+        "generated_by": "agentpress discovery-bridge",
+        "status": "ok" if results else "no_results",
+        "purpose": "Single discovery path for agent profiles, profile capabilities, utility packs, marketplace services, and execution queues.",
+        "query": getattr(args, "query", "") or "",
+        "record_count": len(records),
+        "counts_by_kind": {k: counts[k] for k in sorted(counts)},
+        "result_count": len(results),
+        "results": results,
+        "next_commands": [
+            "python3 scripts/agentpress.py discovery-bridge marketplace --json",
+            "python3 scripts/agentpress.py discovery-bridge queue --json",
+            "python3 scripts/agentpress.py search <query> --json",
+        ],
+        "safety": "Read-only local/static discovery. Queue entries that imply external posting still require explicit human approval.",
+    }
+    if not getattr(args, "no_write", False):
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2, sort_keys=True) if args.json else f"{payload['status']} {payload['result_count']}/{payload['record_count']} discovery records")
+    return 0 if results else 1
 
 
 def bundle_from_source(args):
@@ -10621,7 +10816,7 @@ def main():
     p = sub.add_parser("smoke-install"); p.add_argument("--runtime", choices=["npm","pypi","all"], default="all"); p.add_argument("--version", default=""); p.add_argument("--workdir", default=""); p.add_argument("--out", default="agentpress/evidence/smoke-install.json"); p.add_argument("--timeout-seconds", type=int, default=180); p.add_argument("--no-run", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("repo-sync-doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--remote", default="https://github.com/barneywohl/agentpress.git"); p.add_argument("--ref", default="refs/heads/main"); p.add_argument("--out", default="agentpress/evidence/repo-sync-doctor.json"); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("cli-gap-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/cli-gap-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("release-promote-checklist"); p.add_argument("root", nargs="?", default="."); p.add_argument("--from-tag", default="rc"); p.add_argument("--to-tag", default="latest"); p.add_argument("--min-independent-proofs", type=int, default=1); p.add_argument("--enforce-review-gates", action="store_true", help="Make independent external proof and RFLO review hard blockers; default is advisory so rc/site updates can ship."); p.add_argument("--max-npm-package-bytes", type=int, default=300000); p.add_argument("--max-npm-package-files", type=int, default=100); p.add_argument("--pack-timeout-seconds", type=int, default=30); p.add_argument("--out", default="agentpress/releases/release-promote-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--evidence-bundle-out", default=""); p.add_argument("--verify-bundle", default=""); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("release-promote-checklist"); p.add_argument("root", nargs="?", default="."); p.add_argument("--from-tag", default="rc"); p.add_argument("--to-tag", default="latest"); p.add_argument("--min-independent-proofs", type=int, default=1); p.add_argument("--enforce-review-gates", action="store_true", help="Make independent external proof and RFLO review hard blockers; default is advisory so rc/site updates can ship."); p.add_argument("--max-npm-package-bytes", type=int, default=305000); p.add_argument("--max-npm-package-files", type=int, default=100); p.add_argument("--pack-timeout-seconds", type=int, default=30); p.add_argument("--out", default="agentpress/releases/release-promote-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--evidence-bundle-out", default=""); p.add_argument("--verify-bundle", default=""); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("no-python-fallback-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--commands", default="doctor,validate,verify,agent-onboard"); p.add_argument("--python-path", default="/nonexistent/python3-agentpress-check"); p.add_argument("--out", default="agentpress/evidence/no-python-fallback-check.json"); p.add_argument("--timeout-seconds", type=int, default=20); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("context-package-init"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("handoff-root-pick"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -10857,6 +11052,7 @@ def main():
     p = sub.add_parser("team-pack-validate"); p.add_argument("path"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("self-test"); p.add_argument("--agent-id", required=True); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--out", default="agentpress/self-test/self-test-results.jsonl"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--workdir", default="/tmp/agentpress-self-test"); p.add_argument("--run-id")
     p = sub.add_parser("agent-profile-registry"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/profiles/agent-profile-registry.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("discovery-bridge"); p.add_argument("query", nargs="?", default=""); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/search/profile-search-discovery-bridge.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--limit", type=int, default=25); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("index-search"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/search/search-index.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("search"); p.add_argument("query"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--limit", type=int, default=10); p.add_argument("--json", action="store_true")
     p = sub.add_parser("bundle"); p.add_argument("source"); p.add_argument("--out", required=True); p.add_argument("--title"); p.add_argument("--canonical-url"); p.add_argument("--primary-task"); p.add_argument("--dry-run", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--force", action="store_true"); p.add_argument("--max-stale-days", type=int, default=30)
@@ -11148,6 +11344,7 @@ def main():
     if args.cmd == "team-pack-validate": return team_pack_validate(args)
     if args.cmd == "self-test": return self_test(args)
     if args.cmd == "agent-profile-registry": return agent_profile_registry(args)
+    if args.cmd == "discovery-bridge": return discovery_bridge(args)
     if args.cmd == "index-search": return build_search_index(args)
     if args.cmd == "search": return search_index(args)
     if args.cmd == "message": return message_command(args)
