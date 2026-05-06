@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+  "claim": "Material kit prepared for Rust crate docs painpoint: agents need compact wrappers for Rust crate API docs agents need; topic=react; doc=examples",
+  "target_url": "https://docs.rs/react/latest/react/examples.html",
+  "commands_to_verify": [
+    "python3 scripts/agentpress.py context-budget . --json --strict",
+    "python3 -m json.tool material-manifest.json",
+    "python3 -m json.tool proof-receipt.json"
+  ],
+  "evidence_files": [
+    "llms.txt",
+    "material-manifest.json",
+    "RUN_THIS.md"
+  ],
+  "external_effects": [],
+  "status": "prepared_not_posted"
+}
