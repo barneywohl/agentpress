@@ -9,7 +9,10 @@
     "https://barneywohl.github.io/agentpress/agentpress/agent-instructions.json",
     "https://barneywohl.github.io/agentpress/agentpress/schemas/index.json",
     "https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json",
-    "https://barneywohl.github.io/agentpress/agentpress/feedback/agent-feedback-protocol.json"
+    "https://barneywohl.github.io/agentpress/agentpress/feedback/agent-feedback-protocol.json",
+    "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/manifest.json",
+    "https://barneywohl.github.io/agentpress/agentpress/landing/gorilla-utility-pack-landing.json",
+    "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json"
   ],
   "contracts": {
     "root_manifest": "https://barneywohl.github.io/agentpress/.well-known/agentpress.json",
@@ -19,7 +22,10 @@
     "registry": "https://barneywohl.github.io/agentpress/agentpress/agentpress-registry.json",
     "hash_manifest": "https://barneywohl.github.io/agentpress/agentpress/hash-manifest.json",
     "feedback_protocol": "https://barneywohl.github.io/agentpress/agentpress/feedback/agent-feedback-protocol.json",
-    "error_codes": "https://barneywohl.github.io/agentpress/agentpress/runtime/error-codes.json"
+    "error_codes": "https://barneywohl.github.io/agentpress/agentpress/runtime/error-codes.json",
+    "gorilla_utility_pack_manifest": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/manifest.json",
+    "gorilla_utility_pack_landing": "https://barneywohl.github.io/agentpress/agentpress/landing/gorilla-utility-pack-landing.json",
+    "gorilla_execution_queue": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json"
   },
   "must_not_parse_for_authority": [
     "index.html",
@@ -27,8 +33,23 @@
     "social metadata",
     "marketing prose"
   ],
-  "safe_public_actions": ["read", "crawl", "cite", "transform", "benchmark", "validate", "suggest_changes"],
-  "not_authorized": ["external_writes", "account_actions", "production_changes", "credential_access", "mass_distribution", "live_payments_or_wallet_use"],
+  "safe_public_actions": [
+    "read",
+    "crawl",
+    "cite",
+    "transform",
+    "benchmark",
+    "validate",
+    "suggest_changes"
+  ],
+  "not_authorized": [
+    "external_writes",
+    "account_actions",
+    "production_changes",
+    "credential_access",
+    "mass_distribution",
+    "live_payments_or_wallet_use"
+  ],
   "validation_commands": [
     "python3 scripts/agentpress.py doctor --json",
     "python3 scripts/agentpress.py schema --json",

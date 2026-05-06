@@ -1,10 +1,10 @@
 {
   "schema_version": "2026-05-03.agentpress-marketplace.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/marketplace/marketplace-index.json",
-  "generated_utc": "2026-05-05T23:54:57Z",
+  "generated_utc": "2026-05-06T01:39:25Z",
   "status": "ok",
   "purpose": "Machine-readable marketplace for agents to discover AgentPress services by capability, command, pricing posture, SLA, trust evidence, and safety boundary.",
-  "service_count": 21,
+  "service_count": 27,
   "auth_policy": {
     "public": "read, crawl, validate, inspect marketplace, inspect payment metadata",
     "requires_human_or_external_authorization": [
@@ -697,6 +697,317 @@
         "external_writes": false,
         "live_payments": false,
         "credentials": false
+      }
+    },
+    {
+      "service_id": "gorilla-utility-execution-queue",
+      "title": "Gorilla utility pack execution queue",
+      "provider_agent_id": "agentpress-reference-agent",
+      "capabilities": [
+        "gorilla-utility-pack",
+        "execution-queue",
+        "painpoint-routing",
+        "proof-first-outreach",
+        "no-spam"
+      ],
+      "command": "python3 scripts/agentpress.py gorilla-utility-pack --json",
+      "install_run_proof_commands": {
+        "install": "python3 scripts/agentpress.py gorilla-utility-pack --json",
+        "run": "inspect agentpress/growth/gorilla-utility-pack/execution-queue.json and pick a painpoint-matched target",
+        "proof": "python3 scripts/agentpress.py first-contact audit --no-network --json"
+      },
+      "pricing": {
+        "model": "free_static_pack",
+        "payment_required": false
+      },
+      "sla": {
+        "status": "prepared_not_posted",
+        "expected_runtime_seconds": "<60",
+        "support": "Local JSON queue; no public posting automation."
+      },
+      "trust": {
+        "tier": "reference_utility_pack",
+        "evidence": [
+          "agentpress/growth/gorilla-utility-pack/manifest.json",
+          "agentpress/growth/gorilla-utility-pack/execution-queue.json"
+        ]
+      },
+      "safety": {
+        "external_writes": false,
+        "live_payments": false,
+        "credentials": false,
+        "external_execution_gate": "Human approval required before posting/sending/commenting externally.",
+        "no_spam_guardrails": [
+          "Only use where the painpoint is already being discussed.",
+          "Lead with the utility command/artifact, not marketing.",
+          "No mass posting, fake adoption, scraped DMs, secrets, or private prompts.",
+          "Any external post/send requires explicit human approval."
+        ]
+      }
+    },
+    {
+      "service_id": "gorilla-utility-cline-tool-approval",
+      "title": "Gorilla utility pack: cline-tool-approval",
+      "provider_agent_id": "agentpress-reference-agent",
+      "capabilities": [
+        "gorilla-utility-pack",
+        "utility-pack",
+        "proof-receipt",
+        "first-contact-audit",
+        "no-spam",
+        "approval-safety-provider-tool-mismatch"
+      ],
+      "community": "Cline/MCP users",
+      "painpoint": "approval safety + provider tool mismatch",
+      "command": "python3 scripts/agentpress.py approval-bypass-risk-check --json",
+      "install_run_proof_commands": {
+        "install": "python3 scripts/agentpress.py gorilla-utility-pack --json",
+        "run": "python3 scripts/agentpress.py approval-bypass-risk-check --json",
+        "first_contact_audit": "python3 scripts/agentpress.py first-contact audit --no-network --json",
+        "proof_finalize": "python3 scripts/agentpress.py result finalize --kind proof --claim 'cline-tool-approval utility pack ran locally' --file agentpress/security/approval-bypass-risk-result.json --step 'python3 scripts/agentpress.py approval-bypass-risk-check --json' --out agentpress/growth/gorilla-utility-pack/receipts/cline-tool-approval-result.json --json",
+        "proof_validate": "python3 scripts/agentpress.py result validate agentpress/growth/gorilla-utility-pack/receipts/cline-tool-approval-result.json --strict --json",
+        "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/cline-tool-approval-result.json"
+      },
+      "pricing": {
+        "model": "free_static_pack",
+        "payment_required": false
+      },
+      "sla": {
+        "status": "ready_not_sent",
+        "expected_runtime_seconds": "<60",
+        "support": "Attach sanitized JSON only when relevant and explicitly approved."
+      },
+      "trust": {
+        "tier": "reference_utility_pack",
+        "evidence": [
+          "agentpress/growth/gorilla-utility-pack/cline-tool-approval.json",
+          "agentpress/security/approval-bypass-risk-result.json",
+          "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/cline-tool-approval-result.json"
+        ]
+      },
+      "safety": {
+        "external_writes": false,
+        "live_payments": false,
+        "credentials": false,
+        "external_execution_gate": "Human approval required before posting/sending/commenting externally.",
+        "no_spam_guardrails": [
+          "Only use where the painpoint is already being discussed.",
+          "Lead with the utility command/artifact, not marketing.",
+          "No mass posting, fake adoption, scraped DMs, secrets, or private prompts.",
+          "Any external post/send requires explicit human approval."
+        ]
+      }
+    },
+    {
+      "service_id": "gorilla-utility-cline-provider-repro",
+      "title": "Gorilla utility pack: cline-provider-repro",
+      "provider_agent_id": "agentpress-reference-agent",
+      "capabilities": [
+        "gorilla-utility-pack",
+        "utility-pack",
+        "proof-receipt",
+        "first-contact-audit",
+        "no-spam",
+        "execute-command-write-to-file-vocabulary-mismatch"
+      ],
+      "community": "Cline/provider adapters",
+      "painpoint": "execute_command/write_to_file vocabulary mismatch",
+      "command": "python3 scripts/agentpress.py provider-adapter-repro-pack --host cline --provider claude_code --json",
+      "install_run_proof_commands": {
+        "install": "python3 scripts/agentpress.py gorilla-utility-pack --json",
+        "run": "python3 scripts/agentpress.py provider-adapter-repro-pack --host cline --provider claude_code --json",
+        "first_contact_audit": "python3 scripts/agentpress.py first-contact audit --no-network --json",
+        "proof_finalize": "python3 scripts/agentpress.py result finalize --kind proof --claim 'cline-provider-repro utility pack ran locally' --file agentpress/compatibility/provider-adapter-repro-pack.json --step 'python3 scripts/agentpress.py provider-adapter-repro-pack --host cline --provider claude_code --json' --out agentpress/growth/gorilla-utility-pack/receipts/cline-provider-repro-result.json --json",
+        "proof_validate": "python3 scripts/agentpress.py result validate agentpress/growth/gorilla-utility-pack/receipts/cline-provider-repro-result.json --strict --json",
+        "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/cline-provider-repro-result.json"
+      },
+      "pricing": {
+        "model": "free_static_pack",
+        "payment_required": false
+      },
+      "sla": {
+        "status": "ready_not_sent",
+        "expected_runtime_seconds": "<60",
+        "support": "Attach sanitized JSON only when relevant and explicitly approved."
+      },
+      "trust": {
+        "tier": "reference_utility_pack",
+        "evidence": [
+          "agentpress/growth/gorilla-utility-pack/cline-provider-repro.json",
+          "agentpress/compatibility/provider-adapter-repro-pack.json",
+          "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/cline-provider-repro-result.json"
+        ]
+      },
+      "safety": {
+        "external_writes": false,
+        "live_payments": false,
+        "credentials": false,
+        "external_execution_gate": "Human approval required before posting/sending/commenting externally.",
+        "no_spam_guardrails": [
+          "Only use where the painpoint is already being discussed.",
+          "Lead with the utility command/artifact, not marketing.",
+          "No mass posting, fake adoption, scraped DMs, secrets, or private prompts.",
+          "Any external post/send requires explicit human approval."
+        ]
+      }
+    },
+    {
+      "service_id": "gorilla-utility-langgraph-checkpoint-replay",
+      "title": "Gorilla utility pack: langgraph-checkpoint-replay",
+      "provider_agent_id": "agentpress-reference-agent",
+      "capabilities": [
+        "gorilla-utility-pack",
+        "utility-pack",
+        "proof-receipt",
+        "first-contact-audit",
+        "no-spam",
+        "stale-checkpoint-structured-response-state"
+      ],
+      "community": "LangChain/LangGraph",
+      "painpoint": "stale checkpoint/structured_response state",
+      "command": "python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json",
+      "install_run_proof_commands": {
+        "install": "python3 scripts/agentpress.py gorilla-utility-pack --json",
+        "run": "python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json",
+        "first_contact_audit": "python3 scripts/agentpress.py first-contact audit --no-network --json",
+        "proof_finalize": "python3 scripts/agentpress.py result finalize --kind proof --claim 'langgraph-checkpoint-replay utility pack ran locally' --file agentpress/repro/checkpoint-replay-minimal-repro.json --step 'python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json' --out agentpress/growth/gorilla-utility-pack/receipts/langgraph-checkpoint-replay-result.json --json",
+        "proof_validate": "python3 scripts/agentpress.py result validate agentpress/growth/gorilla-utility-pack/receipts/langgraph-checkpoint-replay-result.json --strict --json",
+        "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/langgraph-checkpoint-replay-result.json"
+      },
+      "pricing": {
+        "model": "free_static_pack",
+        "payment_required": false
+      },
+      "sla": {
+        "status": "ready_not_sent",
+        "expected_runtime_seconds": "<60",
+        "support": "Attach sanitized JSON only when relevant and explicitly approved."
+      },
+      "trust": {
+        "tier": "reference_utility_pack",
+        "evidence": [
+          "agentpress/growth/gorilla-utility-pack/langgraph-checkpoint-replay.json",
+          "agentpress/repro/checkpoint-replay-minimal-repro.json",
+          "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/langgraph-checkpoint-replay-result.json"
+        ]
+      },
+      "safety": {
+        "external_writes": false,
+        "live_payments": false,
+        "credentials": false,
+        "external_execution_gate": "Human approval required before posting/sending/commenting externally.",
+        "no_spam_guardrails": [
+          "Only use where the painpoint is already being discussed.",
+          "Lead with the utility command/artifact, not marketing.",
+          "No mass posting, fake adoption, scraped DMs, secrets, or private prompts.",
+          "Any external post/send requires explicit human approval."
+        ]
+      }
+    },
+    {
+      "service_id": "gorilla-utility-llamaindex-rag-safety",
+      "title": "Gorilla utility pack: llamaindex-rag-safety",
+      "provider_agent_id": "agentpress-reference-agent",
+      "capabilities": [
+        "gorilla-utility-pack",
+        "utility-pack",
+        "proof-receipt",
+        "first-contact-audit",
+        "no-spam",
+        "file-metadata-tool-schema-safety"
+      ],
+      "community": "LlamaIndex/RAG builders",
+      "painpoint": "file metadata + tool schema safety",
+      "command": "python3 scripts/agentpress.py rag-tool-safety-bundle --json",
+      "install_run_proof_commands": {
+        "install": "python3 scripts/agentpress.py gorilla-utility-pack --json",
+        "run": "python3 scripts/agentpress.py rag-tool-safety-bundle --json",
+        "first_contact_audit": "python3 scripts/agentpress.py first-contact audit --no-network --json",
+        "proof_finalize": "python3 scripts/agentpress.py result finalize --kind proof --claim 'llamaindex-rag-safety utility pack ran locally' --file agentpress/safety/rag-tool-safety-bundle.json --step 'python3 scripts/agentpress.py rag-tool-safety-bundle --json' --out agentpress/growth/gorilla-utility-pack/receipts/llamaindex-rag-safety-result.json --json",
+        "proof_validate": "python3 scripts/agentpress.py result validate agentpress/growth/gorilla-utility-pack/receipts/llamaindex-rag-safety-result.json --strict --json",
+        "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/llamaindex-rag-safety-result.json"
+      },
+      "pricing": {
+        "model": "free_static_pack",
+        "payment_required": false
+      },
+      "sla": {
+        "status": "ready_not_sent",
+        "expected_runtime_seconds": "<60",
+        "support": "Attach sanitized JSON only when relevant and explicitly approved."
+      },
+      "trust": {
+        "tier": "reference_utility_pack",
+        "evidence": [
+          "agentpress/growth/gorilla-utility-pack/llamaindex-rag-safety.json",
+          "agentpress/safety/rag-tool-safety-bundle.json",
+          "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/llamaindex-rag-safety-result.json"
+        ]
+      },
+      "safety": {
+        "external_writes": false,
+        "live_payments": false,
+        "credentials": false,
+        "external_execution_gate": "Human approval required before posting/sending/commenting externally.",
+        "no_spam_guardrails": [
+          "Only use where the painpoint is already being discussed.",
+          "Lead with the utility command/artifact, not marketing.",
+          "No mass posting, fake adoption, scraped DMs, secrets, or private prompts.",
+          "Any external post/send requires explicit human approval."
+        ]
+      }
+    },
+    {
+      "service_id": "gorilla-utility-openhands-runtime-hang",
+      "title": "Gorilla utility pack: openhands-runtime-hang",
+      "provider_agent_id": "agentpress-reference-agent",
+      "capabilities": [
+        "gorilla-utility-pack",
+        "utility-pack",
+        "proof-receipt",
+        "first-contact-audit",
+        "no-spam",
+        "runtime-browser-terminal-hangs"
+      ],
+      "community": "OpenHands/Roo/browser agents",
+      "painpoint": "runtime/browser/terminal hangs",
+      "command": "python3 scripts/agentpress.py runtime-hang-repro-capsule --json",
+      "install_run_proof_commands": {
+        "install": "python3 scripts/agentpress.py gorilla-utility-pack --json",
+        "run": "python3 scripts/agentpress.py runtime-hang-repro-capsule --json",
+        "first_contact_audit": "python3 scripts/agentpress.py first-contact audit --no-network --json",
+        "proof_finalize": "python3 scripts/agentpress.py result finalize --kind proof --claim 'openhands-runtime-hang utility pack ran locally' --file agentpress/repro/runtime-hang-repro-capsule.json --step 'python3 scripts/agentpress.py runtime-hang-repro-capsule --json' --out agentpress/growth/gorilla-utility-pack/receipts/openhands-runtime-hang-result.json --json",
+        "proof_validate": "python3 scripts/agentpress.py result validate agentpress/growth/gorilla-utility-pack/receipts/openhands-runtime-hang-result.json --strict --json",
+        "receipt": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/openhands-runtime-hang-result.json"
+      },
+      "pricing": {
+        "model": "free_static_pack",
+        "payment_required": false
+      },
+      "sla": {
+        "status": "ready_not_sent",
+        "expected_runtime_seconds": "<60",
+        "support": "Attach sanitized JSON only when relevant and explicitly approved."
+      },
+      "trust": {
+        "tier": "reference_utility_pack",
+        "evidence": [
+          "agentpress/growth/gorilla-utility-pack/openhands-runtime-hang.json",
+          "agentpress/repro/runtime-hang-repro-capsule.json",
+          "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/receipts/openhands-runtime-hang-result.json"
+        ]
+      },
+      "safety": {
+        "external_writes": false,
+        "live_payments": false,
+        "credentials": false,
+        "external_execution_gate": "Human approval required before posting/sending/commenting externally.",
+        "no_spam_guardrails": [
+          "Only use where the painpoint is already being discussed.",
+          "Lead with the utility command/artifact, not marketing.",
+          "No mass posting, fake adoption, scraped DMs, secrets, or private prompts.",
+          "Any external post/send requires explicit human approval."
+        ]
       }
     }
   ],

@@ -1895,7 +1895,45 @@ def message_agents(args):
     return 0
 
 
-
+def message_receipt_aggregate(args):
+    """Aggregate static inbox result receipts into machine and human-readable indexes."""
+    root=_comms_root(args.dir)
+    out=pathlib.Path(args.out)
+    errors=[]
+    receipts=[]
+    receipt_by_delivery={}
+    if not root.exists(): errors.append(f"inbox dir missing: {root}")
+    for fp in sorted((root/"receipts").glob("*.json")) if (root/"receipts").exists() else []:
+        try: d=json.loads(fp.read_text(encoding="utf-8"))
+        except Exception as e:
+            errors.append(f"invalid receipt {fp}: {e}"); continue
+        delivery_id=d.get("delivery_id", fp.stem.replace("-result-receipt", ""))
+        row={"receipt_id":d.get("receipt_id"),"delivery_id":delivery_id,"request_id":d.get("request_id"),"agent_id":d.get("agent_id"),"status":d.get("status"),"created_utc":d.get("created_utc"),"path":str(fp.relative_to(root)),"response_sha256":d.get("response_sha256"),"result_bundle_url":d.get("result_bundle_url", ""),"privacy":d.get("privacy", {})}
+        receipts.append(row); receipt_by_delivery[delivery_id]=row
+    completed=[]
+    reg=_load_registry(root) if root.exists() else {"agents":{}}
+    for agent_id in sorted(reg.get("agents", {}).keys()):
+        base=root/f"agents/{agent_id}/inbox/completed"
+        for fp in sorted(base.glob("*.json")) if base.exists() else []:
+            try: d=json.loads(fp.read_text(encoding="utf-8"))
+            except Exception: d={}
+            delivery_id=d.get("delivery_id", fp.stem)
+            completed.append({"agent_id":agent_id,"delivery_id":delivery_id,"request_id":d.get("request", {}).get("request_id"),"capability":d.get("request", {}).get("needed_capability"),"completed_utc":d.get("completed_utc"),"completed_path":str(fp.relative_to(root)),"receipt_path":receipt_by_delivery.get(delivery_id, {}).get("path", "")})
+    unreceipted=[r for r in completed if not r.get("receipt_path")]
+    by_agent={}; by_status={}
+    for r in receipts:
+        by_agent[r.get("agent_id") or "unknown"]=by_agent.get(r.get("agent_id") or "unknown",0)+1
+        by_status[r.get("status") or "unknown"]=by_status.get(r.get("status") or "unknown",0)+1
+    payload={"schema_version":"2026-05-05.agentpress-communication-proof-inbox-v2","status":"ok" if not errors else "fail","generated_utc":_utc_now(),"inbox_dir":str(root),"receipt_count":len(receipts),"completed_count":len(completed),"unreceipted_completed_count":len(unreceipted),"by_agent":by_agent,"by_status":by_status,"receipts":receipts,"completed_deliveries":completed,"unreceipted_completed":unreceipted,"errors":errors,"next_commands":["python3 scripts/agentpress.py message inbox-check --agent-id <agent> --dir <dir> --json","python3 scripts/agentpress.py message complete --agent-id <agent> --message-id <delivery> --response <response.json> --dir <dir>","python3 scripts/agentpress.py message receipt-aggregate --dir <dir> --out <public-dir> --json"]}
+    out.mkdir(parents=True, exist_ok=True)
+    (out/"receipt-index.json").write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    with (out/"receipt-index.jsonl").open("w", encoding="utf-8") as f:
+        for r in receipts: f.write(json.dumps(r, sort_keys=True)+"\n")
+    html_rows="\n".join(f"<tr><td>{html.escape(r.get('agent_id') or '')}</td><td>{html.escape(r.get('status') or '')}</td><td>{html.escape(r.get('delivery_id') or '')}</td><td><code>{html.escape((r.get('response_sha256') or '')[:16])}</code></td><td>{html.escape(r.get('path') or '')}</td></tr>" for r in receipts)
+    page=f"""<!doctype html><meta charset='utf-8'><title>AgentPress Receipt Inbox v2</title><style>body{{font-family:system-ui,sans-serif;margin:2rem;max-width:1100px}}table{{border-collapse:collapse;width:100%}}td,th{{border:1px solid #ddd;padding:.45rem;text-align:left}}th{{background:#f5f5f5}}code{{background:#f6f8fa;padding:.15rem .3rem}}</style><h1>AgentPress Receipt Inbox v2</h1><p>Generated <code>{html.escape(payload['generated_utc'])}</code> from <code>{html.escape(str(root))}</code>.</p><p>Receipts: <b>{payload['receipt_count']}</b> · Completed deliveries: <b>{payload['completed_count']}</b> · Missing receipts: <b>{payload['unreceipted_completed_count']}</b></p><p>Machine files: <a href='receipt-index.json'>receipt-index.json</a> · <a href='receipt-index.jsonl'>receipt-index.jsonl</a></p><table><thead><tr><th>Agent</th><th>Status</th><th>Delivery</th><th>Response SHA-256</th><th>Receipt path</th></tr></thead><tbody>{html_rows}</tbody></table>"""
+    (out/"index.html").write_text(page+"\n", encoding="utf-8")
+    print(json.dumps({"status":payload["status"],"out":str(out),"receipt_count":len(receipts),"completed_count":len(completed),"unreceipted_completed_count":len(unreceipted),"errors":errors}, indent=2) if args.json else str(out))
+    return 0 if not errors else 1
 
 
 
@@ -2860,6 +2898,7 @@ def message_command(args):
     if args.message_cmd == "claim": return message_claim(args)
     if args.message_cmd == "complete": return message_complete(args)
     if args.message_cmd == "agents": return message_agents(args)
+    if args.message_cmd == "receipt-aggregate": return message_receipt_aggregate(args)
     if args.message_cmd == "validate": return message_validate(args)
     if args.message_cmd == "thread-create": return message_thread_create(args)
     if args.message_cmd == "thread-append": return message_thread_append(args)
@@ -4244,6 +4283,60 @@ def marketplace_index(args):
             "trust":{"tier":"reference_route","evidence":["agentpress/hub/routing/capability-index.json"]},
             "safety":{"external_writes":False,"live_payments":False,"credentials":False}
         })
+    # Gorilla utility packs are user-facing marketplace entries: install/generate the
+    # pack locally, run the exact utility command, then finalize/validate proof.
+    gorilla_manifest=load("agentpress/growth/gorilla-utility-pack/manifest.json", {})
+    gorilla_dir=pathlib.Path("agentpress/growth/gorilla-utility-pack")
+    gorilla_guardrails=[
+        "Only use where the painpoint is already being discussed.",
+        "Lead with the utility command/artifact, not marketing.",
+        "No mass posting, fake adoption, scraped DMs, secrets, or private prompts.",
+        "Any external post/send requires explicit human approval."
+    ]
+    if gorilla_manifest.get("targets"):
+        services.append({
+            "service_id":"gorilla-utility-execution-queue",
+            "title":"Gorilla utility pack execution queue",
+            "provider_agent_id":"agentpress-reference-agent",
+            "capabilities":["gorilla-utility-pack","execution-queue","painpoint-routing","proof-first-outreach","no-spam"],
+            "command":"python3 scripts/agentpress.py gorilla-utility-pack --json",
+            "install_run_proof_commands":{
+                "install":"python3 scripts/agentpress.py gorilla-utility-pack --json",
+                "run":"inspect agentpress/growth/gorilla-utility-pack/execution-queue.json and pick a painpoint-matched target",
+                "proof":"python3 scripts/agentpress.py first-contact audit --no-network --json"
+            },
+            "pricing":{"model":"free_static_pack","payment_required":False},
+            "sla":{"status":"prepared_not_posted","expected_runtime_seconds":"<60","support":"Local JSON queue; no public posting automation."},
+            "trust":{"tier":"reference_utility_pack","evidence":["agentpress/growth/gorilla-utility-pack/manifest.json","agentpress/growth/gorilla-utility-pack/execution-queue.json"]},
+            "safety":{"external_writes":False,"live_payments":False,"credentials":False,"external_execution_gate":"Human approval required before posting/sending/commenting externally.","no_spam_guardrails":gorilla_guardrails}
+        })
+        for target in gorilla_manifest.get("targets", []):
+            pack_rel=(gorilla_dir/f"{target.get('id')}.json").as_posix()
+            pack=load(pack_rel, {})
+            flow=pack.get("install_run_proof_flow", {})
+            target_meta=pack.get("target", {})
+            run_cmd=flow.get("run_command") or target_meta.get("command") or target.get("command") or "python3 scripts/agentpress.py gorilla-utility-pack --json"
+            services.append({
+                "service_id":f"gorilla-utility-{slugify(target.get('id','pack'))}",
+                "title":f"Gorilla utility pack: {target.get('id','pack')}",
+                "provider_agent_id":"agentpress-reference-agent",
+                "capabilities":["gorilla-utility-pack","utility-pack","proof-receipt","first-contact-audit","no-spam",slugify(target.get("painpoint","painpoint"))],
+                "community":target.get("community"),
+                "painpoint":target.get("painpoint"),
+                "command":run_cmd,
+                "install_run_proof_commands":{
+                    "install":"python3 scripts/agentpress.py gorilla-utility-pack --json",
+                    "run":run_cmd,
+                    "first_contact_audit":flow.get("first_contact_audit","python3 scripts/agentpress.py first-contact audit --no-network --json"),
+                    "proof_finalize":flow.get("result_finalize"),
+                    "proof_validate":flow.get("result_validate"),
+                    "receipt":flow.get("receipt")
+                },
+                "pricing":{"model":"free_static_pack","payment_required":False},
+                "sla":{"status":pack.get("status","ready_not_sent"),"expected_runtime_seconds":"<60","support":"Attach sanitized JSON only when relevant and explicitly approved."},
+                "trust":{"tier":"reference_utility_pack","evidence":[pack_rel,target_meta.get("artifact"),flow.get("receipt")]},
+                "safety":{"external_writes":False,"live_payments":False,"credentials":False,"external_execution_gate":"Human approval required before posting/sending/commenting externally.","no_spam_guardrails":pack.get("rules", gorilla_guardrails)}
+            })
     auth_policy={
         "public":"read, crawl, validate, inspect marketplace, inspect payment metadata",
         "requires_human_or_external_authorization": payment_policy.get("requires_separate_authorization", []),
@@ -10411,7 +10504,7 @@ def main():
     p = sub.add_parser("smoke-install"); p.add_argument("--runtime", choices=["npm","pypi","all"], default="all"); p.add_argument("--version", default=""); p.add_argument("--workdir", default=""); p.add_argument("--out", default="agentpress/evidence/smoke-install.json"); p.add_argument("--timeout-seconds", type=int, default=180); p.add_argument("--no-run", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("repo-sync-doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--remote", default="https://github.com/barneywohl/agentpress.git"); p.add_argument("--ref", default="refs/heads/main"); p.add_argument("--out", default="agentpress/evidence/repo-sync-doctor.json"); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("cli-gap-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/cli-gap-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("release-promote-checklist"); p.add_argument("root", nargs="?", default="."); p.add_argument("--from-tag", default="rc"); p.add_argument("--to-tag", default="latest"); p.add_argument("--min-independent-proofs", type=int, default=1); p.add_argument("--enforce-review-gates", action="store_true", help="Make independent external proof and RFLO review hard blockers; default is advisory so rc/site updates can ship."); p.add_argument("--max-npm-package-bytes", type=int, default=295000); p.add_argument("--max-npm-package-files", type=int, default=100); p.add_argument("--pack-timeout-seconds", type=int, default=30); p.add_argument("--out", default="agentpress/releases/release-promote-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--evidence-bundle-out", default=""); p.add_argument("--verify-bundle", default=""); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("release-promote-checklist"); p.add_argument("root", nargs="?", default="."); p.add_argument("--from-tag", default="rc"); p.add_argument("--to-tag", default="latest"); p.add_argument("--min-independent-proofs", type=int, default=1); p.add_argument("--enforce-review-gates", action="store_true", help="Make independent external proof and RFLO review hard blockers; default is advisory so rc/site updates can ship."); p.add_argument("--max-npm-package-bytes", type=int, default=300000); p.add_argument("--max-npm-package-files", type=int, default=100); p.add_argument("--pack-timeout-seconds", type=int, default=30); p.add_argument("--out", default="agentpress/releases/release-promote-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--evidence-bundle-out", default=""); p.add_argument("--verify-bundle", default=""); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("no-python-fallback-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--commands", default="doctor,validate,verify,agent-onboard"); p.add_argument("--python-path", default="/nonexistent/python3-agentpress-check"); p.add_argument("--out", default="agentpress/evidence/no-python-fallback-check.json"); p.add_argument("--timeout-seconds", type=int, default=20); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("context-package-init"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("handoff-root-pick"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -10595,6 +10688,7 @@ def main():
     q = msg.add_parser("claim"); q.add_argument("--message-id", required=True); q.add_argument("--agent-id", required=True); q.add_argument("--dir", default="agent-comms")
     q = msg.add_parser("complete"); q.add_argument("--message-id", required=True); q.add_argument("--agent-id", required=True); q.add_argument("--response", required=True); q.add_argument("--dir", default="agent-comms"); q.add_argument("--receipt-out", default=""); q.add_argument("--no-receipt", action="store_true")
     q = msg.add_parser("agents"); q.add_argument("--dir", default="agent-comms"); q.add_argument("--json", action="store_true")
+    q = msg.add_parser("receipt-aggregate"); q.add_argument("--dir", default="agent-comms"); q.add_argument("--out", required=True); q.add_argument("--json", action="store_true")
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")

@@ -16,7 +16,10 @@
     "/agent-sitemap.xml",
     "/agentpress/routes/agent-routes.json",
     "/agentpress/traffic/agent-traffic-audit.json",
-    "/agentpress/feedback/agent-feedback-protocol.json"
+    "/agentpress/feedback/agent-feedback-protocol.json",
+    "/agentpress/growth/gorilla-utility-pack/manifest.json",
+    "/agentpress/growth/gorilla-utility-pack/execution-queue.json",
+    "/agentpress/landing/gorilla-utility-pack-landing.json"
   ],
   "protocols": [
     "/openapi.yaml",
@@ -104,5 +107,13 @@
   "integrity": {
     "llms_txt_sha256": "sha256-351c0756b93e910f9f45623177e6a924f6091d1ba6c0e4a0566633c2143349a5",
     "llms_txt_integrity_note": "Agents MUST verify sha256(llms.txt) matches this value before trusting its contract URLs. Mismatch indicates CDN/cache tampering."
+  },
+  "gorilla_utility_pack": {
+    "manifest": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/manifest.json",
+    "landing": "https://barneywohl.github.io/agentpress/agentpress/landing/gorilla-utility-pack-landing.json",
+    "execution_queue": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json",
+    "pack_count": 5,
+    "status": "ready_not_sent",
+    "external_execution_gate": "Human approval required before external posting."
   }
 }

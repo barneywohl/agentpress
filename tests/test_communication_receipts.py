@@ -68,3 +68,38 @@ def test_external_proof_intake_writes_receipt_path(tmp_path):
     receipt = json.loads(receipt_path.read_text())
     assert receipt["submission_id"] == "p-receipt"
     assert receipt["decision"] == "submitted"
+
+
+def test_communication_inbox_v2_routes_claims_completes_and_aggregates_receipts(tmp_path):
+    comms = tmp_path / "comms"
+    req = tmp_path / "request.json"
+    res = tmp_path / "response.json"
+    aggregate = tmp_path / "receipt-hub"
+
+    assert run_cli("message", "inbox-init", "--dir", str(comms)).returncode == 0
+    assert run_cli("message", "register", "--agent-id", "proof-worker", "--capabilities", "proof_review,validate_agentpress_bundle", "--dir", str(comms)).returncode == 0
+    assert run_cli("message", "create-request", "--capability", "proof_review", "--task", "review proof receipt and summarize acceptance", "--requester-id", "requester-agent", "--out", str(req)).returncode == 0
+
+    route = run_cli("message", "route", "--capability", "proof_review", "--directory", str(comms / "registry.json"), "--json")
+    assert route.returncode == 0, route.stderr + route.stdout
+    assert json.loads(route.stdout)["agents"][0]["agent_id"] == "proof-worker"
+
+    sent = run_cli("message", "send", "--to", "proof-worker", "--request", str(req), "--dir", str(comms))
+    assert sent.returncode == 0, sent.stderr + sent.stdout
+    delivery = json.loads(sent.stdout)["delivery_id"]
+    assert run_cli("message", "claim", "--agent-id", "proof-worker", "--message-id", delivery, "--dir", str(comms)).returncode == 0
+    assert run_cli("message", "create-response", "--request", str(req), "--responder-id", "proof-worker", "--status", "completed", "--result-inline", '{"accepted":true,"summary":"proof reviewed"}', "--out", str(res)).returncode == 0
+    assert run_cli("message", "complete", "--agent-id", "proof-worker", "--message-id", delivery, "--response", str(res), "--dir", str(comms)).returncode == 0
+
+    cp = run_cli("message", "receipt-aggregate", "--dir", str(comms), "--out", str(aggregate), "--json")
+    assert cp.returncode == 0, cp.stderr + cp.stdout
+    summary = json.loads(cp.stdout)
+    assert summary["receipt_count"] == 1
+    assert summary["completed_count"] == 1
+    assert summary["unreceipted_completed_count"] == 0
+    index = json.loads((aggregate / "receipt-index.json").read_text())
+    assert index["schema_version"].endswith("communication-proof-inbox-v2")
+    assert index["receipts"][0]["delivery_id"] == delivery
+    assert index["by_agent"] == {"proof-worker": 1}
+    assert (aggregate / "receipt-index.jsonl").read_text().count("\n") == 1
+    assert "Receipt Inbox v2" in (aggregate / "index.html").read_text()

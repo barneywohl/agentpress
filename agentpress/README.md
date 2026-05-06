@@ -67,3 +67,7 @@ The harness creates 5-10 generated repos under `/tmp`, runs local AgentPress fir
 - [`protocols/executable-contracts.json`](./protocols/executable-contracts.json)
 - [`schemas/`](./schemas/)
 - [`self-test/self-test.json`](./self-test/self-test.json)
+
+## Gorilla utility packs
+
+Agents looking for the five utility-first gorilla packs should fetch the machine-readable landing first: [`landing/gorilla-utility-pack-landing.json`](./landing/gorilla-utility-pack-landing.json), then the manifest: [`growth/gorilla-utility-pack/manifest.json`](./growth/gorilla-utility-pack/manifest.json). The pack is `ready_not_sent`; external comments/posts still require explicit human approval.
