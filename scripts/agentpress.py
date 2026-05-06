@@ -177,6 +177,7 @@ FETCH_ASSETS = [
     "agentpress/payments/payment-policy.json",
     "agentpress/payments/payment-capabilities.json",
     "agentpress/payments/x402-readiness.json",
+    "agentpress/payments/nexio-testnet-readiness.json",
     "agentpress/schemas/index.json",
     "agentpress/agentpress-registry.json",
     "agentpress/articles/article-index.json",
@@ -1590,7 +1591,7 @@ def build_search_index(args):
         for capability, agents in data.get("capabilities", {}).items():
             add("capability", capability, "agentpress/hub/routing/capability-index.json", " ".join(agents), ["capability", capability])
     # Protocol/docs
-    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/onboarding/README.md", "agentpress/onboarding/agent-onboard-example.json", "agentpress/specs/AGENTPRESS_EXPONENTIAL_AGENT_ADOPTION_SPEC_20260503.md", "agentpress/marketplace/README.md", "agentpress/marketplace/marketplace-index.json", "agentpress/specs/AGENTPRESS_AGENT_MARKETPLACE_SPEC_20260503.md", "agentpress/attestations/README.md", "agentpress/attestations/attestation-index.json", "agentpress/specs/AGENTPRESS_ATTESTATIONS_SPEC_20260503.md", "agentpress/painpoints/README.md", "agentpress/painpoints/agent-painpoints.json", "agentpress/specs/AGENTPRESS_AGENT_PAINPOINTS_ROADMAP_SPEC_20260503.md", "agentpress/audience/README.md", "agentpress/audience/audience-kit.json", "agentpress/audience/broadcast-feed.json", "agentpress/audience/pseudonymous-inbox-policy.json", "agentpress/audience/anti-abuse-policy.json", "agentpress/audience/unsubscribe-intent.example.json", "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md", "agentpress/payments/README.md", "agentpress/payments/payment-policy.json", "agentpress/payments/payment-capabilities.json", "agentpress/payments/x402-readiness.json", "agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/adoption/README.md", "agentpress/adoption/fixpack/RUN_THIS_FIRST.md", "agentpress/adoption/fixpack/adoption-fixpack.json", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
+    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/onboarding/README.md", "agentpress/onboarding/agent-onboard-example.json", "agentpress/specs/AGENTPRESS_EXPONENTIAL_AGENT_ADOPTION_SPEC_20260503.md", "agentpress/marketplace/README.md", "agentpress/marketplace/marketplace-index.json", "agentpress/specs/AGENTPRESS_AGENT_MARKETPLACE_SPEC_20260503.md", "agentpress/attestations/README.md", "agentpress/attestations/attestation-index.json", "agentpress/specs/AGENTPRESS_ATTESTATIONS_SPEC_20260503.md", "agentpress/painpoints/README.md", "agentpress/painpoints/agent-painpoints.json", "agentpress/specs/AGENTPRESS_AGENT_PAINPOINTS_ROADMAP_SPEC_20260503.md", "agentpress/audience/README.md", "agentpress/audience/audience-kit.json", "agentpress/audience/broadcast-feed.json", "agentpress/audience/pseudonymous-inbox-policy.json", "agentpress/audience/anti-abuse-policy.json", "agentpress/audience/unsubscribe-intent.example.json", "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md", "agentpress/payments/README.md", "agentpress/payments/payment-policy.json", "agentpress/payments/payment-capabilities.json", "agentpress/payments/x402-readiness.json", "agentpress/payments/nexio-testnet-readiness.json", "agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/adoption/README.md", "agentpress/adoption/fixpack/RUN_THIS_FIRST.md", "agentpress/adoption/fixpack/adoption-fixpack.json", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
         path=root/rel
         if path.exists(): add("doc", path.name, rel, read_text(path)[:1500], ["doc", pathlib.Path(rel).stem])
     payload={"schema_version":"2026-05-05.agentpress-search.v2", "canonical_url": urljoin(base_url, out.as_posix()), "generated_by": "agentpress index-search", "record_count": len(records), "records": records}
@@ -4267,6 +4268,7 @@ def payment_status(args):
     policy=load("agentpress/payments/payment-policy.json")
     capabilities=load("agentpress/payments/payment-capabilities.json")
     x402=load("agentpress/payments/x402-readiness.json")
+    nexio=load("agentpress/payments/nexio-testnet-readiness.json")
     caps=capabilities.get("capabilities", []) if isinstance(capabilities, dict) else []
     payment_required=[c for c in caps if c.get("payment_required")]
     payload={
@@ -4277,6 +4279,8 @@ def payment_status(args):
         "live_payments_enabled": False,
         "core_discovery_free": True,
         "x402_posture": x402.get("verdict", "metadata_only"),
+        "nexio_testnet_posture": nexio.get("status", "metadata_missing"),
+        "nexio_remaining_cases_before_live": nexio.get("remaining_cases_before_live", []),
         "capability_count": len(caps),
         "payment_required_capability_count": len(payment_required),
         "free_capabilities": [c.get("capability_id") for c in caps if not c.get("payment_required")],
@@ -5876,6 +5880,96 @@ def material_kit(args):
         (outdir / "proof-receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
         (outdir / "RUN_THIS.md").write_text(guide, encoding="utf-8")
     print(json.dumps(payload, indent=2) if args.json else f"ok {slug}")
+    return 0
+
+def material_growth_loop_index(args):
+    """Aggregate AgentPress material kits into a receipt-driven growth-loop dashboard."""
+    root = pathlib.Path(args.root)
+    kits_dir = root / args.kits
+    out = root / args.out
+    base = args.base_url.rstrip() + "/"
+    kits = []
+    errors = []
+    by_ecosystem = {}
+    by_status = {}
+    next_build_signals = []
+    for manifest_path in sorted(kits_dir.glob("*/material-manifest.json")) if kits_dir.exists() else []:
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            errors.append(f"invalid manifest {manifest_path}: {exc}")
+            continue
+        kit_dir = manifest_path.parent
+        receipt_path = kit_dir / "proof-receipt.json"
+        receipt = {}
+        if receipt_path.exists():
+            try:
+                receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            except Exception as exc:
+                errors.append(f"invalid receipt {receipt_path}: {exc}")
+        status = manifest.get("status") or receipt.get("status") or "unknown"
+        ecosystem = manifest.get("ecosystem") or "unknown"
+        external_effects = receipt.get("external_effects") or []
+        commands = receipt.get("commands_to_verify") or ([manifest.get("utility_command")] if manifest.get("utility_command") else [])
+        row = {
+            "slug": kit_dir.name,
+            "title": manifest.get("title", kit_dir.name),
+            "ecosystem": ecosystem,
+            "status": status,
+            "target_url": manifest.get("target_url", ""),
+            "painpoint": manifest.get("painpoint", ""),
+            "manifest_path": str(manifest_path.relative_to(root)),
+            "receipt_path": str(receipt_path.relative_to(root)) if receipt_path.exists() else "",
+            "llms_txt": str((kit_dir / "llms.txt").relative_to(root)) if (kit_dir / "llms.txt").exists() else "",
+            "run_guide": str((kit_dir / "RUN_THIS.md").relative_to(root)) if (kit_dir / "RUN_THIS.md").exists() else "",
+            "commands_to_verify": commands,
+            "external_effects": external_effects,
+            "receipt_status": receipt.get("status", "missing"),
+            "safe_for_public_contact": False,
+            "next_action": "run locally and collect proof/blocker receipt before any external contact",
+        }
+        kits.append(row)
+        by_ecosystem[ecosystem] = by_ecosystem.get(ecosystem, 0) + 1
+        by_status[status] = by_status.get(status, 0) + 1
+        if row["painpoint"]:
+            next_build_signals.append({"slug": row["slug"], "signal": row["painpoint"], "build_next": "add/run a proof command or blocker receipt for this painpoint"})
+    payload = {
+        "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
+        "canonical_url": urljoin(base, (pathlib.Path(args.out) / "material-growth-loop-index.json").as_posix()),
+        "generated_utc": _utc_now(),
+        "status": "ok" if not errors else "fail",
+        "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
+        "kits_dir": args.kits,
+        "kit_count": len(kits),
+        "by_ecosystem": by_ecosystem,
+        "by_status": by_status,
+        "kits": kits,
+        "next_build_signals": next_build_signals[:25],
+        "safety": {
+            "external_posting": False,
+            "public_contact_requires_exact_human_approval": True,
+            "fake_adoption_claims_allowed": False,
+            "hidden_tracking_allowed": False,
+        },
+        "validation_commands": [
+            "python3 scripts/agentpress.py material-growth-loop-index --json",
+            "python3 -m json.tool agentpress/growth/material-loop/material-growth-loop-index.json >/dev/null",
+        ],
+        "errors": errors,
+    }
+    if not args.no_write:
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "material-growth-loop-index.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        with (out / "material-growth-loop-index.jsonl").open("w", encoding="utf-8") as f:
+            for row in kits:
+                f.write(json.dumps(row, sort_keys=True) + "\n")
+        rows = "\n".join(
+            f"<tr><td>{html.escape(k['ecosystem'])}</td><td>{html.escape(k['title'])}</td><td>{html.escape(k['status'])}</td><td>{html.escape(k['receipt_status'])}</td><td><code>{html.escape(k['slug'])}</code></td><td>{html.escape(k['painpoint'])}</td></tr>"
+            for k in kits
+        )
+        page = f"""<!doctype html><meta charset='utf-8'><title>AgentPress Material Growth Loop</title><style>body{{font-family:system-ui,sans-serif;margin:2rem;max-width:1200px}}table{{border-collapse:collapse;width:100%}}td,th{{border:1px solid #ddd;padding:.45rem;text-align:left;vertical-align:top}}th{{background:#f5f5f5}}code{{background:#f6f8fa;padding:.15rem .3rem}}</style><h1>AgentPress Material Growth Loop</h1><p>Generated <code>{html.escape(payload['generated_utc'])}</code>. Kits: <b>{len(kits)}</b>. This dashboard is local/static proof infrastructure; it does not post externally.</p><p>Loop: material agents already want → AgentPress wrapper → proof/blocker receipt → next build signal.</p><p>Machine files: <a href='material-growth-loop-index.json'>material-growth-loop-index.json</a> · <a href='material-growth-loop-index.jsonl'>jsonl</a></p><table><thead><tr><th>Ecosystem</th><th>Title</th><th>Status</th><th>Receipt</th><th>Slug</th><th>Painpoint</th></tr></thead><tbody>{rows}</tbody></table>"""
+        (out / "index.html").write_text(page, encoding="utf-8")
+    print(json.dumps({"status": payload["status"], "out": str(out), "kit_count": len(kits), "errors": errors}, indent=2) if args.json else str(out))
     return 0
 
 def gorilla_approval_packets(args):
@@ -10940,6 +11034,7 @@ def main():
     p = sub.add_parser("gorilla-action-safety-gate"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/growth/gorilla-utility-pack/execution-queue.json"); p.add_argument("--action-json", default=""); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack/external-action-safety-gate.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("gorilla-approval-packets"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/growth/gorilla-utility-pack/execution-queue.json"); p.add_argument("--safety", default="agentpress/growth/gorilla-utility-pack/external-action-safety-gate.json"); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack/approval-packets"); p.add_argument("--limit", type=int, default=5); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("material-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--target-url", default=""); p.add_argument("--ecosystem", default="agent"); p.add_argument("--painpoint", default=""); p.add_argument("--title", default=""); p.add_argument("--slug", default=""); p.add_argument("--artifact", default=""); p.add_argument("--command", default=""); p.add_argument("--risks", default="public-comment-requires-approval"); p.add_argument("--out", default="agentpress/material-kits"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("material-growth-loop-index"); p.add_argument("root", nargs="?", default="."); p.add_argument("--kits", default="agentpress/material-kits"); p.add_argument("--out", default="agentpress/growth/material-loop"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("next-attention-build-spec"); p.add_argument("--out", default="agentpress/specs/next-attention-build-spec.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-community-newswire"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/agent-community-newswire.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("immediate-agent-needs-radar"); p.add_argument("--out", default="agentpress/community/immediate-agent-needs-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -11333,6 +11428,7 @@ def main():
     if args.cmd == "gorilla-utility-pack": return gorilla_utility_pack(args)
     if args.cmd == "gorilla-action-safety-gate": return gorilla_action_safety_gate(args)
     if args.cmd == "material-kit": return material_kit(args)
+    if args.cmd == "material-growth-loop-index": return material_growth_loop_index(args)
     if args.cmd == "gorilla-approval-packets": return gorilla_approval_packets(args)
     if args.cmd == "next-attention-build-spec": return next_attention_build_spec(args)
     if args.cmd == "agent-community-newswire": return agent_community_newswire(args)
