@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T05:03:09Z",
+  "generated_utc": "2026-05-06T05:03:23Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 5606,
+  "kit_count": 5624,
   "by_ecosystem": {
     "Anthropic": 419,
     "Auth0": 495,
@@ -34,7 +34,7 @@
     "Next.js": 197,
     "OpenAI Agents SDK": 37,
     "OpenHands": 75,
-    "Package registry docs": 96,
+    "Package registry docs": 114,
     "Pinecone": 62,
     "Playwright": 16,
     "Postgres": 61,
@@ -52,7 +52,7 @@
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 5606
+    "ready_local_static_not_posted": 5624
   },
   "kits": [
     {
@@ -86975,6 +86975,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "package-registry-docs-www-npmjs-com-package-cypress-activetab-readme-pag",
+      "title": "Package registry docs: cypress quickstart",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/cypress?activeTab=readme&page=quickstart",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=cypress; doc=quickstart",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-cypress-activetab-readme-pag/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-cypress-activetab-readme-pag/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-cypress-activetab-readme-pag/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-cypress-activetab-readme-pag/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "package-registry-docs-www-npmjs-com-package-django-activetab-readme-page",
       "title": "Package registry docs: django quickstart",
       "ecosystem": "Package registry docs",
@@ -87039,11 +87060,11 @@
     },
     {
       "slug": "package-registry-docs-www-npmjs-com-package-embeddings-activetab-readme",
-      "title": "Package registry docs: embeddings migration",
+      "title": "Package registry docs: embeddings reference",
       "ecosystem": "Package registry docs",
       "status": "ready_local_static_not_posted",
-      "target_url": "https://www.npmjs.com/package/embeddings?activeTab=readme&page=migration",
-      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=embeddings; doc=migration",
+      "target_url": "https://www.npmjs.com/package/embeddings?activeTab=readme&page=reference",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=embeddings; doc=reference",
       "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-embeddings-activetab-readme/material-manifest.json",
       "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-embeddings-activetab-readme/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-embeddings-activetab-readme/llms.txt",
@@ -87122,6 +87143,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "package-registry-docs-www-npmjs-com-package-github-actions-activetab-rea",
+      "title": "Package registry docs: github-actions quickstart",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/github-actions?activeTab=readme&page=quickstart",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=github-actions; doc=quickstart",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-github-actions-activetab-rea/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-github-actions-activetab-rea/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-github-actions-activetab-rea/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-github-actions-activetab-rea/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "package-registry-docs-www-npmjs-com-package-graphql-activetab-readme-pag",
       "title": "Package registry docs: graphql quickstart",
       "ecosystem": "Package registry docs",
@@ -87132,6 +87174,300 @@
       "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-graphql-activetab-readme-pag/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-graphql-activetab-readme-pag/llms.txt",
       "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-graphql-activetab-readme-pag/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-a",
+      "title": "Package registry docs: jest authentication",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=authentication",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=authentication",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-a/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-a/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-a/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-a/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-c",
+      "title": "Package registry docs: jest configuration",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=configuration",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=configuration",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-c/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-c/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-c/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-c/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-d",
+      "title": "Package registry docs: jest deployment",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=deployment",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=deployment",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-d/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-d/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-d/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-d/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-e",
+      "title": "Package registry docs: jest errors",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=errors",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=errors",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-e/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-e/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-e/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-e/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-g",
+      "title": "Package registry docs: jest getting-started",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=getting-started",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=getting-started",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-g/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-g/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-g/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-g/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-i",
+      "title": "Package registry docs: jest integrations",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=integrations",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=integrations",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-i/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-i/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-i/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-i/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-m",
+      "title": "Package registry docs: jest migration",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=migration",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=migration",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-m/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-m/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-m/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-m/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-o",
+      "title": "Package registry docs: jest oauth",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=oauth",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=oauth",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-o/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-o/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-o/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-o/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-p",
+      "title": "Package registry docs: jest pricing",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=pricing",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=pricing",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-p/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-p/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-p/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-p/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-q",
+      "title": "Package registry docs: jest quickstart",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=quickstart",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=quickstart",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-q/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-q/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-q/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-q/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-r",
+      "title": "Package registry docs: jest reference",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=reference",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=reference",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-r/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-r/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-r/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-r/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-s",
+      "title": "Package registry docs: jest sdk",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=sdk",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=sdk",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-s/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-s/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-s/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-s/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-t",
+      "title": "Package registry docs: jest troubleshooting",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=troubleshooting",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=troubleshooting",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-t/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-t/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-t/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-t/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-w",
+      "title": "Package registry docs: jest webhooks",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/jest?activeTab=readme&page=webhooks",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=jest; doc=webhooks",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-w/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-w/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-w/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-jest-activetab-readme-page-w/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -87974,6 +88310,27 @@
       "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-openapi-activetab-readme-pag/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-playwright-activetab-readme",
+      "title": "Package registry docs: playwright reference",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/playwright?activeTab=readme&page=reference",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=playwright; doc=reference",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-playwright-activetab-readme/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-playwright-activetab-readme/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-playwright-activetab-readme/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-playwright-activetab-readme/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
         "python3 -m json.tool proof-receipt.json"
       ],
@@ -88896,6 +89253,27 @@
       "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-vite-activetab-readme-page-w/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-vite-activetab-readme-page-w/llms.txt",
       "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-vite-activetab-readme-page-w/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "package-registry-docs-www-npmjs-com-package-vitest-activetab-readme-page",
+      "title": "Package registry docs: vitest quickstart",
+      "ecosystem": "Package registry docs",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.npmjs.com/package/vitest?activeTab=readme&page=quickstart",
+      "painpoint": "agents need compact wrappers for npm README/API docs millions of agents need; topic=vitest; doc=quickstart",
+      "manifest_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-vitest-activetab-readme-page/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-vitest-activetab-readme-page/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-vitest-activetab-readme-page/llms.txt",
+      "run_guide": "agentpress/material-kits/package-registry-docs-www-npmjs-com-package-vitest-activetab-readme-page/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
