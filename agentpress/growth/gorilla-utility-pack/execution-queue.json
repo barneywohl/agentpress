@@ -1,0 +1,119 @@
+{
+  "schema_version": "2026-05-05.agentpress-gorilla-execution-queue.v1",
+  "generated_utc": "2026-05-06T01:00:46Z",
+  "status": "prepared_not_posted",
+  "purpose": "Turn AgentPress gorilla utility packs into a concrete target queue for painpoint-matched public agent-builder issues. No external posting is automated.",
+  "posting_policy": {
+    "default": "Do not post/comment/DM externally without explicit human approval of the exact target and draft.",
+    "allowed_now": [
+      "publish static queue and draft packets on AgentPress site",
+      "use internally for feature prioritization",
+      "prepare PR/comment drafts"
+    ],
+    "prohibited_without_approval": [
+      "public issue comments",
+      "DMs",
+      "mass posting",
+      "security/credential issue comments",
+      "claims of adoption"
+    ]
+  },
+  "targets": [
+    {
+      "rank": 1,
+      "ecosystem": "OpenHands",
+      "url": "https://github.com/OpenHands/OpenHands/issues/12316",
+      "painpoint": "git marketplace/plugin distribution without packaging overhead",
+      "pack": "openhands-runtime-hang",
+      "artifact": "agentpress/repro/runtime-hang-repro-capsule.json",
+      "receipt": "agentpress/growth/gorilla-utility-pack/receipts/openhands-runtime-hang-result.json",
+      "risk": "low-medium",
+      "action": "prepare neutral static plugin/connector manifest compatibility note",
+      "draft": "I saw the plugin marketplace discussion and made a small static manifest/receipt pattern that may be useful as a neutral fixture: it keeps connector metadata, expected runtime behavior, and proof receipts in repo-native JSON. If useful, I can adapt it into a minimal OpenHands-specific example without telemetry or external writes."
+    },
+    {
+      "rank": 2,
+      "ecosystem": "Roo Code",
+      "url": "https://github.com/RooCodeInc/Roo-Code/issues/12185",
+      "painpoint": "malformed/partial tool call response stops task",
+      "pack": "cline-provider-repro",
+      "artifact": "agentpress/compatibility/provider-adapter-repro-pack.json",
+      "receipt": "agentpress/growth/gorilla-utility-pack/receipts/cline-provider-repro-result.json",
+      "risk": "medium-low",
+      "action": "prepare minimal malformed-tool-call fixture attachment",
+      "draft": "This looks like a good candidate for a tiny machine-checkable repro fixture rather than a long issue thread. I have a static provider/tool-call repro pack format that records the failing tool payload, expected adapter contract, and result receipt; happy to trim it into a Roo-specific fixture if useful."
+    },
+    {
+      "rank": 3,
+      "ecosystem": "OpenHands",
+      "url": "https://github.com/OpenHands/OpenHands/issues/13475",
+      "painpoint": "repo cloned into subdirectory breaks setup/hook root assumptions",
+      "pack": "openhands-runtime-hang",
+      "artifact": "agentpress/repro/runtime-hang-repro-capsule.json",
+      "receipt": "agentpress/growth/gorilla-utility-pack/receipts/openhands-runtime-hang-result.json",
+      "risk": "medium-low",
+      "action": "prepare root/cwd manifest example",
+      "draft": "For the workspace-root ambiguity here, a small static root manifest may help make expected repo root, setup hooks, cwd, and runtime evidence explicit. I can attach a minimal JSON fixture showing root path, hook discovery paths, and validation receipt if that would help the reproduction."
+    },
+    {
+      "rank": 4,
+      "ecosystem": "LangGraph",
+      "url": "https://github.com/langchain-ai/langgraph/issues/6064",
+      "painpoint": "sub-agent handoff routes back incorrectly / waiting state ambiguity",
+      "pack": "langgraph-checkpoint-replay",
+      "artifact": "agentpress/repro/checkpoint-replay-minimal-repro.json",
+      "receipt": "agentpress/growth/gorilla-utility-pack/receipts/langgraph-checkpoint-replay-result.json",
+      "risk": "medium-low",
+      "action": "prepare handoff/task-card fixture",
+      "draft": "This seems like a state/handoff ambiguity where an explicit task-card + handoff receipt could make the expected next actor and waiting state machine-checkable. I can attach a minimal static fixture/replay packet if useful."
+    },
+    {
+      "rank": 5,
+      "ecosystem": "Cline",
+      "url": "https://github.com/cline/cline/issues/10499",
+      "painpoint": "MCP auto-approve disabled but tool calls execute without prompt",
+      "pack": "cline-tool-approval",
+      "artifact": "agentpress/security/approval-bypass-risk-result.json",
+      "receipt": "agentpress/growth/gorilla-utility-pack/receipts/cline-tool-approval-result.json",
+      "risk": "high",
+      "action": "hold unless maintainer invites; security-sensitive",
+      "draft": "Security-sensitive; do not post unsolicited. If maintainers request fixtures, provide only a minimal fail-closed approval receipt format and avoid exploit details."
+    },
+    {
+      "rank": 6,
+      "ecosystem": "LangGraph",
+      "url": "https://github.com/langchain-ai/langgraph/issues/4397",
+      "painpoint": "multiple tool results for one tool call around human approval flow",
+      "pack": "langgraph-checkpoint-replay",
+      "artifact": "agentpress/repro/checkpoint-replay-minimal-repro.json",
+      "receipt": "agentpress/growth/gorilla-utility-pack/receipts/langgraph-checkpoint-replay-result.json",
+      "risk": "medium",
+      "action": "prepare runnable approval-flow replay packet only if code fixture can be specific",
+      "draft": "This looks like a human-approval/tool-result routing repro. A compact replay packet with expected tool_call_id, approval state, and resulting messages may help keep the fixture small. I can prepare one if useful."
+    },
+    {
+      "rank": 7,
+      "ecosystem": "LlamaIndex",
+      "url": "https://github.com/run-llama/llama_index/issues/21555",
+      "painpoint": "ContextVar propagation differs between FunctionTool sync/async paths",
+      "pack": "llamaindex-rag-safety",
+      "artifact": "agentpress/safety/rag-tool-safety-bundle.json",
+      "receipt": "agentpress/growth/gorilla-utility-pack/receipts/llamaindex-rag-safety-result.json",
+      "risk": "medium",
+      "action": "prepare tiny tool context metadata fixture",
+      "draft": "This seems fixture-friendly: record expected context metadata, sync/async tool path, and observed propagation result in a static receipt so regressions are easy to compare. I can trim a LlamaIndex-specific example if helpful."
+    },
+    {
+      "rank": 8,
+      "ecosystem": "Cline",
+      "url": "https://github.com/cline/cline/issues/4389",
+      "painpoint": "large files/context window failures with no recovery",
+      "pack": "cline-provider-repro",
+      "artifact": "agentpress/compatibility/provider-adapter-repro-pack.json",
+      "receipt": "agentpress/growth/gorilla-utility-pack/receipts/cline-provider-repro-result.json",
+      "risk": "medium",
+      "action": "prepare focused source-map/context bundle example",
+      "draft": "A source-map + focused task-card bundle can make large repo context failures reproducible without pasting huge files into context. I can attach a small static example if this issue is still active."
+    }
+  ]
+}

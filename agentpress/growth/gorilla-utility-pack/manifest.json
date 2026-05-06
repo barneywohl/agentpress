@@ -1,7 +1,7 @@
 {
   "schema_version": "2026-05-05.agentpress-gorilla-utility-pack.v2",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/manifest.json",
-  "generated_utc": "2026-05-05T23:54:57Z",
+  "generated_utc": "2026-05-06T00:50:13Z",
   "status": "ready_not_sent",
   "purpose": "Execute Jake's gorilla plan internally: package useful AgentPress artifacts for materials agents already inspect, without spam or unapproved external writes.",
   "target_count": 5,
@@ -56,8 +56,10 @@
   ],
   "next_internal_commands": [
     "python3 scripts/agentpress.py gorilla-utility-pack --json",
-    "python3 scripts/agentpress.py first-contact audit --no-network --json",
-    "python3 scripts/agentpress.py external-proof-intake status --json"
+    "inspect agentpress/growth/gorilla-utility-pack/execution-queue.json",
+    "get human approval before public posting"
   ],
-  "external_execution_gate": "Human approval required before posting/sending/commenting externally."
+  "external_execution_gate": "Human approval required before posting/sending/commenting externally.",
+  "execution_queue": "https://barneywohl.github.io/agentpress/agentpress/growth/gorilla-utility-pack/execution-queue.json",
+  "execution_queue_status": "prepared_not_posted"
 }
