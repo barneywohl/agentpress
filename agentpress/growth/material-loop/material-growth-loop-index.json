@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:59:05Z",
+  "generated_utc": "2026-05-06T04:59:26Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 4444,
+  "kit_count": 4543,
   "by_ecosystem": {
     "Anthropic": 387,
     "Auth0": 189,
@@ -23,6 +23,7 @@
     "DSPy": 9,
     "FastAPI": 12,
     "GCP": 185,
+    "Grafana": 1,
     "Haystack": 211,
     "Kubernetes": 77,
     "LangGraph": 2,
@@ -42,17 +43,19 @@
     "repo-docs": 1,
     "Roo Code": 6,
     "api-schema": 1,
-    "Sentry": 297,
+    "Sentry": 381,
     "onboarding": 1,
     "Stripe": 37,
     "Supabase": 288,
+    "TanStack": 13,
+    "Twilio": 1,
     "TypeScript": 1,
     "Vercel": 226,
     "Vercel AI SDK": 111,
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 4444
+    "ready_local_static_not_posted": 4543
   },
   "kits": [
     {
@@ -40061,6 +40064,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "grafana-docs-grafana-latest-developer-resources-mcp-set-up-client-config",
+      "title": "Grafana: client configuration examples",
+      "ecosystem": "Grafana",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://grafana.com/docs/grafana/latest/developer-resources/mcp/set-up/client-configuration-examples",
+      "painpoint": "agents frequently need compact, citation-ready context for dashboard/alerting docs agents need: client configuration examples",
+      "manifest_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-set-up-client-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-set-up-client-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-set-up-client-config/llms.txt",
+      "run_guide": "agentpress/material-kits/grafana-docs-grafana-latest-developer-resources-mcp-set-up-client-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "haystack-docs-2-24-agents",
       "title": "Haystack: agents",
       "ecosystem": "Haystack",
@@ -73157,6 +73181,363 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "sentry-platforms-apple-guides-ios-configuration-http-client-errors",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/apple/guides/ios/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-apple-guides-ios-configuration-http-client-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-apple-guides-ios-configuration-http-client-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-apple-guides-ios-configuration-http-client-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-apple-guides-ios-configuration-http-client-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-apple-guides-macos-configuration-http-client-errors",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/apple/guides/macos/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-apple-guides-macos-configuration-http-client-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-apple-guides-macos-configuration-http-client-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-apple-guides-macos-configuration-http-client-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-apple-guides-macos-configuration-http-client-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-apple-guides-tvos-configuration-http-client-errors",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/apple/guides/tvos/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-apple-guides-tvos-configuration-http-client-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-apple-guides-tvos-configuration-http-client-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-apple-guides-tvos-configuration-http-client-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-apple-guides-tvos-configuration-http-client-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-apple-guides-visionos-configuration-http-client-errors",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/apple/guides/visionos/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-apple-guides-visionos-configuration-http-client-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-apple-guides-visionos-configuration-http-client-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-apple-guides-visionos-configuration-http-client-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-apple-guides-visionos-configuration-http-client-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-apple-guides-watchos-configuration-http-client-errors",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/apple/guides/watchos/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-apple-guides-watchos-configuration-http-client-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-apple-guides-watchos-configuration-http-client-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-apple-guides-watchos-configuration-http-client-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-apple-guides-watchos-configuration-http-client-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-android-configuration-graphql-client-erro",
+      "title": "Sentry: graphql client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/android/configuration/graphql-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: graphql client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-android-configuration-graphql-client-erro/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-android-configuration-graphql-client-erro/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-android-configuration-graphql-client-erro/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-android-configuration-graphql-client-erro/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-android-configuration-http-client-errors",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/android/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-android-configuration-http-client-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-android-configuration-http-client-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-android-configuration-http-client-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-android-configuration-http-client-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-apple-configuration-graphql-client-errors",
+      "title": "Sentry: graphql client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/apple/configuration/graphql-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: graphql client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-apple-configuration-graphql-client-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-apple-configuration-graphql-client-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-apple-configuration-graphql-client-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-apple-configuration-graphql-client-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-apple-configuration-http-client-errors",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/apple/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-apple-configuration-http-client-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-apple-configuration-http-client-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-apple-configuration-http-client-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-apple-configuration-http-client-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-aspnet-configuration-graphql-client-error",
+      "title": "Sentry: graphql client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/aspnet/configuration/graphql-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: graphql client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnet-configuration-graphql-client-error/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnet-configuration-graphql-client-error/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnet-configuration-graphql-client-error/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnet-configuration-graphql-client-error/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-aspnet-configuration-http-client-errors",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/aspnet/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnet-configuration-http-client-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnet-configuration-http-client-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnet-configuration-http-client-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnet-configuration-http-client-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-aspnetcore-configuration-graphql-client-e",
+      "title": "Sentry: graphql client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/aspnetcore/configuration/graphql-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: graphql client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnetcore-configuration-graphql-client-e/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnetcore-configuration-graphql-client-e/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnetcore-configuration-graphql-client-e/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnetcore-configuration-graphql-client-e/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-aspnetcore-configuration-http-client-erro",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/aspnetcore/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnetcore-configuration-http-client-erro/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnetcore-configuration-http-client-erro/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnetcore-configuration-http-client-erro/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-aspnetcore-configuration-http-client-erro/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-aws-lambda-configuration-graphql-client-e",
+      "title": "Sentry: graphql client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/aws-lambda/configuration/graphql-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: graphql client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aws-lambda-configuration-graphql-client-e/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aws-lambda-configuration-graphql-client-e/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-aws-lambda-configuration-graphql-client-e/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-aws-lambda-configuration-graphql-client-e/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-aws-lambda-configuration-http-client-erro",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/aws-lambda/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aws-lambda-configuration-http-client-erro/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-aws-lambda-configuration-http-client-erro/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-aws-lambda-configuration-http-client-erro/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-aws-lambda-configuration-http-client-erro/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/azure-functions-worker/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-configuration-diag",
+      "title": "Sentry: diagnostic logger",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/azure-functions-worker/configuration/diagnostic-logger",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: diagnostic logger",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-diag/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-diag/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-diag/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-diag/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-configuration-disa",
       "title": "Sentry: disable integrations",
       "ecosystem": "Sentry",
@@ -73178,6 +73559,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-configuration-drai",
+      "title": "Sentry: draining",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/azure-functions-worker/configuration/draining",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: draining",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-drai/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-drai/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-drai/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-drai/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-configuration-envi",
+      "title": "Sentry: environments",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/azure-functions-worker/configuration/environments",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: environments",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-envi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-envi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-envi/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-envi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-configuration-filt",
+      "title": "Sentry: filtering",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/azure-functions-worker/configuration/filtering",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: filtering",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-filt/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-filt/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-filt/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-filt/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-configuration-grap",
       "title": "Sentry: graphql client errors",
       "ecosystem": "Sentry",
@@ -73188,6 +73632,27 @@
       "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-grap/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-grap/llms.txt",
       "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-grap/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-configuration-heap",
+      "title": "Sentry: heap dumps",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/azure-functions-worker/configuration/heap-dumps",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: heap dumps",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-heap/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-heap/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-heap/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-heap/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -73241,6 +73706,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-configuration-opti",
+      "title": "Sentry: options",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/azure-functions-worker/configuration/options",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: options",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-opti/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-opti/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-opti/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-opti/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-configuration-rele",
+      "title": "Sentry: releases",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/azure-functions-worker/configuration/releases",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: releases",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-rele/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-rele/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-rele/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-rele/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-configuration-samp",
+      "title": "Sentry: sampling",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/azure-functions-worker/configuration/sampling",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: sampling",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-samp/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-samp/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-samp/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-configuration-samp/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-tracing-instrument",
       "title": "Sentry: ai agents module",
       "ecosystem": "Sentry",
@@ -73262,6 +73790,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-unit-testing",
+      "title": "Sentry: unit testing",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/azure-functions-worker/unit-testing",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: unit testing",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-unit-testing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-unit-testing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-unit-testing/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-unit-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "sentry-platforms-dotnet-guides-azure-functions-worker-user-feedback-conf",
       "title": "Sentry: configuration",
       "ecosystem": "Sentry",
@@ -73272,6 +73821,27 @@
       "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-user-feedback-conf/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-user-feedback-conf/llms.txt",
       "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-azure-functions-worker-user-feedback-conf/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-blazor-server-configuration-disable-integ",
+      "title": "Sentry: disable integrations",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/blazor-server/configuration/disable-integrations",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: disable integrations",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-configuration-disable-integ/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-configuration-disable-integ/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-configuration-disable-integ/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-configuration-disable-integ/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -73325,6 +73895,174 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "sentry-platforms-dotnet-guides-blazor-server-configuration-msbuild",
+      "title": "Sentry: msbuild",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/blazor-server/configuration/msbuild",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: msbuild",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-configuration-msbuild/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-configuration-msbuild/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-configuration-msbuild/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-configuration-msbuild/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-blazor-server-tracing-instrumentation-ai",
+      "title": "Sentry: ai agents module",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/blazor-server/tracing/instrumentation/ai-agents-module",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: ai agents module",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-tracing-instrumentation-ai/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-tracing-instrumentation-ai/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-tracing-instrumentation-ai/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-tracing-instrumentation-ai/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-blazor-server-user-feedback-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/blazor-server/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-user-feedback-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-user-feedback-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-user-feedback-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-server-user-feedback-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-blazor-webassembly-configuration-graphql",
+      "title": "Sentry: graphql client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/blazor-webassembly/configuration/graphql-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: graphql client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-webassembly-configuration-graphql/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-webassembly-configuration-graphql/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-webassembly-configuration-graphql/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-webassembly-configuration-graphql/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-blazor-webassembly-configuration-http-cli",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/blazor-webassembly/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-webassembly-configuration-http-cli/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-webassembly-configuration-http-cli/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-webassembly-configuration-http-cli/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-blazor-webassembly-configuration-http-cli/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-entityframework-configuration-graphql-cli",
+      "title": "Sentry: graphql client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/entityframework/configuration/graphql-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: graphql client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-entityframework-configuration-graphql-cli/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-entityframework-configuration-graphql-cli/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-entityframework-configuration-graphql-cli/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-entityframework-configuration-graphql-cli/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-entityframework-configuration-http-client",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/entityframework/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-entityframework-configuration-http-client/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-entityframework-configuration-http-client/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-entityframework-configuration-http-client/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-entityframework-configuration-http-client/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-extensions-logging-configuration-disable",
+      "title": "Sentry: disable integrations",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/extensions-logging/configuration/disable-integrations",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: disable integrations",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-configuration-disable/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-configuration-disable/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-configuration-disable/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-configuration-disable/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "sentry-platforms-dotnet-guides-extensions-logging-configuration-graphql",
       "title": "Sentry: graphql client errors",
       "ecosystem": "Sentry",
@@ -73367,6 +74105,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "sentry-platforms-dotnet-guides-extensions-logging-configuration-msbuild",
+      "title": "Sentry: msbuild",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/extensions-logging/configuration/msbuild",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: msbuild",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-configuration-msbuild/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-configuration-msbuild/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-configuration-msbuild/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-configuration-msbuild/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-extensions-logging-tracing-instrumentatio",
+      "title": "Sentry: ai agents module",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/extensions-logging/tracing/instrumentation/ai-agents-module",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: ai agents module",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-tracing-instrumentatio/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-tracing-instrumentatio/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-tracing-instrumentatio/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-tracing-instrumentatio/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-extensions-logging-user-feedback-configur",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/extensions-logging/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-user-feedback-configur/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-user-feedback-configur/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-user-feedback-configur/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-extensions-logging-user-feedback-configur/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-google-cloud-functions-configuration-disa",
+      "title": "Sentry: disable integrations",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/google-cloud-functions/configuration/disable-integrations",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: disable integrations",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-configuration-disa/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-configuration-disa/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-configuration-disa/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-configuration-disa/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "sentry-platforms-dotnet-guides-google-cloud-functions-configuration-grap",
       "title": "Sentry: graphql client errors",
       "ecosystem": "Sentry",
@@ -73398,6 +74220,132 @@
       "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-configuration-http/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-configuration-http/llms.txt",
       "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-configuration-http/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-google-cloud-functions-configuration-msbu",
+      "title": "Sentry: msbuild",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/google-cloud-functions/configuration/msbuild",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: msbuild",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-configuration-msbu/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-configuration-msbu/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-configuration-msbu/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-configuration-msbu/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-google-cloud-functions-tracing-instrument",
+      "title": "Sentry: ai agents module",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/google-cloud-functions/tracing/instrumentation/ai-agents-module",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: ai agents module",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-tracing-instrument/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-tracing-instrument/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-tracing-instrument/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-tracing-instrument/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-google-cloud-functions-user-feedback-conf",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/google-cloud-functions/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-user-feedback-conf/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-user-feedback-conf/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-user-feedback-conf/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-google-cloud-functions-user-feedback-conf/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-log4net-configuration-graphql-client-erro",
+      "title": "Sentry: graphql client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/log4net/configuration/graphql-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: graphql client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-log4net-configuration-graphql-client-erro/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-log4net-configuration-graphql-client-erro/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-log4net-configuration-graphql-client-erro/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-log4net-configuration-graphql-client-erro/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-log4net-configuration-http-client-errors",
+      "title": "Sentry: http client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/log4net/configuration/http-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: http client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-log4net-configuration-http-client-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-log4net-configuration-http-client-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-log4net-configuration-http-client-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-log4net-configuration-http-client-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-dotnet-guides-maui-configuration-graphql-client-errors",
+      "title": "Sentry: graphql client errors",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/dotnet/guides/maui/configuration/graphql-client-errors",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: graphql client errors",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-maui-configuration-graphql-client-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-dotnet-guides-maui-configuration-graphql-client-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-dotnet-guides-maui-configuration-graphql-client-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-dotnet-guides-maui-configuration-graphql-client-errors/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -79205,6 +80153,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-custo",
+      "title": "Sentry: custom",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/custom",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: custom",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-custo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-custo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-custo/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-custo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-dedup",
+      "title": "Sentry: dedupe",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/dedupe",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: dedupe",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-dedup/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-dedup/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-dedup/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-dedup/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-eleme",
+      "title": "Sentry: elementtiming",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/elementtiming",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: elementtiming",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-eleme/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-eleme/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-eleme/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-eleme/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-extra",
       "title": "Sentry: extraerrordata",
       "ecosystem": "Sentry",
@@ -79226,6 +80237,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-featu",
+      "title": "Sentry: featureflags",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/featureflags",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: featureflags",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-featu/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-featu/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-featu/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-featu/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-funct",
       "title": "Sentry: functiontostring",
       "ecosystem": "Sentry",
@@ -79236,6 +80268,48 @@
       "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-funct/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-funct/llms.txt",
       "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-funct/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-globa",
+      "title": "Sentry: globalhandlers",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/globalhandlers",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: globalhandlers",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-globa/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-globa/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-globa/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-globa/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-googl",
+      "title": "Sentry: google genai",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/google-genai",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: google genai",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-googl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-googl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-googl/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-googl/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -79289,6 +80363,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-inbou",
+      "title": "Sentry: inboundfilters",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/inboundfilters",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: inboundfilters",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-inbou/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-inbou/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-inbou/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-inbou/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-langc",
+      "title": "Sentry: langchain",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/langchain",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: langchain",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-langc/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-langc/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-langc/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-langc/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-langg",
+      "title": "Sentry: langgraph",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/langgraph",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: langgraph",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-langg/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-langg/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-langg/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-langg/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-linke",
       "title": "Sentry: linkederrors",
       "ecosystem": "Sentry",
@@ -79310,6 +80447,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-modul",
+      "title": "Sentry: modulemetadata",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/modulemetadata",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: modulemetadata",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-modul/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-modul/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-modul/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-modul/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-opena",
+      "title": "Sentry: openai",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/openai",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: openai",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-opena/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-opena/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-opena/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-opena/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-repor",
       "title": "Sentry: reportingobserver",
       "ecosystem": "Sentry",
@@ -79320,6 +80499,27 @@
       "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-repor/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-repor/llms.txt",
       "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-repor/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-wasm-configuration-integrations-rewri",
+      "title": "Sentry: rewriteframes",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/configuration/integrations/rewriteframes",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: rewriteframes",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-rewri/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-rewri/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-rewri/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-rewri/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -79362,6 +80562,594 @@
       "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-zoder/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-zoder/llms.txt",
       "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-configuration-integrations-zoder/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-wasm-user-feedback-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-user-feedback-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-user-feedback-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-user-feedback-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-user-feedback-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-javascript-guides-wasm-user-feedback-configuration-v7-x",
+      "title": "Sentry: configuration  v7.x",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/javascript/guides/wasm/user-feedback/configuration__v7.x",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration  v7.x",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-user-feedback-configuration-v7-x/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-user-feedback-configuration-v7-x/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-user-feedback-configuration-v7-x/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-javascript-guides-wasm-user-feedback-configuration-v7-x/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-php-guides-laravel-user-feedback-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/php/guides/laravel/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-php-guides-laravel-user-feedback-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-php-guides-laravel-user-feedback-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-php-guides-laravel-user-feedback-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-php-guides-laravel-user-feedback-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-php-guides-symfony-user-feedback-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/php/guides/symfony/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-php-guides-symfony-user-feedback-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-php-guides-symfony-user-feedback-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-php-guides-symfony-user-feedback-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-php-guides-symfony-user-feedback-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-delayed-job-configuration-integration-optio",
+      "title": "Sentry: integration options",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/delayed_job/configuration/integration_options",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: integration options",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-configuration-integration-optio/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-configuration-integration-optio/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-configuration-integration-optio/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-configuration-integration-optio/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-delayed-job-tracing-instrumentation-custom",
+      "title": "Sentry: ai agents module",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/delayed_job/tracing/instrumentation/custom-instrumentation/ai-agents-module",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: ai agents module",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-tracing-instrumentation-custom/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-tracing-instrumentation-custom/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-tracing-instrumentation-custom/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-tracing-instrumentation-custom/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-delayed-job-user-feedback-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/delayed_job/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-user-feedback-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-user-feedback-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-user-feedback-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-delayed-job-user-feedback-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-rack-configuration-integration-options",
+      "title": "Sentry: integration options",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/rack/configuration/integration_options",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: integration options",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-configuration-integration-options/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-configuration-integration-options/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-configuration-integration-options/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-configuration-integration-options/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-rack-tracing-instrumentation-custom-instrum",
+      "title": "Sentry: ai agents module",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/rack/tracing/instrumentation/custom-instrumentation/ai-agents-module",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: ai agents module",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-tracing-instrumentation-custom-instrum/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-tracing-instrumentation-custom-instrum/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-tracing-instrumentation-custom-instrum/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-tracing-instrumentation-custom-instrum/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-rack-user-feedback-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/rack/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-user-feedback-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-user-feedback-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-user-feedback-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-rack-user-feedback-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-rails-configuration-integration-options",
+      "title": "Sentry: integration options",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/rails/configuration/integration_options",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: integration options",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-configuration-integration-options/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-configuration-integration-options/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-configuration-integration-options/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-configuration-integration-options/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-rails-tracing-instrumentation-custom-instru",
+      "title": "Sentry: ai agents module",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/rails/tracing/instrumentation/custom-instrumentation/ai-agents-module",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: ai agents module",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-tracing-instrumentation-custom-instru/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-tracing-instrumentation-custom-instru/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-tracing-instrumentation-custom-instru/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-tracing-instrumentation-custom-instru/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-rails-user-feedback-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/rails/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-user-feedback-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-user-feedback-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-user-feedback-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-rails-user-feedback-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-resque-configuration-integration-options",
+      "title": "Sentry: integration options",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/resque/configuration/integration_options",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: integration options",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-configuration-integration-options/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-configuration-integration-options/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-configuration-integration-options/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-configuration-integration-options/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-resque-tracing-instrumentation-custom-instr",
+      "title": "Sentry: ai agents module",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/resque/tracing/instrumentation/custom-instrumentation/ai-agents-module",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: ai agents module",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-tracing-instrumentation-custom-instr/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-tracing-instrumentation-custom-instr/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-tracing-instrumentation-custom-instr/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-tracing-instrumentation-custom-instr/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-resque-user-feedback-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/resque/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-user-feedback-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-user-feedback-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-user-feedback-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-resque-user-feedback-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-sidekiq-configuration-integration-options",
+      "title": "Sentry: integration options",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/sidekiq/configuration/integration_options",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: integration options",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-configuration-integration-options/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-configuration-integration-options/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-configuration-integration-options/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-configuration-integration-options/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-sidekiq-tracing-instrumentation-custom-inst",
+      "title": "Sentry: ai agents module",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/sidekiq/tracing/instrumentation/custom-instrumentation/ai-agents-module",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: ai agents module",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-tracing-instrumentation-custom-inst/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-tracing-instrumentation-custom-inst/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-tracing-instrumentation-custom-inst/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-tracing-instrumentation-custom-inst/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-ruby-guides-sidekiq-user-feedback-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/ruby/guides/sidekiq/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-user-feedback-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-user-feedback-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-user-feedback-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-ruby-guides-sidekiq-user-feedback-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-rust-guides-actix-web-user-feedback-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/rust/guides/actix-web/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-rust-guides-actix-web-user-feedback-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-rust-guides-actix-web-user-feedback-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-rust-guides-actix-web-user-feedback-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-rust-guides-actix-web-user-feedback-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-rust-guides-axum-user-feedback-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/rust/guides/axum/user-feedback/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-rust-guides-axum-user-feedback-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-rust-guides-axum-user-feedback-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-rust-guides-axum-user-feedback-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-rust-guides-axum-user-feedback-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-rust-guides-tracing-configuration",
+      "title": "Sentry: configuration",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/rust/guides/tracing/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: configuration",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-rust-guides-tracing-configuration-draining",
+      "title": "Sentry: draining",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/rust/guides/tracing/configuration/draining",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: draining",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-draining/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-draining/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-draining/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-draining/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-rust-guides-tracing-configuration-environments",
+      "title": "Sentry: environments",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/rust/guides/tracing/configuration/environments",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: environments",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-environments/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-environments/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-environments/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-environments/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-rust-guides-tracing-configuration-filtering",
+      "title": "Sentry: filtering",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/rust/guides/tracing/configuration/filtering",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: filtering",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-filtering/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-filtering/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-filtering/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-filtering/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-rust-guides-tracing-configuration-options",
+      "title": "Sentry: options",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/rust/guides/tracing/configuration/options",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: options",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-options/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-options/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-options/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-options/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-rust-guides-tracing-configuration-releases",
+      "title": "Sentry: releases",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/rust/guides/tracing/configuration/releases",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: releases",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-releases/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-releases/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-releases/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-releases/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "sentry-platforms-rust-guides-tracing-configuration-sampling",
+      "title": "Sentry: sampling",
+      "ecosystem": "Sentry",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.sentry.io/platforms/rust/guides/tracing/configuration/sampling",
+      "painpoint": "agents frequently need compact, citation-ready context for observability/error SDK docs agents need: sampling",
+      "manifest_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-sampling/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-sampling/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-sampling/llms.txt",
+      "run_guide": "agentpress/material-kits/sentry-platforms-rust-guides-tracing-configuration-sampling/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -86229,6 +88017,300 @@
       "receipt_path": "agentpress/material-kits/supabase-docs-reference-swift-v1-auth-signinwithoauth/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/supabase-docs-reference-swift-v1-auth-signinwithoauth/llms.txt",
       "run_guide": "agentpress/material-kits/supabase-docs-reference-swift-v1-auth-signinwithoauth/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-collectionconfigurationerror",
+      "title": "TanStack: CollectionConfigurationError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/CollectionConfigurationError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: CollectionConfigurationError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionconfigurationerror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionconfigurationerror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionconfigurationerror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-collectionconfigurationerror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-invalidstoragedataformaterror",
+      "title": "TanStack: InvalidStorageDataFormatError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/InvalidStorageDataFormatError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: InvalidStorageDataFormatError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidstoragedataformaterror/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidstoragedataformaterror/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidstoragedataformaterror/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidstoragedataformaterror/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-db-latest-docs-reference-classes-invalidstorageobjectformaterro",
+      "title": "TanStack: InvalidStorageObjectFormatError",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/db/latest/docs/reference/classes/InvalidStorageObjectFormatError",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: InvalidStorageObjectFormatError",
+      "manifest_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidstorageobjectformaterro/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidstorageobjectformaterro/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidstorageobjectformaterro/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-db-latest-docs-reference-classes-invalidstorageobjectformaterro/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-framework-angular-guides-custom-plugins",
+      "title": "TanStack: custom plugins",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/framework/angular/guides/custom-plugins",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: custom plugins",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-angular-guides-custom-plugins/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-angular-guides-custom-plugins/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-angular-guides-custom-plugins/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-angular-guides-custom-plugins/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-framework-preact-guides-custom-plugins",
+      "title": "TanStack: custom plugins",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/framework/preact/guides/custom-plugins",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: custom plugins",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-preact-guides-custom-plugins/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-preact-guides-custom-plugins/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-preact-guides-custom-plugins/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-preact-guides-custom-plugins/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-framework-react-guides-custom-plugins",
+      "title": "TanStack: custom plugins",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/framework/react/guides/custom-plugins",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: custom plugins",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-react-guides-custom-plugins/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-react-guides-custom-plugins/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-react-guides-custom-plugins/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-react-guides-custom-plugins/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-framework-solid-guides-custom-plugins",
+      "title": "TanStack: custom plugins",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/framework/solid/guides/custom-plugins",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: custom plugins",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-solid-guides-custom-plugins/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-solid-guides-custom-plugins/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-solid-guides-custom-plugins/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-solid-guides-custom-plugins/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-framework-vue-guides-custom-plugins",
+      "title": "TanStack: custom plugins",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/framework/vue/guides/custom-plugins",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: custom plugins",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-vue-guides-custom-plugins/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-vue-guides-custom-plugins/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-vue-guides-custom-plugins/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-framework-vue-guides-custom-plugins/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-plugin-configuration",
+      "title": "TanStack: plugin configuration",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/plugin-configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: plugin configuration",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-plugin-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-plugin-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-plugin-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-plugin-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-devtools-latest-docs-reference-interfaces-clienteventbusconfig",
+      "title": "TanStack: clienteventbusconfig",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/devtools/latest/docs/reference/interfaces/clienteventbusconfig",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: clienteventbusconfig",
+      "manifest_path": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-interfaces-clienteventbusconfig/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-interfaces-clienteventbusconfig/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-interfaces-clienteventbusconfig/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-devtools-latest-docs-reference-interfaces-clienteventbusconfig/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-form-latest-docs-framework-react-guides-devtools",
+      "title": "TanStack: devtools",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/form/latest/docs/framework/react/guides/devtools",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: devtools",
+      "manifest_path": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-devtools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-devtools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-devtools/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-form-latest-docs-framework-react-guides-devtools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-form-latest-docs-framework-solid-guides-devtools",
+      "title": "TanStack: devtools",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/form/latest/docs/framework/solid/guides/devtools",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: devtools",
+      "manifest_path": "agentpress/material-kits/tanstack-form-latest-docs-framework-solid-guides-devtools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-form-latest-docs-framework-solid-guides-devtools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-form-latest-docs-framework-solid-guides-devtools/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-form-latest-docs-framework-solid-guides-devtools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "tanstack-start-latest-docs-framework-react-guide-streaming-data-from-ser",
+      "title": "TanStack: streaming data from server functions",
+      "ecosystem": "TanStack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://tanstack.com/start/latest/docs/framework/react/guide/streaming-data-from-server-functions",
+      "painpoint": "agents frequently need compact, citation-ready context for query/router/table docs agents need: streaming data from server functions",
+      "manifest_path": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-streaming-data-from-ser/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-streaming-data-from-ser/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-streaming-data-from-ser/llms.txt",
+      "run_guide": "agentpress/material-kits/tanstack-start-latest-docs-framework-react-guide-streaming-data-from-ser/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "twilio-docs-labs-serverless-toolkit-guides-continous-deployment",
+      "title": "Twilio: continous deployment",
+      "ecosystem": "Twilio",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.twilio.com/docs/labs/serverless-toolkit/guides/continous-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for SMS/voice/API docs agents need: continous deployment",
+      "manifest_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-continous-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-continous-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-continous-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/twilio-docs-labs-serverless-toolkit-guides-continous-deployment/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
