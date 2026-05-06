@@ -1,0 +1,17 @@
+{
+  "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
+  "claim": "Material kit prepared for SEC EDGAR filings painpoint: agents need compact, citation-ready wrappers for public company filings, exhibits, risk factors, APIs, and disclosures agents need for finance/company research; topic=cloud; slice=34",
+  "target_url": "https://www.sec.gov/Archives/edgar/data/cloud/34.txt",
+  "commands_to_verify": [
+    "python3 scripts/agentpress.py context-budget . --json --strict",
+    "python3 -m json.tool material-manifest.json",
+    "python3 -m json.tool proof-receipt.json"
+  ],
+  "evidence_files": [
+    "llms.txt",
+    "material-manifest.json",
+    "RUN_THIS.md"
+  ],
+  "external_effects": [],
+  "status": "prepared_not_posted"
+}
