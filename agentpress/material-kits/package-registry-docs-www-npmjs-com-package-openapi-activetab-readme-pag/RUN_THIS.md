@@ -5,10 +5,10 @@
 3. Run:
 
 ```bash
-python3 scripts/agentpress.py context-budget . --json --strict
+python3 scripts/agentpress.py provider-tool-translation-map --json
 ```
 
 4. Compare the output with `proof-receipt.json`.
 5. If using this for outreach, get human approval for the exact target and draft first.
 
-Target: https://www.npmjs.com/package/oauth?activeTab=readme&page=reference
+Target: https://www.npmjs.com/package/openapi?activeTab=readme&page=quickstart
