@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:30:55Z",
+  "generated_utc": "2026-05-06T04:31:05Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 366,
+  "kit_count": 416,
   "by_ecosystem": {
     "Anthropic": 201,
     "Cline": 2,
@@ -13,7 +13,7 @@
     "CrewAI": 9,
     "Haystack": 36,
     "LangGraph": 2,
-    "LiteLLM": 27,
+    "LiteLLM": 77,
     "LlamaIndex": 1,
     "mcp": 1,
     "MCP": 18,
@@ -26,7 +26,7 @@
     "Vercel AI SDK": 7
   },
   "by_status": {
-    "ready_local_static_not_posted": 366
+    "ready_local_static_not_posted": 416
   },
   "kits": [
     {
@@ -5406,6 +5406,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-contribute-integration-custom-webhook-api",
+      "title": "LiteLLM: custom webhook api",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/contribute_integration/custom_webhook_api",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: custom webhook api",
+      "manifest_path": "agentpress/material-kits/litellm-docs-contribute-integration-custom-webhook-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-contribute-integration-custom-webhook-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-contribute-integration-custom-webhook-api/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-contribute-integration-custom-webhook-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-evals-api",
+      "title": "LiteLLM: evals api",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/evals_api",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: evals api",
+      "manifest_path": "agentpress/material-kits/litellm-docs-evals-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-evals-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-evals-api/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-evals-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-guides-retrieval-knowledge",
       "title": "LiteLLM: retrieval knowledge",
       "ecosystem": "LiteLLM",
@@ -5437,6 +5479,111 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-guides-tools-integrations/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-guides-tools-integrations/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-guides-tools-integrations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-learn-sdk-quickstart",
+      "title": "LiteLLM: sdk quickstart",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/learn/sdk_quickstart",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: sdk quickstart",
+      "manifest_path": "agentpress/material-kits/litellm-docs-learn-sdk-quickstart/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-learn-sdk-quickstart/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-learn-sdk-quickstart/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-learn-sdk-quickstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-manage-with-ai-agents",
+      "title": "LiteLLM: manage with ai agents",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/manage_with_ai_agents",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: manage with ai agents",
+      "manifest_path": "agentpress/material-kits/litellm-docs-manage-with-ai-agents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-manage-with-ai-agents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-manage-with-ai-agents/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-manage-with-ai-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-mcp-oauth",
+      "title": "LiteLLM: mcp oauth",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/mcp_oauth",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: mcp oauth",
+      "manifest_path": "agentpress/material-kits/litellm-docs-mcp-oauth/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-mcp-oauth/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-mcp-oauth/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-mcp-oauth/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-mcp-openapi",
+      "title": "LiteLLM: mcp openapi",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/mcp_openapi",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: mcp openapi",
+      "manifest_path": "agentpress/material-kits/litellm-docs-mcp-openapi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-mcp-openapi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-mcp-openapi/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-mcp-openapi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-mcp-server-submissions",
+      "title": "LiteLLM: mcp server submissions",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/mcp_server_submissions",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: mcp server submissions",
+      "manifest_path": "agentpress/material-kits/litellm-docs-mcp-server-submissions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-mcp-server-submissions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-mcp-server-submissions/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-mcp-server-submissions/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -5490,6 +5637,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-observability-deepeval-integration",
+      "title": "LiteLLM: deepeval integration",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/observability/deepeval_integration",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: deepeval integration",
+      "manifest_path": "agentpress/material-kits/litellm-docs-observability-deepeval-integration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-observability-deepeval-integration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-observability-deepeval-integration/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-observability-deepeval-integration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-projects-openai-agents",
+      "title": "LiteLLM: openai agents",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/projects/openai-agents",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: openai agents",
+      "manifest_path": "agentpress/material-kits/litellm-docs-projects-openai-agents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-projects-openai-agents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-projects-openai-agents/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-projects-openai-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-projects-smolagents",
+      "title": "LiteLLM: smolagents",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/projects/smolagents",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: smolagents",
+      "manifest_path": "agentpress/material-kits/litellm-docs-projects-smolagents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-projects-smolagents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-projects-smolagents/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-projects-smolagents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-anthropic-tool-input-examples",
+      "title": "LiteLLM: anthropic tool input examples",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/anthropic_tool_input_examples",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: anthropic tool input examples",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-anthropic-tool-input-examples/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-anthropic-tool-input-examples/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-anthropic-tool-input-examples/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-anthropic-tool-input-examples/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-providers-anthropic-tool-search",
       "title": "LiteLLM: anthropic tool search",
       "ecosystem": "LiteLLM",
@@ -5532,6 +5763,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-providers-azure-ai-azure-model-router",
+      "title": "LiteLLM: azure model router",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/azure_ai/azure_model_router",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: azure model router",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-azure-ai-azure-model-router/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-azure-ai-azure-model-router/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-azure-ai-azure-model-router/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-azure-ai-azure-model-router/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-bedrock-agentcore",
+      "title": "LiteLLM: bedrock agentcore",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/bedrock_agentcore",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: bedrock agentcore",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-bedrock-agentcore/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-bedrock-agentcore/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-bedrock-agentcore/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-bedrock-agentcore/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-providers-bedrock-agents",
       "title": "LiteLLM: bedrock agents",
       "ecosystem": "LiteLLM",
@@ -5542,6 +5815,111 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-providers-bedrock-agents/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-providers-bedrock-agents/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-providers-bedrock-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-cometapi",
+      "title": "LiteLLM: cometapi",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/cometapi",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: cometapi",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-cometapi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-cometapi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-cometapi/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-cometapi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-custom-llm-server",
+      "title": "LiteLLM: custom llm server",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/custom_llm_server",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: custom llm server",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-custom-llm-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-custom-llm-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-custom-llm-server/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-custom-llm-server/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-litellm-proxy",
+      "title": "LiteLLM: litellm proxy",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/litellm_proxy",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: litellm proxy",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-litellm-proxy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-litellm-proxy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-litellm-proxy/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-litellm-proxy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-openai-responses-api",
+      "title": "LiteLLM: responses api",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/openai/responses_api",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: responses api",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-openai-responses-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-openai-responses-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-openai-responses-api/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-openai-responses-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-pydantic-ai-agent",
+      "title": "LiteLLM: pydantic ai agent",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/pydantic_ai_agent",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: pydantic ai agent",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-pydantic-ai-agent/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-pydantic-ai-agent/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-pydantic-ai-agent/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-pydantic-ai-agent/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -5595,6 +5973,132 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-providers-triton-inference-server",
+      "title": "LiteLLM: triton inference server",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/triton-inference-server",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: triton inference server",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-triton-inference-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-triton-inference-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-triton-inference-server/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-triton-inference-server/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-vertex-ai-agent-engine",
+      "title": "LiteLLM: vertex ai agent engine",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/vertex_ai_agent_engine",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: vertex ai agent engine",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-vertex-ai-agent-engine/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-vertex-ai-agent-engine/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-vertex-ai-agent-engine/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-vertex-ai-agent-engine/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-providers-vertex-self-deployed",
+      "title": "LiteLLM: vertex self deployed",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/providers/vertex_self_deployed",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: vertex self deployed",
+      "manifest_path": "agentpress/material-kits/litellm-docs-providers-vertex-self-deployed/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-providers-vertex-self-deployed/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-providers-vertex-self-deployed/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-providers-vertex-self-deployed/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-agentic-loop-hook",
+      "title": "LiteLLM: agentic loop hook",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/agentic_loop_hook",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: agentic loop hook",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-agentic-loop-hook/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-agentic-loop-hook/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-agentic-loop-hook/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-agentic-loop-hook/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-api",
+      "title": "LiteLLM: proxy api",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy_api",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: proxy api",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-api/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-auth",
+      "title": "LiteLLM: proxy auth",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy_auth",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: proxy auth",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-auth/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-auth/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-auth/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-auth/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-proxy-clientside-auth",
       "title": "LiteLLM: clientside auth",
       "ecosystem": "LiteLLM",
@@ -5637,6 +6141,111 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-proxy-config-settings",
+      "title": "LiteLLM: config settings",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/config_settings",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: config settings",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-config-settings/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-config-settings/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-config-settings/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-config-settings/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-configs",
+      "title": "LiteLLM: configs",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/configs",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: configs",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-configs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-configs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-configs/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-configs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-custom-auth",
+      "title": "LiteLLM: custom auth",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/custom_auth",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: custom auth",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-custom-auth/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-custom-auth/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-custom-auth/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-custom-auth/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-debugging",
+      "title": "LiteLLM: debugging",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/debugging",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: debugging",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-debugging/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-debugging/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-debugging/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-debugging/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-deploy",
+      "title": "LiteLLM: deploy",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/deploy",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: deploy",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-deploy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-deploy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-deploy/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-proxy-docker-quick-start",
       "title": "LiteLLM: docker quick start",
       "ecosystem": "LiteLLM",
@@ -5647,6 +6256,111 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-proxy-docker-quick-start/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-proxy-docker-quick-start/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-proxy-docker-quick-start/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-error-diagnosis",
+      "title": "LiteLLM: error diagnosis",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/error_diagnosis",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: error diagnosis",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-error-diagnosis/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-error-diagnosis/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-error-diagnosis/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-error-diagnosis/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-forward-client-headers",
+      "title": "LiteLLM: forward client headers",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/forward_client_headers",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: forward client headers",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-forward-client-headers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-forward-client-headers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-forward-client-headers/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-forward-client-headers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-guardrails-aporia-api",
+      "title": "LiteLLM: aporia api",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/guardrails/aporia_api",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: aporia api",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-guardrails-aporia-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-guardrails-aporia-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-guardrails-aporia-api/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-guardrails-aporia-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-guardrails-model-armor",
+      "title": "LiteLLM: model armor",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/guardrails/model_armor",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: model armor",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-guardrails-model-armor/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-guardrails-model-armor/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-guardrails-model-armor/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-guardrails-model-armor/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-guardrails-policy-flow-builder",
+      "title": "LiteLLM: policy flow builder",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/guardrails/policy_flow_builder",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: policy flow builder",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-guardrails-policy-flow-builder/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-guardrails-policy-flow-builder/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-guardrails-policy-flow-builder/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-guardrails-policy-flow-builder/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -5700,6 +6414,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-proxy-jwt-auth-arch",
+      "title": "LiteLLM: jwt auth arch",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/jwt_auth_arch",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: jwt auth arch",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-jwt-auth-arch/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-jwt-auth-arch/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-jwt-auth-arch/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-jwt-auth-arch/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-model-access",
+      "title": "LiteLLM: model access",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/model_access",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: model access",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-model-access/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-model-access/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-model-access/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-model-access/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-proxy-model-access-groups",
       "title": "LiteLLM: model access groups",
       "ecosystem": "LiteLLM",
@@ -5710,6 +6466,69 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-proxy-model-access-groups/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-proxy-model-access-groups/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-proxy-model-access-groups/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-model-access-guide",
+      "title": "LiteLLM: model access guide",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/model_access_guide",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: model access guide",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-model-access-guide/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-model-access-guide/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-model-access-guide/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-model-access-guide/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-model-compare-ui",
+      "title": "LiteLLM: model compare ui",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/model_compare_ui",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: model compare ui",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-model-compare-ui/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-model-compare-ui/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-model-compare-ui/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-model-compare-ui/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-model-discovery",
+      "title": "LiteLLM: model discovery",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/model_discovery",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: model discovery",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-model-discovery/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-model-discovery/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-model-discovery/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-model-discovery/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -5742,6 +6561,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-proxy-oauth2",
+      "title": "LiteLLM: oauth2",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/oauth2",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: oauth2",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-oauth2/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-oauth2/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-oauth2/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-oauth2/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-provider-budget-routing",
+      "title": "LiteLLM: provider budget routing",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/provider_budget_routing",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: provider budget routing",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-provider-budget-routing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-provider-budget-routing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-provider-budget-routing/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-provider-budget-routing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-provider-discounts",
+      "title": "LiteLLM: provider discounts",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/provider_discounts",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: provider discounts",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-provider-discounts/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-provider-discounts/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-provider-discounts/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-provider-discounts/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-provider-margins",
+      "title": "LiteLLM: provider margins",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/provider_margins",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: provider margins",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-provider-margins/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-provider-margins/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-provider-margins/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-provider-margins/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-proxy-quick-start",
       "title": "LiteLLM: quick start",
       "ecosystem": "LiteLLM",
@@ -5752,6 +6655,90 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-proxy-quick-start/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-proxy-quick-start/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-proxy-quick-start/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-reject-clientside-metadata-tags",
+      "title": "LiteLLM: reject clientside metadata tags",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/reject_clientside_metadata_tags",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: reject clientside metadata tags",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-reject-clientside-metadata-tags/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-reject-clientside-metadata-tags/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-reject-clientside-metadata-tags/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-reject-clientside-metadata-tags/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-server",
+      "title": "LiteLLM: proxy server",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy_server",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: proxy server",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-server/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-server/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-sync-models-github",
+      "title": "LiteLLM: sync models github",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/sync_models_github",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: sync models github",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-sync-models-github/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-sync-models-github/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-sync-models-github/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-sync-models-github/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-proxy-team-model-add",
+      "title": "LiteLLM: team model add",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/proxy/team_model_add",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: team model add",
+      "manifest_path": "agentpress/material-kits/litellm-docs-proxy-team-model-add/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-proxy-team-model-add/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-proxy-team-model-add/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-proxy-team-model-add/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
@@ -5826,6 +6813,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "litellm-docs-tutorials-lm-evaluation-harness",
+      "title": "LiteLLM: lm evaluation harness",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/tutorials/lm_evaluation_harness",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: lm evaluation harness",
+      "manifest_path": "agentpress/material-kits/litellm-docs-tutorials-lm-evaluation-harness/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-tutorials-lm-evaluation-harness/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-tutorials-lm-evaluation-harness/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-tutorials-lm-evaluation-harness/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "litellm-docs-tutorials-model-config-proxy",
       "title": "LiteLLM: model config proxy",
       "ecosystem": "LiteLLM",
@@ -5836,6 +6844,48 @@
       "receipt_path": "agentpress/material-kits/litellm-docs-tutorials-model-config-proxy/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/litellm-docs-tutorials-model-config-proxy/llms.txt",
       "run_guide": "agentpress/material-kits/litellm-docs-tutorials-model-config-proxy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-tutorials-observability-evaluation",
+      "title": "LiteLLM: observability evaluation",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/tutorials/observability_evaluation",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: observability evaluation",
+      "manifest_path": "agentpress/material-kits/litellm-docs-tutorials-observability-evaluation/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-tutorials-observability-evaluation/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-tutorials-observability-evaluation/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-tutorials-observability-evaluation/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "litellm-docs-tutorials-openai-agents-sdk",
+      "title": "LiteLLM: openai agents sdk",
+      "ecosystem": "LiteLLM",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.litellm.ai/docs/tutorials/openai_agents_sdk",
+      "painpoint": "agents need compact AgentPress wrapper for LiteLLM proxy/provider docs: openai agents sdk",
+      "manifest_path": "agentpress/material-kits/litellm-docs-tutorials-openai-agents-sdk/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/litellm-docs-tutorials-openai-agents-sdk/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/litellm-docs-tutorials-openai-agents-sdk/llms.txt",
+      "run_guide": "agentpress/material-kits/litellm-docs-tutorials-openai-agents-sdk/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-error-explainer --provider litellm --error 'proxy/provider routing failure' --json",
         "python3 -m json.tool material-manifest.json",
