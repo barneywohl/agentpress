@@ -1,18 +1,18 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:39:04Z",
+  "generated_utc": "2026-05-06T04:39:23Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 2115,
+  "kit_count": 2190,
   "by_ecosystem": {
     "Anthropic": 287,
     "Auth0": 11,
     "AWS": 65,
     "Bun": 197,
     "Cline": 6,
-    "Cloudflare": 50,
+    "Cloudflare": 119,
     "docs": 1,
     "CrewAI": 163,
     "Cypress": 6,
@@ -39,12 +39,12 @@
     "api-schema": 1,
     "onboarding": 1,
     "Stripe": 3,
-    "Vercel": 49,
+    "Vercel": 55,
     "Vercel AI SDK": 111,
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 2115
+    "ready_local_static_not_posted": 2190
   },
   "kits": [
     {
@@ -12207,6 +12207,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cloudflare-agents-guides-build-a-voice-agent",
+      "title": "Cloudflare: build a voice agent",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/agents/guides/build-a-voice-agent/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: build a voice agent",
+      "manifest_path": "agentpress/material-kits/cloudflare-agents-guides-build-a-voice-agent/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-agents-guides-build-a-voice-agent/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-agents-guides-build-a-voice-agent/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-agents-guides-build-a-voice-agent/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cloudflare-agents-guides-connect-mcp-client",
       "title": "Cloudflare: connect mcp client",
       "ecosystem": "Cloudflare",
@@ -12217,6 +12238,27 @@
       "receipt_path": "agentpress/material-kits/cloudflare-agents-guides-connect-mcp-client/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-agents-guides-connect-mcp-client/llms.txt",
       "run_guide": "agentpress/material-kits/cloudflare-agents-guides-connect-mcp-client/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-agents-guides-cross-domain-authentication",
+      "title": "Cloudflare: cross domain authentication",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/agents/guides/cross-domain-authentication/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: cross domain authentication",
+      "manifest_path": "agentpress/material-kits/cloudflare-agents-guides-cross-domain-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-agents-guides-cross-domain-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-agents-guides-cross-domain-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-agents-guides-cross-domain-authentication/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -12312,6 +12354,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cloudflare-agents-guides-webhooks",
+      "title": "Cloudflare: webhooks",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/agents/guides/webhooks/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: webhooks",
+      "manifest_path": "agentpress/material-kits/cloudflare-agents-guides-webhooks/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-agents-guides-webhooks/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-agents-guides-webhooks/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-agents-guides-webhooks/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cloudflare-agents-model-context-protocol-mcp-servers-for-cloudflare",
       "title": "Cloudflare: mcp servers for cloudflare",
       "ecosystem": "Cloudflare",
@@ -12375,6 +12438,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cloudflare-api-shield-reference-classic-schema-validation",
+      "title": "Cloudflare: classic schema validation",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/api-shield/reference/classic-schema-validation/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: classic schema validation",
+      "manifest_path": "agentpress/material-kits/cloudflare-api-shield-reference-classic-schema-validation/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-api-shield-reference-classic-schema-validation/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-api-shield-reference-classic-schema-validation/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-api-shield-reference-classic-schema-validation/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-api-shield-reference-terraform",
+      "title": "Cloudflare: terraform",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/api-shield/reference/terraform/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: terraform",
+      "manifest_path": "agentpress/material-kits/cloudflare-api-shield-reference-terraform/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-api-shield-reference-terraform/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-api-shield-reference-terraform/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-api-shield-reference-terraform/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cloudflare-automatic-platform-optimization-reference-cache-device-type",
       "title": "Cloudflare: cache device type",
       "ecosystem": "Cloudflare",
@@ -12385,6 +12490,384 @@
       "receipt_path": "agentpress/material-kits/cloudflare-automatic-platform-optimization-reference-cache-device-type/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-automatic-platform-optimization-reference-cache-device-type/llms.txt",
       "run_guide": "agentpress/material-kits/cloudflare-automatic-platform-optimization-reference-cache-device-type/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-automatic-platform-optimization-reference-page-rule-integrati",
+      "title": "Cloudflare: page rule integration",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/automatic-platform-optimization/reference/page-rule-integration/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: page rule integration",
+      "manifest_path": "agentpress/material-kits/cloudflare-automatic-platform-optimization-reference-page-rule-integrati/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-automatic-platform-optimization-reference-page-rule-integrati/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-automatic-platform-optimization-reference-page-rule-integrati/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-automatic-platform-optimization-reference-page-rule-integrati/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-client-side-security-reference-api",
+      "title": "Cloudflare: api",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/client-side-security/reference/api/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: api",
+      "manifest_path": "agentpress/material-kits/cloudflare-client-side-security-reference-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-client-side-security-reference-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-client-side-security-reference-api/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-client-side-security-reference-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-client-side-security-reference-pci-dss",
+      "title": "Cloudflare: pci dss",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/client-side-security/reference/pci-dss/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: pci dss",
+      "manifest_path": "agentpress/material-kits/cloudflare-client-side-security-reference-pci-dss/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-client-side-security-reference-pci-dss/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-client-side-security-reference-pci-dss/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-client-side-security-reference-pci-dss/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-client-side-security-reference-roles-and-permissions",
+      "title": "Cloudflare: roles and permissions",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/client-side-security/reference/roles-and-permissions/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: roles and permissions",
+      "manifest_path": "agentpress/material-kits/cloudflare-client-side-security-reference-roles-and-permissions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-client-side-security-reference-roles-and-permissions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-client-side-security-reference-roles-and-permissions/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-client-side-security-reference-roles-and-permissions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-cloudflare-for-platforms-cloudflare-for-saas-reference-troubl",
+      "title": "Cloudflare: troubleshooting",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/cloudflare-for-platforms/cloudflare-for-saas/reference/troubleshooting/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: troubleshooting",
+      "manifest_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-cloudflare-for-saas-reference-troubl/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-cloudflare-for-saas-reference-troubl/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-cloudflare-for-saas-reference-troubl/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-cloudflare-for-saas-reference-troubl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-cloudflare-for-platforms-workers-for-platforms-reference",
+      "title": "Cloudflare: reference",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/reference/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: reference",
+      "manifest_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-limi",
+      "title": "Cloudflare: limits",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/reference/limits/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: limits",
+      "manifest_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-limi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-limi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-limi/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-limi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-loca",
+      "title": "Cloudflare: local development",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/reference/local-development/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: local development",
+      "manifest_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-loca/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-loca/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-loca/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-loca/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-plat",
+      "title": "Cloudflare: platform examples",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/reference/platform-examples/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: platform examples",
+      "manifest_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-plat/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-plat/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-plat/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-plat/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-work",
+      "title": "Cloudflare: worker isolation",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/reference/worker-isolation/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: worker isolation",
+      "manifest_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-work/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-work/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-work/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-cloudflare-for-platforms-workers-for-platforms-reference-work/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-cloudflare-one-networks-connectors-cloudflare-wan-configurati",
+      "title": "Cloudflare: reference",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-wan/configuration/appliance/reference/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: reference",
+      "manifest_path": "agentpress/material-kits/cloudflare-cloudflare-one-networks-connectors-cloudflare-wan-configurati/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-cloudflare-one-networks-connectors-cloudflare-wan-configurati/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-cloudflare-one-networks-connectors-cloudflare-wan-configurati/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-cloudflare-one-networks-connectors-cloudflare-wan-configurati/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-cloudflare-wan-configuration-appliance-reference",
+      "title": "Cloudflare: reference",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/cloudflare-wan/configuration/appliance/reference/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: reference",
+      "manifest_path": "agentpress/material-kits/cloudflare-cloudflare-wan-configuration-appliance-reference/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-cloudflare-wan-configuration-appliance-reference/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-cloudflare-wan-configuration-appliance-reference/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-cloudflare-wan-configuration-appliance-reference/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-dns-reference-recommended-third-party-tools",
+      "title": "Cloudflare: recommended third party tools",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/dns/reference/recommended-third-party-tools/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: recommended third party tools",
+      "manifest_path": "agentpress/material-kits/cloudflare-dns-reference-recommended-third-party-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-dns-reference-recommended-third-party-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-dns-reference-recommended-third-party-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-dns-reference-recommended-third-party-tools/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-dns-zone-setups-reference-dns-quick-scan",
+      "title": "Cloudflare: dns quick scan",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/dns/zone-setups/reference/dns-quick-scan/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: dns quick scan",
+      "manifest_path": "agentpress/material-kits/cloudflare-dns-zone-setups-reference-dns-quick-scan/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-dns-zone-setups-reference-dns-quick-scan/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-dns-zone-setups-reference-dns-quick-scan/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-dns-zone-setups-reference-dns-quick-scan/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-flagship-reference-evaluation-reasons",
+      "title": "Cloudflare: evaluation reasons",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/flagship/reference/evaluation-reasons/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: evaluation reasons",
+      "manifest_path": "agentpress/material-kits/cloudflare-flagship-reference-evaluation-reasons/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-flagship-reference-evaluation-reasons/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-flagship-reference-evaluation-reasons/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-flagship-reference-evaluation-reasons/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-fundamentals-api-reference-permissions",
+      "title": "Cloudflare: permissions",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/fundamentals/api/reference/permissions/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: permissions",
+      "manifest_path": "agentpress/material-kits/cloudflare-fundamentals-api-reference-permissions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-fundamentals-api-reference-permissions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-fundamentals-api-reference-permissions/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-fundamentals-api-reference-permissions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-fundamentals-reference-markdown-for-agents",
+      "title": "Cloudflare: markdown for agents",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: markdown for agents",
+      "manifest_path": "agentpress/material-kits/cloudflare-fundamentals-reference-markdown-for-agents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-fundamentals-reference-markdown-for-agents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-fundamentals-reference-markdown-for-agents/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-fundamentals-reference-markdown-for-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-fundamentals-reference-migration-guides-scim-virtual-groups-m",
+      "title": "Cloudflare: scim virtual groups migration",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/fundamentals/reference/migration-guides/scim-virtual-groups-migration/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: scim virtual groups migration",
+      "manifest_path": "agentpress/material-kits/cloudflare-fundamentals-reference-migration-guides-scim-virtual-groups-m/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-fundamentals-reference-migration-guides-scim-virtual-groups-m/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-fundamentals-reference-migration-guides-scim-virtual-groups-m/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-fundamentals-reference-migration-guides-scim-virtual-groups-m/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -12417,6 +12900,153 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cloudflare-load-balancing-reference-migration-guides",
+      "title": "Cloudflare: migration guides",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/load-balancing/reference/migration-guides/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: migration guides",
+      "manifest_path": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-load-balancing-reference-migration-guides-health-monitor-noti",
+      "title": "Cloudflare: health monitor notifications",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/load-balancing/reference/migration-guides/health-monitor-notifications/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: health monitor notifications",
+      "manifest_path": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides-health-monitor-noti/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides-health-monitor-noti/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides-health-monitor-noti/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides-health-monitor-noti/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-load-balancing-reference-migration-guides-load-balancing-grap",
+      "title": "Cloudflare: load balancing graphql nodes",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/load-balancing/reference/migration-guides/load-balancing-graphql-nodes/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: load balancing graphql nodes",
+      "manifest_path": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides-load-balancing-grap/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides-load-balancing-grap/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides-load-balancing-grap/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-load-balancing-reference-migration-guides-load-balancing-grap/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-load-balancing-reference-region-mapping-api",
+      "title": "Cloudflare: region mapping api",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: region mapping api",
+      "manifest_path": "agentpress/material-kits/cloudflare-load-balancing-reference-region-mapping-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-load-balancing-reference-region-mapping-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-load-balancing-reference-region-mapping-api/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-load-balancing-reference-region-mapping-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-notifications-reference-common-errors",
+      "title": "Cloudflare: common errors",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/notifications/reference/common-errors/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: common errors",
+      "manifest_path": "agentpress/material-kits/cloudflare-notifications-reference-common-errors/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-notifications-reference-common-errors/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-notifications-reference-common-errors/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-notifications-reference-common-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-notifications-reference-webhook-payload-schema",
+      "title": "Cloudflare: webhook payload schema",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/notifications/reference/webhook-payload-schema/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: webhook payload schema",
+      "manifest_path": "agentpress/material-kits/cloudflare-notifications-reference-webhook-payload-schema/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-notifications-reference-webhook-payload-schema/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-notifications-reference-webhook-payload-schema/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-notifications-reference-webhook-payload-schema/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-queues-reference-error-codes",
+      "title": "Cloudflare: error codes",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/queues/reference/error-codes/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: error codes",
+      "manifest_path": "agentpress/material-kits/cloudflare-queues-reference-error-codes/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-queues-reference-error-codes/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-queues-reference-error-codes/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-queues-reference-error-codes/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cloudflare-reference-architecture-diagrams-serverless-a-b-testing-using",
       "title": "Cloudflare: a b testing using workers",
       "ecosystem": "Cloudflare",
@@ -12427,6 +13057,48 @@
       "receipt_path": "agentpress/material-kits/cloudflare-reference-architecture-diagrams-serverless-a-b-testing-using/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-reference-architecture-diagrams-serverless-a-b-testing-using/llms.txt",
       "run_guide": "agentpress/material-kits/cloudflare-reference-architecture-diagrams-serverless-a-b-testing-using/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-rules-custom-errors-reference",
+      "title": "Cloudflare: reference",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/rules/custom-errors/reference/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: reference",
+      "manifest_path": "agentpress/material-kits/cloudflare-rules-custom-errors-reference/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-rules-custom-errors-reference/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-rules-custom-errors-reference/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-rules-custom-errors-reference/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-rules-custom-errors-reference-error-page-types",
+      "title": "Cloudflare: error page types",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/rules/custom-errors/reference/error-page-types/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: error page types",
+      "manifest_path": "agentpress/material-kits/cloudflare-rules-custom-errors-reference-error-page-types/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-rules-custom-errors-reference-error-page-types/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-rules-custom-errors-reference-error-page-types/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-rules-custom-errors-reference-error-page-types/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -12459,12 +13131,159 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
-      "slug": "cloudflare-ruleset-engine-rules-language-fields-reference-cf-tls-client",
-      "title": "Cloudflare: cf.tls client extensions sha1 le",
+      "slug": "cloudflare-rules-custom-errors-reference-parameters",
+      "title": "Cloudflare: parameters",
       "ecosystem": "Cloudflare",
       "status": "ready_local_static_not_posted",
-      "target_url": "https://developers.cloudflare.com/ruleset-engine/rules-language/fields/reference/cf.tls_client_extensions_sha1_le/",
-      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: cf.tls client extensions sha1 le",
+      "target_url": "https://developers.cloudflare.com/rules/custom-errors/reference/parameters/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: parameters",
+      "manifest_path": "agentpress/material-kits/cloudflare-rules-custom-errors-reference-parameters/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-rules-custom-errors-reference-parameters/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-rules-custom-errors-reference-parameters/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-rules-custom-errors-reference-parameters/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-rules-transform-request-header-modification-reference-fields",
+      "title": "Cloudflare: fields functions",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/rules/transform/request-header-modification/reference/fields-functions/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: fields functions",
+      "manifest_path": "agentpress/material-kits/cloudflare-rules-transform-request-header-modification-reference-fields/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-rules-transform-request-header-modification-reference-fields/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-rules-transform-request-header-modification-reference-fields/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-rules-transform-request-header-modification-reference-fields/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-rules-transform-response-header-modification-reference-fields",
+      "title": "Cloudflare: fields functions",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/rules/transform/response-header-modification/reference/fields-functions/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: fields functions",
+      "manifest_path": "agentpress/material-kits/cloudflare-rules-transform-response-header-modification-reference-fields/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-rules-transform-response-header-modification-reference-fields/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-rules-transform-response-header-modification-reference-fields/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-rules-transform-response-header-modification-reference-fields/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-rules-transform-url-rewrite-reference-fields-functions",
+      "title": "Cloudflare: fields functions",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/rules/transform/url-rewrite/reference/fields-functions/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: fields functions",
+      "manifest_path": "agentpress/material-kits/cloudflare-rules-transform-url-rewrite-reference-fields-functions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-rules-transform-url-rewrite-reference-fields-functions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-rules-transform-url-rewrite-reference-fields-functions/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-rules-transform-url-rewrite-reference-fields-functions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-ruleset-engine-rules-language-fields-reference-cf-api-gateway",
+      "title": "Cloudflare: cf.api gateway.auth id present",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/ruleset-engine/rules-language/fields/reference/cf.api_gateway.auth_id_present/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: cf.api gateway.auth id present",
+      "manifest_path": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-api-gateway/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-api-gateway/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-api-gateway/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-api-gateway/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-ruleset-engine-rules-language-fields-reference-cf-edge-client",
+      "title": "Cloudflare: cf.edge.client tcp",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/ruleset-engine/rules-language/fields/reference/cf.edge.client_tcp/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: cf.edge.client tcp",
+      "manifest_path": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-edge-client/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-edge-client/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-edge-client/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-edge-client/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-ruleset-engine-rules-language-fields-reference-cf-edge-server",
+      "title": "Cloudflare: cf.edge.server port",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/ruleset-engine/rules-language/fields/reference/cf.edge.server_port/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: cf.edge.server port",
+      "manifest_path": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-edge-server/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-edge-server/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-edge-server/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-edge-server/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-ruleset-engine-rules-language-fields-reference-cf-tls-client",
+      "title": "Cloudflare: cf.tls client auth.cert subject dn legacy",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/ruleset-engine/rules-language/fields/reference/cf.tls_client_auth.cert_subject_dn_legacy/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: cf.tls client auth.cert subject dn legacy",
       "manifest_path": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-tls-client/material-manifest.json",
       "receipt_path": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-tls-client/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-ruleset-engine-rules-language-fields-reference-cf-tls-client/llms.txt",
@@ -12522,6 +13341,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cloudflare-sandbox-guides-proxy-requests",
+      "title": "Cloudflare: proxy requests",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/sandbox/guides/proxy-requests/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: proxy requests",
+      "manifest_path": "agentpress/material-kits/cloudflare-sandbox-guides-proxy-requests/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-sandbox-guides-proxy-requests/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-sandbox-guides-proxy-requests/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-sandbox-guides-proxy-requests/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-sandbox-guides-workers-connections",
+      "title": "Cloudflare: workers connections",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/sandbox/guides/workers-connections/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: workers connections",
+      "manifest_path": "agentpress/material-kits/cloudflare-sandbox-guides-workers-connections/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-sandbox-guides-workers-connections/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-sandbox-guides-workers-connections/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-sandbox-guides-workers-connections/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cloudflare-sandbox-tutorials-automated-testing-pipeline",
       "title": "Cloudflare: automated testing pipeline",
       "ecosystem": "Cloudflare",
@@ -12564,6 +13425,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cloudflare-spectrum-reference-configuration-options",
+      "title": "Cloudflare: configuration options",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/spectrum/reference/configuration-options/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: configuration options",
+      "manifest_path": "agentpress/material-kits/cloudflare-spectrum-reference-configuration-options/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-spectrum-reference-configuration-options/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-spectrum-reference-configuration-options/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-spectrum-reference-configuration-options/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cloudflare-vectorize-reference-client-api",
       "title": "Cloudflare: client api",
       "ecosystem": "Cloudflare",
@@ -12585,6 +13467,111 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cloudflare-vectorize-reference-what-is-a-vector-database",
+      "title": "Cloudflare: what is a vector database",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/vectorize/reference/what-is-a-vector-database/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: what is a vector database",
+      "manifest_path": "agentpress/material-kits/cloudflare-vectorize-reference-what-is-a-vector-database/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-vectorize-reference-what-is-a-vector-database/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-vectorize-reference-what-is-a-vector-database/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-vectorize-reference-what-is-a-vector-database/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-version-management-reference-available-configurations",
+      "title": "Cloudflare: available configurations",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/version-management/reference/available-configurations/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: available configurations",
+      "manifest_path": "agentpress/material-kits/cloudflare-version-management-reference-available-configurations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-version-management-reference-available-configurations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-version-management-reference-available-configurations/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-version-management-reference-available-configurations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-waf-managed-rules-reference-owasp-core-ruleset-configure-api",
+      "title": "Cloudflare: configure api",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/waf/managed-rules/reference/owasp-core-ruleset/configure-api/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: configure api",
+      "manifest_path": "agentpress/material-kits/cloudflare-waf-managed-rules-reference-owasp-core-ruleset-configure-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-waf-managed-rules-reference-owasp-core-ruleset-configure-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-waf-managed-rules-reference-owasp-core-ruleset-configure-api/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-waf-managed-rules-reference-owasp-core-ruleset-configure-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-waiting-room-reference-configuration-settings",
+      "title": "Cloudflare: configuration settings",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/waiting-room/reference/configuration-settings/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: configuration settings",
+      "manifest_path": "agentpress/material-kits/cloudflare-waiting-room-reference-configuration-settings/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-waiting-room-reference-configuration-settings/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-waiting-room-reference-configuration-settings/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-waiting-room-reference-configuration-settings/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-web3-ipfs-gateway-reference-automated-deployment",
+      "title": "Cloudflare: automated deployment",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/web3/ipfs-gateway/reference/automated-deployment/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: automated deployment",
+      "manifest_path": "agentpress/material-kits/cloudflare-web3-ipfs-gateway-reference-automated-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-web3-ipfs-gateway-reference-automated-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-web3-ipfs-gateway-reference-automated-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-web3-ipfs-gateway-reference-automated-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cloudflare-workers-ai-guides-tutorials-build-a-retrieval-augmented-gener",
       "title": "Cloudflare: build a retrieval augmented generation ai",
       "ecosystem": "Cloudflare",
@@ -12595,6 +13582,132 @@
       "receipt_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-build-a-retrieval-augmented-gener/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-build-a-retrieval-augmented-gener/llms.txt",
       "run_guide": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-build-a-retrieval-augmented-gener/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-ai-guides-tutorials-build-a-workers-ai-whisper-with-c",
+      "title": "Cloudflare: build a workers ai whisper with chunking",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers-ai/guides/tutorials/build-a-workers-ai-whisper-with-chunking/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: build a workers ai whisper with chunking",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-build-a-workers-ai-whisper-with-c/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-build-a-workers-ai-whisper-with-c/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-build-a-workers-ai-whisper-with-c/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-build-a-workers-ai-whisper-with-c/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-ai-guides-tutorials-explore-code-generation-using-dee",
+      "title": "Cloudflare: explore code generation using deepseek coder models",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers-ai/guides/tutorials/explore-code-generation-using-deepseek-coder-models/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: explore code generation using deepseek coder models",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-explore-code-generation-using-dee/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-explore-code-generation-using-dee/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-explore-code-generation-using-dee/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-explore-code-generation-using-dee/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-ai-guides-tutorials-explore-workers-ai-models-using-a",
+      "title": "Cloudflare: explore workers ai models using a jupyter notebook",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers-ai/guides/tutorials/explore-workers-ai-models-using-a-jupyter-notebook/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: explore workers ai models using a jupyter notebook",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-explore-workers-ai-models-using-a/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-explore-workers-ai-models-using-a/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-explore-workers-ai-models-using-a/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-explore-workers-ai-models-using-a/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-ai-guides-tutorials-fine-tune-models-with-autotrain",
+      "title": "Cloudflare: fine tune models with autotrain",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers-ai/guides/tutorials/fine-tune-models-with-autotrain/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: fine tune models with autotrain",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-fine-tune-models-with-autotrain/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-fine-tune-models-with-autotrain/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-fine-tune-models-with-autotrain/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-fine-tune-models-with-autotrain/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-ai-guides-tutorials-how-to-choose-the-right-text-gene",
+      "title": "Cloudflare: how to choose the right text generation model",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers-ai/guides/tutorials/how-to-choose-the-right-text-generation-model/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: how to choose the right text generation model",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-how-to-choose-the-right-text-gene/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-how-to-choose-the-right-text-gene/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-how-to-choose-the-right-text-gene/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-how-to-choose-the-right-text-gene/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-ai-guides-tutorials-image-generation-playground-image",
+      "title": "Cloudflare: image generator flux newmodels",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers-ai/guides/tutorials/image-generation-playground/image-generator-flux-newmodels/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: image generator flux newmodels",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-image-generation-playground-image/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-image-generation-playground-image/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-image-generation-playground-image/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-ai-guides-tutorials-image-generation-playground-image/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -12721,6 +13834,48 @@
       "receipt_path": "agentpress/material-kits/cloudflare-workers-configuration-versions-and-deployments-rollbacks/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-workers-configuration-versions-and-deployments-rollbacks/llms.txt",
       "run_guide": "agentpress/material-kits/cloudflare-workers-configuration-versions-and-deployments-rollbacks/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-reference-how-the-cache-works",
+      "title": "Cloudflare: how the cache works",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/reference/how-the-cache-works/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: how the cache works",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-reference-how-the-cache-works/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-reference-how-the-cache-works/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-reference-how-the-cache-works/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-reference-how-the-cache-works/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-reference-security-model",
+      "title": "Cloudflare: security model",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/reference/security-model/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: security model",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-reference-security-model/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-reference-security-model/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-reference-security-model/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-reference-security-model/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -12879,6 +14034,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cloudflare-workers-vite-plugin-reference",
+      "title": "Cloudflare: reference",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/vite-plugin/reference/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: reference",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cloudflare-workers-vite-plugin-reference-api",
       "title": "Cloudflare: api",
       "ecosystem": "Cloudflare",
@@ -12889,6 +14065,27 @@
       "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-api/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-api/llms.txt",
       "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-vite-plugin-reference-cloudflare-environments",
+      "title": "Cloudflare: cloudflare environments",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/vite-plugin/reference/cloudflare-environments/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: cloudflare environments",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-cloudflare-environments/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-cloudflare-environments/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-cloudflare-environments/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-cloudflare-environments/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -12921,6 +14118,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "cloudflare-workers-vite-plugin-reference-migrating-from-wrangler-dev",
+      "title": "Cloudflare: migrating from wrangler dev",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/vite-plugin/reference/migrating-from-wrangler-dev/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: migrating from wrangler dev",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-migrating-from-wrangler-dev/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-migrating-from-wrangler-dev/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-migrating-from-wrangler-dev/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-migrating-from-wrangler-dev/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-vite-plugin-reference-non-javascript-modules",
+      "title": "Cloudflare: non javascript modules",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/vite-plugin/reference/non-javascript-modules/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: non javascript modules",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-non-javascript-modules/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-non-javascript-modules/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-non-javascript-modules/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-non-javascript-modules/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "cloudflare-workers-vite-plugin-reference-programmatic-configuration",
       "title": "Cloudflare: programmatic configuration",
       "ecosystem": "Cloudflare",
@@ -12931,6 +14170,90 @@
       "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-programmatic-configuration/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-programmatic-configuration/llms.txt",
       "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-programmatic-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-vite-plugin-reference-secrets",
+      "title": "Cloudflare: secrets",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/vite-plugin/reference/secrets/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: secrets",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-secrets/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-secrets/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-secrets/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-secrets/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-vite-plugin-reference-static-assets",
+      "title": "Cloudflare: static assets",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/vite-plugin/reference/static-assets/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: static assets",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-static-assets/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-static-assets/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-static-assets/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-static-assets/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-vite-plugin-reference-vite-environments",
+      "title": "Cloudflare: vite environments",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers/vite-plugin/reference/vite-environments/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: vite environments",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-vite-environments/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-vite-environments/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-vite-environments/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-vite-plugin-reference-vite-environments/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workers-vpc-reference-troubleshooting",
+      "title": "Cloudflare: troubleshooting",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workers-vpc/reference/troubleshooting/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: troubleshooting",
+      "manifest_path": "agentpress/material-kits/cloudflare-workers-vpc-reference-troubleshooting/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workers-vpc-reference-troubleshooting/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workers-vpc-reference-troubleshooting/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workers-vpc-reference-troubleshooting/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -12973,6 +14296,132 @@
       "receipt_path": "agentpress/material-kits/cloudflare-workflows-get-started-durable-agents/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/cloudflare-workflows-get-started-durable-agents/llms.txt",
       "run_guide": "agentpress/material-kits/cloudflare-workflows-get-started-durable-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workflows-reference",
+      "title": "Cloudflare: reference",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workflows/reference/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: reference",
+      "manifest_path": "agentpress/material-kits/cloudflare-workflows-reference/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workflows-reference/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workflows-reference/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workflows-reference/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workflows-reference-event-subscriptions",
+      "title": "Cloudflare: event subscriptions",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workflows/reference/event-subscriptions/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: event subscriptions",
+      "manifest_path": "agentpress/material-kits/cloudflare-workflows-reference-event-subscriptions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workflows-reference-event-subscriptions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workflows-reference-event-subscriptions/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workflows-reference-event-subscriptions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workflows-reference-glossary",
+      "title": "Cloudflare: glossary",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workflows/reference/glossary/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: glossary",
+      "manifest_path": "agentpress/material-kits/cloudflare-workflows-reference-glossary/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workflows-reference-glossary/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workflows-reference-glossary/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workflows-reference-glossary/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workflows-reference-limits",
+      "title": "Cloudflare: limits",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workflows/reference/limits/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: limits",
+      "manifest_path": "agentpress/material-kits/cloudflare-workflows-reference-limits/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workflows-reference-limits/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workflows-reference-limits/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workflows-reference-limits/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-workflows-reference-wrangler-commands",
+      "title": "Cloudflare: wrangler commands",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/workflows/reference/wrangler-commands/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: wrangler commands",
+      "manifest_path": "agentpress/material-kits/cloudflare-workflows-reference-wrangler-commands/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-workflows-reference-wrangler-commands/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-workflows-reference-wrangler-commands/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-workflows-reference-wrangler-commands/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "cloudflare-zaraz-reference-supported-tools",
+      "title": "Cloudflare: supported tools",
+      "ecosystem": "Cloudflare",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://developers.cloudflare.com/zaraz/reference/supported-tools/",
+      "painpoint": "agents need compact AgentPress wrapper for Cloudflare Workers/R2/D1 docs agents need for edge deploys: supported tools",
+      "manifest_path": "agentpress/material-kits/cloudflare-zaraz-reference-supported-tools/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/cloudflare-zaraz-reference-supported-tools/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/cloudflare-zaraz-reference-supported-tools/llms.txt",
+      "run_guide": "agentpress/material-kits/cloudflare-zaraz-reference-supported-tools/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -43938,6 +45387,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-rest-api-deployments-cancel-a-deployment",
+      "title": "Vercel: cancel a deployment",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/deployments/cancel-a-deployment",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: cancel a deployment",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-deployments-cancel-a-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-deployments-cancel-a-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-deployments-cancel-a-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-deployments-cancel-a-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-rest-api-deployments-update-deployment-integration-action",
       "title": "Vercel: update deployment integration action",
       "ecosystem": "Vercel",
@@ -44064,6 +45534,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-rest-api-integrations-list-git-repositories-linked-to-namesp",
+      "title": "Vercel: list git repositories linked to namespace by provider",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/integrations/list-git-repositories-linked-to-namespace-by-provider",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: list git repositories linked to namespace by provider",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-integrations-list-git-repositories-linked-to-namesp/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-integrations-list-git-repositories-linked-to-namesp/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-integrations-list-git-repositories-linked-to-namesp/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-integrations-list-git-repositories-linked-to-namesp/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-rest-api-integrations-list-products-for-integration-configur",
       "title": "Vercel: list products for integration configuration",
       "ecosystem": "Vercel",
@@ -44116,6 +45607,48 @@
       "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-microfrontends-get-microfrontends-config-for-a-depl/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-microfrontends-get-microfrontends-config-for-a-depl/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-docs-rest-api-microfrontends-get-microfrontends-config-for-a-depl/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-sandboxes-v2-beta-execute-a-command",
+      "title": "Vercel: execute a command",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sandboxes-v2-beta/execute-a-command",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: execute a command",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-execute-a-command/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-execute-a-command/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-execute-a-command/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sandboxes-v2-beta-execute-a-command/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-sdk-deployments-create-a-new-deployment",
+      "title": "Vercel: create a new deployment",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/deployments/create-a-new-deployment",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: create a new deployment",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-create-a-new-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-create-a-new-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-create-a-new-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-deployments-create-a-new-deployment/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -44295,6 +45828,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "vercel-docs-rest-api-sdk-marketplace-get-the-data-of-a-user-provided-edg",
+      "title": "Vercel: get the data of a user provided edge config",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/marketplace/get-the-data-of-a-user-provided-edge-config",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: get the data of a user provided edge config",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-marketplace-get-the-data-of-a-user-provided-edg/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-marketplace-get-the-data-of-a-user-provided-edg/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-marketplace-get-the-data-of-a-user-provided-edg/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-marketplace-get-the-data-of-a-user-provided-edg/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "vercel-docs-rest-api-sdk-microfrontends-get-microfrontends-config-for-a",
       "title": "Vercel: get microfrontends config for a deployment",
       "ecosystem": "Vercel",
@@ -44305,6 +45859,27 @@
       "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-microfrontends-get-microfrontends-config-for-a/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-microfrontends-get-microfrontends-config-for-a/llms.txt",
       "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-microfrontends-get-microfrontends-config-for-a/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "vercel-docs-rest-api-sdk-sandboxes-v2-beta-create-a-snapshot",
+      "title": "Vercel: create a snapshot",
+      "ecosystem": "Vercel",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://vercel.com/docs/rest-api/sdk/sandboxes-v2-beta/create-a-snapshot",
+      "painpoint": "agents need compact AgentPress wrapper for Vercel deployment/build/env docs agents need: create a snapshot",
+      "manifest_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-create-a-snapshot/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-create-a-snapshot/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-create-a-snapshot/llms.txt",
+      "run_guide": "agentpress/material-kits/vercel-docs-rest-api-sdk-sandboxes-v2-beta-create-a-snapshot/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
