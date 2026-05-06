@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T05:03:49Z",
+  "generated_utc": "2026-05-06T05:04:12Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 6086,
+  "kit_count": 6177,
   "by_ecosystem": {
     "Anthropic": 419,
     "Auth0": 495,
@@ -37,8 +37,8 @@
     "Pinecone": 62,
     "Playwright": 16,
     "Postgres": 61,
-    "Prisma": 96,
-    "Redis": 498,
+    "Prisma": 111,
+    "Redis": 574,
     "repo-docs": 1,
     "Roo Code": 6,
     "api-schema": 1,
@@ -51,7 +51,7 @@
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 6086
+    "ready_local_static_not_posted": 6177
   },
   "kits": [
     {
@@ -89851,6 +89851,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "prisma-docs-ai-tools-tabnine",
+      "title": "Prisma: tabnine",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/ai/tools/tabnine",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: tabnine",
+      "manifest_path": "agentpress/material-kits/prisma-docs-ai-tools-tabnine/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-ai-tools-tabnine/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-ai-tools-tabnine/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-ai-tools-tabnine/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-ai-tools-windsurf",
+      "title": "Prisma: windsurf",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/ai/tools/windsurf",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: windsurf",
+      "manifest_path": "agentpress/material-kits/prisma-docs-ai-tools-windsurf/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-ai-tools-windsurf/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-ai-tools-windsurf/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-ai-tools-windsurf/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "prisma-docs-guides-authentication-authjs-nextjs",
       "title": "Prisma: nextjs",
       "ecosystem": "Prisma",
@@ -90092,6 +90134,48 @@
       "receipt_path": "agentpress/material-kits/prisma-docs-guides-integrations-vercel-deployment/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/prisma-docs-guides-integrations-vercel-deployment/llms.txt",
       "run_guide": "agentpress/material-kits/prisma-docs-guides-integrations-vercel-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-management-api-authentication",
+      "title": "Prisma: authentication",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/management-api/authentication",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: authentication",
+      "manifest_path": "agentpress/material-kits/prisma-docs-management-api-authentication/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-management-api-authentication/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-management-api-authentication/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-management-api-authentication/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-management-api-getting-started",
+      "title": "Prisma: getting started",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/management-api/getting-started",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: getting started",
+      "manifest_path": "agentpress/material-kits/prisma-docs-management-api-getting-started/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-management-api-getting-started/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-management-api-getting-started/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-management-api-getting-started/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -90701,6 +90785,27 @@
       "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-client-testing-unit-testing/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-client-testing-unit-testing/llms.txt",
       "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-client-testing-unit-testing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-orm-prisma-migrate-getting-started",
+      "title": "Prisma: getting started",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/prisma-migrate/getting-started",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: getting started",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-prisma-migrate-getting-started/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-prisma-migrate-getting-started/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-prisma-migrate-getting-started/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-prisma-migrate-getting-started/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -91657,6 +91762,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "prisma-docs-orm-v6-prisma-migrate-getting-started",
+      "title": "Prisma: getting started",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/orm/v6/prisma-migrate/getting-started",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: getting started",
+      "manifest_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-migrate-getting-started/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-orm-v6-prisma-migrate-getting-started/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-orm-v6-prisma-migrate-getting-started/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-orm-v6-prisma-migrate-getting-started/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "prisma-docs-orm-v6-prisma-migrate-workflows-native-database-functions",
       "title": "Prisma: native database functions",
       "ecosystem": "Prisma",
@@ -91783,6 +91909,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "prisma-docs-postgres-error-reference",
+      "title": "Prisma: error reference",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/postgres/error-reference",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: error reference",
+      "manifest_path": "agentpress/material-kits/prisma-docs-postgres-error-reference/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-postgres-error-reference/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-postgres-error-reference/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-postgres-error-reference/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "prisma-docs-prisma-orm-quickstart-cockroachdb",
       "title": "Prisma: cockroachdb",
       "ecosystem": "Prisma",
@@ -91825,6 +91972,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "prisma-docs-prisma-orm-quickstart-mysql",
+      "title": "Prisma: mysql",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/prisma-orm/quickstart/mysql",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: mysql",
+      "manifest_path": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-mysql/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-mysql/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-mysql/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-mysql/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-prisma-orm-quickstart-planetscale",
+      "title": "Prisma: planetscale",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/prisma-orm/quickstart/planetscale",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: planetscale",
+      "manifest_path": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-planetscale/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-planetscale/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-planetscale/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-planetscale/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-prisma-orm-quickstart-postgresql",
+      "title": "Prisma: postgresql",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/prisma-orm/quickstart/postgresql",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: postgresql",
+      "manifest_path": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-postgresql/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-postgresql/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-postgresql/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-postgresql/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-prisma-orm-quickstart-prisma-postgres",
+      "title": "Prisma: prisma postgres",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/prisma-orm/quickstart/prisma-postgres",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: prisma postgres",
+      "manifest_path": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-prisma-postgres/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-prisma-postgres/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-prisma-postgres/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-prisma-postgres/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "prisma-docs-prisma-orm-quickstart-sql-server",
       "title": "Prisma: sql server",
       "ecosystem": "Prisma",
@@ -91835,6 +92066,90 @@
       "receipt_path": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-sql-server/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-sql-server/llms.txt",
       "run_guide": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-sql-server/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-prisma-orm-quickstart-sqlite",
+      "title": "Prisma: sqlite",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/prisma-orm/quickstart/sqlite",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: sqlite",
+      "manifest_path": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-sqlite/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-sqlite/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-sqlite/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-prisma-orm-quickstart-sqlite/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-prisma-postgres-quickstart-drizzle-orm",
+      "title": "Prisma: drizzle orm",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/prisma-postgres/quickstart/drizzle-orm",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: drizzle orm",
+      "manifest_path": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-drizzle-orm/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-drizzle-orm/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-drizzle-orm/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-drizzle-orm/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-prisma-postgres-quickstart-prisma-orm",
+      "title": "Prisma: prisma orm",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/prisma-postgres/quickstart/prisma-orm",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: prisma orm",
+      "manifest_path": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-prisma-orm/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-prisma-orm/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-prisma-orm/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-prisma-orm/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "prisma-docs-prisma-postgres-quickstart-typeorm",
+      "title": "Prisma: typeorm",
+      "ecosystem": "Prisma",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://www.prisma.io/docs/prisma-postgres/quickstart/typeorm",
+      "painpoint": "agents frequently need compact, citation-ready context for ORM/schema/migration/client docs: typeorm",
+      "manifest_path": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-typeorm/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-typeorm/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-typeorm/llms.txt",
+      "run_guide": "agentpress/material-kits/prisma-docs-prisma-postgres-quickstart-typeorm/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -93484,6 +93799,195 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-cli-redis-di-reset",
+      "title": "Redis: redis di reset",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/cli/redis-di-reset",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: redis di reset",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-reset/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-reset/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-reset/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-reset/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-cli-redis-di-scaffold",
+      "title": "Redis: redis di scaffold",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/cli/redis-di-scaffold",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: redis di scaffold",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-scaffold/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-scaffold/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-scaffold/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-scaffold/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-cli-redis-di-set-cont",
+      "title": "Redis: redis di set context",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/cli/redis-di-set-context",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: redis di set context",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-set-cont/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-set-cont/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-set-cont/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-set-cont/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-cli-redis-di-set-secr",
+      "title": "Redis: redis di set secret",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/cli/redis-di-set-secret",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: redis di set secret",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-set-secr/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-set-secr/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-set-secr/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-set-secr/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-cli-redis-di-start",
+      "title": "Redis: redis di start",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/cli/redis-di-start",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: redis di start",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-start/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-start/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-start/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-start/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-cli-redis-di-status",
+      "title": "Redis: redis di status",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/cli/redis-di-status",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: redis di status",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-status/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-status/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-status/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-status/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-cli-redis-di-stop",
+      "title": "Redis: redis di stop",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/cli/redis-di-stop",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: redis di stop",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-stop/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-stop/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-stop/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-stop/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-cli-redis-di-trace",
+      "title": "Redis: redis di trace",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/cli/redis-di-trace",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: redis di trace",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-trace/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-trace/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-trace/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-trace/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-cli-redis-di-upgrade",
+      "title": "Redis: redis di upgrade",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/cli/redis-di-upgrade",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: redis di upgrade",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-upgrade/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-upgrade/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-upgrade/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-cli-redis-di-upgrade/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-integrate-write-behind-reference-config-yaml-reference",
       "title": "Redis: config yaml reference",
       "ecosystem": "Redis",
@@ -93526,6 +94030,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-data-types-conversion",
+      "title": "Redis: data types conversion",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/data-types-conversion",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: data types conversion",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-data-types-conversion/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-data-types-conversion/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-data-types-conversion/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-data-types-conversion/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-debezium",
+      "title": "Redis: debezium",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/debezium",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: debezium",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-debezium-cassandra",
+      "title": "Redis: cassandra",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/debezium/cassandra",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: cassandra",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-cassandra/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-cassandra/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-cassandra/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-cassandra/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-integrate-write-behind-reference-debezium-mongodb",
       "title": "Redis: mongodb",
       "ecosystem": "Redis",
@@ -93536,6 +94103,69 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-mongodb/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-mongodb/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-mongodb/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-debezium-mysql",
+      "title": "Redis: mysql",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/debezium/mysql",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: mysql",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-mysql/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-mysql/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-mysql/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-mysql/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-debezium-oracle",
+      "title": "Redis: oracle",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/debezium/oracle",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: oracle",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-oracle/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-oracle/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-oracle/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-oracle/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-reference-debezium-postgresql",
+      "title": "Redis: postgresql",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/reference/debezium/postgresql",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: postgresql",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-postgresql/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-postgresql/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-postgresql/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-reference-debezium-postgresql/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -93589,6 +94219,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-operate-featureform",
+      "title": "Redis: featureform",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/featureform",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: featureform",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-featureform/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-featureform/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-featureform/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-featureform/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-featureform-auth",
       "title": "Redis: auth",
       "ecosystem": "Redis",
@@ -93620,6 +94271,90 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-featureform-deploy/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-featureform-deploy/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-operate-featureform-deploy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-active-active-create-aa-crdb-cli",
+      "title": "Redis: create aa crdb cli",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/active-active/create-aa-crdb-cli",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: create aa crdb cli",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-create-aa-crdb-cli/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-create-aa-crdb-cli/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-create-aa-crdb-cli/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-create-aa-crdb-cli/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-active-active-create-reaadb",
+      "title": "Redis: create reaadb",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/active-active/create-reaadb",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: create reaadb",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-create-reaadb/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-create-reaadb/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-create-reaadb/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-create-reaadb/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-active-active-global-config",
+      "title": "Redis: global config",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/active-active/global-config",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: global config",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-global-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-global-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-global-config/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-global-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-active-active-global-db-secret",
+      "title": "Redis: global db secret",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/active-active/global-db-secret",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: global db secret",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-global-db-secret/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-global-db-secret/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-global-db-secret/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-active-active-global-db-secret/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -93799,6 +94534,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-operate-kubernetes-networking-cluster-aware-clients",
+      "title": "Redis: cluster aware clients",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/networking/cluster-aware-clients",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: cluster aware clients",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-networking-cluster-aware-clients/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-networking-cluster-aware-clients/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-networking-cluster-aware-clients/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-networking-cluster-aware-clients/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-networking-database-connectivity",
+      "title": "Redis: database connectivity",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/networking/database-connectivity",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: database connectivity",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-networking-database-connectivity/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-networking-database-connectivity/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-networking-database-connectivity/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-networking-database-connectivity/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-re-databases",
+      "title": "Redis: re databases",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/re-databases",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: re databases",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-re-databases/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-re-databases/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-re-databases/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-re-databases/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-kubernetes-re-databases-db-controller",
       "title": "Redis: db controller",
       "ecosystem": "Redis",
@@ -93820,6 +94618,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-operate-kubernetes-re-databases-modules",
+      "title": "Redis: modules",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/re-databases/modules",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: modules",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-re-databases-modules/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-re-databases-modules/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-re-databases-modules/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-re-databases-modules/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-kubernetes-re-databases-replica-redb",
       "title": "Redis: replica redb",
       "ecosystem": "Redis",
@@ -93830,6 +94649,27 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-re-databases-replica-redb/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-re-databases-replica-redb/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-re-databases-replica-redb/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-reference",
+      "title": "Redis: reference",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/reference",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: reference",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -93946,6 +94786,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-operate-kubernetes-reference-supported-k8s-distributio",
+      "title": "Redis: supported k8s distributions",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/reference/supported_k8s_distributions",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: supported k8s distributions",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-supported-k8s-distributio/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-supported-k8s-distributio/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-supported-k8s-distributio/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-supported-k8s-distributio/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-reference-yaml",
+      "title": "Redis: yaml",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/reference/yaml",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: yaml",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-reference-yaml-active-active",
+      "title": "Redis: active active",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/reference/yaml/active-active",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: active active",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-active-active/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-active-active/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-active-active/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-active-active/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-kubernetes-reference-yaml-basic-deployment",
       "title": "Redis: basic deployment",
       "ecosystem": "Redis",
@@ -93956,6 +94859,90 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-basic-deployment/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-basic-deployment/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-basic-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-reference-yaml-log-collector-rbac",
+      "title": "Redis: log collector rbac",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/reference/yaml/log-collector-rbac",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: log collector rbac",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-log-collector-rbac/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-log-collector-rbac/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-log-collector-rbac/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-log-collector-rbac/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-reference-yaml-multi-namespace",
+      "title": "Redis: multi namespace",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/reference/yaml/multi-namespace",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: multi namespace",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-multi-namespace/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-multi-namespace/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-multi-namespace/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-multi-namespace/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-reference-yaml-rack-awareness",
+      "title": "Redis: rack awareness",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/reference/yaml/rack-awareness",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: rack awareness",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-rack-awareness/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-rack-awareness/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-rack-awareness/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-rack-awareness/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-security-add-client-certificates",
+      "title": "Redis: add client certificates",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/security/add-client-certificates",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: add client certificates",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-security-add-client-certificates/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-security-add-client-certificates/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-security-add-client-certificates/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-security-add-client-certificates/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -93988,6 +94975,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-operate-oss-and-stack-install-build-stack",
+      "title": "Redis: build stack",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/install/build-stack",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: build stack",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-install-build-stack-almalinux-ro",
+      "title": "Redis: almalinux rocky 9",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/install/build-stack/almalinux-rocky-9",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: almalinux rocky 9",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-almalinux-ro/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-almalinux-ro/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-almalinux-ro/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-almalinux-ro/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-oss-and-stack-install-build-stack-debian-bookw",
       "title": "Redis: debian bookworm",
       "ecosystem": "Redis",
@@ -94009,6 +95038,426 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-operate-oss-and-stack-install-build-stack-debian-bulls",
+      "title": "Redis: debian bullseye",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/install/build-stack/debian-bullseye",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: debian bullseye",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-debian-bulls/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-debian-bulls/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-debian-bulls/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-debian-bulls/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-install-build-stack-macos-13-14",
+      "title": "Redis: macos 13 14",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/install/build-stack/macos-13-14",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: macos 13 14",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-macos-13-14/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-macos-13-14/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-macos-13-14/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-macos-13-14/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-focal",
+      "title": "Redis: ubuntu focal",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/install/build-stack/ubuntu-focal",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: ubuntu focal",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-focal/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-focal/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-focal/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-focal/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-jammy",
+      "title": "Redis: ubuntu jammy",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/install/build-stack/ubuntu-jammy",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: ubuntu jammy",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-jammy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-jammy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-jammy/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-jammy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-noble",
+      "title": "Redis: ubuntu noble",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/install/build-stack/ubuntu-noble",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: ubuntu noble",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-noble/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-noble/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-noble/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-install-build-stack-ubuntu-noble/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-management-config",
+      "title": "Redis: config",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/config",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: config",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-config/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-config/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-management-debugging",
+      "title": "Redis: debugging",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/debugging",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: debugging",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-debugging/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-debugging/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-debugging/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-debugging/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-management-optimization-memory-o",
+      "title": "Redis: memory optimization",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/optimization/memory-optimization",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: memory optimization",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-optimization-memory-o/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-optimization-memory-o/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-optimization-memory-o/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-optimization-memory-o/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-management-persistence",
+      "title": "Redis: persistence",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: persistence",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-persistence/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-persistence/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-persistence/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-persistence/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-management-troubleshooting",
+      "title": "Redis: troubleshooting",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/troubleshooting",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: troubleshooting",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-troubleshooting/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-troubleshooting/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-troubleshooting/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-management-troubleshooting/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-reference",
+      "title": "Redis: reference",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/reference",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: reference",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-reference-arm",
+      "title": "Redis: arm",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/reference/arm",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: arm",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-arm/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-arm/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-arm/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-arm/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-reference-cluster-spec",
+      "title": "Redis: cluster spec",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/reference/cluster-spec",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: cluster spec",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-cluster-spec/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-cluster-spec/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-cluster-spec/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-cluster-spec/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-reference-internals",
+      "title": "Redis: internals",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/reference/internals",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: internals",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-reference-internals-internals-re",
+      "title": "Redis: internals rediseventlib",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/reference/internals/internals-rediseventlib",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: internals rediseventlib",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-re/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-re/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-re/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-re/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-reference-internals-internals-sd",
+      "title": "Redis: internals sds",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/reference/internals/internals-sds",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: internals sds",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-sd/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-sd/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-sd/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-sd/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-reference-internals-internals-vm",
+      "title": "Redis: internals vm",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/reference/internals/internals-vm",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: internals vm",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-vm/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-vm/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-vm/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-internals-vm/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-reference-internals-rdd",
+      "title": "Redis: rdd",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/reference/internals/rdd",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: rdd",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-rdd/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-rdd/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-rdd/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-internals-rdd/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-reference-signals",
+      "title": "Redis: signals",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/reference/signals",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: signals",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-signals/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-signals/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-signals/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-reference-signals/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-bloom-conf",
+      "title": "Redis: config",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/stack-with-enterprise/bloom/config",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: config",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-bloom-conf/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-bloom-conf/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-bloom-conf/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-bloom-conf/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-deprecated",
       "title": "Redis: examples",
       "ecosystem": "Redis",
@@ -94019,6 +95468,132 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-deprecated/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-deprecated/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-deprecated/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-install-ad",
+      "title": "Redis: add module to database",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/stack-with-enterprise/install/add-module-to-database",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: add module to database",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-install-ad/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-install-ad/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-install-ad/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-install-ad/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-search-con",
+      "title": "Redis: config",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/stack-with-enterprise/search/config",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: config",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-search-con/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-search-con/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-search-con/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-search-con/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-search-que",
+      "title": "Redis: query performance factor",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/stack-with-enterprise/search/query-performance-factor",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: query performance factor",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-search-que/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-search-que/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-search-que/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-search-que/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-stack-quic",
+      "title": "Redis: stack quickstart",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/stack-with-enterprise/stack-quickstart",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: stack quickstart",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-stack-quic/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-stack-quic/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-stack-quic/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-stack-quic/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-timeseries",
+      "title": "Redis: config",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/stack-with-enterprise/timeseries/config",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: config",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-timeseries/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-timeseries/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-timeseries/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-timeseries/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api",
+      "title": "Redis: api",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: api",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -94198,6 +95773,132 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-operate-rc-api-get-started",
+      "title": "Redis: get started",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/get-started",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: get started",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-get-started-enable-the-api",
+      "title": "Redis: enable the api",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/get-started/enable-the-api",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: enable the api",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-enable-the-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-enable-the-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-enable-the-api/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-enable-the-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-get-started-manage-api-keys",
+      "title": "Redis: manage api keys",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/get-started/manage-api-keys",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: manage api keys",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-manage-api-keys/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-manage-api-keys/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-manage-api-keys/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-manage-api-keys/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-get-started-manage-tasks",
+      "title": "Redis: manage tasks",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/get-started/manage-tasks",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: manage tasks",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-manage-tasks/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-manage-tasks/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-manage-tasks/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-manage-tasks/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-get-started-process-lifecycle",
+      "title": "Redis: process lifecycle",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/get-started/process-lifecycle",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: process lifecycle",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-process-lifecycle/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-process-lifecycle/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-process-lifecycle/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-process-lifecycle/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-get-started-use-rest-api",
+      "title": "Redis: use rest api",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/get-started/use-rest-api",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: use rest api",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-use-rest-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-use-rest-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-use-rest-api/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-get-started-use-rest-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-rc-billing-and-payments",
       "title": "Redis: billing and payments",
       "ecosystem": "Redis",
@@ -94229,6 +95930,216 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-billing-and-payments-cost-report/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-billing-and-payments-cost-report/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-billing-and-payments-cost-report/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-cloud-integrations",
+      "title": "Redis: cloud integrations",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/cloud-integrations",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: cloud integrations",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-cloud-integrations-aws-marketplace",
+      "title": "Redis: aws marketplace",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/cloud-integrations/aws-marketplace",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: aws marketplace",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-aws-marketplace/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-aws-marketplace/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-aws-marketplace/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-aws-marketplace/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-cloud-integrations-gcp-marketplace",
+      "title": "Redis: gcp marketplace",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/cloud-integrations/gcp-marketplace",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: gcp marketplace",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-gcp-marketplace/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-gcp-marketplace/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-gcp-marketplace/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-gcp-marketplace/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-cloud-integrations-gcp-marketplace-team-man",
+      "title": "Redis: team management",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/cloud-integrations/gcp-marketplace/team-management",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: team management",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-gcp-marketplace-team-man/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-gcp-marketplace-team-man/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-gcp-marketplace-team-man/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-gcp-marketplace-team-man/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-cloud-integrations-heroku",
+      "title": "Redis: heroku",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/cloud-integrations/heroku",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: heroku",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-heroku/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-heroku/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-heroku/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-heroku/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-cloud-integrations-vercel",
+      "title": "Redis: vercel",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/cloud-integrations/vercel",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: vercel",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-vercel/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-vercel/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-vercel/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-cloud-integrations-vercel/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-databases",
+      "title": "Redis: databases",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/databases",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: databases",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-databases/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-databases/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-databases-active-active",
+      "title": "Redis: active active",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/databases/active-active",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: active active",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-databases-active-active-create-active-activ",
+      "title": "Redis: create active active database",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/databases/active-active/create-active-active-database",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: create active active database",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active-create-active-activ/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active-create-active-activ/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active-create-active-activ/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active-create-active-activ/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-databases-active-active-develop",
+      "title": "Redis: develop",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/databases/active-active/develop",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: develop",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active-develop/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active-develop/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active-develop/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-active-active-develop/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
