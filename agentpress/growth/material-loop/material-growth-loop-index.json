@@ -1,17 +1,17 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:31:15Z",
+  "generated_utc": "2026-05-06T04:31:25Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 466,
+  "kit_count": 516,
   "by_ecosystem": {
     "Anthropic": 201,
     "Cline": 2,
     "docs": 1,
     "CrewAI": 25,
-    "Haystack": 37,
+    "Haystack": 87,
     "LangGraph": 2,
     "LiteLLM": 82,
     "LlamaIndex": 1,
@@ -26,7 +26,7 @@
     "Vercel AI SDK": 35
   },
   "by_status": {
-    "ready_local_static_not_posted": 466
+    "ready_local_static_not_posted": 516
   },
   "kits": [
     {
@@ -4839,6 +4839,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "haystack-docs-2-24-agents",
+      "title": "Haystack: agents",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.24/agents",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: agents",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-24-agents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-24-agents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-24-agents/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-24-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-24-external-integrations-evaluators",
+      "title": "Haystack: external integrations evaluators",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.24/external-integrations-evaluators",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: external integrations evaluators",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-24-external-integrations-evaluators/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-24-external-integrations-evaluators/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-24-external-integrations-evaluators/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-24-external-integrations-evaluators/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-24-mcptool",
+      "title": "Haystack: mcptool",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.24/mcptool",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: mcptool",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-24-mcptool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-24-mcptool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-24-mcptool/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-24-mcptool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "haystack-docs-2-24-mcptoolset",
       "title": "Haystack: mcptoolset",
       "ecosystem": "Haystack",
@@ -4870,6 +4933,111 @@
       "receipt_path": "agentpress/material-kits/haystack-docs-2-24-model-based-evaluation/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/haystack-docs-2-24-model-based-evaluation/llms.txt",
       "run_guide": "agentpress/material-kits/haystack-docs-2-24-model-based-evaluation/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-24-openapiservicetofunctions",
+      "title": "Haystack: openapiservicetofunctions",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.24/openapiservicetofunctions",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: openapiservicetofunctions",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-24-openapiservicetofunctions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-24-openapiservicetofunctions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-24-openapiservicetofunctions/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-24-openapiservicetofunctions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-24-sentencewindowretrieval",
+      "title": "Haystack: sentencewindowretrieval",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.24/sentencewindowretrieval",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: sentencewindowretrieval",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-24-sentencewindowretrieval/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-24-sentencewindowretrieval/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-24-sentencewindowretrieval/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-24-sentencewindowretrieval/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-24-toolset",
+      "title": "Haystack: toolset",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.24/toolset",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: toolset",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-24-toolset/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-24-toolset/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-24-toolset/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-24-toolset/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-25-agents",
+      "title": "Haystack: agents",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.25/agents",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: agents",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-25-agents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-25-agents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-25-agents/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-25-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-25-evaluation",
+      "title": "Haystack: evaluation",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.25/evaluation",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: evaluation",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-25-evaluation/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-25-evaluation/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-25-evaluation/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-25-evaluation/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -4923,6 +5091,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "haystack-docs-2-25-searchabletoolset",
+      "title": "Haystack: searchabletoolset",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.25/searchabletoolset",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: searchabletoolset",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-25-searchabletoolset/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-25-searchabletoolset/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-25-searchabletoolset/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-25-searchabletoolset/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-26-agents",
+      "title": "Haystack: agents",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.26/agents",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: agents",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-26-agents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-26-agents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-26-agents/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-26-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-26-mcptool",
+      "title": "Haystack: mcptool",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.26/mcptool",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: mcptool",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-26-mcptool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-26-mcptool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-26-mcptool/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-26-mcptool/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "haystack-docs-2-26-mcptoolset",
       "title": "Haystack: mcptoolset",
       "ecosystem": "Haystack",
@@ -4954,6 +5185,111 @@
       "receipt_path": "agentpress/material-kits/haystack-docs-2-26-model-based-evaluation/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/haystack-docs-2-26-model-based-evaluation/llms.txt",
       "run_guide": "agentpress/material-kits/haystack-docs-2-26-model-based-evaluation/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-26-openapiservicetofunctions",
+      "title": "Haystack: openapiservicetofunctions",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.26/openapiservicetofunctions",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: openapiservicetofunctions",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-26-openapiservicetofunctions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-26-openapiservicetofunctions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-26-openapiservicetofunctions/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-26-openapiservicetofunctions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-26-statistical-evaluation",
+      "title": "Haystack: statistical evaluation",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.26/statistical-evaluation",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: statistical evaluation",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-26-statistical-evaluation/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-26-statistical-evaluation/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-26-statistical-evaluation/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-26-statistical-evaluation/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-26-toolset",
+      "title": "Haystack: toolset",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.26/toolset",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: toolset",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-26-toolset/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-26-toolset/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-26-toolset/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-26-toolset/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-27-external-integrations-evaluators",
+      "title": "Haystack: external integrations evaluators",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.27/external-integrations-evaluators",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: external integrations evaluators",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-27-external-integrations-evaluators/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-27-external-integrations-evaluators/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-27-external-integrations-evaluators/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-27-external-integrations-evaluators/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-27-mcptool",
+      "title": "Haystack: mcptool",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.27/mcptool",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: mcptool",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-27-mcptool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-27-mcptool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-27-mcptool/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-27-mcptool/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -5007,6 +5343,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "haystack-docs-2-27-openapiservicetofunctions",
+      "title": "Haystack: openapiservicetofunctions",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.27/openapiservicetofunctions",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: openapiservicetofunctions",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-27-openapiservicetofunctions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-27-openapiservicetofunctions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-27-openapiservicetofunctions/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-27-openapiservicetofunctions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-27-ragasevaluator",
+      "title": "Haystack: ragasevaluator",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.27/ragasevaluator",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: ragasevaluator",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-27-ragasevaluator/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-27-ragasevaluator/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-27-ragasevaluator/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-27-ragasevaluator/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-2-27-toolset",
+      "title": "Haystack: toolset",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/2.27/toolset",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: toolset",
+      "manifest_path": "agentpress/material-kits/haystack-docs-2-27-toolset/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-2-27-toolset/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-2-27-toolset/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-2-27-toolset/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-evaluation",
+      "title": "Haystack: evaluation",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/evaluation",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: evaluation",
+      "manifest_path": "agentpress/material-kits/haystack-docs-evaluation/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-evaluation/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-evaluation/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-evaluation/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "haystack-docs-mcptoolset",
       "title": "Haystack: mcptoolset",
       "ecosystem": "Haystack",
@@ -5038,6 +5458,69 @@
       "receipt_path": "agentpress/material-kits/haystack-docs-model-based-evaluation/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/haystack-docs-model-based-evaluation/llms.txt",
       "run_guide": "agentpress/material-kits/haystack-docs-model-based-evaluation/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-next-agents",
+      "title": "Haystack: agents",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/next/agents",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: agents",
+      "manifest_path": "agentpress/material-kits/haystack-docs-next-agents/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-next-agents/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-next-agents/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-next-agents/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-next-evaluation",
+      "title": "Haystack: evaluation",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/next/evaluation",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: evaluation",
+      "manifest_path": "agentpress/material-kits/haystack-docs-next-evaluation/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-next-evaluation/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-next-evaluation/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-next-evaluation/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-next-mcptool",
+      "title": "Haystack: mcptool",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/next/mcptool",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: mcptool",
+      "manifest_path": "agentpress/material-kits/haystack-docs-next-mcptool/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-next-mcptool/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-next-mcptool/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-next-mcptool/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -5091,6 +5574,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "haystack-docs-next-openapiservicetofunctions",
+      "title": "Haystack: openapiservicetofunctions",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/next/openapiservicetofunctions",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: openapiservicetofunctions",
+      "manifest_path": "agentpress/material-kits/haystack-docs-next-openapiservicetofunctions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-next-openapiservicetofunctions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-next-openapiservicetofunctions/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-next-openapiservicetofunctions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-next-ragasevaluator",
+      "title": "Haystack: ragasevaluator",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/next/ragasevaluator",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: ragasevaluator",
+      "manifest_path": "agentpress/material-kits/haystack-docs-next-ragasevaluator/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-next-ragasevaluator/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-next-ragasevaluator/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-next-ragasevaluator/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-searchabletoolset",
+      "title": "Haystack: searchabletoolset",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/searchabletoolset",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: searchabletoolset",
+      "manifest_path": "agentpress/material-kits/haystack-docs-searchabletoolset/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-searchabletoolset/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-searchabletoolset/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-searchabletoolset/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-docs-statistical-evaluation",
+      "title": "Haystack: statistical evaluation",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/docs/statistical-evaluation",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: statistical evaluation",
+      "manifest_path": "agentpress/material-kits/haystack-docs-statistical-evaluation/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-docs-statistical-evaluation/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-docs-statistical-evaluation/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-docs-statistical-evaluation/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "haystack-reference-2-24-agents-api",
       "title": "Haystack: agents api",
       "ecosystem": "Haystack",
@@ -5101,6 +5668,27 @@
       "receipt_path": "agentpress/material-kits/haystack-reference-2-24-agents-api/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/haystack-reference-2-24-agents-api/llms.txt",
       "run_guide": "agentpress/material-kits/haystack-reference-2-24-agents-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-24-category-integrations-api",
+      "title": "Haystack: integrations api",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.24/category/integrations-api",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations api",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-24-category-integrations-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-24-category-integrations-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-24-category-integrations-api/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-24-category-integrations-api/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -5143,6 +5731,69 @@
       "receipt_path": "agentpress/material-kits/haystack-reference-2-24-experimental-agents-api/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/haystack-reference-2-24-experimental-agents-api/llms.txt",
       "run_guide": "agentpress/material-kits/haystack-reference-2-24-experimental-agents-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-24-integrations-cometapi",
+      "title": "Haystack: integrations cometapi",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.24/integrations-cometapi",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations cometapi",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-24-integrations-cometapi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-24-integrations-cometapi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-24-integrations-cometapi/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-24-integrations-cometapi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-24-integrations-deepeval",
+      "title": "Haystack: integrations deepeval",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.24/integrations-deepeval",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations deepeval",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-24-integrations-deepeval/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-24-integrations-deepeval/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-24-integrations-deepeval/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-24-integrations-deepeval/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-24-integrations-mcp",
+      "title": "Haystack: integrations mcp",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.24/integrations-mcp",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations mcp",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-24-integrations-mcp/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-24-integrations-mcp/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-24-integrations-mcp/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-24-integrations-mcp/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -5217,6 +5868,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "haystack-reference-2-25-evaluators-api",
+      "title": "Haystack: evaluators api",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.25/evaluators-api",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: evaluators api",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-25-evaluators-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-25-evaluators-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-25-evaluators-api/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-25-evaluators-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "haystack-reference-2-25-experimental-agents-api",
       "title": "Haystack: experimental agents api",
       "ecosystem": "Haystack",
@@ -5248,6 +5920,27 @@
       "receipt_path": "agentpress/material-kits/haystack-reference-2-25-integrations-mcp/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/haystack-reference-2-25-integrations-mcp/llms.txt",
       "run_guide": "agentpress/material-kits/haystack-reference-2-25-integrations-mcp/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-25-integrations-ragas",
+      "title": "Haystack: integrations ragas",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.25/integrations-ragas",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations ragas",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-25-integrations-ragas/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-25-integrations-ragas/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-25-integrations-ragas/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-25-integrations-ragas/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -5322,6 +6015,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "haystack-reference-2-26-evaluators-api",
+      "title": "Haystack: evaluators api",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.26/evaluators-api",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: evaluators api",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-26-evaluators-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-26-evaluators-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-26-evaluators-api/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-26-evaluators-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "haystack-reference-2-26-experimental-agents-api",
       "title": "Haystack: experimental agents api",
       "ecosystem": "Haystack",
@@ -5332,6 +6046,69 @@
       "receipt_path": "agentpress/material-kits/haystack-reference-2-26-experimental-agents-api/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/haystack-reference-2-26-experimental-agents-api/llms.txt",
       "run_guide": "agentpress/material-kits/haystack-reference-2-26-experimental-agents-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-26-integrations-deepeval",
+      "title": "Haystack: integrations deepeval",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.26/integrations-deepeval",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations deepeval",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-26-integrations-deepeval/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-26-integrations-deepeval/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-26-integrations-deepeval/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-26-integrations-deepeval/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-26-integrations-mcp",
+      "title": "Haystack: integrations mcp",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.26/integrations-mcp",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations mcp",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-26-integrations-mcp/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-26-integrations-mcp/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-26-integrations-mcp/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-26-integrations-mcp/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-26-integrations-ragas",
+      "title": "Haystack: integrations ragas",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.26/integrations-ragas",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations ragas",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-26-integrations-ragas/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-26-integrations-ragas/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-26-integrations-ragas/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-26-integrations-ragas/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -5427,6 +6204,111 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "haystack-reference-2-27-experimental-mem0-memory-store-api",
+      "title": "Haystack: experimental mem0 memory store api",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.27/experimental-mem0-memory-store-api",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: experimental mem0 memory store api",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-27-experimental-mem0-memory-store-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-27-experimental-mem0-memory-store-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-27-experimental-mem0-memory-store-api/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-27-experimental-mem0-memory-store-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-27-integrations-cometapi",
+      "title": "Haystack: integrations cometapi",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.27/integrations-cometapi",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations cometapi",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-27-integrations-cometapi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-27-integrations-cometapi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-27-integrations-cometapi/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-27-integrations-cometapi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-27-integrations-mcp",
+      "title": "Haystack: integrations mcp",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.27/integrations-mcp",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations mcp",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-27-integrations-mcp/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-27-integrations-mcp/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-27-integrations-mcp/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-27-integrations-mcp/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-27-integrations-ragas",
+      "title": "Haystack: integrations ragas",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.27/integrations-ragas",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations ragas",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-27-integrations-ragas/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-27-integrations-ragas/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-27-integrations-ragas/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-27-integrations-ragas/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-2-27-tool-components-api",
+      "title": "Haystack: tool components api",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/2.27/tool-components-api",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: tool components api",
+      "manifest_path": "agentpress/material-kits/haystack-reference-2-27-tool-components-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-2-27-tool-components-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-2-27-tool-components-api/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-2-27-tool-components-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "haystack-reference-2-27-tools-api",
       "title": "Haystack: tools api",
       "ecosystem": "Haystack",
@@ -5511,6 +6393,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "haystack-reference-experimental-mem0-memory-store-api",
+      "title": "Haystack: experimental mem0 memory store api",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/experimental-mem0-memory-store-api",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: experimental mem0 memory store api",
+      "manifest_path": "agentpress/material-kits/haystack-reference-experimental-mem0-memory-store-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-experimental-mem0-memory-store-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-experimental-mem0-memory-store-api/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-experimental-mem0-memory-store-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-integrations-cometapi",
+      "title": "Haystack: integrations cometapi",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/integrations-cometapi",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations cometapi",
+      "manifest_path": "agentpress/material-kits/haystack-reference-integrations-cometapi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-integrations-cometapi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-integrations-cometapi/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-integrations-cometapi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-integrations-deepeval",
+      "title": "Haystack: integrations deepeval",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/integrations-deepeval",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations deepeval",
+      "manifest_path": "agentpress/material-kits/haystack-reference-integrations-deepeval/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-integrations-deepeval/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-integrations-deepeval/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-integrations-deepeval/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "haystack-reference-next-agents-api",
       "title": "Haystack: agents api",
       "ecosystem": "Haystack",
@@ -5553,6 +6498,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "haystack-reference-next-evaluators-api",
+      "title": "Haystack: evaluators api",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/next/evaluators-api",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: evaluators api",
+      "manifest_path": "agentpress/material-kits/haystack-reference-next-evaluators-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-next-evaluators-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-next-evaluators-api/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-next-evaluators-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "haystack-reference-next-experimental-agents-api",
       "title": "Haystack: experimental agents api",
       "ecosystem": "Haystack",
@@ -5574,6 +6540,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "haystack-reference-next-integrations-cometapi",
+      "title": "Haystack: integrations cometapi",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/next/integrations-cometapi",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations cometapi",
+      "manifest_path": "agentpress/material-kits/haystack-reference-next-integrations-cometapi/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-next-integrations-cometapi/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-next-integrations-cometapi/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-next-integrations-cometapi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-next-integrations-mcp",
+      "title": "Haystack: integrations mcp",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/next/integrations-mcp",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations mcp",
+      "manifest_path": "agentpress/material-kits/haystack-reference-next-integrations-mcp/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-next-integrations-mcp/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-next-integrations-mcp/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-next-integrations-mcp/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-next-integrations-ragas",
+      "title": "Haystack: integrations ragas",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/next/integrations-ragas",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: integrations ragas",
+      "manifest_path": "agentpress/material-kits/haystack-reference-next-integrations-ragas/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-next-integrations-ragas/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-next-integrations-ragas/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-next-integrations-ragas/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "haystack-reference-next-tools-api",
       "title": "Haystack: tools api",
       "ecosystem": "Haystack",
@@ -5584,6 +6613,27 @@
       "receipt_path": "agentpress/material-kits/haystack-reference-next-tools-api/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/haystack-reference-next-tools-api/llms.txt",
       "run_guide": "agentpress/material-kits/haystack-reference-next-tools-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "haystack-reference-tool-components-api",
+      "title": "Haystack: tool components api",
+      "ecosystem": "Haystack",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.haystack.deepset.ai/reference/tool-components-api",
+      "painpoint": "agents need compact AgentPress wrapper for Haystack pipeline/agent docs: tool components api",
+      "manifest_path": "agentpress/material-kits/haystack-reference-tool-components-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/haystack-reference-tool-components-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/haystack-reference-tool-components-api/llms.txt",
+      "run_guide": "agentpress/material-kits/haystack-reference-tool-components-api/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
