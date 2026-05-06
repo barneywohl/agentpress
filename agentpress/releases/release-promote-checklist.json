@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-05.agentpress-release-promote-checklist.v1",
-  "generated_utc": "2026-05-06T01:48:36Z",
-  "status": "pass",
+  "generated_utc": "2026-05-06T02:23:40Z",
+  "status": "blocked",
   "root": ".",
   "from_tag": "rc",
   "to_tag": "latest",
-  "promotion_allowed": true,
+  "promotion_allowed": false,
   "review_gates_enforced": false,
   "checks": [
     {
@@ -13,7 +13,7 @@
       "status": "pass",
       "required": true,
       "evidence": "cli-gap-audit",
-      "detail": "status=ok parser_count=290"
+      "detail": "status=ok parser_count=291"
     },
     {
       "name": "tool_contract_check",
@@ -52,10 +52,10 @@
     },
     {
       "name": "npm_package_budget",
-      "status": "pass",
+      "status": "blocked",
       "required": true,
       "evidence": "npm pack --dry-run --json",
-      "detail": "size=298319; max_size=300000; files=91; max_files=100"
+      "detail": "size=300371; max_size=300000; files=91; max_files=100"
     },
     {
       "name": "independent_external_proof",
@@ -72,6 +72,8 @@
       "detail": "RFLO Opus/Sonnet review signal; hard_gate=False; no_go_seen=True"
     }
   ],
-  "blocking_checks": [],
-  "decision": "Required safety/package gates are green; external proof/RFLO are advisory unless --enforce-review-gates is set."
+  "blocking_checks": [
+    "npm_package_budget"
+  ],
+  "decision": "Do not promote until every required safety/package check passes."
 }
