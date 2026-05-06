@@ -1,11 +1,11 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T04:51:40Z",
+  "generated_utc": "2026-05-06T04:52:00Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 2935,
+  "kit_count": 3030,
   "by_ecosystem": {
     "Anthropic": 305,
     "Auth0": 122,
@@ -37,20 +37,20 @@
     "Playwright": 16,
     "Postgres": 22,
     "Prisma": 36,
-    "Redis": 26,
+    "Redis": 75,
     "repo-docs": 1,
     "Roo Code": 6,
     "api-schema": 1,
     "onboarding": 1,
-    "Stripe": 4,
-    "Supabase": 121,
+    "Stripe": 10,
+    "Supabase": 161,
     "TypeScript": 1,
     "Vercel": 172,
     "Vercel AI SDK": 111,
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 2935
+    "ready_local_static_not_posted": 3030
   },
   "kits": [
     {
@@ -52428,6 +52428,258 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-integrate-redis-data-integration-reference-data-transf",
+      "title": "Redis: rename field",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/redis-data-integration/reference/data-transformation/rename_field",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: rename field",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-redis-data-integration-reference-data-transf/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-redis-data-integration-reference-data-transf/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-redis-data-integration-reference-data-transf/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-redis-data-integration-reference-data-transf/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-redis-data-integration-reference-jmespath-cu",
+      "title": "Redis: jmespath custom functions",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/redis-data-integration/reference/jmespath-custom-functions",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: jmespath custom functions",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-redis-data-integration-reference-jmespath-cu/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-redis-data-integration-reference-jmespath-cu/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-redis-data-integration-reference-jmespath-cu/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-redis-data-integration-reference-jmespath-cu/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-configuration-guide",
+      "title": "Redis: configuration guide",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/configuration-guide",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: configuration guide",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-configuration-guide/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-configuration-guide/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-configuration-guide/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-configuration-guide/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-integrate-write-behind-data-transformation-transformat",
+      "title": "Redis: write behind to redis example",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/integrate/write-behind/data-transformation/transformation-examples/write-behind-to-redis-example",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: write behind to redis example",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-data-transformation-transformat/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-data-transformation-transformat/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-data-transformation-transformat/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-integrate-write-behind-data-transformation-transformat/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-deployment-quick-start",
+      "title": "Redis: quick start",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/deployment/quick-start",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: quick start",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-deployment-quick-start/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-deployment-quick-start/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-deployment-quick-start/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-deployment-quick-start/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-reference-api-redis-enterprise-acti",
+      "title": "Redis: redis enterprise active active database api",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/reference/api/redis_enterprise_active_active_database_api",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: redis enterprise active active database api",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-api-redis-enterprise-acti/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-api-redis-enterprise-acti/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-api-redis-enterprise-acti/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-api-redis-enterprise-acti/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-reference-api-redis-enterprise-data",
+      "title": "Redis: redis enterprise database api",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/reference/api/redis_enterprise_database_api",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: redis enterprise database api",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-api-redis-enterprise-data/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-api-redis-enterprise-data/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-api-redis-enterprise-data/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-api-redis-enterprise-data/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-kubernetes-reference-yaml-basic-deployment",
+      "title": "Redis: basic deployment",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/kubernetes/reference/yaml/basic-deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: basic deployment",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-basic-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-basic-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-basic-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-kubernetes-reference-yaml-basic-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-deprecated",
+      "title": "Redis: examples",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/oss_and_stack/stack-with-enterprise/deprecated-features/triggers-and-functions/examples",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: examples",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-deprecated/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-deprecated/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-deprecated/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-oss-and-stack-stack-with-enterprise-deprecated/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-examples",
+      "title": "Redis: examples",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/examples",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: examples",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-examples-audit-system-logs",
+      "title": "Redis: audit system logs",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/examples/audit-system-logs",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: audit system logs",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-audit-system-logs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-audit-system-logs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-audit-system-logs/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-audit-system-logs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-examples-back-up-and-import-data",
+      "title": "Redis: back up and import data",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/examples/back-up-and-import-data",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: back up and import data",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-back-up-and-import-data/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-back-up-and-import-data/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-back-up-and-import-data/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-back-up-and-import-data/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-rc-api-examples-create-database",
       "title": "Redis: create database",
       "ecosystem": "Redis",
@@ -52438,6 +52690,132 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-create-database/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-create-database/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-create-database/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-examples-dryrun-cost-estimates",
+      "title": "Redis: dryrun cost estimates",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/examples/dryrun-cost-estimates",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: dryrun cost estimates",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-dryrun-cost-estimates/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-dryrun-cost-estimates/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-dryrun-cost-estimates/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-dryrun-cost-estimates/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-examples-generate-cost-report",
+      "title": "Redis: generate cost report",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/examples/generate-cost-report",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: generate cost report",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-generate-cost-report/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-generate-cost-report/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-generate-cost-report/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-generate-cost-report/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-api-examples-manage-subscriptions",
+      "title": "Redis: manage subscriptions",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/api/examples/manage-subscriptions",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: manage subscriptions",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-manage-subscriptions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-manage-subscriptions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-manage-subscriptions/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-api-examples-manage-subscriptions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-databases-configuration",
+      "title": "Redis: configuration",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/databases/configuration",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: configuration",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-databases-configuration-advanced-capabiliti",
+      "title": "Redis: advanced capabilities",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/databases/configuration/advanced-capabilities",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: advanced capabilities",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-advanced-capabiliti/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-advanced-capabiliti/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-advanced-capabiliti/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-advanced-capabiliti/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-databases-configuration-clustering",
+      "title": "Redis: clustering",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/databases/configuration/clustering",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: clustering",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-clustering/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-clustering/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-clustering/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-clustering/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -52491,6 +52869,363 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-operate-rc-databases-configuration-high-availability",
+      "title": "Redis: high availability",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/databases/configuration/high-availability",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: high availability",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-high-availability/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-high-availability/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-high-availability/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-high-availability/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rc-databases-configuration-sizing",
+      "title": "Redis: sizing",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rc/databases/configuration/sizing",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: sizing",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-sizing/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-sizing/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-sizing/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rc-databases-configuration-sizing/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-databases-configure-database-persistence",
+      "title": "Redis: database persistence",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/databases/configure/database-persistence",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: database persistence",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-database-persistence/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-database-persistence/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-database-persistence/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-database-persistence/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-databases-configure-db-defaults",
+      "title": "Redis: db defaults",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/databases/configure/db-defaults",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: db defaults",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-defaults/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-defaults/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-defaults/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-defaults/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-databases-configure-db-tags",
+      "title": "Redis: db tags",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/databases/configure/db-tags",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: db tags",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-tags/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-tags/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-tags/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-tags/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-databases-configure-db-upgrade",
+      "title": "Redis: db upgrade",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/databases/configure/db-upgrade",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: db upgrade",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-upgrade/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-upgrade/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-upgrade/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-db-upgrade/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-databases-configure-oss-cluster-api",
+      "title": "Redis: oss cluster api",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/databases/configure/oss-cluster-api",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: oss cluster api",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-oss-cluster-api/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-oss-cluster-api/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-oss-cluster-api/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-oss-cluster-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-databases-configure-proxy-policy",
+      "title": "Redis: proxy policy",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/databases/configure/proxy-policy",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: proxy policy",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-proxy-policy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-proxy-policy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-proxy-policy/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-configure-proxy-policy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-databases-connect-troubleshooting-guide",
+      "title": "Redis: troubleshooting guide",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/databases/connect/troubleshooting-guide",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: troubleshooting guide",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-connect-troubleshooting-guide/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-connect-troubleshooting-guide/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-connect-troubleshooting-guide/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-connect-troubleshooting-guide/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-databases-memory-performance",
+      "title": "Redis: memory performance",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/databases/memory-performance",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: memory performance",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-databases-memory-performance-eviction-polic",
+      "title": "Redis: eviction policy",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: eviction policy",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-eviction-polic/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-eviction-polic/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-eviction-polic/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-eviction-polic/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-databases-memory-performance-memory-limit",
+      "title": "Redis: memory limit",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/databases/memory-performance/memory-limit",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: memory limit",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-memory-limit/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-memory-limit/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-memory-limit/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-memory-limit/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-databases-memory-performance-shard-placemen",
+      "title": "Redis: shard placement policy",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/databases/memory-performance/shard-placement-policy",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: shard placement policy",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-shard-placemen/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-shard-placemen/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-shard-placemen/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-databases-memory-performance-shard-placemen/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-installing-upgrading-install-plan-deploymen",
+      "title": "Redis: supported platforms",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/installing-upgrading/install/plan-deployment/supported-platforms",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: supported platforms",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-installing-upgrading-install-plan-deploymen/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-installing-upgrading-install-plan-deploymen/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-installing-upgrading-install-plan-deploymen/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-installing-upgrading-install-plan-deploymen/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-objects-action",
+      "title": "Redis: action",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/objects/action",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: action",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-action/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-action/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-action/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-action/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-objects-bdb",
+      "title": "Redis: bdb",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/objects/bdb",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: bdb",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-bdb/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-bdb/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-bdb/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-bdb/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-objects-bdb-group",
+      "title": "Redis: bdb group",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/objects/bdb_group",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: bdb group",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-bdb-group/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-bdb-group/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-bdb-group/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-bdb-group/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-rs-references-rest-api-objects-bdb-query-perfo",
       "title": "Redis: query performance factor",
       "ecosystem": "Redis",
@@ -52501,6 +53236,27 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-bdb-query-perfo/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-bdb-query-perfo/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-bdb-query-perfo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-objects-crdb",
+      "title": "Redis: crdb",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/objects/crdb",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: crdb",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-crdb/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-crdb/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-crdb/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-crdb/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -52554,6 +53310,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-objects-crdb-task",
+      "title": "Redis: crdb task",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/objects/crdb_task",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: crdb task",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-crdb-task/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-crdb-task/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-crdb-task/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-crdb-task/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-objects-db-alerts-setti",
+      "title": "Redis: db alerts settings",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/objects/db_alerts_settings",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: db alerts settings",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-db-alerts-setti/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-db-alerts-setti/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-db-alerts-setti/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-db-alerts-setti/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-rs-references-rest-api-objects-db-conns-auditi",
       "title": "Redis: db conns auditing config",
       "ecosystem": "Redis",
@@ -52564,6 +53362,48 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-db-conns-auditi/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-db-conns-auditi/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-db-conns-auditi/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-objects-jwt-authorize",
+      "title": "Redis: jwt authorize",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/objects/jwt_authorize",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: jwt authorize",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-jwt-authorize/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-jwt-authorize/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-jwt-authorize/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-jwt-authorize/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-objects-proxy",
+      "title": "Redis: proxy",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/objects/proxy",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: proxy",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-proxy/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-proxy/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-proxy/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-objects-proxy/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -52596,6 +53436,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-permissions",
+      "title": "Redis: permissions",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/permissions",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: permissions",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-permissions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-permissions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-permissions/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-permissions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-quick-start",
+      "title": "Redis: quick start",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/quick-start",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: quick start",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-quick-start/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-quick-start/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-quick-start/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-quick-start/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-requests-actions",
+      "title": "Redis: actions",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/requests/actions",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: actions",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-actions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-actions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-actions/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-actions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-rs-references-rest-api-requests-actions-bdb",
       "title": "Redis: bdb",
       "ecosystem": "Redis",
@@ -52606,6 +53509,27 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-actions-bdb/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-actions-bdb/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-actions-bdb/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-requests-bdbs",
+      "title": "Redis: bdbs",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/requests/bdbs",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: bdbs",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-bdbs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-bdbs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-bdbs/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-bdbs/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -52827,6 +53751,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-requests-crdb-tasks",
+      "title": "Redis: crdb tasks",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/requests/crdb_tasks",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: crdb tasks",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-crdb-tasks/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-crdb-tasks/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-crdb-tasks/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-crdb-tasks/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-requests-crdbs",
+      "title": "Redis: crdbs",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/requests/crdbs",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: crdbs",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-crdbs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-crdbs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-crdbs/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-crdbs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-requests-debuginfo",
+      "title": "Redis: debuginfo",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/requests/debuginfo",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: debuginfo",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-debuginfo/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-debuginfo/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-debuginfo/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-debuginfo/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "redis-docs-latest-operate-rs-references-rest-api-requests-debuginfo-all",
       "title": "Redis: bdb",
       "ecosystem": "Redis",
@@ -52858,6 +53845,48 @@
       "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-debuginfo-node/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-debuginfo-node/llms.txt",
       "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-debuginfo-node/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-requests-jsonschema",
+      "title": "Redis: jsonschema",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/requests/jsonschema",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: jsonschema",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-jsonschema/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-jsonschema/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-jsonschema/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-jsonschema/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "redis-docs-latest-operate-rs-references-rest-api-requests-migrations",
+      "title": "Redis: migrations",
+      "ecosystem": "Redis",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://redis.io/docs/latest/operate/rs/references/rest-api/requests/migrations",
+      "painpoint": "agents frequently need compact, citation-ready context for cache/queue/vector docs: migrations",
+      "manifest_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-migrations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-migrations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-migrations/llms.txt",
+      "run_guide": "agentpress/material-kits/redis-docs-latest-operate-rs-references-rest-api-requests-migrations/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -53079,6 +54108,132 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "stripe-api-payment-method-configurations",
+      "title": "Stripe: payment method configurations",
+      "ecosystem": "Stripe",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.stripe.com/api/payment_method_configurations",
+      "painpoint": "agents frequently need compact, citation-ready context for payment/webhook/billing docs agents must implement safely: payment method configurations",
+      "manifest_path": "agentpress/material-kits/stripe-api-payment-method-configurations/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/stripe-api-payment-method-configurations/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/stripe-api-payment-method-configurations/llms.txt",
+      "run_guide": "agentpress/material-kits/stripe-api-payment-method-configurations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "stripe-api-payment-method-configurations-create",
+      "title": "Stripe: create",
+      "ecosystem": "Stripe",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.stripe.com/api/payment_method_configurations/create",
+      "painpoint": "agents frequently need compact, citation-ready context for payment/webhook/billing docs agents must implement safely: create",
+      "manifest_path": "agentpress/material-kits/stripe-api-payment-method-configurations-create/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/stripe-api-payment-method-configurations-create/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/stripe-api-payment-method-configurations-create/llms.txt",
+      "run_guide": "agentpress/material-kits/stripe-api-payment-method-configurations-create/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "stripe-api-payment-method-configurations-list",
+      "title": "Stripe: list",
+      "ecosystem": "Stripe",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.stripe.com/api/payment_method_configurations/list",
+      "painpoint": "agents frequently need compact, citation-ready context for payment/webhook/billing docs agents must implement safely: list",
+      "manifest_path": "agentpress/material-kits/stripe-api-payment-method-configurations-list/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/stripe-api-payment-method-configurations-list/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/stripe-api-payment-method-configurations-list/llms.txt",
+      "run_guide": "agentpress/material-kits/stripe-api-payment-method-configurations-list/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "stripe-api-payment-method-configurations-object",
+      "title": "Stripe: object",
+      "ecosystem": "Stripe",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.stripe.com/api/payment_method_configurations/object",
+      "painpoint": "agents frequently need compact, citation-ready context for payment/webhook/billing docs agents must implement safely: object",
+      "manifest_path": "agentpress/material-kits/stripe-api-payment-method-configurations-object/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/stripe-api-payment-method-configurations-object/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/stripe-api-payment-method-configurations-object/llms.txt",
+      "run_guide": "agentpress/material-kits/stripe-api-payment-method-configurations-object/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "stripe-api-payment-method-configurations-retrieve",
+      "title": "Stripe: retrieve",
+      "ecosystem": "Stripe",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.stripe.com/api/payment_method_configurations/retrieve",
+      "painpoint": "agents frequently need compact, citation-ready context for payment/webhook/billing docs agents must implement safely: retrieve",
+      "manifest_path": "agentpress/material-kits/stripe-api-payment-method-configurations-retrieve/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/stripe-api-payment-method-configurations-retrieve/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/stripe-api-payment-method-configurations-retrieve/llms.txt",
+      "run_guide": "agentpress/material-kits/stripe-api-payment-method-configurations-retrieve/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "stripe-api-payment-method-configurations-update",
+      "title": "Stripe: update",
+      "ecosystem": "Stripe",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://docs.stripe.com/api/payment_method_configurations/update",
+      "painpoint": "agents frequently need compact, citation-ready context for payment/webhook/billing docs agents must implement safely: update",
+      "manifest_path": "agentpress/material-kits/stripe-api-payment-method-configurations-update/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/stripe-api-payment-method-configurations-update/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/stripe-api-payment-method-configurations-update/llms.txt",
+      "run_guide": "agentpress/material-kits/stripe-api-payment-method-configurations-update/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "stripe-invoicing-integration-quickstart",
       "title": "Stripe: quickstart",
       "ecosystem": "Stripe",
@@ -53131,6 +54286,90 @@
       "receipt_path": "agentpress/material-kits/stripe-stripe-apps-reference-extensions-sdk-api/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/stripe-stripe-apps-reference-extensions-sdk-api/llms.txt",
       "run_guide": "agentpress/material-kits/stripe-stripe-apps-reference-extensions-sdk-api/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-ai-quickstarts-generate-text-embeddings",
+      "title": "Supabase: generate text embeddings",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/ai/quickstarts/generate-text-embeddings",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: generate text embeddings",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-ai-quickstarts-generate-text-embeddings/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-ai-quickstarts-generate-text-embeddings/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-ai-quickstarts-generate-text-embeddings/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-ai-quickstarts-generate-text-embeddings/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-api-quickstart",
+      "title": "Supabase: quickstart",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/api/quickstart",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: quickstart",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-api-quickstart/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-api-quickstart/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-api-quickstart/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-api-quickstart/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-api-rest-postgrest-error-codes",
+      "title": "Supabase: postgrest error codes",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/api/rest/postgrest-error-codes",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: postgrest error codes",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-api-rest-postgrest-error-codes/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-api-rest-postgrest-error-codes/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-api-rest-postgrest-error-codes/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-api-rest-postgrest-error-codes/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-custom-oauth-providers",
+      "title": "Supabase: custom oauth providers",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/custom-oauth-providers",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: custom oauth providers",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-custom-oauth-providers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-custom-oauth-providers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-custom-oauth-providers/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-custom-oauth-providers/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -53289,6 +54528,90 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "supabase-docs-guides-auth-quickstarts-astrojs",
+      "title": "Supabase: astrojs",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/quickstarts/astrojs",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: astrojs",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-astrojs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-astrojs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-astrojs/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-astrojs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-quickstarts-nextjs",
+      "title": "Supabase: nextjs",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/quickstarts/nextjs",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: nextjs",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-nextjs/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-nextjs/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-nextjs/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-nextjs/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-quickstarts-react",
+      "title": "Supabase: react",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/quickstarts/react",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: react",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-react/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-react/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-react/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-react/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-quickstarts-react-native",
+      "title": "Supabase: react native",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/quickstarts/react-native",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: react native",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-react-native/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-react-native/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-react-native/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-react-native/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "supabase-docs-guides-auth-quickstarts-with-expo-react-native-social-auth",
       "title": "Supabase: with expo react native social auth",
       "ecosystem": "Supabase",
@@ -53299,6 +54622,48 @@
       "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-with-expo-react-native-social-auth/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-with-expo-react-native-social-auth/llms.txt",
       "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-quickstarts-with-expo-react-native-social-auth/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-server-side",
+      "title": "Supabase: server side",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/server-side",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: server side",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-server-side/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-server-side/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-server-side/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-server-side/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-server-side-advanced-guide",
+      "title": "Supabase: advanced guide",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/server-side/advanced-guide",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: advanced guide",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-server-side-advanced-guide/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-server-side-advanced-guide/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-server-side-advanced-guide/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-server-side-advanced-guide/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -53331,6 +54696,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "supabase-docs-guides-auth-server-side-migrating-to-ssr-from-auth-helpers",
+      "title": "Supabase: migrating to ssr from auth helpers",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/server-side/migrating-to-ssr-from-auth-helpers",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: migrating to ssr from auth helpers",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-server-side-migrating-to-ssr-from-auth-helpers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-server-side-migrating-to-ssr-from-auth-helpers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-server-side-migrating-to-ssr-from-auth-helpers/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-server-side-migrating-to-ssr-from-auth-helpers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "supabase-docs-guides-auth-sessions-implicit-flow",
       "title": "Supabase: implicit flow",
       "ecosystem": "Supabase",
@@ -53341,6 +54727,468 @@
       "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-sessions-implicit-flow/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-sessions-implicit-flow/llms.txt",
       "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-sessions-implicit-flow/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-sessions-pkce-flow",
+      "title": "Supabase: pkce flow",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/sessions/pkce-flow",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: pkce flow",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-sessions-pkce-flow/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-sessions-pkce-flow/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-sessions-pkce-flow/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-sessions-pkce-flow/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login",
+      "title": "Supabase: social login",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: social login",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-apple",
+      "title": "Supabase: auth apple",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-apple",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth apple",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-apple/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-apple/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-apple/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-apple/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-azure",
+      "title": "Supabase: auth azure",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-azure",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth azure",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-azure/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-azure/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-azure/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-azure/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-bitbucket",
+      "title": "Supabase: auth bitbucket",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-bitbucket",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth bitbucket",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-bitbucket/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-bitbucket/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-bitbucket/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-bitbucket/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-discord",
+      "title": "Supabase: auth discord",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-discord",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth discord",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-discord/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-discord/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-discord/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-discord/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-facebook",
+      "title": "Supabase: auth facebook",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-facebook",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth facebook",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-facebook/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-facebook/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-facebook/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-facebook/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-figma",
+      "title": "Supabase: auth figma",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-figma",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth figma",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-figma/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-figma/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-figma/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-figma/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-github",
+      "title": "Supabase: auth github",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-github",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth github",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-github/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-github/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-github/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-github/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-gitlab",
+      "title": "Supabase: auth gitlab",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-gitlab",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth gitlab",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-gitlab/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-gitlab/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-gitlab/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-gitlab/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-google",
+      "title": "Supabase: auth google",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-google",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth google",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-google/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-google/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-google/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-google/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-kakao",
+      "title": "Supabase: auth kakao",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-kakao",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth kakao",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-kakao/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-kakao/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-kakao/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-kakao/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-keycloak",
+      "title": "Supabase: auth keycloak",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-keycloak",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth keycloak",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-keycloak/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-keycloak/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-keycloak/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-keycloak/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-linkedin",
+      "title": "Supabase: auth linkedin",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-linkedin",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth linkedin",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-linkedin/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-linkedin/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-linkedin/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-linkedin/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-notion",
+      "title": "Supabase: auth notion",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-notion",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth notion",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-notion/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-notion/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-notion/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-notion/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-slack",
+      "title": "Supabase: auth slack",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-slack",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth slack",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-slack/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-slack/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-slack/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-slack/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-spotify",
+      "title": "Supabase: auth spotify",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-spotify",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth spotify",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-spotify/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-spotify/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-spotify/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-spotify/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-twitch",
+      "title": "Supabase: auth twitch",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-twitch",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth twitch",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-twitch/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-twitch/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-twitch/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-twitch/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-twitter",
+      "title": "Supabase: auth twitter",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-twitter",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth twitter",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-twitter/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-twitter/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-twitter/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-twitter/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-workos",
+      "title": "Supabase: auth workos",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-workos",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth workos",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-workos/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-workos/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-workos/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-workos/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-auth-social-login-auth-zoom",
+      "title": "Supabase: auth zoom",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/auth/social-login/auth-zoom",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: auth zoom",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-zoom/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-zoom/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-zoom/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-auth-social-login-auth-zoom/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-database-custom-postgres-config",
+      "title": "Supabase: custom postgres config",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/database/custom-postgres-config",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: custom postgres config",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-database-custom-postgres-config/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-database-custom-postgres-config/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-database-custom-postgres-config/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-database-custom-postgres-config/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -53394,6 +55242,69 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "supabase-docs-guides-database-webhooks",
+      "title": "Supabase: webhooks",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/database/webhooks",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: webhooks",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-database-webhooks/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-database-webhooks/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-database-webhooks/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-database-webhooks/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-deployment",
+      "title": "Supabase: deployment",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/deployment",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: deployment",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-deployment/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-deployment-branching",
+      "title": "Supabase: branching",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/deployment/branching",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: branching",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment-branching/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment-branching/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "supabase-docs-guides-deployment-branching-configuration",
       "title": "Supabase: configuration",
       "ecosystem": "Supabase",
@@ -53404,6 +55315,27 @@
       "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-configuration/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment-branching-configuration/llms.txt",
       "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment-branching-configuration/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-deployment-branching-dashboard",
+      "title": "Supabase: dashboard",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/deployment/branching/dashboard",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: dashboard",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-dashboard/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-dashboard/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment-branching-dashboard/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment-branching-dashboard/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -53478,6 +55410,27 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "supabase-docs-guides-deployment-branching-working-with-branches",
+      "title": "Supabase: working with branches",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/deployment/branching/working-with-branches",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: working with branches",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-working-with-branches/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment-branching-working-with-branches/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment-branching-working-with-branches/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment-branching-working-with-branches/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "supabase-docs-guides-deployment-database-migrations",
       "title": "Supabase: database migrations",
       "ecosystem": "Supabase",
@@ -53488,6 +55441,48 @@
       "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment-database-migrations/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment-database-migrations/llms.txt",
       "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment-database-migrations/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-deployment-going-into-prod",
+      "title": "Supabase: going into prod",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/deployment/going-into-prod",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: going into prod",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-deployment-going-into-prod/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment-going-into-prod/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment-going-into-prod/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment-going-into-prod/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "supabase-docs-guides-deployment-managing-environments",
+      "title": "Supabase: managing environments",
+      "ecosystem": "Supabase",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://supabase.com/docs/guides/deployment/managing-environments",
+      "painpoint": "agents frequently need compact, citation-ready context for auth/database/storage/edge docs: managing environments",
+      "manifest_path": "agentpress/material-kits/supabase-docs-guides-deployment-managing-environments/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/supabase-docs-guides-deployment-managing-environments/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/supabase-docs-guides-deployment-managing-environments/llms.txt",
+      "run_guide": "agentpress/material-kits/supabase-docs-guides-deployment-managing-environments/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
