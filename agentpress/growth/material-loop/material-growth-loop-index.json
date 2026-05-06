@@ -1,14 +1,14 @@
 {
   "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
   "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/growth/material-loop/material-growth-loop-index.json",
-  "generated_utc": "2026-05-06T05:00:15Z",
+  "generated_utc": "2026-05-06T05:00:27Z",
   "status": "ok",
   "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
   "kits_dir": "agentpress/material-kits",
-  "kit_count": 5243,
+  "kit_count": 5286,
   "by_ecosystem": {
-    "Anthropic": 387,
-    "Auth0": 460,
+    "Anthropic": 395,
+    "Auth0": 495,
     "AWS": 178,
     "Bun": 246,
     "Clerk": 287,
@@ -51,7 +51,7 @@
     "Weaviate": 2
   },
   "by_status": {
-    "ready_local_static_not_posted": 5243
+    "ready_local_static_not_posted": 5286
   },
   "kits": [
     {
@@ -2974,6 +2974,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-en-managed-agents-files",
+      "title": "Anthropic: files",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/managed-agents/files",
+      "painpoint": "agents frequently need compact, citation-ready context for Claude/tool/API docs agents need for provider adapters: files",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-files/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-files/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-managed-agents-files/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-managed-agents-files/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-en-managed-agents-github",
+      "title": "Anthropic: github",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/managed-agents/github",
+      "painpoint": "agents frequently need compact, citation-ready context for Claude/tool/API docs agents need for provider adapters: github",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-github/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-github/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-managed-agents-github/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-managed-agents-github/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-en-managed-agents-mcp-connector",
       "title": "Anthropic: mcp connector",
       "ecosystem": "Anthropic",
@@ -3005,6 +3047,69 @@
       "receipt_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-memory/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/anthropic-docs-en-managed-agents-memory/llms.txt",
       "run_guide": "agentpress/material-kits/anthropic-docs-en-managed-agents-memory/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-en-managed-agents-multi-agent",
+      "title": "Anthropic: multi agent",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/managed-agents/multi-agent",
+      "painpoint": "agents frequently need compact, citation-ready context for Claude/tool/API docs agents need for provider adapters: multi agent",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-multi-agent/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-multi-agent/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-managed-agents-multi-agent/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-managed-agents-multi-agent/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-en-managed-agents-onboarding",
+      "title": "Anthropic: onboarding",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/managed-agents/onboarding",
+      "painpoint": "agents frequently need compact, citation-ready context for Claude/tool/API docs agents need for provider adapters: onboarding",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-onboarding/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-onboarding/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-managed-agents-onboarding/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-managed-agents-onboarding/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-en-managed-agents-overview",
+      "title": "Anthropic: overview",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/managed-agents/overview",
+      "painpoint": "agents frequently need compact, citation-ready context for Claude/tool/API docs agents need for provider adapters: overview",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-overview/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-overview/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-managed-agents-overview/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-managed-agents-overview/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
@@ -3058,6 +3163,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "anthropic-docs-en-managed-agents-sessions",
+      "title": "Anthropic: sessions",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/managed-agents/sessions",
+      "painpoint": "agents frequently need compact, citation-ready context for Claude/tool/API docs agents need for provider adapters: sessions",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-sessions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-sessions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-managed-agents-sessions/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-managed-agents-sessions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-en-managed-agents-skills",
+      "title": "Anthropic: skills",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/managed-agents/skills",
+      "painpoint": "agents frequently need compact, citation-ready context for Claude/tool/API docs agents need for provider adapters: skills",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-skills/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-skills/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-managed-agents-skills/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-managed-agents-skills/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "anthropic-docs-en-managed-agents-tools",
       "title": "Anthropic: tools",
       "ecosystem": "Anthropic",
@@ -3070,6 +3217,27 @@
       "run_guide": "agentpress/material-kits/anthropic-docs-en-managed-agents-tools/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py provider-adapter-repro-pack --provider anthropic --host claude --json",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "anthropic-docs-en-managed-agents-vaults",
+      "title": "Anthropic: vaults",
+      "ecosystem": "Anthropic",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://platform.claude.com/docs/en/managed-agents/vaults",
+      "painpoint": "agents frequently need compact, citation-ready context for Claude/tool/API docs agents need for provider adapters: vaults",
+      "manifest_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-vaults/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/anthropic-docs-en-managed-agents-vaults/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/anthropic-docs-en-managed-agents-vaults/llms.txt",
+      "run_guide": "agentpress/material-kits/anthropic-docs-en-managed-agents-vaults/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py provider-tool-translation-map --json",
         "python3 -m json.tool material-manifest.json",
         "python3 -m json.tool proof-receipt.json"
       ],
@@ -8287,6 +8455,48 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "auth0-docs-api-authentication-database-connections-request-password-chan",
+      "title": "Auth0: request password change",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/authentication/database-connections/request-password-change",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: request password change",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-authentication-database-connections-request-password-chan/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-database-connections-request-password-chan/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-database-connections-request-password-chan/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-database-connections-request-password-chan/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-authentication-database-connections-sign-up-user",
+      "title": "Auth0: sign up user",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/authentication/database-connections/sign-up-user",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: sign up user",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-authentication-database-connections-sign-up-user/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-database-connections-sign-up-user/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-database-connections-sign-up-user/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-database-connections-sign-up-user/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "auth0-docs-api-authentication-device-authorization-flow-authorize-device",
       "title": "Auth0: authorize device",
       "ecosystem": "Auth0",
@@ -8318,6 +8528,27 @@
       "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-dynamic-application-client-registration-dy/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-dynamic-application-client-registration-dy/llms.txt",
       "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-dynamic-application-client-registration-dy/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-authentication-dynamic-client-registration-dynamic-applic",
+      "title": "Auth0: dynamic application registration",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/authentication/dynamic-client-registration/dynamic-application-registration",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: dynamic application registration",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-authentication-dynamic-client-registration-dynamic-applic/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-dynamic-client-registration-dynamic-applic/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-dynamic-client-registration-dynamic-applic/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-dynamic-client-registration-dynamic-applic/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -8397,7 +8628,7 @@
       "ecosystem": "Auth0",
       "status": "ready_local_static_not_posted",
       "target_url": "https://auth0.com/docs/api/authentication/login-legacy/social-with-providers-access-token",
-      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: social with providers access token",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: social with providers access token",
       "manifest_path": "agentpress/material-kits/auth0-docs-api-authentication-login-legacy-social-with-providers-access/material-manifest.json",
       "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-login-legacy-social-with-providers-access/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-login-legacy-social-with-providers-access/llms.txt",
@@ -8423,6 +8654,27 @@
       "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-login-start-back-channel-login/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-login-start-back-channel-login/llms.txt",
       "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-login-start-back-channel-login/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-authentication-multi-factor-authentication-associate-mfa",
+      "title": "Auth0: associate mfa authenticator",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/authentication/multi-factor-authentication/associate-mfa-authenticator",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: associate mfa authenticator",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-authentication-multi-factor-authentication-associate-mfa/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-multi-factor-authentication-associate-mfa/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-multi-factor-authentication-associate-mfa/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-multi-factor-authentication-associate-mfa/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -8465,6 +8717,447 @@
       "receipt_path": "agentpress/material-kits/auth0-docs-api-authentication-token-exchange-for-native-social-token-exc/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/auth0-docs-api-authentication-token-exchange-for-native-social-token-exc/llms.txt",
       "run_guide": "agentpress/material-kits/auth0-docs-api-authentication-token-exchange-for-native-social-token-exc/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-delete-action",
+      "title": "Auth0: delete action",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/delete-action",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: delete action",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-delete-action/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-delete-action/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-delete-action/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-delete-action/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-delete-action-module",
+      "title": "Auth0: delete action module",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/delete-action-module",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: delete action module",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-delete-action-module/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-delete-action-module/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-delete-action-module/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-delete-action-module/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-action",
+      "title": "Auth0: get action",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-action",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get action",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-action-module",
+      "title": "Auth0: get action module",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-action-module",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get action module",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-action-module-actions",
+      "title": "Auth0: get action module actions",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-action-module-actions",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get action module actions",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-actions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-actions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-actions/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-actions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-action-module-version",
+      "title": "Auth0: get action module version",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-action-module-version",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get action module version",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-version/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-version/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-version/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-version/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-action-module-versions",
+      "title": "Auth0: get action module versions",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-action-module-versions",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get action module versions",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-versions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-versions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-versions/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-module-versions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-action-modules",
+      "title": "Auth0: get action modules",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-action-modules",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get action modules",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-modules/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-modules/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-modules/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-modules/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-action-version",
+      "title": "Auth0: get action version",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-action-version",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get action version",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-version/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-version/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-version/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-version/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-action-versions",
+      "title": "Auth0: get action versions",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-action-versions",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get action versions",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-versions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-versions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-versions/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-action-versions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-actions",
+      "title": "Auth0: get actions",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-actions",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get actions",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-actions/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-actions/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-actions/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-actions/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-bindings",
+      "title": "Auth0: get bindings",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-bindings",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get bindings",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-bindings/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-bindings/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-bindings/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-bindings/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-execution",
+      "title": "Auth0: get execution",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-execution",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get execution",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-execution/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-execution/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-execution/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-execution/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-get-triggers",
+      "title": "Auth0: get triggers",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/get-triggers",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get triggers",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-triggers/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-triggers/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-triggers/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-get-triggers/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-patch-action",
+      "title": "Auth0: patch action",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/patch-action",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: patch action",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-action/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-action/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-action/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-action/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-patch-action-module",
+      "title": "Auth0: patch action module",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/patch-action-module",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: patch action module",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-action-module/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-action-module/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-action-module/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-action-module/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-patch-bindings",
+      "title": "Auth0: patch bindings",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/patch-bindings",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: patch bindings",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-bindings/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-bindings/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-bindings/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-patch-bindings/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-post-action",
+      "title": "Auth0: post action",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/post-action",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: post action",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-post-action-module",
+      "title": "Auth0: post action module",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/post-action-module",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: post action module",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-post-action-module-rollback",
+      "title": "Auth0: post action module rollback",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/post-action-module-rollback",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: post action module rollback",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module-rollback/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module-rollback/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module-rollback/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module-rollback/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-actions-post-action-module-version",
+      "title": "Auth0: post action module version",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/actions/post-action-module-version",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: post action module version",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module-version/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module-version/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module-version/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-actions-post-action-module-version/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
@@ -9421,6 +10114,195 @@
       "next_action": "run locally and collect proof/blocker receipt before any external contact"
     },
     {
+      "slug": "auth0-docs-api-management-v2-event-streams-delete-event-streams-by-id",
+      "title": "Auth0: delete event streams by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/event-streams/delete-event-streams-by-id",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: delete event streams by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-delete-event-streams-by-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-delete-event-streams-by-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-delete-event-streams-by-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-delete-event-streams-by-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-event-streams-get-deliveries-by-event-id",
+      "title": "Auth0: get deliveries by event id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/event-streams/get-deliveries-by-event-id",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get deliveries by event id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-deliveries-by-event-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-deliveries-by-event-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-deliveries-by-event-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-deliveries-by-event-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-event-streams-get-event-deliveries",
+      "title": "Auth0: get event deliveries",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/event-streams/get-event-deliveries",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get event deliveries",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-deliveries/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-deliveries/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-deliveries/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-deliveries/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-event-streams-get-event-streams",
+      "title": "Auth0: get event streams",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/event-streams/get-event-streams",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get event streams",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-streams/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-streams/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-streams/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-streams/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-event-streams-get-event-streams-by-id",
+      "title": "Auth0: get event streams by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/event-streams/get-event-streams-by-id",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: get event streams by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-streams-by-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-streams-by-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-streams-by-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-get-event-streams-by-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-event-streams-patch-event-streams-by-id",
+      "title": "Auth0: patch event streams by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/event-streams/patch-event-streams-by-id",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: patch event streams by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-patch-event-streams-by-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-patch-event-streams-by-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-patch-event-streams-by-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-patch-event-streams-by-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-event-streams-post-event-streams",
+      "title": "Auth0: post event streams",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/event-streams/post-event-streams",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: post event streams",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-event-streams/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-event-streams/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-event-streams/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-event-streams/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-event-streams-post-redeliver",
+      "title": "Auth0: post redeliver",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/event-streams/post-redeliver",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: post redeliver",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-redeliver/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-redeliver/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-redeliver/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-redeliver/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-event-streams-post-redeliver-by-event-id",
+      "title": "Auth0: post redeliver by event id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/event-streams/post-redeliver-by-event-id",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: post redeliver by event id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-redeliver-by-event-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-redeliver-by-event-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-redeliver-by-event-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-event-streams-post-redeliver-by-event-id/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
       "slug": "auth0-docs-api-management-v2-event-streams-post-test-event",
       "title": "Auth0: post test event",
       "ecosystem": "Auth0",
@@ -9468,7 +10350,7 @@
       "ecosystem": "Auth0",
       "status": "ready_local_static_not_posted",
       "target_url": "https://auth0.com/docs/api/management/v2/flows/delete-flows-executions-by-execution-id",
-      "painpoint": "agents need compact AgentPress wrapper for Auth0 auth docs agents need for identity integrations: delete flows executions by execution id",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: delete flows executions by execution id",
       "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-delete-flows-executions-by-execution/material-manifest.json",
       "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-flows-delete-flows-executions-by-execution/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-flows-delete-flows-executions-by-execution/llms.txt",
@@ -10061,6 +10943,27 @@
       "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-jobs-get-errors/proof-receipt.json",
       "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-jobs-get-errors/llms.txt",
       "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-jobs-get-errors/RUN_THIS.md",
+      "commands_to_verify": [
+        "python3 scripts/agentpress.py context-budget . --json --strict",
+        "python3 -m json.tool material-manifest.json",
+        "python3 -m json.tool proof-receipt.json"
+      ],
+      "external_effects": [],
+      "receipt_status": "prepared_not_posted",
+      "safe_for_public_contact": false,
+      "next_action": "run locally and collect proof/blocker receipt before any external contact"
+    },
+    {
+      "slug": "auth0-docs-api-management-v2-log-streams-delete-log-streams-by-id",
+      "title": "Auth0: delete log streams by id",
+      "ecosystem": "Auth0",
+      "status": "ready_local_static_not_posted",
+      "target_url": "https://auth0.com/docs/api/management/v2/log-streams/delete-log-streams-by-id",
+      "painpoint": "agents frequently need compact, citation-ready context for OAuth/OIDC/auth management docs: delete log streams by id",
+      "manifest_path": "agentpress/material-kits/auth0-docs-api-management-v2-log-streams-delete-log-streams-by-id/material-manifest.json",
+      "receipt_path": "agentpress/material-kits/auth0-docs-api-management-v2-log-streams-delete-log-streams-by-id/proof-receipt.json",
+      "llms_txt": "agentpress/material-kits/auth0-docs-api-management-v2-log-streams-delete-log-streams-by-id/llms.txt",
+      "run_guide": "agentpress/material-kits/auth0-docs-api-management-v2-log-streams-delete-log-streams-by-id/RUN_THIS.md",
       "commands_to_verify": [
         "python3 scripts/agentpress.py context-budget . --json --strict",
         "python3 -m json.tool material-manifest.json",
