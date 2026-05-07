@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The compact context card correctly captures the exact SecureClientSessionOptions servername parameter, its type, format, and validation rules as cited in the source document",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_025827_025.json",
+  "glm_source_index": 1217,
+  "search_intents": [
+    "Bun servername",
+    "Bun SecureClientSessionOptions",
+    "Bun TLS configuration"
+  ],
+  "review_gate": "The material kit must contain the exact SecureClientSessionOptions parameter, type, and validation rules from the source document, with no invented or assumed content.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the compact context card contains the exact SecureClientSessionOptions parameter, type, and validation rules from the source document.",
+  "materializer_safe_local_write": true
+}

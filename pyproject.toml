@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agentpress-static"
-version = "0.2.0rc6"
-description = "Make repos readable by AI agents with llms.txt, static discovery manifests, schema gates, proof receipts, and CLI checks."
+version = "0.2.0rc7"
+description = "Agent-native static instruction surfaces, validators, and CLI tools."
 readme = "agentpress/README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [{name = "Barney Wohl"}]
-keywords = ["agentpress", "llms-txt", "mcp", "model-context-protocol", "claude", "gpt", "agent-instructions", "repo-onboarding", "rag", "evals", "developer-tools", "static-site"]
+keywords = ["agents", "llms", "publishing", "rag", "evals", "static-site"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "Topic :: Text Processing :: Markup",
@@ -21,14 +21,8 @@ classifiers = [
 agentpress = "agentpress_cli.cli:main"
 
 [tool.setuptools]
-packages = ["agentpress_cli", "scripts"]
+packages = ["agentpress", "agentpress_cli", "scripts"]
 
 [tool.setuptools.package-data]
 "*" = ["*.md", "*.json", "*.jsonl", "*.txt", "*.cff", "*.tmpl", "*.xml"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-addopts = "-v --tb=short"
-python_files = ["test_*.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
+"agentpress" = ["public-material-kits/*", "material-kits/*/*"]

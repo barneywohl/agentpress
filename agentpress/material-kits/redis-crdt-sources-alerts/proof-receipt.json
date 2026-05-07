@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The material kit contains the exact CRDT alert endpoint path, the exact JSON request schema, and the exact response shape as extracted from the source document, with no invented fields",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_032723_006.json",
+  "glm_source_index": 1407,
+  "search_intents": [
+    "Redis CRDT alert request schema",
+    "Redis CRDT source alert API reference",
+    "Redis distributed cache alert workflow"
+  ],
+  "review_gate": "The material kit must contain the exact CRDT alert endpoint path, the exact JSON request schema, and the exact response shape as extracted from the source document, with no invented fields or assumptions",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and confirm the kit passes with no errors and the manifest contains the extracted source facts",
+  "materializer_safe_local_write": true
+}

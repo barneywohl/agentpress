@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun domainLookupStart property name, return type, measurement units, and conditions are captured without missing required fields.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_041750_015.json",
+  "glm_source_index": 1303,
+  "search_intents": [
+    "Bun domainLookupStart timing",
+    "Bun performance metrics",
+    "Bun DNS timing debug"
+  ],
+  "review_gate": "Pass if all SOURCE FACT REQUIRED placeholders are filled with verified source facts; fail if any placeholder remains unfilled.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify all SOURCE FACT REQUIRED placeholders are filled with real data.",
+  "materializer_safe_local_write": true
+}

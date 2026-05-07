@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Compact citation-ready context for Bun enqueue operations is extracted and validated",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_030953_034.json",
+  "glm_source_index": 1226,
+  "search_intents": [
+    "Bun enqueue operations context",
+    "Bun ReadableByteStreamController enqueue"
+  ],
+  "review_gate": "Pass if compact citation-ready context for Bun enqueue is produced without generic filler",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json and confirm compact context is generated",
+  "materializer_safe_local_write": true
+}

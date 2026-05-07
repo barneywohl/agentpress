@@ -1,0 +1,14 @@
+# Bun: BROTLI DECORDER ERROR FORMAT PADDING 2
+
+GLM-backed AgentPress material kit for `Bun`.
+
+Painpoint: agents need compact AgentPress wrapper for Bun runtime/package docs agents need for modern JS setups: BROTLI DECORDER ERROR FORMAT PADDING 2
+
+Target source: https://bun.com/reference/node/zlib/constants/BROTLI_DECODER_ERROR_FORMAT_PADDING_2
+
+Validation:
+```bash
+python3 scripts/agentpress.py material-kit-validate agentpress/material-kits/bun-brotli-decoder-error-format-padding-2 --json
+```
+
+DO NOT POST EXTERNALLY UNTIL HUMAN APPROVAL.

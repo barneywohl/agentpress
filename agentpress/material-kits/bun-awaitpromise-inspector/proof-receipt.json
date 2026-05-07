@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Compact citation-ready context slice for Bun awaitPromise inspector with verified API endpoints, parameter types, and auth requirements extracted from source document.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_025554_020.json",
+  "glm_source_index": 1212,
+  "search_intents": [
+    "Bun awaitPromise inspector API endpoints",
+    "Bun inspector parameter types and return shapes",
+    "Bun inspector authentication requirements"
+  ],
+  "review_gate": "Pass if the material kit produces a compact, citation-ready context slice that agents can reference without hallucinating endpoints, and fail if the context slice contains unverified or hallucinated endpoints.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify that the material kit produces a compact, citation-ready context slice with verified inspector API endpoints, parameter types, and auth requirements.",
+  "materializer_safe_local_write": true
+}

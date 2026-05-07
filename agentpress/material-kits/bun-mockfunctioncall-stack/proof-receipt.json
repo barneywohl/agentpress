@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The material kit for Bun MockFunctionCall/stack correctly extracts the stack trace details, error format, and debugging context from the source document, enabling agents to handle test failures without guessing",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_032914_008.json",
+  "glm_source_index": 1248,
+  "search_intents": [
+    "Bun MockFunctionCall stack debugging",
+    "Bun test stack traces"
+  ],
+  "review_gate": "The material kit must contain the exact MockFunctionCall/stack endpoint URL, request format, and response schema from the source document, with no invented details",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json and verify the receipt shows the MockFunctionCall/stack endpoint details were extracted correctly",
+  "materializer_safe_local_write": true
+}

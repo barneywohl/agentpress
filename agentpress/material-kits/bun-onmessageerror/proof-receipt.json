@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun onmessageerror handler receives an error event of type ErrorEvent containing a message property of type string, and the handler successfully catches and logs the error without crashing the process.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_041118_007.json",
+  "glm_source_index": 1295,
+  "search_intents": [
+    "bun onmessageerror",
+    "bun worker thread error handling"
+  ],
+  "review_gate": "Pass if all SOURCE FACT REQUIRED placeholders are replaced with source-verified facts; fail if any placeholder remains.",
+  "validation_proof": "Run: python3 scripts/agentpress.py context-budget . --json --strict and verify the material-manifest.json file contains no SOURCE FACT REQUIRED placeholders remaining.",
+  "materializer_safe_local_write": true
+}

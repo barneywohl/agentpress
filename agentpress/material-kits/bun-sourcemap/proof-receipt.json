@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The sourcemap configuration is correctly called with the right field, types, and default behavior as specified in the source doc",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_025013_013.json",
+  "glm_source_index": 1205,
+  "search_intents": [
+    "Bun sourcemap configuration",
+    "Bun BuildConfig sourcemap types",
+    "Bun runtime debugging sourcemaps"
+  ],
+  "review_gate": "Kit must contain exact BuildConfig field name, supported types, and default behavior extracted from source doc with no invented content",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json and confirm the kit passes with no errors and the proof receipt is generated",
+  "materializer_safe_local_write": true
+}

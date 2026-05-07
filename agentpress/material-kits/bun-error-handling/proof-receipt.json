@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun error handling succeeds when SOURCE FACT REQUIRED error type is caught with SOURCE FACT REQUIRED handler, processing SOURCE FACT REQUIRED error properties for SOURCE FACT REQUIRED runtime scenarios.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_043904_045.json",
+  "glm_source_index": 1333,
+  "search_intents": [
+    "Bun runtime error handling",
+    "Bun error types and conditions",
+    "Bun Node.js compatibility"
+  ],
+  "review_gate": "Pass if the material kit contains zero remaining SOURCE FACT REQUIRED placeholders after source fact extraction; fail if any placeholders remain.",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error 'bun install/runtime failure' --json and verify the receipt shows all SOURCE FACT REQUIRED items filled with real source facts, no remaining placeholders.",
+  "materializer_safe_local_write": true
+}

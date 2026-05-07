@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The material kit contains the exact attribute field names, mapping schema, and refresh endpoint behavior extracted from the source document.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_024827_010.json",
+  "glm_source_index": 1275,
+  "search_intents": [
+    "auth0 refresh provisioning",
+    "auth0 attribute mapping",
+    "auth0 idp management"
+  ],
+  "review_gate": "Pass if the kit contains the exact attribute field names, mapping schema, and refresh endpoint behavior from the source document. Fail if the kit contains generic or placeholder content.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and confirm the kit passes with no errors and the proof receipt shows all source facts extracted.",
+  "materializer_safe_local_write": true
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The material-manifest.json contains the exact debuginfo endpoint URL, required request parameters, and response shape extracted from the source document",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_031339_038.json",
+  "glm_source_index": 1391,
+  "search_intents": [
+    "redis cluster debug endpoint",
+    "redis rest api debuginfo"
+  ],
+  "review_gate": "Pass if the material-manifest.json contains SOURCE FACT REQUIRED placeholders that are later filled with real facts from the source document; fail if generic claims without source specificity",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and confirm the compact context card is generated with source facts filled in",
+  "materializer_safe_local_write": true
+}

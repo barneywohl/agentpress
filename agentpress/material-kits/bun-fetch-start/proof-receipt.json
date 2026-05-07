@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun PerformanceResourceTiming fetchStart property path, timing unit, and minimum Bun version are extracted from source and verified as accurate.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_041949_017.json",
+  "glm_source_index": 1305,
+  "search_intents": [
+    "Bun fetchStart timing",
+    "Bun PerformanceResourceTiming",
+    "Bun runtime performance"
+  ],
+  "review_gate": "Pass if the material kit contains the exact Bun PerformanceResourceTiming property path, timing unit, and minimum Bun version extracted from the source document. Fail if any SOURCE FACT REQUIRED placeholder remains unfilled.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the proof receipt shows all SOURCE FACT REQUIRED placeholders filled with extracted source facts.",
+  "materializer_safe_local_write": true
+}

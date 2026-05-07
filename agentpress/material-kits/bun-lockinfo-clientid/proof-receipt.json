@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun's LockInfo clientId property is correctly accessed with proper error handling, returning a verified value within the correct range",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_042637_027.json",
+  "glm_source_index": 1315,
+  "search_intents": [
+    "Bun LockInfo clientId",
+    "Bun worker threads clientId",
+    "Bun runtime property access"
+  ],
+  "review_gate": "Pass if the material kit contains the exact property name, exact data type, and exact return type from the Bun documentation; fail if any of these are missing or contain SOURCE FACT REQUIRED placeholders",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json and verify the Bun LockInfo clientId property is correctly accessed with proper error handling, returning a verified value within the correct range",
+  "materializer_safe_local_write": true
+}

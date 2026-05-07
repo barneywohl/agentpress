@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Receipt confirms compact context card for Cloudflare unstable-dev migration exists with exact version numbers, CLI commands, and environment variables extracted from source doc",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_034454_028.json",
+  "glm_source_index": 1430,
+  "search_intents": [
+    "Cloudflare Workers migrate from unstable dev",
+    "Cloudflare unstable-dev migration guide"
+  ],
+  "review_gate": "Pass if receipt confirms compact context card with extracted facts; fail if receipt shows missing or hallucinated facts",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and confirm receipt shows compact context card with extracted version numbers, CLI commands, and environment variables",
+  "materializer_safe_local_write": true
+}

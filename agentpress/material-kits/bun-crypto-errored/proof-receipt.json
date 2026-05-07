@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun crypto error context card with exact error message, error code, and triggering function extracted and validated",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_035443_041.json",
+  "glm_source_index": 1281,
+  "search_intents": [
+    "Bun crypto error",
+    "Bun Cipheriv error"
+  ],
+  "review_gate": "Card must have zero SOURCE FACT REQUIRED placeholders after extraction, and must pass package-registry-doctor validation",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json and verify no SOURCE FACT REQUIRED placeholders remain in the final card",
+  "materializer_safe_local_write": true
+}

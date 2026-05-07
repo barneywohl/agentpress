@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The material kit successfully extracts and compacts the exact OAuth scopes, redirect URI patterns, and error codes from the Auth0 mobile-to-web payment flow documentation, enabling agents to configure payment flows without reading the full docs",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_023902_003.json",
+  "glm_source_index": 1268,
+  "search_intents": [
+    "how to configure mobile to web payment flows in Auth0",
+    "Auth0 OAuth payment flow configuration",
+    "Auth0 mobile payment redirect URI setup"
+  ],
+  "review_gate": "The material kit must contain at least three concrete source facts from the Auth0 mobile-to-web payment flow documentation, with SOURCE FACT REQUIRED placeholders for any claims not yet extracted",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the kit contains the extracted OAuth scopes, redirect URI patterns, and error codes from the source document",
+  "materializer_safe_local_write": true
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Auth0 custom DB test endpoint returns HTTP 200 with SOURCE FACT REQUIRED specific success payload when SOURCE FACT REQUIRED configuration parameters are correctly set",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_024401_008.json",
+  "glm_source_index": 1273,
+  "search_intents": [
+    "Auth0 test custom database connection",
+    "Auth0 database connection test endpoint"
+  ],
+  "review_gate": "Pass if material-manifest.json contains SOURCE FACT REQUIRED placeholders for endpoint, status code, and configuration parameters; fail if placeholders are missing or filled with non-source content",
+  "validation_proof": "Run python3 scripts/agentpress.py proof-receipt --kit auth0-custom-db-test --claim 'test-connection-success' and verify receipt shows SOURCE FACT REQUIRED specific success payload",
+  "materializer_safe_local_write": true
+}

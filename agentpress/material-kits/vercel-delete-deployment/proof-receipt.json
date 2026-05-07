@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The kit must contain the exact DELETE endpoint path, the exact authentication header format, and the exact success status code for deleting a deployment",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_044725_006.json",
+  "glm_source_index": 1531,
+  "search_intents": [
+    "Vercel delete deployment",
+    "Vercel deployment cleanup",
+    "Vercel deployment delete"
+  ],
+  "review_gate": "Kit must contain the exact DELETE endpoint, exact auth headers, and exact success status code with no invented claims",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the kit contains the exact endpoint, auth, and status code",
+  "materializer_safe_local_write": true
+}

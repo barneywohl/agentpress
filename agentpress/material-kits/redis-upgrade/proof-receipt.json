@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The material-manifest.json contains valid SOURCE FACT REQUIRED placeholders for the upgrade HTTP method, request body schema, and authentication headers extracted from the Redis upgrade documentation",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_032701_004.json",
+  "glm_source_index": 1405,
+  "search_intents": [
+    "Redis upgrade API endpoint",
+    "Redis module upgrade request",
+    "Redis database upgrade procedure"
+  ],
+  "review_gate": "The material-manifest.json must contain SOURCE FACT REQUIRED placeholders that are not yet filled, and the context-budget command must pass without errors",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and confirm the receipt shows all SOURCE FACT REQUIRED placeholders filled with real data from the source document",
+  "materializer_safe_local_write": true
+}

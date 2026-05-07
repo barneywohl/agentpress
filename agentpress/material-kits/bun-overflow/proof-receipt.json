@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Receipt shows Bun overflow condition documented with exact error format, trigger conditions, and recovery steps extracted from source",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_031033_037.json",
+  "glm_source_index": 1229,
+  "search_intents": [
+    "bun overflow error",
+    "bun runtime overflow",
+    "bun inspector overflow"
+  ],
+  "review_gate": "Pass if the material-manifest.json contains the exact Bun overflow condition, error format, and recovery steps from the source document. Fail if any field contains invented or generic content.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the receipt shows the overflow condition, error format, and recovery steps were extracted.",
+  "materializer_safe_local_write": true
+}

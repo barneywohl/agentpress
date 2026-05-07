@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The material-manifest.json exists at agentpress/material-kits/bun-formdata/material-manifest.json and contains the exact formData method signatures, exact parameter types, and exact return value shapes extracted from the source document.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_033740_019.json",
+  "glm_source_index": 1259,
+  "search_intents": [
+    "Bun formData API",
+    "Bun BuildArtifact formData",
+    "Bun runtime formData"
+  ],
+  "review_gate": "The material-manifest.json must contain the exact formData method signatures, exact parameter types, and exact return value shapes extracted from the source document, with no invented content.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and confirm the receipt shows the material-manifest.json at agentpress/material-kits/bun-formdata/material-manifest.json with valid content.",
+  "materializer_safe_local_write": true
+}

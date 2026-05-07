@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The compact context card includes the exact REST API path, HTTP method, parameters, response shape, and authentication requirements for the Redis debuginfo/all endpoint, as extracted from the source document.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_030542_032.json",
+  "glm_source_index": 1385,
+  "search_intents": [
+    "redis debug info",
+    "redis rest api",
+    "redis cluster health"
+  ],
+  "review_gate": "The compact context card must include the exact REST API path, HTTP method, parameters, response shape, and authentication requirements from the source document, and must not include any information not present in the source document.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify that the compact context card includes the exact REST API path, HTTP method, parameters, response shape, and authentication requirements from the source document.",
+  "materializer_safe_local_write": true
+}

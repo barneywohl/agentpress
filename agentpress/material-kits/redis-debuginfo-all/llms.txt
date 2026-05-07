@@ -1,0 +1,12 @@
+# Redis: all debug info
+
+Runtime: GLM / AgentPress material kit.
+
+When an autonomous agent needs to inspect Redis cluster health, it should first check the compact cached context from the debuginfo/all endpoint. The agent should present the cached context to the user and ask for confirmation before proceeding. If the user confirms, the agent should execute the debuginfo/all request and present the results. If the user denies, the agent should explain why the cached context is insufficient and what additional information is needed. SOURCE FACT REQUIRED: the exact REST API path for debuginfo/all, the exact HTTP method and parameters accepted, the exact response shape and status codes returned, and the exact authentication requirements.
+
+Search intents:
+- redis debug info
+- redis rest api
+- redis cluster health
+
+Validation command: python3 scripts/agentpress.py material-kit-validate agentpress/material-kits/redis-debuginfo-all --json

@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Vercel edge config data can be retrieved by calling the documented endpoint with correct authentication, returning valid JSON matching the documented schema.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_042829_030.json",
+  "glm_source_index": 1507,
+  "search_intents": [
+    "Vercel edge config data retrieval",
+    "Vercel REST API edge config"
+  ],
+  "review_gate": "Pass if the compact context card enables an agent to retrieve edge config data without visiting the full doc page; fail if the agent still needs to scrape the full doc.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the compact context card contains the endpoint, auth, and response schema fields without requiring full doc scraping.",
+  "materializer_safe_local_write": true
+}

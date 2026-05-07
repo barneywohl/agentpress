@@ -1,0 +1,11 @@
+# Auth0 SAML User Deprovisioning
+
+Runtime: GLM / AgentPress material kit.
+
+When an autonomous agent needs to deprovision a SAML user in Auth0, it must first SOURCE FACT REQUIRED: identify the exact SAML integration ID, then SOURCE FACT REQUIRED: call the deprovisioning endpoint with SOURCE FACT REQUIRED: the correct user identifier and SOURCE FACT REQUIRED: the required auth0 management API token scope. Without these SOURCE FACT REQUIRED fields, the agent will fail to trigger deprovisioning or will silently skip the step.
+
+Search intents:
+- auth0 saml deprovision users
+- auth0 deprovisioning configuration
+
+Validation command: python3 scripts/agentpress.py material-kit-validate agentpress/material-kits/auth0-saml-deprovision --json

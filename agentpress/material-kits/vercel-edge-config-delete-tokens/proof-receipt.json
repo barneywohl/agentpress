@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Vercel edge config token deletion returns 200 status with SOURCE FACT REQUIRED response body confirming token removal",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_044011_043.json",
+  "glm_source_index": 1520,
+  "search_intents": [
+    "Vercel edge config delete token",
+    "Vercel DELETE edge config token API"
+  ],
+  "review_gate": "Pass if the kit contains compact citation-ready context for the DELETE endpoint, authentication scope, and response shape; fail if generic or missing source facts",
+  "validation_proof": "Run python3 scripts/agentpress.py proof-receipt --kit vercel-edge-config-delete-tokens --field delete-token-response-shape and verify 200 status with SOURCE FACT REQUIRED response body",
+  "materializer_safe_local_write": true
+}

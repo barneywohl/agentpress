@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The compact kit must contain the exact method signature, return type, and performance entry types for getEntries, extracted from the source document.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_042506_025.json",
+  "glm_source_index": 1313,
+  "search_intents": [
+    "Bun getEntries",
+    "Bun performance entries",
+    "Bun runtime"
+  ],
+  "review_gate": "The kit must contain the exact method signature, return type, and performance entry types for getEntries, extracted from the source document.",
+  "validation_proof": "Run python3 scripts/agentpress.py proof-receipt --kit bun-getentries --field 'return_shape' --json and verify the receipt contains the extracted method signature, return type, and performance entry types.",
+  "materializer_safe_local_write": true
+}

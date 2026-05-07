@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The compact context accurately captures the bindRemoteObjectFunctionId method signature, parameter types, and return type from the Bun inspector documentation",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_031409_039.json",
+  "glm_source_index": 1231,
+  "search_intents": [
+    "Bun inspector bindRemoteObjectFunctionId",
+    "Bun runtime inspector API",
+    "Bun custom preview binding"
+  ],
+  "review_gate": "The compact context must contain the exact method signature, imports, and return type from the source document, with no invented details",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json and verify the compact context contains the extracted method signature and return type",
+  "materializer_safe_local_write": true
+}

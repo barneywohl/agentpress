@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "UserGesture API is validated with correct inspector endpoint, parameters, and response shape.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_043735_042.json",
+  "glm_source_index": 1330,
+  "search_intents": [
+    "Bun userGesture inspector API",
+    "how to use userGesture in Bun inspector",
+    "Bun inspector runtime parameters"
+  ],
+  "review_gate": "Pass if the kit contains the exact inspector API endpoint, required parameters, and response shape extracted from the source doc. Fail if any SOURCE FACT REQUIRED placeholder remains unfilled.",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error 'bun install/runtime failure' --json and verify the kit passes with zero errors and the proof receipt shows 'userGesture API validated successfully'.",
+  "materializer_safe_local_write": true
+}

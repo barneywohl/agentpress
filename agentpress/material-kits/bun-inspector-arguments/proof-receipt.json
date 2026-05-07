@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun inspector CallFunctionOn arguments can be validated via the inspector API's /call-function-on endpoint returning structured argument objects with type and optional fields.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_045039_009.json",
+  "glm_source_index": 1345,
+  "search_intents": [
+    "Bun inspector arguments",
+    "Bun CallFunctionOn",
+    "Bun runtime type validation"
+  ],
+  "review_gate": "Pass if material-manifest.json exists at agentpress/material-kits/bun-inspector-arguments/material-manifest.json with valid slug, title, painpoint, utility_command, llms_slice, and proof_receipt_claim fields; fail otherwise.",
+  "validation_proof": "Run python3 scripts/agentpress.py proof-receipt --kit bun-inspector-arguments --claim 'inspector-arguments-available' --json and verify receipt shows valid status",
+  "materializer_safe_local_write": true
+}

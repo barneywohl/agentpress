@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Compact, citation-ready context for Bun's isBlockCoverage inspector property is available and validated against the source document.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_043237_036.json",
+  "glm_source_index": 1324,
+  "search_intents": [
+    "Bun inspector coverage",
+    "Bun isBlockCoverage property",
+    "Bun runtime coverage data"
+  ],
+  "review_gate": "Pass if the material kit contains the exact property name, parent object path, and return values from the source document. Fail if any SOURCE FACT REQUIRED placeholder remains unfilled.",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json and verify the kit passes with zero errors and the proof receipt shows the source document was extracted correctly.",
+  "materializer_safe_local_write": true
+}

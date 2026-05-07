@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Supabase edge function streaming configuration with ElevenLabs generates speech without auth errors or streaming failures",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_030011_022.json",
+  "glm_source_index": 1375,
+  "search_intents": [
+    "supabase edge function streaming",
+    "elevenlabs speech streaming",
+    "supabase streaming error"
+  ],
+  "review_gate": "Pass if receipt shows valid auth configuration, streaming response shape, and error code coverage without missing fields",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify receipt fields for auth, streaming, and error handling are populated",
+  "materializer_safe_local_write": true
+}

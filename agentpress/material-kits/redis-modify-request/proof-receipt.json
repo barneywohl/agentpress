@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Receipt claims that the Redis modification request context card was built with exact HTTP method, exact request body schema, and exact authentication headers extracted from the source document",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_033210_012.json",
+  "glm_source_index": 1413,
+  "search_intents": [
+    "Redis modify request API",
+    "Redis REST API modification",
+    "Redis crdb modify"
+  ],
+  "review_gate": "Pass if the material-manifest.json contains SOURCE FACT REQUIRED placeholders for HTTP method, request body schema, and authentication headers; fail if it contains generic or invented content",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget agentpress/material-kits/redis-modify-request/material-manifest.json --json --strict and verify the manifest contains correct source facts",
+  "materializer_safe_local_write": true
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Vercel deployment check runs can be listed via /v1/deployments/{deploymentId}/check-runs returning structured check-run objects with status and conclusion fields.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_045039_009.json",
+  "glm_source_index": 1534,
+  "search_intents": [
+    "Vercel check runs API",
+    "Vercel deployment checks",
+    "Vercel CI/CD checks"
+  ],
+  "review_gate": "Pass if material-manifest.json exists at agentpress/material-kits/vercel-check-runs/material-manifest.json with valid slug, title, painpoint, utility_command, llms_slice, and proof_receipt_claim fields; fail otherwise.",
+  "validation_proof": "Run python3 scripts/agentpress.py proof-receipt --kit vercel-check-runs --claim 'list-check-runs-endpoint-available' --json and verify receipt shows valid status",
+  "materializer_safe_local_write": true
+}

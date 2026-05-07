@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The Vercel deployment lookup kit correctly extracts the exact endpoint path, required headers, and accepted query parameters from the source document, with no invented fields.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_044744_005.json",
+  "glm_source_index": 1530,
+  "search_intents": [
+    "Vercel deployment lookup by ID",
+    "Vercel deployment lookup by URL",
+    "Vercel REST API deployment endpoint"
+  ],
+  "review_gate": "Pass if the kit contains SOURCE FACT REQUIRED placeholders for all un-verified claims, and the utility_command uses the real AgentPress CLI without invented commands.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and confirm the kit passes without errors and the proof receipt is logged.",
+  "materializer_safe_local_write": true
+}

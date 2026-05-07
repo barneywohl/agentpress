@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Compact kit card exists with exact /debuginfo/node response shape, exact status codes, and exact auth headers extracted from source",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_030427_031.json",
+  "glm_source_index": 1384,
+  "search_intents": [
+    "redis node debug endpoint",
+    "redis cluster health check",
+    "redis rest api debug"
+  ],
+  "review_gate": "Kit card contains exact /debuginfo/node response shape, exact status codes, and exact auth headers — no generic placeholders",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and confirm compact kit card generated with SOURCE FACT REQUIRED placeholders filled",
+  "materializer_safe_local_write": true
+}

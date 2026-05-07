@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Receipt confirms compact context card for Bun PerformanceObserverEntryList exists with exact method signatures, return types, and performance timing properties extracted from source doc",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_034454_028.json",
+  "glm_source_index": 1268,
+  "search_intents": [
+    "Bun PerformanceObserverEntryList",
+    "Bun performance timing API"
+  ],
+  "review_gate": "Pass if receipt confirms compact context card with extracted facts; fail if receipt shows missing or hallucinated facts",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and confirm receipt shows compact context card with extracted method signatures, return types, and timing properties",
+  "materializer_safe_local_write": true
+}

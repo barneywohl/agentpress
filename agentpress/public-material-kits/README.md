@@ -1,0 +1,313 @@
+# AgentPress GLM Material Kit Public Index
+
+Total validated kits: 300
+
+Use this index to find source-linked material kits for agent bootstrap. Every listed kit passed strict local validation but remains pending public-release review.
+
+- unknown: 157
+- Bun: 73
+- Redis: 43
+- Auth0: 23
+- Supabase: 4
+
+## Kits
+- [Auth0 CIBA Email Notifications](agentpress/material-kits/auth0-ciba-email-notifications/AGENT_ENTRYPOINT.md) — unknown — `auth0-ciba-email-notifications`
+- [Auth0 MFA WebAuthn Platform Challenge](agentpress/material-kits/auth0-mfa-webauthn-platform-challenge/AGENT_ENTRYPOINT.md) — unknown — `auth0-mfa-webauthn-platform-challenge`
+- [Auth0 Mailjet Integration Material Kit](agentpress/material-kits/auth0-mailjet/AGENT_ENTRYPOINT.md) — unknown — `auth0-mailjet`
+- [Auth0 SAML Troubleshooting](agentpress/material-kits/auth0-saml-troubleshoot/AGENT_ENTRYPOINT.md) — unknown — `auth0-saml-troubleshoot`
+- [Auth0 SendGrid Integration](agentpress/material-kits/auth0-sendgrid-integration/AGENT_ENTRYPOINT.md) — unknown — `auth0-sendgrid-integration`
+- [Auth0 Twilio Integration](agentpress/material-kits/auth0-twilio-integration/AGENT_ENTRYPOINT.md) — unknown — `auth0-twilio-integration`
+- [Auth0 WhatsApp Integration Material Kit](agentpress/material-kits/auth0-whatsapp/AGENT_ENTRYPOINT.md) — unknown — `auth0-whatsapp`
+- [Auth0 XML Integration Material Kit](agentpress/material-kits/auth0-xml-integration/AGENT_ENTRYPOINT.md) — unknown — `auth0-xml-integration`
+- [Auth0: ClientMembers](agentpress/material-kits/auth0-clientmembers/AGENT_ENTRYPOINT.md) — unknown — `auth0-clientmembers`
+- [Auth0: Migrate to Calling API with Access Tokens](agentpress/material-kits/auth0-access-token-migration/AGENT_ENTRYPOINT.md) — unknown — `auth0-access-token-migration`
+- [Auth0: TransactionMembers](agentpress/material-kits/auth0-transaction-members/AGENT_ENTRYPOINT.md) — unknown — `auth0-transaction-members`
+- [Auth0: action triggers custom phone provider api object](agentpress/material-kits/auth0-action-triggers-custom-phone-provider-api-object/AGENT_ENTRYPOINT.md) — unknown — `auth0-action-triggers-custom-phone-provider-api-object`
+- [Auth0: add login using the implicit flow with form post](agentpress/material-kits/auth0-implicit-flow-form-post/AGENT_ENTRYPOINT.md) — unknown — `auth0-implicit-flow-form-post`
+- [Auth0: billing policy](agentpress/material-kits/auth0-billing-policy/AGENT_ENTRYPOINT.md) — unknown — `auth0-billing-policy`
+- [Auth0: build with ai tools](agentpress/material-kits/auth0-build-with-ai-tools/AGENT_ENTRYPOINT.md) — unknown — `auth0-build-with-ai-tools`
+- [Auth0: configure auth0 to pass openid fapi certification tests](agentpress/material-kits/auth0-fapi-certification/AGENT_ENTRYPOINT.md) — unknown — `auth0-fapi-certification`
+- [Auth0: configure automatic migration from your database](agentpress/material-kits/auth0-automatic-migration/AGENT_ENTRYPOINT.md) — unknown — `auth0-automatic-migration`
+- [Auth0: configure the deploy cli](agentpress/material-kits/auth0-deploy-cli-config/AGENT_ENTRYPOINT.md) — unknown — `auth0-deploy-cli-config`
+- [Auth0: facebook graph api changes](agentpress/material-kits/auth0-facebook-graph-api-changes/AGENT_ENTRYPOINT.md) — unknown — `auth0-facebook-graph-api-changes`
+- [Auth0: facebook social context field deprecation](agentpress/material-kits/auth0-facebook-social-context-deprecation/AGENT_ENTRYPOINT.md) — unknown — `auth0-facebook-social-context-deprecation`
+- [Auth0: generate and analyze HAR files](agentpress/material-kits/auth0-har-generate-analyze/AGENT_ENTRYPOINT.md) — unknown — `auth0-har-generate-analyze`
+- [Auth0: how to run production checks](agentpress/material-kits/auth0-production-checks/AGENT_ENTRYPOINT.md) — unknown — `auth0-production-checks`
+- [Auth0: implicit flow with form post](agentpress/material-kits/auth0-implicit-flow-with-form-post/AGENT_ENTRYPOINT.md) — unknown — `auth0-implicit-flow-with-form-post`
+- [Auth0: json web token](agentpress/material-kits/auth0-jwt/AGENT_ENTRYPOINT.md) — unknown — `auth0-jwt`
+- [Auth0: logic](agentpress/material-kits/auth0-logic-flows/AGENT_ENTRYPOINT.md) — unknown — `auth0-logic-flows`
+- [Auth0: mfa webauthn error](agentpress/material-kits/auth0-mfa-webauthn-error/AGENT_ENTRYPOINT.md) — unknown — `auth0-mfa-webauthn-error`
+- [Auth0: mfa webauthn not available error](agentpress/material-kits/auth0-mfa-webauthn-not-available-error/AGENT_ENTRYPOINT.md) — unknown — `auth0-mfa-webauthn-not-available-error`
+- [Auth0: mfa webauthn platform enrollment](agentpress/material-kits/auth0-mfa-webauthn-platform-enrollment/AGENT_ENTRYPOINT.md) — unknown — `auth0-mfa-webauthn-platform-enrollment`
+- [Auth0: migrate from edge js extensibility features](agentpress/material-kits/auth0-edge-js-migration/AGENT_ENTRYPOINT.md) — unknown — `auth0-edge-js-migration`
+- [Auth0: migrate from legacy auth flows](agentpress/material-kits/auth0-legacy-migration/AGENT_ENTRYPOINT.md) — unknown — `auth0-legacy-migration`
+- [Auth0: migrate from log extensions](agentpress/material-kits/auth0-migrate-log-extensions/AGENT_ENTRYPOINT.md) — unknown — `auth0-migrate-log-extensions`
+- [Auth0: migrate from oracledb extensibility features](agentpress/material-kits/auth0-oracledb-migration/AGENT_ENTRYPOINT.md) — unknown — `auth0-oracledb-migration`
+- [Auth0: migration oauthro oauthtoken](agentpress/material-kits/auth0-migration-oauthro-oauthtoken/AGENT_ENTRYPOINT.md) — unknown — `auth0-migration-oauthro-oauthtoken`
+- [Auth0: mitigate replay attacks when using the implicit flow](agentpress/material-kits/auth0-implicit-replay-mitigation/AGENT_ENTRYPOINT.md) — unknown — `auth0-implicit-replay-mitigation`
+- [Auth0: mobile push notifications with ciba](agentpress/material-kits/auth0-ciba-push-notifications/AGENT_ENTRYPOINT.md) — unknown — `auth0-ciba-push-notifications`
+- [Auth0: predeployment tests](agentpress/material-kits/auth0-predeployment-tests/AGENT_ENTRYPOINT.md) — unknown — `auth0-predeployment-tests`
+- [Auth0: reset password error](agentpress/material-kits/auth0-reset-password-error/AGENT_ENTRYPOINT.md) — unknown — `auth0-reset-password-error`
+- [Auth0: reset password mfa webauthn platform challenge](agentpress/material-kits/auth0-reset-password-mfa-webauthn-platform-challenge/AGENT_ENTRYPOINT.md) — unknown — `auth0-reset-password-mfa-webauthn-platform-challenge`
+- [Auth0: resource specific documentation](agentpress/material-kits/auth0-resource-specific-docs/AGENT_ENTRYPOINT.md) — unknown — `auth0-resource-specific-docs`
+- [Auth0: telegram](agentpress/material-kits/auth0-telegram-integration/AGENT_ENTRYPOINT.md) — unknown — `auth0-telegram-integration`
+- [Auth0: test xaa flow](agentpress/material-kits/auth0-test-xaa-flow/AGENT_ENTRYPOINT.md) — unknown — `auth0-test-xaa-flow`
+- [Auth0: troubleshoot actions real time logs](agentpress/material-kits/auth0-troubleshoot-actions-real-time-logs/AGENT_ENTRYPOINT.md) — unknown — `auth0-troubleshoot-actions-real-time-logs`
+- [Auth0: troubleshooting tools](agentpress/material-kits/auth0-troubleshooting-tools/AGENT_ENTRYPOINT.md) — unknown — `auth0-troubleshooting-tools`
+- [Auth0: update billing information](agentpress/material-kits/auth0-update-billing/AGENT_ENTRYPOINT.md) — unknown — `auth0-update-billing`
+- [Auth0: useErrors](agentpress/material-kits/auth0-useerrors/AGENT_ENTRYPOINT.md) — unknown — `auth0-useerrors`
+- [Auth0: useUsernameValidation Hook](agentpress/material-kits/auth0-useusernamevalidation/AGENT_ENTRYPOINT.md) — unknown — `auth0-useusernamevalidation`
+- [Auth0: user authorization with ciba](agentpress/material-kits/auth0-ciba-authorization/AGENT_ENTRYPOINT.md) — unknown — `auth0-ciba-authorization`
+- [Auth0: vercel deployment](agentpress/material-kits/auth0-vercel-deployment/AGENT_ENTRYPOINT.md) — unknown — `auth0-vercel-deployment`
+- [Auth0: vercel deployment](agentpress/material-kits/auth0-vercel-deployment/AGENT_ENTRYPOINT.md) — unknown — `auth0-vercel-deployment`
+- [Auth0: vercel deployment](agentpress/material-kits/auth0-vercel-deployment/AGENT_ENTRYPOINT.md) — unknown — `auth0-vercel-deployment`
+- [Auth0: yahoo api changes](agentpress/material-kits/auth0-yahoo-api-changes/AGENT_ENTRYPOINT.md) — unknown — `auth0-yahoo-api-changes`
+- [Bun Inspector SetCustomObjectFormatterEnabledParameterType](agentpress/material-kits/bun-inspector-setcustomobjectformatterenabledparametertype/AGENT_ENTRYPOINT.md) — unknown — `bun-inspector-setcustomobjectformatterenabledparametertype`
+- [Bun Railway Deployment Material Kit](agentpress/material-kits/bun-railway-deploy/AGENT_ENTRYPOINT.md) — unknown — `bun-railway-deploy`
+- [Bun Render Deployment Kit](agentpress/material-kits/bun-render-deploy/AGENT_ENTRYPOINT.md) — unknown — `bun-render-deploy`
+- [Bun Vercel Deployment Material Kit](agentpress/material-kits/bun-vercel-deploy/AGENT_ENTRYPOINT.md) — unknown — `bun-vercel-deploy`
+- [Bun: BROTLI DECODER ERROR FORMAT CL SPACE](agentpress/material-kits/bun-brotli-decoder-error-cl-space/AGENT_ENTRYPOINT.md) — unknown — `bun-brotli-decoder-error-cl-space`
+- [Bun: BROTLI DECODER ERROR FORMAT DICTIONARY](agentpress/material-kits/bun-brotli-error-constants/AGENT_ENTRYPOINT.md) — unknown — `bun-brotli-error-constants`
+- [Bun: Google Cloud Run Deployment Kit](agentpress/material-kits/bun-google-cloud-run/AGENT_ENTRYPOINT.md) — unknown — `bun-google-cloud-run`
+- [Bun: PerformanceObserverCallback compact kit](agentpress/material-kits/bun-performanceobservercallback/AGENT_ENTRYPOINT.md) — unknown — `bun-performanceobservercallback`
+- [Bun: [asyncIterator] - HTTP/2 Async Stream](agentpress/material-kits/bun-async-iterator-http2-stream/AGENT_ENTRYPOINT.md) — unknown — `bun-async-iterator-http2-stream`
+- [Bun: allowExtension](agentpress/material-kits/bun-allowextension/AGENT_ENTRYPOINT.md) — unknown — `bun-allowextension`
+- [Bun: aws lambda](agentpress/material-kits/bun-aws-lambda/AGENT_ENTRYPOINT.md) — unknown — `bun-aws-lambda`
+- [Bun: digital ocean deployment](agentpress/material-kits/bun-digital-ocean-deploy/AGENT_ENTRYPOINT.md) — unknown — `bun-digital-ocean-deploy`
+- [Bun: encodedBodySize PerformanceResourceTiming](agentpress/material-kits/bun-encodedbodysize-perftiming/AGENT_ENTRYPOINT.md) — unknown — `bun-encodedbodysize-perftiming`
+- [Bun: errored](agentpress/material-kits/bun-crypto-errored/AGENT_ENTRYPOINT.md) — unknown — `bun-crypto-errored`
+- [Bun: mock functions](agentpress/material-kits/bun-mock-functions/AGENT_ENTRYPOINT.md) — unknown — `bun-mock-functions`
+- [Bun: onHistoryFileLoaded lifecycle hook wrapper](agentpress/material-kits/bun-onhistoryfileloaded/AGENT_ENTRYPOINT.md) — unknown — `bun-onhistoryfileloaded`
+- [Bun: readableFlowing](agentpress/material-kits/bun-decipher-ccm-readableflowing/AGENT_ENTRYPOINT.md) — unknown — `bun-decipher-ccm-readableflowing`
+- [Bun: readableFlowing Crypto Stream Kit](agentpress/material-kits/bun-readableflowing-crypto/AGENT_ENTRYPOINT.md) — unknown — `bun-readableflowing-crypto`
+- [Bun: returnByValue](agentpress/material-kits/bun-returnbyvalue/AGENT_ENTRYPOINT.md) — unknown — `bun-returnbyvalue`
+- [Bun: serverTiming Performance Metrics](agentpress/material-kits/bun-servertiming/AGENT_ENTRYPOINT.md) — unknown — `bun-servertiming`
+- [Bun: startTime Performance Timing](agentpress/material-kits/bun-starttime-perf-timing/AGENT_ENTRYPOINT.md) — unknown — `bun-starttime-perf-timing`
+- [Bun: testing library](agentpress/material-kits/bun-testing-library/AGENT_ENTRYPOINT.md) — unknown — `bun-testing-library`
+- [Bun: toThrowError](agentpress/material-kits/bun-tothrowerror/AGENT_ENTRYPOINT.md) — unknown — `bun-tothrowerror`
+- [Bun: transform](agentpress/material-kits/bun-transform/AGENT_ENTRYPOINT.md) — unknown — `bun-transform`
+- [Bun: tsconfig paths](agentpress/material-kits/bun-tsconfig-paths/AGENT_ENTRYPOINT.md) — unknown — `bun-tsconfig-paths`
+- [Clerk API Error Reference Kit](agentpress/material-kits/clerk-api-error/AGENT_ENTRYPOINT.md) — unknown — `clerk-api-error`
+- [Clerk Billing Webhook Material Kit](agentpress/material-kits/clerk-billing-webhook-material-kit/AGENT_ENTRYPOINT.md) — unknown — `clerk-billing-webhook-material-kit`
+- [Clerk Bot Sign-Up Protection Material Kit](agentpress/material-kits/clerk-bot-sign-up-protection/AGENT_ENTRYPOINT.md) — unknown — `clerk-bot-sign-up-protection`
+- [Clerk Email Links Auth Kit](agentpress/material-kits/clerk-email-links-auth/AGENT_ENTRYPOINT.md) — unknown — `clerk-email-links-auth`
+- [Clerk Waitlist Auth Flow Material Kit](agentpress/material-kits/clerk-waitlist-auth-flow/AGENT_ENTRYPOINT.md) — unknown — `clerk-waitlist-auth-flow`
+- [Clerk: Google One Tap Auth](agentpress/material-kits/clerk-google-one-tap/AGENT_ENTRYPOINT.md) — unknown — `clerk-google-one-tap`
+- [Clerk: bot sign up protection](agentpress/material-kits/clerk-bot-sign-up-protection/AGENT_ENTRYPOINT.md) — unknown — `clerk-bot-sign-up-protection`
+- [Clerk: bot sign up protection](agentpress/material-kits/clerk-bot-sign-up-protection/AGENT_ENTRYPOINT.md) — unknown — `clerk-bot-sign-up-protection`
+- [Clerk: clerk api response error](agentpress/material-kits/clerk-api-response-error/AGENT_ENTRYPOINT.md) — unknown — `clerk-api-response-error`
+- [Clerk: email links](agentpress/material-kits/clerk-email-links/AGENT_ENTRYPOINT.md) — unknown — `clerk-email-links`
+- [Clerk: email links](agentpress/material-kits/clerk-email-links/AGENT_ENTRYPOINT.md) — unknown — `clerk-email-links`
+- [Clerk: embedded email links](agentpress/material-kits/clerk-embedded-email-links/AGENT_ENTRYPOINT.md) — unknown — `clerk-embedded-email-links`
+- [Clerk: embedded email links](agentpress/material-kits/clerk-embedded-email-links/AGENT_ENTRYPOINT.md) — unknown — `clerk-embedded-email-links`
+- [Clerk: error handling](agentpress/material-kits/clerk-error-handling/AGENT_ENTRYPOINT.md) — unknown — `clerk-error-handling`
+- [Clerk: error handling](agentpress/material-kits/clerk-error-handling/AGENT_ENTRYPOINT.md) — unknown — `clerk-error-handling`
+- [Clerk: google one tap](agentpress/material-kits/clerk-google-one-tap/AGENT_ENTRYPOINT.md) — unknown — `clerk-google-one-tap`
+- [Clerk: sign in with apple](agentpress/material-kits/clerk-sign-in-with-apple/AGENT_ENTRYPOINT.md) — unknown — `clerk-sign-in-with-apple`
+- [Clerk: sign in with google](agentpress/material-kits/clerk-google-signin/AGENT_ENTRYPOINT.md) — unknown — `clerk-google-signin`
+- [Clerk: sign in with google](agentpress/material-kits/clerk-sign-in-with-google/AGENT_ENTRYPOINT.md) — unknown — `clerk-sign-in-with-google`
+- [Clerk: waitlist](agentpress/material-kits/clerk-waitlist/AGENT_ENTRYPOINT.md) — unknown — `clerk-waitlist`
+- [Next.js Configuration Material Kit](agentpress/material-kits/nextjs-config-kit/AGENT_ENTRYPOINT.md) — unknown — `nextjs-config-kit`
+- [Next.js Environment Variables Configuration Kit](agentpress/material-kits/nextjs-env/AGENT_ENTRYPOINT.md) — unknown — `nextjs-env`
+- [Next.js Headers Kit](agentpress/material-kits/nextjs-headers/AGENT_ENTRYPOINT.md) — unknown — `nextjs-headers`
+- [Next.js Lightning CSS Configuration](agentpress/material-kits/nextjs-lightningcss/AGENT_ENTRYPOINT.md) — unknown — `nextjs-lightningcss`
+- [Next.js Web Vitals Reporting Kit](agentpress/material-kits/nextjs-web-vitals/AGENT_ENTRYPOINT.md) — unknown — `nextjs-web-vitals`
+- [Next.js cssChunking Configuration Material Kit](agentpress/material-kits/nextjs-cs-chunking/AGENT_ENTRYPOINT.md) — unknown — `nextjs-cs-chunking`
+- [Next.js inlineCss](agentpress/material-kits/nextjs-inlinecss/AGENT_ENTRYPOINT.md) — unknown — `nextjs-inlinecss`
+- [Next.js: adapterPath](agentpress/material-kits/nextjs-adapterpath/AGENT_ENTRYPOINT.md) — unknown — `nextjs-adapterpath`
+- [Next.js: adapterPath](agentpress/material-kits/nextjs-adapterpath/AGENT_ENTRYPOINT.md) — unknown — `nextjs-adapterpath`
+- [Next.js: allowedDevOrigins](agentpress/material-kits/nextjs-allowed-dev-origins/AGENT_ENTRYPOINT.md) — unknown — `nextjs-allowed-dev-origins`
+- [Next.js: assetPrefix](agentpress/material-kits/nextjs-assetprefix/AGENT_ENTRYPOINT.md) — unknown — `nextjs-assetprefix`
+- [Next.js: compress](agentpress/material-kits/nextjs-compress/AGENT_ENTRYPOINT.md) — unknown — `nextjs-compress`
+- [Next.js: connection](agentpress/material-kits/nextjs-connection/AGENT_ENTRYPOINT.md) — unknown — `nextjs-connection`
+- [Next.js: crossOrigin](agentpress/material-kits/nextjs-crossorigin/AGENT_ENTRYPOINT.md) — unknown — `nextjs-crossorigin`
+- [Next.js: devIndicators](agentpress/material-kits/nextjs-devindicators/AGENT_ENTRYPOINT.md) — unknown — `nextjs-devindicators`
+- [Next.js: distDir](agentpress/material-kits/nextjs-distdir/AGENT_ENTRYPOINT.md) — unknown — `nextjs-distdir`
+- [Next.js: edge](agentpress/material-kits/nextjs-edge/AGENT_ENTRYPOINT.md) — unknown — `nextjs-edge`
+- [Next.js: env](agentpress/material-kits/nextjs-env/AGENT_ENTRYPOINT.md) — unknown — `nextjs-env`
+- [Next.js: error handling](agentpress/material-kits/nextjs-error-handling/AGENT_ENTRYPOINT.md) — unknown — `nextjs-error-handling`
+- [Next.js: eslint](agentpress/material-kits/nextjs-eslint/AGENT_ENTRYPOINT.md) — unknown — `nextjs-eslint`
+- [Next.js: functions](agentpress/material-kits/nextjs-functions/AGENT_ENTRYPOINT.md) — unknown — `nextjs-functions`
+- [Next.js: generate sitemaps](agentpress/material-kits/nextjs-generate-sitemaps/AGENT_ENTRYPOINT.md) — unknown — `nextjs-generate-sitemaps`
+- [Next.js: generateEtags](agentpress/material-kits/nextjs-generate-etags/AGENT_ENTRYPOINT.md) — unknown — `nextjs-generate-etags`
+- [Next.js: generateEtags](agentpress/material-kits/nextjs-generate-etags/AGENT_ENTRYPOINT.md) — unknown — `nextjs-generate-etags`
+- [Next.js: headers](agentpress/material-kits/nextjs-headers/AGENT_ENTRYPOINT.md) — unknown — `nextjs-headers`
+- [Next.js: headers configuration material kit](agentpress/material-kits/nextjs-headers/AGENT_ENTRYPOINT.md) — unknown — `nextjs-headers`
+- [Next.js: image response](agentpress/material-kits/nextjs-image-response/AGENT_ENTRYPOINT.md) — unknown — `nextjs-image-response`
+- [Next.js: images](agentpress/material-kits/nextjs-images/AGENT_ENTRYPOINT.md) — unknown — `nextjs-images`
+- [Next.js: logging](agentpress/material-kits/nextjs-logging/AGENT_ENTRYPOINT.md) — unknown — `nextjs-logging`
+- [Next.js: next request](agentpress/material-kits/next-js-next-request/AGENT_ENTRYPOINT.md) — unknown — `next-js-next-request`
+- [Next.js: next response](agentpress/material-kits/next-response/AGENT_ENTRYPOINT.md) — unknown — `next-response`
+- [Next.js: onDemandEntries](agentpress/material-kits/nextjs-ondemand-entries/AGENT_ENTRYPOINT.md) — unknown — `nextjs-ondemand-entries`
+- [Next.js: optimizePackageImports](agentpress/material-kits/nextjs-optimize-package-imports/AGENT_ENTRYPOINT.md) — unknown — `nextjs-optimize-package-imports`
+- [Next.js: optimizePackageImports](agentpress/material-kits/nextjs-optimize-package-imports/AGENT_ENTRYPOINT.md) — unknown — `nextjs-optimize-package-imports`
+- [Next.js: output](agentpress/material-kits/nextjs-output/AGENT_ENTRYPOINT.md) — unknown — `nextjs-output`
+- [Next.js: productionBrowserSourceMaps](agentpress/material-kits/nextjs-production-browser-source-maps/AGENT_ENTRYPOINT.md) — unknown — `nextjs-production-browser-source-maps`
+- [Next.js: productionBrowserSourceMaps](agentpress/material-kits/nextjs-production-browser-source-maps/AGENT_ENTRYPOINT.md) — unknown — `nextjs-production-browser-source-maps`
+- [Next.js: reactStrictMode](agentpress/material-kits/nextjs-reactstrictmode/AGENT_ENTRYPOINT.md) — unknown — `nextjs-reactstrictmode`
+- [Next.js: reactStrictMode](agentpress/material-kits/nextjs-reactstrictmode/AGENT_ENTRYPOINT.md) — unknown — `nextjs-reactstrictmode`
+- [Next.js: redirect](agentpress/material-kits/nextjs-redirect/AGENT_ENTRYPOINT.md) — unknown — `nextjs-redirect`
+- [Next.js: redirects](agentpress/material-kits/nextjs-redirects/AGENT_ENTRYPOINT.md) — unknown — `nextjs-redirects`
+- [Next.js: rewrites](agentpress/material-kits/nextjs-rewrites/AGENT_ENTRYPOINT.md) — unknown — `nextjs-rewrites`
+- [Next.js: server and client components](agentpress/material-kits/nextjs-server-client-components/AGENT_ENTRYPOINT.md) — unknown — `nextjs-server-client-components`
+- [Next.js: trailingSlash Configuration](agentpress/material-kits/nextjs-trailingslash/AGENT_ENTRYPOINT.md) — unknown — `nextjs-trailingslash`
+- [Next.js: unstable noStore](agentpress/material-kits/next-unstable-nostore/AGENT_ENTRYPOINT.md) — unknown — `next-unstable-nostore`
+- [Next.js: unstable rethrow](agentpress/material-kits/nextjs-unstable-rethrow/AGENT_ENTRYPOINT.md) — unknown — `nextjs-unstable-rethrow`
+- [Next.js: updateTag](agentpress/material-kits/nextjs-updatetag/AGENT_ENTRYPOINT.md) — unknown — `nextjs-updatetag`
+- [Next.js: urlImports](agentpress/material-kits/nextjs-urlimports/AGENT_ENTRYPOINT.md) — unknown — `nextjs-urlimports`
+- [Next.js: use client](agentpress/material-kits/nextjs-use-client/AGENT_ENTRYPOINT.md) — unknown — `nextjs-use-client`
+- [Next.js: use params](agentpress/material-kits/nextjs-use-params/AGENT_ENTRYPOINT.md) — unknown — `nextjs-use-params`
+- [Next.js: use search params](agentpress/material-kits/nextjs-use-search-params/AGENT_ENTRYPOINT.md) — unknown — `nextjs-use-search-params`
+- [Next.js: use search params](agentpress/material-kits/nextjs-search-params/AGENT_ENTRYPOINT.md) — unknown — `nextjs-search-params`
+- [Next.js: use selected layout segment](agentpress/material-kits/nextjs-selected-layout-segment/AGENT_ENTRYPOINT.md) — unknown — `nextjs-selected-layout-segment`
+- [Next.js: use selected layout segments](agentpress/material-kits/nextjs-use-selected-layout-segments/AGENT_ENTRYPOINT.md) — unknown — `nextjs-use-selected-layout-segments`
+- [Next.js: use server](agentpress/material-kits/nextjs-use-server/AGENT_ENTRYPOINT.md) — unknown — `nextjs-use-server`
+- [Next.js: useLightningcss](agentpress/material-kits/nextjs-uselightningcss/AGENT_ENTRYPOINT.md) — unknown — `nextjs-uselightningcss`
+- [Next.js: viewTransition](agentpress/material-kits/nextjs-viewtransition/AGENT_ENTRYPOINT.md) — unknown — `nextjs-viewtransition`
+- [Next.js: webVitalsAttribution](agentpress/material-kits/nextjs-webvitals-attribution/AGENT_ENTRYPOINT.md) — unknown — `nextjs-webvitals-attribution`
+- [Next.js: webVitalsAttribution](agentpress/material-kits/nextjs-webvitals-attribution/AGENT_ENTRYPOINT.md) — unknown — `nextjs-webvitals-attribution`
+- [Next.js: webpack Configuration](agentpress/material-kits/nextjs-webpack/AGENT_ENTRYPOINT.md) — unknown — `nextjs-webpack`
+- [Next.js: webpack Configuration](agentpress/material-kits/nextjs-webpack/AGENT_ENTRYPOINT.md) — unknown — `nextjs-webpack`
+- [Auth0 HTTP Request Flow Material Kit](agentpress/material-kits/auth0-http-request/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-http-request`
+- [Auth0 OIDC adoption implicit flow](agentpress/material-kits/auth0-oidc-implicit-flow/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-oidc-implicit-flow`
+- [Auth0 SAML User Deprovisioning](agentpress/material-kits/auth0-saml-deprovision/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-saml-deprovision`
+- [Auth0: auth0](agentpress/material-kits/auth0-auth-management/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-auth-management`
+- [Auth0: authentication api debugger extension](agentpress/material-kits/auth0-debugger-extension/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-debugger-extension`
+- [Auth0: configure mobile to web payment flows](agentpress/material-kits/auth0-mobile-web-payment-flows/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-mobile-web-payment-flows`
+- [Auth0: configure ssocircle as saml identity provider](agentpress/material-kits/auth0-saml-ssocircle/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-saml-ssocircle`
+- [Auth0: create a provisioning configuration](agentpress/material-kits/auth0-provisioning-config/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-provisioning-config`
+- [Auth0: error handling](agentpress/material-kits/auth0-error-handling/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-error-handling`
+- [Auth0: event stream api object](agentpress/material-kits/auth0-event-stream-api-object/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-event-stream-api-object`
+- [Auth0: flow execution and debugger](agentpress/material-kits/auth0-flow-execution-debugger/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-flow-execution-debugger`
+- [Auth0: get a provisioning configuration](agentpress/material-kits/auth0-provisioning-config/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-provisioning-config`
+- [Auth0: get identity provider configuration](agentpress/material-kits/auth0-identity-provider-config/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-identity-provider-config`
+- [Auth0: get my organization api configuration](agentpress/material-kits/auth0-org-api-config/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-org-api-config`
+- [Auth0: integrations](agentpress/material-kits/auth0-integrations/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-integrations`
+- [Auth0: json](agentpress/material-kits/auth0-json-flows/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-json-flows`
+- [Auth0: oidc adoption client credentials flow](agentpress/material-kits/auth0-oidc-client-credentials/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-oidc-client-credentials`
+- [Auth0: post deploy action](agentpress/material-kits/auth0-post-deploy-action/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-post-deploy-action`
+- [Auth0: post deploy draft version](agentpress/material-kits/auth0-post-deploy-draft-version/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-post-deploy-draft-version`
+- [Auth0: post test action](agentpress/material-kits/auth0-post-test-action/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-post-test-action`
+- [Auth0: post test event](agentpress/material-kits/auth0-post-test-event/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-post-test-event`
+- [Auth0: refresh provisioning configuration attribute mapping](agentpress/material-kits/auth0-refresh-provisioning-attribute-mapping/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-refresh-provisioning-attribute-mapping`
+- [Auth0: test custom database connections](agentpress/material-kits/auth0-custom-db-test/AGENT_ENTRYPOINT.md) — Auth0 — `auth0-custom-db-test`
+- [Bun Async Iterator Patterns](agentpress/material-kits/bun-async-iterator/AGENT_ENTRYPOINT.md) — Bun — `bun-async-iterator`
+- [Bun Test Nesting](agentpress/material-kits/bun-test-nesting/AGENT_ENTRYPOINT.md) — Bun — `bun-test-nesting`
+- [Bun configurable compact kit](agentpress/material-kits/bun-configurable/AGENT_ENTRYPOINT.md) — Bun — `bun-configurable`
+- [Bun: EvaluateOnCallFrameReturnType](agentpress/material-kits/bun-evaluateoncallframereturntype/AGENT_ENTRYPOINT.md) — Bun — `bun-evaluateoncallframereturntype`
+- [Bun: HTTP STATUS PROXY AUTHENTICATION REQUIRED](agentpress/material-kits/bun-http-status-proxy-auth/AGENT_ENTRYPOINT.md) — Bun — `bun-http-status-proxy-auth`
+- [Bun: PerformanceObserver disconnect compact kit](agentpress/material-kits/bun-performanceobserver-disconnect/AGENT_ENTRYPOINT.md) — Bun — `bun-performanceobserver-disconnect`
+- [Bun: PerformanceObserverEntryList](agentpress/material-kits/bun-performance-observer-entry-list/AGENT_ENTRYPOINT.md) — Bun — `bun-performance-observer-entry-list`
+- [Bun: REPLServerSetupHistoryOptions](agentpress/material-kits/bun-repl-server-setup-history-options/AGENT_ENTRYPOINT.md) — Bun — `bun-repl-server-setup-history-options`
+- [Bun: RuntimeError](agentpress/material-kits/bun-webassembly-runtimeerror/AGENT_ENTRYPOINT.md) — Bun — `bun-webassembly-runtimeerror`
+- [Bun: TraceConfig](agentpress/material-kits/bun-traceconfig/AGENT_ENTRYPOINT.md) — Bun — `bun-traceconfig`
+- [Bun: ZSTD error tableLog tooLarge](agentpress/material-kits/bun-zstd-error-tablelog-toolarge/AGENT_ENTRYPOINT.md) — Bun — `bun-zstd-error-tablelog-toolarge`
+- [Bun: [asyncIterator]](agentpress/material-kits/bun-async-iterator/AGENT_ENTRYPOINT.md) — Bun — `bun-async-iterator`
+- [Bun: arguments](agentpress/material-kits/bun-arguments/AGENT_ENTRYPOINT.md) — Bun — `bun-arguments`
+- [Bun: awaitPromise inspector](agentpress/material-kits/bun-awaitpromise-inspector/AGENT_ENTRYPOINT.md) — Bun — `bun-awaitpromise-inspector`
+- [Bun: bindRemoteObjectFunctionId](agentpress/material-kits/bun-bindremoteobjectfunctionid/AGENT_ENTRYPOINT.md) — Bun — `bun-bindremoteobjectfunctionid`
+- [Bun: column](agentpress/material-kits/bun-column/AGENT_ENTRYPOINT.md) — Bun — `bun-column`
+- [Bun: connectStart](agentpress/material-kits/bun-connectstart/AGENT_ENTRYPOINT.md) — Bun — `bun-connectstart`
+- [Bun: coverage](agentpress/material-kits/bun-coverage/AGENT_ENTRYPOINT.md) — Bun — `bun-coverage`
+- [Bun: coverage](agentpress/material-kits/bun-coverage/AGENT_ENTRYPOINT.md) — Bun — `bun-coverage`
+- [Bun: decodedBodySize](agentpress/material-kits/bun-decodedbodysize/AGENT_ENTRYPOINT.md) — Bun — `bun-decodedbodysize`
+- [Bun: domainLookupStart](agentpress/material-kits/bun-domainlookupstart-perf/AGENT_ENTRYPOINT.md) — Bun — `bun-domainlookupstart-perf`
+- [Bun: editorMode REPL](agentpress/material-kits/bun-editormode-repl/AGENT_ENTRYPOINT.md) — Bun — `bun-editormode-repl`
+- [Bun: enabled](agentpress/material-kits/bun-enabled/AGENT_ENTRYPOINT.md) — Bun — `bun-enabled`
+- [Bun: enqueue](agentpress/material-kits/bun-enqueue/AGENT_ENTRYPOINT.md) — Bun — `bun-enqueue`
+- [Bun: enqueue](agentpress/material-kits/bun-enqueue/AGENT_ENTRYPOINT.md) — Bun — `bun-enqueue`
+- [Bun: errored](agentpress/material-kits/bun-errored/AGENT_ENTRYPOINT.md) — Bun — `bun-errored`
+- [Bun: errored](agentpress/material-kits/bun-errored/AGENT_ENTRYPOINT.md) — Bun — `bun-errored`
+- [Bun: exceptionDetails](agentpress/material-kits/bun-exception-details/AGENT_ENTRYPOINT.md) — Bun — `bun-exception-details`
+- [Bun: expression](agentpress/material-kits/bun-expression/AGENT_ENTRYPOINT.md) — Bun — `bun-expression`
+- [Bun: fetchStart](agentpress/material-kits/bun-fetchstart-perftiming/AGENT_ENTRYPOINT.md) — Bun — `bun-fetchstart-perftiming`
+- [Bun: formData](agentpress/material-kits/bun-formdata/AGENT_ENTRYPOINT.md) — Bun — `bun-formdata`
+- [Bun: generatePreview](agentpress/material-kits/bun-generate-preview/AGENT_ENTRYPOINT.md) — Bun — `bun-generate-preview`
+- [Bun: getAuthTag](agentpress/material-kits/bun-getauthtag/AGENT_ENTRYPOINT.md) — Bun — `bun-getauthtag`
+- [Bun: getEntriesByName](agentpress/material-kits/bun-getentriesbyname/AGENT_ENTRYPOINT.md) — Bun — `bun-getentriesbyname`
+- [Bun: ignoreErrors](agentpress/material-kits/bun-ignore-errors/AGENT_ENTRYPOINT.md) — Bun — `bun-ignore-errors`
+- [Bun: isBuildingSnapshot compact context](agentpress/material-kits/bun-isbuildingnapshot/AGENT_ENTRYPOINT.md) — Bun — `bun-isbuildingnapshot`
+- [Bun: length](agentpress/material-kits/bun-length/AGENT_ENTRYPOINT.md) — Bun — `bun-length`
+- [Bun: loadExtension](agentpress/material-kits/bun-sqlite-loadextension/AGENT_ENTRYPOINT.md) — Bun — `bun-sqlite-loadextension`
+- [Bun: minify](agentpress/material-kits/bun-minify/AGENT_ENTRYPOINT.md) — Bun — `bun-minify`
+- [Bun: name](agentpress/material-kits/bun-eventdata-error-name/AGENT_ENTRYPOINT.md) — Bun — `bun-eventdata-error-name`
+- [Bun: onError](agentpress/material-kits/bun-onerror/AGENT_ENTRYPOINT.md) — Bun — `bun-onerror`
+- [Bun: onerror](agentpress/material-kits/bun-onerror/AGENT_ENTRYPOINT.md) — Bun — `bun-onerror`
+- [Bun: onmessageerror](agentpress/material-kits/bun-worker-onmessageerror/AGENT_ENTRYPOINT.md) — Bun — `bun-worker-onmessageerror`
+- [Bun: overflow](agentpress/material-kits/bun-overflow/AGENT_ENTRYPOINT.md) — Bun — `bun-overflow`
+- [Bun: proxy authenticate](agentpress/material-kits/bun-proxy-authenticate/AGENT_ENTRYPOINT.md) — Bun — `bun-proxy-authenticate`
+- [Bun: proxy authenticate compact reference](agentpress/material-kits/bun-proxy-authenticate/AGENT_ENTRYPOINT.md) — Bun — `bun-proxy-authenticate`
+- [Bun: ranges compact kit](agentpress/material-kits/bun-ranges/AGENT_ENTRYPOINT.md) — Bun — `bun-ranges`
+- [Bun: readableFlowing](agentpress/material-kits/bun-readableflowing/AGENT_ENTRYPOINT.md) — Bun — `bun-readableflowing`
+- [Bun: readableFlowing HTTP/2 Stream State](agentpress/material-kits/bun-readableflowing/AGENT_ENTRYPOINT.md) — Bun — `bun-readableflowing`
+- [Bun: readableFlowing compact reference kit](agentpress/material-kits/bun-readableflowing/AGENT_ENTRYPOINT.md) — Bun — `bun-readableflowing`
+- [Bun: schema](agentpress/material-kits/bun-postgres-error-schema/AGENT_ENTRYPOINT.md) — Bun — `bun-postgres-error-schema`
+- [Bun: servername](agentpress/material-kits/bun-servername/AGENT_ENTRYPOINT.md) — Bun — `bun-servername`
+- [Bun: sessionError](agentpress/material-kits/bun-sessionerror/AGENT_ENTRYPOINT.md) — Bun — `bun-sessionerror`
+- [Bun: setAuthTag](agentpress/material-kits/bun-setauthtag/AGENT_ENTRYPOINT.md) — Bun — `bun-setauthtag`
+- [Bun: silent](agentpress/material-kits/bun-inspector-silent/AGENT_ENTRYPOINT.md) — Bun — `bun-inspector-silent`
+- [Bun: sourcemap](agentpress/material-kits/bun-sourcemap/AGENT_ENTRYPOINT.md) — Bun — `bun-sourcemap`
+- [Bun: stack](agentpress/material-kits/bun-stack/AGENT_ENTRYPOINT.md) — Bun — `bun-stack`
+- [Bun: stack](agentpress/material-kits/bun-wasm-stack/AGENT_ENTRYPOINT.md) — Bun — `bun-wasm-stack`
+- [Bun: stack](agentpress/material-kits/bun-mockfunctioncall-stack/AGENT_ENTRYPOINT.md) — Bun — `bun-mockfunctioncall-stack`
+- [Bun: stackStartFn](agentpress/material-kits/bun-stackstartfn/AGENT_ENTRYPOINT.md) — Bun — `bun-stackstartfn`
+- [Bun: start](agentpress/material-kits/bun-start/AGENT_ENTRYPOINT.md) — Bun — `bun-start`
+- [Bun: startLine Debug Property](agentpress/material-kits/bun-debugger-startline/AGENT_ENTRYPOINT.md) — Bun — `bun-debugger-startline`
+- [Bun: startTime](agentpress/material-kits/bun-starttime-performance/AGENT_ENTRYPOINT.md) — Bun — `bun-starttime-performance`
+- [Bun: strictFieldWhitespaceValidation](agentpress/material-kits/bun-strictfieldwhitespacevalidation/AGENT_ENTRYPOINT.md) — Bun — `bun-strictfieldwhitespacevalidation`
+- [Bun: strictFieldWhitespaceValidation](agentpress/material-kits/bun-strictfieldwhitespacevalidation/AGENT_ENTRYPOINT.md) — Bun — `bun-strictfieldwhitespacevalidation`
+- [Bun: supportedEntryTypes](agentpress/material-kits/bun-supported-entry-types/AGENT_ENTRYPOINT.md) — Bun — `bun-supported-entry-types`
+- [Bun: target](agentpress/material-kits/bun-mockfunctioncall-target/AGENT_ENTRYPOINT.md) — Bun — `bun-mockfunctioncall-target`
+- [Bun: this](agentpress/material-kits/bun-mockfunctioncall-this/AGENT_ENTRYPOINT.md) — Bun — `bun-mockfunctioncall-this`
+- [Bun: times](agentpress/material-kits/bun-mock-function-options-times/AGENT_ENTRYPOINT.md) — Bun — `bun-mock-function-options-times`
+- [Bun: type](agentpress/material-kits/bun-inspector-type/AGENT_ENTRYPOINT.md) — Bun — `bun-inspector-type`
+- [Bun: unserializableValue](agentpress/material-kits/bun-unserializable-value/AGENT_ENTRYPOINT.md) — Bun — `bun-unserializable-value`
+- [Bun: v8Start](agentpress/material-kits/bun-v8start/AGENT_ENTRYPOINT.md) — Bun — `bun-v8start`
+- [Bun: waitingForDebugger](agentpress/material-kits/bun-waitingfordebugger/AGENT_ENTRYPOINT.md) — Bun — `bun-waitingfordebugger`
+- [Redis CRDT Sources Alerts](agentpress/material-kits/redis-crdt-sources-alerts/AGENT_ENTRYPOINT.md) — Redis — `redis-crdt-sources-alerts`
+- [Redis replica sources alerts compact kit](agentpress/material-kits/redis-replica-sources-alerts/AGENT_ENTRYPOINT.md) — Redis — `redis-replica-sources-alerts`
+- [Redis: actions](agentpress/material-kits/redis-shard-actions/AGENT_ENTRYPOINT.md) — Redis — `redis-shard-actions`
+- [Redis: actions](agentpress/material-kits/redis-actions/AGENT_ENTRYPOINT.md) — Redis — `redis-actions`
+- [Redis: actions](agentpress/material-kits/redis-cluster-actions/AGENT_ENTRYPOINT.md) — Redis — `redis-cluster-actions`
+- [Redis: alerts](agentpress/material-kits/redis-alerts/AGENT_ENTRYPOINT.md) — Redis — `redis-alerts`
+- [Redis: all debug info](agentpress/material-kits/redis-debuginfo-all/AGENT_ENTRYPOINT.md) — Redis — `redis-debuginfo-all`
+- [Redis: auditing db conns](agentpress/material-kits/redis-auditing-db-conns/AGENT_ENTRYPOINT.md) — Redis — `redis-auditing-db-conns`
+- [Redis: authorize](agentpress/material-kits/redis-authorize/AGENT_ENTRYPOINT.md) — Redis — `redis-authorize`
+- [Redis: availability](agentpress/material-kits/redis-availability/AGENT_ENTRYPOINT.md) — Redis — `redis-availability`
+- [Redis: bdb alert settings with threshold](agentpress/material-kits/redis-bdb-alert-settings-threshold/AGENT_ENTRYPOINT.md) — Redis — `redis-bdb-alert-settings-threshold`
+- [Redis: bdb usage report job settings](agentpress/material-kits/redis-bdb-usage-report-job-settings/AGENT_ENTRYPOINT.md) — Redis — `redis-bdb-usage-report-job-settings`
+- [Redis: cluster info](agentpress/material-kits/redis-cluster-info/AGENT_ENTRYPOINT.md) — Redis — `redis-cluster-info`
+- [Redis: config](agentpress/material-kits/redis-config/AGENT_ENTRYPOINT.md) — Redis — `redis-config`
+- [Redis: crdt](agentpress/material-kits/redis-crdt/AGENT_ENTRYPOINT.md) — Redis — `redis-crdt`
+- [Redis: db metrics](agentpress/material-kits/redis-db-metrics/AGENT_ENTRYPOINT.md) — Redis — `redis-db-metrics`
+- [Redis: debuginfo](agentpress/material-kits/redis-debuginfo/AGENT_ENTRYPOINT.md) — Redis — `redis-debuginfo`
+- [Redis: debuginfo compact reference](agentpress/material-kits/redis-debuginfo/AGENT_ENTRYPOINT.md) — Redis — `redis-debuginfo`
+- [Redis: failover](agentpress/material-kits/redis-failover/AGENT_ENTRYPOINT.md) — Redis — `redis-failover`
+- [Redis: flush](agentpress/material-kits/redis-flush/AGENT_ENTRYPOINT.md) — Redis — `redis-flush`
+- [Redis: health report](agentpress/material-kits/redis-health-report/AGENT_ENTRYPOINT.md) — Redis — `redis-health-report`
+- [Redis: health report](agentpress/material-kits/redis-health-report/AGENT_ENTRYPOINT.md) — Redis — `redis-health-report`
+- [Redis: instance info compact reference kit](agentpress/material-kits/redis-instance-info/AGENT_ENTRYPOINT.md) — Redis — `redis-instance-info`
+- [Redis: last stats endpoint compact context](agentpress/material-kits/redis-stats-last/AGENT_ENTRYPOINT.md) — Redis — `redis-stats-last`
+- [Redis: migrate](agentpress/material-kits/redis-migrate/AGENT_ENTRYPOINT.md) — Redis — `redis-migrate`
+- [Redis: modify request](agentpress/material-kits/redis-modify-request/AGENT_ENTRYPOINT.md) — Redis — `redis-modify-request`
+- [Redis: modules](agentpress/material-kits/redis-modules/AGENT_ENTRYPOINT.md) — Redis — `redis-modules`
+- [Redis: node debug info compact kit](agentpress/material-kits/redis-debuginfo-node/AGENT_ENTRYPOINT.md) — Redis — `redis-debuginfo-node`
+- [Redis: passwords](agentpress/material-kits/redis-passwords/AGENT_ENTRYPOINT.md) — Redis — `redis-passwords`
+- [Redis: peer stats compact context](agentpress/material-kits/redis-peer-stats/AGENT_ENTRYPOINT.md) — Redis — `redis-peer-stats`
+- [Redis: purge](agentpress/material-kits/redis-purge/AGENT_ENTRYPOINT.md) — Redis — `redis-purge`
+- [Redis: replica](agentpress/material-kits/redis-replica/AGENT_ENTRYPOINT.md) — Redis — `redis-replica`
+- [Redis: shards](agentpress/material-kits/redis-shards/AGENT_ENTRYPOINT.md) — Redis — `redis-shards`
+- [Redis: snapshot policy](agentpress/material-kits/redis-snapshot-policy/AGENT_ENTRYPOINT.md) — Redis — `redis-snapshot-policy`
+- [Redis: stats](agentpress/material-kits/redis-stats/AGENT_ENTRYPOINT.md) — Redis — `redis-stats`
+- [Redis: status](agentpress/material-kits/redis-status/AGENT_ENTRYPOINT.md) — Redis — `redis-status`
+- [Redis: sync source stats](agentpress/material-kits/redis-sync-source-stats/AGENT_ENTRYPOINT.md) — Redis — `redis-sync-source-stats`
+- [Redis: syncer state compact kit](agentpress/material-kits/redis-syncer-state/AGENT_ENTRYPOINT.md) — Redis — `redis-syncer-state`
+- [Redis: timeseries](agentpress/material-kits/redis-timeseries/AGENT_ENTRYPOINT.md) — Redis — `redis-timeseries`
+- [Redis: updates](agentpress/material-kits/redis-updates/AGENT_ENTRYPOINT.md) — Redis — `redis-updates`
+- [Redis: upgrade](agentpress/material-kits/redis-upgrade/AGENT_ENTRYPOINT.md) — Redis — `redis-upgrade`
+- [Redis: upgrade](agentpress/material-kits/redis-upgrade/AGENT_ENTRYPOINT.md) — Redis — `redis-upgrade`
+- [Redis: upgrade](agentpress/material-kits/redis-upgrade/AGENT_ENTRYPOINT.md) — Redis — `redis-upgrade`
+- [Supabase: building chatgpt plugins](agentpress/material-kits/supabase-chatgpt-plugins/AGENT_ENTRYPOINT.md) — Supabase — `supabase-chatgpt-plugins`
+- [Supabase: duckdb analytics](agentpress/material-kits/supabase-duckdb-analytics/AGENT_ENTRYPOINT.md) — Supabase — `supabase-duckdb-analytics`
+- [Supabase: elevenlabs generate speech stream](agentpress/material-kits/supabase-elevenlabs-speech-stream/AGENT_ENTRYPOINT.md) — Supabase — `supabase-elevenlabs-speech-stream`
+- [Supabase: github actions](agentpress/material-kits/supabase-github-actions/AGENT_ENTRYPOINT.md) — Supabase — `supabase-github-actions`

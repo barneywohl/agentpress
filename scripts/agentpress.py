@@ -16,9 +16,9 @@ Usage:
   python3 scripts/agentpress.py tools-manifest
   python3 scripts/agentpress.py tools-manifest-check --json
   python3 scripts/agentpress.py team-pack --slug example-team --capability research:market-map --consent-source public_source --out /tmp/example-team.json
+  python3 scripts/agentpress.py quickstart --agent-id local-agent --runtime codex --out /tmp/agentpress-quickstart --json
   python3 scripts/agentpress.py self-test --agent-id my-agent --out /tmp/agentpress-self-test.jsonl
   python3 scripts/agentpress.py index-search --json
-  python3 scripts/agentpress.py adoption-fixpack --json
   python3 scripts/agentpress.py search "message route capability" --json
   python3 scripts/agentpress.py score out-dir
   python3 scripts/agentpress.py build out-dir --out public-dir
@@ -40,6 +40,7 @@ import sys
 import uuid
 import time
 import xml.etree.ElementTree as ET
+from dataclasses import asdict, dataclass
 from datetime import date, datetime, timezone
 from urllib.parse import urljoin, urlparse
 from urllib.request import Request, urlopen
@@ -54,6 +55,63 @@ REQUIRED = [
     "disclaimer.md",
 ]
 
+SENSITIVE_PATH_MARKERS = (
+    ".env",
+    ".ssh",
+    ".aws",
+    ".config/gcloud",
+    ".netrc",
+    ".pypirc",
+    "id_rsa",
+    "id_ed25519",
+    "clawd_secrets",
+)
+SENSITIVE_PATH_ARG_NAMES = {
+    "root", "out", "dest", "source", "file", "path", "dir", "package", "manifest", "workdir",
+    "bundle", "suite", "index", "inbox", "proof", "current_bundle", "latest_bundle", "transcript",
+    "input", "output", "catalog", "tools", "routes", "matrix", "checkpoint", "log", "review", "envelope",
+    "fixture",
+    "config_path", "backup_dir", "restore", "diff", "changed_file", "error_file", "receipt", "landing_dir",
+    "self_test_dir", "receipt_dir", "external_proof_index", "queue", "coverage", "painpoints", "adoption",
+    "scoped_report", "python_sdk", "openapi", "registry", "directory", "evidence_dir", "artifacts",
+    "feedback", "ranking",
+}
+
+
+def _path_parts_for_sensitivity(value: str) -> list[str]:
+    normalized = value.replace("\\", "/")
+    return [part for part in normalized.split("/") if part]
+
+
+def contains_sensitive_path(value: str) -> bool:
+    if not value or "://" in value:
+        return False
+    parts = _path_parts_for_sensitivity(str(pathlib.Path(value).expanduser()))
+    joined = "/".join(parts)
+    for marker in SENSITIVE_PATH_MARKERS:
+        marker_parts = marker.split("/")
+        if len(marker_parts) == 1:
+            if marker in parts:
+                return True
+        elif marker in joined:
+            return True
+    return False
+
+
+def validate_cli_paths(args: argparse.Namespace) -> None:
+    if os.environ.get("AGENTPRESS_ALLOW_SENSITIVE") == "1":
+        return
+    for name, value in vars(args).items():
+        if name not in SENSITIVE_PATH_ARG_NAMES:
+            continue
+        values = value if isinstance(value, list) else [value]
+        for item in values:
+            if isinstance(item, str) and contains_sensitive_path(item):
+                raise SystemExit(
+                    f"Refusing to operate on sensitive path for --{name.replace('_', '-')}: {item}. "
+                    "Set AGENTPRESS_ALLOW_SENSITIVE=1 only if this is intentional."
+                )
+
 AGENTPRESS_REQUIRED = REQUIRED + [
     "source-map.json",
     "freshness.json",
@@ -63,8 +121,6 @@ AGENTPRESS_REQUIRED = REQUIRED + [
 ]
 
 CANONICAL_BASE_URL = "https://barneywohl.github.io/agentpress/"
-# No broken fallback advertised; keep fallback equal to canonical until another mirror is healthy.
-FALLBACK_BASE_URL = "https://barneywohl.github.io/agentpress/"
 SCHEMA_REL_ROOT = "agentpress/schemas"
 CONTRACT_SCHEMA_MAP = {
     "agent-task-card.json": "agent-task-card.schema.json",
@@ -75,100 +131,6 @@ CONTRACT_SCHEMA_MAP = {
     "article-card.json": "article-card.schema.json",
 }
 
-AGENT_PAINPOINT_MAP = [
-    {
-        "rank": 1,
-        "id": "first_run_onboarding_friction",
-        "priority": "P0",
-        "painpoint": "Agents do not know what to run first / onboarding friction.",
-        "target_approach": "Keep every first-contact surface pointed at a short, ranked, JSON-producing first-run path.",
-        "target_features": ["start --json", "doctor --json", "llms-init", "first-run-wizard"],
-        "safe_now": ["ranked_first_actions in start output", "painpoint-map CLI"],
-    },
-    {
-        "rank": 2,
-        "id": "python_runtime_dependency_friction",
-        "priority": "P0",
-        "painpoint": "Python/runtime dependency friction from npm shim.",
-        "target_approach": "Make the npm shim useful before Python exists and point to the full CLI only when Python >=3.10 is available.",
-        "target_features": ["Node start fast path", "Node doctor fast path", "package-registry-doctor"],
-        "safe_now": ["version_channel guidance in start/doctor/package-registry-doctor"],
-    },
-    {
-        "rank": 3,
-        "id": "secret_path_guardrails",
-        "priority": "P0",
-        "painpoint": "Agents can leak/read secret paths unless guardrails are obvious and enforced.",
-        "target_approach": "Fail closed on sensitive roots and make sandbox/approval boundaries machine-readable.",
-        "target_features": ["safety-preflight", "secret path guard", "sandbox-guard", "redaction-check"],
-        "safe_now": ["handoff evidence hashing refuses sensitive paths", "safety-preflight umbrella links no-secret preflights"],
-    },
-    {
-        "rank": 4,
-        "id": "proof_handoff_evidence",
-        "priority": "P0",
-        "painpoint": "Agents need proof/evidence bundles for handoffs, not prose claims.",
-        "target_approach": "Attach hashes, commands, acceptance gates, and proof bundle paths to handoffs.",
-        "target_features": ["proof-capture", "handoff-pack", "submission-pack"],
-        "safe_now": ["handoff evidence_manifest with sha256/missing/refused status"],
-    },
-    {
-        "rank": 5,
-        "id": "docs_command_drift",
-        "priority": "P1",
-        "painpoint": "Docs are long/stale; command examples drift.",
-        "target_approach": "Prefer compact command cards and keep docs command lint in CI gates.",
-        "target_features": ["docs-command-check", "start --json", "AGENT_START_HERE"],
-        "safe_now": ["status artifact with sprint scope and deferred items"],
-    },
-    {
-        "rank": 6,
-        "id": "stable_vs_rc_confusion",
-        "priority": "P1",
-        "painpoint": "Version confusion: stable latest vs rc lane.",
-        "target_approach": "Label local rc builds as rc and avoid claiming registry-stable status without live registry proof.",
-        "target_features": ["version_channel", "package-registry-doctor", "release-registry-readiness-dashboard"],
-        "safe_now": ["version_channel in start/doctor/package-registry-doctor"],
-    },
-    {
-        "rank": 7,
-        "id": "compact_task_cards_source_maps",
-        "priority": "P1",
-        "painpoint": "Agents need compact task cards/source maps rather than huge docs and bloated contexts.",
-        "target_approach": "Expose task cards, source maps, context budgets, and exact next commands before long-form docs.",
-        "target_features": ["context-budget", "agent-task-card.json", "source-map.json", "task-handoff-contract"],
-        "safe_now": ["painpoint-map includes compact target feature mapping", "context-budget gate reports file/byte budgets"],
-    },
-    {
-        "rank": 8,
-        "id": "offline_mirror_freshness_hashes",
-        "priority": "P1",
-        "painpoint": "Offline/mirror/freshness gaps: raw fallback URLs, signed/hash manifests, freshness checks.",
-        "target_approach": "Keep fallback URLs, hash manifests, and freshness reports adjacent to install/proof flows.",
-        "target_features": ["package-verify", "verify_manifest_integrity", "freshness-citation-report", "failover-plan"],
-        "safe_now": ["documented as P1 continuation; no live mirror changes in this sprint"],
-    },
-    {
-        "rank": 9,
-        "id": "native_adapter_ecosystem_gaps",
-        "priority": "P2",
-        "painpoint": "Native adapter ecosystem gaps: Cline/Roo/OpenHands/MCP/LangChain/LlamaIndex/CrewAI.",
-        "target_approach": "Keep static adapter kits and conformance artifacts ready, but defer external submissions until manual approval.",
-        "target_features": ["native-adapter-kit", "ecosystem-conformance-suite", "mcp-registry-pack"],
-        "safe_now": ["blocked/deferred for external submission; local packs remain safe"],
-    },
-]
-
-SPRINT_SHIPPED_FEATURES = [
-    "painpoint-map CLI emits ranked agent painpoints, target features, P0/P1/P2 backlog, and sprint scope",
-    "start --json exposes ranked_first_actions and stable-vs-rc version_channel clarity",
-    "doctor/package-registry-doctor include version_channel so rc builds are not mislabeled as stable",
-    "handoff-pack includes evidence_manifest hashes and refuses sensitive evidence paths before reading",
-    "safety-preflight umbrellas no-secret guardrails without reading secret paths by default",
-    "context-budget gates source-map, freshness, file, byte, and estimated-char budgets",
-    "mcp-config-doctor statically validates MCP config JSON, duplicate names, and env literal risks without mutation",
-]
-
 FETCH_ASSETS = [
     "llms.txt",
     ".well-known/agentpress.json",
@@ -177,7 +139,6 @@ FETCH_ASSETS = [
     "agentpress/payments/payment-policy.json",
     "agentpress/payments/payment-capabilities.json",
     "agentpress/payments/x402-readiness.json",
-    "agentpress/payments/nexio-testnet-readiness.json",
     "agentpress/schemas/index.json",
     "agentpress/agentpress-registry.json",
     "agentpress/articles/article-index.json",
@@ -213,168 +174,6 @@ def slugify(s: str) -> str:
 
 def read_text(path: pathlib.Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
-
-
-SENSITIVE_PATH_MARKERS = (
-    ".env",
-    ".ssh",
-    ".aws",
-    ".config/gcloud",
-    ".netrc",
-    ".pypirc",
-    ".npmrc",
-    "id_rsa",
-    "id_ed25519",
-    "clawd_secrets",
-)
-
-
-def _is_sensitive_path(path: pathlib.Path) -> bool:
-    """Fail closed before lint/doctor read paths that are commonly secret-bearing."""
-    raw = path.expanduser().as_posix().lower()
-    name = path.name.lower()
-    if name.endswith((".key", ".pem")):
-        return True
-    return any(marker in raw for marker in SENSITIVE_PATH_MARKERS)
-
-
-def _secret_path_guard(root: pathlib.Path) -> list[dict]:
-    if _is_sensitive_path(root):
-        return [{
-            "severity": "error",
-            "code": "sensitive_root_refused",
-            "path": str(root),
-            "message": "Refusing to lint/doctor a secret-bearing path (.env, SSH/AWS/GCloud credentials, key/pem files, netrc, npm/pypi auth, or clawd_secrets). Choose the public project root instead.",
-        }]
-    return []
-
-
-def _repo_root() -> pathlib.Path:
-    return pathlib.Path(__file__).resolve().parent.parent if "__file__" in globals() else pathlib.Path(".")
-
-
-def _local_package_versions() -> dict:
-    root = _repo_root()
-    versions = {"npm_package": "@agent_press/agentpress", "npm_version": "", "python_package": "agentpress-static", "python_version": ""}
-    package_json = root / "package.json"
-    if package_json.exists():
-        try:
-            meta = json.loads(package_json.read_text(encoding="utf-8"))
-            versions["npm_package"] = meta.get("name") or versions["npm_package"]
-            versions["npm_version"] = meta.get("version") or ""
-        except Exception:
-            pass
-    init_py = root / "agentpress_cli" / "__init__.py"
-    if init_py.exists():
-        m = re.search(r'__version__\s*=\s*"([^"]+)"', init_py.read_text(encoding="utf-8", errors="replace"))
-        if m:
-            versions["python_version"] = m.group(1)
-    return versions
-
-
-def _version_channel_info() -> dict:
-    versions = _local_package_versions()
-    npm_version = versions.get("npm_version") or "unknown"
-    py_version = versions.get("python_version") or "unknown"
-    is_rc = any("rc" in str(v).lower() for v in [npm_version, py_version])
-    return {
-        "channel": "release_candidate" if is_rc else "stable_or_local",
-        "local": versions,
-        "stable_latest": {
-            "status": "not_asserted_without_registry_check",
-            "rule": "Do not call a release candidate the stable latest. Verify npm/PyPI live registry state before using stable labels.",
-        },
-        "rc_lane": {
-            "status": "active" if is_rc else "not_detected",
-            "npm_install_hint": f"npm package metadata in this checkout is {npm_version}",
-            "python_install_hint": f"Python package metadata in this checkout is {py_version}",
-        },
-        "safe_publish_policy": "No npm/PyPI publish is implied by this CLI output; dry-run/pack checks are local evidence only.",
-    }
-
-
-def _ranked_first_actions(root: pathlib.Path | str = ".") -> list[dict]:
-    root_arg = shlex.quote(str(root))
-    return [
-        {
-            "rank": 1,
-            "id": "doctor",
-            "command": f"python3 scripts/agentpress.py doctor {root_arg} --json",
-            "targets_painpoints": ["first_run_onboarding_friction", "secret_path_guardrails", "stable_vs_rc_confusion"],
-            "why": "Start with a bounded health check and machine-readable next_steps.",
-        },
-        {
-            "rank": 2,
-            "id": "llms_init_if_missing",
-            "command": f"python3 scripts/agentpress.py llms-init {root_arg} --json",
-            "targets_painpoints": ["first_run_onboarding_friction", "compact_task_cards_source_maps"],
-            "why": "Create the minimal agent-readable entrypoints when doctor reports missing surfaces.",
-        },
-        {
-            "rank": 3,
-            "id": "first_run_wizard",
-            "command": f"python3 scripts/agentpress.py first-run-wizard {root_arg} --json",
-            "targets_painpoints": ["first_run_onboarding_friction", "python_runtime_dependency_friction", "proof_handoff_evidence"],
-            "why": "Emit the exact next command, host/provider blockers, and proof command.",
-        },
-        {
-            "rank": 4,
-            "id": "proof_capture",
-            "command": "python3 scripts/agentpress.py proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --commands 'python3 scripts/agentpress.py doctor --json' --json",
-            "targets_painpoints": ["proof_handoff_evidence"],
-            "why": "Turn the run into a local proof bundle instead of a prose claim.",
-        },
-    ]
-
-
-def _painpoint_backlog() -> dict:
-    return {
-        "P0": [
-            "Keep first-run commands ranked and copy/pasteable.",
-            "Keep no-Python npm shim paths useful without claiming full CLI readiness.",
-            "Fail closed on secret-bearing paths before read/write attempts.",
-            "Hash handoff/proof evidence so claims are reviewable.",
-        ],
-        "P1": [
-            "Expand docs-command-check coverage and keep examples close to machine entrypoints.",
-            "Add freshness/hash manifest checks to more release and mirror surfaces.",
-            "Generate more compact task cards/source maps for large docs.",
-            "Make stable-vs-rc labels visible in every install/registry diagnostic.",
-        ],
-        "P2": [
-            "Submit native adapter packs to Cline/Roo/OpenHands/MCP/LangChain/LlamaIndex/CrewAI communities after manual approval.",
-            "Upgrade hash-only manifests to signed manifests after key ownership is approved.",
-        ],
-    }
-
-
-def _evidence_manifest(paths: list[str]) -> tuple[list[dict], int]:
-    rows = []
-    secret_hit_count = 0
-    for item in paths:
-        path = pathlib.Path(item).expanduser()
-        row = {"path": item}
-        if _is_sensitive_path(path):
-            row.update({"status": "refused_sensitive_path", "safe_to_share": False, "sha256": None})
-            rows.append(row)
-            continue
-        if not path.exists() or not path.is_file():
-            row.update({"status": "missing", "safe_to_share": False})
-            rows.append(row)
-            continue
-        content = path.read_bytes()
-        text = content.decode("utf-8", "replace")
-        hits = _scan_for_secrets(text)
-        secret_hit_count += len(hits)
-        row.update({
-            "status": "present",
-            "bytes": len(content),
-            "sha256": hashlib.sha256(content).hexdigest(),
-            "secret_scan": {"hits": len(hits), "safe": len(hits) == 0},
-            "safe_to_share": len(hits) == 0,
-        })
-        rows.append(row)
-    return rows, secret_hit_count
 
 
 def write(path: pathlib.Path, text: str) -> None:
@@ -479,6 +278,10 @@ def _ai_ingestion(title: str, canonical: str) -> dict:
 def init(args):
     out = pathlib.Path(args.out)
     title = args.title
+    if getattr(args, "dry_run", False):
+        payload = {"dry_run": True, "command": "init", "out": str(out), "title": title}
+        print(json.dumps(payload, indent=2) if getattr(args, "json", False) else f"[DRY RUN] Would initialize AgentPress bundle at {out}")
+        return 0
     slug = slugify(title)
     canonical = args.canonical or f"https://example.com/{slug}/"
     summary = args.summary or "Agent-native publication with a human-readable brief, machine-readable task card, and crawler/RAG-friendly metadata."
@@ -780,11 +583,264 @@ def audit_root(root: pathlib.Path, strict: bool = True) -> tuple[int, list[str],
     return (0 if not errors else 1), errors, warnings
 
 
+MATERIAL_KIT_MANIFEST_CANDIDATES = ("material-kit.json", "kit-manifest.json", "manifest.json")
+MATERIAL_KIT_REQUIRED = (
+    "README.md",
+    "AGENT_ENTRYPOINT.md",
+    "agent-task-card.json",
+    "source-map.json",
+    "freshness.json",
+    "allowed-actions.json",
+    "llms.txt",
+)
+
+
+def _safe_material_relpath(rel: str) -> bool:
+    if not isinstance(rel, str) or not rel or rel.startswith(("/", "~")) or "://" in rel:
+        return False
+    p = pathlib.PurePosixPath(rel.replace("\\", "/"))
+    return ".." not in p.parts and not contains_sensitive_path(rel)
+
+
+def _material_manifest(root: pathlib.Path) -> tuple[pathlib.Path | None, dict | None, list[str]]:
+    for name in MATERIAL_KIT_MANIFEST_CANDIDATES:
+        p = root / name
+        if not p.exists():
+            continue
+        try:
+            payload = json.loads(p.read_text(encoding="utf-8"))
+        except Exception as e:
+            return p, None, [f"{name}: malformed json: {e}"]
+        if not isinstance(payload, dict):
+            return p, None, [f"{name}: manifest must be object"]
+        return p, payload, []
+    return None, None, ["missing material kit manifest: one of material-kit.json, kit-manifest.json, manifest.json"]
+
+
+def material_kit_audit(root: pathlib.Path, *, require_glm: bool = True) -> tuple[int, list[str], list[str]]:
+    """Strict local validation for GLM/material kits."""
+    root = root.resolve()
+    errors = []
+    warnings = []
+    if not root.exists() or not root.is_dir():
+        return 1, [f"material kit root not found or not directory: {root}"], warnings
+
+    errors.extend(f"missing material kit file: {rel}" for rel in MATERIAL_KIT_REQUIRED if not (root / rel).exists())
+    _, bundle_errors, bundle_warnings = audit_root(root, strict=True)
+    errors.extend(bundle_errors)
+    warnings.extend(bundle_warnings)
+
+    manifest_path, manifest, manifest_errors = _material_manifest(root)
+    errors.extend(manifest_errors)
+    if manifest is not None:
+        files_value = manifest.get("files") or manifest.get("artifacts")
+        if not isinstance(files_value, list) or not files_value:
+            errors.append(f"{manifest_path.name}: files/artifacts must be a non-empty list")
+        else:
+            for item in files_value:
+                rel = item.get("path") if isinstance(item, dict) else item
+                if not _safe_material_relpath(rel):
+                    errors.append(f"{manifest_path.name}: unsafe file path: {rel!r}")
+                    continue
+                if not (root / rel).exists():
+                    errors.append(f"{manifest_path.name}: listed file missing: {rel}")
+
+        hashes = manifest.get("hashes") or manifest.get("sha256") or {}
+        if not isinstance(hashes, dict) or not hashes:
+            errors.append(f"{manifest_path.name}: hashes/sha256 must be a non-empty object")
+        else:
+            for rel, expected in sorted(hashes.items()):
+                if not _safe_material_relpath(rel):
+                    errors.append(f"{manifest_path.name}: unsafe hash path: {rel!r}")
+                    continue
+                p = root / rel
+                if not p.exists():
+                    errors.append(f"{manifest_path.name}: hashed file missing: {rel}")
+                    continue
+                actual = hashlib.sha256(p.read_bytes()).hexdigest()
+                if actual != str(expected).lower():
+                    errors.append(f"{manifest_path.name}: sha256 mismatch for {rel}: expected {expected}, got {actual}")
+        if require_glm and "glm" not in json.dumps(manifest, sort_keys=True).lower():
+            errors.append(f"{manifest_path.name}: GLM kit must declare glm in agent_family/runtime/target metadata")
+
+    sm_path = root / "source-map.json"
+    if sm_path.exists():
+        try:
+            sm = json.loads(sm_path.read_text(encoding="utf-8"))
+            claims = sm.get("claims")
+            if not isinstance(claims, list) or not claims:
+                errors.append("source-map.json: claims must be a non-empty list")
+            else:
+                for i, claim in enumerate(claims):
+                    sources = claim.get("sources") if isinstance(claim, dict) else None
+                    if not isinstance(sources, list) or not sources:
+                        errors.append(f"source-map.json: claims[{i}].sources must be non-empty")
+                        continue
+                    for j, src in enumerate(sources):
+                        if not isinstance(src, dict) or not src.get("title") or not src.get("url_or_path"):
+                            errors.append(f"source-map.json: claims[{i}].sources[{j}] requires title and url_or_path")
+                            continue
+                        rel = str(src.get("url_or_path"))
+                        if "://" not in rel and _safe_material_relpath(rel) and not (root / rel).exists():
+                            errors.append(f"source-map.json: claims[{i}].sources[{j}] local source missing: {rel}")
+        except Exception as e:
+            errors.append(f"source-map.json: malformed json: {e}")
+
+    if require_glm:
+        card_path = root / "agent-task-card.json"
+        if card_path.exists():
+            try:
+                card_blob = json.dumps(json.loads(card_path.read_text(encoding="utf-8"))).lower()
+                if "glm" not in card_blob:
+                    errors.append("agent-task-card.json: GLM material kit must explicitly target glm")
+            except Exception:
+                pass
+    return (0 if not errors else 1), errors, warnings
+
+
+def material_kit_validate(args):
+    code, errors, warnings = material_kit_audit(pathlib.Path(args.path), require_glm=not getattr(args, "allow_non_glm", False))
+    payload = {
+        "schema_version": "2026-05-06.agentpress-material-kit-validation.v1",
+        "status": "ok" if code == 0 else "fail",
+        "path": str(pathlib.Path(args.path)),
+        "validator": "agentpress_material_kit_strict_glm",
+        "errors": errors,
+        "warnings": warnings,
+    }
+    if getattr(args, "json", False):
+        print(json.dumps(payload, indent=2))
+    else:
+        if code:
+            for e in errors:
+                print(e)
+        else:
+            print("agentpress material kit validation ok")
+    return code
+
+
+
+def kit_search(args):
+    query = " ".join(getattr(args, "query", None) or []) or getattr(args, "q", "") or ""
+    limit = int(getattr(args, "limit", 20) or 20)
+    roots = [
+        pathlib.Path(getattr(args, "index", "agentpress/public-material-kits/index.json")),
+        pathlib.Path("agentpress/public-material-kits/index.json"),
+    ]
+    index_path = next((x for x in roots if x.exists()), roots[0])
+    items = []
+    errors = []
+    if index_path.exists():
+        try:
+            data = json.loads(index_path.read_text(encoding="utf-8"))
+            items = data.get("items") or []
+        except Exception as e:
+            errors.append(f"{index_path}: parse error: {e}")
+    else:
+        kit_root = pathlib.Path(getattr(args, "root", "agentpress/material-kits"))
+        for kit in sorted(kit_root.glob("*")) if kit_root.exists() else []:
+            if not kit.is_dir():
+                continue
+            title = kit.name
+            manifest = kit/"material-kit.json"
+            if manifest.exists():
+                try:
+                    title = json.loads(manifest.read_text(encoding="utf-8")).get("title") or title
+                except Exception:
+                    pass
+            items.append({"slug": kit.name, "title": title, "path": kit.as_posix(), "entrypoint": (kit/"AGENT_ENTRYPOINT.md").as_posix()})
+    q = query.lower().strip()
+    def score(item):
+        hay = " ".join(str(item.get(k) or "") for k in ["slug", "title", "path", "ecosystem", "target_url"]) + " " + " ".join(item.get("search_terms") or [])
+        h = hay.lower()
+        if not q:
+            return 1
+        terms = [t for t in re.split(r"\s+", q) if t]
+        return sum(3 if t in str(item.get("slug", "")).lower() else (2 if t in str(item.get("title", "")).lower() else (1 if t in h else 0)) for t in terms)
+    ranked = [(score(i), i) for i in items]
+    ranked = [x for x in ranked if x[0] > 0]
+    ranked.sort(key=lambda x: (-x[0], str(x[1].get("title") or x[1].get("slug") or "")))
+    results = [i for _, i in ranked[:limit]]
+    payload = {
+        "schema_version": "2026-05-07.agentpress-kit-search.v1",
+        "status": "ok" if not errors else "fail",
+        "query": query,
+        "index": str(index_path),
+        "result_count": len(results),
+        "results": results,
+        "errors": errors,
+    }
+    print(json.dumps(payload, indent=2) if getattr(args, "json", False) else "\n".join(f"{r.get('title')}\t{r.get('path')}" for r in results))
+    return 0 if not errors else 1
+
+def materialized_validated_status(records: list[dict]) -> dict:
+    """Summarize materialization/validation state for GLM kit-build records."""
+    total = len(records)
+    materialized = 0
+    validated = 0
+    failed = 0
+    for record in records:
+        status = str(record.get("status") or record.get("materialization_status") or "").lower()
+        if record.get("materialized") is True or status in {"materialized", "validated", "pass", "ok"}:
+            materialized += 1
+        if record.get("validated") is True or status in {"validated", "pass", "ok"}:
+            validated += 1
+        if status in {"failed", "fail", "error"}:
+            failed += 1
+    pending = max(total - materialized - failed, 0)
+    return {
+        "total_kits": total,
+        "materialized_count": materialized,
+        "validated_count": validated,
+        "pending_count": pending,
+        "failed_count": failed,
+    }
+
+
+def kit_build_spec_payload(batch_spec: str = "") -> dict:
+    """Emit the strict JSON contract GLM uses for kit-build specs, never markdown."""
+    records = []
+    source = batch_spec or ""
+    if source:
+        data = json.loads(pathlib.Path(source).read_text(encoding="utf-8"))
+        records = data.get("kit_build_records", [])
+        if not isinstance(records, list):
+            raise ValueError("kit_build_records must be an array")
+    return {
+        "schema_version": "2026-05-06.glm-agentpress-kit-build-spec.v1",
+        "kit_build_records": records,
+        "materialized_validated_status": materialized_validated_status([r for r in records if isinstance(r, dict)]),
+        "strict_json": True,
+        "source_batch_spec": source,
+    }
+
+
+def kit_build_spec(args):
+    payload = kit_build_spec_payload(getattr(args, "batch_spec", "") or "")
+    print(json.dumps(payload, indent=2))
+    return 0
+
+
 def validate(args):
     root = pathlib.Path(args.out)
     code, errors, warnings = audit_root(root, strict=False)
+    receipt = None
+    if code == 0 and getattr(args, "persist", False):
+        feedback_path = pathlib.Path(getattr(args, "feedback", "") or root / "agentpress" / "feedback" / "feedback.jsonl")
+        receipt = store_feedback(
+            feedback_path=feedback_path,
+            feedback_type="validation_receipt",
+            source=getattr(args, "source", "agentpress-validate"),
+            rating=int(getattr(args, "rating", 5)),
+            evidence=f"agentpress validate ok: {root}",
+            target=str(root),
+            metadata={"warnings": warnings},
+        )
     if getattr(args, "json", False):
-        print(json.dumps({"status": "ok" if code == 0 else "fail", "path": str(root), "errors": errors, "warnings": warnings}, indent=2))
+        payload = {"status": "ok" if code == 0 else "fail", "path": str(root), "errors": errors, "warnings": warnings}
+        if receipt:
+            payload["feedback_receipt"] = receipt
+        print(json.dumps(payload, indent=2))
         return code
     if code:
         for e in errors:
@@ -793,7 +849,139 @@ def validate(args):
     for w in warnings:
         print(f"warning: {w}")
     print("agentpress validation ok")
+    if receipt:
+        print(f"feedback persisted: {receipt['feedback_path']}")
     return 0
+
+
+@dataclass
+class FeedbackEntry:
+    schema_version: str
+    generated_utc: str
+    feedback_type: str
+    source: str
+    target: str
+    rating: int
+    evidence: str
+    agent_id: str = ""
+    task_id: str = ""
+    context: str = ""
+    metadata: dict | None = None
+
+
+def _clamp_rating(value: int) -> int:
+    return max(1, min(5, int(value)))
+
+
+def store_feedback(
+    feedback_path: pathlib.Path,
+    feedback_type: str,
+    source: str,
+    rating: int,
+    evidence: str,
+    target: str = "",
+    agent_id: str = "",
+    task_id: str = "",
+    context: str = "",
+    metadata: dict | None = None,
+) -> dict:
+    feedback_path.parent.mkdir(parents=True, exist_ok=True)
+    entry = FeedbackEntry(
+        schema_version="2026-05-06.agentpress-feedback.v1",
+        generated_utc=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        feedback_type=feedback_type,
+        source=source,
+        target=target or source,
+        rating=_clamp_rating(rating),
+        evidence=evidence,
+        agent_id=agent_id,
+        task_id=task_id,
+        context=context,
+        metadata=metadata or {},
+    )
+    payload = asdict(entry)
+    payload["feedback_path"] = str(feedback_path)
+    with feedback_path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(payload, sort_keys=True, ensure_ascii=False) + "\n")
+    return payload
+
+
+def _read_feedback_entries(feedback_path: pathlib.Path) -> list[dict]:
+    entries = []
+    if not feedback_path.exists():
+        return entries
+    for line_no, line in enumerate(feedback_path.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip():
+            continue
+        try:
+            item = json.loads(line)
+            item["_line_no"] = line_no
+            entries.append(item)
+        except json.JSONDecodeError:
+            entries.append({"_line_no": line_no, "target": "invalid-feedback-line", "rating": 1, "evidence": "invalid json feedback line"})
+    return entries
+
+
+def compute_feedback_ranking(feedback_path: pathlib.Path, ranking_path: pathlib.Path, min_entries: int = 1) -> dict:
+    entries = _read_feedback_entries(feedback_path)
+    grouped = {}
+    for entry in entries:
+        target = str(entry.get("target") or entry.get("source") or "unknown")
+        row = grouped.setdefault(target, {"target": target, "count": 0, "rating_total": 0, "evidence": []})
+        row["count"] += 1
+        row["rating_total"] += _clamp_rating(entry.get("rating", 1))
+        if entry.get("evidence"):
+            row["evidence"].append(entry["evidence"])
+    ranking = []
+    for row in grouped.values():
+        avg = row["rating_total"] / row["count"]
+        # Count is a small confidence boost so repeated GLM/material-kit receipts improve discovery ranking.
+        score = round(avg * 20 + min(row["count"], 10) * 2, 2)
+        ranking.append({
+            "target": row["target"],
+            "score": score,
+            "average_rating": round(avg, 2),
+            "count": row["count"],
+            "latest_evidence": row["evidence"][-3:],
+        })
+    ranking.sort(key=lambda r: (-r["score"], -r["count"], r["target"]))
+    payload = {
+        "schema_version": "2026-05-06.agentpress-feedback-ranking.v1",
+        "status": "ok" if len(entries) >= min_entries else "skipped",
+        "generated_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "feedback_path": str(feedback_path),
+        "ranking_path": str(ranking_path),
+        "entry_count": len(entries),
+        "ranked_count": len(ranking),
+        "ranking": ranking,
+    }
+    if len(entries) < min_entries:
+        payload["reason"] = f"only {len(entries)} entries, need at least {min_entries}"
+    ranking_path.parent.mkdir(parents=True, exist_ok=True)
+    ranking_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return payload
+
+
+def feedback_command(args):
+    payload = store_feedback(
+        feedback_path=pathlib.Path(args.out),
+        feedback_type=args.type,
+        source=args.source,
+        rating=args.rating,
+        evidence=args.evidence,
+        target=args.target or args.source,
+        agent_id=args.agent_id,
+        task_id=args.task_id,
+        context=args.context,
+    )
+    print(json.dumps(payload, indent=2) if args.json else f"feedback persisted: {payload['feedback_path']}")
+    return 0
+
+
+def rank_command(args):
+    payload = compute_feedback_ranking(pathlib.Path(args.feedback), pathlib.Path(args.out), args.min_entries)
+    print(json.dumps(payload, indent=2) if args.json else f"ranked {payload['ranked_count']} targets into {payload['ranking_path']}")
+    return 0 if payload["status"] == "ok" else 1
 
 
 def audit(args):
@@ -910,6 +1098,11 @@ def negative_fixtures(args):
 
 def fetch(args):
     dest = pathlib.Path(args.out)
+    if getattr(args, "dry_run", False):
+        assets = args.asset or FETCH_ASSETS
+        payload = {"dry_run": True, "command": "fetch", "base": args.base, "out": str(dest), "assets": assets}
+        print(json.dumps(payload, indent=2) if args.json else f"[DRY RUN] Would fetch {len(assets)} AgentPress assets into {dest}")
+        return 0
     dest.mkdir(parents=True, exist_ok=True)
     assets = args.asset or FETCH_ASSETS
     rows = []
@@ -979,6 +1172,10 @@ def build(args):
         for e in errors:
             print(f"error: {e}")
         return 1
+    if getattr(args, "dry_run", False):
+        payload = {"dry_run": True, "command": "build", "source": str(src), "dest": str(dst), "would_replace_dest": dst.exists()}
+        print(json.dumps(payload, indent=2) if getattr(args, "json", False) else f"[DRY RUN] Would build {src} into {dst}")
+        return 0
     if dst.exists():
         shutil.rmtree(dst)
     shutil.copytree(src, dst)
@@ -1257,244 +1454,14 @@ def self_test(args):
     return 0 if passed==total else 1
 
 
-
-def _profile_capability_names(profile: dict) -> list[str]:
-    names = []
-    for cap in profile.get("capabilities", []) or []:
-        if isinstance(cap, dict):
-            name = cap.get("name") or cap.get("id")
-        else:
-            name = str(cap)
-        if name:
-            names.append(str(name))
-    return names
-
-
-def _load_agent_profiles(root: pathlib.Path, base_url: str) -> list[dict]:
-    """Load public agent profile cards in deterministic order.
-
-    Accepts the current `agent_profile_type` field and the older space-bearing
-    `contract profile_type` field so existing checked-in cards remain readable.
-    """
-    profiles_dir = root / "agentpress/profiles"
-    profiles = []
-    if not profiles_dir.exists():
-        return profiles
-    for card_path in sorted(profiles_dir.glob("*/agent-profile.json")):
-        try:
-            raw = json.loads(card_path.read_text(encoding="utf-8"))
-        except Exception as e:
-            profiles.append({"slug": card_path.parent.name, "status": "invalid", "profile_card_path": card_path.relative_to(root).as_posix(), "errors": [str(e)]})
-            continue
-        rel = card_path.relative_to(root).as_posix()
-        slug = raw.get("slug") or card_path.parent.name
-        capabilities = _profile_capability_names(raw)
-        card_url = urljoin(base_url, rel)
-        homepage_path = card_path.parent.relative_to(root).as_posix() + "/"
-        maintainer = raw.get("maintainer") or {}
-        collab = raw.get("collaboration") or {}
-        profiles.append({
-            "agent_id": raw.get("agent_id") or slug,
-            "slug": slug,
-            "display_name": raw.get("display_name") or raw.get("name") or slug,
-            "agent_family": raw.get("agent_family", ""),
-            "languages": sorted(raw.get("languages", []) or []),
-            "regions": sorted(raw.get("regions", []) or []),
-            "domains": sorted(raw.get("domains", []) or []),
-            "capabilities": sorted(capabilities),
-            "capability_count": len(capabilities),
-            "profile_card": card_url,
-            "profile_card_path": rel,
-            "homepage": raw.get("canonical_url") or urljoin(base_url, homepage_path),
-            "contact": maintainer.get("contact", "") if isinstance(maintainer, dict) else "",
-            "can_receive_tasks": bool(collab.get("can_receive_tasks")),
-            "preferred_task_format": collab.get("preferred_task_format", ""),
-            "review_required_for": sorted(collab.get("review_required_for", []) or []),
-            "trust_tier": raw.get("trust_tier") or "self_asserted_profile",
-            "last_reviewed_at": raw.get("last_reviewed_at", ""),
-            "status": "ok",
-        })
-    return sorted(profiles, key=lambda x: (x.get("slug", ""), x.get("agent_id", "")))
-
-
-def agent_profile_registry(args):
-    root = pathlib.Path(args.root)
-    out = pathlib.Path(args.out)
-    base_url = args.base_url.rstrip("/") + "/"
-    profiles = _load_agent_profiles(root, base_url)
-    capability_map = {}
-    for profile in profiles:
-        if profile.get("status") != "ok":
-            continue
-        for cap in profile.get("capabilities", []):
-            capability_map.setdefault(cap, []).append(profile["agent_id"])
-    payload = {
-        "schema_version": "2026-05-05.agentpress-agent-profile-registry.v1",
-        "canonical_url": urljoin(base_url, out.as_posix()),
-        "generated_by": "agentpress agent-profile-registry",
-        "profile_count": len([p for p in profiles if p.get("status") == "ok"]),
-        "profile_fields": ["agent_id", "display_name", "capabilities", "profile_card", "homepage", "contact", "trust_tier"],
-        "capability_count": len(capability_map),
-        "capabilities": {k: sorted(v) for k, v in sorted(capability_map.items())},
-        "profiles": profiles,
-    }
-    if not getattr(args, "no_write", False):
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True)+"\n", encoding="utf-8")
-    if args.json:
-        print(json.dumps({"status":"ok", "out": str(out), "profile_count": payload["profile_count"], "capability_count": payload["capability_count"]}, indent=2, sort_keys=True))
-    else:
-        print(f"indexed {payload['profile_count']} agent profiles into {out}")
-    return 0
-
-def _read_json_file(path: pathlib.Path, default=None):
-    try:
-        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else ({} if default is None else default)
-    except Exception:
-        return {} if default is None else default
-
-
-def _discovery_bridge_records(root: pathlib.Path, base_url: str) -> list[dict]:
-    """Join profiles, utility packs, marketplace services, and queues for one discovery path."""
-    base_url = base_url.rstrip("/") + "/"
-    records = []
-
-    def add(kind, title, path, text="", tags=None, url=None, **extra):
-        rel = pathlib.Path(path).as_posix()
-        payload = {
-            "id": slugify(f"{kind}-{rel}-{title}"),
-            "kind": kind,
-            "title": title,
-            "path": rel,
-            "url": url or urljoin(base_url, rel),
-            "tags": sorted(set(str(t) for t in (tags or []) if t)),
-        }
-        payload.update({k: v for k, v in extra.items() if v not in (None, "", [])})
-        payload["text"] = " ".join(str(x) for x in [title, rel, text, " ".join(payload["tags"]), json.dumps(extra, sort_keys=True)] if x).lower()[:5000]
-        records.append(payload)
-
-    for profile in _load_agent_profiles(root, base_url):
-        if profile.get("status") != "ok":
-            continue
-        add(
-            "agent_profile",
-            profile.get("display_name") or profile.get("agent_id"),
-            profile.get("profile_card_path"),
-            json.dumps(profile, sort_keys=True),
-            ["agent-profile", "profile-card", "agent", "identity"] + profile.get("capabilities", []) + profile.get("domains", []),
-            url=profile.get("profile_card"),
-            agent_id=profile.get("agent_id"),
-            profile_card=profile.get("profile_card"),
-            capabilities=profile.get("capabilities", []),
-            trust_tier=profile.get("trust_tier"),
-            can_receive_tasks=profile.get("can_receive_tasks"),
-        )
-        for cap in profile.get("capabilities", []):
-            add(
-                "profile_capability",
-                f"{cap} — {profile.get('display_name')}",
-                profile.get("profile_card_path"),
-                json.dumps(profile, sort_keys=True),
-                ["profile-capability", "capability", cap, profile.get("agent_id", "")],
-                url=profile.get("profile_card"),
-                agent_id=profile.get("agent_id"),
-                profile_card=profile.get("profile_card"),
-                capability=cap,
-            )
-
-    marketplace_path = root / "agentpress/marketplace/marketplace-index.json"
-    marketplace = _read_json_file(marketplace_path, {})
-    for service in marketplace.get("services", []) or []:
-        service_id = service.get("service_id", "service")
-        add(
-            "marketplace_service",
-            service.get("title") or service_id,
-            marketplace_path.relative_to(root).as_posix(),
-            json.dumps(service, sort_keys=True),
-            ["marketplace", "service", service_id, service.get("provider_agent_id", "")] + (service.get("capabilities", []) or []),
-            service_id=service_id,
-            provider_agent_id=service.get("provider_agent_id"),
-            command=service.get("command"),
-            capabilities=service.get("capabilities", []),
-            pricing=service.get("pricing", {}),
-            safety=service.get("safety", {}),
-            trust=service.get("trust", {}),
-        )
-
-    utility_manifest_path = root / "agentpress/growth/gorilla-utility-pack/manifest.json"
-    utility_manifest = _read_json_file(utility_manifest_path, {})
-    for target in utility_manifest.get("targets", []) or []:
-        pack_url = target.get("pack", "")
-        pack_path = pack_url.split("/agentpress/")[-1] if "/agentpress/" in pack_url else f"agentpress/growth/gorilla-utility-pack/{target.get('id','pack')}.json"
-        pack_json = _read_json_file(root / pack_path, {})
-        add(
-            "utility_pack",
-            f"Gorilla utility pack: {target.get('id','pack')}",
-            pack_path,
-            json.dumps({"target": target, "pack": pack_json}, sort_keys=True),
-            ["utility-pack", "gorilla-utility-pack", target.get("id", ""), target.get("community", ""), target.get("painpoint", "")],
-            url=pack_url or urljoin(base_url, pack_path),
-            pack_id=target.get("id"),
-            community=target.get("community"),
-            painpoint=target.get("painpoint"),
-            artifact=target.get("artifact"),
-            receipt=target.get("receipt"),
-            command=(pack_json.get("install_run_proof_flow", {}) or {}).get("run_command"),
-            external_execution_gate=utility_manifest.get("external_execution_gate"),
-        )
-
-    queue_path = root / "agentpress/growth/gorilla-utility-pack/execution-queue.json"
-    queue = _read_json_file(queue_path, {})
-    add(
-        "execution_queue",
-        "Gorilla utility execution queue",
-        queue_path.relative_to(root).as_posix(),
-        json.dumps(queue, sort_keys=True),
-        ["execution-queue", "gorilla-utility-pack", "approval", "posting-policy", queue.get("status", "")],
-        status=queue.get("status"),
-        target_count=len(queue.get("targets", []) or []),
-        posting_policy=queue.get("posting_policy", {}),
-    )
-    for target in queue.get("targets", []) or []:
-        add(
-            "execution_queue_item",
-            f"Queue target {target.get('rank')}: {target.get('ecosystem')}",
-            queue_path.relative_to(root).as_posix(),
-            json.dumps(target, sort_keys=True),
-            ["execution-queue", "queue-item", target.get("ecosystem", ""), target.get("pack", ""), target.get("risk", ""), target.get("painpoint", "")],
-            rank=target.get("rank"),
-            ecosystem=target.get("ecosystem"),
-            pack=target.get("pack"),
-            risk=target.get("risk"),
-            action=target.get("action"),
-            approval_required=True,
-        )
-
-    queue_manifest_path = root / "agentpress/queue/manifest.json"
-    queue_manifest = _read_json_file(queue_manifest_path, {})
-    if queue_manifest:
-        add(
-            "queue_adapter",
-            "AgentPress static/local queue adapter kit",
-            queue_manifest_path.relative_to(root).as_posix(),
-            json.dumps(queue_manifest, sort_keys=True),
-            ["queue", "queue-adapter", "retry", "idempotency", "dead-letter", queue_manifest.get("status", "")],
-            status=queue_manifest.get("status"),
-            files=queue_manifest.get("files", []),
-            safety=queue_manifest.get("safety"),
-        )
-
-    return sorted(records, key=lambda r: (r["kind"], r["title"], r["path"]))
-
-
 def build_search_index(args):
     root = pathlib.Path(args.root)
     out = pathlib.Path(args.out)
     base_url = args.base_url.rstrip("/") + "/"
     records = []
-    def add(kind, title, path, text="", tags=None, url=None, **extra):
+    def add(kind, title, path, text="", tags=None, url=None):
         rel = pathlib.Path(path).as_posix()
-        rec = {
+        records.append({
             "id": slugify(f"{kind}-{rel}"),
             "kind": kind,
             "title": title,
@@ -1502,9 +1469,7 @@ def build_search_index(args):
             "url": url or urljoin(base_url, rel),
             "tags": sorted(set(tags or [])),
             "text": " ".join(str(x) for x in [title, rel, text, " ".join(tags or [])] if x).lower()[:5000],
-        }
-        rec.update({k: v for k, v in extra.items() if v not in (None, "", [])})
-        records.append(rec)
+        })
     # Core commands/features
     add("cli_command", "Create AgentPress bundle from docs/API folder", "scripts/agentpress.py", "bundle source docs api generator valid verify", ["generate", "bundle", "docs", "api", "cli"])
     add("cli_command", "Agent message create/route/respond/thread/validate", "scripts/agentpress.py", "message create-request route create-response thread validate coordination", ["message", "route", "coordination", "cli"])
@@ -1512,6 +1477,8 @@ def build_search_index(args):
     add("cli_command", "Negative fail-closed fixture gate", "scripts/agentpress.py", "negative-fixtures adversarial broken bundles fail closed", ["security", "fail-closed", "test", "cli"])
     add("cli_command", "Install AgentPress from release index", "agentpress/install/install.py", "install release index offline package sha256 verify tarball curl bootstrap one-command", ["install", "release", "offline", "sha256", "cli"])
     add("cli_command", "CLI agent launch pack", "agentpress/CLI_AGENT_LAUNCH.md", "first agent install doctor compatibility matrix self-test landing receipt submission pack attract agents", ["cli", "launch", "install", "proof", "adoption"] )
+    add("material_kit", "Browser Agent Bootstrap Kit", "agentpress/examples/browser-agent-bootstrap-kit/material-kit.json", "browser visual agent bootstrap material kit live URL smoke render public evidence sanitized receipt launchpad", ["kit", "material", "browser", "visual", "bootstrap", "launchpad"] )
+    add("material_kit", "Visual Agent Bootstrap Kit", "agentpress/examples/visual-agent-bootstrap-kit/material-kit.json", "visual browser agent bootstrap material kit screenshot rendered observation public evidence sanitized receipt launchpad", ["kit", "material", "visual", "browser", "bootstrap", "launchpad"] )
     add("cli_command", "AgentPress painpoint intake", "agentpress/painpoint-intake/README.md", "painpoint-intake reports blockers agent feedback severity desired fix index", ["painpoint", "feedback", "intake", "blockers", "roadmap"] )
     add("cli_command", "AgentPress attestation coverage", "agentpress/attestations/attestation-coverage.json", "attestation coverage critical surfaces trust hash verification", ["attestation", "coverage", "trust", "verify"] )
     add("cli_command", "AgentPress marketplace trust scoring", "agentpress/marketplace/marketplace-trust-index.json", "marketplace trust score rank services reputation evidence proof routing", ["marketplace", "trust", "score", "routing"] )
@@ -1539,7 +1506,6 @@ def build_search_index(args):
     add("cli_command", "AgentPress audience and pseudonymous comms kit", "agentpress/audience/README.md", "audience-kit subscribe broadcast pseudonymous inbox anonymous feedback referral opt-in consent anti-spam growth flywheel", ["audience", "subscribe", "broadcast", "pseudonymous", "feedback", "growth", "consent"])
     add("cli_command", "AgentPress capability marketplace", "agentpress/marketplace/README.md", "marketplace capability catalog agents services pricing SLA auth trust commands query", ["marketplace", "capability", "sla", "pricing", "trust", "agents"])
     add("cli_command", "One-command AgentPress agent onboarding", "agentpress/onboarding/README.md", "adopt agent-onboard one command doctor self-test landing receipt payment status payment intent submission pack exponential adoption flywheel", ["onboard", "adoption", "self-test", "landing", "submission", "payment", "cli"])
-    add("cli_command", "AgentPress adoption fix pack", "agentpress/adoption/fixpack/adoption-fixpack.json", "adoption-fixpack first-contact proof commands landing receipt self-test submission pack local-only no hidden telemetry", ["adoption", "fixpack", "first-contact", "proof", "privacy", "cli"])
     add("traffic", "Agent traffic acquisition pack", "agentpress/traffic/agent-traffic-acquisition.json", "crawler seeds agent sitemap directory submission first autonomous agents landing receipts proof traffic acquisition", ["traffic", "crawler", "directory", "adoption", "agent"] )
     add("traffic", "Agent routes manifest", "agentpress/routes/agent-routes.json", "machine routable agent runtime intent discover install verify prove submit coordinate", ["routes", "agent", "runtime", "intent", "traffic"] )
     add("cli_command", "Agent runtime route resolver", "scripts/agentpress.py", "agent-route runtime intent exact commands discover install verify prove submit coordinate", ["agent-route", "routes", "runtime", "intent", "cli"] )
@@ -1564,21 +1530,6 @@ def build_search_index(args):
             path = a.get("entrypoint") or a.get("path") or f"agentpress/examples/{a.get('slug','')}/AGENT_ENTRYPOINT.md"
             tags = ["article"] + a.get("domains", []) + a.get("task_types", []) + a.get("target_agent_families", [])
             add("article", a.get("title") or a.get("slug") or path, path, json.dumps(a), tags)
-    # Public agent profiles and profile capabilities
-    for profile in _load_agent_profiles(root, base_url):
-        if profile.get("status") != "ok":
-            continue
-        profile_text = json.dumps(profile, sort_keys=True)
-        add("agent_profile", profile.get("display_name") or profile.get("agent_id"), profile.get("profile_card_path"), profile_text, ["agent-profile", "profile-card", "agent", "identity"] + profile.get("capabilities", []) + profile.get("domains", []), url=profile.get("profile_card"))
-        for cap in profile.get("capabilities", []):
-            add("profile_capability", f"{cap} — {profile.get('display_name')}", profile.get("profile_card_path"), profile_text, ["profile-capability", "capability", cap, profile.get("agent_id", "")], url=profile.get("profile_card"))
-    # Unified discovery bridge: marketplace services, utility packs, and queue surfaces
-    seen = {(r.get("kind"), r.get("path"), r.get("title")) for r in records}
-    for rec in _discovery_bridge_records(root, base_url):
-        key = (rec.get("kind"), rec.get("path"), rec.get("title"))
-        if key not in seen:
-            records.append(rec)
-            seen.add(key)
     # Schemas
     for schema in sorted((root/"agentpress/schemas").glob("*.schema.json")):
         try: data=json.loads(schema.read_text(encoding="utf-8"))
@@ -1591,13 +1542,13 @@ def build_search_index(args):
         for capability, agents in data.get("capabilities", {}).items():
             add("capability", capability, "agentpress/hub/routing/capability-index.json", " ".join(agents), ["capability", capability])
     # Protocol/docs
-    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/onboarding/README.md", "agentpress/onboarding/agent-onboard-example.json", "agentpress/specs/AGENTPRESS_EXPONENTIAL_AGENT_ADOPTION_SPEC_20260503.md", "agentpress/marketplace/README.md", "agentpress/marketplace/marketplace-index.json", "agentpress/specs/AGENTPRESS_AGENT_MARKETPLACE_SPEC_20260503.md", "agentpress/attestations/README.md", "agentpress/attestations/attestation-index.json", "agentpress/specs/AGENTPRESS_ATTESTATIONS_SPEC_20260503.md", "agentpress/painpoints/README.md", "agentpress/painpoints/agent-painpoints.json", "agentpress/specs/AGENTPRESS_AGENT_PAINPOINTS_ROADMAP_SPEC_20260503.md", "agentpress/audience/README.md", "agentpress/audience/audience-kit.json", "agentpress/audience/broadcast-feed.json", "agentpress/audience/pseudonymous-inbox-policy.json", "agentpress/audience/anti-abuse-policy.json", "agentpress/audience/unsubscribe-intent.example.json", "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md", "agentpress/payments/README.md", "agentpress/payments/payment-policy.json", "agentpress/payments/payment-capabilities.json", "agentpress/payments/x402-readiness.json", "agentpress/payments/nexio-testnet-readiness.json", "agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/adoption/README.md", "agentpress/adoption/fixpack/RUN_THIS_FIRST.md", "agentpress/adoption/fixpack/adoption-fixpack.json", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
+    for rel in ["llms.txt", "README.md", "agentpress/AGENT_START_HERE.md", "agentpress/CLI_AGENT_LAUNCH.md", "agentpress/cli-launch.json", "agentpress/examples/browser-agent-bootstrap-kit/material-kit.json", "agentpress/examples/visual-agent-bootstrap-kit/material-kit.json", "agentpress/traffic/README.md", "agentpress/traffic/agent-traffic-acquisition.json", "agentpress/traffic/agent-traffic-audit.json", "agentpress/traffic/crawler-seeds.txt", "agentpress/routes/README.md", "agentpress/routes/agent-routes.json", "agentpress/directory-submission/agentpress-directory-pitch.json", "agent-sitemap.xml", "agentpress/hub/messages/README.md", "agentpress/protocols/mcp-manifest.json", "agentpress/mesh/README.md", "agentpress/mesh/known-agents.json", "agentpress/install/README.md", "agentpress/install/install.py", "agentpress/onboarding/README.md", "agentpress/onboarding/agent-onboard-example.json", "agentpress/specs/AGENTPRESS_EXPONENTIAL_AGENT_ADOPTION_SPEC_20260503.md", "agentpress/marketplace/README.md", "agentpress/marketplace/marketplace-index.json", "agentpress/specs/AGENTPRESS_AGENT_MARKETPLACE_SPEC_20260503.md", "agentpress/attestations/README.md", "agentpress/attestations/attestation-index.json", "agentpress/specs/AGENTPRESS_ATTESTATIONS_SPEC_20260503.md", "agentpress/painpoints/README.md", "agentpress/painpoints/agent-painpoints.json", "agentpress/specs/AGENTPRESS_AGENT_PAINPOINTS_ROADMAP_SPEC_20260503.md", "agentpress/audience/README.md", "agentpress/audience/audience-kit.json", "agentpress/audience/broadcast-feed.json", "agentpress/audience/pseudonymous-inbox-policy.json", "agentpress/audience/anti-abuse-policy.json", "agentpress/audience/unsubscribe-intent.example.json", "agentpress/specs/AGENTPRESS_AUDIENCE_PSEUDONYMOUS_COMMS_SPEC_20260503.md", "agentpress/payments/README.md", "agentpress/payments/payment-policy.json", "agentpress/payments/payment-capabilities.json", "agentpress/payments/x402-readiness.json", "agentpress/specs/AGENTPAYMENTS_PLATFORM_SPEC_20260503.md", "agentpress/releases/README.md", "agentpress/releases/release-index.json", "agentpress/submissions/README.md", "agentpress/reputation/README.md", "agentpress/landing/README.md", "agentpress/directory-submission/README.md", "agentpress/directory-submission/submission.json", "agentpress/feeds/contract-feed.json", "agentpress/feeds/changelog.json", "openapi.yaml"]:
         path=root/rel
         if path.exists(): add("doc", path.name, rel, read_text(path)[:1500], ["doc", pathlib.Path(rel).stem])
-    payload={"schema_version":"2026-05-05.agentpress-search.v2", "canonical_url": urljoin(base_url, out.as_posix()), "generated_by": "agentpress index-search", "record_count": len(records), "records": records}
+    payload={"schema_version":"2026-05-03.agentpress-search.v1", "canonical_url": urljoin(base_url, out.as_posix()), "generated_at": _utc_now(), "record_count": len(records), "records": records}
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True)+"\n", encoding="utf-8")
-    if args.json: print(json.dumps({"status":"ok", "out": str(out), "record_count": len(records)}, indent=2, sort_keys=True))
+    out.write_text(json.dumps(payload, indent=2, ensure_ascii=False)+"\n", encoding="utf-8")
+    if args.json: print(json.dumps({"status":"ok", "out": str(out), "record_count": len(records)}, indent=2))
     else: print(f"indexed {len(records)} searchable AgentPress records into {out}")
     return 0
 
@@ -1607,69 +1558,35 @@ def search_index(args):
     if not index_path.exists():
         print(f"missing search index: {index_path}; run index-search", file=sys.stderr); return 1
     idx=json.loads(index_path.read_text(encoding="utf-8"))
+    ranking_path = pathlib.Path(getattr(args, "ranking", "") or "agentpress/feedback/ranking.json")
+    ranking_boosts = {}
+    if ranking_path.exists():
+        try:
+            ranking_payload = json.loads(ranking_path.read_text(encoding="utf-8"))
+            for row in ranking_payload.get("ranking", []):
+                target = str(row.get("target", ""))
+                boost = float(row.get("score", 0)) / 20.0
+                for key in {target, pathlib.Path(target).as_posix(), pathlib.Path(target).name}:
+                    if key:
+                        ranking_boosts[key.lower()] = max(ranking_boosts.get(key.lower(), 0), boost)
+        except Exception:
+            ranking_boosts = {}
     terms=[t.lower() for t in re.findall(r"[a-zA-Z0-9_.-]+", args.query)]
     rows=[]
     for rec in idx.get("records", []):
         hay=rec.get("text", "")
         score=sum(hay.count(t) for t in terms) + sum(3 for t in terms if t in [x.lower() for x in rec.get("tags", [])])
-        if score:
-            keep = ["kind","title","path","url","tags", "profile_card", "agent_id", "capability", "service_id", "provider_agent_id", "pack_id", "community", "painpoint", "command", "status", "target_count", "risk", "action", "approval_required", "external_execution_gate"]
-            r={k:rec[k] for k in keep if k in rec}
-            if rec.get("kind") in {"agent_profile", "profile_capability"}:
-                r["profile_card"] = rec.get("url", "")
-                if rec.get("kind") == "profile_capability" and terms:
-                    r["capability"] = rec.get("capability") or next((t for t in rec.get("tags", []) if t.lower() in terms), "")
-            r["score"]=score
+        boost=max((ranking_boosts.get(str(rec.get(k, "")).lower(), 0) for k in ["path", "title", "url", "id"]), default=0)
+        if score or boost:
+            r={k:rec[k] for k in ["kind","title","path","url","tags"] if k in rec}
+            r["score"]=round(score + boost, 2)
+            if boost:
+                r["feedback_boost"] = round(boost, 2)
             rows.append(r)
     rows=sorted(rows, key=lambda r:(-r["score"], r["kind"], r["title"]))[:args.limit]
-    payload={"status":"ok" if rows else "no_results", "query": args.query, "count": len(rows), "results": rows}
+    payload={"status":"ok" if rows else "no_results", "query": args.query, "count": len(rows), "ranking": str(ranking_path) if ranking_path.exists() else None, "results": rows}
     print(json.dumps(payload, indent=2) if args.json else "\n".join(f"{r['score']} {r['kind']} {r['path']}" for r in rows))
     return 0 if rows else 1
-
-
-
-
-def discovery_bridge(args):
-    root = pathlib.Path(args.root)
-    out = pathlib.Path(args.out)
-    base_url = args.base_url.rstrip("/") + "/"
-    records = _discovery_bridge_records(root, base_url)
-    counts = {}
-    for rec in records:
-        counts[rec["kind"]] = counts.get(rec["kind"], 0) + 1
-    terms = [t.lower() for t in re.findall(r"[a-zA-Z0-9_.-]+", getattr(args, "query", "") or "")]
-    results = []
-    for rec in records:
-        hay = rec.get("text", "")
-        score = sum(hay.count(t) for t in terms) + sum(3 for t in terms if t in [x.lower() for x in rec.get("tags", [])]) if terms else 1
-        if score:
-            row = {k: v for k, v in rec.items() if k != "text"}
-            row["score"] = score
-            results.append(row)
-    results = sorted(results, key=lambda r: (-r["score"], r["kind"], r["title"]))[:args.limit]
-    payload = {
-        "schema_version": "2026-05-05.agentpress-profile-search-discovery-bridge.v1",
-        "canonical_url": urljoin(base_url, out.as_posix()),
-        "generated_by": "agentpress discovery-bridge",
-        "status": "ok" if results else "no_results",
-        "purpose": "Single discovery path for agent profiles, profile capabilities, utility packs, marketplace services, and execution queues.",
-        "query": getattr(args, "query", "") or "",
-        "record_count": len(records),
-        "counts_by_kind": {k: counts[k] for k in sorted(counts)},
-        "result_count": len(results),
-        "results": results,
-        "next_commands": [
-            "python3 scripts/agentpress.py discovery-bridge marketplace --json",
-            "python3 scripts/agentpress.py discovery-bridge queue --json",
-            "python3 scripts/agentpress.py search <query> --json",
-        ],
-        "safety": "Read-only local/static discovery. Queue entries that imply external posting still require explicit human approval.",
-    }
-    if not getattr(args, "no_write", False):
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True)+"\n", encoding="utf-8")
-    print(json.dumps(payload, indent=2, sort_keys=True) if args.json else f"{payload['status']} {payload['result_count']}/{payload['record_count']} discovery records")
-    return 0 if results else 1
 
 
 def bundle_from_source(args):
@@ -1823,23 +1740,8 @@ def message_route(args):
     agents = []
     for agent_id in agent_ids:
         meta = idx.get("agents", {}).get(agent_id, {})
-        profile = {
-            "agent_id": agent_id,
-            "display_name": meta.get("display_name") or agent_id,
-            "capabilities": meta.get("capabilities", []),
-            "profile_card": meta.get("profile_card") or meta.get("contract_url") or "",
-            "contact": meta.get("contact") or meta.get("inbox") or "",
-            "trust_tier": meta.get("trust_tier") or meta.get("trust", {}).get("tier", "unverified"),
-        }
-        agents.append({**meta, **profile})
-    payload = {
-        "status":"ok" if agents else "no_route",
-        "capability": capability,
-        "directory": str(directory),
-        "agent_count": len(agents),
-        "agents": agents,
-        "profile_fields": ["agent_id", "display_name", "capabilities", "profile_card", "contact", "trust_tier"],
-    }
+        agents.append({"agent_id": agent_id, **meta})
+    payload = {"status":"ok" if agents else "no_route", "capability": capability, "directory": str(directory), "agent_count": len(agents), "agents": agents}
     print(json.dumps(payload, indent=2) if args.json else "\n".join(a["agent_id"] for a in agents))
     return 0 if agents else 1
 
@@ -1954,7 +1856,7 @@ def _comms_root(path: str) -> pathlib.Path:
 
 def message_inbox_init(args):
     root=_comms_root(args.dir)
-    for rel in ["agents", "messages", "responses", "threads", "receipts", "queue"]:
+    for rel in ["agents", "messages", "responses", "threads"]:
         (root/rel).mkdir(parents=True, exist_ok=True)
     reg=root/"registry.json"
     if not reg.exists():
@@ -2009,19 +1911,6 @@ def message_send(args):
         print(json.dumps({"status":"fail", "errors":[f"unknown agent: {args.to}"]}, indent=2)); return 1
     delivery_id=_message_delivery_id(request, args.to)
     env={"schema_version":"2026-05-03.agentpress-delivery.v1", "delivery_id":delivery_id, "to_agent":args.to, "state":"pending", "created_utc":_utc_now(), "request":request}
-    if getattr(args, "confidential_envelope", ""):
-        envelope_path=pathlib.Path(args.confidential_envelope)
-        try:
-            envelope=json.loads(envelope_path.read_text(encoding="utf-8"))
-        except Exception as e:
-            print(json.dumps({"status":"fail", "errors":[f"invalid confidential envelope: {e}"]}, indent=2)); return 1
-        verify_errors=[]
-        if envelope.get("plaintext_stored") is not False: verify_errors.append("confidential envelope must have plaintext_stored=false")
-        if envelope.get("to_agent") not in {args.to, ""}: verify_errors.append(f"confidential envelope to_agent does not match route target: {envelope.get('to_agent')}")
-        if envelope.get("body") or envelope.get("plaintext"): verify_errors.append("confidential envelope must not include plaintext body")
-        if verify_errors:
-            print(json.dumps({"status":"fail", "errors":verify_errors}, indent=2)); return 1
-        env["confidential_envelope"]={"path":str(envelope_path),"message_id":envelope.get("message_id"),"body_sha256":envelope.get("body_sha256"),"privacy_class":envelope.get("privacy_class"),"plaintext_stored":False}
     dest=root/f"agents/{args.to}/inbox/pending/{delivery_id}.json"; dest.parent.mkdir(parents=True, exist_ok=True); dest.write_text(json.dumps(env, indent=2)+"\n", encoding="utf-8")
     print(json.dumps({"status":"ok", "delivery_id":delivery_id, "path":str(dest)}, indent=2))
     return 0
@@ -2066,22 +1955,13 @@ def message_complete(args):
     root=_comms_root(args.dir); claimed=root/f"agents/{args.agent_id}/inbox/claimed/{args.message_id}.json"; complete=root/f"agents/{args.agent_id}/inbox/completed/{args.message_id}.json"
     if not claimed.exists():
         print(json.dumps({"status":"fail", "errors":[f"claimed message not found: {args.message_id}"]}, indent=2)); return 1
-    response_path=pathlib.Path(args.response); response=_load_json(response_path); kind, errors=_validate_message_payload(response, "response")
+    response=_load_json(pathlib.Path(args.response)); kind, errors=_validate_message_payload(response, "response")
     if errors or kind != "agent_response":
         print(json.dumps({"status":"fail", "errors":errors or ["response must be agent_response"]}, indent=2)); return 1
     data=json.loads(claimed.read_text(encoding="utf-8")); data["state"]="completed"; data["completed_utc"]=_utc_now(); data["response"]=response
     complete.parent.mkdir(parents=True, exist_ok=True); complete.write_text(json.dumps(data, indent=2)+"\n", encoding="utf-8"); claimed.unlink()
     outbox=root/f"agents/{args.agent_id}/outbox/{args.message_id}-response.json"; outbox.parent.mkdir(parents=True, exist_ok=True); outbox.write_text(json.dumps(response, indent=2)+"\n", encoding="utf-8")
-    receipt=None
-    if not getattr(args, "no_receipt", False):
-        rb=response_path.read_bytes() if response_path.exists() else json.dumps(response, sort_keys=True).encode("utf-8")
-        receipt={"schema_version":"2026-05-05.agentpress-message-result-receipt.v1","receipt_id":_short_id("msgreceipt"),"delivery_id":args.message_id,"request_id":data.get("request",{}).get("request_id"),"agent_id":args.agent_id,"status":response.get("status","completed"),"created_utc":_utc_now(),"completed_delivery_path":str(complete),"outbox_response_path":str(outbox),"response_sha256":hashlib.sha256(rb).hexdigest(),"result_bundle_url":response.get("result_bundle_url",""),"privacy":{"confidential_plaintext_stored":False,"confidential_envelope":data.get("confidential_envelope",{})},"next_actions":["validate response", "route result receipt to requester", "attach receipt to proof inbox if external proof is intended"]}
-        receipt_path=pathlib.Path(args.receipt_out) if getattr(args, "receipt_out", "") else root/f"receipts/{args.message_id}-result-receipt.json"
-        receipt_path.parent.mkdir(parents=True, exist_ok=True); receipt_path.write_text(json.dumps(receipt, indent=2)+"\n", encoding="utf-8")
-        data["result_receipt_path"]=str(receipt_path); complete.write_text(json.dumps(data, indent=2)+"\n", encoding="utf-8")
-    result={"status":"ok", "delivery_id":args.message_id, "path":str(complete), "outbox":str(outbox)}
-    if receipt: result.update({"receipt":str(receipt_path), "receipt_id":receipt["receipt_id"]})
-    print(json.dumps(result, indent=2))
+    print(json.dumps({"status":"ok", "delivery_id":args.message_id, "path":str(complete), "outbox":str(outbox)}, indent=2))
     return 0
 
 
@@ -2091,45 +1971,7 @@ def message_agents(args):
     return 0
 
 
-def message_receipt_aggregate(args):
-    """Aggregate static inbox result receipts into machine and human-readable indexes."""
-    root=_comms_root(args.dir)
-    out=pathlib.Path(args.out)
-    errors=[]
-    receipts=[]
-    receipt_by_delivery={}
-    if not root.exists(): errors.append(f"inbox dir missing: {root}")
-    for fp in sorted((root/"receipts").glob("*.json")) if (root/"receipts").exists() else []:
-        try: d=json.loads(fp.read_text(encoding="utf-8"))
-        except Exception as e:
-            errors.append(f"invalid receipt {fp}: {e}"); continue
-        delivery_id=d.get("delivery_id", fp.stem.replace("-result-receipt", ""))
-        row={"receipt_id":d.get("receipt_id"),"delivery_id":delivery_id,"request_id":d.get("request_id"),"agent_id":d.get("agent_id"),"status":d.get("status"),"created_utc":d.get("created_utc"),"path":str(fp.relative_to(root)),"response_sha256":d.get("response_sha256"),"result_bundle_url":d.get("result_bundle_url", ""),"privacy":d.get("privacy", {})}
-        receipts.append(row); receipt_by_delivery[delivery_id]=row
-    completed=[]
-    reg=_load_registry(root) if root.exists() else {"agents":{}}
-    for agent_id in sorted(reg.get("agents", {}).keys()):
-        base=root/f"agents/{agent_id}/inbox/completed"
-        for fp in sorted(base.glob("*.json")) if base.exists() else []:
-            try: d=json.loads(fp.read_text(encoding="utf-8"))
-            except Exception: d={}
-            delivery_id=d.get("delivery_id", fp.stem)
-            completed.append({"agent_id":agent_id,"delivery_id":delivery_id,"request_id":d.get("request", {}).get("request_id"),"capability":d.get("request", {}).get("needed_capability"),"completed_utc":d.get("completed_utc"),"completed_path":str(fp.relative_to(root)),"receipt_path":receipt_by_delivery.get(delivery_id, {}).get("path", "")})
-    unreceipted=[r for r in completed if not r.get("receipt_path")]
-    by_agent={}; by_status={}
-    for r in receipts:
-        by_agent[r.get("agent_id") or "unknown"]=by_agent.get(r.get("agent_id") or "unknown",0)+1
-        by_status[r.get("status") or "unknown"]=by_status.get(r.get("status") or "unknown",0)+1
-    payload={"schema_version":"2026-05-05.agentpress-communication-proof-inbox-v2","status":"ok" if not errors else "fail","generated_utc":_utc_now(),"inbox_dir":str(root),"receipt_count":len(receipts),"completed_count":len(completed),"unreceipted_completed_count":len(unreceipted),"by_agent":by_agent,"by_status":by_status,"receipts":receipts,"completed_deliveries":completed,"unreceipted_completed":unreceipted,"errors":errors,"next_commands":["python3 scripts/agentpress.py message inbox-check --agent-id <agent> --dir <dir> --json","python3 scripts/agentpress.py message complete --agent-id <agent> --message-id <delivery> --response <response.json> --dir <dir>","python3 scripts/agentpress.py message receipt-aggregate --dir <dir> --out <public-dir> --json"]}
-    out.mkdir(parents=True, exist_ok=True)
-    (out/"receipt-index.json").write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
-    with (out/"receipt-index.jsonl").open("w", encoding="utf-8") as f:
-        for r in receipts: f.write(json.dumps(r, sort_keys=True)+"\n")
-    html_rows="\n".join(f"<tr><td>{html.escape(r.get('agent_id') or '')}</td><td>{html.escape(r.get('status') or '')}</td><td>{html.escape(r.get('delivery_id') or '')}</td><td><code>{html.escape((r.get('response_sha256') or '')[:16])}</code></td><td>{html.escape(r.get('path') or '')}</td></tr>" for r in receipts)
-    page=f"""<!doctype html><meta charset='utf-8'><title>AgentPress Receipt Inbox v2</title><style>body{{font-family:system-ui,sans-serif;margin:2rem;max-width:1100px}}table{{border-collapse:collapse;width:100%}}td,th{{border:1px solid #ddd;padding:.45rem;text-align:left}}th{{background:#f5f5f5}}code{{background:#f6f8fa;padding:.15rem .3rem}}</style><h1>AgentPress Receipt Inbox v2</h1><p>Generated <code>{html.escape(payload['generated_utc'])}</code> from <code>{html.escape(str(root))}</code>.</p><p>Receipts: <b>{payload['receipt_count']}</b> · Completed deliveries: <b>{payload['completed_count']}</b> · Missing receipts: <b>{payload['unreceipted_completed_count']}</b></p><p>Machine files: <a href='receipt-index.json'>receipt-index.json</a> · <a href='receipt-index.jsonl'>receipt-index.jsonl</a></p><table><thead><tr><th>Agent</th><th>Status</th><th>Delivery</th><th>Response SHA-256</th><th>Receipt path</th></tr></thead><tbody>{html_rows}</tbody></table>"""
-    (out/"index.html").write_text(page+"\n", encoding="utf-8")
-    print(json.dumps({"status":payload["status"],"out":str(out),"receipt_count":len(receipts),"completed_count":len(completed),"unreceipted_completed_count":len(unreceipted),"errors":errors}, indent=2) if args.json else str(out))
-    return 0 if not errors else 1
+
 
 
 
@@ -2252,661 +2094,6 @@ def submission_pack(args):
 
 
 
-
-def external_proof_run(args):
-    """Run the no-external-write first-contact proof sequence into a reviewable directory."""
-    if not re.match(r"^[A-Za-z0-9_.:-]{2,120}$", args.agent_id):
-        print(json.dumps({"status":"fail","errors":["invalid agent-id"]}, indent=2)); return 2
-    out = pathlib.Path(args.out or f"/tmp/agentpress-proof-{slugify(args.agent_id)}")
-    if out.exists() and not out.is_dir():
-        print(json.dumps({"status":"fail","errors":[f"out path is not a directory: {out}"]}, indent=2)); return 2
-    out.mkdir(parents=True, exist_ok=True)
-    base = args.base_url.rstrip("/") + "/"
-    errors=[]; steps=[]
-
-    def capture_json_step(name, func, ns, artifact):
-        buf=io.StringIO(); code=1
-        try:
-            with contextlib.redirect_stdout(buf):
-                code = func(ns)
-        except SystemExit as e:
-            code = int(e.code or 0) if isinstance(e.code, int) else 1
-        except Exception as e:
-            code = 1; errors.append(f"{name}: {e}")
-        text=buf.getvalue().strip()
-        if text:
-            artifact.parent.mkdir(parents=True, exist_ok=True)
-            if artifact.exists() and artifact.stat().st_size > 0:
-                (artifact.parent / f"{artifact.name}.stdout.txt").write_text(text+"\n", encoding="utf-8")
-            else:
-                artifact.write_text(text+"\n", encoding="utf-8")
-        if code != 0:
-            errors.append(f"{name} failed with exit {code}")
-        steps.append({"name":name,"status":"pass" if code==0 else "fail","exit_code":code,"artifact":str(artifact)})
-        return code
-
-    doctor_out=out/"doctor.json"
-    capture_json_step("doctor", doctor, argparse.Namespace(root=".", mode="online", base_url=base, timeout=20, json=True), doctor_out)
-
-    wizard_out=out/"first-run-wizard.json"
-    capture_json_step("first-run-wizard", first_run_wizard, argparse.Namespace(root=".", out=str(wizard_out), base_url=base, host="generic", provider="unknown", no_write=False, strict=False, json=True), wizard_out)
-
-    self_test_out=out/"self-test.jsonl"
-    capture_json_step("self-test", self_test, argparse.Namespace(agent_id=args.agent_id, bundle="agentpress/examples/api-docs-handoff", suite="agentpress/self-tests/standard-suite.json", out=str(self_test_out), index="agentpress/search/search-index.json", workdir=str(out/"work/self-test"), run_id=None), self_test_out)
-
-    landing_out=out/"landing-receipt.json"
-    capture_json_step("landing-receipt", landing_receipt, argparse.Namespace(agent_id=args.agent_id, runtime=args.runtime, discovery_channel="external-proof-run", capability=["doctor,first-run-wizard,self-test,landing-receipt,submission-pack"], self_test_ref=str(self_test_out), contact=None, base_url=base, landing_id=None, out=str(landing_out), json=True), landing_out)
-
-    submission_out=out/"submission-pack"
-    if landing_out.exists():
-        capture_json_step("submission-pack", submission_pack, argparse.Namespace(receipt=str(landing_out), out=str(submission_out), json=True), submission_out/"submission-pack.json")
-    else:
-        errors.append("submission-pack skipped: landing receipt missing")
-        steps.append({"name":"submission-pack","status":"fail","exit_code":1,"artifact":str(submission_out)})
-
-    redaction_out=out/"redaction-check.json"
-    capture_json_step("redaction-check", redaction_check, argparse.Namespace(path=str(out), out=str(redaction_out), max_files=200, max_chars=200000, allow_findings=True, json=True), redaction_out)
-    redaction_result={"status":"unknown"}
-    try:
-        redaction_result=json.loads(redaction_out.read_text(encoding="utf-8"))
-    except Exception as e:
-        errors.append(f"redaction result parse failed: {e}")
-    if redaction_result.get("status") == "fail":
-        errors.append("redaction-check found candidate private/secret markers")
-
-    files=[str(fp) for fp in sorted(out.rglob("*")) if fp.is_file() and "work/" not in fp.as_posix()]
-    artifacts={
-        "doctor": str(doctor_out),
-        "receipt": str(landing_out),
-        "self_test": str(self_test_out),
-        "submission_pack": str(submission_out),
-        "redaction_check": str(redaction_out),
-    }
-    payload={
-        "schema_version":"2026-05-05.agentpress-external-proof-run.v1",
-        "generated_utc":_utc_now(),
-        "status":"ok" if not errors else "fail",
-        "agent_id":args.agent_id,
-        "runtime":args.runtime,
-        "base_url":base,
-        "out":str(out),
-        "strict": bool(getattr(args, "strict", False)),
-        "steps":steps,
-        "artifacts": artifacts,
-        "doctor": {"status": next((s["status"] for s in steps if s["name"] == "doctor"), "unknown"), "artifact": str(doctor_out)},
-        "receipt": {"status": next((s["status"] for s in steps if s["name"] == "landing-receipt"), "unknown"), "artifact": str(landing_out)},
-        "self_test": {"status": next((s["status"] for s in steps if s["name"] == "self-test"), "unknown"), "artifact": str(self_test_out)},
-        "submission": {"status": next((s["status"] for s in steps if s["name"] == "submission-pack"), "unknown"), "artifact": str(submission_out/"submission-pack.json")},
-        "redaction_check": {"status": redaction_result.get("status"), "artifact": str(redaction_out), "checked": redaction_result.get("checked"), "rejected": redaction_result.get("rejected")},
-        "files":files,
-        "submit_next":{
-            "human_review_required": True,
-            "submission_pack": str(submission_out),
-            "suggested_action": "After human review, open a GitHub issue or PR using submission-pack/README.md."
-        },
-        "privacy":{
-            "no_external_write": bool(args.no_external_write),
-            "hidden_telemetry": False,
-            "human_approval_required_for_external_post": True,
-            "redaction_result_path": str(redaction_out)
-        },
-        "redaction_result": {"status": redaction_result.get("status"), "checked": redaction_result.get("checked"), "rejected": redaction_result.get("rejected")},
-        "human_approval_required_for_external_post": True,
-        "errors": errors,
-    }
-    final=out/"external-proof-run.json"
-    final.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
-    print(json.dumps(payload, indent=2) if args.json else str(final))
-    return 0 if payload["status"] == "ok" else 1
-
-
-def _broker_scope_guard_values(obj, path="$"):
-    if isinstance(obj, dict):
-        for key, value in obj.items():
-            child = f"{path}.{key}"
-            if any(token in str(key).lower() for token in ("root", "path", "workdir", "repo", "source")):
-                if isinstance(value, str):
-                    yield child, value
-                elif isinstance(value, list):
-                    for i, item in enumerate(value):
-                        if isinstance(item, str):
-                            yield f"{child}[{i}]", item
-            yield from _broker_scope_guard_values(value, child)
-    elif isinstance(obj, list):
-        for i, item in enumerate(obj):
-            yield from _broker_scope_guard_values(item, f"{path}[{i}]")
-
-
-def broker_scope_guard(args):
-    """Fail closed when broker/mission tasks mix AgentPress scope with unrelated project roots."""
-    path = pathlib.Path(args.path)
-    findings = []
-    records = []
-    if _is_sensitive_path(path):
-        findings.append({"status": "fail_closed", "severity": "P0", "code": "sensitive_path_refused", "path": str(path), "message": "refusing to read sensitive task path"})
-    elif not path.exists():
-        findings.append({"status": "fail", "severity": "P0", "code": "path_missing", "path": str(path), "message": "task file does not exist"})
-    else:
-        text = path.read_text(encoding="utf-8")
-        if path.suffix == ".jsonl":
-            for line_no, line in enumerate(text.splitlines(), 1):
-                if not line.strip():
-                    continue
-                try:
-                    records.append((line_no, json.loads(line)))
-                except Exception as e:
-                    findings.append({"status": "fail", "severity": "P0", "code": "invalid_jsonl", "line": line_no, "message": str(e)})
-        else:
-            try:
-                records.append((1, json.loads(text)))
-            except Exception as e:
-                findings.append({"status": "fail", "severity": "P0", "code": "invalid_json", "message": str(e)})
-
-    allowed = [x.lower() for x in (args.allowed_token or [])]
-    banned = [x.lower() for x in (args.banned_token or ["korea", "value-hunter", "article"])]
-    required_terms = [x.lower() for x in (args.require_text or ["agentpress"])]
-    for line_no, record in records:
-        blob = json.dumps(record, sort_keys=True).lower()
-        in_scope = all(term in blob for term in required_terms) if required_terms else True
-        for field, value in _broker_scope_guard_values(record):
-            low = value.lower()
-            banned_hits = [b for b in banned if b and b in low]
-            allowed_hit = any(a and a in low for a in allowed) if allowed else True
-            if in_scope and banned_hits:
-                findings.append({"status": "fail", "severity": "P0", "code": "cross_scope_root", "line": line_no, "field": field, "value": value, "banned_tokens": banned_hits, "message": "AgentPress-scoped task references unrelated project root/token"})
-            elif in_scope and args.require_allowed_root and not allowed_hit and ("/" in value or value.startswith("~")):
-                findings.append({"status": "warn", "severity": "P1", "code": "unrecognized_root", "line": line_no, "field": field, "value": value, "message": "AgentPress-scoped task references a root/path without an allowed token"})
-
-    fail_count = sum(1 for f in findings if f.get("status") in {"fail", "fail_closed"})
-    warn_count = sum(1 for f in findings if f.get("status") == "warn")
-    payload = {
-        "schema_version": "2026-05-05.agentpress-broker-scope-guard.v1",
-        "generated_utc": _utc_now(),
-        "status": "ok" if fail_count == 0 and warn_count == 0 else ("fail" if fail_count else "needs_review"),
-        "path": str(path),
-        "record_count": len(records),
-        "fail_count": fail_count,
-        "warn_count": warn_count,
-        "require_text": args.require_text or ["agentpress"],
-        "allowed_token": args.allowed_token or [],
-        "banned_token": banned,
-        "findings": findings,
-    }
-    _write_json_payload(payload, pathlib.Path(args.out), args.no_write, args.json)
-    return 1 if args.strict and payload["status"] != "ok" else 0
-
-
-def broker_preenqueue_check(args):
-    """Pre-enqueue wrapper for Mission Engine/agent fanout to fail closed on cross-scope AgentPress tasks."""
-    guard_args = argparse.Namespace(
-        path=args.path,
-        out=args.out,
-        require_text=args.require_text,
-        allowed_token=args.allowed_token,
-        banned_token=args.banned_token,
-        require_allowed_root=args.require_allowed_root,
-        no_write=True,
-        strict=False,
-        json=True,
-    )
-    buf = io.StringIO()
-    with contextlib.redirect_stdout(buf):
-        broker_scope_guard(guard_args)
-    try:
-        guard = json.loads(buf.getvalue() or "{}")
-    except Exception as e:
-        guard = {"status":"fail","fail_count":1,"warn_count":0,"findings":[{"status":"fail","severity":"P0","code":"guard_parse_error","message":str(e)}]}
-    mode = "enforce" if args.enforce else "advisory"
-    enqueue_allowed = guard.get("status") == "ok" or (mode == "advisory" and guard.get("status") == "needs_review")
-    payload = {
-        "schema_version": "2026-05-05.agentpress-broker-preenqueue-check.v1",
-        "generated_utc": _utc_now(),
-        "status": "pass" if enqueue_allowed else "blocked",
-        "mode": mode,
-        "enqueue_allowed": enqueue_allowed,
-        "task_path": args.path,
-        "guard_status": guard.get("status"),
-        "guard_fail_count": guard.get("fail_count", 0),
-        "guard_warn_count": guard.get("warn_count", 0),
-        "guard_findings": guard.get("findings", []),
-        "integration_contract": {
-            "call_before_enqueue": True,
-            "block_when_enqueue_allowed_false": args.enforce,
-            "safe_default": "fail_closed_for_failures",
-            "recommended_command": "python3 scripts/agentpress.py broker-preenqueue-check <task.json-or-jsonl> --allowed-token agentpress --require-allowed-root --enforce --json",
-        },
-    }
-    _write_json_payload(payload, pathlib.Path(args.out), args.no_write, args.json)
-    return 1 if args.strict and not enqueue_allowed else 0
-
-
-def no_python_fallback_check(args):
-    """Verify the npm Node shim emits machine-readable remediation when Python is missing."""
-    root = pathlib.Path(args.root)
-    out = pathlib.Path(args.out)
-    import subprocess, os
-    commands = [c.strip() for c in args.commands.split(",") if c.strip()]
-    results = []
-    env = dict(os.environ)
-    env["PYTHON"] = args.python_path
-    for cmd in commands:
-        argv = ["node", str(root / "bin" / "agentpress.js"), cmd, ".", "--json"]
-        try:
-            proc = subprocess.run(argv, cwd=str(root), env=env, text=True, capture_output=True, timeout=args.timeout_seconds)
-            try:
-                data = json.loads(proc.stdout or "{}")
-            except Exception as e:
-                data = {"parse_error": str(e), "stdout_tail": (proc.stdout or "")[-500:]}
-            ok = proc.returncode != 0 and data.get("schema_version") == "2026-05-05.agentpress-node-no-python-command.v1" and data.get("next_steps")
-            # doctor is a special fast path and may return node-fast-doctor instead.
-            if cmd == "doctor":
-                ok = data.get("schema_version", "").startswith("2026-05-05.agentpress-node-fast-doctor") and data.get("next_steps")
-            results.append({"command": cmd, "status": "pass" if ok else "fail", "returncode": proc.returncode, "schema_version": data.get("schema_version"), "next_steps_count": len(data.get("next_steps", [])) if isinstance(data.get("next_steps"), list) else 0, "stderr_tail": (proc.stderr or "")[-300:]})
-        except Exception as e:
-            results.append({"command": cmd, "status": "fail", "error": str(e)})
-    failures = [r for r in results if r.get("status") != "pass"]
-    payload = {"schema_version":"2026-05-05.agentpress-no-python-fallback-check.v1","generated_utc":_utc_now(),"status":"ok" if not failures else "fail","root":str(root),"python_path":args.python_path,"results":results,"fail_count":len(failures),"purpose":"Ensure npm users without Python receive JSON remediation instead of generic text-only errors."}
-    _write_json_payload(payload, out, args.no_write, args.json)
-    return 1 if args.strict and failures else 0
-
-
-def release_promote_checklist(args):
-    """Gate rc/latest promotion on local safety/package checks; report proof/RFLO as advisory unless explicitly enforced."""
-    root = pathlib.Path(args.root)
-    out = pathlib.Path(args.out)
-    if getattr(args, "verify_bundle", ""):
-        bundle_dir = pathlib.Path(args.verify_bundle)
-        manifest_path = bundle_dir / "release-evidence-bundle.json"
-        failures = []
-        if not manifest_path.exists():
-            failures.append({"name":"bundle_manifest", "status":"missing", "evidence":str(manifest_path)})
-            payload = {"schema_version":"2026-05-05.agentpress-release-evidence-bundle-verify.v1","generated_utc":_utc_now(),"status":"blocked","bundle":str(bundle_dir),"checks":failures,"blocking_checks":["bundle_manifest"]}
-            _write_json_payload(payload, out, args.no_write, args.json)
-            return 1 if args.strict else 0
-        try:
-            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        except Exception as e:
-            failures.append({"name":"bundle_manifest", "status":"invalid", "evidence":str(manifest_path), "detail":str(e)})
-            manifest = {}
-        checks = []
-        for item in manifest.get("artifacts", []):
-            name = item.get("name", "unknown")
-            rel = item.get("path", "")
-            required = bool(item.get("required", True))
-            p = bundle_dir / rel if rel else bundle_dir / "__missing__"
-            status = "pass" if p.exists() and p.stat().st_size > 0 else "missing"
-            if required and status != "pass": failures.append({"name":name,"status":status,"evidence":str(p)})
-            checks.append({"name":name,"status":status,"required":required,"evidence":str(p)})
-        # RFLO/external proof are promotion-risk signals by default, not blockers for rc/site shipping.
-        # Jake's NEGNORDNUD directive: do not let these block unless explicitly enforced or a real safety/package gate fails.
-        for name in ["independent_external_proof", "rflo_review"]:
-            item = next((x for x in manifest.get("artifacts", []) if x.get("name") == name), {})
-            required = bool(item.get("required", False)) or bool(getattr(args, "enforce_review_gates", False))
-            if required and item.get("status") not in {"pass", "accepted", "approved"}:
-                failures.append({"name":name,"status":"blocked","evidence":item.get("path", "")})
-        payload = {"schema_version":"2026-05-05.agentpress-release-evidence-bundle-verify.v1","generated_utc":_utc_now(),"status":"pass" if not failures else "blocked","bundle":str(bundle_dir),"checks":checks,"blocking_checks":[f["name"] for f in failures],"promotion_allowed":not failures}
-        _write_json_payload(payload, out, args.no_write, args.json)
-        return 1 if args.strict and failures else 0
-    checks = []
-    def add(name, status, evidence="", required=True, detail=""):
-        checks.append({"name": name, "status": status, "required": required, "evidence": evidence, "detail": detail})
-    def exists(rel):
-        return (root / rel).exists()
-    # Local machine gates; these are safe, no external publish.
-    try:
-        ns = argparse.Namespace(root=str(root), out="/tmp/agentpress-release-promote-cli-gap.json", base_url=args.base_url, no_write=True, json=True, strict=False)
-        buf = io.StringIO()
-        with contextlib.redirect_stdout(buf): cli_gap_audit(ns)
-        data = json.loads(buf.getvalue() or "{}")
-        add("cli_gap_audit", "pass" if data.get("status") == "ok" else "fail", "cli-gap-audit", detail=f"status={data.get('status')} parser_count={data.get('parser_count')}")
-    except Exception as e:
-        add("cli_gap_audit", "fail", detail=str(e))
-    try:
-        ns = argparse.Namespace(manifest=str(root/"agentpress/tools/agentpress-tools.json"), sample_result="", out="/tmp/agentpress-release-promote-tcc.json", base_url=args.base_url, require_text_mirror=True, no_write=True, json=True, strict=False)
-        buf = io.StringIO()
-        with contextlib.redirect_stdout(buf): tool_contract_check(ns)
-        data = json.loads(buf.getvalue() or "{}")
-        add("tool_contract_check", "pass" if data.get("status") == "ok" and data.get("fail_count") == 0 and data.get("warn_count") == 0 else "fail", "tool-contract-check", detail=f"tools={data.get('tool_count')} fails={data.get('fail_count')} warnings={data.get('warn_count')}")
-    except Exception as e:
-        add("tool_contract_check", "fail", detail=str(e))
-    for rel, name in [
-        ("agentpress/evidence/smoke-install.json", "clean_install_smoke"),
-        ("agentpress/evidence/cli-surface-audit-20260505.md", "cli_surface_audit"),
-        ("agentpress/evidence/agent-needs-painpoint-build-list-20260505.md", "painpoint_build_list"),
-    ]:
-        add(name, "pass" if exists(rel) else "missing", rel)
-    try:
-        ns = argparse.Namespace(root=str(root), commands="validate,verify,agent-onboard", python_path="/nonexistent/python3-agentpress-check", out="/tmp/agentpress-release-promote-no-python.json", timeout_seconds=20, no_write=True, json=True, strict=False)
-        buf = io.StringIO()
-        with contextlib.redirect_stdout(buf): no_python_fallback_check(ns)
-        data = json.loads(buf.getvalue() or "{}")
-        add("no_python_fallback_check", "pass" if data.get("status") == "ok" else "blocked", "no-python-fallback-check", detail=f"fail_count={data.get('fail_count')}")
-    except Exception as e:
-        add("no_python_fallback_check", "blocked", "no-python-fallback-check", detail=str(e))
-    try:
-        import subprocess
-        raw = subprocess.check_output(["npm", "pack", "--dry-run", "--json"], cwd=str(root), timeout=args.pack_timeout_seconds)
-        pack_data = json.loads(raw.decode() or "[]")
-        pack = pack_data[0] if isinstance(pack_data, list) and pack_data else (pack_data if isinstance(pack_data, dict) else {})
-        size = int(pack.get("size", 0) or 0)
-        files = pack.get("files", []) if isinstance(pack.get("files"), list) else []
-        file_count = len(files)
-        forbidden = [str(f.get("path", "")) for f in files if re.search(r"(^|/)(\.env|.*secret.*|.*token.*|node_modules|\.git|sprint-|runtimes|ops/state)", str(f.get("path", "")), re.I)]
-        ok = size <= args.max_npm_package_bytes and file_count <= args.max_npm_package_files and not forbidden
-        detail = f"size={size}; max_size={args.max_npm_package_bytes}; files={file_count}; max_files={args.max_npm_package_files}"
-        if forbidden:
-            detail += f"; forbidden={','.join(forbidden[:5])}"
-        add("npm_package_budget", "pass" if ok else "blocked", "npm pack --dry-run --json", detail=detail)
-    except Exception as e:
-        add("npm_package_budget", "blocked", "npm pack --dry-run --json", detail=str(e))
-    # External proof/RFLO are advisory by default so real rc/site/package improvements keep shipping.
-    # Use --enforce-review-gates only when intentionally promoting a stable/latest release with reviewer-proof as a hard condition.
-    proof_index = root / "agentpress/external-proofs/external-proof-index.json"
-    independent = 0
-    ignored_examples = 0
-    if proof_index.exists():
-        try:
-            idx = json.loads(proof_index.read_text(encoding="utf-8"))
-            for r in idx.get("receipts", []) + idx.get("proofs", []) + idx.get("items", []):
-                status = str(r.get("status", "")).lower()
-                path = str(r.get("path", "")).lower()
-                proof_id = str(r.get("proof_id", r.get("id", ""))).lower()
-                agent_id = str(r.get("agent_id", r.get("source", ""))).lower()
-                runtime = str(r.get("runtime", "")).lower()
-                is_example = any(x in " ".join([path, proof_id, agent_id]) for x in ["example", "self", "barney", "agentpress-reference"])
-                has_artifact = int(r.get("artifact_count", 0) or 0) > 0 or bool(r.get("artifacts"))
-                if status in {"accepted", "ok", "pass"} and not is_example and agent_id and runtime and has_artifact:
-                    independent += 1
-                elif status in {"accepted", "ok", "pass"} and is_example:
-                    ignored_examples += 1
-        except Exception:
-            independent = 0
-    proof_status = "pass" if independent >= args.min_independent_proofs else "needs_review"
-    add("independent_external_proof", proof_status, str(proof_index), required=bool(args.enforce_review_gates), detail=f"accepted_independent_real={independent}; ignored_examples={ignored_examples}; required={args.min_independent_proofs}; hard_gate={bool(args.enforce_review_gates)}")
-    rflo_files = list(pathlib.Path("/Volumes/X10/clawd/shared/status").glob("mission-20260505-180235-88298a_ruflo*.txt")) if pathlib.Path("/Volumes/X10/clawd/shared/status").exists() else []
-    rflo_go = False; rflo_no_go = False; rflo_evidence = []
-    for fp in rflo_files:
-        try:
-            txt = fp.read_text(encoding="utf-8", errors="ignore")
-        except Exception:
-            continue
-        if len(txt) < 1000:
-            continue
-        low = txt.lower()
-        rflo_evidence.append(str(fp))
-        if "no-go" in low or "no go" in low or "do not promote" in low or "hold `latest`" in low:
-            rflo_no_go = True
-        if "go" in low and "rc" in low and "latest" in low and not rflo_no_go:
-            rflo_go = True
-    rflo_status = "needs_review" if rflo_no_go or not rflo_evidence else ("pass" if rflo_go else "needs_review")
-    add("rflo_review", rflo_status, ",".join(rflo_evidence[:3]), required=bool(args.enforce_review_gates), detail=f"RFLO Opus/Sonnet review signal; hard_gate={bool(args.enforce_review_gates)}; no_go_seen={rflo_no_go}")
-    # Optional live registry truth; no failure if network unavailable unless strict network requested.
-    npm_status = "not_checked"
-    if not args.no_network:
-        try:
-            import subprocess
-            raw = subprocess.check_output(["npm", "view", "@agent_press/agentpress", "dist-tags", "--json"], cwd=str(root), timeout=30)
-            tags = json.loads(raw.decode() or "{}")
-            npm_status = "pass" if tags.get(args.from_tag) and tags.get(args.to_tag) != tags.get(args.from_tag) else "needs_review"
-            add("npm_dist_tags", npm_status, "npm view @agent_press/agentpress dist-tags --json", required=False, detail=json.dumps(tags, sort_keys=True))
-        except Exception as e:
-            add("npm_dist_tags", "warn", required=False, detail=str(e))
-    failures = [c for c in checks if c["required"] and c["status"] in {"fail", "missing", "blocked", "needs_review"}]
-    payload = {"schema_version":"2026-05-05.agentpress-release-promote-checklist.v1","generated_utc":_utc_now(),"status":"pass" if not failures else "blocked","root":str(root),"from_tag":args.from_tag,"to_tag":args.to_tag,"promotion_allowed":not failures,"review_gates_enforced":bool(args.enforce_review_gates),"checks":checks,"blocking_checks":[c["name"] for c in failures],"decision":"Do not promote until every required safety/package check passes." if failures else "Required safety/package gates are green; external proof/RFLO are advisory unless --enforce-review-gates is set."}
-    if getattr(args, "evidence_bundle_out", ""):
-        bundle_dir = pathlib.Path(args.evidence_bundle_out)
-        bundle_dir.mkdir(parents=True, exist_ok=True)
-        checklist_rel = "release-promote-checklist.json"
-        (bundle_dir / checklist_rel).write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
-        artifacts = [{"name":"release_promote_checklist","path":checklist_rel,"required":True,"status":payload["status"]}]
-        for check in checks:
-            safe = re.sub(r"[^a-z0-9_.-]+", "-", check["name"].lower()).strip("-") or "check"
-            rel = f"checks/{safe}.json"
-            (bundle_dir / "checks").mkdir(exist_ok=True)
-            (bundle_dir / rel).write_text(json.dumps(check, indent=2)+"\n", encoding="utf-8")
-            artifacts.append({"name":check["name"],"path":rel,"required":check.get("required", True),"status":check.get("status")})
-        manifest = {"schema_version":"2026-05-05.agentpress-release-evidence-bundle.v1","generated_utc":_utc_now(),"from_tag":args.from_tag,"to_tag":args.to_tag,"promotion_allowed":payload["promotion_allowed"],"review_gates_enforced":payload["review_gates_enforced"],"source_checklist":checklist_rel,"artifacts":artifacts,"blocking_checks":payload["blocking_checks"]}
-        (bundle_dir / "release-evidence-bundle.json").write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8")
-        payload["evidence_bundle"] = str(bundle_dir)
-    _write_json_payload(payload, out, args.no_write, args.json)
-    return 1 if args.strict and failures else 0
-
-
-def context_package_init(args):
-    """Create a focused handoff root for huge repos: source-map, freshness map, task card, and budget receipt."""
-    root = pathlib.Path(args.root).resolve()
-    out = pathlib.Path(args.out)
-    if not out.is_absolute(): out = root / out
-    include_ext = {x.strip().lower() for x in args.extensions.split(",") if x.strip()}
-    max_files = max(1, args.max_files)
-    candidates = []
-    for fp in root.rglob("*"):
-        if not fp.is_file(): continue
-        rel = fp.relative_to(root).as_posix()
-        if any(part in {".git", "node_modules", "__pycache__", ".venv", "dist", "build"} for part in fp.relative_to(root).parts): continue
-        if include_ext and fp.suffix.lower() not in include_ext: continue
-        try: st = fp.stat()
-        except OSError: continue
-        score = 0
-        low = rel.lower()
-        for token in ["readme", "llms", "agent", "script", "package", "pyproject", "schema", "tool", "test", "docs"]:
-            if token in low: score += 10
-        score += max(0, 5_000_000 - st.st_size) / 5_000_000
-        candidates.append((score, rel, st.st_size, int(st.st_mtime)))
-    candidates.sort(key=lambda x: (-x[0], x[1]))
-    selected = candidates[:max_files]
-    source_map = {"schema_version":"2026-05-05.agentpress-context-source-map.v1","generated_utc":_utc_now(),"root":str(root),"selected_count":len(selected),"files":[{"path":r,"bytes":b,"mtime":m} for _,r,b,m in selected]}
-    freshness = {"schema_version":"2026-05-05.agentpress-context-freshness.v1","generated_utc":_utc_now(),"root":str(root),"files":[{"path":r,"mtime":m} for _,r,b,m in selected[:max_files]]}
-    task_card = f"""# AgentPress focused handoff root\n\nRoot: `{root}`\nGenerated: {_utc_now()}\n\n## Use this root when\n- The full repository is too large for an agent context.\n- A worker needs a focused source map, freshness receipt, and acceptance gates.\n\n## Start commands\n```bash\npython3 scripts/agentpress.py context-budget {shlex.quote(str(out))} --source-map source-map.json --freshness freshness.json --json --strict\npython3 scripts/agentpress.py doctor {shlex.quote(str(root))} --json\npython3 scripts/agentpress.py cli-gap-audit {shlex.quote(str(root))} --json --strict\n```\n\n## Selected files\n""" + "\n".join(f"- `{r}` ({b} bytes)" for _,r,b,_ in selected[:50]) + "\n"
-    if not args.no_write:
-        out.mkdir(parents=True, exist_ok=True)
-        (out/"source-map.json").write_text(json.dumps(source_map, indent=2)+"\n", encoding="utf-8")
-        (out/"freshness.json").write_text(json.dumps(freshness, indent=2)+"\n", encoding="utf-8")
-        (out/"TASK_CARD.md").write_text(task_card, encoding="utf-8")
-    payload = {"schema_version":"2026-05-05.agentpress-context-package-init.v1","generated_utc":_utc_now(),"status":"ok","root":str(root),"out":str(out),"selected_count":len(selected),"files":[r for _,r,_,_ in selected[:20]],"next_command":f"python3 scripts/agentpress.py context-budget {shlex.quote(str(out))} --source-map source-map.json --freshness freshness.json --json --strict"}
-    print(json.dumps(payload, indent=2) if args.json else payload["status"])
-    return 0
-
-
-def handoff_root_pick(args):
-    """Pick/create a focused handoff root; thin alias around context-package-init for agent handoffs."""
-    return context_package_init(args)
-
-
-def cli_gap_audit(args):
-    """Audit AgentPress CLI command surface for command drift, manifest coverage, and next-build gaps."""
-    root = pathlib.Path(args.root)
-    script = root / "scripts" / "agentpress.py"
-    findings = []
-    parser_count = dispatch_count = 0
-    parser_no_dispatch = []
-    dispatch_no_parser = []
-    if not script.exists():
-        findings.append({"status": "fail", "code": "missing_agentpress_script", "message": str(script)})
-    else:
-        text = script.read_text(encoding="utf-8")
-        parsers = set(re.findall(r'(?<![A-Za-z0-9_])sub\.add_parser\("([^"]+)"', text))
-        dispatch = set(re.findall(r'args\.cmd == "([^"]+)"', text))
-        for m in re.findall(r'args\.cmd in \{([^}]+)\}', text):
-            dispatch |= set(re.findall(r'"([^"]+)"', m))
-        parser_count = len(parsers); dispatch_count = len(dispatch)
-        parser_no_dispatch = sorted(parsers - dispatch)
-        dispatch_no_parser = sorted(x for x in dispatch - parsers if x not in {"adopt", "help-start"})
-        for cmd in parser_no_dispatch:
-            findings.append({"status": "fail", "code": "parser_without_dispatch", "command": cmd})
-        for cmd in dispatch_no_parser:
-            findings.append({"status": "warn", "code": "dispatch_without_parser", "command": cmd})
-    docs_status = tools_status = contract_status = "not_run"
-    docs_summary = tools_summary = contract_summary = {}
-    def capture(name, func, ns):
-        buf = io.StringIO(); code = 1
-        try:
-            with contextlib.redirect_stdout(buf):
-                code = func(ns)
-            data = json.loads(buf.getvalue() or "{}")
-        except Exception as e:
-            data = {"status": "fail", "error": str(e)}; code = 1
-        return code, data
-    if script.exists():
-        code, docs = capture("docs-command-check", docs_command_check, argparse.Namespace(root=str(root), path=None, out="/tmp/agentpress-cli-gap-docs.json", base_url=args.base_url, max_results=500, allow_failures=False, no_write=True, json=True))
-        docs_status = docs.get("status", "unknown"); docs_summary = {k: docs.get(k) for k in ("status","error_count","missing_count","checked_count") if k in docs}
-        if docs_status not in {"ok", "pass"}: findings.append({"status": "warn", "code": "docs_command_check_not_ok", "summary": docs_summary})
-        code, tools = capture("tools-manifest-check", tools_manifest_check, argparse.Namespace(path=str(root/"agentpress/tools/agentpress-tools.json"), json=True))
-        tools_status = tools.get("status", "unknown"); tools_summary = {k: tools.get(k) for k in ("status","tool_count","missing_count","error_count") if k in tools}
-        if tools_status not in {"ok", "pass"}: findings.append({"status": "warn", "code": "tools_manifest_check_not_ok", "summary": tools_summary})
-        code, contract = capture("tool-contract-check", tool_contract_check, argparse.Namespace(manifest=str(root/"agentpress/tools/agentpress-tools.json"), sample_result="", out="/tmp/agentpress-cli-gap-contract.json", base_url=args.base_url, require_text_mirror=True, no_write=True, json=True, strict=False))
-        contract_status = contract.get("status", "unknown"); contract_summary = {k: contract.get(k) for k in ("status","tool_count","fail_count","warn_count") if k in contract}
-        if contract_status != "ok": findings.append({"status": "warn", "code": "tool_contract_check_not_ok", "summary": contract_summary})
-    fail_count = sum(1 for f in findings if f.get("status") == "fail")
-    warn_count = sum(1 for f in findings if f.get("status") == "warn")
-    payload = {"schema_version":"2026-05-05.agentpress-cli-gap-audit.v1","generated_utc":_utc_now(),"status":"ok" if fail_count == 0 and warn_count == 0 else ("fail" if fail_count else "needs_review"),"root":str(root),"parser_count":parser_count,"dispatch_count":dispatch_count,"parser_no_dispatch":parser_no_dispatch,"dispatch_no_parser":dispatch_no_parser,"docs_command_check":docs_summary,"tools_manifest_check":tools_summary,"tool_contract_check":contract_summary,"remaining_cli_builds":[{"priority":"P1","item":"release-promote-checklist","why":"Block moving rc to latest until independent proof/RFLO/CI/package-smoke gates pass."},{"priority":"P1","item":"context-package init / handoff-root pick","why":"Agents still need a one-command way to turn huge repos into focused context roots."},{"priority":"P1","item":"native integration packs","why":"Agents need Cline/Roo/OpenHands/LangChain/LlamaIndex/MCP-specific config snippets and proof commands."}],"findings":findings}
-    _write_json_payload(payload, pathlib.Path(args.out), args.no_write, args.json)
-    return 1 if args.strict and payload["status"] != "ok" else 0
-
-
-def _tool_output_sample_for_schema(schema):
-    if not isinstance(schema, dict):
-        return {"status": "ok"}
-    typ = schema.get("type")
-    if typ == "object" or "properties" in schema:
-        out = {}
-        for key, spec in (schema.get("properties") or {}).items():
-            st = spec.get("type") if isinstance(spec, dict) else "string"
-            if st == "integer": out[key] = 1
-            elif st == "number": out[key] = 1.0
-            elif st == "boolean": out[key] = True
-            elif st == "array": out[key] = []
-            elif st == "object": out[key] = {}
-            else: out[key] = f"sample_{key}"
-        for key in schema.get("required") or []:
-            out.setdefault(key, f"sample_{key}")
-        return out or {"status": "ok"}
-    if typ == "array": return []
-    if typ == "boolean": return True
-    if typ == "integer": return 1
-    if typ == "number": return 1.0
-    return "sample"
-
-
-def tool_output_sample_generate(args):
-    """Generate structuredContent sample fixtures so agents can validate tool outputs before use."""
-    findings = []
-    manifest = _tool_contract_load_json(args.manifest, findings, "manifest") if args.manifest else _tool_contract_builtin_manifest()
-    tools = _tool_contract_tools(manifest) if manifest is not None else []
-    samples = {}
-    rows = []
-    for tool in tools:
-        name = tool.get("name") or tool.get("id") or "<unnamed>"
-        if isinstance(tool.get("outputSchema"), dict):
-            structured = _tool_output_sample_for_schema(tool["outputSchema"])
-            result = {"content": [{"type": "text", "text": json.dumps(structured, sort_keys=True)}], "structuredContent": structured}
-            samples[name] = result
-            rows.append({"name": name, "mode": "outputSchema", "status": "sampled"})
-        elif isinstance(tool.get("exampleResult"), dict):
-            samples[name] = tool["exampleResult"]
-            rows.append({"name": name, "mode": "exampleResult", "status": "copied"})
-        elif tool.get("machine_output") is False:
-            rows.append({"name": name, "mode": "file_or_prose_output", "status": "skipped", "output_contract": tool.get("output_contract", "")})
-        else:
-            samples[name] = {"content": [{"type": "text", "text": "{\"status\":\"ok\"}"}], "structuredContent": {"status": "ok"}}
-            rows.append({"name": name, "mode": "generic_status", "status": "sampled"})
-    payload = {"schema_version": "2026-05-05.agentpress-tool-output-samples.v1", "generated_utc": _utc_now(), "status": "ok" if not findings else "fail", "manifest": args.manifest or "built_in", "tool_count": len(tools), "sample_count": len(samples), "skipped_count": sum(1 for r in rows if r["status"] == "skipped"), "samples": samples, "tools": rows, "findings": findings}
-
-    if getattr(args, "check", False):
-        out_path = pathlib.Path(args.out)
-        if not out_path.exists():
-            findings.append({"code": "missing_sample_fixture", "path": str(out_path), "detail": "Generate samples without --check and commit the fixture."})
-        else:
-            try:
-                existing = json.loads(out_path.read_text(encoding="utf-8"))
-                expected = json.loads(json.dumps(payload))
-                existing.pop("generated_utc", None)
-                expected.pop("generated_utc", None)
-                if existing != expected:
-                    findings.append({"code": "stale_sample_fixture", "path": str(out_path), "detail": "Checked-in tool output samples differ from current tool manifest. Regenerate with tool-output-sample-generate."})
-            except Exception as exc:
-                findings.append({"code": "invalid_sample_fixture", "path": str(out_path), "detail": str(exc)})
-        payload["status"] = "ok" if not findings else "fail"
-        payload["findings"] = findings
-        payload["check"] = {"enabled": True, "path": str(out_path)}
-
-    _write_json_payload(payload, pathlib.Path(args.out), args.no_write or getattr(args, "check", False), args.json)
-    return 1 if (getattr(args, "strict", False) or getattr(args, "check", False)) and payload["status"] != "ok" else 0
-
-
-def smoke_install(args):
-    """Run or plan clean npm/PyPI AgentPress install smoke checks with receipt output."""
-    out = pathlib.Path(args.out)
-    steps = []
-    errors = []
-    runtime = args.runtime
-    npm_version = args.version or "rc"
-    pypi_version = args.version or "0.2.0rc5"
-    commands = []
-    if runtime in {"npm", "all"}:
-        pkg = f"@agent_press/agentpress@{npm_version.lstrip('@')}"
-        commands.append(("npm", ["npx", "-y", pkg, "doctor", ".", "--mode", "online", "--json"]))
-    if runtime in {"pypi", "all"}:
-        commands.append(("pypi", ["python3", "-m", "venv", "<tmp>/venv", "&&", "<tmp>/venv/bin/pip", "install", f"agentpress-static=={pypi_version}", "&&", "<tmp>/venv/bin/agentpress", "doctor", ".", "--mode", "online", "--json"]))
-    if args.no_run:
-        for name, cmd in commands:
-            steps.append({"name": name, "status": "planned", "command": " ".join(cmd)})
-    else:
-        base = pathlib.Path(args.workdir or f"/tmp/agentpress-smoke-{uuid.uuid4().hex[:8]}")
-        base.mkdir(parents=True, exist_ok=True)
-        for name, cmd in commands:
-            stepdir = base / name; stepdir.mkdir(exist_ok=True)
-            try:
-                if name == "npm":
-                    run = subprocess.run(cmd, cwd=str(stepdir), text=True, capture_output=True, timeout=args.timeout_seconds)
-                else:
-                    venv = stepdir / "venv"
-                    subprocess.run(["python3", "-m", "venv", str(venv)], cwd=str(stepdir), check=True, text=True, capture_output=True, timeout=args.timeout_seconds)
-                    subprocess.run([str(venv/"bin/python"), "-m", "pip", "install", "-q", "--upgrade", "pip"], cwd=str(stepdir), check=True, text=True, capture_output=True, timeout=args.timeout_seconds)
-                    subprocess.run([str(venv/"bin/python"), "-m", "pip", "install", "-q", f"agentpress-static=={pypi_version}"], cwd=str(stepdir), check=True, text=True, capture_output=True, timeout=args.timeout_seconds)
-                    run = subprocess.run([str(venv/"bin/agentpress"), "doctor", ".", "--mode", "online", "--json"], cwd=str(stepdir), text=True, capture_output=True, timeout=args.timeout_seconds)
-                artifact = stepdir / "doctor.json"
-                artifact.write_text(run.stdout or "{}", encoding="utf-8")
-                status = "pass" if run.returncode == 0 else "fail"
-                steps.append({"name": name, "status": status, "exit_code": run.returncode, "artifact": str(artifact), "stderr_tail": run.stderr[-1000:]})
-                if run.returncode != 0: errors.append(f"{name} smoke failed")
-            except Exception as e:
-                errors.append(f"{name}: {e}"); steps.append({"name": name, "status": "fail", "error": str(e)})
-    payload = {"schema_version": "2026-05-05.agentpress-smoke-install.v1", "generated_utc": _utc_now(), "status": "ok" if not errors else "fail", "runtime": runtime, "npm_version": npm_version, "pypi_version": pypi_version, "no_run": bool(args.no_run), "steps": steps, "errors": errors}
-    _write_json_payload(payload, out, args.no_write, args.json)
-    return 1 if args.strict and payload["status"] != "ok" else 0
-
-
-def repo_sync_doctor(args):
-    """Tell agents whether a local checkout matches the published branch/package evidence."""
-    root = pathlib.Path(args.root)
-    findings = []
-    def git(cmd):
-        return subprocess.check_output(["git", *cmd], cwd=str(root), text=True, stderr=subprocess.STDOUT).strip()
-    local = remote = branch = ""
-    dirty = []
-    try:
-        local = git(["rev-parse", "HEAD"]); branch = git(["branch", "--show-current"]); dirty = git(["status", "--short"]).splitlines()
-    except Exception as e:
-        findings.append({"status": "fail", "code": "git_local_error", "message": str(e)})
-    if not args.no_network:
-        try:
-            raw = subprocess.check_output(["git", "ls-remote", args.remote, args.ref], text=True, stderr=subprocess.STDOUT).strip()
-            remote = raw.split()[0] if raw else ""
-        except Exception as e:
-            findings.append({"status": "warn", "code": "git_remote_error", "message": str(e)})
-    status = "ok"
-    if remote and local and remote != local:
-        findings.append({"status": "warn", "code": "behind_or_diverged", "message": "local HEAD does not equal remote ref", "local": local, "remote": remote})
-    if dirty:
-        findings.append({"status": "warn", "code": "dirty_worktree", "message": "working tree has uncommitted changes", "count": len(dirty), "sample": dirty[:20]})
-    if any(f["status"] == "fail" for f in findings): status = "fail"
-    elif findings: status = "needs_review"
-    payload = {"schema_version": "2026-05-05.agentpress-repo-sync-doctor.v1", "generated_utc": _utc_now(), "status": status, "root": str(root), "branch": branch, "local_head": local, "remote": args.remote, "ref": args.ref, "remote_head": remote, "dirty_count": len(dirty), "findings": findings, "next_steps": ["Use a clean worktree for release evidence", "Fast-forward before judging package/version truth", "Do not mix generated artifacts with product patches"]}
-    _write_json_payload(payload, pathlib.Path(args.out), args.no_write, args.json)
-    return 1 if args.strict and status != "ok" else 0
-
-
 def submission_validate(args):
     """Validate an AgentPress proof submission pack before issue/PR submission."""
     root=pathlib.Path(args.path)
@@ -3021,6 +2208,128 @@ def reputation_index(args):
     return 0
 
 
+
+
+def _json_documents(path: pathlib.Path) -> list[tuple[pathlib.Path, dict]]:
+    """Load JSON/JSONL documents below a file or directory, skipping invalid rows."""
+    if not path or not path.exists():
+        return []
+    files = [path] if path.is_file() else sorted(list(path.rglob("*.json")) + list(path.rglob("*.jsonl")))
+    docs: list[tuple[pathlib.Path, dict]] = []
+    for fp in files:
+        try:
+            text = fp.read_text(encoding="utf-8")
+        except Exception:
+            continue
+        if fp.suffix == ".jsonl":
+            for line in text.splitlines():
+                if not line.strip():
+                    continue
+                try:
+                    obj = json.loads(line)
+                except Exception:
+                    continue
+                if isinstance(obj, dict):
+                    docs.append((fp, obj))
+            continue
+        try:
+            obj = json.loads(text)
+        except Exception:
+            continue
+        if isinstance(obj, list):
+            docs.extend((fp, row) for row in obj if isinstance(row, dict))
+        elif isinstance(obj, dict):
+            rows = obj.get("results") or obj.get("receipts") or obj.get("bundles")
+            if isinstance(rows, list):
+                docs.extend((fp, row) for row in rows if isinstance(row, dict))
+            docs.append((fp, obj))
+    return docs
+
+
+def _agent_id_from_doc(doc: dict) -> str:
+    for key in ("agent_id", "agent", "agentId", "owner", "assignee"):
+        value = doc.get(key)
+        if isinstance(value, str) and value:
+            return value
+    for key in ("responder", "metadata"):
+        value = doc.get(key)
+        if isinstance(value, dict):
+            nested = _agent_id_from_doc(value)
+            if nested:
+                return nested
+    return ""
+
+
+def _is_pass_doc(doc: dict) -> bool:
+    status = str(doc.get("status") or doc.get("result") or doc.get("outcome") or "").lower()
+    if status in {"ok", "pass", "passed", "success", "accepted", "completed", "valid"}:
+        return True
+    if doc.get("passed") is True or doc.get("valid") is True:
+        return True
+    if isinstance(doc.get("errors"), list) and not doc.get("errors"):
+        return True
+    return False
+
+
+def _score_agent_reputation(agent_id: str, groups: dict[str, list[tuple[pathlib.Path, dict]]]) -> dict:
+    evidence = {"result_bundles": 0, "validation_receipts": 0, "kit_validations": 0, "commands_passed": 0, "commands_total": 0, "blockers": 0, "files": []}
+    files: set[str] = set()
+    accepted_results = passed_validations = passed_kits = command_total = command_pass = 0
+    for fp, doc in groups.get("result_bundles", []):
+        if agent_id and _agent_id_from_doc(doc) not in {"", agent_id}: continue
+        accepted_results += 1 if _is_pass_doc(doc) else 0; evidence["result_bundles"] += 1; files.add(str(fp))
+    for fp, doc in groups.get("validation_receipts", []):
+        if agent_id and _agent_id_from_doc(doc) not in {"", agent_id}: continue
+        passed_validations += 1 if _is_pass_doc(doc) else 0; evidence["validation_receipts"] += 1; files.add(str(fp))
+    for fp, doc in groups.get("kit_validations", []):
+        if agent_id and _agent_id_from_doc(doc) not in {"", agent_id}: continue
+        passed_kits += 1 if _is_pass_doc(doc) else 0; evidence["kit_validations"] += 1; files.add(str(fp))
+    for fp, doc in groups.get("command_results", []):
+        if agent_id and _agent_id_from_doc(doc) not in {"", agent_id}: continue
+        rows = doc.get("commands") if isinstance(doc.get("commands"), list) else [doc]
+        for row in rows:
+            if isinstance(row, dict): command_total += 1; command_pass += 1 if _is_pass_doc(row) else 0
+        files.add(str(fp))
+    for fp, doc in groups.get("blockers", []):
+        if agent_id and _agent_id_from_doc(doc) not in {"", agent_id}: continue
+        evidence["blockers"] += 1; files.add(str(fp))
+    evidence["commands_total"] = command_total; evidence["commands_passed"] = command_pass
+    result_score = min(35.0, accepted_results * 12.0)
+    validation_score = min(20.0, passed_validations * 7.0) + min(10.0, passed_kits * 5.0)
+    command_score = 25.0 * (command_pass / command_total) if command_total else 0.0
+    blocker_penalty = min(20.0, evidence["blockers"] * 5.0)
+    score = round(max(0.0, min(100.0, result_score + validation_score + command_score - blocker_penalty)), 2)
+    evidence["files"] = sorted(files)
+    return {"agent_id": agent_id, "score": score, "quality_tier": "excellent" if score >= 85 else ("verified" if score >= 70 else ("provisional" if score >= 40 else "needs_evidence")), "components": {"result_bundles": round(result_score, 2), "validation_receipts": round(validation_score, 2), "command_pass_rate": round(command_score, 2), "blocker_penalty": round(blocker_penalty, 2)}, "evidence": evidence}
+
+
+def _reputation_sources(args) -> dict[str, list[tuple[pathlib.Path, dict]]]:
+    return {"result_bundles": _json_documents(pathlib.Path(args.result_bundles)), "validation_receipts": _json_documents(pathlib.Path(args.validation_receipts)), "kit_validations": _json_documents(pathlib.Path(args.kit_validations)), "command_results": _json_documents(pathlib.Path(args.command_results)), "blockers": _json_documents(pathlib.Path(args.blockers))}
+
+
+def reputation_score(args):
+    payload = {"schema_version":"2026-05-06.agentpress-reputation-score.v1", "status":"ok", "generated_utc":_utc_now(), **_score_agent_reputation(args.agent_id or "agent", _reputation_sources(args))}
+    if args.out:
+        out = pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"{payload['agent_id']}: {payload['score']}/100")
+    return 0
+
+
+def reputation_quality_index(args):
+    groups = _reputation_sources(args)
+    agents = set(_csv_list(args.agent_id))
+    for docs in groups.values():
+        for _, doc in docs:
+            aid = _agent_id_from_doc(doc)
+            if aid: agents.add(aid)
+    rows = [_score_agent_reputation(aid, groups) for aid in sorted(agents)]
+    rows.sort(key=lambda r: (-r["score"], r["agent_id"]))
+    payload = {"schema_version":"2026-05-06.agentpress-reputation-index.v1", "status":"ok", "generated_utc":_utc_now(), "agent_count":len(rows), "agents":rows, "scoring":{"result_bundles":"accepted result bundles, up to 35", "validation_receipts":"validation + kit receipts, up to 30", "command_pass_rate":"command pass ratio, up to 25", "blockers":"-5 each, capped at -20"}}
+    if args.out:
+        out = pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"indexed {len(rows)} agents")
+    return 0
+
 def landing_receipt(args):
     caps=[]
     for c in args.capability or []:
@@ -3094,7 +2403,6 @@ def message_command(args):
     if args.message_cmd == "claim": return message_claim(args)
     if args.message_cmd == "complete": return message_complete(args)
     if args.message_cmd == "agents": return message_agents(args)
-    if args.message_cmd == "receipt-aggregate": return message_receipt_aggregate(args)
     if args.message_cmd == "validate": return message_validate(args)
     if args.message_cmd == "thread-create": return message_thread_create(args)
     if args.message_cmd == "thread-append": return message_thread_append(args)
@@ -3183,6 +2491,10 @@ def package_bundle(args):
     if not root.exists():
         print(f"missing root: {root}", file=sys.stderr); return 1
     files = [p for p in root.rglob("*") if p.is_file() and ".git" not in p.parts and "__pycache__" not in p.parts]
+    if getattr(args, "dry_run", False):
+        payload = {"dry_run": True, "command": "package", "root": str(root), "out": str(out), "format": args.format, "file_count": len(files)}
+        print(json.dumps(payload, indent=2))
+        return 0
     out.parent.mkdir(parents=True, exist_ok=True)
     if args.format == "zip":
         with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
@@ -3522,35 +2834,36 @@ def tools_manifest(args):
         {"name":"agentpress.discover", "description":"Discover another AgentPress node, inspect tools/releases/contracts, and update a known-agent mesh registry.", "command":"python3 scripts/agentpress.py discover <agentpress-url> --registry agentpress/mesh/known-agents.json --json", "tags":["discover","mesh","agent-network","tools","release","self-register"]},
         {"name":"agentpress.schema_validate", "description":"Strict dependency-free JSON Schema subset validation for AgentPress contract files.", "command":"python3 scripts/agentpress.py schema-validate <file> --schema <schema-name-or-file> --json", "tags":["schema","strict","validate","contract","jsonschema"]},
         {"name":"agentpress.verify", "description":"Verify an AgentPress bundle fails/passes contract checks.", "command":"python3 scripts/agentpress.py verify <bundle> --json", "tags":["verify","schema","contract"]},
-        {"name":"agentpress.bundle", "description":"Generate a valid AgentPress bundle from docs/API folder.", "command":"python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force", "machine_output":False, "output_contract":"writes an AgentPress bundle directory; validate with `python3 scripts/agentpress.py verify <bundle-dir> --json`", "tags":["generate","bundle","docs","api"]},
+        {"name":"agentpress.bundle", "description":"Generate a valid AgentPress bundle from docs/API folder.", "command":"python3 scripts/agentpress.py bundle <source-dir> --out <bundle-dir> --title <title> --force", "tags":["generate","bundle","docs","api"]},
         {"name":"agentpress.bundle_diff", "description":"Compare two AgentPress bundles and report changed files/hashes for upgrade review.", "command":"python3 scripts/agentpress.py bundle-diff <old-bundle> <new-bundle> --json --include-hashes", "tags":["bundle","diff","upgrade","review"]},
         {"name":"agentpress.upgrade_check", "description":"Check whether upgrading from one AgentPress bundle to another is safe or breaking.", "command":"python3 scripts/agentpress.py upgrade-check <current-bundle> <latest-bundle> --json", "tags":["upgrade","compatibility","bundle","breaking"]},
         {"name":"agentpress.negative_fixtures", "description":"Run adversarial broken-bundle fixtures and require fail-closed validation.", "command":"python3 scripts/agentpress.py negative-fixtures --json", "tags":["negative-fixtures","security","fail-closed","eval"]},
-        {"name":"agentpress.message", "description":"Create, route, respond, thread, and validate agent work messages.", "command":"python3 scripts/agentpress.py message create-request --capability <capability> --task <task> --requester-id <agent-id> --out request.json", "machine_output":False, "output_contract":"writes request/response/thread JSON files to --out paths; validate with schema-validate --json", "tags":["message","route","handoff"]},
+        {"name":"agentpress.message", "description":"Create, route, respond, thread, and validate agent work messages.", "command":"python3 scripts/agentpress.py message create-request --capability <capability> --task <task> --requester-id <agent-id> --out request.json", "tags":["message","route","handoff"]},
         {"name":"agentpress.search", "description":"Search AgentPress assets/capabilities/schemas by query.", "command":"python3 scripts/agentpress.py search <query> --json", "tags":["search","capability","discovery"]},
-        {"name":"agentpress.self_test", "description":"Run standard suite proving an agent can use AgentPress.", "command":"python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl", "machine_output":False, "output_contract":"writes JSONL proof rows to --out; parse as line-delimited JSON", "tags":["self-test","reputation","proof"]},
-        {"name":"agentpress.team_pack", "description":"Create privacy-safe team/person capability pack.", "command":"python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json", "machine_output":False, "output_contract":"writes a privacy-safe team capability JSON file to --out", "tags":["team","capability","privacy"]},
+        {"name":"agentpress.self_test", "description":"Run standard suite proving an agent can use AgentPress.", "command":"python3 scripts/agentpress.py self-test --agent-id <agent-id> --out self-test.jsonl", "tags":["self-test","reputation","proof"]},
+        {"name":"agentpress.team_pack", "description":"Create privacy-safe team/person capability pack.", "command":"python3 scripts/agentpress.py team-pack --slug <slug> --capability <kind:name> --consent-source public_source --out team.json", "tags":["team","capability","privacy"]},
         {"name":"agentpress.package_verify", "description":"Build and verify an offline AgentPress package by SHA256 manifest.", "command":"python3 scripts/agentpress.py package . --out dist/agentpress-offline.tar.gz && python3 scripts/agentpress.py package-verify dist/agentpress-offline.tar.gz --json", "tags":["package","sha256","offline"]},
         {"name":"agentpress.install", "description":"Install AgentPress offline package from static release index with SHA256 verification.", "command":"python3 -c \"$(curl -fsSL https://barneywohl.github.io/agentpress/agentpress/install/install.py)\" --json", "tags":["install","release","package","offline","sha256"]},
         {"name":"agentpress.landing_receipt", "description":"Create a privacy-safe opt-in receipt proving an agent discovered and landed on AgentPress.", "command":"python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel <channel> --capability <capability> --out landing/<agent-id>.json --json", "tags":["landing","telemetry","adoption","privacy"]},
         {"name":"agentpress.reputation_index", "description":"Compile landing receipts, self-tests, and handoff receipts into an evidence-derived agent reputation index.", "command":"python3 scripts/agentpress.py reputation-index --landing-dir agentpress/landing --self-test-dir agentpress/self-test --receipt-dir agentpress/receipts --out agentpress/reputation/reputation-index.json --json", "tags":["reputation","leaderboard","proof","trust"]},
         {"name":"agentpress.submission_pack", "description":"Generate a PR/issue-ready pack for submitting landing/proof receipts back to AgentPress.", "command":"python3 scripts/agentpress.py submission-pack --receipt <receipt.json> --out submission-pack --json", "tags":["submission","github","landing","proof","adoption"]},
-        {"name":"agentpress.feedback_submit", "description":"Emit or validate deterministic external-agent feedback against the AgentPress response template/rubric.", "command":"python3 scripts/agentpress.py feedback-submit --example", "machine_output":False, "output_contract":"prints an example feedback template; use --json with concrete input validation flows where available", "tags":["feedback","rubric","first-contact","agent-review"]},
+        {"name":"agentpress.feedback_submit", "description":"Emit or validate deterministic external-agent feedback against the AgentPress response template/rubric.", "command":"python3 scripts/agentpress.py feedback-submit --example", "tags":["feedback","rubric","first-contact","agent-review"]},
         {"name":"agentpress.consistency_check", "description":"Fail CI when first-contact machine contracts drift across llms.txt, README, schemas, and agent instructions.", "command":"python3 scripts/agentpress.py consistency-check --json", "tags":["consistency","ci","contract","drift"]},
         {"name":"agentpress.adoption_status", "description":"Summarize opt-in landing receipts, reputation, compatibility, mesh, and install-lane adoption state without hidden telemetry.", "command":"python3 scripts/agentpress.py adoption-status --json", "tags":["adoption","reputation","compatibility","privacy","proof"]},
-        {"name":"agentpress.adoption_fixpack", "description":"Generate a copy-paste first-contact fix pack from local adoption evidence.", "command":"python3 scripts/agentpress.py adoption-fixpack --json", "tags":["adoption","first-contact","proof","fixpack","privacy"]},
         {"name":"agentpress.payment_status", "description":"Report payment/x402 readiness, budget guardrails, and fail-closed payment policy without performing payments.", "command":"python3 scripts/agentpress.py payment-status --json", "tags":["payments","x402","budget","safety","commerce"]},
         {"name":"agentpress.payment_intent", "description":"Create an unsigned quote/payment intent for budget approval workflows without signing or spending.", "command":"python3 scripts/agentpress.py payment-intent --capability-id free_agentpress_bootstrap --agent-id <agent-id> --max-amount 0 --json", "tags":["payments","quote","budget","intent","no-spend"]},
         {"name":"agentpress.painpoint_intake", "description":"Validate and index agent painpoint reports with severity, command, problem, and desired fix.", "command":"python3 scripts/agentpress.py painpoint-intake --json --allow-rejected", "tags":["painpoint","feedback","intake","roadmap"]},
         {"name":"agentpress.attestation_coverage", "description":"Compute tamper-evident attestation coverage for critical AgentPress machine surfaces.", "command":"python3 scripts/agentpress.py attestation-coverage --json", "tags":["attestation","coverage","trust"]},
         {"name":"agentpress.marketplace_trust", "description":"Score and rank marketplace services using command, capability, payment, trust, and proof signals.", "command":"python3 scripts/agentpress.py marketplace-trust --json", "tags":["marketplace","trust","score","routing"]},
         {"name":"agentpress.mcp_consent_manifest_validator", "description":"Validate MCP/tool consent manifests and approval evidence fail-closed.", "command":"python3 scripts/agentpress.py mcp-consent-manifest-validator --json", "tags":["mcp","consent","approval","security","gate"]},
+        {"name":"agentpress.issue_to_kit", "description":"Turn a real issue/debug transcript into one maintainer-ready repro kit (issue-to-repro, adapter repro, checkpoint replay, runtime hang capsule).", "command":"python3 scripts/agentpress.py issue-to-kit --issue-url <public-url> --body <redacted-symptoms> --json", "tags":["issue","repro","adapter","checkpoint","runtime","hang"]},
         {"name":"agentpress.provider_adapter_repro_pack", "description":"Create provider/host tool vocabulary mismatch repro and adapter map.", "command":"python3 scripts/agentpress.py provider-adapter-repro-pack --json", "tags":["provider","adapter","repro","tools"]},
         {"name":"agentpress.checkpoint_replay_minimal_repro_generator", "description":"Generate stale checkpoint/structured_response minimal repro artifact.", "command":"python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json", "tags":["checkpoint","repro","langchain","state"]},
         {"name":"agentpress.runtime_hang_repro_capsule", "description":"Turn stuck runtime/browser/terminal logs into maintainer-ready capsule.", "command":"python3 scripts/agentpress.py runtime-hang-repro-capsule --json", "tags":["runtime","hang","browser","terminal","repro"]},
         {"name":"agentpress.first_agent_outreach_receipt_tracker", "description":"Track targeted first-agent outreach receipts/blockers privacy-safely.", "command":"python3 scripts/agentpress.py first-agent-outreach-receipt-tracker --json", "tags":["outreach","receipts","growth","privacy"]},
         {"name":"agentpress.rag_tool_safety_bundle", "description":"Publish RAG/tool safety bundle for file-path metadata, zero-arg tools, and output contracts.", "command":"python3 scripts/agentpress.py rag-tool-safety-bundle --json", "tags":["rag","tools","security","schema","safety"]},
         {"name":"agentpress.external_reply_to_proof_ingest_bridge", "description":"Map external replies/blockers into proof-ingest compatible receipt records.", "command":"python3 scripts/agentpress.py external-reply-to-proof-ingest-bridge --json", "tags":["proof","receipts","external","bridge"]},
+        {"name":"agentpress.nexio_evidence_slice", "description":"Export privacy-safe spreadsheet rows, screenshot/log link slots, and bug/fix traceability from proof-ingest metadata.", "command":"python3 scripts/agentpress.py nexio-evidence-slice --json", "tags":["nexio","evidence","spreadsheet","proof","traceability"]},
         {"name":"agentpress.issue_comment_pack_generator", "description":"Generate issue-specific non-spam comment packs tied to exact artifacts/commands.", "command":"python3 scripts/agentpress.py issue-comment-pack-generator --json", "tags":["outreach","comments","issues","attention"]},
         {"name":"agentpress.continuous_research_build_cycle_audit", "description":"Audit shipped next-build cycle and emit remaining research/build backlog.", "command":"python3 scripts/agentpress.py continuous-research-build-cycle-audit --json", "tags":["audit","cycle","backlog","research"]},
         {"name":"agentpress.current_agent_places_map", "description":"Map current places where agent builders communicate and how to engage them.", "command":"python3 scripts/agentpress.py current-agent-places-map --json", "tags":["community","research","agents","attention"]},
@@ -3564,26 +2877,13 @@ def tools_manifest(args):
         {"name":"agentpress.provider_tool_translation_map", "description":"Generate provider/host tool vocabulary translation hints.", "command":"python3 scripts/agentpress.py provider-tool-translation-map --json", "tags":["provider","tools","translation"]},
         {"name":"agentpress.workflow_terminal_callback_check", "description":"Check workflow/terminal callback completion contract.", "command":"python3 scripts/agentpress.py workflow-terminal-callback-check --json", "tags":["workflow","terminal","callback","gate"]},
         {"name":"agentpress.context_compaction_risk_card", "description":"Generate context compaction risk envelope.", "command":"python3 scripts/agentpress.py context-compaction-risk-card --json", "tags":["context","compaction","memory"]},
-        {"name":"agentpress.context_budget", "description":"Gate agent context bloat by file count, bytes, estimated chars, source maps, and freshness hints.", "command":"python3 scripts/agentpress.py context-budget . --json", "tags":["context","budget","source-map","freshness","gate"]},
         {"name":"agentpress.package_registry_doctor", "description":"Diagnose package/install registry failures for agent CLIs.", "command":"python3 scripts/agentpress.py package-registry-doctor --json", "tags":["package","registry","install","doctor"]},
         {"name":"agentpress.first_run_wizard", "description":"Detect host/provider/install state and emit the exact next command for a first agent user.", "command":"python3 scripts/agentpress.py first-run-wizard --json", "tags":["first-run","wizard","onboarding","host","provider"]},
         {"name":"agentpress.provider_error_explainer", "description":"Map raw provider/runtime errors to remediation packs with exact commands.", "command":"python3 scripts/agentpress.py provider-error-explainer --error '<sanitized error>' --json", "tags":["provider","errors","remediation","doctor"]},
-        {"name":"agentpress.safety_preflight", "description":"Run/link secret, redaction, file-access, and sandbox safety checks without reading secret paths by default.", "command":"python3 scripts/agentpress.py safety-preflight . --json", "tags":["security","safety","preflight","redaction","sandbox"]},
-        {"name":"agentpress.mcp_config_doctor", "description":"Statically validate MCP config JSON, server names, env literal risks, and backup guidance without mutation.", "command":"python3 scripts/agentpress.py mcp-config-doctor --config <mcp-config.json> --json", "tags":["mcp","config","doctor","security","gate"]},
         {"name":"agentpress.adoption_scoreboard", "description":"Build a static privacy-safe adoption scoreboard from opt-in proof artifacts.", "command":"python3 scripts/agentpress.py adoption-scoreboard --json", "tags":["adoption","scoreboard","static","proof","privacy"]},
         {"name":"agentpress.external_proof_inbox_review_flow", "description":"Review external proof inbox files for acceptance candidates and privacy redaction blockers.", "command":"python3 scripts/agentpress.py external-proof-inbox-review-flow --json", "tags":["proof","inbox","review","privacy","adoption"]},
         {"name":"agentpress.release_registry_readiness_dashboard", "description":"Build a static release/package-registry readiness dashboard for npm/PyPI/source/static lanes.", "command":"python3 scripts/agentpress.py release-registry-readiness-dashboard --json", "tags":["release","registry","npm","pypi","dashboard"]},
         {"name":"agentpress.tool_schema_serialization_check", "description":"Check tool schema metadata is JSON-serializable.", "command":"python3 scripts/agentpress.py tool-schema-serialization-check --json", "tags":["tools","schema","serialization","gate"]},
-        {"name":"agentpress.tool_contract_check", "description":"Validate MCP-style tool input/output schemas, structuredContent samples, and CLI JSON-output contracts.", "command":"python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json", "tags":["tools","mcp","schema","structured-content","gate"]},
-        {"name":"agentpress.broker_scope_guard", "description":"Fail closed when AgentPress broker/mission tasks reference unrelated project roots or stale scope tokens.", "command":"python3 scripts/agentpress.py broker-scope-guard <task.json-or-jsonl> --allowed-token agentpress --strict --json", "tags":["broker","mission","scope","guard","safety"]},
-        {"name":"agentpress.tool_output_sample_generate", "description":"Generate structuredContent sample fixtures for tool outputSchema validation.", "command":"python3 scripts/agentpress.py tool-output-sample-generate --manifest agentpress/tools/agentpress-tools.json --json", "tags":["tools","samples","schemas","structured-content","fixtures"]},
-        {"name":"agentpress.smoke_install", "description":"Run clean npm/PyPI rc install smoke checks and write machine-readable receipts.", "command":"python3 scripts/agentpress.py smoke-install --runtime all --json", "tags":["install","npm","pypi","smoke","receipts"]},
-        {"name":"agentpress.repo_sync_doctor", "description":"Detect stale or dirty AgentPress checkouts before agents judge package/version truth.", "command":"python3 scripts/agentpress.py repo-sync-doctor . --json", "tags":["repo","sync","release","doctor","truth"]},
-        {"name":"agentpress.cli_gap_audit", "description":"Audit AgentPress CLI/parser/dispatch/docs/tool manifest drift and remaining CLI build gaps.", "command":"python3 scripts/agentpress.py cli-gap-audit --json", "tags":["cli","audit","drift","docs","tools"]},
-        {"name":"agentpress.release_promote_checklist", "description":"Gate package/site promotion on safety/package checks; report RFLO and independent proof as advisory unless --enforce-review-gates is set.", "command":"python3 scripts/agentpress.py release-promote-checklist --json", "tags":["release","promotion","npm","proof","rflo","gate"]},
-        {"name":"agentpress.no_python_fallback_check", "description":"Verify npm/Node shim emits JSON remediation for commands when Python is missing.", "command":"python3 scripts/agentpress.py no-python-fallback-check --json", "tags":["npm","python","fallback","first-run","json"]},
-        {"name":"agentpress.context_package_init", "description":"Create a focused handoff root with source-map, freshness, and task card for large repos.", "command":"python3 scripts/agentpress.py context-package-init . --json", "tags":["context","handoff","large-repo","source-map","freshness"]},
-        {"name":"agentpress.handoff_root_pick", "description":"Pick/create a compact handoff root for an agent task when the full repo is too large.", "command":"python3 scripts/agentpress.py handoff-root-pick . --json", "tags":["context","handoff","task-card","large-repo"]},
         {"name":"agentpress.agent_community_channel_map", "description":"Map agent communities/channels to problem signals.", "command":"python3 scripts/agentpress.py agent-community-channel-map --json", "tags":["community","channels","research","agents"]},
         {"name":"agentpress.community_issue_radar", "description":"Compile community issue radar from public issue signals.", "command":"python3 scripts/agentpress.py community-issue-radar --json", "tags":["community","issues","radar","research"]},
         {"name":"agentpress.unsolved_agent_problem_backlog", "description":"Generate prioritized backlog from community issue radar.", "command":"python3 scripts/agentpress.py unsolved-agent-problem-backlog --json", "tags":["backlog","problems","features"]},
@@ -3629,8 +2929,6 @@ def tools_manifest(args):
         {"name":"agentpress.proof_request_queue", "description":"Generate opt-in proof request queue from campaign targets.", "command":"python3 scripts/agentpress.py proof-request-queue --json", "tags":["proof","queue","external","adoption"]},
         {"name":"agentpress.next_build_spec_queue", "description":"Generate researched next-build specs after current cycle.", "command":"python3 scripts/agentpress.py next-build-spec-queue --json", "tags":["research","specs","next-build","cycle"]},
         {"name":"agentpress.external_proof_campaign_runner", "description":"Generate opt-in external proof acquisition campaign run plan.", "command":"python3 scripts/agentpress.py external-proof-campaign-runner --json", "tags":["external","proof","campaign","adoption"]},
-        {"name":"agentpress.external_proof_intake", "description":"Submit, review, and summarize independent external proof packs with privacy/self-proof rejection guards.", "command":"python3 scripts/agentpress.py external-proof-intake status --json", "tags":["external","proof","intake","privacy","release"]},
-        {"name":"agentpress.gorilla_utility_pack", "description":"Generate utility-first AgentPress packs for places agents already look, without spam or unapproved external writes.", "command":"python3 scripts/agentpress.py gorilla-utility-pack --json", "tags":["growth","utility","agentpress","proof","community"]},
         {"name":"agentpress.host_transcript_batch_ingest", "description":"Batch ingest host transcript JSON files and summarize conformance.", "command":"python3 scripts/agentpress.py host-transcript-batch-ingest tests/fixtures/conformance --json", "tags":["host","transcript","batch","conformance"]},
         {"name":"agentpress.connector_failure_taxonomy", "description":"Generate connector failure taxonomy and backlog conversion rules.", "command":"python3 scripts/agentpress.py connector-failure-taxonomy --json", "tags":["connectors","failures","taxonomy","backlog"]},
         {"name":"agentpress.cycle_gap_radar", "description":"Generate post-cycle missed-gap radar.", "command":"python3 scripts/agentpress.py cycle-gap-radar --json", "tags":["cycle","radar","gaps","next"]},
@@ -3781,15 +3079,7 @@ def release_index(args):
 
 def agent_lint(args):
     root = pathlib.Path(args.root)
-    findings = _secret_path_guard(root)
-    if findings:
-        result = {"schema_version": "2026-05-04.agentpress-lint.v1", "status": "fail", "root": str(root), "checked": ["secret_path_guard"], "finding_count": len(findings), "findings": findings}
-        if args.out and not args.no_write:
-            out = pathlib.Path(args.out)
-            out.parent.mkdir(parents=True, exist_ok=True)
-            out.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
-        print(json.dumps(result, indent=2) if args.json else "fail %d findings" % len(findings))
-        return 1
+    findings = []
     required = ["llms.txt", ".well-known/agentpress.json", ".well-known/ai-ingestion.json"]
     for rel in required:
         path = root / rel
@@ -3837,7 +3127,7 @@ def consumer_demo_pack(args):
 import json
 import urllib.request
 
-BASE = \"https://barneywohl.github.io/agentpress/\"
+BASE = \"https://agentpress.pages.dev/\"
 for rel in [\"llms.txt\", \".well-known/agentpress.json\", \".well-known/ai-ingestion.json\"]:
     url = BASE + rel
     req = urllib.request.Request(url, headers={\"User-Agent\": \"agentpress-demo/0.1\"})
@@ -3859,7 +3149,7 @@ python3 agentpress/demos/consumer/consumer_demo.py
 agentpress lint . --json
 ```
 
-Acceptance evidence: the script fetches `llms.txt`, `.well-known/agentpress.json`, and `.well-known/ai-ingestion.json` from `https://barneywohl.github.io/agentpress/`.
+Acceptance evidence: the script fetches `llms.txt`, `.well-known/agentpress.json`, and `.well-known/ai-ingestion.json` from `https://agentpress.pages.dev/`.
 """, encoding="utf-8")
     result = {"schema_version": "2026-05-04.agentpress-consumer-demo.v1", "status": "ok", "out": str(out), "files": [str(out / "consumer_demo.py"), str(out / "README.md")], "run": "python3 agentpress/demos/consumer/consumer_demo.py"}
     print(json.dumps(result, indent=2) if args.json else "ok " + str(out))
@@ -3979,147 +3269,60 @@ def package_index(args):
     return 0
 
 
-
-DOCTOR_ONLINE_ASSETS = [
-    "llms.txt",
-    ".well-known/agentpress.json",
-    ".well-known/ai-ingestion.json",
-    "agentpress/agentpress-registry.json",
-    "agentpress/adoption/adoption-status.json",
-]
-
-
-def _doctor_fetch_url(url: str, timeout: int = 20) -> dict:
-    row = {"url": url, "status": "fail"}
-    try:
-        req = Request(url, headers={"User-Agent": "agentpress-doctor/0.2 (+https://barneywohl.github.io/agentpress/)"})
-        with urlopen(req, timeout=timeout) as resp:
-            body = resp.read(1024 * 1024)
-            row.update({"status": "ok", "http_status": getattr(resp, "status", 200), "bytes": len(body), "sha256": hashlib.sha256(body).hexdigest()})
-            ctype = (resp.headers.get("content-type") or "").lower()
-            if urlparse(url).path.endswith(".json") or "json" in ctype:
-                try:
-                    json.loads(body.decode("utf-8", errors="replace"))
-                    row["json_valid"] = True
-                except Exception as e:
-                    row["json_valid"] = False
-                    row["error"] = f"invalid json: {e}"
-                    row["status"] = "fail"
-    except Exception as e:
-        row["error"] = str(e)
-    return row
-
-
-def _doctor_self_check() -> dict:
-    errors = []
-    py_ok = sys.version_info >= (3, 10)
-    if not py_ok:
-        errors.append(f"Python >=3.10 required; found {platform.python_version()}")
-    script = pathlib.Path(__file__).resolve() if "__file__" in globals() else pathlib.Path("scripts/agentpress.py")
-    package_json = pathlib.Path(__file__).resolve().parent.parent / "package.json" if "__file__" in globals() else pathlib.Path("package.json")
-    checks = {
-        "python_version": platform.python_version(),
-        "python_ok": py_ok,
-        "cli_script": str(script),
-        "cli_script_exists": script.exists(),
-        "json_output_supported": True,
-        "package_metadata_exists": package_json.exists(),
+def _write_doctor_evidence(path: pathlib.Path, doctor_payload: dict, root: pathlib.Path) -> None:
+    """Write a machine-readable evidence artifact for doctor runs."""
+    entrypoints = doctor_payload.get("entrypoints", [])
+    missing = [row for row in entrypoints if row.get("status") != "OK"]
+    evidence = {
+        "schema_version": "2026-05-06.agentpress-doctor-evidence.v1",
+        "evidence_version": "1.0.0",
+        "generated_utc": _utc_now(),
+        "generated_by": "agentpress doctor --evidence-out",
+        "slice_focus": "nexio_evidence",
+        "root": str(root),
+        "doctor_output": doctor_payload,
+        "evidence_manifest": {
+            "spreadsheet_rows": [
+                {
+                    "row_id": f"doctor-entrypoint-{idx + 1:03d}",
+                    "evidence_type": "agentpress_doctor_entrypoint",
+                    "source_path": row.get("path"),
+                    "status": row.get("status"),
+                    "traceability_key": f"agentpress:{row.get('path')}",
+                }
+                for idx, row in enumerate(entrypoints)
+            ],
+            "screenshots": [],
+            "log_links": [],
+            "bug_fix_traceability": [
+                {
+                    "bug_id": f"missing-entrypoint-{idx + 1:03d}",
+                    "symptom": f"Doctor reports missing entrypoint: {row.get('path')}",
+                    "fix_target": row.get("path"),
+                    "current_status": row.get("status"),
+                }
+                for idx, row in enumerate(missing)
+            ],
+            "qa_release_gate": {
+                "status": "pass" if doctor_payload.get("status") == "ok" else "fail",
+                "required_evidence": ["spreadsheet_rows", "doctor_output", "bug_fix_traceability"],
+                "provided": ["spreadsheet_rows", "doctor_output", "bug_fix_traceability"],
+            },
+        },
+        "acceptance_criteria": {
+            "machine_readable_artifact_written": True,
+            "contains_full_doctor_output": True,
+            "contains_spreadsheet_rows": True,
+            "contains_screenshot_and_log_link_slots": True,
+            "contains_bug_fix_traceability": True,
+        },
     }
-    if not checks["cli_script_exists"]:
-        errors.append("CLI script not found")
-    if package_json.exists():
-        try:
-            meta = json.loads(package_json.read_text(encoding="utf-8"))
-            checks["package_name"] = meta.get("name")
-            checks["package_version"] = meta.get("version")
-        except Exception as e:
-            errors.append(f"package metadata invalid: {e}")
-    return {"checks": checks, "errors": errors}
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(evidence, indent=2) + "\n", encoding="utf-8")
 
 
-
-def _doctor_next_steps(mode: str, root: pathlib.Path, errors: list[str], missing_paths: list[str] | None = None) -> list[dict]:
-    """Machine-readable remediation commands for first-run agents.
-
-    Keep this intentionally small and copy/pasteable: doctor is often the first
-    command a fresh agent sees, so every branch should answer "what exactly do I
-    run next?" without forcing the agent to infer from prose.
-    """
-    root_arg = shlex.quote(str(root))
-    steps = []
-    if missing_paths:
-        steps.append({
-            "id": "bootstrap_llms_surface",
-            "why": "Required agent-readable entrypoints are missing.",
-            "command": f"python3 scripts/agentpress.py llms-init {root_arg} --json",
-            "expected_result": "Creates llms.txt plus .well-known/agentpress.json without external writes.",
-            "paths": missing_paths,
-        })
-    if errors:
-        steps.append({
-            "id": "run_first_run_wizard",
-            "why": "Doctor found blockers; produce a concise local plan before broad docs traversal.",
-            "command": f"python3 scripts/agentpress.py first-run-wizard {root_arg} --json",
-            "expected_result": "JSON with exact_next_command, then_command, blockers, and safety notes.",
-        })
-    if mode in {"local", "self-check"}:
-        steps.append({
-            "id": "verify_again",
-            "why": "Confirm the remediation changed the machine-readable status.",
-            "command": f"python3 scripts/agentpress.py doctor {root_arg} --mode local --json",
-            "expected_result": "status ok or fewer missing entrypoints with updated recommendations.",
-        })
-    else:
-        steps.append({
-            "id": "retry_online_or_use_static_fallback",
-            "why": "Remote checks failed or were unavailable.",
-            "command": "python3 scripts/agentpress.py fetch --base https://barneywohl.github.io/agentpress/ --out /tmp/agentpress-fetch --json",
-            "expected_result": "Downloads core static entrypoints for offline inspection.",
-        })
-    steps.append({
-        "id": "start_here",
-        "why": "Use the concise first-user path instead of scanning the whole command catalog.",
-        "command": "python3 scripts/agentpress.py start --json",
-        "expected_result": "Three-command first-run path with safety boundaries.",
-    })
-    return steps
-
-
-def _attach_doctor_recommendations(payload: dict, root: pathlib.Path) -> dict:
-    missing = [row.get("path") for row in payload.get("entrypoints", []) if row.get("status") == "MISSING" and row.get("path")]
-    errors = list(payload.get("errors") or payload.get("primary_reference_errors") or [])
-    payload["next_steps"] = _doctor_next_steps(str(payload.get("mode", "local")), root, errors, missing)
-    payload["ranked_first_actions"] = _ranked_first_actions(root)
-    payload["version_channel"] = _version_channel_info()
-    payload["recommendations"] = [
-        {
-            "priority": "P0" if payload.get("status") != "ok" else "P2",
-            "summary": "Run the first listed next_steps command exactly; it is safe/local and emits JSON.",
-            "command": payload["next_steps"][0]["command"] if payload["next_steps"] else "python3 scripts/agentpress.py start --json",
-        }
-    ]
-    return payload
-
-
-def _doctor_local_payload(root: pathlib.Path, guard_findings: list[dict]) -> tuple[dict, bool]:
-    if guard_findings:
-        payload = {
-            "status": "fail",
-            "mode": "local",
-            "base_url": CANONICAL_BASE_URL,
-            "fallback_base_url": FALLBACK_BASE_URL,
-            "checked_urls": [],
-            "errors": [guard_findings[0]["message"]],
-            "root": str(root),
-            "entrypoints": [],
-            "primary_reference_score": None,
-            "primary_reference_errors": [guard_findings[0]["message"]],
-            "primary_reference_warnings": [],
-            "canonical_url": CANONICAL_BASE_URL,
-            "raw_fallback": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
-            "security_guard": guard_findings[0],
-        }
-        return _attach_doctor_recommendations(payload, root), False
+def doctor(args):
+    root = pathlib.Path(args.root)
     entrypoints = [
         "llms.txt",
         ".well-known/agentpress.json",
@@ -4155,102 +3358,31 @@ def _doctor_local_payload(root: pathlib.Path, guard_findings: list[dict]) -> tup
         primary_errors.append("missing primary neutral reference")
     payload = {
         "status": "ok" if ok else "fail",
-        "mode": "local",
-        "base_url": CANONICAL_BASE_URL,
-        "fallback_base_url": FALLBACK_BASE_URL,
-        "checked_urls": [],
-        "errors": primary_errors.copy(),
         "root": str(root),
         "entrypoints": rows,
         "primary_reference_score": primary_score,
         "primary_reference_errors": primary_errors,
         "primary_reference_warnings": primary_warnings,
-        "canonical_url": CANONICAL_BASE_URL,
+        "canonical_url": "https://barneywohl.github.io/agentpress/",
         "raw_fallback": "https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/",
     }
-    return _attach_doctor_recommendations(payload, root), ok
-
-
-def doctor(args):
-    root = pathlib.Path(args.root)
-    requested_mode = getattr(args, "mode", "auto") or "auto"
-    guard_findings = _secret_path_guard(root)
-    if guard_findings and requested_mode != "self-check":
-        payload, _ = _doctor_local_payload(root, guard_findings)
-        payload["mode"] = requested_mode
-        payload["requested_mode"] = requested_mode
-        if getattr(args, "json", False):
-            print(json.dumps(payload, indent=2))
-        else:
-            print("AgentPress doctor: refused sensitive path")
-        return 1
-    mode = requested_mode
-    if mode == "auto":
-        mode = "local" if (root/"llms.txt").exists() or (root/".well-known/agentpress.json").exists() else "online"
-
-    if mode == "self-check":
-        self_check = _doctor_self_check()
-        payload = {
-            "schema_version": "2026-05-05.agentpress-doctor.v2",
-            "status": "ok" if not self_check["errors"] else "fail",
-            "mode": "self-check",
-            "base_url": CANONICAL_BASE_URL,
-            "fallback_base_url": FALLBACK_BASE_URL,
-            "checked_urls": [],
-            "errors": self_check["errors"],
-            **self_check,
-        }
-        payload = _attach_doctor_recommendations(payload, root)
-        if getattr(args, "json", False):
-            print(json.dumps(payload, indent=2))
-        else:
-            print(payload["status"])
-        return 0 if payload["status"] == "ok" else 1
-
-    if mode == "online":
-        base = (getattr(args, "base_url", None) or CANONICAL_BASE_URL).rstrip("/") + "/"
-        timeout = int(getattr(args, "timeout", 20) or 20)
-        checked = [_doctor_fetch_url(urljoin(base, rel), timeout=timeout) for rel in DOCTOR_ONLINE_ASSETS]
-        errors = [f"{row['url']}: {row.get('error', row.get('status'))}" for row in checked if row.get("status") != "ok"]
-        payload = {
-            "schema_version": "2026-05-05.agentpress-doctor.v2",
-            "status": "ok" if not errors else "fail",
-            "mode": "online",
-            "base_url": base,
-            "fallback_base_url": FALLBACK_BASE_URL,
-            "checked_urls": checked,
-            "errors": errors,
-            "root": str(root),
-            "canonical_url": base,
-        }
-        payload = _attach_doctor_recommendations(payload, root)
-        if getattr(args, "json", False):
-            print(json.dumps(payload, indent=2))
-        else:
-            print(f"AgentPress doctor online: {payload['status']} ({len(checked)} URLs checked)")
-        return 0 if not errors else 1
-
-    if mode != "local":
-        payload = {"status": "fail", "mode": mode, "base_url": CANONICAL_BASE_URL, "checked_urls": [], "errors": [f"unknown doctor mode: {mode}"]}
-        print(json.dumps(payload, indent=2) if getattr(args, "json", False) else payload["errors"][0])
-        return 2
-
-    payload, ok = _doctor_local_payload(root, guard_findings)
+    if getattr(args, "evidence_out", None):
+        _write_doctor_evidence(pathlib.Path(args.evidence_out), payload, root)
     if getattr(args, "json", False):
         print(json.dumps(payload, indent=2))
         return 0 if ok else 1
     print("AgentPress doctor")
     print(f"root: {root}")
-    print(f"mode: {payload['mode']}")
-    for row in payload.get("entrypoints", []):
+    for row in rows:
         print(f"{row['status']:<7} {row['path']}")
-    if payload.get("primary_reference_errors"):
-        print(json.dumps({"primary_reference_errors": payload["primary_reference_errors"], "warnings": payload.get("primary_reference_warnings", [])}, indent=2), file=sys.stderr)
-    if payload.get("primary_reference_score") is not None:
-        print(f"primary_reference_score: {payload['primary_reference_score']}/100")
-    print(f"canonical_url: {CANONICAL_BASE_URL}")
+    if primary_errors:
+        print(json.dumps({"primary_reference_errors": primary_errors, "warnings": primary_warnings}, indent=2), file=sys.stderr)
+    if primary_score is not None:
+        print(f"primary_reference_score: {primary_score}/100")
+    print("canonical_url: https://barneywohl.github.io/agentpress/")
     print("raw_fallback: https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/")
     return 0 if ok else 1
+
 
 
 
@@ -4268,7 +3400,6 @@ def payment_status(args):
     policy=load("agentpress/payments/payment-policy.json")
     capabilities=load("agentpress/payments/payment-capabilities.json")
     x402=load("agentpress/payments/x402-readiness.json")
-    nexio=load("agentpress/payments/nexio-testnet-readiness.json")
     caps=capabilities.get("capabilities", []) if isinstance(capabilities, dict) else []
     payment_required=[c for c in caps if c.get("payment_required")]
     payload={
@@ -4279,8 +3410,6 @@ def payment_status(args):
         "live_payments_enabled": False,
         "core_discovery_free": True,
         "x402_posture": x402.get("verdict", "metadata_only"),
-        "nexio_testnet_posture": nexio.get("status", "metadata_missing"),
-        "nexio_remaining_cases_before_live": nexio.get("remaining_cases_before_live", []),
         "capability_count": len(caps),
         "payment_required_capability_count": len(payment_required),
         "free_capabilities": [c.get("capability_id") for c in caps if not c.get("payment_required")],
@@ -4482,60 +3611,6 @@ def marketplace_index(args):
             "trust":{"tier":"reference_route","evidence":["agentpress/hub/routing/capability-index.json"]},
             "safety":{"external_writes":False,"live_payments":False,"credentials":False}
         })
-    # Gorilla utility packs are user-facing marketplace entries: install/generate the
-    # pack locally, run the exact utility command, then finalize/validate proof.
-    gorilla_manifest=load("agentpress/growth/gorilla-utility-pack/manifest.json", {})
-    gorilla_dir=pathlib.Path("agentpress/growth/gorilla-utility-pack")
-    gorilla_guardrails=[
-        "Only use where the painpoint is already being discussed.",
-        "Lead with the utility command/artifact, not marketing.",
-        "No mass posting, fake adoption, scraped DMs, secrets, or private prompts.",
-        "Any external post/send requires explicit human approval."
-    ]
-    if gorilla_manifest.get("targets"):
-        services.append({
-            "service_id":"gorilla-utility-execution-queue",
-            "title":"Gorilla utility pack execution queue",
-            "provider_agent_id":"agentpress-reference-agent",
-            "capabilities":["gorilla-utility-pack","execution-queue","painpoint-routing","proof-first-outreach","no-spam"],
-            "command":"python3 scripts/agentpress.py gorilla-utility-pack --json",
-            "install_run_proof_commands":{
-                "install":"python3 scripts/agentpress.py gorilla-utility-pack --json",
-                "run":"inspect agentpress/growth/gorilla-utility-pack/execution-queue.json and pick a painpoint-matched target",
-                "proof":"python3 scripts/agentpress.py first-contact audit --no-network --json"
-            },
-            "pricing":{"model":"free_static_pack","payment_required":False},
-            "sla":{"status":"prepared_not_posted","expected_runtime_seconds":"<60","support":"Local JSON queue; no public posting automation."},
-            "trust":{"tier":"reference_utility_pack","evidence":["agentpress/growth/gorilla-utility-pack/manifest.json","agentpress/growth/gorilla-utility-pack/execution-queue.json"]},
-            "safety":{"external_writes":False,"live_payments":False,"credentials":False,"external_execution_gate":"Human approval required before posting/sending/commenting externally.","no_spam_guardrails":gorilla_guardrails}
-        })
-        for target in gorilla_manifest.get("targets", []):
-            pack_rel=(gorilla_dir/f"{target.get('id')}.json").as_posix()
-            pack=load(pack_rel, {})
-            flow=pack.get("install_run_proof_flow", {})
-            target_meta=pack.get("target", {})
-            run_cmd=flow.get("run_command") or target_meta.get("command") or target.get("command") or "python3 scripts/agentpress.py gorilla-utility-pack --json"
-            services.append({
-                "service_id":f"gorilla-utility-{slugify(target.get('id','pack'))}",
-                "title":f"Gorilla utility pack: {target.get('id','pack')}",
-                "provider_agent_id":"agentpress-reference-agent",
-                "capabilities":["gorilla-utility-pack","utility-pack","proof-receipt","first-contact-audit","no-spam",slugify(target.get("painpoint","painpoint"))],
-                "community":target.get("community"),
-                "painpoint":target.get("painpoint"),
-                "command":run_cmd,
-                "install_run_proof_commands":{
-                    "install":"python3 scripts/agentpress.py gorilla-utility-pack --json",
-                    "run":run_cmd,
-                    "first_contact_audit":flow.get("first_contact_audit","python3 scripts/agentpress.py first-contact audit --no-network --json"),
-                    "proof_finalize":flow.get("result_finalize"),
-                    "proof_validate":flow.get("result_validate"),
-                    "receipt":flow.get("receipt")
-                },
-                "pricing":{"model":"free_static_pack","payment_required":False},
-                "sla":{"status":pack.get("status","ready_not_sent"),"expected_runtime_seconds":"<60","support":"Attach sanitized JSON only when relevant and explicitly approved."},
-                "trust":{"tier":"reference_utility_pack","evidence":[pack_rel,target_meta.get("artifact"),flow.get("receipt")]},
-                "safety":{"external_writes":False,"live_payments":False,"credentials":False,"external_execution_gate":"Human approval required before posting/sending/commenting externally.","no_spam_guardrails":pack.get("rules", gorilla_guardrails)}
-            })
     auth_policy={
         "public":"read, crawl, validate, inspect marketplace, inspect payment metadata",
         "requires_human_or_external_authorization": payment_policy.get("requires_separate_authorization", []),
@@ -4773,6 +3848,519 @@ def proof_campaign(args):
         out.write_text(json.dumps(campaign, indent=2)+"\n", encoding="utf-8")
     print(json.dumps(campaign, indent=2) if args.json else f"{campaign['campaign_id']} {campaign['status']}")
     return 0
+
+
+
+EXTERNAL_PROOF_INTAKE_SCHEMA_VERSION = "2026-05-05.agentpress-external-proof-intake.v1"
+EXTERNAL_PROOF_INTAKE_MAX_BYTES = 256 * 1024
+
+
+def _iter_json_strings(obj, trail="$"):
+    if isinstance(obj, str):
+        yield trail, obj
+    elif isinstance(obj, list):
+        for i, item in enumerate(obj):
+            yield from _iter_json_strings(item, f"{trail}[{i}]")
+    elif isinstance(obj, dict):
+        for k, item in obj.items():
+            yield from _iter_json_strings(item, f"{trail}.{k}")
+
+
+def _external_proof_private_findings(obj, *, proof_path: pathlib.Path | None = None):
+    """Return privacy/scope findings for proof JSON strings."""
+    findings = []
+    patterns = [
+        ("private_path", re.compile(r"(^|[/\\])private([/\\]|$)|/var/folders/|/tmp/private", re.I)),
+        ("barney_path", re.compile(r"barney|barneywohl|/Volumes/X10/clawd|/Users/[^/]*barney", re.I)),
+        ("internal_path", re.compile(r"(^|[/\\])internal([/\\]|$)|internal[-_ ]only|do[_ -]?not[_ -]?publish", re.I)),
+        ("secret_material", re.compile(r"(?i)(authorization:\s*bearer\s+[a-z0-9._\-]{12,}|api[_-]?key\s*[:=]\s*[a-z0-9._\-]{12,}|token\s*[:=]\s*[a-z0-9._\-]{16,}|sk-[a-z0-9]{16,})")),
+        ("network_identifier", re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}\b|\buser[-_ ]agent\b|\bcookie:\s*", re.I)),
+    ]
+    for trail, value in _iter_json_strings(obj):
+        for name, rx in patterns:
+            if rx.search(value):
+                findings.append({"kind": name, "field": trail, "value_preview": value[:160]})
+    # Deliberately scan the proof content, not the local submitted filename:
+    # tests and operator workspaces often live under private user paths, while
+    # the leak we must reject is embedding those paths inside publishable proof.
+    return findings
+
+
+def _external_proof_abuse_findings(obj):
+    """Return spam/social-engineering findings for external proof intake."""
+    findings = []
+    url_count = 0
+    promotional_hits = 0
+    contact_fields = []
+    promo_rx = re.compile(r"\b(buy now|limited time|discount|coupon|promo code|airdrop|casino|crypto giveaway|guaranteed leads|seo backlinks)\b", re.I)
+    contact_key_rx = re.compile(r"(^|\.)(email|phone|telegram|whatsapp|discord|contact|lead|recipient)s?$", re.I)
+    social_rx = re.compile(r"\b(ignore previous instructions|send (?:this|the) message|mass[- ]?dm|scrape contacts|cold outreach|auto[- ]?post|blast campaign)\b", re.I)
+
+    for trail, value in _iter_json_strings(obj):
+        url_count += len(re.findall(r"https?://", value, flags=re.I))
+        if promo_rx.search(value):
+            promotional_hits += 1
+            findings.append({"kind": "promotional_content", "field": trail, "value_preview": value[:160]})
+        if social_rx.search(value):
+            findings.append({"kind": "social_engineering_instruction", "field": trail, "value_preview": value[:160]})
+        if contact_key_rx.search(trail) and value.strip():
+            contact_fields.append(trail)
+    if url_count > 8:
+        findings.append({"kind": "excessive_links", "field": "$", "url_count": url_count})
+    if len(contact_fields) > 3:
+        findings.append({"kind": "contact_harvesting_shape", "field": "$", "fields": contact_fields[:8]})
+    if promotional_hits >= 2:
+        findings.append({"kind": "spam_score", "field": "$", "hits": promotional_hits})
+    return findings
+
+
+def _external_proof_intake_evaluate(data, proof_path=None):
+    errors = []
+    warnings = []
+    private_findings = _external_proof_private_findings(data, proof_path=proof_path)
+    for finding in private_findings:
+        errors.append(f"{finding['kind']}:{finding['field']}")
+    abuse_findings = _external_proof_abuse_findings(data)
+    for finding in abuse_findings:
+        errors.append(f"{finding['kind']}:{finding['field']}")
+
+    proof_type = data.get("proof_type") or data.get("type") or "runtime_proof"
+    transcript = data.get("transcript") or data.get("transcript_ref") or data.get("host_transcript")
+    if not transcript:
+        errors.append("missing_transcript")
+    if isinstance(transcript, dict) and not (transcript.get("commands") or transcript.get("events") or transcript.get("path") or transcript.get("sha256")):
+        errors.append("empty_transcript")
+
+    attestation = data.get("attestation") or {}
+    signature_type = (data.get("signature_type") or attestation.get("signature_type") or "").lower()
+    signed_by = data.get("signed_by") or attestation.get("signed_by") or data.get("agent_id")
+    agent_id = data.get("agent_id") or ""
+    if data.get("self_signed") is True or signature_type in {"self_signed", "self-signed"} or (signed_by and agent_id and signed_by == agent_id and not data.get("third_party_verified")):
+        errors.append("self_signed_proof")
+
+    required = ["agent_id", "runtime", "result_status"]
+    for key in required:
+        if not data.get(key):
+            errors.append(f"missing_{key}")
+
+    status = data.get("result_status")
+    is_blocker = status in {"blocked", "failed", "error"} or bool(data.get("blockers"))
+    decision = "accepted" if not errors else "rejected"
+    if is_blocker and not errors:
+        decision = "blocker"
+
+    return {
+        "proof_id": data.get("proof_id") or (pathlib.Path(proof_path).stem if proof_path else _short_id("proof")),
+        "proof_type": proof_type,
+        "agent_id": agent_id,
+        "runtime": data.get("runtime") or "",
+        "result_status": status or "",
+        "decision": decision,
+        "errors": errors,
+        "warnings": warnings,
+        "blockers": data.get("blockers") or ([] if not is_blocker else [data.get("summary") or "runtime blocked"]),
+        "private_findings": private_findings,
+        "abuse_findings": abuse_findings,
+        "mocked_runtime": bool(data.get("mocked_runtime") or str(data.get("runtime", "")).startswith("mock")),
+        "submitted_path": str(proof_path) if proof_path else "",
+    }
+
+
+def _external_proof_intake_rows(inbox: pathlib.Path):
+    """Load privacy-reviewed external proof intake submissions from an inbox."""
+    rows = []
+    if not inbox.exists():
+        return rows
+    for f in sorted(inbox.glob("*.json")):
+        try:
+            item = json.loads(f.read_text(encoding="utf-8"))
+            proof = item.get("proof", item)
+            review = item.get("review") or _external_proof_intake_evaluate(proof, proof_path=pathlib.Path(item.get("source") or f))
+            review = dict(review)
+            review["file"] = str(f)
+            review["proof"] = proof
+        except Exception as e:
+            review = {"proof_id": f.stem, "decision": "rejected", "errors": [f"invalid_submission:{e}"], "runtime": "", "agent_id": "", "blockers": [], "file": str(f), "proof": {}}
+        rows.append(review)
+    return rows
+
+
+def _external_proof_trust_score(review: dict) -> int:
+    """Score only the submitted service/capability; never grant global trust."""
+    if review.get("decision") != "accepted":
+        return 0
+    proof = review.get("proof") or {}
+    score = 45
+    if proof.get("third_party_verified") is True:
+        score += 20
+    if proof.get("service_id"):
+        score += 10
+    if proof.get("capability_id"):
+        score += 5
+    if isinstance(proof.get("transcript"), dict) and proof["transcript"].get("sha256"):
+        score += 10
+    if review.get("mocked_runtime"):
+        score -= 20
+    return max(0, min(100, score))
+
+
+def _external_proof_relay_index_payload(inbox: pathlib.Path, *, base_url: str, index_path: pathlib.Path):
+    rows = _external_proof_intake_rows(inbox)
+    proofs = []
+    blockers = []
+    rejections = []
+    trust_updates = []
+    for review in rows:
+        proof = review.pop("proof", {}) or {}
+        decision = review.get("decision")
+        service_id = proof.get("service_id") or "agentpress"
+        capability_id = proof.get("capability_id") or review.get("proof_type") or "external_proof"
+        score = _external_proof_trust_score({**review, "proof": proof})
+        if decision == "accepted":
+            row = {
+                "proof_id": review.get("proof_id"),
+                "status": "accepted",
+                "agent_id": review.get("agent_id") or "",
+                "runtime": review.get("runtime") or "unknown",
+                "service_id": service_id,
+                "capability_id": capability_id,
+                "proof_type": review.get("proof_type") or "runtime_proof",
+                "score": score,
+                "path": review.get("file"),
+                "mocked_runtime": bool(review.get("mocked_runtime")),
+                "trust_scope": {"service_id": service_id, "capability_id": capability_id, "global_credit": False},
+            }
+            proofs.append(row)
+            trust_updates.append({"agent_id": row["agent_id"], "service_id": service_id, "capability_id": capability_id, "delta": score, "tier": "verified" if score >= 80 else "provisional", "reason": "accepted_external_proof", "global_credit_applied": False})
+        elif decision == "blocker":
+            blockers.append({"proof_id": review.get("proof_id"), "agent_id": review.get("agent_id") or "", "runtime": review.get("runtime") or "unknown", "service_id": service_id, "capability_id": capability_id, "blockers": review.get("blockers") or [], "path": review.get("file")})
+        else:
+            rejections.append({"proof_id": review.get("proof_id"), "agent_id": review.get("agent_id") or "", "errors": review.get("errors") or [], "path": review.get("file")})
+    return {
+        "schema_version": "2026-05-07.agentpress-external-proof-relay-index.v1",
+        "canonical_url": urljoin(base_url.rstrip() + "/", index_path.as_posix()),
+        "generated_utc": _utc_now(),
+        "status": "ok",
+        "purpose": "Submit, validate, index, and apply service-scoped trust credit for privacy-reviewed external proof receipts.",
+        "inbox": str(inbox),
+        "submitted_count": len(rows),
+        "accepted": len(proofs),
+        "blockers": len(blockers),
+        "rejected": len(rejections),
+        "privacy_gates": ["strict JSON validation", "secret/private path scan", "self-signed rejection", "raw transcript omitted from index"],
+        "trust_policy": "Accepted receipts update only the named service/capability scope; no global trust inflation.",
+        "proofs": proofs,
+        "blocker_inputs": blockers,
+        "rejections": rejections,
+        "trust_updates": trust_updates,
+    }
+
+
+def external_proof_intake(args):
+    """Submit/review/status skeleton for privacy-safe external proof intake."""
+    inbox = pathlib.Path(args.inbox)
+    inbox.mkdir(parents=True, exist_ok=True)
+    cmd = args.external_proof_intake_cmd
+
+    if cmd == "submit":
+        proof_path = pathlib.Path(args.proof)
+        try:
+            if proof_path.stat().st_size > EXTERNAL_PROOF_INTAKE_MAX_BYTES:
+                payload = {"schema_version": EXTERNAL_PROOF_INTAKE_SCHEMA_VERSION, "status": "rejected", "decision": "rejected", "errors": ["proof_too_large"], "max_bytes": EXTERNAL_PROOF_INTAKE_MAX_BYTES, "submitted_path": str(proof_path)}
+                print(json.dumps(payload, indent=2) if args.json else "rejected proof_too_large")
+                return 1
+        except OSError as e:
+            payload = {"schema_version": EXTERNAL_PROOF_INTAKE_SCHEMA_VERSION, "status": "rejected", "decision": "rejected", "errors": [f"unreadable_file:{e}"], "submitted_path": str(proof_path)}
+            print(json.dumps(payload, indent=2) if args.json else "rejected unreadable_file")
+            return 1
+        try:
+            data = json.loads(proof_path.read_text(encoding="utf-8"))
+        except Exception as e:
+            payload = {"schema_version": EXTERNAL_PROOF_INTAKE_SCHEMA_VERSION, "status": "rejected", "decision": "rejected", "errors": [f"invalid_json:{e}"], "submitted_path": str(proof_path)}
+            print(json.dumps(payload, indent=2) if args.json else "rejected invalid_json")
+            return 1
+        review = _external_proof_intake_evaluate(data, proof_path=proof_path)
+        submission = {
+            "schema_version": EXTERNAL_PROOF_INTAKE_SCHEMA_VERSION,
+            "submitted_utc": _utc_now(),
+            "status": review["decision"],
+            "review": review,
+            "proof": data,
+            "source": str(proof_path),
+        }
+        if not args.no_write:
+            out = inbox / f"{review['proof_id']}.json"
+            out.write_text(json.dumps(submission, indent=2) + "\n", encoding="utf-8")
+            submission["stored_path"] = str(out)
+        print(json.dumps(submission, indent=2) if args.json else f"{review['decision']} {review['proof_id']}")
+        return 0 if review["decision"] in {"accepted", "blocker"} else 1
+
+    if cmd == "review":
+        rows = []
+        for f in sorted(inbox.glob("*.json")):
+            try:
+                item = json.loads(f.read_text(encoding="utf-8"))
+                proof = item.get("proof", item)
+                row = item.get("review") or _external_proof_intake_evaluate(proof, proof_path=pathlib.Path(item.get("source") or f))
+                row["file"] = str(f)
+            except Exception as e:
+                row = {"proof_id": f.stem, "decision": "rejected", "errors": [f"invalid_submission:{e}"], "runtime": "", "agent_id": "", "blockers": [], "file": str(f)}
+            rows.append(row)
+        payload = {
+            "schema_version": EXTERNAL_PROOF_INTAKE_SCHEMA_VERSION,
+            "generated_utc": _utc_now(),
+            "status": "ok",
+            "submitted_count": len(rows),
+            "accepted_count": sum(1 for r in rows if r.get("decision") == "accepted"),
+            "blocker_count": sum(1 for r in rows if r.get("decision") == "blocker"),
+            "rejected_count": sum(1 for r in rows if r.get("decision") == "rejected"),
+            "runtime_counts": {},
+            "reviews": rows,
+        }
+        for r in rows:
+            runtime = r.get("runtime") or "unknown"
+            payload["runtime_counts"][runtime] = payload["runtime_counts"].get(runtime, 0) + 1
+        if not args.no_write:
+            out = pathlib.Path(args.out)
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(payload, indent=2) if args.json else f"reviewed {len(rows)} submitted, {payload['accepted_count']} accepted")
+        return 0
+
+    if cmd == "status":
+        review_path = pathlib.Path(args.review)
+        if review_path.exists():
+            data = json.loads(review_path.read_text(encoding="utf-8"))
+        else:
+            # Allow status directly from inbox before a persisted review exists.
+            rows = []
+            for f in sorted(inbox.glob("*.json")):
+                item = json.loads(f.read_text(encoding="utf-8")); rows.append(item.get("review") or _external_proof_intake_evaluate(item.get("proof", item), proof_path=f))
+            data = {"reviews": rows, "submitted_count": len(rows), "accepted_count": sum(1 for r in rows if r.get("decision") == "accepted"), "blocker_count": sum(1 for r in rows if r.get("decision") == "blocker"), "rejected_count": sum(1 for r in rows if r.get("decision") == "rejected"), "runtime_counts": {}}
+            for r in rows:
+                rt = r.get("runtime") or "unknown"; data["runtime_counts"][rt] = data["runtime_counts"].get(rt, 0) + 1
+        status = {
+            "schema_version": EXTERNAL_PROOF_INTAKE_SCHEMA_VERSION,
+            "status": "ok",
+            "submitted": data.get("submitted_count", len(data.get("reviews", []))),
+            "accepted": data.get("accepted_count", 0),
+            "blockers": data.get("blocker_count", 0),
+            "rejected": data.get("rejected_count", 0),
+            "runtime_counts": data.get("runtime_counts", {}),
+        }
+        print(json.dumps(status, indent=2) if args.json else f"submitted={status['submitted']} accepted={status['accepted']} blockers={status['blockers']} runtimes={len(status['runtime_counts'])}")
+        return 0
+
+    if cmd == "export":
+        rows = []
+        for review in _external_proof_intake_rows(inbox):
+            proof = review.pop("proof", {})
+            if review.get("decision") not in {"accepted", "blocker"}:
+                continue
+            rows.append({
+                "proof_id": review.get("proof_id") or pathlib.Path(review.get("file", "proof")).stem,
+                "decision": review.get("decision"),
+                "agent_id": review.get("agent_id") or "",
+                "runtime": review.get("runtime") or "unknown",
+                "result_status": review.get("result_status") or "",
+                "proof_type": review.get("proof_type") or "runtime_proof",
+                "service_id": proof.get("service_id") or "",
+                "capability_id": proof.get("capability_id") or "",
+                "blockers": review.get("blockers") or [],
+                "mocked_runtime": bool(review.get("mocked_runtime")),
+                "source_inbox_file": review.get("file"),
+            })
+        payload = {
+            "schema_version": "2026-05-05.agentpress-external-proof-intake-export.v1",
+            "generated_utc": _utc_now(),
+            "status": "ok",
+            "inbox": str(inbox),
+            "export_count": len(rows),
+            "accepted_count": sum(1 for r in rows if r.get("decision") == "accepted"),
+            "blocker_count": sum(1 for r in rows if r.get("decision") == "blocker"),
+            "privacy": "Raw proof bodies are intentionally excluded; export contains only privacy-reviewed review metadata.",
+            "next_commands": ["python3 scripts/agentpress.py external-proof-intake index --json", "python3 scripts/agentpress.py reputation-index --json"],
+            "proofs": rows,
+        }
+        if not args.no_write:
+            out = pathlib.Path(args.out)
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(payload, indent=2) if args.json else f"exported {len(rows)} privacy-reviewed proofs")
+        return 0
+
+    if cmd == "index":
+        index_path = pathlib.Path(args.index)
+        payload = _external_proof_relay_index_payload(inbox, base_url=args.base_url, index_path=index_path)
+        if not args.no_write:
+            index_path.parent.mkdir(parents=True, exist_ok=True)
+            index_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+            trust_path = pathlib.Path(args.trust_out)
+            trust_path.parent.mkdir(parents=True, exist_ok=True)
+            trust_path.write_text(json.dumps({
+                "schema_version": "2026-05-07.agentpress-service-scoped-trust-update.v1",
+                "generated_utc": payload["generated_utc"],
+                "status": "ok",
+                "source_index": str(index_path),
+                "policy": payload["trust_policy"],
+                "updates": payload["trust_updates"],
+            }, indent=2) + "\n", encoding="utf-8")
+            rep_args = argparse.Namespace(landing_dir=args.landing_dir, self_test_dir=args.self_test_dir, receipt_dir=args.receipt_dir, external_proof_index=str(index_path), out=args.reputation_out, json=False)
+            with contextlib.redirect_stdout(io.StringIO()):
+                reputation_index(rep_args)
+        print(json.dumps(payload, indent=2) if args.json else f"indexed {payload['accepted']} accepted, {payload['blockers']} blockers, {payload['rejected']} rejected")
+        return 0
+    return 2
+
+NEXIO_EVIDENCE_SLICE_SCHEMA_VERSION = "2026-05-06.agentpress-nexio-evidence-slice.v1"
+NEXIO_EVIDENCE_REQUIRED_ROW_FIELDS = [
+    "row_id",
+    "row_type",
+    "source_type",
+    "source_ref",
+    "status",
+    "privacy_checked",
+    "bug_id",
+    "bug_summary",
+    "fix_summary",
+    "screenshot_path",
+    "log_link",
+]
+
+
+def _nexio_safe_ref(value):
+    """Return a publish-safe reference string for evidence rows."""
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    findings = _external_proof_private_findings({"ref": text})
+    if findings:
+        return "redacted-private-ref"
+    return text
+
+
+def _nexio_evidence_row(row_type, *, source_type, source_ref, status="observed", proof=None, bug_id="", bug_summary="", fix_summary="", screenshot_path="", log_link=""):
+    proof = proof or {}
+    seed = "|".join([
+        row_type,
+        str(source_type or ""),
+        str(source_ref or ""),
+        str(proof.get("proof_id") or ""),
+        str(bug_id or ""),
+        str(bug_summary or ""),
+    ])
+    row_id = "nexio-" + hashlib.sha256(seed.encode("utf-8")).hexdigest()[:12]
+    return {
+        "row_id": row_id,
+        "row_type": row_type,
+        "source_type": source_type,
+        "source_ref": _nexio_safe_ref(source_ref),
+        "status": status,
+        "privacy_checked": True,
+        "proof_id": proof.get("proof_id") or "",
+        "agent_id": proof.get("agent_id") or "",
+        "runtime": proof.get("runtime") or "",
+        "result_status": proof.get("result_status") or "",
+        "bug_id": bug_id,
+        "bug_summary": bug_summary,
+        "fix_summary": fix_summary,
+        "screenshot_path": _nexio_safe_ref(screenshot_path),
+        "log_link": _nexio_safe_ref(log_link),
+    }
+
+
+def _load_nexio_proof_export(path):
+    if not path:
+        return []
+    p = pathlib.Path(path)
+    if not p.exists():
+        return []
+    data = json.loads(p.read_text(encoding="utf-8"))
+    return data.get("proofs") or data.get("reviews") or []
+
+
+def nexio_evidence_slice(args):
+    """Build spreadsheet-style Nexio evidence rows from privacy-reviewed proof metadata."""
+    rows = []
+    proofs = _load_nexio_proof_export(getattr(args, "proof_export", ""))
+    for proof in proofs:
+        decision = proof.get("decision") or proof.get("status") or "observed"
+        source_ref = proof.get("source_inbox_file") or proof.get("source_url") or proof.get("proof_id") or "proof-export"
+        rows.append(_nexio_evidence_row(
+            "spreadsheet_row",
+            source_type="external_proof_export",
+            source_ref=source_ref,
+            status=decision,
+            proof=proof,
+        ))
+        blockers = proof.get("blockers") or []
+        if blockers or decision in {"blocker", "needs_fix", "blocked"}:
+            bug_summary = "; ".join(str(b) for b in blockers[:3]) or proof.get("result_status") or "external proof needs fix"
+            rows.append(_nexio_evidence_row(
+                "bug_fix_trace",
+                source_type="external_proof_export",
+                source_ref=source_ref,
+                status="needs_fix" if decision == "blocker" else decision,
+                proof=proof,
+                bug_id=f"bug-{proof.get('proof_id') or _short_id('proof')}",
+                bug_summary=bug_summary,
+                fix_summary="Route through proof-ingest/backlog; attach public screenshot/log references when available.",
+            ))
+
+    for screenshot_path in getattr(args, "screenshot", None) or []:
+        rows.append(_nexio_evidence_row(
+            "screenshot_link",
+            source_type="operator_supplied_screenshot",
+            source_ref=screenshot_path,
+            status="linked",
+            screenshot_path=screenshot_path,
+        ))
+
+    for log_link in getattr(args, "log_link", None) or []:
+        rows.append(_nexio_evidence_row(
+            "log_link",
+            source_type="operator_supplied_log",
+            source_ref=log_link,
+            status="linked",
+            log_link=log_link,
+        ))
+
+    errors = []
+    for i, row in enumerate(rows):
+        missing = [k for k in NEXIO_EVIDENCE_REQUIRED_ROW_FIELDS if k not in row]
+        if missing:
+            errors.append(f"row[{i}] missing {','.join(missing)}")
+        if not row.get("privacy_checked"):
+            errors.append(f"row[{i}] privacy_checked is false")
+
+    payload = {
+        "schema_version": NEXIO_EVIDENCE_SLICE_SCHEMA_VERSION,
+        "generated_utc": _utc_now(),
+        "status": "ok" if not errors else "invalid",
+        "purpose": "Spreadsheet-row evidence, screenshot/log links, and bug/fix traceability for Nexio/gorilla approval/proof-ingest flows.",
+        "privacy": "Rows contain privacy-reviewed metadata only; raw proof bodies, transcripts, tokens, IPs, and user-agents are intentionally excluded.",
+        "proof_export": str(getattr(args, "proof_export", "") or ""),
+        "row_count": len(rows),
+        "counts": {
+            "spreadsheet_row": sum(1 for r in rows if r.get("row_type") == "spreadsheet_row"),
+            "screenshot_link": sum(1 for r in rows if r.get("row_type") == "screenshot_link"),
+            "log_link": sum(1 for r in rows if r.get("row_type") == "log_link"),
+            "bug_fix_trace": sum(1 for r in rows if r.get("row_type") == "bug_fix_trace"),
+        },
+        "spreadsheet_columns": NEXIO_EVIDENCE_REQUIRED_ROW_FIELDS + ["proof_id", "agent_id", "runtime", "result_status"],
+        "rows": rows,
+        "errors": errors,
+        "next_commands": [
+            "python3 scripts/agentpress.py external-proof-intake export --json",
+            "python3 scripts/agentpress.py nexio-evidence-slice --proof-export agentpress/external-proofs/external-proof-intake-export.json --json",
+        ],
+    }
+    if not getattr(args, "no_write", False):
+        out = pathlib.Path(args.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"nexio evidence rows={len(rows)} status={payload['status']}")
+    return 0 if not errors else 1
 
 
 def proof_ingest(args):
@@ -5076,6 +4664,75 @@ def issue_to_repro_pack(args):
 
 
 
+def issue_to_kit(args):
+    """Turn one real issue/debug transcript into a single maintainer-ready repro kit."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
+    issue_url=(args.issue_url or "").strip()
+    title=(args.title or "").strip()
+    body=(args.body or "").strip()
+    host=(args.host or "unknown_host").strip()
+    provider=(args.provider or "unknown_provider").strip()
+    tool=(args.tool or "unknown_tool").strip()
+    error=(args.error or "").strip()
+    log=(args.log or "").strip()
+    checkpoint_text=(args.checkpoint or "").strip()
+    combined="\n".join([issue_url,title,body,host,provider,tool,error,log,checkpoint_text]).lower()
+    secret_re=re.compile(r"(?i)(sk-[a-z0-9_-]{12,}|gh[opsu]_[a-z0-9_]{20,}|api[_-]?key\s*[:=]\s*\S+|token\s*[:=]\s*\S+|password\s*[:=]\s*\S+|bearer\s+[a-z0-9._-]{16,})")
+    secret_findings=[]
+    for field,value in [("issue_url",issue_url),("title",title),("body",body),("host",host),("provider",provider),("tool",tool),("error",error),("log",log),("checkpoint",checkpoint_text)]:
+        if value and secret_re.search(value):
+            secret_findings.append({"field":field,"message":"secret-looking value detected; redact before sharing"})
+    public_issue=issue_url.startswith(("https://github.com/","https://gitlab.com/","https://news.ycombinator.com/"))
+    features=[]
+    if any(w in combined for w in ["adapter","tool", "invalid_arguments", "unknown tool", "execute_command", "write_to_file", "provider"]):
+        features.append("adapter_repro")
+    if any(w in combined for w in ["checkpoint","structured_response","resume","state"]):
+        features.append("checkpoint_replay")
+    if any(w in combined for w in ["hang","stuck","timeout","running","callback","terminal_exit_code","browser"]):
+        features.append("runtime_hang_capsule")
+    if not features:
+        features.append("issue_to_repro")
+    findings=[]
+    if not public_issue:
+        findings.append({"severity":"P1","message":"add a public issue/thread URL before sharing externally"})
+    if tool == "unknown_tool" and "adapter_repro" in features:
+        findings.append({"severity":"P1","message":"adapter repro selected but tool name is missing"})
+    if not error and not log and not body:
+        findings.append({"severity":"P2","message":"add observed error, log excerpt, or issue body for a useful kit"})
+    status="fail" if secret_findings else ("needs_detail" if findings else "ok")
+    artifacts=[{"id":"issue_to_repro","path":"issue-to-repro.json","why_user_cares":"one sanitized JSON block maintainers can attach without private prompt/user data","command":"python3 scripts/agentpress.py issue-to-repro-pack --issue-url <public-url> --host <host> --provider <provider> --tool <tool> --error <redacted-error> --json"}]
+    if "adapter_repro" in features:
+        artifacts.append({"id":"adapter_repro","path":"adapter-repro.json","why_user_cares":"turns provider/host tool mismatch into an explicit translation row and unknown-tool policy","command":"python3 scripts/agentpress.py provider-adapter-repro-pack --host <host> --provider <provider> --calls <tool_csv> --json"})
+    if "checkpoint_replay" in features:
+        artifacts.append({"id":"checkpoint_replay","path":"checkpoint-replay.json","why_user_cares":"shows stale checkpoint fields to remove before retrying a resumed run","command":"python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --checkpoint <redacted-checkpoint.json> --json"})
+    if "runtime_hang_capsule" in features:
+        artifacts.append({"id":"runtime_hang_capsule","path":"runtime-hang-capsule.json","why_user_cares":"replaces vague 'it hung' reports with exit/callback/last-output evidence","command":"python3 scripts/agentpress.py runtime-hang-repro-capsule --log <redacted-log.txt> --json"})
+    maintainer_comment=(
+        "Here is a small repro kit for this issue. It includes only the public issue URL, host/provider/tool names, "
+        "observed error/log/checkpoint symptoms, and explicit expected contracts; no private prompt, token, or telemetry is required. "
+        "The useful part is the attached JSON plus the exact local command(s), not any AgentPress internal workflow."
+    )
+    payload={
+      "schema_version":"2026-05-06.agentpress-issue-to-kit.v1",
+      "canonical_url":urljoin(base,out.as_posix()),
+      "generated_utc":_utc_now(),
+      "status":status,
+      "purpose":"Product feature for agents: convert real issue/debug material into one maintainer-ready kit instead of internal packet sprawl.",
+      "input_summary":{"public_issue_url":issue_url,"title":title,"host_runtime":host,"provider_or_model":provider,"tool_name":tool,"observed_error":error,"has_log":bool(log),"has_checkpoint":bool(checkpoint_text)},
+      "selected_features":features,
+      "secret_findings":secret_findings,
+      "findings":findings,
+      "privacy_gates":["redact tokens/secrets/private prompts","share public issue URL only","attach last 200 log lines max unless maintainer requests more","do not post externally without operator approval"],
+      "artifacts":artifacts,
+      "kit":{"maintainer_comment_md":maintainer_comment,"acceptance_gates":["JSON parses","no secret-looking values","public thread URL present before external sharing","at least one observed symptom captured","copy-paste command included"]}
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else status)
+    return 1 if args.strict and status=="fail" else 0
+
+
+
 def painpoint_target_pack(args):
     """Turn one live agent pain complaint into a runnable pack + approval-ready outreach draft."""
     out = pathlib.Path(args.out)
@@ -5085,11 +4742,7 @@ def painpoint_target_pack(args):
     host = (args.host or "unknown_host").strip()
     provider = (args.provider or "unknown_provider").strip()
     tool = (args.tool or "unknown_tool").strip()
-    score_parts = [painpoint]
-    if host != "unknown_host": score_parts.append(host)
-    if provider != "unknown_provider": score_parts.append(provider)
-    if tool != "unknown_tool": score_parts.append(tool)
-    lower = " ".join(score_parts).lower()
+    lower = " ".join([issue_url, painpoint, host, provider, tool]).lower()
     candidates = [
         {"id":"mcp_config_mutation_guard","match":["mcp","config","cline","roo","settings","approval","consent","server"],"artifact":"agentpress/security/mcp-config-mutation-guard-result.json","command":"python3 scripts/agentpress.py mcp-config-mutation-guard --config-exists --before-sha256 <sha256-before> --existing-servers <csv> --planned-servers <csv> --json","user_value":"Stops agent installers from silently breaking existing MCP/Cline/Roo config; emits backup/diff/restore evidence."},
         {"id":"provider_adapter_repro_pack","match":["tool","provider","adapter","execute_command","write_to_file","invalid_arguments","unknown tool"],"artifact":"agentpress/compatibility/provider-adapter-repro-pack.json","command":"python3 scripts/agentpress.py provider-adapter-repro-pack --host <host> --provider <provider> --calls <tool_csv> --json","user_value":"Turns host/provider tool mismatch into a small adapter map and failing-call repro maintainers can act on."},
@@ -5103,8 +4756,7 @@ def painpoint_target_pack(args):
         scored.append((len(hits), hits, candidate))
     scored.sort(key=lambda row: row[0], reverse=True)
     best_score, hits, best = scored[0]
-    low_confidence = best_score == 0
-    if low_confidence:
+    if best_score == 0:
         best = candidates[2]
         hits = []
     command = best["command"]
@@ -5126,24 +4778,11 @@ def painpoint_target_pack(args):
         findings.append({"severity":"P1","message":"issue_url missing; target pack is less directly actionable"})
     elif not issue_url.startswith(("https://github.com/","https://news.ycombinator.com/","https://gitlab.com/","https://gitee.com/")):
         findings.append({"severity":"P1","message":"target URL is not a known public dev/community thread"})
-    secret_re = re.compile(
-        r"(?i)("
-        r"sk-[a-z0-9_-]{12,}|"
-        r"gh[opsu]_[a-z0-9_]{20,}|"
-        r"AKIA[0-9A-Z]{16}|"
-        r"xoxb-[0-9A-Za-z-]{20,}|"
-        r"eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+|"
-        r"api[_-]?key\s*[:=]\s*\S+|"
-        r"token\s*[:=]\s*\S+|"
-        r"password\s*[:=]\s*\S+"
-        r")"
-    )
+    secret_re = re.compile(r"(?i)(sk-[a-z0-9_-]{12,}|gh[opsu]_[a-z0-9_]{20,}|api[_-]?key\s*[:=]\s*\S+|token\s*[:=]\s*\S+|password\s*[:=]\s*\S+)")
     for label,value in [("painpoint",painpoint),("error",args.error or ""),("issue_url",issue_url)]:
         if secret_re.search(str(value)):
             findings.append({"severity":"P0","field":label,"message":"secret-looking value detected; redact before sharing"})
-    if low_confidence:
-        findings.append({"severity":"P1","message":"low_confidence_match: no candidate scored above zero; fallback repro pack selected for manual review"})
-    status = "blocked_redact" if any(f.get("severity") == "P0" for f in findings) else ("low_confidence_match" if low_confidence else ("needs_target" if findings else "ready_for_manual_approval"))
+    status = "blocked_redact" if any(f.get("severity") == "P0" for f in findings) else ("needs_target" if findings else "ready_for_manual_approval")
     payload={
         "schema_version":"2026-05-04.agentpress-painpoint-target-pack.v1",
         "canonical_url":urljoin(base,out.as_posix()),
@@ -5237,350 +4876,6 @@ def mcp_config_mutation_guard(args):
     print(json.dumps(payload,indent=2) if args.json else status)
     return 1 if args.strict and status!='ok' else 0
 
-def _capture_json_call(fn, namespace):
-    buf = io.StringIO()
-    with contextlib.redirect_stdout(buf):
-        code = fn(namespace)
-    raw = buf.getvalue().strip()
-    try:
-        data = json.loads(raw) if raw else {}
-    except Exception:
-        data = {"status": "unknown", "raw_tail": raw[-500:]}
-    return code, data
-
-
-def safety_preflight(args):
-    """Run/link local safety preflights without reading secret-bearing paths by default."""
-    root = pathlib.Path(args.root).expanduser()
-    out = pathlib.Path(args.out)
-    base = args.base_url.rstrip() + "/"
-    guard_findings = _secret_path_guard(root)
-    checks = []
-    exact_commands = [
-        "python3 scripts/agentpress.py secret-permission-preflight-run --json",
-        "python3 scripts/agentpress.py redaction-check <public-artifact-path> --json --allow-findings",
-        "python3 scripts/agentpress.py tool-file-access-risk-scanner --json --manifest <public-tool-manifest.json>",
-        f"python3 scripts/agentpress.py sandbox-guard --scope read-only --paths {shlex.quote(str(root))} --json --no-write",
-    ]
-
-    checks.append({
-        "id": "sensitive_path_guard",
-        "status": "fail_closed" if guard_findings else "ok",
-        "findings": guard_findings,
-        "no_secret_read": True,
-    })
-
-    manifest = pathlib.Path(args.manifest).expanduser() if args.manifest else None
-    if manifest and _is_sensitive_path(manifest):
-        checks.append({"id": "secret_permission_preflight", "status": "refused_sensitive_manifest", "path": str(manifest), "no_secret_read": True})
-    else:
-        code, data = _capture_json_call(secret_permission_preflight_run, argparse.Namespace(
-            manifest=str(manifest) if manifest else "",
-            out="agentpress/security/secret-permission-preflight-result.json",
-            base_url=args.base_url,
-            no_write=True,
-            json=True,
-            strict=False,
-        ))
-        checks.append({"id": "secret_permission_preflight", "status": data.get("status", "unknown"), "exit_code": code, "result": data, "no_secret_read": True})
-
-    if args.redaction_path:
-        redaction_path = pathlib.Path(args.redaction_path).expanduser()
-        if _is_sensitive_path(redaction_path):
-            checks.append({"id": "redaction_check", "status": "refused_sensitive_path", "path": str(redaction_path), "no_secret_read": True})
-        else:
-            code, data = _capture_json_call(redaction_check, argparse.Namespace(
-                path=str(redaction_path),
-                out="",
-                max_files=args.max_redaction_files,
-                max_chars=args.max_redaction_chars,
-                allow_findings=True,
-                json=True,
-            ))
-            checks.append({"id": "redaction_check", "status": data.get("status", "unknown"), "exit_code": code, "result": data, "no_secret_read": False})
-    else:
-        checks.append({
-            "id": "redaction_check",
-            "status": "guidance_only",
-            "reason": "not run unless --redaction-path is supplied for an explicitly public artifact path",
-            "command": "python3 scripts/agentpress.py redaction-check <public-artifact-path> --json --allow-findings",
-            "no_secret_read": True,
-        })
-
-    tool_manifest = pathlib.Path(args.tool_manifest).expanduser() if args.tool_manifest else None
-    if tool_manifest and _is_sensitive_path(tool_manifest):
-        checks.append({"id": "tool_file_access_risk_scanner", "status": "refused_sensitive_manifest", "path": str(tool_manifest), "no_secret_read": True})
-    elif tool_manifest:
-        code, data = _capture_json_call(tool_file_access_risk_scanner, argparse.Namespace(
-            manifest=str(tool_manifest),
-            out="agentpress/security/tool-file-access-risk-report.json",
-            base_url=args.base_url,
-            no_write=True,
-            json=True,
-            strict=False,
-        ))
-        checks.append({"id": "tool_file_access_risk_scanner", "status": data.get("status", "unknown"), "exit_code": code, "result": data, "no_secret_read": False})
-    else:
-        checks.append({
-            "id": "tool_file_access_risk_scanner",
-            "status": "guidance_only",
-            "reason": "not run unless --tool-manifest is supplied; avoids reading arbitrary configs",
-            "command": "python3 scripts/agentpress.py tool-file-access-risk-scanner --manifest <public-tool-manifest.json> --json",
-            "no_secret_read": True,
-        })
-
-    code, data = _capture_json_call(sandbox_guard, argparse.Namespace(
-        scope="read-only",
-        paths=str(root),
-        out="agentpress/security/sandbox-guard.json",
-        base_url=args.base_url,
-        no_write=True,
-        json=True,
-        strict=False,
-    ))
-    checks.append({"id": "sandbox_guard", "status": data.get("status", "unknown"), "exit_code": code, "result": data, "no_secret_read": True})
-
-    fail_statuses = {"fail", "fail_closed", "refused_sensitive_path", "refused_sensitive_manifest"}
-    failing = [c for c in checks if c.get("status") in fail_statuses]
-    status = "ok" if not failing else "fail_closed"
-    payload = {
-        "schema_version": "2026-05-05.agentpress-safety-preflight.v1",
-        "canonical_url": urljoin(base, out.as_posix()),
-        "generated_utc": _utc_now(),
-        "status": status,
-        "purpose": "Umbrella safety preflight for agents before connector/tool/file/publish work. It links broad scans and only reads explicit public artifacts.",
-        "root": str(root),
-        "no_secret_reads_by_default": True,
-        "checks": checks,
-        "exact_commands": exact_commands,
-        "remediation": [
-            "Run redaction-check only on explicitly public artifact directories, not home/config/secret paths.",
-            "Declare secret names and scopes in a preflight manifest; never store secret values in artifacts.",
-            "Run tool-file-access-risk-scanner on public tool manifests before enabling file-read tools.",
-            "Use sandbox-guard/read-only paths before running unfamiliar tool chains.",
-        ],
-    }
-    if not args.no_write:
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps(payload, indent=2) if args.json else status)
-    return 1 if args.strict and status != "ok" else 0
-
-
-def _context_budget_files(root):
-    skip_parts = {".git", "node_modules", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
-    files = []
-    if root.is_file():
-        return [root]
-    if not root.exists():
-        return []
-    for p in root.rglob("*"):
-        if not p.is_file():
-            continue
-        rel_parts = set(p.relative_to(root).parts)
-        if rel_parts & skip_parts:
-            continue
-        files.append(p)
-    return files
-
-
-def context_budget(args):
-    """Gate agent context bloat with file/byte budgets, source-map requirement, and remediation."""
-    root = pathlib.Path(args.root).expanduser()
-    out = pathlib.Path(args.out)
-    base = args.base_url.rstrip() + "/"
-    files = _context_budget_files(root)
-    total_bytes = 0
-    largest = []
-    for p in files:
-        try:
-            size = p.stat().st_size
-        except OSError:
-            size = 0
-        total_bytes += size
-        largest.append((size, p))
-    largest.sort(reverse=True, key=lambda item: item[0])
-    source_map = pathlib.Path(args.source_map)
-    source_map_path = source_map if source_map.is_absolute() else root / source_map
-    freshness = pathlib.Path(args.freshness)
-    freshness_path = freshness if freshness.is_absolute() else root / freshness
-    estimated_chars = total_bytes
-    findings = []
-    def add(code, severity, message, remediation):
-        findings.append({"code": code, "severity": severity, "message": message, "remediation": remediation})
-    if args.require_source_map and not source_map_path.exists():
-        add("missing_source_map", "P0", f"required source map missing: {source_map.as_posix()}", f"Create {source_map.as_posix()} with claim-to-source mappings before loading this tree into an agent context.")
-    if not freshness_path.exists():
-        add("missing_freshness", "P1", f"freshness hints missing: {freshness.as_posix()}", f"Add {freshness.as_posix()} with generated_at, max_stale_days, and refresh commands.")
-    if len(files) > args.max_files:
-        add("too_many_files", "P1", f"{len(files)} files exceeds max_files={args.max_files}", "Pass a smaller root, add a source-map allowlist, or package a focused handoff bundle.")
-    if total_bytes > args.max_bytes:
-        add("too_many_bytes", "P1", f"{total_bytes} bytes exceeds max_bytes={args.max_bytes}", "Exclude generated/build artifacts and summarize large evidence files before context loading.")
-    if estimated_chars > args.max_chars:
-        add("too_many_estimated_chars", "P1", f"{estimated_chars} estimated chars exceeds max_chars={args.max_chars}", "Use source-map required files only, then attach hashes for omitted evidence.")
-    status = "ok" if not any(f["severity"] in {"P0", "P1"} for f in findings) else "needs_remediation"
-    payload = {
-        "schema_version": "2026-05-05.agentpress-context-budget.v1",
-        "canonical_url": urljoin(base, out.as_posix()),
-        "generated_utc": _utc_now(),
-        "status": status,
-        "root": str(root),
-        "budgets": {"max_files": args.max_files, "max_bytes": args.max_bytes, "max_chars": args.max_chars},
-        "actual": {"file_count": len(files), "total_bytes": total_bytes, "estimated_chars": estimated_chars},
-        "source_map": {"required": bool(args.require_source_map), "path": str(source_map_path), "present": source_map_path.exists()},
-        "freshness": {"path": str(freshness_path), "present": freshness_path.exists(), "hint": "freshness.json should declare generated_at, max_stale_days, and refresh_command"},
-        "largest_files": [{"path": str(p), "bytes": size} for size, p in largest[:10]],
-        "finding_count": len(findings),
-        "findings": findings,
-        "exact_remediation": [
-            f"Create or update {source_map.as_posix()} with only the files the agent should load.",
-            f"Create or update {freshness.as_posix()} with generated_at and refresh guidance.",
-            "Move generated logs, tarballs, caches, and build outputs outside the agent handoff root.",
-            "Run `python3 scripts/agentpress.py context-budget <root> --json --strict` in CI before large agent handoffs.",
-        ],
-    }
-    if not args.no_write:
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps(payload, indent=2) if args.json else status)
-    return 1 if args.strict and status != "ok" else 0
-
-
-def _json_load_with_duplicate_markers(path):
-    raw = pathlib.Path(path).read_text(encoding="utf-8")
-    duplicate_sets = []
-    def hook(pairs):
-        obj = {}
-        dups = []
-        for key, value in pairs:
-            if key in obj:
-                dups.append(key)
-            obj[key] = value
-        if dups:
-            duplicate_sets.append(sorted(set(dups)))
-            obj["__agentpress_duplicate_keys__"] = sorted(set(dups))
-        return obj
-    return json.loads(raw, object_pairs_hook=hook), duplicate_sets
-
-
-def _mcp_config_servers(data):
-    servers = []
-    if not isinstance(data, dict):
-        return servers
-    for key in ("mcpServers", "servers"):
-        value = data.get(key)
-        if isinstance(value, dict):
-            for name, cfg in value.items():
-                if name == "__agentpress_duplicate_keys__":
-                    continue
-                servers.append({"name": name, "config": cfg if isinstance(cfg, dict) else {}})
-        elif isinstance(value, list):
-            for idx, cfg in enumerate(value):
-                if isinstance(cfg, dict):
-                    servers.append({"name": str(cfg.get("name") or cfg.get("id") or f"server_{idx}"), "config": cfg})
-    return servers
-
-
-def _env_entries(env):
-    if isinstance(env, dict):
-        for key, value in env.items():
-            yield key, value
-    elif isinstance(env, list):
-        for idx, item in enumerate(env):
-            if isinstance(item, dict):
-                yield item.get("name") or f"env[{idx}]", item.get("value", "")
-            else:
-                yield f"env[{idx}]", item
-
-
-def _dangerous_env_literal(key, value):
-    key_l = str(key).lower()
-    value_s = str(value or "").strip()
-    if not value_s:
-        return False
-    if value_s.startswith(("$", "${", "<")) or "REDACTED" in value_s.upper() or "YOUR_" in value_s.upper():
-        return False
-    secret_key = any(tok in key_l for tok in ("token", "secret", "password", "api_key", "apikey", "private_key", "credential"))
-    secret_value = bool(re.search(r"(?i)(sk-[a-z0-9_-]{12,}|gh[opsu]_[a-z0-9_]{20,}|xoxb-[0-9a-z-]{20,}|bearer\s+[a-z0-9._-]{12,})", value_s))
-    return secret_key or secret_value
-
-
-def mcp_config_doctor(args):
-    """Statically check MCP config shape and secret-risk markers without mutating config."""
-    out = pathlib.Path(args.out)
-    base = args.base_url.rstrip() + "/"
-    findings = []
-    config_path = pathlib.Path(args.config).expanduser() if args.config else None
-    data = {"mcpServers": {"agentpress-static": {"command": "python3", "args": ["scripts/agentpress.py", "mcp-catalog-export", "--json"], "env": {}}}}
-    duplicate_sets = []
-    source = "built_in_safe_sample"
-    if config_path:
-        source = str(config_path)
-        if _is_sensitive_path(config_path):
-            findings.append({"severity": "P0", "code": "sensitive_config_path_refused", "message": "config path looks secret-bearing; choose a public MCP settings export", "path": str(config_path)})
-            data = {}
-        elif not config_path.exists():
-            findings.append({"severity": "P0", "code": "config_missing", "message": "MCP config file does not exist", "path": str(config_path)})
-            data = {}
-        else:
-            try:
-                data, duplicate_sets = _json_load_with_duplicate_markers(config_path)
-            except Exception as e:
-                findings.append({"severity": "P0", "code": "invalid_json", "message": f"config JSON parse failed: {e}", "path": str(config_path)})
-                data = {}
-    if isinstance(data, dict) and not any(k in data for k in ("mcpServers", "servers")):
-        findings.append({"severity": "P1", "code": "missing_server_container", "message": "expected mcpServers or servers object/list"})
-    for dup in duplicate_sets:
-        findings.append({"severity": "P1", "code": "duplicate_json_keys", "message": "duplicate JSON object keys detected", "keys": dup})
-    servers = _mcp_config_servers(data)
-    names = [s["name"] for s in servers]
-    seen = set()
-    duplicate_names = sorted({name for name in names if name in seen or seen.add(name)})
-    for name in duplicate_names:
-        findings.append({"severity": "P1", "code": "duplicate_server_name", "message": "duplicate MCP server name", "server": name})
-    for server in servers:
-        cfg = server.get("config") or {}
-        env = cfg.get("env") or cfg.get("env_vars") or cfg.get("environment") or {}
-        for key, value in _env_entries(env):
-            if _dangerous_env_literal(key, value):
-                findings.append({
-                    "severity": "P0",
-                    "code": "dangerous_env_value_marker",
-                    "server": server["name"],
-                    "env": str(key),
-                    "message": "env entry appears to contain a literal secret; use an env var reference or redacted placeholder",
-                    "value_echoed": False,
-                })
-    duplicate_findings = any(f.get("code") in {"duplicate_json_keys", "duplicate_server_name"} for f in findings)
-    status = "ok" if not any(f["severity"] == "P0" for f in findings) and not duplicate_findings else "fail"
-    backup_hint = f"cp {shlex.quote(str(config_path or '<mcp-config.json>'))} {shlex.quote(str(config_path or '<mcp-config.json>'))}.$(date -u +%Y%m%dT%H%M%SZ).backup"
-    restore_hint = f"cp <backup-file> {shlex.quote(str(config_path or '<mcp-config.json>'))}"
-    payload = {
-        "schema_version": "2026-05-05.agentpress-mcp-config-doctor.v1",
-        "canonical_url": urljoin(base, out.as_posix()),
-        "generated_utc": _utc_now(),
-        "status": status,
-        "purpose": "Static MCP config check for JSON validity, server naming, env safety, and backup/restore guidance. It never mutates config.",
-        "source": source,
-        "mutated_config": False,
-        "server_count": len(servers),
-        "server_names": names,
-        "duplicate_server_names": duplicate_names,
-        "finding_count": len(findings),
-        "findings": findings,
-        "backup_restore_guidance": {
-            "backup_before_edit": backup_hint,
-            "restore": restore_hint,
-            "mutation_guard": "python3 scripts/agentpress.py mcp-config-mutation-guard --config-path <config> --backup --planned-servers <csv> --json",
-        },
-        "safe_env_rule": "Store secret names or runtime env references only; never place token/password/key values in static MCP config artifacts.",
-    }
-    if not args.no_write:
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps(payload, indent=2) if args.json else status)
-    return 1 if args.strict and status != "ok" else 0
-
 def continuous_research_build_cycle_audit(args):
     """Audit shipped AgentPress surfaces against current painpoint/build lists and emit next cycle decision."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
@@ -5667,388 +4962,6 @@ def first_agent_attention_kit(args):
     print(json.dumps(payload,indent=2) if args.json else f"ok {len(hooks)} hooks")
     return 0
 
-
-def gorilla_utility_pack(args):
-    """Build utility-first AgentPress packs for places agents already look; no spam or external writes."""
-    outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
-    targets=[
-        {"id":"cline-tool-approval","community":"Cline/MCP users","painpoint":"approval safety + provider tool mismatch","artifact":"agentpress/security/approval-bypass-risk-result.json","command":"python3 scripts/agentpress.py approval-bypass-risk-check --json","utility":"Attach a fail-closed approval/tool-call risk receipt to existing issues."},
-        {"id":"cline-provider-repro","community":"Cline/provider adapters","painpoint":"execute_command/write_to_file vocabulary mismatch","artifact":"agentpress/compatibility/provider-adapter-repro-pack.json","command":"python3 scripts/agentpress.py provider-adapter-repro-pack --host cline --provider claude_code --json","utility":"Generate a maintainer-ready adapter mismatch repro, not a product pitch."},
-        {"id":"langgraph-checkpoint-replay","community":"LangChain/LangGraph","painpoint":"stale checkpoint/structured_response state","artifact":"agentpress/repro/checkpoint-replay-minimal-repro.json","command":"python3 scripts/agentpress.py checkpoint-replay-minimal-repro-generator --json","utility":"Turn state drift into a replayable minimal repro pack."},
-        {"id":"llamaindex-rag-safety","community":"LlamaIndex/RAG builders","painpoint":"file metadata + tool schema safety","artifact":"agentpress/safety/rag-tool-safety-bundle.json","command":"python3 scripts/agentpress.py rag-tool-safety-bundle --json","utility":"Validate file-path/tool-schema hazards before publishing RAG agents."},
-        {"id":"openhands-runtime-hang","community":"OpenHands/Roo/browser agents","painpoint":"runtime/browser/terminal hangs","artifact":"agentpress/repro/runtime-hang-repro-capsule.json","command":"python3 scripts/agentpress.py runtime-hang-repro-capsule --json","utility":"Convert stuck run evidence into a small maintainer capsule."}
-    ]
-    packs=[]
-    for t in targets:
-        receipt_rel=(outdir/"receipts"/f"{t['id']}-result.json").as_posix()
-        pack={"schema_version":"2026-05-05.agentpress-gorilla-utility-target.v2","canonical_url":urljoin(base,(outdir/f"{t['id']}.json").as_posix()),"generated_utc":_utc_now(),"status":"ready_not_sent","target":t,"install_run_proof_flow":{"run_command":t["command"],"first_contact_audit":"python3 scripts/agentpress.py first-contact audit --no-network --json","result_finalize":f"python3 scripts/agentpress.py result finalize --kind proof --claim '{t['id']} utility pack ran locally' --file {t['artifact']} --step '{t['command']}' --out {receipt_rel} --json","result_validate":f"python3 scripts/agentpress.py result validate {receipt_rel} --strict --json","receipt":urljoin(base,receipt_rel)},"rules":["Only use where the painpoint is already being discussed.","Lead with the utility command/artifact, not marketing.","No mass posting, fake adoption, scraped DMs, secrets, or private prompts.","Any external post/send requires explicit human approval."],"comment_template":f"I made this as a small machine-checkable utility for this exact issue class: `{t['command']}`. It emits `{urljoin(base,t['artifact'])}` and a local result receipt so maintainers can inspect a concrete repro/proof instead of a vague claim.","proof_loop":["run utility command locally","run first-contact audit","finalize + validate result receipt","attach sanitized JSON only if relevant and approved","if someone replies, ingest via external-proof-intake","convert blocker to backlog"]}
-        packs.append(pack)
-        if not args.no_write:
-            outdir.mkdir(parents=True,exist_ok=True); (outdir/f"{t['id']}.json").write_text(json.dumps(pack,indent=2)+"\n",encoding="utf-8")
-    manifest={"schema_version":"2026-05-05.agentpress-gorilla-utility-pack.v2","canonical_url":urljoin(base,(outdir/"manifest.json").as_posix()),"generated_utc":_utc_now(),"status":"ready_not_sent","purpose":"Execute Jake's gorilla plan internally: package useful AgentPress artifacts for materials agents already inspect, without spam or unapproved external writes.","target_count":len(packs),"targets":[{"id":p["target"]["id"],"community":p["target"]["community"],"painpoint":p["target"]["painpoint"],"artifact":urljoin(base,p["target"]["artifact"]),"pack":urljoin(base,(outdir/f"{p['target']['id']}.json").as_posix()),"receipt":p["install_run_proof_flow"]["receipt"]} for p in packs],"canonical_flow":["pick painpoint-matched pack","run utility command","run first-contact audit","finalize + validate result receipt","submit/attach only with human approval"],"next_internal_commands":["python3 scripts/agentpress.py gorilla-utility-pack --json","python3 scripts/agentpress.py first-contact audit --no-network --json","python3 scripts/agentpress.py external-proof-intake status --json"],"external_execution_gate":"Human approval required before posting/sending/commenting externally."}
-    if not args.no_write:
-        outdir.mkdir(parents=True,exist_ok=True)
-        (outdir/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
-        (outdir/"README.md").write_text("# AgentPress Gorilla Utility Pack\n\nUtility-first packs for public agent-builder painpoints. External posting requires explicit approval.\n\n## Canonical local flow\n\n1. Pick the pack that matches an existing painpoint.\n2. Run the pack command locally.\n3. Run `python3 scripts/agentpress.py first-contact audit --no-network --json`.\n4. Finalize and validate the result receipt shown in the pack's `install_run_proof_flow`.\n5. Do not post, DM, comment, or imply adoption without explicit human approval.\n",encoding="utf-8")
-    print(json.dumps(manifest,indent=2) if args.json else f"{manifest['status']} {len(packs)} packs")
-    return 0
-
-
-def _gorilla_action_safety_decision(action: dict) -> dict:
-    """Deterministically classify a gorilla queue action before any external effect."""
-    text = " ".join(str(action.get(k, "")) for k in ("action", "draft", "url", "painpoint", "risk", "ecosystem", "intent")).lower()
-    reasons = []
-
-    prohibited_patterns = [
-        ("mass", "mass outreach/posting is not allowed"),
-        ("bulk", "bulk outreach/posting is not allowed"),
-        ("scraped dm", "scraped DMs are not allowed"),
-        ("scrape", "scraped contact lists are not allowed"),
-        ("secret", "secret/credential-bearing material is not allowed"),
-        ("credential", "secret/credential-bearing material is not allowed"),
-        ("token", "secret/credential-bearing material is not allowed"),
-        ("private prompt", "private prompts are not allowed"),
-        ("fake adoption", "adoption claims require real third-party proof"),
-        ("claim adoption", "adoption claims require real third-party proof"),
-        ("exploit", "exploit/security-risk content is not allowed for unsolicited outreach"),
-    ]
-    for needle, reason in prohibited_patterns:
-        if needle in text:
-            reasons.append(reason)
-    if "security-sensitive" in text or "security/credential" in text or "hold unless maintainer invites" in text:
-        reasons.append("security-sensitive queue item must fail closed unless maintainer explicitly invites a fixture")
-    if str(action.get("risk", "")).lower() in {"high", "critical"}:
-        reasons.append("high-risk queue item must fail closed")
-    if reasons:
-        return {
-            "classification": "prohibited_spam_security_risk",
-            "allowed_to_execute": False,
-            "reasons": sorted(set(reasons)),
-            "required_controls": ["do_not_post", "do_not_send", "escalate_to_human_owner"],
-        }
-
-    if str(action.get("intent", "")).lower() == "internal" and not action.get("url"):
-        return {
-            "classification": "safe_internal",
-            "allowed_to_execute": True,
-            "reasons": ["explicitly internal/local preparation with no selected public target"],
-            "required_controls": ["keep_artifacts_local_or_static", "no_external_post_send_comment_without_reclassification"],
-        }
-
-    public_markers = ["github.com/", "http://", "https://", "comment", "post", "dm", "pull request", "issue", "submit", "attach", "external"]
-    prepare_only = any(s in text for s in ["prepare", "draft", "fixture", "static", "local", "internal"])
-    if any(marker in text for marker in public_markers):
-        reason = "draft/fixture preparation is safe internally, but public target/draft requires approval before posting" if prepare_only else "public/external action requires explicit human approval"
-        return {
-            "classification": "approval_required_public",
-            "allowed_to_execute": False,
-            "reasons": [reason],
-            "required_controls": [
-                "explicit_human_approval_of_exact_target_and_draft",
-                "one_target_only",
-                "painpoint_relevance_check",
-                "sanitize_json_no_secrets_private_prompts_or_personal_data",
-                "no_adoption_claim_without_external_receipt",
-            ],
-        }
-
-    return {
-        "classification": "safe_internal",
-        "allowed_to_execute": True,
-        "reasons": ["local/static/internal action with no public write or credential/private-data handling"],
-        "required_controls": ["keep_artifacts_local_or_static", "no_external_post_send_comment_without_reclassification"],
-    }
-
-
-def gorilla_action_safety_gate(args):
-    """Classify gorilla queue actions before external execution."""
-    root = pathlib.Path(args.root)
-    queue_path = root / args.queue
-    queue = json.loads(queue_path.read_text(encoding="utf-8")) if queue_path.exists() else {}
-    actions = []
-    for allowed in queue.get("posting_policy", {}).get("allowed_now", []):
-        actions.append({"source":"posting_policy.allowed_now", "action":allowed, "intent":"internal"})
-    for prohibited in queue.get("posting_policy", {}).get("prohibited_without_approval", []):
-        actions.append({"source":"posting_policy.prohibited_without_approval", "action":prohibited, "intent":"external"})
-    for target in queue.get("targets", []):
-        item = dict(target)
-        item["source"] = "targets"
-        actions.append(item)
-    if args.action_json:
-        actions.append(json.loads(args.action_json))
-
-    counts = {"safe_internal":0, "approval_required_public":0, "prohibited_spam_security_risk":0}
-    decisions = []
-    for idx, action in enumerate(actions, start=1):
-        decision = _gorilla_action_safety_decision(action)
-        counts[decision["classification"]] += 1
-        decisions.append({
-            "id": action.get("id") or action.get("rank") or idx,
-            "source": action.get("source", "ad_hoc"),
-            "action": action.get("action", ""),
-            "url": action.get("url", ""),
-            "risk": action.get("risk", ""),
-            **decision,
-        })
-    out = pathlib.Path(args.out)
-    payload = {
-        "schema_version":"2026-05-05.agentpress-gorilla-external-action-safety-gate.v1",
-        "canonical_url":urljoin(args.base_url.rstrip()+"/", out.as_posix()),
-        "generated_utc":_utc_now(),
-        "status":"ok",
-        "purpose":"Deterministic fail-closed guard for gorilla queue actions before any external effect.",
-        "queue":args.queue,
-        "classification_order":["prohibited_spam_security_risk", "approval_required_public", "safe_internal"],
-        "counts":counts,
-        "decisions":decisions,
-    }
-    if not args.no_write:
-        out_path = root / out
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        out_path.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
-    print(json.dumps(payload,indent=2) if args.json else f"ok {counts}")
-    return 0
-
-
-
-
-def material_kit(args):
-    """Turn one public agent painpoint into a runnable AgentPress material kit."""
-    root = pathlib.Path(args.root)
-    base = args.base_url.rstrip() + "/"
-    ecosystem = args.ecosystem.strip() or "agent"
-    painpoint = args.painpoint.strip() or "agent workflow painpoint"
-    target_url = args.target_url.strip()
-    title = args.title.strip() or f"{ecosystem}: {painpoint}"
-    slug = slugify(args.slug or f"{ecosystem}-{painpoint}")
-    outdir = root / args.out / slug
-    artifact = args.artifact.strip()
-    utility_command = args.command.strip() or "python3 scripts/agentpress.py doctor --json"
-    risks = [r.strip() for r in args.risks.split(",") if r.strip()]
-    manifest_rel = (pathlib.Path(args.out) / slug / "material-manifest.json").as_posix()
-    receipt_rel = (pathlib.Path(args.out) / slug / "proof-receipt.json").as_posix()
-    llms_rel = (pathlib.Path(args.out) / slug / "llms.txt").as_posix()
-    guide_rel = (pathlib.Path(args.out) / slug / "RUN_THIS.md").as_posix()
-    manifest = {
-        "schema_version": "2026-05-05.agentpress-material-kit.v1",
-        "canonical_url": urljoin(base, manifest_rel),
-        "generated_utc": _utc_now(),
-        "status": "ready_local_static_not_posted",
-        "purpose": "Make one public agent-builder painpoint easier for agents to inspect, reproduce, and discuss with machine-readable context.",
-        "title": title,
-        "ecosystem": ecosystem,
-        "target_url": target_url,
-        "painpoint": painpoint,
-        "artifact_under_test": artifact,
-        "utility_command": utility_command,
-        "files": {
-            "llms_txt": urljoin(base, llms_rel),
-            "manifest": urljoin(base, manifest_rel),
-            "proof_receipt": urljoin(base, receipt_rel),
-            "run_guide": urljoin(base, guide_rel),
-        },
-        "safety": {
-            "external_posting": False,
-            "requires_human_approval_before_commenting": True,
-            "contains_secrets": False,
-            "contains_private_prompts": False,
-            "risks": risks,
-        },
-        "agent_instructions": [
-            "Read llms.txt first.",
-            "Run the utility command locally if the repo has AgentPress installed.",
-            "Inspect proof-receipt.json for exact claims and commands.",
-            "Do not post externally without human approval of the exact draft.",
-        ],
-    }
-    llms = f"""# AgentPress Material Kit: {title}\n\nPurpose: help agents inspect one real painpoint without scraping private context or posting externally.\n\nTarget: {target_url or 'not-specified'}\nEcosystem: {ecosystem}\nPainpoint: {painpoint}\n\nRun locally:\n```bash\n{utility_command}\n```\n\nMachine files:\n- material-manifest.json\n- proof-receipt.json\n- RUN_THIS.md\n\nRules:\n- No external comments/DMs without explicit human approval.\n- No claims of maintainer adoption.\n- Keep examples small, sanitized, and reproducible.\n"""
-    receipt = {
-        "schema_version": "2026-05-05.agentpress-material-kit-proof-receipt.v1",
-        "claim": f"Material kit prepared for {ecosystem} painpoint: {painpoint}",
-        "target_url": target_url,
-        "commands_to_verify": [utility_command, "python3 -m json.tool material-manifest.json", "python3 -m json.tool proof-receipt.json"],
-        "evidence_files": ["llms.txt", "material-manifest.json", "RUN_THIS.md"],
-        "external_effects": [],
-        "status": "prepared_not_posted",
-    }
-    guide = f"""# Run this AgentPress material kit\n\n1. Read `llms.txt`.\n2. Inspect `material-manifest.json`.\n3. Run:\n\n```bash\n{utility_command}\n```\n\n4. Compare the output with `proof-receipt.json`.\n5. If using this for outreach, get human approval for the exact target and draft first.\n\nTarget: {target_url or 'not-specified'}\n"""
-    payload = {"status": "ok", "slug": slug, "out": str(outdir), "manifest": manifest, "files": manifest["files"]}
-    if not args.no_write:
-        outdir.mkdir(parents=True, exist_ok=True)
-        (outdir / "llms.txt").write_text(llms, encoding="utf-8")
-        (outdir / "material-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-        (outdir / "proof-receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
-        (outdir / "RUN_THIS.md").write_text(guide, encoding="utf-8")
-    print(json.dumps(payload, indent=2) if args.json else f"ok {slug}")
-    return 0
-
-def material_growth_loop_index(args):
-    """Aggregate AgentPress material kits into a receipt-driven growth-loop dashboard."""
-    root = pathlib.Path(args.root)
-    kits_dir = root / args.kits
-    out = root / args.out
-    base = args.base_url.rstrip() + "/"
-    kits = []
-    errors = []
-    by_ecosystem = {}
-    by_status = {}
-    next_build_signals = []
-    for manifest_path in sorted(kits_dir.glob("*/material-manifest.json")) if kits_dir.exists() else []:
-        try:
-            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        except Exception as exc:
-            errors.append(f"invalid manifest {manifest_path}: {exc}")
-            continue
-        kit_dir = manifest_path.parent
-        receipt_path = kit_dir / "proof-receipt.json"
-        receipt = {}
-        if receipt_path.exists():
-            try:
-                receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-            except Exception as exc:
-                errors.append(f"invalid receipt {receipt_path}: {exc}")
-        status = manifest.get("status") or receipt.get("status") or "unknown"
-        ecosystem = manifest.get("ecosystem") or "unknown"
-        external_effects = receipt.get("external_effects") or []
-        commands = receipt.get("commands_to_verify") or ([manifest.get("utility_command")] if manifest.get("utility_command") else [])
-        row = {
-            "slug": kit_dir.name,
-            "title": manifest.get("title", kit_dir.name),
-            "ecosystem": ecosystem,
-            "status": status,
-            "target_url": manifest.get("target_url", ""),
-            "painpoint": manifest.get("painpoint", ""),
-            "manifest_path": str(manifest_path.relative_to(root)),
-            "receipt_path": str(receipt_path.relative_to(root)) if receipt_path.exists() else "",
-            "llms_txt": str((kit_dir / "llms.txt").relative_to(root)) if (kit_dir / "llms.txt").exists() else "",
-            "run_guide": str((kit_dir / "RUN_THIS.md").relative_to(root)) if (kit_dir / "RUN_THIS.md").exists() else "",
-            "commands_to_verify": commands,
-            "external_effects": external_effects,
-            "receipt_status": receipt.get("status", "missing"),
-            "safe_for_public_contact": False,
-            "next_action": "run locally and collect proof/blocker receipt before any external contact",
-        }
-        kits.append(row)
-        by_ecosystem[ecosystem] = by_ecosystem.get(ecosystem, 0) + 1
-        by_status[status] = by_status.get(status, 0) + 1
-        if row["painpoint"]:
-            next_build_signals.append({"slug": row["slug"], "signal": row["painpoint"], "build_next": "add/run a proof command or blocker receipt for this painpoint"})
-    payload = {
-        "schema_version": "2026-05-06.agentpress-material-growth-loop-index.v1",
-        "canonical_url": urljoin(base, (pathlib.Path(args.out) / "material-growth-loop-index.json").as_posix()),
-        "generated_utc": _utc_now(),
-        "status": "ok" if not errors else "fail",
-        "purpose": "Show the utility-first AgentPress loop: material agents already want -> AgentPress wrapper -> proof/blocker receipt -> next build signal.",
-        "kits_dir": args.kits,
-        "kit_count": len(kits),
-        "by_ecosystem": by_ecosystem,
-        "by_status": by_status,
-        "kits": kits,
-        "next_build_signals": next_build_signals[:25],
-        "safety": {
-            "external_posting": False,
-            "public_contact_requires_exact_human_approval": True,
-            "fake_adoption_claims_allowed": False,
-            "hidden_tracking_allowed": False,
-        },
-        "validation_commands": [
-            "python3 scripts/agentpress.py material-growth-loop-index --json",
-            "python3 -m json.tool agentpress/growth/material-loop/material-growth-loop-index.json >/dev/null",
-        ],
-        "errors": errors,
-    }
-    if not args.no_write:
-        out.mkdir(parents=True, exist_ok=True)
-        (out / "material-growth-loop-index.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-        with (out / "material-growth-loop-index.jsonl").open("w", encoding="utf-8") as f:
-            for row in kits:
-                f.write(json.dumps(row, sort_keys=True) + "\n")
-        rows = "\n".join(
-            f"<tr><td>{html.escape(k['ecosystem'])}</td><td>{html.escape(k['title'])}</td><td>{html.escape(k['status'])}</td><td>{html.escape(k['receipt_status'])}</td><td><code>{html.escape(k['slug'])}</code></td><td>{html.escape(k['painpoint'])}</td></tr>"
-            for k in kits
-        )
-        page = f"""<!doctype html><meta charset='utf-8'><title>AgentPress Material Growth Loop</title><style>body{{font-family:system-ui,sans-serif;margin:2rem;max-width:1200px}}table{{border-collapse:collapse;width:100%}}td,th{{border:1px solid #ddd;padding:.45rem;text-align:left;vertical-align:top}}th{{background:#f5f5f5}}code{{background:#f6f8fa;padding:.15rem .3rem}}</style><h1>AgentPress Material Growth Loop</h1><p>Generated <code>{html.escape(payload['generated_utc'])}</code>. Kits: <b>{len(kits)}</b>. This dashboard is local/static proof infrastructure; it does not post externally.</p><p>Loop: material agents already want → AgentPress wrapper → proof/blocker receipt → next build signal.</p><p>Machine files: <a href='material-growth-loop-index.json'>material-growth-loop-index.json</a> · <a href='material-growth-loop-index.jsonl'>jsonl</a></p><table><thead><tr><th>Ecosystem</th><th>Title</th><th>Status</th><th>Receipt</th><th>Slug</th><th>Painpoint</th></tr></thead><tbody>{rows}</tbody></table>"""
-        (out / "index.html").write_text(page, encoding="utf-8")
-    print(json.dumps({"status": payload["status"], "out": str(out), "kit_count": len(kits), "errors": errors}, indent=2) if args.json else str(out))
-    return 0
-
-def gorilla_approval_packets(args):
-    """Generate exact approval packets for the gorilla queue without external posting."""
-    root = pathlib.Path(args.root)
-    base = args.base_url.rstrip() + "/"
-    queue_path = root / args.queue
-    safety_path = root / args.safety
-    outdir = root / args.out
-    queue = json.loads(queue_path.read_text(encoding="utf-8")) if queue_path.exists() else {}
-    safety = json.loads(safety_path.read_text(encoding="utf-8")) if safety_path.exists() else {}
-    decisions_by_url = {d.get("url"): d for d in safety.get("decisions", []) if d.get("source") == "targets" and d.get("url")}
-    packets = []
-    for target in (queue.get("targets", []) or [])[:max(1, args.limit)]:
-        decision = decisions_by_url.get(target.get("url"), {})
-        classification = decision.get("classification", "approval_required_public")
-        high_risk = classification == "prohibited_spam_security_risk" or str(target.get("risk", "")).lower() == "high"
-        slug = slugify(f"{target.get('rank')}-{target.get('ecosystem')}-{target.get('pack')}")
-        artifact = target.get("artifact", "")
-        receipt = target.get("receipt", "")
-        packet = {
-            "schema_version": "2026-05-05.agentpress-gorilla-approval-packet.v1",
-            "canonical_url": urljoin(base, (pathlib.Path(args.out) / f"{slug}.json").as_posix()),
-            "generated_utc": _utc_now(),
-            "status": "hold_security_sensitive" if high_risk else "ready_for_exact_human_approval",
-            "rank": target.get("rank"),
-            "ecosystem": target.get("ecosystem"),
-            "target_url": target.get("url"),
-            "painpoint": target.get("painpoint"),
-            "utility_pack": target.get("pack"),
-            "artifact_url": urljoin(base, artifact) if artifact else "",
-            "receipt_url": urljoin(base, receipt) if receipt else "",
-            "risk": target.get("risk"),
-            "safety_classification": classification,
-            "required_controls": decision.get("required_controls", [
-                "explicit_human_approval_of_exact_target_and_draft",
-                "one_target_only",
-                "painpoint_relevance_check",
-                "sanitize_json_no_secrets_private_prompts_or_personal_data",
-            ]),
-            "recommended_action": target.get("action"),
-            "draft": target.get("draft"),
-            "manual_execution_checklist": [
-                "confirm issue is still open/relevant",
-                "run or inspect linked utility artifact locally",
-                "sanitize draft and artifact links",
-                "get explicit human approval for this exact target and draft",
-                "post one contextual comment only; do not mass post",
-                "record reply/proof via external-proof-intake if anyone responds",
-            ],
-            "do_not": [
-                "do not DM maintainers",
-                "do not post to security-sensitive targets unless invited",
-                "do not claim adoption or maintainer endorsement",
-                "do not automate external posting",
-            ],
-        }
-        packets.append(packet)
-    index = {
-        "schema_version": "2026-05-05.agentpress-gorilla-approval-packet-index.v1",
-        "canonical_url": urljoin(base, (pathlib.Path(args.out) / "index.json").as_posix()),
-        "generated_utc": _utc_now(),
-        "status": "prepared_not_posted",
-        "purpose": "Exact per-target gorilla approval packets for utility-first manual execution.",
-        "queue": args.queue,
-        "safety_gate": args.safety,
-        "posting_policy": queue.get("posting_policy", {}),
-        "packet_count": len(packets),
-        "packets": [{"rank": p.get("rank"), "ecosystem": p.get("ecosystem"), "status": p.get("status"), "target_url": p.get("target_url"), "packet": p.get("canonical_url"), "safety_classification": p.get("safety_classification")} for p in packets],
-        "hard_gate": "No external post/send/comment until a human approves the exact packet target and draft.",
-    }
-    if not args.no_write:
-        outdir.mkdir(parents=True, exist_ok=True)
-        for p in packets:
-            filename = slugify(f"{p.get('rank')}-{p.get('ecosystem')}-{p.get('utility_pack')}") + ".json"
-            (outdir / filename).write_text(json.dumps(p, indent=2) + "\n", encoding="utf-8")
-        (outdir / "index.json").write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps(index, indent=2) if args.json else f"ok {len(packets)} approval packets")
-    return 0
 
 def next_attention_build_spec(args):
     """Publish the next build/deploy spec derived from current agent painpoint research."""
@@ -6206,8 +5119,7 @@ def package_registry_doctor(args):
     if '404' in low or 'not found' in low: fixes.append({"class":"missing_package_or_registry_name","fix":"check package name, registry, scope ownership, and fallback to git/github release tarball"})
     if 'permission' in low or 'eacces' in low: fixes.append({"class":"permission","fix":"use user install prefix or documented package manager path"})
     if 'auth' in low or 'token' in low: fixes.append({"class":"registry_auth","fix":"do not print token; verify logged-in account/scope separately"})
-    version_channel = _version_channel_info()
-    payload={"schema_version":"2026-05-05.agentpress-package-registry-doctor.v2","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if fixes else "unknown","error_sample":error,"fixes":fixes,"fallback_channels":["git clone","GitHub release tarball","pip git","npm github:owner/repo","static HTTP bundle"],"version_channel":version_channel,"stable_vs_rc_explanation":"This checkout can report local rc metadata, but it does not prove what npm/PyPI currently publish. Treat stable latest as unknown until a live registry check passes.","honest_labels":["local_rc" if version_channel.get("channel") == "release_candidate" else "local_stable_or_dev","registry_stable_unknown_without_network","no_publish_performed"]}
+    payload={"schema_version":"2026-05-03.agentpress-package-registry-doctor.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if fixes else "unknown","error_sample":error,"fixes":fixes,"fallback_channels":["git clone","GitHub release tarball","pip git","npm github:owner/repo","static HTTP bundle"]}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else payload['status'])
@@ -6228,16 +5140,95 @@ def sandbox_guard(args):
     for path in paths:
         if any(token in path.lower() for token in forbidden): findings.append({"severity":"P0","path":path,"message":"path looks secret-sensitive; refuse default sandbox"})
     wrapper=out.with_suffix('.sh')
-    # Build allowlist check: if allowed_paths given, require first arg to be within one of them
-    allow_check=""
-    if paths:
-        cond=" || ".join([f'[[ "${{1:-}}" == {shlex.quote(p)}* ]]' for p in paths])
-        allow_check=f'\n# allowlist enforcement\nif ! ( {cond} ); then\n  echo "blocked: path not in allowed_paths" >&2; exit 64\nfi'
-    wrapper_text = f'#!/usr/bin/env bash\nset -euo pipefail\necho "AgentPress sandbox guard active" >&2\ncase "${{1:-}}" in\n  *clawd_secrets*|*.ssh*|*.gnupg*|*wallet*|*seed*|*.env*|*private_key*|*id_rsa*) echo "blocked sensitive path" >&2; exit 64;;\nesac{allow_check}\nexec "$@"\n'
-    payload={"schema_version":"2026-05-04.agentpress-sandbox-guard.v2","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not findings else "fail_closed","scope":args.scope,"allowed_paths":paths,"forbidden_markers":forbidden,"wrapper_script":str(wrapper),"policy":{"default_deny_secrets":True,"allowlist_enforced":bool(paths),"external_effects_require_approval":True,"read_only_means_no_write_commands":args.scope=='read-only'},"finding_count":len(findings),"findings":findings}
+    wrapper_text = '#!/usr/bin/env bash\nset -euo pipefail\necho "AgentPress sandbox guard active" >&2\ncase "${1:-}" in\n  *clawd_secrets*|*.ssh*|*.gnupg*|*wallet*|*seed*|*.env*) echo "blocked sensitive path" >&2; exit 64;;\nesac\nexec "$@"\n'
+    payload={"schema_version":"2026-05-04.agentpress-sandbox-guard.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not findings else "fail_closed","scope":args.scope,"allowed_paths":paths,"forbidden_markers":forbidden,"wrapper_script":str(wrapper),"policy":{"default_deny_secrets":True,"external_effects_require_approval":True,"read_only_means_no_write_commands":args.scope=='read-only'},"finding_count":len(findings),"findings":findings}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8"); wrapper.write_text(wrapper_text,encoding="utf-8"); os.chmod(wrapper,0o755)
     print(json.dumps(payload,indent=2) if args.json else payload['status']); return 1 if args.strict and payload['status']!='ok' else 0
+
+
+EXTERNAL_ACTION_HIGH_RISK_MARKERS = {
+    "credential_or_secret": ["credential", "secret", "token", "api key", "password", "cookie", "ssh key", "private key"],
+    "payment_or_financial": ["payment", "charge", "invoice", "wallet", "bank", "purchase", "bounty", "x402"],
+    "production_change": ["production", "prod", "deploy", "restart service", "delete", "drop table", "rm -rf", "chmod", "chown"],
+    "external_write_or_outreach": ["post", "comment", "email", "dm", "message", "issue", "pull request", "webhook", "submit", "publish"],
+    "network_or_install": ["curl", "wget", "pip install", "npm install", "git push", "http://", "https://"],
+}
+
+
+def _load_allowed_actions_manifest(path):
+    try:
+        data=json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return None, ["allowed_actions_manifest_missing"]
+    except Exception as exc:
+        return None, [f"allowed_actions_manifest_unreadable:{type(exc).__name__}"]
+    if not isinstance(data, dict):
+        return None, ["allowed_actions_manifest_not_object"]
+    missing=[k for k in ["allowed","requires_human_approval","prohibited"] if not isinstance(data.get(k), list)]
+    if missing:
+        return None, ["allowed_actions_manifest_missing_lists:" + ",".join(missing)]
+    return data, []
+
+
+def _action_matches(action_text, entries):
+    hay=action_text.lower()
+    matches=[]
+    for entry in entries or []:
+        if not isinstance(entry, str):
+            continue
+        needle=entry.lower().strip()
+        if not needle:
+            continue
+        tokens=[t for t in re.split(r"[^a-z0-9]+", needle) if len(t) >= 4]
+        if needle in hay or (tokens and all(t in hay for t in tokens[:4])):
+            matches.append(entry)
+    return matches
+
+
+def _external_action_gate_evaluate(action, manifest):
+    text=(action or "").strip()
+    low=text.lower()
+    findings=[]
+    for category, markers in EXTERNAL_ACTION_HIGH_RISK_MARKERS.items():
+        hits=[m for m in markers if m in low]
+        if hits:
+            findings.append({"category":category,"markers":hits})
+    prohibited=_action_matches(text, manifest.get("prohibited", []))
+    approval=_action_matches(text, manifest.get("requires_human_approval", []))
+    allowed=_action_matches(text, manifest.get("allowed", []))
+    if prohibited:
+        decision="prohibited"
+        status="fail_closed"
+        reason="action matched prohibited allowed-actions entry"
+    elif approval or findings:
+        decision="requires_human_approval"
+        status="approval_required"
+        reason="external/high-risk action requires exact human approval"
+    elif allowed:
+        decision="allowed"
+        status="ok"
+        reason="action matched allowed read-only/local allowed-actions entry"
+    else:
+        decision="blocked_unclassified"
+        status="fail_closed"
+        reason="action did not match allowed-actions entries; fail closed"
+    return {"status":status,"decision":decision,"reason":reason,"matched_allowed":allowed,"matched_requires_human_approval":approval,"matched_prohibited":prohibited,"risk_findings":findings}
+
+
+def external_action_gate(args):
+    """Fail-closed preflight gate for external actions against allowed-actions.json."""
+    out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; manifest_path=pathlib.Path(args.manifest)
+    manifest, errors=_load_allowed_actions_manifest(manifest_path)
+    if errors:
+        result={"status":"fail_closed","decision":"blocked_manifest_error","reason":"allowed-actions manifest is required before external action","errors":errors,"matched_allowed":[],"matched_requires_human_approval":[],"matched_prohibited":[],"risk_findings":[]}
+    else:
+        result=_external_action_gate_evaluate(args.action, manifest)
+    payload={"schema_version":"2026-05-05.agentpress-external-action-gate.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"manifest":str(manifest_path),"action":args.action,"policy":{"fail_closed_unclassified":True,"external_writes_require_human_approval":True,"prohibited_actions_block":True,"does_not_execute_action":True},**result}
+    if not args.no_write:
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(payload,indent=2) if args.json else payload["decision"])
+    return 0 if payload["decision"] == "allowed" else 1
 
 
 def adoption_tracker(args):
@@ -6266,15 +5257,9 @@ def adoption_tracker(args):
 def handoff_pack(args):
     """Package a task handoff between agents with evidence and acceptance gates."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; evidence=[x for x in _csv_list(args.evidence, [])]
-    evidence_manifest, secret_hits = _evidence_manifest(evidence)
-    proof_command = f"python3 scripts/agentpress.py proof-capture --task-id {shlex.quote(args.task_id)} --evidence-dir /tmp/agentpress-proof-{shlex.quote(slugify(args.task_id))} --artifacts {shlex.quote(','.join(evidence)) if evidence else '<artifact-paths>'} --json"
-    payload={"schema_version":"2026-05-05.agentpress-handoff-pack.v2","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ready","from_agent":args.from_agent,"to_agent":args.to_agent,"task_id":args.task_id,"objective":args.objective,"constraints":_csv_list(args.constraints, []),"evidence_paths":evidence,"evidence_manifest":evidence_manifest,"evidence_summary":{"present_count":sum(1 for row in evidence_manifest if row.get("status")=="present"),"missing_count":sum(1 for row in evidence_manifest if row.get("status")=="missing"),"refused_sensitive_path_count":sum(1 for row in evidence_manifest if row.get("status")=="refused_sensitive_path"),"secret_hit_count":secret_hits},"proof_command":proof_command,"acceptance_gates":_csv_list(args.acceptance, ["evidence artifact written","verification command passes","reviewer signs off"]),"pending_actions":_csv_list(args.pending_actions, []),"handoff_manifest":{"context":"read objective/constraints/evidence_manifest before acting","do_not":"claim completion without artifacts or hashes","review":"required if touching external effects, secrets, or any evidence_summary count is non-zero"}}
+    payload={"schema_version":"2026-05-04.agentpress-handoff-pack.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ready","from_agent":args.from_agent,"to_agent":args.to_agent,"task_id":args.task_id,"objective":args.objective,"constraints":_csv_list(args.constraints, []),"evidence_paths":evidence,"acceptance_gates":_csv_list(args.acceptance, ["evidence artifact written","verification command passes","reviewer signs off"]),"pending_actions":_csv_list(args.pending_actions, []),"handoff_manifest":{"context":"read objective/constraints/evidence before acting","do_not":"claim completion without artifacts","review":"required if touching external effects or secrets"}}
     if not args.no_write:
-        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding='utf-8')
-        _c=payload['constraints']; _e=payload['evidence_paths']; _g=payload['acceptance_gates']; _p=payload['pending_actions']
-        _hashes=[f"- `{row.get('path')}`: {row.get('status')} {row.get('sha256','')}".rstrip() for row in evidence_manifest]
-        _md=["# Handoff "+args.task_id,"","**From:** "+args.from_agent+"  **-> To:** "+args.to_agent,"","**Objective:** "+(payload['objective'] or '(none)'),"","## Constraints"]+(_c if _c else ["(none)"])+["","## Evidence paths"]+(["`"+x+"`" for x in _e] if _e else ["(none)"])+["","## Evidence manifest"]+(_hashes if _hashes else ["(none)"])+["","## Proof command","`"+proof_command+"`","","## Acceptance gates"]+["- [ ] "+x for x in _g]+["","## Pending actions"]+(["- [ ] "+x for x in _p] if _p else ["(none)"])+["","**Generated:** "+payload['generated_utc']]
-        out.with_suffix('.md').write_text("\n".join(_md)+"\n",encoding='utf-8')
+        out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding='utf-8'); out.with_suffix('.md').write_text("# Handoff " + args.task_id + "\n\nFrom: " + args.from_agent + "\nTo: " + args.to_agent + "\n\nObjective: " + args.objective + "\n",encoding='utf-8')
     print(json.dumps(payload,indent=2) if args.json else 'ready'); return 0
 
 
@@ -6298,52 +5283,29 @@ def batch_painpoints(args):
     (outdir/'batch-painpoints-summary.json').write_text(json.dumps(summary,indent=2)+"\n",encoding='utf-8')
     print(json.dumps(summary,indent=2) if args.json else str(len(processed))); return 0
 
-_SECRET_PATTERNS = [
-    re.compile(r'(?i)(sk-[A-Za-z0-9]{20,}|Bearer\s+[A-Za-z0-9\-._~+/]{20,}|api[_-]?key["\s:=]+["\']?[A-Za-z0-9\-_]{16,}|ghp_[A-Za-z0-9]{36}|xoxb-[0-9\-]+|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z]+ PRIVATE KEY)'),
-]
-
-def _scan_for_secrets(text: str) -> list:
-    hits = []
-    for pat in _SECRET_PATTERNS:
-        m = pat.search(text)
-        if m:
-            hits.append({"pattern": pat.pattern[:60], "match_prefix": m.group(0)[:12] + "***"})
-    return hits
-
 def proof_capture(args):
     """Capture a local proof bundle for an agent task/run."""
     evidence_dir=pathlib.Path(args.evidence_dir).expanduser()
     out=evidence_dir / "proof-bundle.json"
     card=evidence_dir / "proof-card.md"
     artifacts=[]
-    secret_hits=[]
     for item in _csv_list(args.artifacts, []):
         path=pathlib.Path(item).expanduser()
         if path.exists() and path.is_file():
-            content=path.read_bytes()
-            try: text=content.decode("utf-8","replace")
-            except Exception: text=""
-            hits=_scan_for_secrets(text)
-            secret_hits.extend(hits)
-            artifacts.append({"path":str(path),"bytes":path.stat().st_size,"sha256":hashlib.sha256(content).hexdigest(),"secret_scan":{"hits":len(hits),"safe":len(hits)==0}})
+            artifacts.append({"path":str(path),"bytes":path.stat().st_size,"sha256":hashlib.sha256(path.read_bytes()).hexdigest()})
         else:
             artifacts.append({"path":str(path),"missing":True})
     commands=[]
     for cmd in _csv_list(args.commands, []):
         commands.append({"command":cmd,"recorded_only":True})
     env={"python":sys.version.split()[0],"platform":platform.platform(),"cwd":str(pathlib.Path.cwd()),"agentpress_file":"scripts/agentpress.py"}
-    scan_status="secret_hits_found" if secret_hits else "no_obvious_secrets"
-    handoff_command = f"python3 scripts/agentpress.py handoff-pack --from <current-agent> --to <next-agent> --task-id {shlex.quote(args.task_id)} --evidence {shlex.quote(str(out))} --json"
-    payload={"schema_version":"2026-05-05.agentpress-proof-capture.v3","generated_utc":_utc_now(),"status":"ok","task_id":args.task_id,"purpose":"Create a shareable no-secret proof bundle for first-agent runs.","summary":args.summary,"environment":env,"commands":commands,"artifacts":artifacts,"acceptance":{"artifact_count":len([a for a in artifacts if not a.get('missing')]),"missing_count":len([a for a in artifacts if a.get('missing')]),"review_required":args.review_required},"privacy":{"secret_scan_status":scan_status,"secret_hit_count":len(secret_hits),"operator_must_review_before_external_share":True},"reviewer_checklist":["commands are reproducible","artifacts are public-safe","no tokens/secrets/private prompts","expected vs observed is clear"],"handoff_command":handoff_command}
+    payload={"schema_version":"2026-05-04.agentpress-proof-capture.v1","generated_utc":_utc_now(),"status":"ok","task_id":args.task_id,"purpose":"Create a shareable no-secret proof bundle for first-agent runs.","summary":args.summary,"environment":env,"commands":commands,"artifacts":artifacts,"acceptance":{"artifact_count":len([a for a in artifacts if not a.get('missing')]),"missing_count":len([a for a in artifacts if a.get('missing')]),"review_required":args.review_required},"privacy":{"no_secret_scan_guarantee":False,"operator_must_review_before_external_share":True},"reviewer_checklist":["commands are reproducible","artifacts are public-safe","no tokens/secrets/private prompts","expected vs observed is clear"]}
     evidence_dir.mkdir(parents=True,exist_ok=True)
-    initial=json.dumps(payload,indent=2)+"\n"
-    payload["bundle_sha256"] = hashlib.sha256(initial.encode("utf-8")).hexdigest()
     out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
-    scan_note = f"\n\n**Secret scan:** {scan_status} ({len(secret_hits)} hits)" if secret_hits else "\n\n**Secret scan:** no obvious secrets detected"
-    card.write_text(f"# AgentPress proof card: {args.task_id}\n\nGenerated: {payload['generated_utc']}\n\nStatus: {payload['status']}\n\nSummary: {args.summary or '(none)'}\n\nArtifacts: {payload['acceptance']['artifact_count']} present / {payload['acceptance']['missing_count']} missing\n\nBundle: `{out}`{scan_note}\n",encoding="utf-8")
-    result={"status":"ok","task_id":args.task_id,"proof_bundle":str(out),"proof_card":str(card),"bundle_sha256":payload["bundle_sha256"],"artifact_count":payload['acceptance']['artifact_count'],"secret_scan_status":scan_status,"handoff_command":handoff_command}
+    card.write_text(f"# AgentPress proof card: {args.task_id}\n\nGenerated: {payload['generated_utc']}\n\nStatus: {payload['status']}\n\nSummary: {args.summary or '(none)'}\n\nArtifacts: {payload['acceptance']['artifact_count']} present / {payload['acceptance']['missing_count']} missing\n\nBundle: `{out}`\n",encoding="utf-8")
+    result={"status":"ok","task_id":args.task_id,"proof_bundle":str(out),"proof_card":str(card),"bundle_sha256":hashlib.sha256(out.read_bytes()).hexdigest(),"artifact_count":payload['acceptance']['artifact_count']}
     print(json.dumps(result,indent=2) if args.json else str(out))
-    return 1 if secret_hits and getattr(args,"strict",False) else 0
+    return 0
 
 def first_user_bootstrap(args):
     """Generate a first-user bootstrap pack for common agent hosts."""
@@ -6361,20 +5323,15 @@ def first_user_bootstrap(args):
     }.get(platform, {"config":"mcp.json","where":"unknown","restart":"manual"})
     install="bash agentpress/install/install-agentpress.sh"
     mcp={"mcpServers":{"agentpress":{"command":"python3","args":["scripts/agentpress.py","mcp-catalog-export","--json"],"approval_required":True,"notes":"Run mcp-config-mutation-guard before applying."}}}
-    commands=[install,"python3 scripts/agentpress.py doctor --json","python3 scripts/agentpress.py mcp-config-mutation-guard --config-path <config> --backup --planned-servers agentpress --json","python3 scripts/agentpress.py proof-capture --task first-run --evidence-dir /tmp/agentpress-proof --json"]
-    first_prompt="Use AgentPress to inspect the available entrypoints, run doctor, then create a proof bundle for this first run. Do not post externally or mutate MCP config without explicit human approval."
+    commands=[install,"python3 scripts/agentpress.py doctor --json","python3 scripts/agentpress.py mcp-config-mutation-guard --config-path <config> --backup --planned-servers agentpress --json","python3 scripts/agentpress.py proof-capture --task-id first-run --evidence-dir /tmp/agentpress-proof --json"]
     findings=[]
     if status != "ready_for_paste": findings.append({"severity":"P1","message":"unsupported platform; use generic or one of cline,roo,claude,cursor,windsurf"})
-    payload={"schema_version":"2026-05-04.agentpress-first-user-bootstrap.v2","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"platform":platform,"purpose":"Get a first agent user from zero to safe AgentPress install + MCP snippet + proof capture in one pack.","first_run_workflow":{"user_goal":"Install safely, connect MCP by paste, verify locally, and leave shareable proof.","copy_paste_order":["install","doctor","backup_and_guard_mcp_config","paste_mcp_snippet","restart_host","capture_first_proof"],"agent_prompt":first_prompt,"success_looks_like":["doctor returns JSON without fatal findings","MCP config was backed up before changes","host reloads with an AgentPress server entry","proof-bundle.json and proof-card.md exist"],"if_blocked":["run package-registry-doctor with the install error","use generic platform when host-specific path is unknown","do not retry by disabling approval or secret guards"]},"steps":[{"step":1,"name":"install","command":install},{"step":2,"name":"doctor","command":commands[1]},{"step":3,"name":"backup_and_guard_mcp_config","command":commands[2].replace('<config>',host_notes['config'])},{"step":4,"name":"paste_mcp_snippet","target":host_notes['where'],"snippet":mcp},{"step":5,"name":"restart_host","instruction":host_notes['restart']},{"step":6,"name":"capture_first_proof","command":commands[3]}],"mcp_snippet":mcp,"safety":{"no_secrets_required":True,"external_posts":False,"rollback":"Use backup_path/restore_command from mcp-config-mutation-guard output."},"agent_affordances":[{"name":"proof_capture","why":"turns a first run into reviewable evidence","command":commands[3]},{"name":"sandbox_guard","why":"lets a user hand an agent a bounded workspace before exploration","command":"python3 scripts/agentpress.py sandbox-guard --scope read-only --paths . --json"},{"name":"handoff_pack","why":"lets one agent transfer context without losing constraints","command":"python3 scripts/agentpress.py handoff-pack --from current --to next --task first-run --json"}],"acceptance_gates":["doctor ok","config backup created before mutation","MCP snippet is paste-only, not auto-applied","proof bundle created","first_run_workflow present"],"finding_count":len(findings),"findings":findings}
+    payload={"schema_version":"2026-05-04.agentpress-first-user-bootstrap.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"platform":platform,"purpose":"Get a first agent user from zero to safe AgentPress install + MCP snippet + proof capture in one pack.","steps":[{"step":1,"name":"install","command":install},{"step":2,"name":"doctor","command":commands[1]},{"step":3,"name":"backup_and_guard_mcp_config","command":commands[2].replace('<config>',host_notes['config'])},{"step":4,"name":"paste_mcp_snippet","target":host_notes['where'],"snippet":mcp},{"step":5,"name":"restart_host","instruction":host_notes['restart']},{"step":6,"name":"capture_first_proof","command":commands[3]}],"mcp_snippet":mcp,"safety":{"no_secrets_required":True,"external_posts":False,"rollback":"Use backup_path/restore_command from mcp-config-mutation-guard output."},"acceptance_gates":["doctor ok","config backup created before mutation","MCP snippet is paste-only, not auto-applied","proof bundle created"],"finding_count":len(findings),"findings":findings}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
-        md=["# AgentPress first-run card", "", "Status: `"+status+"`", "Platform: `"+platform+"`", "", "## Paste this agent prompt", "", first_prompt, "", "## Steps"]
-        for step in payload["steps"]:
-            md.append(f"- {step['step']}. {step['name']}: `{step.get('command') or step.get('instruction') or step.get('target')}`")
-        md += ["", "## Success looks like"] + ["- "+x for x in payload["first_run_workflow"]["success_looks_like"]] + ["", "## Safety", "- No secrets required", "- No external posts", "- Roll back with the guard backup/restore output"]
-        out.with_suffix('.md').write_text("\n".join(md)+"\n",encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else status)
     return 1 if args.strict and status!='ready_for_paste' else 0
+
 
 def first_run_wizard(args):
     """Detect host/provider/install state and emit the exact next command for a first agent user."""
@@ -6426,11 +5383,10 @@ def provider_error_explainer(args):
         packs.append({"class":cls,"severity":severity,"why":why,"exact_commands":commands,"docs":docs or [],"safe_to_retry":cls not in {"auth_secret_leak_risk","destructive_tool_denied"}})
     if any(x in low for x in ["401","unauthorized","invalid api key","authentication"]): add("provider_auth", "Provider rejected credentials; do not paste keys into logs.", ["printenv | grep -E 'OPENAI|ANTHROPIC|GEMINI|GOOGLE' | sed 's/=.*$/=<redacted>/'", "python3 scripts/agentpress.py secret-permission-preflight-run --json"], severity="P0")
     if any(x in low for x in ["429","rate limit","quota","insufficient_quota"]): add("rate_limit_or_quota", "Provider throttled or quota is exhausted.", ["sleep 60 && retry the previous command", "python3 scripts/agentpress.py budget-check --tier small --json"])
-    if any(x in low for x in ["context_length","maximum context","too many tokens","context window"]): add("context_window", "Prompt or retrieved context exceeds model window.", ["python3 scripts/agentpress.py context-budget . --json", "python3 scripts/agentpress.py context-compaction-risk-card --json", "rerun with a smaller file set or summarize first"])
-    if any(x in low for x in ["tool_use","invalid tool","tool call","schema"]): add("tool_schema_or_vocabulary", "Provider/host rejected a tool call or schema.", ["python3 scripts/agentpress.py tool-vocabulary-compatibility-check --json", "python3 scripts/agentpress.py tool-schema-serialization-check --json", "python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json"])
+    if any(x in low for x in ["context_length","maximum context","too many tokens","context window"]): add("context_window", "Prompt or retrieved context exceeds model window.", ["python3 scripts/agentpress.py context-compaction-risk-card --json", "rerun with a smaller file set or summarize first"])
+    if any(x in low for x in ["tool_use","invalid tool","tool call","schema"]): add("tool_schema_or_vocabulary", "Provider/host rejected a tool call or schema.", ["python3 scripts/agentpress.py tool-vocabulary-compatibility-check --json", "python3 scripts/agentpress.py tool-schema-serialization-check --json"])
     if any(x in low for x in ["module not found","modulenotfounderror","cannot find module","no module named"]): add("missing_dependency", "Runtime dependency is missing or installed in the wrong environment.", [f"python3 scripts/agentpress.py dependency-error-remediation-map --error {shlex.quote(error[:200])} --json", "python3 -m pip install -e ."])
-    if any(x in low for x in ["eacces","permission denied","operation not permitted"]): add("permission_denied", "Host sandbox or filesystem denied the action.", ["python3 scripts/agentpress.py safety-preflight . --json", "python3 scripts/agentpress.py sandbox-guard --scope read-only --paths . --json", "rerun in an approved workspace path"])
-    if any(x in low for x in ["mcp", "mcps"]) and any(x in low for x in ["config", "settings", "json", "server"]): add("mcp_config", "MCP config/settings need a static shape and env-value safety check before mutation.", ["python3 scripts/agentpress.py mcp-config-doctor --config <mcp-config.json> --json", "python3 scripts/agentpress.py mcp-config-mutation-guard --config-path <mcp-config.json> --backup --planned-servers <csv> --json"])
+    if any(x in low for x in ["eacces","permission denied","operation not permitted"]): add("permission_denied", "Host sandbox or filesystem denied the action.", ["python3 scripts/agentpress.py sandbox-guard --scope read-only --paths . --json", "rerun in an approved workspace path"])
     if any(x in low for x in ["model_not_found","not found: model","unsupported model"]): add("model_unavailable", "Configured model name is unavailable for this account/provider.", ["check provider model list/account access", "rerun with --provider and a known model from your host config"])
     if not packs: add("unknown_provider_error", "No known signature matched; capture reproducible evidence before retrying.", ["python3 scripts/agentpress.py repro-bundle --json", "python3 scripts/agentpress.py blocker-report --agent-id local-agent --runtime unknown --command '<failed command>' --error-summary '<sanitized error>' --desired-fix '<what should happen>' --json"], severity="P2")
     md="# Provider error remediation pack\n\n"+"\n".join(f"## {p['class']}\nWhy: {p['why']}\n\nCommands:\n"+"\n".join(f"- `{c}`" for c in p['exact_commands']) for p in packs)+"\n"
@@ -6505,282 +5461,10 @@ def release_registry_readiness_dashboard(args):
     print(json.dumps(payload,indent=2) if args.json else payload["canonical_url"])
     return 0
 
-
-def _read_package_version(package_json):
-    try:
-        return json.loads(package_json.read_text(encoding="utf-8")).get("version")
-    except Exception:
-        return None
-
-
-def _read_pyproject_version(pyproject):
-    if not pyproject.exists():
-        return None
-    for line in pyproject.read_text(encoding="utf-8", errors="replace").splitlines():
-        m = re.match(r"\s*version\s*=\s*[\"']([^\"']+)[\"']", line)
-        if m:
-            return m.group(1)
-    return None
-
-
-def release_promote_checklist_legacy_local(args):
-    """Legacy local rc→latest promotion gate kept only for historical reference."""
-    root = pathlib.Path(getattr(args, "root", ".")).resolve()
-    from_tag = getattr(args, "from_tag", "rc")
-    to_tag = getattr(args, "to_tag", "latest")
-    dry_run = bool(getattr(args, "dry_run", False))
-    json_out = bool(getattr(args, "json", False))
-
-    gates = []
-
-    def gate(gate_id, ok, command, evidence_path="", error="", mandatory=True, skipped=False):
-        status = "skipped" if skipped else ("pass" if ok else "fail")
-        gates.append({
-            "id": gate_id,
-            "mandatory": mandatory,
-            "status": status,
-            "command": command,
-            "evidence_path": str(evidence_path) if evidence_path else "",
-            "error": "" if ok or skipped else error,
-        })
-
-    def run_gate(gate_id, cmd, evidence_path="", mandatory=True, timeout=45):
-        if dry_run:
-            gate(gate_id, False, " ".join(shlex.quote(c) for c in cmd), evidence_path, mandatory=mandatory, skipped=True)
-            return
-        try:
-            cp = subprocess.run(cmd, cwd=root, text=True, capture_output=True, timeout=timeout)
-            detail = (cp.stderr or cp.stdout or "").strip().splitlines()[:4]
-            gate(gate_id, cp.returncode == 0, " ".join(shlex.quote(c) for c in cmd), evidence_path, "; ".join(detail) or f"exit {cp.returncode}", mandatory)
-        except Exception as exc:
-            gate(gate_id, False, " ".join(shlex.quote(c) for c in cmd), evidence_path, str(exc), mandatory)
-
-    run_gate("cli_gap_audit", [sys.executable, "-m", "py_compile", "scripts/agentpress.py"], "scripts/agentpress.py")
-    run_gate("tools_manifest_check", [sys.executable, "scripts/agentpress.py", "tools-manifest-check", "--json"], "agentpress/tools/agentpress-tools.json")
-
-    receipt_dirs = [root / "agentpress" / "proofs", root / "agentpress" / "receipts", root / "sprint-proof"]
-    receipts = []
-    for d in receipt_dirs:
-        if d.exists():
-            receipts.extend([p for p in d.glob("*.json") if p.is_file()])
-    gate(
-        "independent_proof_count",
-        len(receipts) >= 1,
-        "find agentpress/proofs agentpress/receipts sprint-proof -maxdepth 1 -name '*.json'",
-        receipts[0] if receipts else "agentpress/proofs/",
-        "No independent external proof receipt JSON found.",
-    )
-
-    shared_status = pathlib.Path(getattr(args, "rflo_dir", "/Volumes/X10/clawd/shared/status"))
-    rflo_files = []
-    if (root / "agentpress" / "approvals").exists():
-        rflo_files.extend((root / "agentpress" / "approvals").glob("*rflo*review*.json"))
-    if shared_status.exists():
-        rflo_files.extend(shared_status.glob("*rflo*review*"))
-        rflo_files.extend(shared_status.glob("mission-*_ruflo_*.txt"))
-    gate(
-        "rflo_review_artifact_present",
-        bool(rflo_files),
-        "find agentpress/approvals /Volumes/X10/clawd/shared/status -iname '*rflo*review*' -o -iname 'mission-*_ruflo_*.txt'",
-        rflo_files[0] if rflo_files else "agentpress/approvals/rflo_review.json",
-        "RFLO review/sign-off artifact not found.",
-    )
-
-    pkg_v = _read_package_version(root / "package.json")
-    py_v = _read_pyproject_version(root / "pyproject.toml")
-    py_norm = py_v.replace("rc", "-rc.") if py_v and "rc" in py_v and "-rc." not in py_v else py_v
-    gate(
-        "npm_smoke",
-        bool(pkg_v and py_norm and pkg_v == py_norm),
-        "compare package.json version with pyproject.toml version",
-        "package.json, pyproject.toml",
-        f"Version mismatch or missing metadata: package.json={pkg_v!r}, pyproject.toml={py_v!r}.",
-    )
-
-    run_gate("docs_drift", [sys.executable, "scripts/agentpress.py", "docs-command-check", "--json"], "agentpress/evidence/docs-command-check.json")
-
-    js = root / "bin" / "agentpress.js"
-    if dry_run:
-        gate("no_python_fallback_check", False, "PYTHON=/no/such/python node bin/agentpress.js doctor --mode self-check --json", "bin/agentpress.js", mandatory=True, skipped=True)
-    else:
-        try:
-            cp = subprocess.run(["node", str(js), "doctor", "--mode", "self-check", "--json"], cwd=root, text=True, capture_output=True, timeout=15, env={**os.environ, "PYTHON": "/no/such/python"})
-            parsed = json.loads(cp.stdout) if cp.stdout.strip().startswith("{") else {}
-            gate("no_python_fallback_check", cp.returncode == 0 and parsed.get("mode") == "node-fast-path", "PYTHON=/no/such/python node bin/agentpress.js doctor --mode self-check --json", "bin/agentpress.js", "Node no-Python doctor did not return fast-path JSON.")
-        except Exception as exc:
-            gate("no_python_fallback_check", False, "PYTHON=/no/such/python node bin/agentpress.js doctor --mode self-check --json", "bin/agentpress.js", str(exc))
-
-    blocking = [g for g in gates if g["mandatory"] and g["status"] != "pass"]
-    payload = {
-        "schema_version": "2026-05-05.agentpress-release-promote-checklist.v1",
-        "generated_utc": _utc_now(),
-        "status": "blocked" if blocking else "ready",
-        "decision": "blocked" if blocking else "promote",
-        "from": from_tag,
-        "to": to_tag,
-        "root": str(root),
-        "dry_run": dry_run,
-        "publish_performed": False,
-        "gates": gates,
-        "blocking_reasons": [f"{g['id']}: {g['error'] or g['status']}" for g in blocking],
-        "next_steps": [{"command": g["command"], "why": g["error"] or "Run this skipped mandatory gate."} for g in blocking[:3]],
-    }
-    if json_out:
-        print(json.dumps(payload, indent=2))
-    else:
-        print(f"release promote checklist: {payload['status']} ({len(blocking)} blocking gates)")
-    return 1 if blocking else 0
-
-
-def release_candidate(args):
-    """Generate a 0.2.0-rc release-candidate checklist with all sprint features and deploy gates."""
-    out = pathlib.Path(args.out)
-    base = args.base_url.rstrip() + "/"
-    version = args.version or "0.2.0-rc"
-    sprint_features = [
-        {
-            "id": "first-user-bootstrap",
-            "command": "python3 scripts/agentpress.py first-user-bootstrap --platform cline --json",
-            "output_path": "agentpress/onboarding/first-user-bootstrap.json",
-            "acceptance_gates": ["status == ready_for_paste", "no_secrets_required == true", "rollback pointer present"],
-            "status": "implemented",
-        },
-        {
-            "id": "proof-capture",
-            "command": "python3 scripts/agentpress.py proof-capture --task-id test-001 --evidence-dir /tmp/proof --json",
-            "output_path": "sprint-proof/proof-bundle.json",
-            "acceptance_gates": ["proof-bundle.json written", "proof-card.md written", "SHA256s present", "secret_scan_status present"],
-            "status": "implemented",
-        },
-        {
-            "id": "sandbox-guard",
-            "command": "python3 scripts/agentpress.py sandbox-guard --scope read-only --paths ./src --json",
-            "output_path": "agentpress/security/sandbox-guard.json",
-            "acceptance_gates": ["JSON manifest written", "wrapper .sh written and chmod 755", "forbidden_markers list non-empty", "secret paths blocked"],
-            "status": "implemented",
-        },
-        {
-            "id": "adoption-tracker",
-            "command": "python3 scripts/agentpress.py adoption-tracker --period 7d --json",
-            "output_path": "agentpress/adoption/adoption-tracker.json",
-            "acceptance_gates": ["funnel dict present", "conversion rates computed", "privacy field = local files only"],
-            "status": "implemented",
-        },
-        {
-            "id": "handoff-pack",
-            "command": "python3 scripts/agentpress.py handoff-pack --from glm --to rflo --task-id mission-123 --json",
-            "output_path": "agentpress/handoffs/handoff-pack.json",
-            "acceptance_gates": ["JSON manifest written", "Markdown handoff card written", "acceptance_gates list non-empty"],
-            "status": "implemented",
-        },
-        {
-            "id": "batch-painpoints",
-            "command": "python3 scripts/agentpress.py batch-painpoints --input issues.json --output /tmp/outreach --json",
-            "output_path": "/tmp/outreach/batch-painpoints-summary.json",
-            "acceptance_gates": ["processed_count > 0", "per-target JSON written", "approval_required_for_all == true"],
-            "status": "implemented",
-        },
-        {
-            "id": "release-candidate",
-            "command": "python3 scripts/agentpress.py release-candidate --version 0.2.0-rc --json",
-            "output_path": "agentpress/releases/release-candidate.json",
-            "acceptance_gates": ["all sprint_features listed", "deploy_blocked == true", "gate_results present"],
-            "status": "implemented",
-        },
-    ]
-    integration_gates = [
-        {"gate": "py_compile", "command": "python3 -m py_compile scripts/agentpress.py", "required": True},
-        {"gate": "doctor", "command": "python3 scripts/agentpress.py doctor --json", "required": True},
-        {"gate": "schema_validate_all", "command": "python3 scripts/agentpress.py schema-validate-all --json", "required": True},
-        {"gate": "lint", "command": "python3 scripts/agentpress.py lint . --allow-warnings --json", "required": False},
-        {"gate": "docs_command_check", "command": "python3 scripts/agentpress.py docs-command-check --json", "required": False},
-        {"gate": "npm_pack_dry_run", "command": "npm pack --dry-run", "required": False},
-    ]
-    deploy_checklist = [
-        {"item": "All 7 sprint features implemented and locally verified", "done": False},
-        {"item": "Integration gates pass (py_compile + doctor at minimum)", "done": False},
-        {"item": "No secrets in any generated artifact (secret_scan_status clean)", "done": False},
-        {"item": "proof-bundle.json and proof-card.md generated for at least one test run", "done": False},
-        {"item": "sandbox-guard.sh present and executable", "done": False},
-        {"item": "RFLO/GLM review artifacts collected in shared/status/", "done": False},
-        {"item": "Release notes written (agentpress/releases/RELEASE-0.2.0-rc.md)", "done": False},
-        {"item": "Jake issues explicit deploy directive keyword before any public push/deploy", "done": False},
-    ]
-    payload = {
-        "schema_version": "2026-05-04.agentpress-release-candidate.v1",
-        "canonical_url": urljoin(base, out.as_posix()),
-        "generated_utc": _utc_now(),
-        "version": version,
-        "status": "rc_ready_pending_gates",
-        "deploy_blocked": True,
-        "deploy_unblock_requires": "Jake explicit directive keyword (e.g. SHIP IT or DEPLOY NOW)",
-        "sprint_features": sprint_features,
-        "feature_count": len(sprint_features),
-        "implemented_count": sum(1 for f in sprint_features if f["status"] == "implemented"),
-        "integration_gates": integration_gates,
-        "deploy_checklist": deploy_checklist,
-        "release_notes_path": "agentpress/releases/RELEASE-0.2.0-rc.md",
-        "evidence_dir": "shared/status/",
-        "safety": {
-            "no_auto_publish": True,
-            "no_external_posts": True,
-            "no_package_release": True,
-            "local_commits_ok": True,
-        },
-    }
-    if not args.no_write:
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-        release_notes = pathlib.Path("agentpress/releases/RELEASE-0.2.0-rc.md")
-        release_notes.parent.mkdir(parents=True, exist_ok=True)
-        lines = [
-            f"# AgentPress {version} — Release Notes",
-            "",
-            f"**Generated:** {_utc_now()}",
-            f"**Deploy status:** BLOCKED — requires Jake directive keyword",
-            "",
-            "## Sprint features (mission-20260504-053454-927a17)",
-            "",
-        ]
-        for f in sprint_features:
-            lines.append(f"### {f['id']}")
-            lines.append(f"- Command: `{f['command']}`")
-            lines.append(f"- Output: `{f['output_path']}`")
-            lines.append("- Acceptance gates:")
-            for g in f["acceptance_gates"]:
-                lines.append(f"  - [ ] {g}")
-            lines.append("")
-        lines += [
-            "## Integration gates",
-            "",
-        ]
-        for g in integration_gates:
-            req = "required" if g["required"] else "optional"
-            lines.append(f"- [ ] `{g['command']}` ({req})")
-        lines += [
-            "",
-            "## Deploy checklist",
-            "",
-        ]
-        for item in deploy_checklist:
-            lines.append(f"- [ ] {item['item']}")
-        lines += [
-            "",
-            "## Safety",
-            "",
-            "- No auto-publish, no external posts, no package release without Jake directive.",
-            "- All artifacts are local. Public deploy requires explicit keyword.",
-            "",
-        ]
-        release_notes.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(json.dumps(payload, indent=2) if args.json else payload["status"])
-    return 0
-
-
 def package_registry_fallback_installer(args):
     """Generate a copy-paste AgentPress installer with npm, PyPI, git, and static fallbacks."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
-    script='#!/usr/bin/env bash\nset -euo pipefail\nwant="${AGENTPRESS_VERSION:-0.1.0}"\necho "AgentPress fallback installer (target ${want})"\ntry_cmd() { echo "+ $*" >&2; "$@"; }\nif command -v npm >/dev/null 2>&1; then\n  if try_cmd npm install -g "@agent_press/agentpress@${want}"; then\n    agentpress --help >/dev/null && echo "installed via npm" && exit 0\n  fi\nfi\nif command -v python3 >/dev/null 2>&1; then\n  tmp="$(mktemp -d)"\n  if python3 -m venv "$tmp/venv" && "$tmp/venv/bin/python" -m pip install -q "agentpress-static==${want}"; then\n    "$tmp/venv/bin/agentpress" --help >/dev/null && echo "installed via PyPI venv: $tmp/venv/bin/agentpress" && exit 0\n  fi\nfi\nif command -v git >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1; then\n  dir="${AGENTPRESS_DIR:-$HOME/.agentpress-src}"\n  rm -rf "$dir"\n  git clone --depth 1 https://github.com/barneywohl/agentpress.git "$dir"\n  python3 "$dir/scripts/agentpress.py" doctor --json >/dev/null && echo "installed from git source: python3 $dir/scripts/agentpress.py" && exit 0\nfi\nif command -v curl >/dev/null 2>&1; then\n  tmp="$(mktemp -d)"\n  curl -fsSL https://barneywohl.github.io/agentpress/llms.txt -o "$tmp/llms.txt"\n  curl -fsSL https://barneywohl.github.io/agentpress/.well-known/agentpress.json -o "$tmp/agentpress.json"\n  test -s "$tmp/llms.txt" -a -s "$tmp/agentpress.json" && echo "static fallback fetched: $tmp" && exit 0\nfi\necho "AgentPress install failed across npm/PyPI/git/static fallbacks" >&2\nexit 1\n'
+    script='#!/usr/bin/env bash\nset -euo pipefail\nwant="${AGENTPRESS_VERSION:-0.1.0}"\necho "AgentPress fallback installer (target ${want})"\ntry_cmd() { echo "+ $*" >&2; "$@"; }\nif command -v npm >/dev/null 2>&1; then\n  if try_cmd npm install -g "@agent_press/agentpress@${want}"; then\n    agentpress --help >/dev/null && echo "installed via npm" && exit 0\n  fi\nfi\nif command -v python3 >/dev/null 2>&1; then\n  tmp="$(mktemp -d)"\n  if python3 -m venv "$tmp/venv" && "$tmp/venv/bin/python" -m pip install -q "agentpress-static==${want}"; then\n    "$tmp/venv/bin/agentpress" --help >/dev/null && echo "installed via PyPI venv: $tmp/venv/bin/agentpress" && exit 0\n  fi\nfi\nif command -v git >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1; then\n  dir="${AGENTPRESS_DIR:-$HOME/.agentpress-src}"\n  rm -rf "$dir"\n  git clone --depth 1 https://github.com/barneywohl/agentpress.git "$dir"\n  python3 "$dir/scripts/agentpress.py" doctor --json >/dev/null && echo "installed from git source: python3 $dir/scripts/agentpress.py" && exit 0\nfi\nif command -v curl >/dev/null 2>&1; then\n  tmp="$(mktemp -d)"\n  curl -fsSL https://agentpress.pages.dev/llms.txt -o "$tmp/llms.txt"\n  curl -fsSL https://agentpress.pages.dev/.well-known/agentpress.json -o "$tmp/agentpress.json"\n  test -s "$tmp/llms.txt" -a -s "$tmp/agentpress.json" && echo "static fallback fetched: $tmp" && exit 0\nfi\necho "AgentPress install failed across npm/PyPI/git/static fallbacks" >&2\nexit 1\n'
     payload={"schema_version":"2026-05-04.agentpress-package-registry-fallback-installer.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give first agent users a copy-paste installer that survives npm/PyPI/registry/region failures.","install_order":["npm @agent_press/agentpress","PyPI agentpress-static isolated venv","GitHub source checkout","static llms/agentpress JSON fetch"],"script_path":str(out),"usage":["bash agentpress/install/install-agentpress.sh","AGENTPRESS_VERSION=0.1.0 bash agentpress/install/install-agentpress.sh"],"script_sha256":hashlib.sha256(script.encode()).hexdigest(),"privacy":"No telemetry, no secrets, no account login."}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(script,encoding="utf-8"); os.chmod(out,0o755)
@@ -6806,264 +5490,6 @@ def tool_schema_serialization_check(args):
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else status)
     return 1 if args.strict and status=='fail' else 0
-
-def _tool_contract_builtin_manifest():
-    return {
-        "tools": [
-            {
-                "name": "agentpress.example_lookup",
-                "description": "Example MCP-style tool contract with explicit schemas.",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {"query": {"type": "string", "minLength": 1}},
-                    "required": ["query"],
-                    "additionalProperties": False,
-                },
-                "outputSchema": {
-                    "type": "object",
-                    "properties": {"answer": {"type": "string"}, "source_count": {"type": "integer"}},
-                    "required": ["answer", "source_count"],
-                    "additionalProperties": False,
-                },
-                "exampleResult": {
-                    "content": [{"type": "text", "text": "{\"answer\":\"ok\",\"source_count\":1}"}],
-                    "structuredContent": {"answer": "ok", "source_count": 1},
-                },
-            }
-        ]
-    }
-
-
-def _tool_contract_load_json(path, findings, label):
-    if not path:
-        return None
-    p = pathlib.Path(path).expanduser()
-    if _is_sensitive_path(p):
-        findings.append({
-            "code": f"{label}_sensitive_path_refused",
-            "status": "fail_closed",
-            "severity": "P0",
-            "path": str(p),
-            "message": f"refusing to read sensitive {label} path",
-            "no_secret_read": True,
-        })
-        return None
-    if not p.exists():
-        findings.append({
-            "code": f"{label}_missing",
-            "status": "fail",
-            "severity": "P0",
-            "path": str(p),
-            "message": f"{label} file does not exist",
-        })
-        return None
-    try:
-        return json.loads(p.read_text(encoding="utf-8"))
-    except Exception as e:
-        findings.append({
-            "code": f"{label}_invalid_json",
-            "status": "fail",
-            "severity": "P0",
-            "path": str(p),
-            "message": f"{label} JSON parse failed: {e}",
-        })
-        return None
-
-
-def _tool_contract_tools(data):
-    if isinstance(data, list):
-        return [x for x in data if isinstance(x, dict)]
-    if not isinstance(data, dict):
-        return []
-    if isinstance(data.get("tools"), list):
-        return [x for x in data["tools"] if isinstance(x, dict)]
-    if isinstance(data.get("mcp_tools"), list):
-        return [x for x in data["mcp_tools"] if isinstance(x, dict)]
-    if data.get("name") or data.get("inputSchema") or data.get("command"):
-        return [data]
-    return []
-
-
-def _tool_contract_result_payload(tool, sample_data):
-    for key in ("exampleResult", "sampleResult", "result"):
-        if isinstance(tool.get(key), dict):
-            return tool[key]
-    if not isinstance(sample_data, dict):
-        return sample_data
-    name = tool.get("name")
-    if name and isinstance(sample_data.get(name), dict):
-        return sample_data[name]
-    if isinstance(sample_data.get("results"), dict) and name and isinstance(sample_data["results"].get(name), dict):
-        return sample_data["results"][name]
-    return sample_data
-
-
-def _tool_contract_structured_content(result):
-    if isinstance(result, dict) and isinstance(result.get("result"), dict):
-        result = result["result"]
-    if isinstance(result, dict):
-        for key in ("structuredContent", "structured_content"):
-            if key in result:
-                return result[key]
-    return result
-
-
-def _tool_contract_has_text_json_mirror(result):
-    if not isinstance(result, dict):
-        return False
-    if isinstance(result.get("result"), dict):
-        result = result["result"]
-    content = result.get("content")
-    if not isinstance(content, list):
-        return False
-    for item in content:
-        if not isinstance(item, dict) or item.get("type") != "text":
-            continue
-        text = item.get("text")
-        if not isinstance(text, str):
-            continue
-        try:
-            json.loads(text)
-            return True
-        except Exception:
-            pass
-    return False
-
-
-def tool_contract_check(args):
-    """Validate MCP-style and CLI-template tool contracts before agents invoke tools."""
-    out = pathlib.Path(args.out)
-    base = args.base_url.rstrip("/") + "/"
-    findings = []
-    manifest = _tool_contract_builtin_manifest()
-    source = "built_in_valid_example"
-    if args.manifest:
-        loaded = _tool_contract_load_json(args.manifest, findings, "manifest")
-        source = str(pathlib.Path(args.manifest).expanduser())
-        if loaded is not None:
-            manifest = loaded
-    sample_data = _tool_contract_load_json(args.sample_result, findings, "sample_result") if args.sample_result else None
-
-    tools = _tool_contract_tools(manifest)
-    if not tools and not findings:
-        findings.append({
-            "code": "no_tools_found",
-            "status": "fail",
-            "severity": "P0",
-            "message": "manifest must contain a tools array, mcp_tools array, or a single tool object",
-        })
-
-    rows = []
-
-    def add(tool_name, code, status, severity, message, remediation, field=""):
-        row = {
-            "tool": tool_name or "<unnamed>",
-            "code": code,
-            "status": status,
-            "severity": severity,
-            "message": message,
-            "remediation": remediation,
-        }
-        if field:
-            row["field"] = field
-        findings.append(row)
-
-    for i, tool in enumerate(tools):
-        name = tool.get("name") or tool.get("id") or ""
-        tool_mode = "mcp_schema" if any(k in tool for k in ("inputSchema", "outputSchema", "structuredContent", "structured_content", "exampleResult", "sampleResult")) else "cli_template"
-        row = {
-            "index": i,
-            "name": name or "<unnamed>",
-            "mode": tool_mode,
-            "has_input_schema": isinstance(tool.get("inputSchema"), dict),
-            "has_output_schema": isinstance(tool.get("outputSchema"), dict),
-            "has_structured_result_sample": False,
-        }
-        if not isinstance(name, str) or not name.strip():
-            add(name, "missing_tool_name", "fail", "P0", "tool name is required", "Add a stable unique name field to the tool contract.", "name")
-        if not isinstance(tool.get("description"), str) or not tool.get("description", "").strip():
-            add(name, "missing_description", "warn", "P1", "tool description is missing", "Add a concise description so agents know when to invoke the tool.", "description")
-
-        input_schema = tool.get("inputSchema")
-        if tool_mode == "mcp_schema":
-            if not isinstance(input_schema, dict):
-                add(name, "missing_input_schema", "fail", "P0", "MCP-style tools need an inputSchema object", 'Add `"inputSchema":{"type":"object","properties":{},"additionalProperties":false}`.', "inputSchema")
-            else:
-                try:
-                    json.dumps(input_schema)
-                except TypeError:
-                    add(name, "input_schema_not_serializable", "fail", "P0", "inputSchema is not JSON serializable", "Replace Python/callable objects with plain JSON Schema metadata.", "inputSchema")
-                if input_schema.get("type") != "object":
-                    add(name, "input_schema_not_object", "fail", "P0", "inputSchema.type should be object for tool arguments", 'Set `"inputSchema.type"` to `"object"` and put parameters under properties.', "inputSchema.type")
-                if "properties" not in input_schema:
-                    add(name, "input_schema_missing_properties", "warn", "P1", "inputSchema should include properties, even for zero-arg tools", 'Use `"properties": {}` for zero-argument tools.', "inputSchema.properties")
-            output_schema = tool.get("outputSchema")
-            result_payload = _tool_contract_result_payload(tool, sample_data)
-            structured = _tool_contract_structured_content(result_payload)
-            row["has_structured_result_sample"] = result_payload is not None
-            if isinstance(output_schema, dict):
-                try:
-                    json.dumps(output_schema)
-                except TypeError:
-                    add(name, "output_schema_not_serializable", "fail", "P0", "outputSchema is not JSON serializable", "Replace framework objects with plain JSON Schema.", "outputSchema")
-                if output_schema.get("type") != "object":
-                    add(name, "output_schema_not_object", "warn", "P1", "outputSchema.type should usually be object for structuredContent", 'Use an object outputSchema whose required fields mirror `structuredContent`.', "outputSchema.type")
-                if result_payload is None:
-                    add(name, "missing_structured_result_sample", "warn", "P1", "outputSchema is present but no sample result was provided", "Add exampleResult to the tool or pass --sample-result with structuredContent.", "exampleResult")
-                else:
-                    schema_errors = _strict_json_schema_errors(structured, output_schema, "$.structuredContent")
-                    if schema_errors:
-                        add(name, "structured_content_schema_mismatch", "fail", "P0", "structuredContent does not match outputSchema", "Update structuredContent or outputSchema so required fields and types match.", "structuredContent")
-                        rows.append({**row, "schema_errors": schema_errors})
-                        continue
-                    if args.require_text_mirror and isinstance(result_payload, dict) and not _tool_contract_has_text_json_mirror(result_payload):
-                        add(name, "missing_text_content_json_mirror", "warn", "P1", "structuredContent should also be serialized in a TextContent block for older clients", "Add a content item like {\"type\":\"text\",\"text\":\"<serialized structuredContent JSON>\"}.", "content")
-            elif result_payload is not None and isinstance(structured, dict):
-                add(name, "structured_content_without_output_schema", "warn", "P1", "structuredContent exists without outputSchema", "Add outputSchema so clients can validate structured results.", "outputSchema")
-        else:
-            command = tool.get("command")
-            if not isinstance(command, str) or not command.strip():
-                add(name, "missing_command", "fail", "P0", "CLI tool template is missing command", "Add a deterministic local command template.", "command")
-            elif "--json" not in command and tool.get("machine_output") is not False:
-                add(name, "command_missing_json_flag", "warn", "P1", "CLI command does not advertise JSON output", "Add --json where the command supports machine output, or set machine_output=false with an output_contract for file/prose commands.", "command")
-            elif "--json" not in command and tool.get("machine_output") is False and not tool.get("output_contract"):
-                add(name, "missing_output_contract", "warn", "P1", "non-JSON CLI command needs an output_contract", "Describe the file/prose output and the follow-up validation command.", "output_contract")
-        rows.append(row)
-
-    fail_count = sum(1 for f in findings if f.get("status") in {"fail", "fail_closed"})
-    warn_count = sum(1 for f in findings if f.get("status") == "warn")
-    status = "ok" if fail_count == 0 and warn_count == 0 else ("fail" if fail_count else "needs_remediation")
-    exact_remediation = [
-        "For MCP-style tools, define name, description, inputSchema, and outputSchema as plain JSON objects.",
-        "Return structured results in structuredContent and validate them against outputSchema before exposing the tool.",
-        "Mirror structuredContent as serialized JSON in a TextContent block when older clients may consume the tool.",
-        "For CLI command templates, include --json whenever machine-readable output is available.",
-        "Run `python3 scripts/agentpress.py tool-contract-check --manifest <tools.json> --sample-result <tool-result.json> --json --strict` before publishing a tool catalog.",
-    ]
-    payload = {
-        "schema_version": "2026-05-05.agentpress-tool-contract-check.v1",
-        "canonical_url": urljoin(base, out.as_posix()),
-        "generated_utc": _utc_now(),
-        "status": status,
-        "purpose": "Validate agent tool contracts against MCP-style input/output schemas, structuredContent samples, and CLI JSON-output expectations.",
-        "source": source,
-        "sample_result": str(pathlib.Path(args.sample_result).expanduser()) if args.sample_result else "",
-        "no_secret_reads_by_default": True,
-        "tool_count": len(tools),
-        "fail_count": fail_count,
-        "warn_count": warn_count,
-        "tools": rows,
-        "finding_count": len(findings),
-        "findings": findings,
-        "mcp_alignment": {
-            "input_schema": "MCP tool definitions describe expected parameters with inputSchema.",
-            "output_schema": "MCP tools can declare outputSchema so clients validate structuredContent.",
-            "structured_content": "Structured tool results should be returned in structuredContent; text JSON mirrors improve backwards compatibility.",
-        },
-        "exact_remediation": exact_remediation,
-    }
-    _write_json_payload(payload, out, args.no_write, args.json)
-    return 1 if args.strict and status != "ok" else 0
 
 def agent_community_channel_map(args):
     """Map agent communities/channels to problem signals and ingestion methods."""
@@ -7494,122 +5920,21 @@ def runtime_install_doctor(args):
 
 
 def connector_security_scanner(args):
-    """Scan connector/MCP metadata for secret, auth, transport, and tool-risk gaps."""
+    """Generate connector security scanner rules."""
     out=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"
     rules=[
-        {"id":"secret_literal","severity":"critical","detect":"secret-looking api_key/token/password literal in artifact","action":"fail"},
-        {"id":"missing_auth_mode","severity":"high","detect":"connector lacks auth_mode/auth.type/auth","action":"fail"},
-        {"id":"r4_without_approval","severity":"high","detect":"R4 or external/write effect without approval_ref","action":"fail"},
-        {"id":"unknown_transport","severity":"high","detect":"transport not in stdio/http/https/mcp/static/sse/websocket","action":"fail"},
-        {"id":"dangerous_tool","severity":"medium","detect":"delete/send/pay/deploy/write/shell tool without risk metadata","action":"needs_review"},
-        {"id":"env_var_unscoped","severity":"medium","detect":"env var requested without scope/reason/required flag","action":"needs_review"}
+        {"id":"secret_literal","severity":"critical","detect":"api_key/token/password literal in artifact","action":"fail"},
+        {"id":"missing_auth_mode","severity":"high","detect":"connector lacks auth_mode","action":"fail"},
+        {"id":"r4_without_approval","severity":"high","detect":"write/external effect without approval_ref","action":"fail"},
+        {"id":"unknown_transport","severity":"high","detect":"transport not in stdio/http/mcp/static","action":"fail"},
+        {"id":"dangerous_tool","severity":"medium","detect":"delete/send/pay/deploy/write without risk metadata","action":"needs_review"},
+        {"id":"env_var_unscoped","severity":"medium","detect":"env var requested without scope/reason","action":"needs_review"}
     ]
-    allowed_transports={"stdio","http","https","mcp","static","sse","websocket","ws"}
-    dangerous_tokens=("delete","send","pay","payment","deploy","write","shell","exec","transfer","external","publish")
-    findings=[]
-
-    def add(rule_id, severity, action, path, message, evidence=None):
-        finding={"rule_id":rule_id,"severity":severity,"action":action,"path":path,"message":message}
-        if evidence not in (None, ""):
-            finding["evidence"]=str(evidence)[:160]
-        findings.append(finding)
-
-    def load_manifest():
-        if getattr(args,"manifest",None):
-            path=pathlib.Path(args.manifest)
-            data=json.loads(path.read_text(encoding="utf-8"))
-            return data, str(path)
-        sample={
-            "connectors":[
-                {
-                    "id":"sample-safe-static",
-                    "transport":"static",
-                    "auth_mode":"none",
-                    "tools":[{"name":"fetch_contract", "risk_level":"R1", "effects":["read"]}],
-                    "env":[]
-                }
-            ]
-        }
-        return sample, "built_in_safe_sample"
-
-    def iter_items(data):
-        if isinstance(data, list):
-            for i,item in enumerate(data): yield f"[{i}]", item
-        elif isinstance(data, dict):
-            pools=[]
-            for key in ("connectors","mcpServers","servers","tools"):
-                val=data.get(key)
-                if isinstance(val, dict): pools.extend((f"{key}.{k}", v) for k,v in val.items())
-                elif isinstance(val, list): pools.extend((f"{key}[{i}]", v) for i,v in enumerate(val))
-            if pools:
-                for x in pools: yield x
-            else:
-                yield "$", data
-
-    def looks_secret(k, v):
-        key=str(k).lower()
-        if not any(t in key for t in ("api_key","apikey","token","password","secret","private_key")):
-            return False
-        if not isinstance(v, str):
-            return False
-        val=v.strip()
-        if not val or val.startswith(("$", "${", "<")) or "REDACTED" in val.upper() or "YOUR_" in val.upper():
-            return False
-        return len(val) >= 8 or val.startswith(("sk-","ghp_","xoxb-"))
-
-    def walk(obj, prefix="$"):
-        if isinstance(obj, dict):
-            for k,v in obj.items():
-                p=f"{prefix}.{k}"
-                if looks_secret(k,v):
-                    add("secret_literal","critical","fail",p,"secret-looking literal must be replaced by env var reference or redacted placeholder","<redacted-secret-like-value>")
-                walk(v,p)
-        elif isinstance(obj, list):
-            for i,v in enumerate(obj): walk(v,f"{prefix}[{i}]")
-
-    data, source=load_manifest()
-    walk(data)
-    for path,item in iter_items(data):
-        if not isinstance(item, dict):
-            continue
-        transport=str(item.get("transport") or item.get("type") or item.get("protocol") or "").lower()
-        if transport and transport not in allowed_transports:
-            add("unknown_transport","high","fail",f"{path}.transport",f"unknown transport '{transport}'",transport)
-        auth=item.get("auth_mode") or item.get("auth") or item.get("auth_type")
-        if auth is None and not (transport == "static" and item.get("public") is True):
-            add("missing_auth_mode","high","fail",path,"connector/tool entry must declare auth_mode, auth_type, or auth")
-        envs=item.get("env") or item.get("env_vars") or item.get("required_env") or []
-        if isinstance(envs, dict): env_iter=[{"name":k, **(v if isinstance(v,dict) else {"value":v})} for k,v in envs.items()]
-        elif isinstance(envs, list): env_iter=envs
-        else: env_iter=[]
-        for i,env in enumerate(env_iter):
-            if isinstance(env, str):
-                add("env_var_unscoped","medium","needs_review",f"{path}.env[{i}]","env var lacks structured scope/reason metadata",env)
-            elif isinstance(env, dict) and not (env.get("scope") or env.get("reason") or env.get("description")):
-                add("env_var_unscoped","medium","needs_review",f"{path}.env[{i}]","env var lacks scope/reason metadata",env.get("name"))
-        single_tool=not isinstance(item.get("tools"), list) and (path.startswith("tools") or bool(item.get("name")))
-        tools=item.get("tools") if isinstance(item.get("tools"), list) else ([item] if single_tool else [])
-        for i,tool in enumerate(tools):
-            if not isinstance(tool, dict): continue
-            name=str(tool.get("name") or tool.get("id") or "").lower()
-            effects=" ".join(str(x).lower() for x in tool.get("effects",[])) if isinstance(tool.get("effects"), list) else str(tool.get("effects","")).lower()
-            blob=" ".join([name,effects,str(tool.get("description","")).lower()])
-            risky=any(tok in blob for tok in dangerous_tokens)
-            risk=str(tool.get("risk_level") or tool.get("risk") or "").upper()
-            approval=tool.get("approval_ref") or item.get("approval_ref") or tool.get("approval_required") or item.get("approval_required")
-            tool_path=path if single_tool else f"{path}.tools[{i}]"
-            if (risk == "R4" or any(tok in effects for tok in ("write","external","deploy","payment","transfer"))) and not approval:
-                add("r4_without_approval","high","fail",tool_path,"high/external/write effect requires approval_ref or approval_required")
-            if risky and not (risk or tool.get("risk_metadata") or item.get("risk_metadata")):
-                add("dangerous_tool","medium","needs_review",tool_path,"dangerous tool/action token lacks risk metadata",name or effects)
-    fail_count=sum(1 for f in findings if f["action"]=="fail")
-    review_count=sum(1 for f in findings if f["action"]=="needs_review")
-    status="fail" if fail_count else ("needs_review" if review_count else "ok")
-    payload={"schema_version":"2026-05-04.agentpress-connector-security-scan.v2","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":status,"purpose":"Fail-closed scanner for MCP/connector metadata before autonomous agents invoke tools.","source":source,"rule_count":len(rules),"rules":rules,"finding_count":len(findings),"fail_count":fail_count,"needs_review_count":review_count,"findings":findings,"safe_defaults":["store secret names only, never values","declare auth_mode for every connector","require approval_ref for write/external/payment/deploy effects","use only known transports or document adapter"]}
+    payload={"schema_version":"2026-05-03.agentpress-connector-security-scanner.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Security rules for MCP/connector metadata before autonomous agents invoke tools.","rule_count":len(rules),"rules":rules}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
-    print(json.dumps(payload,indent=2) if args.json else f"{status} {len(findings)} findings")
-    return 1 if getattr(args,"strict",False) and status != "ok" else 0
+    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {len(rules)} rules")
+    return 0
 
 
 def deterministic_agent_eval_packs(args):
@@ -8464,233 +6789,6 @@ def external_proof_review(args):
     return 0 if decision in {"accepted","needs_fix"} else 1
 
 
-def external_proof_intake(args):
-    """Submit/review/status external proof packs with privacy and independence guards."""
-    outdir=pathlib.Path(args.out); outdir.mkdir(parents=True, exist_ok=True)
-    state_path=outdir/"external-proof-intake-state.json"
-    try: state=json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {"schema_version":"2026-05-05.agentpress-external-proof-intake-state.v1","submissions":[]}
-    except Exception: state={"schema_version":"2026-05-05.agentpress-external-proof-intake-state.v1","submissions":[]}
-    def save(payload):
-        if not args.no_write:
-            state_path.write_text(json.dumps(state,indent=2)+"\n",encoding="utf-8")
-            if args.receipt_out: pathlib.Path(args.receipt_out).write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
-        print(json.dumps(payload,indent=2) if args.json else f"{payload.get('status')} {payload.get('decision','')}")
-    if args.action == "submit":
-        pack=pathlib.Path(args.pack); errors=[]; warnings=[]; data={}
-        try:
-            cand=pack/"submission-pack.json" if pack.is_dir() else pack
-            if pack.is_dir() and not cand.exists(): cand=pack/"proof.json"
-            data=json.loads(cand.read_text(encoding="utf-8"))
-        except Exception as e: errors.append(f"invalid proof pack: {e}")
-        blob=json.dumps(data,sort_keys=True).lower()
-        for b in ["/volumes/x10/clawd","clawd_secrets","barneywohl","agentpress-reference","private_key","authorization:","bearer ","api_key","cookie:","password"]:
-            if b in blob: errors.append(f"blocked private/self/secret marker: {b}")
-        for k in ["agent_id","runtime","commands_run","artifacts","result_status","redaction_attestation"]:
-            if k not in data: errors.append(f"missing {k}")
-        if not data.get("transcript") and not data.get("transcript_path") and not data.get("commands_run"):
-            errors.append("missing replay transcript or commands_run")
-        sid=args.submission_id or f"proof-{uuid.uuid4().hex[:10]}"; decision="rejected" if errors else "submitted"
-        receipt_path=outdir/"receipts"/f"{sid}-intake-receipt.json"
-        receipt={"schema_version":"2026-05-05.agentpress-external-proof-intake-receipt.v1","receipt_id":_short_id("proofreceipt"),"submission_id":sid,"created_utc":_utc_now(),"decision":decision,"pack":str(pack),"agent_id":data.get("agent_id",""),"runtime":data.get("runtime",""),"service_id":data.get("service_id",data.get("capability_id","agentpress")),"artifact_count":len(data.get("artifacts",[]) or []),"privacy":{"secret_or_private_marker_errors":errors,"redaction_attestation":data.get("redaction_attestation","")},"next_actions":["review accepted submissions", "export external-proof-index", "route blockers to receipt-to-backlog"]}
-        if not args.no_write:
-            receipt_path.parent.mkdir(parents=True,exist_ok=True); receipt_path.write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
-        item={"id":sid,"submitted_utc":_utc_now(),"pack":str(pack),"agent_id":data.get("agent_id",""),"runtime":data.get("runtime",""),"service_id":data.get("service_id",data.get("capability_id","agentpress")),"status":decision,"errors":errors,"warnings":warnings,"artifact_count":len(data.get("artifacts",[]) or []),"receipt_path":str(receipt_path)}
-        state.setdefault("submissions",[]).append(item)
-        payload={"schema_version":"2026-05-05.agentpress-external-proof-intake.v1","generated_utc":_utc_now(),"action":"submit","status":"ok" if not errors else "fail","decision":decision,"submission":item,"receipt":receipt}
-        save(payload); return 0 if not errors else 1
-    if args.action == "review":
-        found=None; errors=[]
-        for item in state.get("submissions",[]):
-            if item.get("id")==args.submission_id: found=item; break
-        if not found: errors.append(f"unknown submission_id {args.submission_id}")
-        if args.decision not in {"accept","reject","blocker"}: errors.append("decision must be accept|reject|blocker")
-        if found and not errors:
-            found["reviewed_utc"]=_utc_now(); found["review_decision"]=args.decision; found["status"]={"accept":"accepted","reject":"rejected","blocker":"blocker"}[args.decision]
-        payload={"schema_version":"2026-05-05.agentpress-external-proof-intake-review.v1","generated_utc":_utc_now(),"action":"review","status":"ok" if not errors else "fail","decision":args.decision,"submission":found,"errors":errors}
-        save(payload); return 0 if not errors else 1
-    if args.action == "export-index":
-        index_path=pathlib.Path(args.index_out)
-        receipts=[]; blockers=[]
-        for item in state.get("submissions",[]):
-            if item.get("status") == "accepted":
-                receipts.append({
-                    "id": item.get("id"),
-                    "proof_id": item.get("id"),
-                    "status": "accepted",
-                    "path": item.get("receipt_path") or item.get("pack", ""),
-                    "source_pack": item.get("pack", ""),
-                    "agent_id": item.get("agent_id", ""),
-                    "runtime": item.get("runtime", ""),
-                    "service_id": item.get("service_id", "agentpress"),
-                    "artifact_count": item.get("artifact_count", 0),
-                    "reviewed_utc": item.get("reviewed_utc", ""),
-                })
-            elif item.get("status") == "blocker":
-                blockers.append({"id": item.get("id"), "runtime": item.get("runtime", ""), "service_id": item.get("service_id", "agentpress"), "path": item.get("pack", "")})
-        payload={"schema_version":"2026-05-05.agentpress-external-proof-index.v1","generated_utc":_utc_now(),"status":"ok","source_state":str(state_path),"receipts":receipts,"blockers":blockers,"counts":{"accepted_independent_real":len(receipts),"blockers":len(blockers)}}
-        if not args.no_write:
-            index_path.parent.mkdir(parents=True,exist_ok=True); index_path.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
-            if args.receipt_out: pathlib.Path(args.receipt_out).write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
-        print(json.dumps(payload,indent=2) if args.json else f"accepted={len(receipts)} blockers={len(blockers)} index={index_path}")
-        return 0
-    counts={"submitted":0,"accepted_independent_real":0,"blockers":0,"rejected":0,"runtimes":{}}
-    for item in state.get("submissions",[]):
-        counts["submitted"]+=1; st=item.get("status")
-        if st=="accepted": counts["accepted_independent_real"]+=1
-        if st=="blocker": counts["blockers"]+=1
-        if st=="rejected": counts["rejected"]+=1
-        rt=item.get("runtime") or "unknown"; counts["runtimes"][rt]=counts["runtimes"].get(rt,0)+1
-    payload={"schema_version":"2026-05-05.agentpress-external-proof-intake-status.v1","generated_utc":_utc_now(),"status":"ok","state":str(state_path),"counts":counts,"submissions":state.get("submissions",[]) if args.include_submissions else []}
-    print(json.dumps(payload,indent=2) if args.json else f"submitted={counts['submitted']} accepted={counts['accepted_independent_real']} blockers={counts['blockers']}")
-    return 0
-
-
-
-def _write_json_if_allowed(path, payload, no_write=False):
-    out=pathlib.Path(path)
-    if not no_write:
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
-    return out
-
-
-def mesh_register(args):
-    """Register an agent/runtime into a static AgentPress mesh."""
-    out=pathlib.Path(args.out)
-    receipt_path=pathlib.Path(args.receipt_out or str(out).replace('.json','')+f"-{args.id}-receipt.json")
-    capabilities=[x.strip() for x in re.split(r"[,\s]+", args.capabilities or "") if x.strip()]
-    verification={k:getattr(args,k) for k in ["contract_url","receipt_url","mcp_server","inbox_path"] if getattr(args,k)}
-    errors=[]
-    if not args.id: errors.append("id required")
-    if not args.kind: errors.append("kind required")
-    if not capabilities: errors.append("at least one capability required")
-    if not verification: errors.append("one verification/contact field required: contract-url, receipt-url, mcp-server, or inbox-path")
-    existing={"schema_version":"2026-05-05.agentpress-known-agents.v1","generated_utc":_utc_now(),"agents":[]}
-    if out.exists():
-        try:
-            existing=json.loads(out.read_text(encoding="utf-8"))
-            if not isinstance(existing.get("agents"), list): errors.append("known-agents file missing agents[]")
-        except Exception as e: errors.append(f"known-agents parse failed: {e}")
-    agents=[a for a in existing.get("agents",[]) if isinstance(a,dict)]
-    duplicate=next((a for a in agents if a.get("id")==args.id), None)
-    if duplicate and not args.replace: errors.append(f"duplicate agent id: {args.id}; use --replace")
-    entry={"id":args.id,"kind":args.kind,"capabilities":capabilities,"created_at":_utc_now(),"agentpress_version":args.agentpress_version,**verification}
-    next_agents=[a for a in agents if a.get("id")!=args.id]+[entry]
-    payload={"schema_version":"2026-05-05.agentpress-known-agents.v1","generated_utc":_utc_now(),"agents":sorted(next_agents,key=lambda x:x.get('id',''))}
-    payload_bytes=json.dumps(payload,sort_keys=True,separators=(",",":")).encode("utf-8")
-    receipt={"schema_version":"2026-05-05.agentpress-mesh-registration-receipt.v1","generated_utc":_utc_now(),"status":"ok" if not errors else "fail","agent_id":args.id,"known_agents_path":str(out),"known_agents_sha256":hashlib.sha256(payload_bytes).hexdigest(),"dry_run":bool(args.dry_run),"replace":bool(args.replace),"warnings":[],"errors":errors,"next_actions":["run agentpress compat smoke for this runtime","submit a result receipt after first successful use"]}
-    if not errors and not args.dry_run:
-        _write_json_if_allowed(out,payload,args.no_write)
-        _write_json_if_allowed(receipt_path,receipt,args.no_write)
-    receipt["receipt_path"]=str(receipt_path)
-    print(json.dumps(receipt,indent=2) if args.json else f"{receipt['status']} {args.id} {out}")
-    return 0 if not errors else 1
-
-
-def first_contact_audit(args):
-    """Run a canonical first-contact audit over public AgentPress surfaces."""
-    base=args.base_url.rstrip()+"/"
-    checks=[]; failures=[]
-    paths=["llms.txt",".well-known/agentpress.json",".well-known/agentpress-machine-entrypoints.json","agentpress/tools/agentpress-tools.json"]
-    for rel in paths:
-        url=urljoin(base,rel)
-        row={"url":url,"status":"not_checked"}
-        try:
-            if args.no_network:
-                local=pathlib.Path(rel)
-                data=local.read_bytes()
-            else:
-                with urlopen(Request(url,headers={"User-Agent":"agentpress-first-contact-audit/1.0"}),timeout=args.timeout_seconds) as r:
-                    data=r.read(args.max_bytes+1)
-            row.update({"status":"ok","bytes":len(data),"sha256":hashlib.sha256(data).hexdigest()})
-            if len(data)>args.max_bytes: row["status"]="fail"; failures.append(f"too_large:{rel}")
-        except Exception as e:
-            row.update({"status":"fail","error":str(e)}); failures.append(f"unreachable:{rel}")
-        checks.append(row)
-    package_channels={"npm":{"latest":"0.1.0","rc":"0.2.0-rc.5","policy":"latest remains stable until independent proof/RFLO gates pass"},"pypi":{"stable":"0.1.0","rc":"0.2.0rc5","policy":"pre-release channel only for rc builds"}}
-    first_action_commands=["npx @agent_press/agentpress@rc doctor --json","python3 scripts/agentpress.py doctor . --json","python3 scripts/agentpress.py result init --kind proof --json"]
-    for cmd in first_action_commands:
-        if "latest" in cmd: failures.append("first action command must not imply latest promotion: "+cmd)
-    payload={"schema_version":"2026-05-05.agentpress-first-contact-audit.v1","generated_at":_utc_now(),"status":"ok" if not failures else "fail","base_url":base,"checked_urls":checks,"package_channels":package_channels,"first_action_commands":first_action_commands,"failures":failures,"blocker_summary":"; ".join(failures) if failures else "No first-contact blockers found.","receipt_sha256":""}
-    payload["receipt_sha256"]=hashlib.sha256(json.dumps({k:v for k,v in payload.items() if k!='receipt_sha256'},sort_keys=True).encode()).hexdigest()
-    _write_json_if_allowed(args.out,payload,args.no_write)
-    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {args.out}")
-    return 0 if not failures or not args.strict else 1
-
-
-def result_command(args):
-    """Create and validate canonical AgentPress result bundles."""
-    if args.result_cmd == "init":
-        payload={"schema_version":"2026-05-05.agentpress-result.v1","kind":args.kind,"claim":args.claim or f"AgentPress {args.kind} result","environment":{"generated_utc":_utc_now(),"agent_id":args.agent_id,"runtime":args.runtime},"steps":[],"artifacts":[],"hashes":{},"redactions":[],"repro_command":args.repro_command or "","review_state":"draft","agent_identity":{"agent_id":args.agent_id,"runtime":args.runtime}}
-        _write_json_if_allowed(args.out,payload,args.no_write)
-        print(json.dumps({"status":"ok","out":args.out,"kind":args.kind},indent=2) if args.json else args.out); return 0
-    if args.result_cmd == "add-file":
-        p=pathlib.Path(args.file); errors=[]
-        if not p.exists(): errors.append(f"missing file: {p}")
-        secret_pat=re.compile(r"(secret|token|api[_-]?key|credential|\.env)",re.I)
-        if secret_pat.search(p.name) and not args.redacted: errors.append("secret-looking path requires --redacted")
-        artifact={"path":str(p),"role":args.role,"redacted":bool(args.redacted)}
-        if p.exists():
-            b=p.read_bytes(); artifact.update({"bytes":len(b),"sha256":hashlib.sha256(b).hexdigest()})
-        print(json.dumps({"status":"ok" if not errors else "fail","artifact":artifact,"errors":errors},indent=2) if args.json else ("ok" if not errors else "fail"))
-        return 0 if not errors else 1
-    if args.result_cmd == "finalize":
-        artifacts=[]; errors=[]
-        for fp in args.file or []:
-            p=pathlib.Path(fp); redacted=bool(args.redacted)
-            if re.search(r"(secret|token|api[_-]?key|credential|\.env)",p.name,re.I) and not redacted: errors.append(f"secret-looking path requires redaction: {p}")
-            if not p.exists(): errors.append(f"missing artifact: {p}"); continue
-            b=p.read_bytes(); artifacts.append({"path":str(p),"role":"evidence","bytes":len(b),"sha256":hashlib.sha256(b).hexdigest(),"redacted":redacted})
-        payload={"schema_version":"2026-05-05.agentpress-result.v1","kind":args.kind,"claim":args.claim,"environment":{"generated_utc":_utc_now(),"agent_id":args.agent_id,"runtime":args.runtime},"steps":[{"command":c} for c in (args.step or [])],"artifacts":artifacts,"hashes":{a['path']:a['sha256'] for a in artifacts},"redactions":[a['path'] for a in artifacts if a.get('redacted')],"repro_command":args.repro_command,"review_state":"ready_for_review" if not errors else "blocked","agent_identity":{"agent_id":args.agent_id,"runtime":args.runtime},"errors":errors}
-        _write_json_if_allowed(args.out,payload,args.no_write)
-        if args.markdown:
-            md=pathlib.Path(args.markdown); md.parent.mkdir(parents=True,exist_ok=True); md.write_text(f"# AgentPress result: {args.kind}\n\nStatus: {payload['review_state']}\n\nClaim: {args.claim}\n\nArtifacts: {len(artifacts)}\n",encoding="utf-8")
-        print(json.dumps({"status":"ok" if not errors else "fail","out":args.out,"artifact_count":len(artifacts),"errors":errors},indent=2) if args.json else args.out)
-        return 0 if not errors else 1
-    if args.result_cmd == "validate":
-        errors=[]
-        try: data=json.loads(pathlib.Path(args.path).read_text(encoding="utf-8"))
-        except Exception as e: data={}; errors.append(f"parse failed: {e}")
-        for k in ["schema_version","kind","claim","environment","steps","artifacts","hashes","repro_command","review_state","agent_identity"]:
-            if k not in data: errors.append(f"missing {k}")
-        if data.get("kind") not in {"proof","bug","patch","eval","blocker"}: errors.append("invalid kind")
-        for i,a in enumerate(data.get("artifacts",[]) if isinstance(data.get("artifacts"),list) else []):
-            if not a.get("sha256"): errors.append(f"artifacts[{i}] missing sha256")
-            if re.search(r"(secret|token|api[_-]?key|credential|\.env)",pathlib.Path(a.get("path","")).name,re.I) and not a.get("redacted"): errors.append(f"artifacts[{i}] secret-looking path without redacted=true")
-        status="ok" if not errors else "fail"
-        print(json.dumps({"status":status,"errors":errors},indent=2) if args.json else status)
-        return 0 if not errors else 1
-    raise SystemExit("unknown result subcommand")
-
-
-def compat_smoke(args):
-    target=args.target
-    adapter_dir=pathlib.Path("agentpress/adapters/native")/target
-    checks=[]
-    def add(name, ok, detail=""):
-        checks.append({"name":name,"status":"pass" if ok else "fail","detail":detail})
-    if target in {"cline","roo","openhands","mcp"}:
-        configs=[p for p in adapter_dir.glob("*.json") if p.name not in {"proof-receipt.example.json","host-transcript.template.json"}] if adapter_dir.exists() else []
-        add("native_config", bool(configs), str(adapter_dir))
-        add("proof_receipt_example", (adapter_dir/"proof-receipt.example.json").exists(), str(adapter_dir/"proof-receipt.example.json"))
-        add("host_transcript_template", (adapter_dir/"host-transcript.template.json").exists(), str(adapter_dir/"host-transcript.template.json"))
-        if configs:
-            try:
-                data=json.loads(configs[0].read_text(encoding="utf-8"))
-                add("install_command", bool(data.get("install_command")))
-                add("config_snippet", bool(data.get("required_agentpress_surfaces")))
-                add("proof_command", bool(data.get("proof_receipt_example")))
-                add("safety_policy", "safety" in data or "approval" in json.dumps(data).lower())
-                add("result_submission_compatible", True, "use agentpress result finalize --file <proof-receipt>")
-            except Exception as e: add("config_parse", False, str(e))
-    else:
-        checks.append({"name":"runtime_support","status":"unsupported","detail":"no native smoke implemented yet"})
-    failed=[c for c in checks if c["status"]=="fail"]
-    payload={"schema_version":"2026-05-05.agentpress-compat-smoke.v1","generated_utc":_utc_now(),"target":target,"status":"ok" if not failed else "fail","checks":checks,"unsupported_checks":[c for c in checks if c['status']=='unsupported'],"remediation":["run native-adapter-kit for target","add proof receipt and host transcript templates","validate with agentpress result finalize"],"receipt_path":args.out}
-    _write_json_if_allowed(args.out,payload,args.no_write)
-    print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {target}")
-    return 0 if not failed else 1
-
 def task_quality_eval(args):
     """Generate task-quality eval suite for AgentPress docs, tools, and proof flows."""
     outdir=pathlib.Path(args.out); base=args.base_url.rstrip()+"/"; outdir.mkdir(parents=True,exist_ok=True)
@@ -8843,15 +6941,13 @@ def native_adapter_kit(args):
 def native_adapter_check(args):
     root=pathlib.Path(args.dir); errors=[]; checked=0; targets=[]
     required_targets=["cline","roo","openhands","mcp","langchain","llamaindex","crewai"]
-    proof_required_targets={"cline","roo","openhands","mcp"}
-    proof_required_fields=["agent_id","runtime","service_id","capability_id","commands_run","artifacts","result_status","redaction_attestation"]
     if not root.exists():
         errors.append(f"adapter root missing: {root}")
     for target in required_targets:
         d=root/target
         if not d.exists() or not d.is_dir():
             errors.append(f"{target}: missing adapter dir"); continue
-        files=[p for p in d.glob("*.json") if p.name not in {"proof-receipt.example.json", "host-transcript.template.json"}]
+        files=list(d.glob("*.json"))
         if not files: errors.append(f"{target}: missing json config"); continue
         target_ok=True
         for f in files:
@@ -8866,18 +6962,6 @@ def native_adapter_check(args):
                     errors.append(f"{f}: required_agentpress_surfaces must be non-empty list/dict"); target_ok=False
                 if not isinstance(data.get("smoke_commands"), list) or not data.get("smoke_commands"):
                     errors.append(f"{f}: smoke_commands must be non-empty list"); target_ok=False
-                if target in proof_required_targets:
-                    for key in ["proof_receipt_example","host_transcript_template","proof_receipt_required_fields"]:
-                        if key not in data: errors.append(f"{f}: missing {key}"); target_ok=False
-                    if data.get("proof_receipt_required_fields") != proof_required_fields:
-                        errors.append(f"{f}: proof_receipt_required_fields mismatch"); target_ok=False
-                    for key in ["proof_receipt_example","host_transcript_template"]:
-                        value=data.get(key,"")
-                        if not isinstance(value,str) or not value.startswith("https://barneywohl.github.io/agentpress/"):
-                            errors.append(f"{f}: {key} must be canonical AgentPress URL"); target_ok=False
-                        else:
-                            local=pathlib.Path(value.replace("https://barneywohl.github.io/agentpress/", "", 1))
-                            if not local.exists(): errors.append(f"{f}: missing {key} file {local}"); target_ok=False
                 surface_values=list(surfaces.values()) if isinstance(surfaces,dict) else (surfaces if isinstance(surfaces,list) else [])
                 for rel in surface_values:
                     if isinstance(rel,str) and rel.startswith("agentpress/") and not pathlib.Path(rel).exists(): errors.append(f"{f}: missing surface {rel}"); target_ok=False
@@ -9179,10 +7263,10 @@ def mcp_catalog_export(args):
             "requires_human_approval":["external_write","payment","credential_access","production_change"],
             "source_tool_manifest":urljoin(base,args.tools)
         })
-    payload={"schema_version":"2026-05-03.agentpress-mcp-static-catalog.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Static MCP-style tool discovery export: command templates and resource references for MCP/Cline/Roo/Claude/Codex-style agents, not a live stdio/SSE server.","transport":"static_json_catalog","server_name":"agentpress-static-tools","mcp_alignment":{"resources":[{"uri":"agentpress://tools","url":urljoin(base,args.tools)},{"uri":"agentpress://community-radar","url":urljoin(base,"agentpress/community/community-radar.json")},{"uri":"agentpress://marketplace","url":urljoin(base,"agentpress/marketplace/marketplace-index.json")}],"tools_are_command_templates":True,"live_mcp_server":"not_implemented_static_catalog_only","roadmap_command":"agentpress mcp-serve (roadmap; not available in this release)","server_transport":"none_static_json_only"},"tool_count":len(entries),"tools":entries,"safety":{"default_external_side_effects":"none","no_credentials_required_for_read":"true","approval_required_for":["external writes","payments","credential access","production mutations"]}}
+    payload={"schema_version":"2026-05-03.agentpress-mcp-static-catalog.v1","canonical_url":urljoin(base,out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Static MCP-compatible tool discovery export so MCP/Cline/Roo/Claude/Codex-style agents can discover AgentPress capabilities without a live server.","transport":"static_json_catalog","server_name":"agentpress-static-tools","mcp_alignment":{"resources":[{"uri":"agentpress://tools","url":urljoin(base,args.tools)},{"uri":"agentpress://community-radar","url":urljoin(base,"agentpress/community/community-radar.json")},{"uri":"agentpress://marketplace","url":urljoin(base,"agentpress/marketplace/marketplace-index.json")}],"tools_are_command_templates":True,"live_mcp_server":"not_required_for_static_discovery"},"tool_count":len(entries),"tools":entries,"safety":{"default_external_side_effects":"none","no_credentials_required_for_read":"true","approval_required_for":["external writes","payments","credential access","production mutations"]}}
     if not args.no_write:
         out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
-        (out.parent/"README.md").write_text("# AgentPress MCP Static Catalog\n\nStatic MCP-style export for agents that discover tools through catalogs instead of prose.\n\n```bash\npython3 scripts/agentpress.py mcp-catalog-export --json\n```\n\nThis is read-only/static discovery; it does not start a server or grant credentials.\n\n## Does this start a live MCP server?\n\nNo. This directory is a static contract/reference surface: JSON resources, command templates, side-effect notes, and approval boundaries that MCP-style agents can ingest. It does not open stdio/SSE, mutate MCP host config, grant credentials, or register tools dynamically.\n\nRoadmap: `agentpress mcp-serve` may become a real local MCP server in a future release. Until that command exists and is documented with tests, describe AgentPress as **static MCP-style discovery**, not a live MCP server.\n",encoding="utf-8")
+        (out.parent/"README.md").write_text("# AgentPress MCP Static Catalog\n\nStatic MCP-style export for agents that discover tools through catalogs instead of prose.\n\n```bash\npython3 scripts/agentpress.py mcp-catalog-export --json\n```\n\nThis is read-only/static discovery; it does not start a server or grant credentials.\n",encoding="utf-8")
     print(json.dumps(payload,indent=2) if args.json else f"{payload['status']} {payload['tool_count']} tools")
     return 0
 
@@ -9288,22 +7372,11 @@ def freshness_citation_report(args):
     citation_count=sum(1 for f in files if f["has_citation_signal"])
     canonical_count=sum(1 for f in machine if f["has_canonical_url"])
     stale_or_unknown=[f for f in machine if not f.get("generated_utc") and not f.get("has_canonical_url")][:100]
-    coverage={"citation_signal_ratio":round(citation_count/max(1,len(files)),4),"canonical_json_ratio":round(canonical_count/max(1,len(machine)),4)}
-    findings=[]
-    min_citation=getattr(args,"min_citation_ratio",0.0)
-    min_canonical=getattr(args,"min_canonical_json_ratio",0.0)
-    max_unknown=getattr(args,"max_unknown_machine",None)
-    if coverage["citation_signal_ratio"] < min_citation:
-        findings.append({"code":"citation_ratio_below_threshold","actual":coverage["citation_signal_ratio"],"minimum":min_citation,"fix":"Add citation/source/freshness signals to high-value public surfaces or lower the explicit threshold."})
-    if coverage["canonical_json_ratio"] < min_canonical:
-        findings.append({"code":"canonical_json_ratio_below_threshold","actual":coverage["canonical_json_ratio"],"minimum":min_canonical,"fix":"Add canonical_url fields to machine JSON surfaces that are intended for public crawling."})
-    if max_unknown is not None and len(stale_or_unknown) > max_unknown:
-        findings.append({"code":"unknown_machine_count_above_threshold","actual":len(stale_or_unknown),"maximum":max_unknown,"fix":"Add generated_utc or canonical_url to unknown machine JSON surfaces, or explicitly exclude non-public fixtures."})
-    payload={"schema_version":"2026-05-03.agentpress-freshness-citation-report.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok" if not findings else "fail","purpose":"Help RAG/crawler agents identify source, citation, canonical URL, and freshness coverage across AgentPress surfaces.","summary":{"file_count":len(files),"machine_json_count":len(machine),"citation_signal_count":citation_count,"canonical_json_count":canonical_count,"unknown_machine_count":len(stale_or_unknown)},"coverage":coverage,"thresholds":{"min_citation_ratio":min_citation,"min_canonical_json_ratio":min_canonical,"max_unknown_machine":max_unknown},"findings":findings,"unknown_machine_files":stale_or_unknown,"files":files if args.include_files else []}
+    payload={"schema_version":"2026-05-03.agentpress-freshness-citation-report.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Help RAG/crawler agents identify source, citation, canonical URL, and freshness coverage across AgentPress surfaces.","summary":{"file_count":len(files),"machine_json_count":len(machine),"citation_signal_count":citation_count,"canonical_json_count":canonical_count,"unknown_machine_count":len(stale_or_unknown)},"coverage":{"citation_signal_ratio":round(citation_count/max(1,len(files)),4),"canonical_json_ratio":round(canonical_count/max(1,len(machine)),4)},"unknown_machine_files":stale_or_unknown,"files":files if args.include_files else []}
     if not args.no_write:
         out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
-    print(json.dumps(payload, indent=2) if args.json else f"files={len(files)} unknown={len(stale_or_unknown)} status={payload['status']}")
-    return 1 if getattr(args,"strict",False) and findings else 0
+    print(json.dumps(payload, indent=2) if args.json else f"files={len(files)} unknown={len(stale_or_unknown)}")
+    return 0
 
 def browser_smoke(args):
     """Smoke-check public AgentPress URLs and write evidence for agents/browser crawlers."""
@@ -9833,13 +7906,11 @@ def queue_adapter_kit(args):
     retry={"schema_version":"2026-05-03.agentpress-retry-policy.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", (outdir/"retry-policy.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","policy":{"max_attempts":5,"backoff_seconds":[30,120,300,900,1800],"dead_letter_after_attempt":5,"claim_lease_seconds":600,"idempotency_required":True,"retryable_errors":["timeout","rate_limit","transient_network","worker_unavailable"],"non_retryable_errors":["invalid_schema","privacy_violation","unauthorized_external_write","missing_required_approval"]}}
     example={"schema_version":"2026-05-03.agentpress-queue-message.v1","message_id":"qmsg-example","created_utc":_utc_now(),"producer_agent_id":"agentpress-reference-agent","consumer_agent_id":"","capability":"validate_agentpress_bundle","task":"Validate and score an AgentPress bundle","status":"queued","attempt":0,"max_attempts":5,"idempotency_key":"validate_agentpress_bundle:qmsg-example","lease_expires_utc":"","payload":{"command":"python3 scripts/agentpress.py verify agentpress/examples/api-docs-handoff --json"},"privacy":"No secrets/private prompts/personal telemetry."}
     health={"schema_version":"2026-05-03.agentpress-queue-health.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", (outdir/"queue-health.example.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","queue":"static_local_example","counts":{"queued":1,"claimed":0,"completed":0,"failed":0,"dead_letter":0},"oldest_queued_seconds":0,"retry_policy":"agentpress/queue/retry-policy.json"}
-    inbox_adapter={"schema_version":"2026-05-05.agentpress-static-inbox-queue-adapter.v1","generated_utc":_utc_now(),"status":"ok","adapter":"static_inbox_filesystem","maps":{"queued":"agents/<agent>/inbox/pending/*.json","claimed":"agents/<agent>/inbox/claimed/*.json","completed":"agents/<agent>/inbox/completed/*.json","receipts":"receipts/*-result-receipt.json"},"commands":{"init":"python3 scripts/agentpress.py message inbox-init --dir agent-comms","register":"python3 scripts/agentpress.py message register --agent-id worker --capabilities validate_agentpress_bundle --dir agent-comms","send":"python3 scripts/agentpress.py message send --to worker --request request.json --dir agent-comms","claim":"python3 scripts/agentpress.py message claim --agent-id worker --message-id <delivery-id> --dir agent-comms","complete":"python3 scripts/agentpress.py message complete --agent-id worker --message-id <delivery-id> --response response.json --dir agent-comms"},"receipt_policy":"complete writes a message-result-receipt by default"}
-    confidential_adapter={"schema_version":"2026-05-05.agentpress-confidential-queue-adapter.v1","generated_utc":_utc_now(),"status":"ok","adapter":"metadata_only_confidential_envelope","rules":["store body_sha256 and redacted_preview only","never store plaintext in public queue files","validate plaintext_stored=false before route","use external approved encrypted transport for payload bytes"],"send_command":"python3 scripts/agentpress.py message send --to worker --request request.json --confidential-envelope envelope.json --dir agent-comms","verify_command":"python3 scripts/agentpress.py confidential-message-verify envelope.json --json"}
-    manifest={"schema_version":"2026-05-03.agentpress-queue-adapter-kit.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", (outdir/"manifest.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give workflow agents durable handoff semantics: queue schema, retry policy, idempotency, lease, health, dead-letter model, static inbox adapter, confidential metadata adapter, and result receipt flow.","files":["queue-message-schema.json","retry-policy.json","queue-message.example.json","queue-health.example.json","static-inbox-adapter.json","confidential-queue-adapter.json"],"safety":"Static/local adapter first; no broker credentials, no external queue writes; confidential adapter stores metadata only."}
-    files={"queue-message-schema.json":schema,"retry-policy.json":retry,"queue-message.example.json":example,"queue-health.example.json":health,"static-inbox-adapter.json":inbox_adapter,"confidential-queue-adapter.json":confidential_adapter,"manifest.json":manifest}
+    manifest={"schema_version":"2026-05-03.agentpress-queue-adapter-kit.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", (outdir/"manifest.json").as_posix()),"generated_utc":_utc_now(),"status":"ok","purpose":"Give workflow agents durable handoff semantics: queue schema, retry policy, idempotency, lease, health, and dead-letter model.","files":["queue-message-schema.json","retry-policy.json","queue-message.example.json","queue-health.example.json"],"safety":"Static/local adapter first; no broker credentials, no external queue writes."}
+    files={"queue-message-schema.json":schema,"retry-policy.json":retry,"queue-message.example.json":example,"queue-health.example.json":health,"manifest.json":manifest}
     if not args.no_write:
         for name,data in files.items(): (outdir/name).write_text(json.dumps(data, indent=2)+"\n", encoding="utf-8")
-        (outdir/"README.md").write_text("""# AgentPress Queue Adapter Kit\n\nStatic/local durable queue adapter contract for workflow agents.\n\n```bash\npython3 scripts/agentpress.py queue-adapter-kit --json\n```\n\nIncludes message schema, retry/backoff policy, idempotency key rules, health export, dead-letter semantics, static inbox command mapping, confidential-envelope routing, and result receipts. No external broker write is performed.\n""", encoding="utf-8")
+        (outdir/"README.md").write_text("""# AgentPress Queue Adapter Kit\n\nStatic/local durable queue adapter contract for workflow agents.\n\n```bash\npython3 scripts/agentpress.py queue-adapter-kit --json\n```\n\nIncludes message schema, retry/backoff policy, idempotency key rules, health export, and dead-letter semantics. No external broker write is performed.\n""", encoding="utf-8")
     print(json.dumps(manifest, indent=2) if args.json else outdir.as_posix())
     return 0
 
@@ -9858,18 +7929,186 @@ def marketplace_compare(args):
         if q and q not in hay: continue
         pricing=svc.get("pricing",{}) or {}; trust=svc.get("trust",{}) or {}; sla=svc.get("sla",{}) or {}
         payment_required=bool(pricing.get("payment_required"))
+        quoted_amount=0.0 if not payment_required else float(args.max_amount or 0.0)
+        over_budget=payment_required and args.budget_cap is not None and quoted_amount > float(args.budget_cap)
         trust_score={"reference":40,"verified":35,"provisional":20}.get(str(trust.get("tier","")).lower(),10)
-        price_score=30 if not payment_required else (10 if args.allow_paid_quotes else 0)
+        price_score=30 if not payment_required else (10 if args.allow_paid_quotes and not over_budget else 0)
         sla_score=20 if sla.get("status") else 5
         evidence_score=min(10, len(trust.get("evidence",[]) or [])*2)
         total=trust_score+price_score+sla_score+evidence_score
-        rows.append({"service_id":svc.get("service_id"),"title":svc.get("title"),"capabilities":svc.get("capabilities",[]),"command":svc.get("command"),"pricing":pricing,"sla":sla,"trust":trust,"quote_simulation":{"status":"quote_only_no_spend","payment_required":payment_required,"allowed_without_approval":not payment_required,"max_amount":0 if not payment_required else args.max_amount,"currency":pricing.get("currency","USD"),"blocked_actions":["sign_payment","submit_payment","call_paid_endpoint"] if payment_required else []},"score":total,"why":["matches requested capability" if q else "included by default", "free/no-spend" if not payment_required else "paid quote only", f"trust tier {trust.get('tier','unknown')}"]})
+        quote_status="over_budget_blocked" if over_budget else "quote_only_no_spend"
+        rows.append({"service_id":svc.get("service_id"),"title":svc.get("title"),"capabilities":svc.get("capabilities",[]),"command":svc.get("command"),"pricing":pricing,"sla":sla,"trust":trust,"quote_simulation":{"status":quote_status,"payment_required":payment_required,"allowed_without_approval":not payment_required and not over_budget,"quoted_amount":quoted_amount,"budget_cap":args.budget_cap,"within_budget":not over_budget,"currency":pricing.get("currency","USD"),"blocked_actions":["sign_payment","submit_payment","call_paid_endpoint"] if payment_required else []},"approval_checklist":{"provider_selected":True,"budget_cap_checked":args.budget_cap is not None,"quote_simulated_no_spend":True,"trust_evidence_present":bool(trust.get("evidence")),"proof_receipt_required_before_fulfillment":True,"human_approval_required_before_real_payment":payment_required},"score":total,"why":["matches requested capability" if q else "included by default", "free/no-spend" if not payment_required else "paid quote only", "within budget" if not over_budget else "over budget blocked", f"trust tier {trust.get('tier','unknown')}"]})
     rows=sorted(rows, key=lambda r:(-r["score"], r["service_id"] or ""))
-    payload={"schema_version":"2026-05-03.agentpress-marketplace-compare.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","query":{"capability":args.capability,"allow_paid_quotes":args.allow_paid_quotes,"max_amount":args.max_amount},"result_count":len(rows),"best_service":rows[0] if rows else {},"services":rows,"safety":"No spend, no wallet, no paid endpoint call. This is quote/routing simulation only."}
+    payload={"schema_version":"2026-05-06.agentpress-marketplace-compare.v2","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","query":{"capability":args.capability,"allow_paid_quotes":args.allow_paid_quotes,"max_amount":args.max_amount,"budget_cap":args.budget_cap},"result_count":len(rows),"best_service":rows[0] if rows else {},"services":rows,"fulfillment_next_step":"python3 scripts/agentpress.py marketplace-fulfill --quote %s --proof <proof-receipt.json> --json" % out.as_posix(),"safety":"No spend, no wallet, no paid endpoint call. This is quote/routing simulation only; real payments require separate human approval."}
     if not args.no_write:
         out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
     print(json.dumps(payload, indent=2) if args.json else f"results={len(rows)}")
     return 0 if rows else 1
+
+
+def marketplace_fulfill(args):
+    """Create a local proof-gated marketplace fulfillment receipt without spending."""
+    root=pathlib.Path(args.root); out=pathlib.Path(args.out); quote_path=root/args.quote; proof_path=root/args.proof
+    if not quote_path.exists():
+        print(json.dumps({"status":"blocked","reason":"missing_quote","quote":str(quote_path)}), file=sys.stderr); return 1
+    if not proof_path.exists():
+        print(json.dumps({"status":"blocked","reason":"missing_proof_receipt","proof":str(proof_path),"required":"Provide a local proof receipt/artifact before fulfillment."}), file=sys.stderr); return 1
+    quote=json.loads(quote_path.read_text(encoding="utf-8")); proof_text=proof_path.read_text(encoding="utf-8")
+    services=quote.get("services", [])
+    selected=next((s for s in services if s.get("service_id")==args.service_id), None) if args.service_id else quote.get("best_service")
+    if not selected:
+        print(json.dumps({"status":"blocked","reason":"service_not_found","service_id":args.service_id}), file=sys.stderr); return 1
+    qsim=selected.get("quote_simulation",{}) or {}; checklist=selected.get("approval_checklist",{}) or {}
+    real_payment_block=bool(qsim.get("payment_required")) or not qsim.get("within_budget", True)
+    checklist_result={
+        "provider_comparison_present": len(services) > 0,
+        "provider_selected": bool(selected.get("service_id")),
+        "budget_cap_checked": checklist.get("budget_cap_checked") is True,
+        "quote_simulated_no_spend": qsim.get("status") in {"quote_only_no_spend","over_budget_blocked"},
+        "proof_receipt_present": proof_path.exists() and proof_path.stat().st_size > 0,
+        "real_payment_authorized": False,
+    }
+    status="blocked_real_payment_requires_human_approval" if real_payment_block else "fulfilled_local_no_spend"
+    payload={"schema_version":"2026-05-06.agentpress-marketplace-fulfillment.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":status,"selected_service":selected,"quote_file":args.quote,"proof_file":args.proof,"proof_sha256":hashlib.sha256(proof_text.encode()).hexdigest(),"approval_checklist":checklist_result,"payment":{"attempted":False,"authorized":False,"live_payment_executed":False,"blocked_actions":["sign_payment","submit_payment","call_paid_endpoint"],"human_approval_required_before_real_payment":True},"fulfillment":{"mode":"local_metadata_receipt_only","command_not_executed":selected.get("command"),"result":"Proof gate satisfied; local fulfillment receipt created without external side effects." if status=="fulfilled_local_no_spend" else "Real/over-budget payment path blocked before fulfillment."}}
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else status)
+    return 0 if status=="fulfilled_local_no_spend" else 1
+
+
+def agent_deal_room(args):
+    """Build a single no-spend deal-room JSON tying discovery, comms, quote, approval, and proof."""
+    root = pathlib.Path(args.root)
+    out = pathlib.Path(args.out)
+    base = args.base_url.rstrip("/") + "/"
+    capability = args.capability
+    task = args.task
+
+    # Discovery: reuse local marketplace data if present; otherwise generate it safely.
+    marketplace_path = root / "agentpress/marketplace/marketplace-index.json"
+    if not marketplace_path.exists():
+        marketplace_index(argparse.Namespace(root=str(root), out=str(marketplace_path), base_url=base, capability=None, runtime=None, payment_required=None, no_write=False, json=False))
+    marketplace = json.loads(marketplace_path.read_text(encoding="utf-8"))
+    candidates = []
+    for svc in marketplace.get("services", []):
+        hay = " ".join([svc.get("service_id", ""), svc.get("title", ""), " ".join(svc.get("capabilities", []) or []), svc.get("command", "")]).lower()
+        if capability.lower() in hay:
+            candidates.append(svc)
+    if not candidates:
+        candidates = marketplace.get("services", [])[:1]
+    provider = next((svc for svc in candidates if svc.get("service_id") == args.provider_service_id), None) if args.provider_service_id else (candidates[0] if candidates else {})
+    pricing = provider.get("pricing", {}) or {}
+    payment_required = bool(pricing.get("payment_required"))
+    requested_amount = float(args.max_amount or 0)
+    budget_cap = float(args.budget_cap) if args.budget_cap is not None else requested_amount
+    over_budget = requested_amount > budget_cap
+
+    deal_id = args.deal_id or _short_id("deal")
+    thread_id = _short_id("thread")
+    request_id = _short_id("req")
+    quote_id = _short_id("quote")
+    intent_id = _short_id("pay-intent")
+    approval_id = _short_id("approval")
+    proof_id = _short_id("proof")
+    completion_id = _short_id("completion")
+    now = _utc_now()
+
+    request = {
+        "message_id": request_id,
+        "thread_id": thread_id,
+        "from_agent": args.requester_id,
+        "to_agent": args.provider_id,
+        "type": "deal_room_request",
+        "capability": capability,
+        "task": task,
+        "allowed_actions": ["local_metadata_generation", "local_proof_capture", "quote_simulation"],
+        "prohibited_actions": ["external_send", "sign_payment", "submit_payment", "call_paid_endpoint"],
+    }
+    provider_quote = {
+        "quote_id": quote_id,
+        "provider_service_id": provider.get("service_id", args.provider_id),
+        "provider_agent_id": args.provider_id,
+        "status": "quote_only_no_spend" if not over_budget else "blocked_over_budget",
+        "amount": str(requested_amount),
+        "currency": pricing.get("currency", args.currency),
+        "payment_required": payment_required,
+        "budget_cap": str(budget_cap),
+        "within_budget": not over_budget,
+        "terms": "Fake provider quote for local deal-room rehearsal only; no external send and no spend.",
+    }
+    payment_intent_payload = {
+        "schema_version": "2026-05-03.agentpress-payment-intent.v1",
+        "intent_id": intent_id,
+        "created_utc": now,
+        "capability_id": capability,
+        "status": "blocked_pending_authorization" if payment_required or over_budget else "quote_only",
+        "payment_required": payment_required,
+        "authorization_required": True,
+        "requested_by": {"type": "agent", "id": args.requester_id},
+        "budget": {"max_amount": str(requested_amount), "currency": args.currency, "max_per_request": str(requested_amount), "expires_utc": args.expires_utc},
+        "prohibited_fields": ["private_key", "seed_phrase", "wallet_secret", "facilitator_api_key", "bearer_token"],
+        "notes": "Unsigned quote/payment intent only. Deal-room command never signs, submits, or settles payment.",
+    }
+    approval = {
+        "approval_id": approval_id,
+        "status": "approved_for_local_fake_flow_only" if not over_budget else "blocked_over_budget",
+        "scope": ["select_provider", "accept_no_spend_quote", "create_local_completion_proof"],
+        "not_approved": ["real_payment", "wallet_use", "external_message_send", "production_fulfillment"],
+        "checks": {
+            "marketplace_candidates_present": bool(candidates),
+            "provider_selected": bool(provider),
+            "quote_is_no_spend": True,
+            "budget_checked": True,
+            "real_payment_authorized": False,
+            "external_send_authorized": False,
+        },
+    }
+    proof = {
+        "proof_id": proof_id,
+        "status": "captured_local_fake_proof",
+        "artifact_type": "deal_room_completion_proof",
+        "content": args.proof_text,
+        "sha256": hashlib.sha256(args.proof_text.encode("utf-8")).hexdigest(),
+    }
+    completion = {
+        "completion_id": completion_id,
+        "from_agent": args.provider_id,
+        "to_agent": args.requester_id,
+        "status": "completed_local_fake_flow" if approval["status"].startswith("approved") else "blocked",
+        "proof_id": proof_id,
+        "result_summary": "Requester discovered provider, exchanged local messages, received a no-spend quote/payment intent, passed local approval gate, and attached completion proof.",
+    }
+    payload = {
+        "schema_version": "2026-05-06.agentpress-deal-room.v1",
+        "canonical_url": urljoin(base, out.as_posix()),
+        "generated_utc": now,
+        "deal_id": deal_id,
+        "status": completion["status"],
+        "safety": {
+            "live_payment_executed": False,
+            "external_message_sent": False,
+            "network_side_effects": False,
+            "spend_authorized": False,
+            "mode": "local_fake_requester_provider_flow",
+        },
+        "requester": {"agent_id": args.requester_id},
+        "provider": {"agent_id": args.provider_id, "selected_service": provider},
+        "marketplace": {"source": str(marketplace_path), "candidate_count": len(candidates), "selected_service_id": provider.get("service_id")},
+        "thread": {"thread_id": thread_id, "messages": [request, {"message_id": _short_id("msg"), "thread_id": thread_id, "from_agent": args.provider_id, "to_agent": args.requester_id, "type": "deal_room_quote", "quote_id": quote_id}, {"message_id": _short_id("msg"), "thread_id": thread_id, "from_agent": args.requester_id, "to_agent": args.provider_id, "type": "deal_room_approval", "approval_id": approval_id}, {"message_id": _short_id("msg"), "thread_id": thread_id, "from_agent": args.provider_id, "to_agent": args.requester_id, "type": "deal_room_completion", "completion_id": completion_id}]},
+        "quote": provider_quote,
+        "payment_intent": payment_intent_payload,
+        "approval": approval,
+        "proof": proof,
+        "completion": completion,
+        "replay_commands": [
+            f"python3 scripts/agentpress.py deal-room --capability {shlex.quote(capability)} --task {shlex.quote(task)} --requester-id {shlex.quote(args.requester_id)} --provider-id {shlex.quote(args.provider_id)} --max-amount {shlex.quote(str(args.max_amount))} --budget-cap {shlex.quote(str(budget_cap))} --out {shlex.quote(out.as_posix())} --json"
+        ],
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else f"{payload['status']} {deal_id}")
+    return 0 if payload["status"] == "completed_local_fake_flow" else 1
 
 def marketplace_trust(args):
     """Score marketplace services using available proof/reputation/payment signals."""
@@ -9888,15 +8127,11 @@ def marketplace_trust(args):
         score=20
         if svc.get("command"): score+=15
         if svc.get("capabilities"): score+=10
-        pricing = svc.get("pricing", {}) or {}
-        trust = svc.get("trust", {}) or {}
-        payment_required = svc.get("payment_required") if "payment_required" in svc else pricing.get("payment_required")
-        trust_evidence = svc.get("trust_evidence") or trust.get("evidence")
-        if payment_required is False: score+=10
-        if trust_evidence: score+=15
+        if svc.get("payment_required") is False: score+=10
+        if svc.get("trust_evidence"): score+=15
         if proof_count: score+=5
         tier="high" if score>=65 else "medium" if score>=45 else "low"
-        rows.append({"service_id":svc.get("service_id") or svc.get("id") or slugify(svc.get("name","service")),"name":svc.get("name") or svc.get("title", ""),"score":score,"tier":tier,"signals":{"has_command":bool(svc.get("command")),"has_capabilities":bool(svc.get("capabilities")),"free_first":payment_required is False,"has_trust_evidence":bool(trust_evidence),"external_proof_count":proof_count}})
+        rows.append({"service_id":svc.get("service_id") or svc.get("id") or slugify(svc.get("name","service")),"name":svc.get("name",""),"score":score,"tier":tier,"signals":{"has_command":bool(svc.get("command")),"has_capabilities":bool(svc.get("capabilities")),"free_first":svc.get("payment_required") is False,"has_trust_evidence":bool(svc.get("trust_evidence")),"external_proof_count":proof_count}})
     payload={"schema_version":"2026-05-03.agentpress-marketplace-trust-index.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":"ok","service_count":len(rows),"services":sorted(rows,key=lambda r:r["score"],reverse=True),"scoring_note":"Static heuristic. External proof/reputation receipts should progressively replace self-claimed trust evidence."}
     if not args.no_write:
         out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
@@ -10647,86 +8882,6 @@ def adoption_status(args):
     print(json.dumps(payload, indent=2) if args.json else status)
     return 0 if status == 'ok' or args.allow_needs_attention else 1
 
-
-def adoption_fixpack(args):
-    """Generate a copy-paste first-contact fix pack from local adoption evidence."""
-    root = pathlib.Path(args.root)
-    out = pathlib.Path(args.out)
-    base = args.base_url.rstrip('/') + '/'
-    errors = []
-
-    def load(rel, default):
-        path = root / rel
-        if not path.exists():
-            return default, f"missing:{rel}"
-        try:
-            return json.loads(path.read_text(encoding='utf-8')), ''
-        except Exception as e:
-            return default, f"parse_fail:{rel}:{e}"
-
-    adoption, adoption_err = load(args.adoption_status, {})
-    docs, docs_err = load(args.docs_check, {})
-    lint, lint_err = load(args.lint_result, {})
-    for err in [adoption_err, docs_err, lint_err]:
-        if err:
-            errors.append(err)
-
-    metrics = adoption.get('metrics', {}) if isinstance(adoption, dict) else {}
-    docs_failures = []
-    if isinstance(docs, dict):
-        docs_failures = [c for c in docs.get('checks', []) if c.get('status') not in {None, 'ok', 'pass'}]
-    lint_findings = []
-    if isinstance(lint, dict):
-        lint_findings = [f for f in lint.get('findings', []) if f.get('severity') in {'error', 'warning'}]
-
-    blockers = []
-    if metrics.get('third_party_receipts', 0) == 0:
-        blockers.append({'id': 'no_third_party_receipts', 'severity': 'P0', 'fix': 'Run landing-receipt and submission-pack from one clean external runtime.'})
-    if metrics.get('install_lanes_live', 0) == 0:
-        blockers.append({'id': 'no_live_install_lane', 'severity': 'P1', 'fix': 'Keep npm/pip/source install commands adjacent in README.md and llms.txt; do not publish registries without approval.'})
-    if docs_failures:
-        blockers.append({'id': 'docs_command_failures', 'severity': 'P1', 'fix': 'Repair commands that docs-command-check cannot parse or replay.'})
-    if any(f.get('severity') == 'error' for f in lint_findings):
-        blockers.append({'id': 'lint_errors', 'severity': 'P1', 'fix': 'Fix missing/invalid first-contact entrypoints before external proof requests.'})
-    if not blockers:
-        blockers.append({'id': 'ready_for_external_proof', 'severity': 'P2', 'fix': 'Run one clean first-contact proof and collect a privacy-safe receipt.'})
-
-    commands = [
-        'python3 scripts/agentpress.py doctor --json',
-        'python3 scripts/agentpress.py first-run-wizard --json',
-        'python3 scripts/agentpress.py landing-receipt --agent-id <agent-id> --runtime <runtime> --discovery-channel adoption-fixpack --out /tmp/<agent-id>-landing.json --json',
-        'python3 scripts/agentpress.py self-test --agent-id <agent-id> --out /tmp/<agent-id>-self-test.jsonl',
-        'python3 scripts/agentpress.py submission-pack --receipt /tmp/<agent-id>-landing.json --out /tmp/<agent-id>-submission --json',
-    ]
-    payload = {
-        'schema_version': '2026-05-04.agentpress-adoption-fixpack.v1',
-        'canonical_url': urljoin(base, (out / 'adoption-fixpack.json').as_posix() if out.suffix == '' else out.as_posix()),
-        'generated_utc': _utc_now(),
-        'status': 'ready' if not any(b['severity'] == 'P0' for b in blockers) else 'needs_external_proof',
-        'purpose': 'Turn local adoption evidence into a copy-paste first-contact fix pack for one outside agent, without hidden telemetry or external posting.',
-        'inputs': {'root': str(root), 'adoption_status': args.adoption_status, 'docs_check': args.docs_check, 'lint_result': args.lint_result},
-        'privacy': {'hidden_telemetry': False, 'external_posts': False, 'local_files_only': True, 'redact_before_submission': True},
-        'metrics': metrics,
-        'blockers': blockers,
-        'commands': commands,
-        'acceptance_gates': ['doctor returns ok', 'landing receipt has no secrets/private prompts', 'submission pack exists', 'human approves any external post or PR'],
-        'errors': errors,
-    }
-    readme = '# AgentPress Adoption Fix Pack\n\n' + payload['purpose'] + '\n\n## Run this first\n\n```bash\n' + '\n'.join(commands) + '\n```\n\n## Blockers\n\n' + '\n'.join(f"- {b['severity']} `{b['id']}`: {b['fix']}" for b in blockers) + '\n\n## Safety\n\nNo hidden telemetry. Do not post externally or publish packages without separate human approval.\n'
-    prompt = 'You are testing AgentPress as an outside agent. Read llms.txt, run doctor, create a landing receipt, run self-test, and return the submission-pack path plus any blocker. Do not include secrets or private prompts.\n'
-    if not args.no_write:
-        if out.suffix:
-            out.parent.mkdir(parents=True, exist_ok=True)
-            out.write_text(json.dumps(payload, indent=2) + '\n', encoding='utf-8')
-        else:
-            out.mkdir(parents=True, exist_ok=True)
-            (out / 'adoption-fixpack.json').write_text(json.dumps(payload, indent=2) + '\n', encoding='utf-8')
-            (out / 'RUN_THIS_FIRST.md').write_text(readme, encoding='utf-8')
-            (out / 'copy-paste-agent-prompt.md').write_text(prompt, encoding='utf-8')
-            (out / 'commands.sh').write_text('#!/bin/sh\nset -eu\n' + '\n'.join(commands).replace('<agent-id>', 'agentpress-smoke').replace('<runtime>', 'unknown') + '\n', encoding='utf-8')
-    print(json.dumps(payload, indent=2) if args.json else payload['status'])
-    return 0
-
 def feedback_submit(args):
     """Emit or validate a deterministic AgentPress feedback response."""
     template_path = pathlib.Path(args.template)
@@ -10782,171 +8937,6 @@ def feedback_submit(args):
     return 0 if not errors else 1
 
 
-def painpoint_map(args):
-    """Emit the ranked current agent painpoints and target feature map."""
-    root = pathlib.Path(getattr(args, "root", ".") or ".")
-    out = pathlib.Path(args.out)
-    base = args.base_url.rstrip("/") + "/"
-    payload = {
-        "schema_version": "2026-05-05.agentpress-painpoint-map.v1",
-        "canonical_url": urljoin(base, out.as_posix()),
-        "generated_utc": _utc_now(),
-        "mission_id": getattr(args, "mission_id", "") or "",
-        "status": "ok",
-        "purpose": "Rank the biggest current agent pain points and map each to concrete AgentPress features agents can run or verify.",
-        "root": str(root),
-        "ranked_painpoints": AGENT_PAINPOINT_MAP,
-        "feature_backlog": _painpoint_backlog(),
-        "shipped_this_sprint": SPRINT_SHIPPED_FEATURES,
-        "safe_scope": {
-            "package_publish": False,
-            "external_posts": False,
-            "secrets_required": False,
-            "nexio_prod_or_mainnet": False,
-        },
-        "first_actions": _ranked_first_actions(root),
-        "version_channel": _version_channel_info(),
-        "blocked_or_deferred": [
-            {
-                "id": "live_package_publish",
-                "reason": "No npm/PyPI publish approval; package labels stay local rc/dry-run only.",
-            },
-            {
-                "id": "external_adapter_submissions",
-                "reason": "Requires manual outreach/submission approval; local adapter packs are safe, external posting is deferred.",
-            },
-            {
-                "id": "signed_manifest",
-                "reason": "Requires approved signing key ownership and rotation policy; hash manifests remain safe now.",
-            },
-        ],
-    }
-    if not args.no_write:
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps(payload, indent=2) if args.json else payload["status"])
-    return 0
-
-
-
-def start(args):
-    """Print the shortest safe first-user path."""
-    root = pathlib.Path(getattr(args, "root", ".") or ".")
-    root_arg = shlex.quote(str(root))
-    payload = {
-        "schema_version": "2026-05-05.agentpress-start.v2",
-        "status": "ok",
-        "purpose": "Concise first-user path for agents/users who should not scan the full command catalog first.",
-        "commands": [
-            {
-                "step": 1,
-                "name": "doctor",
-                "command": f"python3 scripts/agentpress.py doctor {root_arg} --json",
-                "why": "Detect existing AgentPress surfaces and emit machine-readable next_steps.",
-            },
-            {
-                "step": 2,
-                "name": "llms-init",
-                "command": f"python3 scripts/agentpress.py llms-init {root_arg} --json",
-                "why": "Create the minimal llms.txt + discovery manifest when a repo has no agent-readable entrypoint.",
-            },
-            {
-                "step": 3,
-                "name": "first-run-wizard",
-                "command": f"python3 scripts/agentpress.py first-run-wizard {root_arg} --json",
-                "why": "Produce exact_next_command, proof command, blockers, and safety boundaries.",
-            },
-        ],
-        "ranked_first_actions": _ranked_first_actions(root),
-        "version_channel": _version_channel_info(),
-        "painpoint_map_command": "python3 scripts/agentpress.py painpoint-map --json",
-        "safety": {
-            "external_writes": False,
-            "secrets_required": False,
-            "destructive_actions": False,
-            "note": "Do not publish, post, mutate MCP config, or access secrets without explicit human approval.",
-        },
-        "if_python_missing": "Use `npx @agent_press/agentpress start` for the Node shim's no-Python guidance, then install Python >=3.10 before running full CLI commands.",
-    }
-    if getattr(args, "json", False):
-        print(json.dumps(payload, indent=2))
-    else:
-        print("AgentPress start: run these three commands first")
-        for cmd in payload["commands"]:
-            print(f"{cmd['step']}. {cmd['command']}  # {cmd['why']}")
-        print(f"Version channel: {payload['version_channel']['channel']} (registry stable latest not asserted)")
-        print("Safety: local-only; no external writes or secrets.")
-    return 0
-
-
-def llms_init(args):
-    """Create minimal AgentPress first-contact surfaces without duplicating the full wizard."""
-    root = pathlib.Path(args.root)
-    guard_findings = _secret_path_guard(root)
-    if guard_findings:
-        payload = {
-            "schema_version": "2026-05-05.agentpress-llms-init.v1",
-            "status": "fail",
-            "root": str(root),
-            "checked": ["secret_path_guard"],
-            "written": [],
-            "skipped": [],
-            "errors": ["Refusing to read or write a secret-bearing path. Choose the public project root instead."],
-            "security_guard": guard_findings[0],
-            "no_write": bool(getattr(args, "no_write", False)),
-        }
-        print(json.dumps(payload, indent=2) if getattr(args, "json", False) else "AgentPress llms-init: refused sensitive path")
-        return 1
-    title = getattr(args, "title", None) or root.resolve().name or "AgentPress project"
-    base_url = (getattr(args, "base_url", None) or "").rstrip("/") + "/" if getattr(args, "base_url", None) else ""
-    force = bool(getattr(args, "force", False))
-    no_write = bool(getattr(args, "no_write", False))
-    files = {
-        "llms.txt": f"""# {title}\n# llms.txt - agent-readable repo surface\n\n## AgentPress quick start\n\nThis repository exposes a minimal agent-readable surface. Start with:\n\n```bash\nagentpress doctor . --json\nagentpress first-run-wizard . --json\n```\n\n## Safe operating boundary\n\n- Read and summarize public repository files.\n- Do not access secrets, credentials, private data, payments, or external posting flows without explicit human approval.\n- Prefer machine-readable JSON outputs and attach command evidence when reporting blockers.\n""",
-        ".well-known/agentpress.json": json.dumps({
-            "schema_version": "2026-05-05.agentpress-minimal-entrypoint.v1",
-            "name": title,
-            "status": "minimal",
-            "canonical_url": base_url,
-            "entrypoints": ["llms.txt", ".well-known/agentpress.json"],
-            "commands": {
-                "doctor": "agentpress doctor . --json",
-                "start": "agentpress start --json",
-                "first_run_wizard": "agentpress first-run-wizard . --json",
-            },
-            "safety": {"external_writes": False, "secrets_required": False, "human_approval_required_for_mutations": True},
-        }, indent=2) + "\n",
-    }
-    written = []
-    skipped = []
-    for rel, text in files.items():
-        path = root / rel
-        if path.exists() and not force:
-            skipped.append({"path": rel, "reason": "exists; pass --force to overwrite"})
-            continue
-        if not no_write:
-            write(path, text)
-        written.append(rel)
-    payload = {
-        "schema_version": "2026-05-05.agentpress-llms-init.v1",
-        "status": "ok" if not skipped else "partial",
-        "root": str(root),
-        "title": title,
-        "written": written,
-        "skipped": skipped,
-        "next_steps": [
-            {"command": f"agentpress doctor {shlex.quote(str(root))} --json", "why": "Verify the new minimal surface."},
-            {"command": f"agentpress first-run-wizard {shlex.quote(str(root))} --json", "why": "Generate a first-run plan and proof command."},
-        ],
-        "no_write": no_write,
-    }
-    if getattr(args, "json", False):
-        print(json.dumps(payload, indent=2))
-    else:
-        print(f"AgentPress llms-init: {payload['status']} written={written} skipped={len(skipped)}")
-    return 0
-
-
 def consistency_check(args):
     """Check that first-contact machine surfaces point to the same core contracts."""
     root=pathlib.Path(args.root)
@@ -10972,27 +8962,446 @@ def consistency_check(args):
     print(json.dumps(payload, indent=2) if args.json else payload['status'])
     return 0 if not errors else 1
 
+def mission_broker_scope_preflight(args):
+    from mission_broker_scope_guard import SCHEMA_VERSION, run_preflight
+    payload = {
+        "schema_version": SCHEMA_VERSION,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "records": [run_preflight(args.candidate, args.tasks, fixture_name=args.fixture_name or None)],
+        "integration_point": "Mission Engine pre-enqueue hook for AgentPress-tagged fanout tasks",
+    }
+    if args.out:
+        out = pathlib.Path(args.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["records"][0]["action"])
+    return 0 if payload["records"][0].get("ok_to_enqueue") else 1
+
+
+def _local_package_info() -> dict:
+    """Return local package identity/version fields for first-run evidence."""
+    package_json = pathlib.Path(__file__).resolve().parents[1] / "package.json"
+    try:
+        pkg = json.loads(package_json.read_text(encoding="utf-8"))
+    except Exception:
+        pkg = {}
+    return {
+        "npm_package": pkg.get("name", "@agent_press/agentpress"),
+        "npm_version": pkg.get("version", "unknown"),
+    }
+
+
+def start(args):
+    """Emit first-run onboarding evidence for agents and humans."""
+    copy_paste_block = "\n".join([
+        "agentpress start --json",
+        "agentpress doctor --json",
+        "agentpress package-verify --json",
+    ])
+    success_criteria = [
+        {"step": 1, "name": "start", "proves": "CLI entrypoint runs", "check": "exit code 0"},
+        {"step": 2, "name": "doctor", "proves": "Health check passes", "check": "exit code 0"},
+        {"step": 3, "name": "package-verify", "proves": "Package integrity verified", "check": "exit code 0"},
+    ]
+    payload = {
+        "schema_version": "2026-05-06.agentpress-start.v1",
+        "status": "ok",
+        "generated_utc": _utc_now(),
+        "copy_paste_block": copy_paste_block,
+        "success_criteria": success_criteria,
+        **_local_package_info(),
+    }
+    if args.json:
+        print(json.dumps(payload, indent=2))
+    else:
+        print("copy_paste_block: " + copy_paste_block)
+        for criterion in success_criteria:
+            print(f"  - {criterion['step']}: {criterion['name']} — {criterion['check']}")
+    return 0
+
+
+def _publish_candidate_sha256(path: pathlib.Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _publish_candidate_git(root: pathlib.Path, git_args: list[str]) -> list[str]:
+    try:
+        proc = subprocess.run(
+            ["git", *git_args],
+            cwd=str(root),
+            text=True,
+            capture_output=True,
+            timeout=15,
+            check=False,
+        )
+    except Exception:
+        return []
+    if proc.returncode != 0:
+        return []
+    return [line for line in proc.stdout.splitlines() if line.strip()]
+
+
+def publish_candidate(args):
+    """Build a local-only publish candidate review bundle."""
+    root = pathlib.Path(args.root).expanduser().resolve()
+    out = pathlib.Path(args.out).expanduser()
+    if not out.is_absolute():
+        out = root / out
+    out = out.resolve()
+    generated_at = datetime.now(timezone.utc).isoformat()
+    package_path = root / "package.json"
+    package = {}
+    if package_path.exists():
+        try:
+            package = json.loads(package_path.read_text(encoding="utf-8"))
+        except Exception:
+            package = {}
+    candidate = {
+        "schema_version": "2026-05-06.agentpress.publish-candidate.v1",
+        "candidate_id": args.candidate_id or f"agentpress-publish-candidate-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}",
+        "generated_at": generated_at,
+        "package": {"name": package.get("name", "unknown"), "version": package.get("version", "unknown")},
+        "root": str(root),
+        "out": str(out),
+        "external_publish": False,
+        "external_actions_performed": [],
+    }
+    changed = _publish_candidate_git(root, ["status", "--short"])
+    recent_commits = _publish_candidate_git(root, ["log", "--oneline", "-n", str(args.max_commits)])
+    tracked_docs = [
+        "agentpress/PUBLISH_CANDIDATE_BUILDER.md",
+        "agentpress/QUICKSTART.md",
+        "agentpress/RELEASE_NOTES.md",
+        "README.md",
+        "package.json",
+        "bin/agentpress.js",
+        "scripts/agentpress.py",
+    ]
+    proof_entries = []
+    for rel in tracked_docs:
+        p = root / rel
+        if p.exists():
+            proof_entries.append({
+                "path": rel,
+                "bytes": p.stat().st_size,
+                "sha256": _publish_candidate_sha256(p),
+                "evidence_type": "local_file",
+            })
+    changelog_md = "\n".join([
+        f"# Publish Candidate Changelog: {candidate['candidate_id']}",
+        "",
+        f"Generated: `{generated_at}`",
+        f"Package: `{candidate['package']['name']}@{candidate['package']['version']}`",
+        "",
+        "## Candidate changes",
+        *(f"- `{line}`" for line in (changed or ["No git working-tree changes detected."])),
+        "",
+        "## Recent commits",
+        *(f"- {line}" for line in (recent_commits or ["No git commit history available."])),
+        "",
+        "## Publish boundary",
+        "- Local review bundle only.",
+        "- No npm/PyPI/GitHub release publish was attempted.",
+    ]) + "\n"
+    checklist = [
+        {"id": "local_bundle_created", "required": True, "text": "Review bundle exists locally and contains changelog, proof index, approval checklist, and manifest."},
+        {"id": "json_output_captured", "required": True, "text": "`agentpress publish-candidate --json` output was captured and parsed successfully."},
+        {"id": "no_external_publish", "required": True, "text": "No external publish, registry upload, git push, or release creation was performed."},
+        {"id": "changelog_reviewed", "required": True, "text": "Reviewer inspected `CHANGELOG.md` for intended candidate scope."},
+        {"id": "proof_index_reviewed", "required": True, "text": "Reviewer inspected `proof-index.json` hashes and local evidence paths."},
+        {"id": "approval_owner_named", "required": True, "text": "A human/operator approval owner is named before any future external publish."},
+        {"id": "release_gate_green", "required": True, "text": "Package validation/test gates are green or explicitly waived with rationale before external publish."},
+    ]
+    manifest = {
+        **candidate,
+        "artifacts": {
+            "changelog": str(out / "CHANGELOG.md"),
+            "changelog_json": str(out / "changelog.json"),
+            "proof_index": str(out / "proof-index.json"),
+            "approval_checklist": str(out / "approval-checklist.json"),
+            "manifest": str(out / "publish-candidate.json"),
+        },
+        "changed_files": changed,
+        "recent_commits": recent_commits,
+        "review_checklist": checklist,
+    }
+    if not getattr(args, "no_write", False):
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "CHANGELOG.md").write_text(changelog_md, encoding="utf-8")
+        (out / "changelog.json").write_text(json.dumps({"candidate": candidate, "changed_files": changed, "recent_commits": recent_commits}, indent=2) + "\n", encoding="utf-8")
+        (out / "proof-index.json").write_text(json.dumps({"candidate": candidate, "proofs": proof_entries}, indent=2) + "\n", encoding="utf-8")
+        (out / "approval-checklist.json").write_text(json.dumps({"candidate": candidate, "checklist": checklist}, indent=2) + "\n", encoding="utf-8")
+        (out / "publish-candidate.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    if args.json:
+        print(json.dumps(manifest, indent=2))
+    else:
+        print(f"publish candidate review bundle: {out}")
+    return 0
+
+
+def _eval_harness_load_fixture(fixture: str) -> tuple[pathlib.Path, dict]:
+    """Load an AgentPress eval-harness fixture from a path or bundled fixture name."""
+    raw = pathlib.Path(fixture)
+    candidates = [raw]
+    if not raw.suffix:
+        base = pathlib.Path("agentpress/evals/eval-harness/fixtures")
+        candidates.extend([base / f"{fixture}.json", base / fixture / "fixture.json"])
+    for candidate in candidates:
+        if candidate.exists():
+            try:
+                return candidate, json.loads(candidate.read_text(encoding="utf-8"))
+            except json.JSONDecodeError as exc:
+                raise SystemExit(f"Invalid eval fixture JSON at {candidate}: {exc}")
+    raise SystemExit(f"Eval fixture not found: {fixture}")
+
+
+def _eval_harness_path_get(document: dict, dotted_path: str):
+    current = document
+    for part in dotted_path.split(".") if dotted_path else []:
+        if isinstance(current, dict) and part in current:
+            current = current[part]
+        elif isinstance(current, list) and part.isdigit() and int(part) < len(current):
+            current = current[int(part)]
+        else:
+            return None
+    return current
+
+
+def _eval_harness_check(assertion: dict, output: dict) -> dict:
+    path = assertion.get("path", "")
+    op = assertion.get("op", "equals")
+    expected = assertion.get("expected")
+    actual = _eval_harness_path_get(output, path)
+    passed = False
+    if op == "equals":
+        passed = actual == expected
+    elif op == "not_empty":
+        passed = actual not in (None, "", [], {})
+    elif op == "contains":
+        passed = isinstance(actual, (str, list)) and expected in actual
+    elif op == "min":
+        passed = isinstance(actual, (int, float)) and actual >= expected
+    elif op == "max":
+        passed = isinstance(actual, (int, float)) and actual <= expected
+    elif op == "in":
+        passed = actual in (expected or [])
+    elif op == "regex":
+        passed = isinstance(actual, str) and re.search(str(expected), actual) is not None
+    else:
+        return {"id": assertion.get("id", path or "assertion"), "status": "fail", "path": path, "op": op, "expected": expected, "actual": actual, "error": f"unsupported op: {op}"}
+    return {"id": assertion.get("id", path or "assertion"), "status": "pass" if passed else "fail", "path": path, "op": op, "expected": expected, "actual": actual}
+
+
+def eval_harness(args):
+    if args.eval_harness_cmd != "run":
+        raise SystemExit("Unsupported eval-harness command")
+    fixture_path, fixture = _eval_harness_load_fixture(args.fixture)
+    required_flow = ["docs_target", "glm_material_kit", "launchpad", "task_execution", "proof_score"]
+    flow = fixture.get("flow", {})
+    flow_checks = [
+        {"id": f"flow.{key}", "status": "pass" if flow.get(key) else "fail", "required": True, "value": flow.get(key)}
+        for key in required_flow
+    ]
+    agent_output = fixture.get("agent_output", {})
+    assertion_results = [_eval_harness_check(a, agent_output) for a in fixture.get("assertions", [])]
+    all_checks = flow_checks + assertion_results
+    passed = sum(1 for check in all_checks if check.get("status") == "pass")
+    failed = len(all_checks) - passed
+    proof_score = round((passed / len(all_checks)) * 100, 2) if all_checks else 0.0
+    min_score = float(fixture.get("min_proof_score", 100))
+    status = "pass" if failed == 0 and proof_score >= min_score else "fail"
+    report = {
+        "schema_version": "2026-05-06.agentpress-eval-harness-result.v1",
+        "status": status,
+        "fixture": {"name": fixture.get("name", fixture_path.stem), "path": str(fixture_path)},
+        "flow": {
+            "required": required_flow,
+            "checks": flow_checks,
+            "description": "docs target -> GLM/material kit -> launchpad -> task execution fixture -> proof score",
+        },
+        "assertions": assertion_results,
+        "proof_score": proof_score,
+        "min_proof_score": min_score,
+        "summary": {"passed": passed, "failed": failed, "total": len(all_checks)},
+    }
+    if args.json:
+        print(json.dumps(report, indent=2))
+    else:
+        print(f"eval-harness {status}: {fixture.get('name', fixture_path.stem)} proof_score={proof_score} failed={failed}")
+    return 0 if status == "pass" else 1
+
+
+LIFECYCLE_GAP_STAGES = {
+    "discover": {
+        "intent": "Find AgentPress entrypoints, registries, routes, and searchable assets without reading prose first.",
+        "commands": ["discover", "fetch", "search", "index-search", "agent-route", "tools-manifest", "tools-manifest-check"],
+        "required_any": ["discover"],
+    },
+    "bootstrap": {
+        "intent": "Get a new agent from zero context to a verified local first run.",
+        "commands": ["quickstart", "first-user-bootstrap", "first-run-wizard", "install-script", "package-registry-fallback-installer", "runtime-install-doctor", "agent-onboard"],
+        "required_any": ["quickstart", "first-user-bootstrap"],
+    },
+    "request": {
+        "intent": "Create, route, validate, and submit work requests or tool-gap requests.",
+        "commands": ["message create-request", "message route", "message validate", "tool-request", "proof-request-pack", "transport-request", "blocker-report"],
+        "required_any": ["message create-request", "tool-request"],
+    },
+    "quote": {
+        "intent": "Preflight price/permission terms before an agent starts work or installs a package.",
+        "commands": ["payment-status", "payment-intent", "marketplace-compare", "package-registry-plan", "package-registry-doctor"],
+        "required_any": ["payment-intent"],
+        "expected_missing": ["quote-create", "quote-accept"],
+    },
+    "execute": {
+        "intent": "Run accepted work locally, in batch, or through marketplace/queue adapters with guardrails.",
+        "commands": ["batch-run", "marketplace-fulfill", "self-test", "host-run-harness", "mission-cockpit", "sandbox-guard", "external-action-gate"],
+        "required_any": ["batch-run", "marketplace-fulfill", "self-test"],
+    },
+    "proof": {
+        "intent": "Capture receipts, validate proof, ingest external proof, and expose proof queues.",
+        "commands": ["proof-capture", "proof-ingest", "proof-ingest-review", "proof-receipt-verify", "proof-scoreboard", "proof-request-queue", "landing-receipt", "receipt-create", "receipt-validate"],
+        "required_any": ["proof-capture", "proof-ingest"],
+    },
+    "reputation": {
+        "intent": "Turn proof and validation receipts into score/index artifacts agents can use for trust decisions.",
+        "commands": ["reputation-index", "reputation score", "reputation index", "trust-tier-evaluate", "scoped-trust-report", "marketplace-trust"],
+        "required_any": ["reputation-index", "reputation score"],
+    },
+    "package": {
+        "intent": "Build, verify, index, and install offline or registry-distributed AgentPress packages.",
+        "commands": ["package", "package-verify", "package-index", "release-index", "package-manager-bridge", "package-registry-skeleton", "package-registry-dry-run"],
+        "required_any": ["package", "package-verify"],
+    },
+}
+
+
+def _agentpress_cli_source_text(root: pathlib.Path) -> str:
+    candidates = [root / "scripts" / "agentpress.py", pathlib.Path(__file__).resolve()]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate.read_text(encoding="utf-8")
+    return ""
+
+
+def _lifecycle_command_implemented(command: str, source_text: str) -> bool:
+    parts = command.split()
+    if not parts:
+        return False
+    main_cmd = parts[0]
+    main_decl = f'add_parser("{main_cmd}"' in source_text or f"add_parser('{main_cmd}'" in source_text
+    main_dispatch = (
+        f'args.cmd == "{main_cmd}"' in source_text or
+        f"args.cmd == '{main_cmd}'" in source_text or
+        ("args.cmd in" in source_text and (f'"{main_cmd}"' in source_text or f"'{main_cmd}'" in source_text))
+    )
+    if len(parts) == 1:
+        return main_decl and main_dispatch
+    nested = parts[1]
+    nested_decl = (
+        f'add_parser("{nested}"' in source_text or
+        f"add_parser('{nested}'" in source_text or
+        f'"{nested}"' in source_text or
+        f"'{nested}'" in source_text
+    )
+    nested_dispatch = (
+        f'== "{nested}"' in source_text or f"== '{nested}'" in source_text or
+        f'in ["{nested}"' in source_text or f"in ['{nested}'" in source_text or
+        f'in {{"{nested}"' in source_text or f"in {{'{nested}'" in source_text
+    )
+    return main_decl and main_dispatch and nested_decl and nested_dispatch
+
+
+def lifecycle_gap_verifier(args):
+    root = pathlib.Path(args.root)
+    source_text = _agentpress_cli_source_text(root)
+    stages = {}
+    blockers = []
+    required_names = set(args.required_stage or [])
+    for stage, spec in LIFECYCLE_GAP_STAGES.items():
+        command_rows = []
+        for command in spec["commands"]:
+            implemented = _lifecycle_command_implemented(command, source_text)
+            command_rows.append({"command": command, "implemented": implemented})
+        required_any = spec.get("required_any", [])
+        required_any_met = any(_lifecycle_command_implemented(command, source_text) for command in required_any)
+        missing_expected = [command for command in spec.get("expected_missing", []) if not _lifecycle_command_implemented(command, source_text)]
+        stage_blockers = []
+        if not required_any_met:
+            stage_blockers.append({
+                "id": f"{stage}_no_acceptance_command",
+                "severity": "P0" if stage in required_names else "P1",
+                "summary": f"No acceptance-driving command found for lifecycle stage '{stage}'.",
+                "required_any": required_any,
+            })
+        for command in missing_expected:
+            stage_blockers.append({
+                "id": f"{stage}_{command.replace('-', '_')}_missing",
+                "severity": "P1",
+                "summary": f"Expected explicit lifecycle command is missing: {command}.",
+                "suggested_command": command,
+            })
+        blockers.extend({"stage": stage, **blocker} for blocker in stage_blockers)
+        stages[stage] = {
+            "intent": spec["intent"],
+            "commands": command_rows,
+            "required_any": required_any,
+            "required_any_met": required_any_met,
+            "blockers": stage_blockers,
+            "acceptance": {
+                "gate": "required_any_met and no P0 blockers for this stage",
+                "status": "pass" if required_any_met and not any(b["severity"] == "P0" for b in stage_blockers) else "fail",
+            },
+        }
+    status = "pass" if not any(b["severity"] == "P0" for b in blockers) else "fail"
+    payload = {
+        "schema_version": "2026-05-06.agentpress-lifecycle-gap-verifier.v1",
+        "status": status,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "root": str(root),
+        "lifecycle_order": list(LIFECYCLE_GAP_STAGES.keys()),
+        "stages": stages,
+        "blockers": blockers,
+        "summary": {
+            "stage_count": len(stages),
+            "implemented_command_count": sum(1 for s in stages.values() for c in s["commands"] if c["implemented"]),
+            "blocker_count": len(blockers),
+            "p0_blocker_count": sum(1 for b in blockers if b["severity"] == "P0"),
+        },
+    }
+    if not args.no_write:
+        out = pathlib.Path(args.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    if args.json:
+        print(json.dumps(payload, indent=2))
+    else:
+        print(f"lifecycle-gap-verifier {status}: blockers={len(blockers)} out={args.out if not args.no_write else 'not-written'}")
+    return 1 if args.strict and blockers else 0
+
+
 def main():
-    if len(sys.argv) == 2 and sys.argv[1] in {"--help", "-h", "help"}:
-        print("AgentPress — agent-readable repo surfaces")
-        print("\nStart here (fresh-user path):")
-        print("  python3 scripts/agentpress.py start --json")
-        print("  python3 scripts/agentpress.py painpoint-map --json")
-        print("  python3 scripts/agentpress.py doctor . --json")
-        print("  python3 scripts/agentpress.py llms-init . --json")
-        print("  python3 scripts/agentpress.py first-run-wizard . --json")
-        print("\nCommon next commands:")
-        print("  python3 scripts/agentpress.py verify <dir> --json")
-        print("  python3 scripts/agentpress.py self-test --agent-id local-agent --out /tmp/agentpress-self-test.jsonl")
-        print("\nUse `python3 scripts/agentpress.py <command> --help` for command-specific options.")
-        return 0
-    ap = argparse.ArgumentParser(add_help=True)
+    dry_run_requested = "--dry-run" in sys.argv[1:]
+    argv = [arg for arg in sys.argv[1:] if arg != "--dry-run"]
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dry-run", action="store_true", help="Preview supported write commands without writing (also AGENTPRESS_DRY_RUN=1).")
     sub = ap.add_subparsers(dest="cmd", required=True)
-    p = sub.add_parser("start", aliases=["help-start"]); p.add_argument("root", nargs="?", default="."); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("painpoint-map"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/planning/current-agent-painpoint-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--mission-id", default=""); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("llms-init"); p.add_argument("root", nargs="?", default="."); p.add_argument("--title"); p.add_argument("--base-url", default=""); p.add_argument("--force", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("init"); p.add_argument("out"); p.add_argument("--title", required=True); p.add_argument("--canonical"); p.add_argument("--summary"); p.add_argument("--primary-task"); p.add_argument("--task-type", default="agent_native_publication")
-    p = sub.add_parser("validate"); p.add_argument("out"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("start"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("eval-harness", help="Run Agent-facing deterministic eval fixtures."); eh = p.add_subparsers(dest="eval_harness_cmd", required=True)
+    q = eh.add_parser("run"); q.add_argument("--fixture", required=True); q.add_argument("--json", action="store_true")
+    p = sub.add_parser("lifecycle-gap-verifier", help="Map lifecycle stages to implemented CLI commands and acceptance blockers."); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/diagnostics/lifecycle-gap-verifier.json"); p.add_argument("--required-stage", action="append", choices=list(LIFECYCLE_GAP_STAGES.keys())); p.add_argument("--no-write", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("publish-candidate", help="Build a local-only publish candidate review bundle."); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="dist/publish-candidate"); p.add_argument("--candidate-id"); p.add_argument("--max-commits", type=int, default=20); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("init"); p.add_argument("out"); p.add_argument("--title", required=True); p.add_argument("--canonical"); p.add_argument("--summary"); p.add_argument("--primary-task"); p.add_argument("--task-type", default="agent_native_publication"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("validate"); p.add_argument("out"); p.add_argument("--json", action="store_true"); p.add_argument("--persist", action="store_true", help="Persist successful validation as proof feedback"); p.add_argument("--feedback", default="", help="Feedback JSONL path for --persist"); p.add_argument("--source", default="agentpress-validate"); p.add_argument("--rating", type=int, default=5)
+    p = sub.add_parser("material-kit-validate"); p.add_argument("path"); p.add_argument("--allow-non-glm", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("kit-build-spec"); p.add_argument("--batch-spec", default=""); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("kit"); p.add_argument("kit_cmd", choices=["validate", "search"]); p.add_argument("path", nargs="?"); p.add_argument("query", nargs="*"); p.add_argument("--index", default="agentpress/public-material-kits/index.json"); p.add_argument("--root", default="agentpress/material-kits"); p.add_argument("--limit", type=int, default=20); p.add_argument("--allow-non-glm", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("feedback"); p.add_argument("--type", required=True); p.add_argument("--source", required=True); p.add_argument("--rating", type=int, required=True); p.add_argument("--evidence", required=True); p.add_argument("--target", default=""); p.add_argument("--agent-id", default=""); p.add_argument("--task-id", default=""); p.add_argument("--context", default=""); p.add_argument("--out", default="agentpress/feedback/feedback.jsonl"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("rank"); p.add_argument("--feedback", default="agentpress/feedback/feedback.jsonl"); p.add_argument("--out", default="agentpress/feedback/ranking.json"); p.add_argument("--min-entries", type=int, default=1); p.add_argument("--json", action="store_true")
     p = sub.add_parser("audit"); p.add_argument("out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("verify"); p.add_argument("out", nargs="?", default="."); p.add_argument("--strict-schema", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("schema"); p.add_argument("name", nargs="?"); p.add_argument("--json", action="store_true")
@@ -11007,7 +9416,6 @@ def main():
     p = sub.add_parser("feedback-submit"); p.add_argument("--example", action="store_true"); p.add_argument("--input"); p.add_argument("--template", default="agentpress/feedback/response-template.json"); p.add_argument("--rubric", default="agentpress/feedback/scoring-rubric.json"); p.add_argument("--agent-id"); p.add_argument("--agent-family", default="codex"); p.add_argument("--runtime-or-model"); p.add_argument("--target-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("consistency-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--json", action="store_true")
     p = sub.add_parser("adoption-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true"); p.add_argument("--allow-needs-attention", action="store_true")
-    p = sub.add_parser("adoption-fixpack"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/adoption/fixpack"); p.add_argument("--adoption-status", default="agentpress/adoption/adoption-status.json"); p.add_argument("--docs-check", default="agentpress/evidence/docs-command-check.json"); p.add_argument("--lint-result", default="agentpress/evidence/agentpress-lint.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("payment-status"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("payment-intent"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability-id", required=True); p.add_argument("--agent-id", required=True); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("painpoint-intake"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/painpoint-intake"); p.add_argument("--out", default="agentpress/painpoint-intake/painpoint-intake-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
@@ -11021,20 +9429,13 @@ def main():
     p = sub.add_parser("external-reply-to-proof-ingest-bridge"); p.add_argument("--out", default="agentpress/proof/external-reply-to-proof-ingest-bridge.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("issue-comment-pack-generator"); p.add_argument("--out", default="agentpress/outreach/issue-comment-pack-generator.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("issue-to-repro-pack"); p.add_argument("--issue-url", default=""); p.add_argument("--host", default="cline"); p.add_argument("--provider", default="unknown_provider"); p.add_argument("--tool", default="unknown_tool"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/repro/issue-to-repro-pack-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("issue-to-kit"); p.add_argument("--issue-url", default=""); p.add_argument("--title", default=""); p.add_argument("--body", default=""); p.add_argument("--host", default="unknown_host"); p.add_argument("--provider", default="unknown_provider"); p.add_argument("--tool", default="unknown_tool"); p.add_argument("--error", default=""); p.add_argument("--log", default=""); p.add_argument("--checkpoint", default=""); p.add_argument("--out", default="agentpress/repro-kits/issue-to-kit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("painpoint-target-pack"); p.add_argument("--issue-url", default=""); p.add_argument("--painpoint", default=""); p.add_argument("--host", default="unknown_host"); p.add_argument("--provider", default="unknown_provider"); p.add_argument("--tool", default="unknown_tool"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/outreach/painpoint-target-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("mcp-config-mutation-guard"); p.add_argument("--config-path", default="cline_mcp_settings.json"); p.add_argument("--config-exists", action="store_true"); p.add_argument("--before-sha256", default=""); p.add_argument("--after-sha256", default=""); p.add_argument("--existing-servers", default=""); p.add_argument("--planned-servers", default=""); p.add_argument("--planned-config", default=""); p.add_argument("--allowed-mutations", default=""); p.add_argument("--backup", action="store_true"); p.add_argument("--backup-dir", default=".agentpress-backups"); p.add_argument("--restore", default=""); p.add_argument("--apply-restore", action="store_true"); p.add_argument("--apply", action="store_true"); p.add_argument("--out", default="agentpress/security/mcp-config-mutation-guard-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("safety-preflight"); p.add_argument("root", nargs="?", default="."); p.add_argument("--manifest", default=""); p.add_argument("--tool-manifest", default=""); p.add_argument("--redaction-path", default=""); p.add_argument("--max-redaction-files", type=int, default=200); p.add_argument("--max-redaction-chars", type=int, default=200000); p.add_argument("--out", default="agentpress/security/safety-preflight.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("context-budget"); p.add_argument("root", nargs="?", default="."); p.add_argument("--max-files", type=int, default=200); p.add_argument("--max-bytes", type=int, default=1000000); p.add_argument("--max-chars", type=int, default=200000); p.add_argument("--source-map", default="source-map.json"); p.add_argument("--freshness", default="freshness.json"); p.add_argument("--no-require-source-map", dest="require_source_map", action="store_false"); p.set_defaults(require_source_map=True); p.add_argument("--out", default="agentpress/context/context-budget.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("mcp-config-doctor"); p.add_argument("--config", default=""); p.add_argument("--out", default="agentpress/security/mcp-config-doctor-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("continuous-research-build-cycle-audit"); p.add_argument("--out", default="agentpress/audits/continuous-research-build-cycle-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("current-agent-places-map"); p.add_argument("--out", default="agentpress/community/current-agent-places-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("attention-painpoint-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/attention-painpoint-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("first-agent-attention-kit"); p.add_argument("--out", default="agentpress/outreach/first-agent-attention-kit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("gorilla-utility-pack"); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("gorilla-action-safety-gate"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/growth/gorilla-utility-pack/execution-queue.json"); p.add_argument("--action-json", default=""); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack/external-action-safety-gate.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("gorilla-approval-packets"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/growth/gorilla-utility-pack/execution-queue.json"); p.add_argument("--safety", default="agentpress/growth/gorilla-utility-pack/external-action-safety-gate.json"); p.add_argument("--out", default="agentpress/growth/gorilla-utility-pack/approval-packets"); p.add_argument("--limit", type=int, default=5); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("material-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--target-url", default=""); p.add_argument("--ecosystem", default="agent"); p.add_argument("--painpoint", default=""); p.add_argument("--title", default=""); p.add_argument("--slug", default=""); p.add_argument("--artifact", default=""); p.add_argument("--command", default=""); p.add_argument("--risks", default="public-comment-requires-approval"); p.add_argument("--out", default="agentpress/material-kits"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("material-growth-loop-index"); p.add_argument("root", nargs="?", default="."); p.add_argument("--kits", default="agentpress/material-kits"); p.add_argument("--out", default="agentpress/growth/material-loop"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("next-attention-build-spec"); p.add_argument("--out", default="agentpress/specs/next-attention-build-spec.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-community-newswire"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/agent-community-newswire.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("immediate-agent-needs-radar"); p.add_argument("--out", default="agentpress/community/immediate-agent-needs-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -11046,27 +9447,21 @@ def main():
     p = sub.add_parser("package-registry-doctor"); p.add_argument("--error", default=""); p.add_argument("--out", default="agentpress/diagnostics/package-registry-doctor.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-fallback-installer"); p.add_argument("--out", default="agentpress/install/install-agentpress.sh"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("first-user-bootstrap"); p.add_argument("--platform", default="cline"); p.add_argument("--out", default="agentpress/onboarding/first-user-bootstrap.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("bootstrap", help="Alias for first-user-bootstrap for launch-ready onboarding packs."); p.add_argument("--platform", default="cline"); p.add_argument("--out", default="agentpress/onboarding/first-user-bootstrap.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("launchpad", help="Alias for first-run-wizard launchpad diagnostics."); p.add_argument("root", nargs="?", default="."); p.add_argument("--host", choices=["auto","cline","roo","cursor","codex","claude","generic"], default="auto"); p.add_argument("--out", default="agentpress/onboarding/first-run-wizard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("capability-request", help="Create a safe capability request for agent routing."); p.add_argument("--capability", default="agentpress_bootstrap"); p.add_argument("--task", default="Need AgentPress bootstrap capability and proof pack"); p.add_argument("--priority", default="P1"); p.add_argument("--requester-id", default="local-agent"); p.add_argument("--out", default="agentpress/hub/messages/capability-request.json"); p.add_argument("--request-id"); p.add_argument("--context-url", dest="context_urls", action="append"); p.add_argument("--required-source", dest="required_sources", action="append"); p.add_argument("--allowed-action", dest="allowed_actions", action="append"); p.add_argument("--requires-human-approval", action="append"); p.add_argument("--prohibited-action", dest="prohibited_actions", action="append"); p.add_argument("--output-schema", default=schema_url("agent-response-v1.schema.json")); p.add_argument("--deadline-utc"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("first-run-wizard"); p.add_argument("root", nargs="?", default="."); p.add_argument("--host", default=""); p.add_argument("--provider", default=""); p.add_argument("--out", default="agentpress/onboarding/first-run-wizard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("provider-error-explainer"); p.add_argument("--error", default=""); p.add_argument("--error-file", default=""); p.add_argument("--provider", default="auto"); p.add_argument("--out", default="agentpress/diagnostics/provider-error-explainer.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("adoption-scoreboard"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/adoption/scoreboard"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("external-proof-inbox-review-flow"); p.add_argument("--inbox", default="agentpress/external-proofs/inbox"); p.add_argument("--out", default="agentpress/external-proofs/inbox-review-flow.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("release-registry-readiness-dashboard"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/releases/readiness-dashboard"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("proof-capture"); p.add_argument("--task-id", "--task", dest="task_id", required=True); p.add_argument("--evidence-dir", required=True); p.add_argument("--artifacts", default=""); p.add_argument("--commands", default=""); p.add_argument("--summary", default=""); p.add_argument("--review-required", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("proof-capture"); p.add_argument("--task-id", required=True); p.add_argument("--evidence-dir", required=True); p.add_argument("--artifacts", default=""); p.add_argument("--commands", default=""); p.add_argument("--summary", default=""); p.add_argument("--review-required", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("sandbox-guard"); p.add_argument("--scope", default="read-only"); p.add_argument("--paths", default="."); p.add_argument("--out", default="agentpress/security/sandbox-guard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("external-action-gate"); p.add_argument("--action", required=True); p.add_argument("--manifest", default="allowed-actions.json"); p.add_argument("--out", default="agentpress/security/external-action-gate.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("adoption-tracker"); p.add_argument("--period", default="7d"); p.add_argument("--root", default="agentpress"); p.add_argument("--out", default="agentpress/adoption/adoption-tracker.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("handoff-pack"); p.add_argument("--from", dest="from_agent", required=True); p.add_argument("--to", dest="to_agent", required=True); p.add_argument("--task-id", "--task", dest="task_id", required=True); p.add_argument("--objective", default=""); p.add_argument("--constraints", default=""); p.add_argument("--evidence", default=""); p.add_argument("--acceptance", default=""); p.add_argument("--pending-actions", default=""); p.add_argument("--out", default="agentpress/handoffs/handoff-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("handoff-pack"); p.add_argument("--from", dest="from_agent", required=True); p.add_argument("--to", dest="to_agent", required=True); p.add_argument("--task-id", required=True); p.add_argument("--objective", default=""); p.add_argument("--constraints", default=""); p.add_argument("--evidence", default=""); p.add_argument("--acceptance", default=""); p.add_argument("--pending-actions", default=""); p.add_argument("--out", default="agentpress/handoffs/handoff-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("batch-painpoints"); p.add_argument("--input", required=True); p.add_argument("--output", required=True); p.add_argument("--limit", default="25"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("release-candidate"); p.add_argument("--version", default="0.2.0-rc"); p.add_argument("--out", default="agentpress/releases/release-candidate.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("tool-schema-serialization-check"); p.add_argument("--schema", default=""); p.add_argument("--out", default="agentpress/tools/tool-schema-serialization-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("tool-contract-check"); p.add_argument("--manifest", default=""); p.add_argument("--sample-result", default=""); p.add_argument("--out", default="agentpress/tools/tool-contract-check-result.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--require-text-mirror", action="store_true", default=True); p.add_argument("--no-require-text-mirror", dest="require_text_mirror", action="store_false"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("tool-output-sample-generate"); p.add_argument("--manifest", default="agentpress/tools/agentpress-tools.json"); p.add_argument("--out", default="agentpress/tools/samples/tool-output-samples.json"); p.add_argument("--check", action="store_true", help="Fail if checked-in samples are missing or stale; never writes."); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("smoke-install"); p.add_argument("--runtime", choices=["npm","pypi","all"], default="all"); p.add_argument("--version", default=""); p.add_argument("--workdir", default=""); p.add_argument("--out", default="agentpress/evidence/smoke-install.json"); p.add_argument("--timeout-seconds", type=int, default=180); p.add_argument("--no-run", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("repo-sync-doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--remote", default="https://github.com/barneywohl/agentpress.git"); p.add_argument("--ref", default="refs/heads/main"); p.add_argument("--out", default="agentpress/evidence/repo-sync-doctor.json"); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("cli-gap-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/cli-gap-audit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("release-promote-checklist"); p.add_argument("root", nargs="?", default="."); p.add_argument("--from-tag", default="rc"); p.add_argument("--to-tag", default="latest"); p.add_argument("--min-independent-proofs", type=int, default=1); p.add_argument("--enforce-review-gates", action="store_true", help="Make independent external proof and RFLO review hard blockers; default is advisory so rc/site updates can ship."); p.add_argument("--max-npm-package-bytes", type=int, default=306000); p.add_argument("--max-npm-package-files", type=int, default=100); p.add_argument("--pack-timeout-seconds", type=int, default=30); p.add_argument("--out", default="agentpress/releases/release-promote-checklist.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--evidence-bundle-out", default=""); p.add_argument("--verify-bundle", default=""); p.add_argument("--no-network", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("no-python-fallback-check"); p.add_argument("root", nargs="?", default="."); p.add_argument("--commands", default="doctor,validate,verify,agent-onboard"); p.add_argument("--python-path", default="/nonexistent/python3-agentpress-check"); p.add_argument("--out", default="agentpress/evidence/no-python-fallback-check.json"); p.add_argument("--timeout-seconds", type=int, default=20); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("context-package-init"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("handoff-root-pick"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/context/handoff-root"); p.add_argument("--max-files", type=int, default=80); p.add_argument("--extensions", default=".md,.txt,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.toml"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-community-channel-map"); p.add_argument("--out", default="agentpress/community/agent-community-channel-map.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("community-issue-radar"); p.add_argument("--sample", default=""); p.add_argument("--out", default="agentpress/community/community-issue-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("unsolved-agent-problem-backlog"); p.add_argument("--out", default="agentpress/community/unsolved-agent-problem-backlog.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -11094,7 +9489,7 @@ def main():
     p = sub.add_parser("readiness-score"); p.add_argument("--out", default="agentpress/audit/readiness-score.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("readiness-fix-plan"); p.add_argument("--out", default="agentpress/audit/readiness-fix-plan.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("runtime-install-doctor"); p.add_argument("--out", default="agentpress/diagnostics/runtime-install-doctor.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("connector-security-scanner"); p.add_argument("--manifest"); p.add_argument("--out", default="agentpress/security/connector-security-scanner.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("connector-security-scanner"); p.add_argument("--out", default="agentpress/security/connector-security-scanner.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("deterministic-agent-eval-packs"); p.add_argument("--out", default="agentpress/evals/deterministic-agent-eval-packs.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("verifiable-run-evidence-bundle"); p.add_argument("--out", default="agentpress/evidence/verifiable-run-evidence-bundle.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("browser-agent-compatibility-harness"); p.add_argument("--out", default="agentpress/browser/browser-agent-compatibility-harness.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -11112,7 +9507,6 @@ def main():
     p = sub.add_parser("proof-request-queue"); p.add_argument("--out", default="agentpress/proof-outreach/proof-request-queue.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("next-build-spec-queue"); p.add_argument("--out", default="agentpress/planning/next-build-spec-queue.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("external-proof-campaign-runner"); p.add_argument("--out", default="agentpress/proof-outreach/external-proof-campaign-runner.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("external-proof-intake"); p.add_argument("action", choices=["submit","review","status","export-index"]); p.add_argument("root", nargs="?", default="."); p.add_argument("--pack", default=""); p.add_argument("--submission-id", default=""); p.add_argument("--decision", default=""); p.add_argument("--out", default="agentpress/external-proofs/intake"); p.add_argument("--index-out", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--receipt-out", default=""); p.add_argument("--include-submissions", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("host-transcript-batch-ingest"); p.add_argument("dir"); p.add_argument("--out", default="agentpress/conformance/host-transcript-batch-ingest.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("connector-failure-taxonomy"); p.add_argument("--out", default="agentpress/connectors/connector-failure-taxonomy.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("cycle-gap-radar"); p.add_argument("--out", default="agentpress/planning/cycle-gap-radar.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -11177,12 +9571,22 @@ def main():
     p = sub.add_parser("integration-sdk-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/integrations/sdk"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
     p = sub.add_parser("sdk-smoke"); p.add_argument("--out", default="agentpress/integrations/sdk/sdk-smoke.json"); p.add_argument("--python-sdk", default="agentpress/integrations/sdk/python/agentpress_sdk.py"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--timeout-seconds", type=int, default=10); p.add_argument("--max-bytes", type=int, default=1048576); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("queue-adapter-kit"); p.add_argument("--out", default="agentpress/queue"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("marketplace-compare"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability", default=""); p.add_argument("--max-amount", type=float, default=0.0); p.add_argument("--allow-paid-quotes", action="store_true"); p.add_argument("--out", default="agentpress/marketplace/marketplace-compare.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("mission-broker-scope-preflight"); p.add_argument("--candidate", required=True); p.add_argument("--tasks", required=True); p.add_argument("--fixture-name", default=""); p.add_argument("--out", default="agentpress/mission-engine/broker-scope-preflight.json"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("marketplace-compare"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability", default=""); p.add_argument("--max-amount", type=float, default=0.0); p.add_argument("--budget-cap", type=float); p.add_argument("--allow-paid-quotes", action="store_true"); p.add_argument("--out", default="agentpress/marketplace/marketplace-compare.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("marketplace-fulfill"); p.add_argument("root", nargs="?", default="."); p.add_argument("--quote", default="agentpress/marketplace/marketplace-compare.example.json"); p.add_argument("--proof", required=True); p.add_argument("--service-id"); p.add_argument("--out", default="agentpress/marketplace/marketplace-fulfillment-receipt.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("deal-room"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability", default="agent_onboard"); p.add_argument("--task", default="Fake requester asks provider to run AgentPress onboarding proof"); p.add_argument("--requester-id", default="requester-agent"); p.add_argument("--provider-id", default="provider-agent"); p.add_argument("--provider-service-id"); p.add_argument("--max-amount", default="0"); p.add_argument("--budget-cap"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--proof-text", default="local fake provider completion proof: requested artifact generated and attached"); p.add_argument("--deal-id"); p.add_argument("--out", default="agentpress/deal-room/deal-room.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace-trust"); p.add_argument("root", nargs="?", default="."); p.add_argument("--marketplace", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--out", default="agentpress/marketplace/marketplace-trust-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-request-pack"); p.add_argument("--runtime", default="codex"); p.add_argument("--out", default="agentpress/proof-outreach/proof-request-pack.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-receipt-verify"); p.add_argument("file"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("scoped-trust-report"); p.add_argument("root", nargs="?", default="."); p.add_argument("--marketplace", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--proof-index", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--out", default="agentpress/marketplace/scoped-trust-report.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-outreach-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/proof-outreach"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("external-proof-intake"); epi = p.add_subparsers(dest="external_proof_intake_cmd", required=True)
+    q = epi.add_parser("submit"); q.add_argument("proof"); q.add_argument("--inbox", default="agentpress/external-proofs/intake-inbox"); q.add_argument("--no-write", action="store_true"); q.add_argument("--json", action="store_true")
+    q = epi.add_parser("review"); q.add_argument("--inbox", default="agentpress/external-proofs/intake-inbox"); q.add_argument("--out", default="agentpress/external-proofs/external-proof-intake-review.json"); q.add_argument("--no-write", action="store_true"); q.add_argument("--json", action="store_true")
+    q = epi.add_parser("status"); q.add_argument("--inbox", default="agentpress/external-proofs/intake-inbox"); q.add_argument("--review", default="agentpress/external-proofs/external-proof-intake-review.json"); q.add_argument("--json", action="store_true")
+    q = epi.add_parser("export"); q.add_argument("--inbox", default="agentpress/external-proofs/intake-inbox"); q.add_argument("--out", default="agentpress/external-proofs/external-proof-intake-export.json"); q.add_argument("--no-write", action="store_true"); q.add_argument("--json", action="store_true")
+    q = epi.add_parser("index"); q.add_argument("--inbox", default="agentpress/external-proofs/intake-inbox"); q.add_argument("--index", default="agentpress/external-proofs/external-proof-index.json"); q.add_argument("--trust-out", default="agentpress/trust/external-proof-trust-updates.json"); q.add_argument("--reputation-out", default="agentpress/reputation/reputation-index.json"); q.add_argument("--landing-dir", default="agentpress/landing"); q.add_argument("--self-test-dir", default="agentpress/self-test"); q.add_argument("--receipt-dir", default="agentpress/receipts"); q.add_argument("--base-url", default=CANONICAL_BASE_URL); q.add_argument("--no-write", action="store_true"); q.add_argument("--json", action="store_true")
+    p = sub.add_parser("nexio-evidence-slice"); p.add_argument("--proof-export", default="agentpress/external-proofs/external-proof-intake-export.json"); p.add_argument("--screenshot", action="append"); p.add_argument("--log-link", action="append"); p.add_argument("--out", default="agentpress/evidence/nexio-evidence-slice.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-ingest"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--out", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--allow-rejected", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("proof-scoreboard"); p.add_argument("root", nargs="?", default="."); p.add_argument("--dir", default="agentpress/external-proofs"); p.add_argument("--index", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--out", default="agentpress/external-proofs/proof-scoreboard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-registry-skeleton"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/package-registry/skeleton"); p.add_argument("--json", action="store_true")
@@ -11226,12 +9630,13 @@ def main():
     p = sub.add_parser("audience-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/audience/audience-kit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--agent-id"); p.add_argument("--topic", default="agentpress-updates"); p.add_argument("--contact"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--capability"); p.add_argument("--runtime"); p.add_argument("--payment-required"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-onboard", aliases=["adopt"]); p.add_argument("root", nargs="?", default="."); p.add_argument("--agent-id", default="local-agent"); p.add_argument("--runtime", default="unknown"); p.add_argument("--out", default="/tmp/agentpress-onboard"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--discovery-channel", default="agent-onboard-cli"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--contact"); p.add_argument("--payment-capability-id", default="free_agentpress_bootstrap"); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("quickstart", help="Run the full local onboarding proof flow (doctor, self-test, landing receipt, payment metadata, submission pack)."); p.add_argument("root", nargs="?", default="."); p.add_argument("--agent-id", default="local-agent"); p.add_argument("--runtime", default="unknown"); p.add_argument("--out", default="/tmp/agentpress-quickstart"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--discovery-channel", default="agentpress-quickstart-cli"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--contact"); p.add_argument("--payment-capability-id", default="free_agentpress_bootstrap"); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
-    p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True)
+    p = sub.add_parser("build"); p.add_argument("out"); p.add_argument("--out", dest="dest", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("list"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("build-all"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", dest="dest", required=True); p.add_argument("--clean", action="store_true")
     p = sub.add_parser("index-articles"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--out", default="agentpress/articles"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress")
-    p = sub.add_parser("doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--mode", choices=["auto","local","online","self-check"], default="auto"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--timeout", type=int, default=20); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("doctor"); p.add_argument("root", nargs="?", default="."); p.add_argument("--json", action="store_true"); p.add_argument("--evidence-out")
     p = sub.add_parser("eval"); p.add_argument("root", nargs="?", default="agentpress/examples")
     p = sub.add_parser("check-registry"); p.add_argument("root", nargs="?", default="agentpress/examples"); p.add_argument("--registry", default="agentpress/agentpress-registry.json")
     p = sub.add_parser("check-openapi"); p.add_argument("root", nargs="?", default="."); p.add_argument("--openapi", default="openapi.yaml")
@@ -11241,39 +9646,26 @@ def main():
     q = msg.add_parser("create-response"); q.add_argument("--request", required=True); q.add_argument("--responder-id", required=True); q.add_argument("--status", choices=["accepted","in_progress","completed","partial","rejected","escalated","timeout"], default="completed"); q.add_argument("--out", required=True); q.add_argument("--response-id"); q.add_argument("--confidence", type=float, default=0.8); q.add_argument("--result-inline"); q.add_argument("--result-bundle"); q.add_argument("--sources-used"); q.add_argument("--missing-checks"); q.add_argument("--actions-taken")
     q = msg.add_parser("inbox-init"); q.add_argument("--dir", default="agent-comms")
     q = msg.add_parser("register"); q.add_argument("--agent-id", required=True); q.add_argument("--capabilities", required=True); q.add_argument("--dir", default="agent-comms")
-    q = msg.add_parser("send"); q.add_argument("--to", required=True); q.add_argument("--request", required=True); q.add_argument("--dir", default="agent-comms"); q.add_argument("--confidential-envelope", default="")
+    q = msg.add_parser("send"); q.add_argument("--to", required=True); q.add_argument("--request", required=True); q.add_argument("--dir", default="agent-comms")
     q = msg.add_parser("broadcast"); q.add_argument("--capability", required=True); q.add_argument("--request", required=True); q.add_argument("--dir", default="agent-comms")
     q = msg.add_parser("inbox-check"); q.add_argument("--agent-id", required=True); q.add_argument("--dir", default="agent-comms"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("claim"); q.add_argument("--message-id", required=True); q.add_argument("--agent-id", required=True); q.add_argument("--dir", default="agent-comms")
-    q = msg.add_parser("complete"); q.add_argument("--message-id", required=True); q.add_argument("--agent-id", required=True); q.add_argument("--response", required=True); q.add_argument("--dir", default="agent-comms"); q.add_argument("--receipt-out", default=""); q.add_argument("--no-receipt", action="store_true")
+    q = msg.add_parser("complete"); q.add_argument("--message-id", required=True); q.add_argument("--agent-id", required=True); q.add_argument("--response", required=True); q.add_argument("--dir", default="agent-comms")
     q = msg.add_parser("agents"); q.add_argument("--dir", default="agent-comms"); q.add_argument("--json", action="store_true")
-    q = msg.add_parser("receipt-aggregate"); q.add_argument("--dir", default="agent-comms"); q.add_argument("--out", required=True); q.add_argument("--json", action="store_true")
     q = msg.add_parser("validate"); q.add_argument("path"); q.add_argument("--json", action="store_true")
     q = msg.add_parser("thread-create"); q.add_argument("--request", required=True); q.add_argument("--out", required=True); q.add_argument("--thread-id")
     q = msg.add_parser("thread-append"); q.add_argument("--thread", required=True); q.add_argument("--message", required=True); q.add_argument("--out")
-
-    p = sub.add_parser("mesh"); mesh_sub = p.add_subparsers(dest="mesh_cmd", required=True)
-    q = mesh_sub.add_parser("register"); q.add_argument("--id", required=True); q.add_argument("--kind", required=True); q.add_argument("--capabilities", required=True); q.add_argument("--contract-url", dest="contract_url"); q.add_argument("--receipt-url", dest="receipt_url"); q.add_argument("--mcp-server", dest="mcp_server"); q.add_argument("--inbox-path", dest="inbox_path"); q.add_argument("--agentpress-version", default="0.2.0-rc.4"); q.add_argument("--out", default="agentpress/mesh/known-agents.json"); q.add_argument("--receipt-out"); q.add_argument("--replace", action="store_true"); q.add_argument("--dry-run", action="store_true"); q.add_argument("--no-write", action="store_true"); q.add_argument("--json", action="store_true")
-    p = sub.add_parser("first-contact"); fc_sub = p.add_subparsers(dest="first_contact_cmd", required=True)
-    q = fc_sub.add_parser("audit"); q.add_argument("--base-url", default=CANONICAL_BASE_URL); q.add_argument("--out", default="agentpress/evidence/first-contact.json"); q.add_argument("--timeout-seconds", type=int, default=10); q.add_argument("--max-bytes", type=int, default=1048576); q.add_argument("--no-network", action="store_true"); q.add_argument("--strict", action="store_true"); q.add_argument("--no-write", action="store_true"); q.add_argument("--json", action="store_true")
-    p = sub.add_parser("result"); result_sub = p.add_subparsers(dest="result_cmd", required=True)
-    q = result_sub.add_parser("init"); q.add_argument("--kind", required=True, choices=["proof","bug","patch","eval","blocker"]); q.add_argument("--claim"); q.add_argument("--agent-id", default="local-agent"); q.add_argument("--runtime", default="unknown"); q.add_argument("--repro-command", default=""); q.add_argument("--out", default="agentpress/submissions/result.json"); q.add_argument("--no-write", action="store_true"); q.add_argument("--json", action="store_true")
-    q = result_sub.add_parser("add-file"); q.add_argument("file"); q.add_argument("--role", default="evidence"); q.add_argument("--redacted", action="store_true"); q.add_argument("--json", action="store_true")
-    q = result_sub.add_parser("finalize"); q.add_argument("--kind", required=True, choices=["proof","bug","patch","eval","blocker"]); q.add_argument("--claim", required=True); q.add_argument("--file", action="append"); q.add_argument("--step", action="append"); q.add_argument("--agent-id", default="local-agent"); q.add_argument("--runtime", default="unknown"); q.add_argument("--repro-command", default=""); q.add_argument("--redacted", action="store_true"); q.add_argument("--out", default="agentpress/submissions/result.json"); q.add_argument("--markdown"); q.add_argument("--no-write", action="store_true"); q.add_argument("--json", action="store_true")
-    q = result_sub.add_parser("validate"); q.add_argument("path"); q.add_argument("--strict", action="store_true"); q.add_argument("--json", action="store_true")
-    p = sub.add_parser("compat"); compat_sub = p.add_subparsers(dest="compat_cmd", required=True)
-    q = compat_sub.add_parser("smoke"); q.add_argument("--target", required=True, choices=["cline","roo","openhands","mcp","codex","claude","gemini","glm","rag"]); q.add_argument("--out", default="agentpress/compatibility/compat-smoke.json"); q.add_argument("--no-write", action="store_true"); q.add_argument("--json", action="store_true")
     p = sub.add_parser("submission-validate"); p.add_argument("path"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("broker-scope-guard"); p.add_argument("path"); p.add_argument("--out", default="agentpress/evidence/broker-scope-guard.json"); p.add_argument("--require-text", action="append", default=["agentpress"]); p.add_argument("--allowed-token", action="append"); p.add_argument("--banned-token", action="append"); p.add_argument("--require-allowed-root", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("broker-preenqueue-check"); p.add_argument("path"); p.add_argument("--out", default="agentpress/evidence/broker-preenqueue-check.json"); p.add_argument("--require-text", action="append", default=["agentpress"]); p.add_argument("--allowed-token", action="append"); p.add_argument("--banned-token", action="append"); p.add_argument("--require-allowed-root", action="store_true"); p.add_argument("--enforce", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("blocker-report"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--severity", choices=["P0","P1","P2","P3"], default="P1"); p.add_argument("--command", required=True); p.add_argument("--error-summary", required=True); p.add_argument("--missing-field"); p.add_argument("--desired-fix", required=True); p.add_argument("--blocker-id"); p.add_argument("--out", default="agentpress/submissions/blocker-report.example.json"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("submission-pack"); p.add_argument("--receipt", required=True); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("external-proof-run"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True, choices=["codex","claude","gemini","glm","browser","workflow","other"]); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--out"); p.add_argument("--no-external-write", action="store_true", default=True); p.add_argument("--strict", action="store_true", help="Return non-zero on any failed proof, submission, or secret-scan step"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("reputation-index"); p.add_argument("--landing-dir", default="agentpress/landing"); p.add_argument("--self-test-dir", default="agentpress/self-test"); p.add_argument("--receipt-dir", default="agentpress/receipts"); p.add_argument("--external-proof-index", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("reputation-index"); p.add_argument("--landing-dir", default="agentpress/landing"); p.add_argument("--self-test-dir", default="agentpress/self-test"); p.add_argument("--receipt-dir", default="agentpress/receipts"); p.add_argument("--external-proof-index", default="agentpress/external-proofs/external-proof-index.json"); p.add_argument("--out", default="agentpress/reputation/reputation-index.json"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("reputation"); rep = p.add_subparsers(dest="reputation_cmd", required=True)
+    for rp_name in ["score", "index"]:
+        rp = rep.add_parser(rp_name); rp.add_argument("--agent-id", default=""); rp.add_argument("--result-bundles", default="agentpress/results"); rp.add_argument("--validation-receipts", default="agentpress/validation"); rp.add_argument("--kit-validations", default="agentpress/kit-validations"); rp.add_argument("--command-results", default="agentpress/command-results"); rp.add_argument("--blockers", default="agentpress/blockers"); rp.add_argument("--out"); rp.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-receipt"); p.add_argument("--agent-id", required=True); p.add_argument("--runtime", required=True); p.add_argument("--discovery-channel", required=True); p.add_argument("--capability", action="append"); p.add_argument("--self-test-ref"); p.add_argument("--contact"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--landing-id"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
     p = sub.add_parser("landing-index"); p.add_argument("dir"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("inbox-compile"); p.add_argument("inbox_dir"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("patch-pr-helper"); p.add_argument("--title", required=True); p.add_argument("--change-summary", required=True); p.add_argument("--diff"); p.add_argument("--changed-file", action="append"); p.add_argument("--base-branch", default="main"); p.add_argument("--target-branch"); p.add_argument("--reviewer", action="append"); p.add_argument("--validation", action="append"); p.add_argument("--out", default="agentpress/contrib/patch-pr-helper.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("patch-pr-helper"); p.add_argument("--title", default="AgentPress local contribution"); p.add_argument("--change-summary", default="Generate a local-only contribution checklist and validation packet."); p.add_argument("--diff"); p.add_argument("--changed-file", action="append"); p.add_argument("--base-branch", default="main"); p.add_argument("--target-branch"); p.add_argument("--reviewer", action="append"); p.add_argument("--validation", action="append"); p.add_argument("--out", default="agentpress/contrib/patch-pr-helper.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("bundle-diff"); p.add_argument("bundle_a"); p.add_argument("bundle_b"); p.add_argument("--json", action="store_true"); p.add_argument("--include-hashes", action="store_true"); p.add_argument("--allow-breaking", action="store_true")
     p = sub.add_parser("upgrade-check"); p.add_argument("current_bundle"); p.add_argument("latest_bundle"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("adapter-quickstart"); p.add_argument("--agent-type", choices=["codex","claude","gemini","glm","browser","all"], default="all"); p.add_argument("--out", required=True); p.add_argument("--json", action="store_true")
@@ -11285,7 +9677,7 @@ def main():
     p = sub.add_parser("agent-route"); p.add_argument("--runtime", required=True, help="codex|claude|gemini|glm|browser|rag|crawler|mcp|eval_harness|workflow_agent|list"); p.add_argument("--intent", default="all", help="discover|install|verify|prove|submit|coordinate|all"); p.add_argument("--routes", default="agentpress/routes/agent-routes.json"); p.add_argument("--out"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-traffic-audit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/traffic/agent-traffic-audit.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("compatibility-matrix"); p.add_argument("--runtime", action="append", choices=["codex","claude","gemini","glm","browser","rag"]); p.add_argument("--out", default="agentpress/compatibility/compatibility-matrix.json"); p.add_argument("--workdir", default="/tmp/agentpress-compatibility-matrix"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("freshness-citation-report"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/freshness-citation-report.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--include-files", action="store_true"); p.add_argument("--min-citation-ratio", type=float, default=0.0); p.add_argument("--min-canonical-json-ratio", type=float, default=0.0); p.add_argument("--max-unknown-machine", type=int); p.add_argument("--strict", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("freshness-citation-report"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/evidence/freshness-citation-report.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--include-files", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("browser-smoke"); p.add_argument("--url", action="append"); p.add_argument("--out", default="agentpress/evidence/browser-smoke.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--timeout-seconds", type=int, default=10); p.add_argument("--max-bytes", type=int, default=1048576); p.add_argument("--require-json", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("feature-build-queue"); p.add_argument("root", nargs="?", default="."); p.add_argument("--coverage", default="agentpress/tools/tool-coverage.json"); p.add_argument("--painpoints", default="agentpress/painpoints/agent-painpoints.json"); p.add_argument("--adoption", default="agentpress/adoption/adoption-status.json"); p.add_argument("--out", default="agentpress/planning/feature-build-queue.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--include-blocked", action="store_true"); p.add_argument("--include-adoption-gaps", action="store_true"); p.add_argument("--include-public-radar", action="store_true"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("build-queue-pick"); p.add_argument("root", nargs="?", default="."); p.add_argument("--queue", default="agentpress/planning/feature-build-queue.json"); p.add_argument("--coverage", default="agentpress/tools/tool-coverage.json"); p.add_argument("--painpoints", default="agentpress/painpoints/agent-painpoints.json"); p.add_argument("--adoption", default="agentpress/adoption/adoption-status.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--include-blocked", action="store_true"); p.add_argument("--json", action="store_true")
@@ -11298,22 +9690,42 @@ def main():
     p = sub.add_parser("team-pack"); p.add_argument("--slug", required=True); p.add_argument("--display-name"); p.add_argument("--pack-type", choices=["team_capability_pack","person_capability_pack"], default="team_capability_pack"); p.add_argument("--capability", action="append", required=True); p.add_argument("--consent-source", choices=["explicit","public_source","internal_private_do_not_publish"], required=True); p.add_argument("--public-sources"); p.add_argument("--allowed-handoffs"); p.add_argument("--availability", default="available_for_agent_handoff"); p.add_argument("--canonical-url"); p.add_argument("--out", required=True); p.add_argument("--allow-private", action="store_true")
     p = sub.add_parser("team-pack-validate"); p.add_argument("path"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("self-test"); p.add_argument("--agent-id", required=True); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--out", default="agentpress/self-test/self-test-results.jsonl"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--workdir", default="/tmp/agentpress-self-test"); p.add_argument("--run-id")
-    p = sub.add_parser("agent-profile-registry"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/profiles/agent-profile-registry.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("discovery-bridge"); p.add_argument("query", nargs="?", default=""); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/search/profile-search-discovery-bridge.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--limit", type=int, default=25); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("index-search"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/search/search-index.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--json", action="store_true")
-    p = sub.add_parser("search"); p.add_argument("query"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--limit", type=int, default=10); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("search"); p.add_argument("query"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--ranking", default="agentpress/feedback/ranking.json"); p.add_argument("--limit", type=int, default=10); p.add_argument("--json", action="store_true")
     p = sub.add_parser("bundle"); p.add_argument("source"); p.add_argument("--out", required=True); p.add_argument("--title"); p.add_argument("--canonical-url"); p.add_argument("--primary-task"); p.add_argument("--dry-run", action="store_true"); p.add_argument("--strict", action="store_true"); p.add_argument("--force", action="store_true"); p.add_argument("--max-stale-days", type=int, default=30)
     p = sub.add_parser("install-script"); p.add_argument("--out", default="agentpress/install/install.py"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("release-index"); p.add_argument("package"); p.add_argument("--manifest"); p.add_argument("--out", default="agentpress/releases/release-index.json"); p.add_argument("--base-url", default="https://barneywohl.github.io/agentpress/"); p.add_argument("--raw-base-url", default="https://raw.githubusercontent.com/barneywohl/agentpress/refs/heads/main/"); p.add_argument("--package-url"); p.add_argument("--manifest-url"); p.add_argument("--install-path", default="agentpress/install/install.py"); p.add_argument("--version", default="2026-05-03"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package"); p.add_argument("root", nargs="?", default="."); p.add_argument("--format", choices=["tar", "zip"], default="tar"); p.add_argument("--out", default="dist/agentpress-offline.tar.gz")
     p = sub.add_parser("package-verify"); p.add_argument("package"); p.add_argument("--manifest"); p.add_argument("--workdir", default="/tmp/agentpress-package-verify"); p.add_argument("--keep-workdir", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("package-registry-verify", help="Alias for package-verify used by registry release gates."); p.add_argument("package", nargs="?", default="agentpress/releases/agentpress-offline.tar.gz"); p.add_argument("--manifest"); p.add_argument("--workdir", default="/tmp/agentpress-package-verify"); p.add_argument("--keep-workdir", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("package-index"); p.add_argument("package"); p.add_argument("--manifest"); p.add_argument("--out", default="dist/agentpress-offline-index.json")
-    args = ap.parse_args()
-    if args.cmd in {"start", "help-start"}: return start(args)
-    if args.cmd == "painpoint-map": return painpoint_map(args)
-    if args.cmd == "llms-init": return llms_init(args)
+    args = ap.parse_args(argv)
+    if dry_run_requested:
+        args.dry_run = True
+    validate_cli_paths(args)
+    if os.environ.get("AGENTPRESS_DRY_RUN") == "1" or getattr(args, "dry_run", False):
+        if hasattr(args, "no_write"):
+            args.no_write = True
+        if hasattr(args, "dry_run"):
+            args.dry_run = True
+    if args.cmd == "eval-harness": return eval_harness(args)
+    if args.cmd == "lifecycle-gap-verifier": return lifecycle_gap_verifier(args)
     if args.cmd == "init": init(args); return 0
+    if args.cmd == "publish-candidate": return publish_candidate(args)
     if args.cmd == "validate": return validate(args)
+    if args.cmd == "material-kit-validate": return material_kit_validate(args)
+    if args.cmd == "kit-build-spec": return kit_build_spec(args)
+    if args.cmd == "kit" and args.kit_cmd == "validate":
+        if not args.path:
+            print("kit validate requires path", file=sys.stderr); return 2
+        return material_kit_validate(args)
+    if args.cmd == "kit" and args.kit_cmd == "search":
+        if args.path:
+            args.query = [args.path] + (args.query or [])
+            args.path = None
+        return kit_search(args)
+    if args.cmd == "feedback": return feedback_command(args)
+    if args.cmd == "rank": return rank_command(args)
     if args.cmd == "audit": return audit(args)
     if args.cmd == "verify": return verify(args)
     if args.cmd == "schema": return schema_command(args)
@@ -11328,7 +9740,6 @@ def main():
     if args.cmd == "feedback-submit": return feedback_submit(args)
     if args.cmd == "consistency-check": return consistency_check(args)
     if args.cmd == "adoption-status": return adoption_status(args)
-    if args.cmd == "adoption-fixpack": return adoption_fixpack(args)
     if args.cmd == "payment-status": return payment_status(args)
     if args.cmd == "payment-intent": return payment_intent(args)
     if args.cmd == "marketplace": return marketplace_index(args)
@@ -11336,6 +9747,8 @@ def main():
     if args.cmd == "agent-painpoints": return agent_painpoints(args)
     if args.cmd == "attest": return attest(args)
     if args.cmd == "proof-campaign": return proof_campaign(args)
+    if args.cmd == "external-proof-intake": return external_proof_intake(args)
+    if args.cmd == "nexio-evidence-slice": return nexio_evidence_slice(args)
     if args.cmd == "proof-ingest": return proof_ingest(args)
     if args.cmd == "proof-scoreboard": return proof_scoreboard(args)
     if args.cmd == "proof-outreach-kit": return proof_outreach_kit(args)
@@ -11378,7 +9791,10 @@ def main():
     if args.cmd == "attestation-coverage": return attestation_coverage(args)
     if args.cmd == "marketplace-trust": return marketplace_trust(args)
     if args.cmd == "marketplace-compare": return marketplace_compare(args)
+    if args.cmd == "marketplace-fulfill": return marketplace_fulfill(args)
+    if args.cmd == "deal-room": return agent_deal_room(args)
     if args.cmd == "queue-adapter-kit": return queue_adapter_kit(args)
+    if args.cmd == "mission-broker-scope-preflight": return mission_broker_scope_preflight(args)
     if args.cmd == "integration-sdk-kit": return integration_sdk_kit(args)
     if args.cmd == "docs-command-check": return docs_command_check(args)
     if args.cmd == "community-radar": return community_radar(args)
@@ -11399,7 +9815,6 @@ def main():
     if args.cmd == "connector-catalog": return connector_catalog(args)
     if args.cmd == "edge-case-gap-scan": return edge_case_gap_scan(args)
     if args.cmd == "external-proof-campaign-runner": return external_proof_campaign_runner(args)
-    if args.cmd == "external-proof-intake": return external_proof_intake(args)
     if args.cmd == "connector-failure-to-backlog": return connector_failure_to_backlog(args)
     if args.cmd == "agent-persona-quickstarts": return agent_persona_quickstarts(args)
     if args.cmd == "deep-agent-painpoint-research": return deep_agent_painpoint_research(args)
@@ -11416,20 +9831,13 @@ def main():
     if args.cmd == "external-reply-to-proof-ingest-bridge": return external_reply_to_proof_ingest_bridge(args)
     if args.cmd == "issue-comment-pack-generator": return issue_comment_pack_generator(args)
     if args.cmd == "issue-to-repro-pack": return issue_to_repro_pack(args)
+    if args.cmd == "issue-to-kit": return issue_to_kit(args)
     if args.cmd == "painpoint-target-pack": return painpoint_target_pack(args)
     if args.cmd == "mcp-config-mutation-guard": return mcp_config_mutation_guard(args)
-    if args.cmd == "safety-preflight": return safety_preflight(args)
-    if args.cmd == "context-budget": return context_budget(args)
-    if args.cmd == "mcp-config-doctor": return mcp_config_doctor(args)
     if args.cmd == "continuous-research-build-cycle-audit": return continuous_research_build_cycle_audit(args)
     if args.cmd == "current-agent-places-map": return current_agent_places_map(args)
     if args.cmd == "attention-painpoint-radar": return attention_painpoint_radar(args)
     if args.cmd == "first-agent-attention-kit": return first_agent_attention_kit(args)
-    if args.cmd == "gorilla-utility-pack": return gorilla_utility_pack(args)
-    if args.cmd == "gorilla-action-safety-gate": return gorilla_action_safety_gate(args)
-    if args.cmd == "material-kit": return material_kit(args)
-    if args.cmd == "material-growth-loop-index": return material_growth_loop_index(args)
-    if args.cmd == "gorilla-approval-packets": return gorilla_approval_packets(args)
     if args.cmd == "next-attention-build-spec": return next_attention_build_spec(args)
     if args.cmd == "agent-community-newswire": return agent_community_newswire(args)
     if args.cmd == "immediate-agent-needs-radar": return immediate_agent_needs_radar(args)
@@ -11440,28 +9848,19 @@ def main():
     if args.cmd == "context-compaction-risk-card": return context_compaction_risk_card(args)
     if args.cmd == "package-registry-doctor": return package_registry_doctor(args)
     if args.cmd == "package-registry-fallback-installer": return package_registry_fallback_installer(args)
-    if args.cmd == "first-user-bootstrap": return first_user_bootstrap(args)
-    if args.cmd == "first-run-wizard": return first_run_wizard(args)
+    if args.cmd in {"first-user-bootstrap", "bootstrap"}: return first_user_bootstrap(args)
+    if args.cmd in {"first-run-wizard", "launchpad"}: return first_run_wizard(args)
     if args.cmd == "provider-error-explainer": return provider_error_explainer(args)
     if args.cmd == "adoption-scoreboard": return adoption_scoreboard(args)
     if args.cmd == "external-proof-inbox-review-flow": return external_proof_inbox_review_flow(args)
     if args.cmd == "release-registry-readiness-dashboard": return release_registry_readiness_dashboard(args)
     if args.cmd == "proof-capture": return proof_capture(args)
     if args.cmd == "sandbox-guard": return sandbox_guard(args)
+    if args.cmd == "external-action-gate": return external_action_gate(args)
     if args.cmd == "adoption-tracker": return adoption_tracker(args)
     if args.cmd == "handoff-pack": return handoff_pack(args)
     if args.cmd == "batch-painpoints": return batch_painpoints(args)
-    if args.cmd == "release-candidate": return release_candidate(args)
     if args.cmd == "tool-schema-serialization-check": return tool_schema_serialization_check(args)
-    if args.cmd == "tool-contract-check": return tool_contract_check(args)
-    if args.cmd == "tool-output-sample-generate": return tool_output_sample_generate(args)
-    if args.cmd == "smoke-install": return smoke_install(args)
-    if args.cmd == "repo-sync-doctor": return repo_sync_doctor(args)
-    if args.cmd == "cli-gap-audit": return cli_gap_audit(args)
-    if args.cmd == "release-promote-checklist": return release_promote_checklist(args)
-    if args.cmd == "no-python-fallback-check": return no_python_fallback_check(args)
-    if args.cmd == "context-package-init": return context_package_init(args)
-    if args.cmd == "handoff-root-pick": return handoff_root_pick(args)
     if args.cmd == "community-issue-radar": return community_issue_radar(args)
     if args.cmd == "unsolved-agent-problem-backlog": return unsolved_agent_problem_backlog(args)
     if args.cmd == "tool-vocabulary-compatibility-check": return tool_vocabulary_compatibility_check(args)
@@ -11511,6 +9910,7 @@ def main():
     if args.cmd == "action-ledger-adapter-wiring": return action_ledger_adapter_wiring(args)
     if args.cmd == "external-proof-relay-status": return external_proof_relay_status(args)
     if args.cmd == "glm-concerns-closure": return glm_concerns_closure(args)
+    if args.cmd == "start": return start(args)
     if args.cmd == "proof-ingest": return proof_ingest(args)
     if args.cmd == "proof-ingest-review": return proof_ingest_review(args)
     if args.cmd == "receipt-to-backlog": return receipt_to_backlog(args)
@@ -11544,7 +9944,7 @@ def main():
     if args.cmd == "environment-fingerprint": return environment_fingerprint(args)
     if args.cmd == "repro-bundle": return repro_bundle(args)
     if args.cmd == "sdk-smoke": return sdk_smoke(args)
-    if args.cmd in {"agent-onboard", "adopt"}: return agent_onboard(args)
+    if args.cmd in {"agent-onboard", "adopt", "quickstart"}: return agent_onboard(args)
     if args.cmd == "score": return score(args)
     if args.cmd == "build": return build(args)
     if args.cmd == "list": return list_examples(args)
@@ -11554,17 +9954,12 @@ def main():
     if args.cmd == "eval": return eval_examples(args)
     if args.cmd == "check-registry": return check_registry(args)
     if args.cmd == "check-openapi": return check_openapi(args)
-    if args.cmd == "mesh" and args.mesh_cmd == "register": return mesh_register(args)
-    if args.cmd == "first-contact" and args.first_contact_cmd == "audit": return first_contact_audit(args)
-    if args.cmd == "result": return result_command(args)
-    if args.cmd == "compat" and args.compat_cmd == "smoke": return compat_smoke(args)
     if args.cmd == "submission-pack": return submission_pack(args)
-    if args.cmd == "external-proof-run": return external_proof_run(args)
     if args.cmd == "submission-validate": return submission_validate(args)
-    if args.cmd == "broker-scope-guard": return broker_scope_guard(args)
-    if args.cmd == "broker-preenqueue-check": return broker_preenqueue_check(args)
     if args.cmd == "blocker-report": return blocker_report(args)
     if args.cmd == "reputation-index": return reputation_index(args)
+    if args.cmd == "reputation" and args.reputation_cmd == "score": return reputation_score(args)
+    if args.cmd == "reputation" and args.reputation_cmd == "index": return reputation_quality_index(args)
     if args.cmd == "landing-receipt": return landing_receipt(args)
     if args.cmd == "landing-index": return landing_index(args)
     if args.cmd == "inbox-compile": return inbox_compile(args)
@@ -11593,15 +9988,19 @@ def main():
     if args.cmd == "team-pack": return team_pack(args)
     if args.cmd == "team-pack-validate": return team_pack_validate(args)
     if args.cmd == "self-test": return self_test(args)
-    if args.cmd == "agent-profile-registry": return agent_profile_registry(args)
-    if args.cmd == "discovery-bridge": return discovery_bridge(args)
     if args.cmd == "index-search": return build_search_index(args)
     if args.cmd == "search": return search_index(args)
+    if args.cmd == "capability-request": return message_create_request(args)
     if args.cmd == "message": return message_command(args)
     if args.cmd == "bundle": return bundle_from_source(args)
     if args.cmd == "install-script": return install_script(args)
     if args.cmd == "release-index": return release_index(args)
     if args.cmd == "package": return package_bundle(args)
+    if args.cmd == "package-registry-verify":
+        pkg_path = pathlib.Path(args.package)
+        if pkg_path.is_dir():
+            return package_registry_plan(argparse.Namespace(root=str(pkg_path), out="agentpress/package-registry/package-registry-plan.json", base_url=CANONICAL_BASE_URL, no_write=True, json=getattr(args, "json", False)))
+        return package_verify(args)
     if args.cmd == "package-verify": return package_verify(args)
     if args.cmd == "package-index": return package_index(args)
 if __name__ == "__main__":

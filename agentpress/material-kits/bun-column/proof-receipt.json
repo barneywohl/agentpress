@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Receipt shows compact context for Bun column with exact API endpoint, JSON schema, and status codes extracted from source doc.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_032959_010.json",
+  "glm_source_index": 1250,
+  "search_intents": [
+    "bun column",
+    "bun test event data",
+    "bun reference"
+  ],
+  "review_gate": "Pass if receipt shows compact context for Bun column with exact API endpoint, JSON schema, and status codes extracted from source doc. Fail if receipt shows generic or missing content.",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json and confirm receipt shows compact context for Bun column with exact API endpoint, JSON schema, and status codes extracted from source doc.",
+  "materializer_safe_local_write": true
+}

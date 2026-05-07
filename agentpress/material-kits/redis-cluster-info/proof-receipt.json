@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The proof receipt should capture the exact cluster info response shape, the exact status codes returned, and the exact metrics available in the cluster info response.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_033515_015.json",
+  "glm_source_index": 1416,
+  "search_intents": [
+    "Redis cluster info",
+    "Redis cluster health",
+    "Redis cluster metrics"
+  ],
+  "review_gate": "Pass if the proof receipt captures the exact cluster info response shape, status codes, and metrics. Fail if the proof receipt is empty or contains placeholder values.",
+  "validation_proof": "Run python3 scripts/agentpress.py proof-receipt --kit redis-cluster-info --field cluster_info_response_shape to verify the proof receipt captures the exact response shape.",
+  "materializer_safe_local_write": true
+}

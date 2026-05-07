@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun startTime property returns a DOMHighResTimeStamp value representing the start time of a resource request, with SOURCE FACT REQUIRED: exact return type and SOURCE FACT REQUIRED: exact unit of measurement",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_035747_043.json",
+  "glm_source_index": 1283,
+  "search_intents": [
+    "Bun startTime performance timing",
+    "Bun PerformanceResourceTiming",
+    "alternate: Bun runtime timing"
+  ],
+  "review_gate": "Kit must contain exact property name, exact return type, and exact unit of measurement extracted from the source doc with no invented content",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and confirm the kit passes with no errors and the proof receipt claims match the extracted source facts",
+  "materializer_safe_local_write": true
+}

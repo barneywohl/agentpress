@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The material kit for Redis alerts correctly extracts the alerts endpoint details, request format, and response schema from the source document, enabling agents to handle alert events without guessing",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_032914_008.json",
+  "glm_source_index": 1409,
+  "search_intents": [
+    "Redis alerts endpoint monitoring",
+    "Redis database alert events"
+  ],
+  "review_gate": "The material kit must contain the exact alerts endpoint URL, request format, and response schema from the source document, with no invented details",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the receipt shows the alerts endpoint details were extracted correctly",
+  "materializer_safe_local_write": true
+}

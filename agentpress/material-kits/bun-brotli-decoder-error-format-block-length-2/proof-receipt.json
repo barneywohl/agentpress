@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun BROTLI_DECODER_ERROR_FORMAT_BLOCK_LENGTH_2 context is compact, citation-ready, and includes exact error code, message format, and recovery steps",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_044516_001.json",
+  "glm_source_index": 1337,
+  "search_intents": [
+    "Bun BROTLI_DECODER_ERROR_FORMAT_BLOCK_LENGTH_2",
+    "Bun zlib constants error",
+    "Bun runtime decompression error"
+  ],
+  "review_gate": "Pass if the material kit contains exact BROTLI_DECODER_ERROR_FORMAT_BLOCK_LENGTH_2 error code, message format, and recovery steps; fail if any SOURCE FACT REQUIRED placeholder remains unfilled",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error 'bun install/runtime failure' --json and verify the kit passes with zero errors and the proof receipt is logged",
+  "materializer_safe_local_write": true
+}

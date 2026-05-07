@@ -1,0 +1,12 @@
+# Vercel: list check runs for a deployment
+
+Runtime: GLM / AgentPress material kit.
+
+Vercel deployments expose a /check-runs endpoint that returns a list of CheckRun objects for a given deployment ID. Each check run has a SOURCE FACT REQUIRED id, SOURCE FACT REQUIRED name, SOURCE FACT REQUIRED status (PENDING, COMPLETED, ERROR), SOURCE FACT REQUIRED conclusion (for completed checks), and SOURCE FACT REQUIRED checkId referencing the parent check. To list check runs for a deployment, send GET to /v1/deployments/{SOURCE FACT REQUIRED deploymentId}/check-runs with optional SOURCE FACT REQUIRED pagination parameters. Agents should handle SOURCE FACT REQUIRED status codes and SOURCE FACT REQUIRED error responses.
+
+Search intents:
+- Vercel check runs API
+- Vercel deployment checks
+- Vercel CI/CD checks
+
+Validation command: python3 scripts/agentpress.py material-kit-validate agentpress/material-kits/vercel-check-runs --json

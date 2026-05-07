@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Receipt must show exact config fields extracted, exact types per field, and exact validation rules — no generic summaries.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_031226_040.json",
+  "glm_source_index": 1232,
+  "search_intents": [
+    "bun traceconfig",
+    "bun node inspector tracing"
+  ],
+  "review_gate": "Pass if the material-manifest.json contains exact config fields, exact types per field, and exact validation rules — all SOURCE FACT REQUIRED placeholders must be resolved with real data from the target doc.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the compact context card contains exact config fields, exact types, and exact validation rules with no generic placeholders.",
+  "materializer_safe_local_write": true
+}

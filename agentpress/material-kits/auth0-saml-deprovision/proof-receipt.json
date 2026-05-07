@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The kit successfully enables an agent to deprovision a SAML user by providing the exact integration ID, API endpoint, and required auth0 management API token scope with no missing fields",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_024128_005.json",
+  "glm_source_index": 1270,
+  "search_intents": [
+    "auth0 saml deprovision users",
+    "auth0 deprovisioning configuration"
+  ],
+  "review_gate": "Kit must contain zero SOURCE FACT REQUIRED placeholders after source fact extraction, and must contain valid Auth0 SAML deprovisioning steps with no missing fields",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the kit contains no SOURCE FACT REQUIRED placeholders after source fact extraction",
+  "materializer_safe_local_write": true
+}

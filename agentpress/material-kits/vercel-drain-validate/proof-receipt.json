@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Vercel drain delivery configuration endpoint SOURCE FACT REQUIRED for exact API path, SOURCE FACT REQUIRED for request body schema, SOURCE FACT REQUIRED for authentication headers, SOURCE FACT REQUIRED for success response shape.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_041716_014.json",
+  "glm_source_index": 1491,
+  "search_intents": [
+    "Vercel drain delivery configuration validate",
+    "Vercel API drain configuration endpoint"
+  ],
+  "review_gate": "Pass if the material kit contains the exact Vercel drain delivery API endpoint path, the exact request body schema, the exact authentication headers, and the exact success response shape. Fail if any of these are missing or contain SOURCE FACT REQUIRED placeholders.",
+  "validation_proof": "Run python3 scripts/agentpress.py proof-receipt --kit vercel-drain-validate --field 'configuration_endpoint' to verify the source fact extraction was successful.",
+  "materializer_safe_local_write": true
+}

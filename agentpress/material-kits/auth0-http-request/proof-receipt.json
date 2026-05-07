@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The material kit contains at least 3 specific endpoint URLs, 5 required parameter definitions with types, and 2 callback shape schemas extracted from the Auth0 HTTP request documentation.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_021857_023.json",
+  "glm_source_index": 1261,
+  "search_intents": [
+    "Auth0 HTTP request flow configuration",
+    "Auth0 HTTP request endpoint parameters",
+    "Auth0 HTTP request callback shapes"
+  ],
+  "review_gate": "The material kit must contain at least 3 specific endpoint URLs, 5 parameter definitions with types, and 2 callback schemas extracted from the Auth0 HTTP request documentation. If any of these are missing, the kit is incomplete and must be re-extracted.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the output contains at least 3 endpoint URLs, 5 parameter definitions, and 2 callback schemas from the Auth0 HTTP request documentation.",
+  "materializer_safe_local_write": true
+}

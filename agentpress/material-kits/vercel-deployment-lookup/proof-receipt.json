@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Vercel deployment lookup material kit correctly captures the exact API endpoint, authentication method, and response shape for fetching deployments by ID or URL",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_042404_020.json",
+  "glm_source_index": 1497,
+  "search_intents": [
+    "Vercel deployment lookup API",
+    "Vercel get deployment by id",
+    "Vercel deployment status"
+  ],
+  "review_gate": "Kit must contain exact API endpoint, authentication method, and response shape from the source doc with no invented details",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the kit passes with no errors and the receipt shows the exact endpoint, auth method, and response shape",
+  "materializer_safe_local_write": true
+}

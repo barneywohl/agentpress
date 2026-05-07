@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The material kit contains at least 3 concrete TestEnqueue/line API fields extracted from the source, at least 2 current breaking changes, and at least 1 testing integration status field",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_034544_030.json",
+  "glm_source_index": 1270,
+  "search_intents": [
+    "Bun TestEnqueue",
+    "Bun test API",
+    "Bun runtime testing"
+  ],
+  "review_gate": "The material-manifest.json must contain at least 3 concrete TestEnqueue/line API fields, at least 2 breaking changes, and at least 1 testing integration status field from the source",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error 'bun install/runtime failure' --json and verify the material-manifest.json exists at agentpress/material-kits/bun-testenqueue-line/material-manifest.json with non-empty fields",
+  "materializer_safe_local_write": true
+}

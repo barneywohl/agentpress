@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Edge config tokens are listed and validated with correct API endpoint, headers, and response shape.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_043735_042.json",
+  "glm_source_index": 1519,
+  "search_intents": [
+    "Vercel edge config tokens API",
+    "how to list edge config tokens Vercel",
+    "Vercel API tokens management"
+  ],
+  "review_gate": "Pass if the kit contains the exact API endpoint, required headers, and response shape extracted from the source doc. Fail if any SOURCE FACT REQUIRED placeholder remains unfilled.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the kit passes with zero errors and the proof receipt shows 'edge config tokens listed successfully'.",
+  "materializer_safe_local_write": true
+}

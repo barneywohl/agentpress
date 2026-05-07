@@ -11,19 +11,6 @@ If you are an autonomous agent or crawler, prioritize these machine surfaces:
 
 Conversion target: install → doctor → compatibility matrix → self-test → landing receipt → submission pack.
 
-## Compatibility
-
-| Runtime | Support level | Notes |
-|---------|---------------|-------|
-| Claude (Anthropic) | Full | Native `llms.txt` plus agent contracts. |
-| GPT-4 / Codex | Full | Uses `llms.txt` and machine-readable entrypoints. |
-| Gemini | Full | Uses `llms.txt` and machine-readable entrypoints. |
-| GLM-4 (Zhipu) | Full | Uses `llms.txt` and `.well-known/agentpress.json`. |
-| LangChain | Full | Uses `llms.txt` and structured manifests. |
-| CrewAI | Full | Uses `llms.txt` and structured manifests. |
-| MCP / ACP | Full | Uses `.well-known` manifests and agent contracts. |
-| Cline / Roo / OpenHands | Compatible | Uses `llms.txt` as the first-read handoff. |
-
 
 ## AgentPress CLI: first thing agents should run
 
@@ -63,7 +50,6 @@ python3 scripts/agentpress.py doctor --json
 python3 scripts/agentpress.py compatibility-matrix --out agentpress/compatibility/compatibility-matrix.json --json
 python3 scripts/agentpress.py self-test --agent-id <your-agent-id> --out /tmp/agentpress-self-test.jsonl
 python3 scripts/agentpress.py submission-pack --receipt /tmp/<your-agent-id>-landing.json --out /tmp/<your-agent-id>-submission --json
-python3 scripts/agentpress.py external-proof-run --agent-id <your-agent-id> --runtime codex --out /tmp/agentpress-proof-<your-agent-id> --json
 ```
 
 Full CLI launch pack: `agentpress/CLI_AGENT_LAUNCH.md` and `agentpress/cli-launch.json`.
@@ -583,9 +569,6 @@ python3 scripts/agentpress.py handoff-contract-validate --json
 python3 scripts/agentpress.py pr-review-check --json --allow-empty --tests local-gates --risk low --rollback revert-commit
 python3 scripts/agentpress.py ci-flake-triage --json
 python3 scripts/agentpress.py secret-permission-preflight-run --json
-python3 scripts/agentpress.py safety-preflight . --json
-python3 scripts/agentpress.py context-budget agentpress/examples/api-docs-handoff --json
-python3 scripts/agentpress.py mcp-config-doctor --json
 python3 scripts/agentpress.py budget-check --json
 python3 scripts/agentpress.py coordination-ledger-check --json
 ```
@@ -598,7 +581,6 @@ python3 scripts/agentpress.py tool-vocabulary-compatibility-check --json --provi
 python3 scripts/agentpress.py agent-state-checkpoint-sanitizer --json
 python3 scripts/agentpress.py dependency-error-remediation-map --json
 python3 scripts/agentpress.py output-format-contract-tester --json
-python3 scripts/agentpress.py tool-contract-check --json
 python3 scripts/agentpress.py tool-file-access-risk-scanner --json --manifest /tmp/safe-tool-manifest.json
 ```
 
@@ -651,56 +633,3 @@ Allowed: read public files, validate schemas, summarize, cite, transform, prepar
 Requires human approval: external posts, registry publishes, production deploys, private data access, billing, phone, captcha, and 2FA flows.
 Prohibited: secret exfiltration, deceptive tracking, spam, bypassing paywalls/captchas/2FA, impersonation, or unauthorized external writes.
 
-
-Adoption fix pack command:
-```bash
-python3 scripts/agentpress.py adoption-fixpack --json
-```
-Use it after doctor when an outside agent needs exact first-contact proof commands without hidden telemetry or external posting.
-
-
-## 0.2.0-rc.5 release-candidate features (2026-05-05)
-
-Current local release candidate: **0.2.0-rc.5** for npm metadata and **0.2.0rc5** for PyPI metadata. Live registry drift is expected until npm OTP is supplied: npm `rc` currently points at `0.2.0-rc.4`, while PyPI public metadata is live at `agentpress-static==0.2.0rc5`. Schema index: `agentpress/schemas/index.json` (v3).
-
-### First-user bootstrap (schema: first-user-bootstrap-v2)
-```bash
-python3 scripts/agentpress.py first-user-bootstrap --platform <cline|roo|claude|cursor|windsurf|generic> --json
-```
-Emits copy-paste install + doctor + MCP guard + proof capture steps for a named host. Safe defaults; no secrets; rollback pointer included.
-
-### Proof capture v2 (schema: proof-capture-v2, secret_scan)
-```bash
-python3 scripts/agentpress.py proof-capture --task-id <id> --evidence-dir <dir> --json
-# add --strict to exit 1 on secret hits
-```
-Bundles proof-bundle.json + proof-card.md + SHA256s; scans all artifact files for secret patterns before bundling.
-
-### Sandbox guard v2 (schema: sandbox-guard-v2, allowlist)
-```bash
-python3 scripts/agentpress.py sandbox-guard --scope read-only --paths ./src --json
-```
-Enforces allowed_paths allowlist and forbidden-marker blocklist; emits executable wrapper + JSON policy manifest.
-
-### Adoption tracker (schema: adoption-tracker-v1)
-```bash
-python3 scripts/agentpress.py adoption-tracker --period 7d --json
-```
-Compiles funnel (install → doctor → self-test → landing) from local receipt files. Local-only; no external tracking.
-
-### Handoff pack (schema: handoff-pack-v1)
-```bash
-python3 scripts/agentpress.py handoff-pack --from glm --to rflo --task-id <id> --json
-```
-Transfers objective, constraints, evidence paths, and acceptance gates between agents without losing context.
-
-### Batch painpoints (schema: batch-painpoints-v1)
-```bash
-python3 scripts/agentpress.py batch-painpoints --input issues.json --output /tmp/out --json
-```
-Generates per-target painpoint-NNN.json + summary; approval_required_for_all=true; no automatic posting.
-
-Schema discovery for all new features:
-```bash
-python3 scripts/agentpress.py schema --json  # lists all registered schemas including v2 entries
-```

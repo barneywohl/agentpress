@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The material-manifest.json contains a valid llms_slice that cites the exact TestDequeue method signature, input/output types, and async behavior extracted from the source document",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_040900_001.json",
+  "glm_source_index": 1289,
+  "search_intents": [
+    "Bun TestDequeue API",
+    "how to use TestDequeue in Bun",
+    "Bun test dequeue async"
+  ],
+  "review_gate": "The llms_slice must contain no SOURCE FACT REQUIRED placeholders after source fact extraction; all three fact categories must be filled with real data from the source document.",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json and confirm the bun-testdequeue kit passes with zero errors and the llms_slice contains no SOURCE FACT REQUIRED placeholders remaining.",
+  "materializer_safe_local_write": true
+}

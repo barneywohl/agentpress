@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun bytecode builds can be configured by setting the bytecode field in BuildConfig to true or a configuration object, enabling compiled bytecode output with proper file extensions and build artifacts.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_040022_046.json",
+  "glm_source_index": 1286,
+  "search_intents": [
+    "Bun bytecode configuration",
+    "how to configure Bun BuildConfig bytecode",
+    "Bun compiled output format"
+  ],
+  "review_gate": "Pass if proof receipt shows all SOURCE FACT REQUIRED placeholders replaced with extracted source facts; fail if any placeholder remains unmodified.",
+  "validation_proof": "Run python3 scripts/agentpress.py proof-receipt --kit bun-bytecode --json and verify receipt fields: BuildConfig_schema, configuration_options, output_format are populated with SOURCE FACT REQUIRED placeholders replaced by extracted facts.",
+  "materializer_safe_local_write": true
+}

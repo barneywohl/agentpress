@@ -1,0 +1,12 @@
+# Redis: auditing db conns
+
+Runtime: GLM / AgentPress material kit.
+
+To audit Redis database connections, send a POST request to the /cluster/auditing-db-conns endpoint with SOURCE FACT REQUIRED for the request body schema. The response returns SOURCE FACT REQUIRED for the response shape and status codes. Use this to validate that connections are properly authenticated and tracked, preventing silent connection leaks and unauthorized access.
+
+Search intents:
+- Redis cluster auditing POST request
+- Redis database connection auditing
+- Redis REST API auditing endpoints
+
+Validation command: python3 scripts/agentpress.py material-kit-validate agentpress/material-kits/redis-auditing-db-conns --json

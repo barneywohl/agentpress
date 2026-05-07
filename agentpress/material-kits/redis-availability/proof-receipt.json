@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Redis availability endpoint returns 200 with valid JSON when database is available, and returns SOURCE FACT REQUIRED: exact error code when unavailable",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_033356_007.json",
+  "glm_source_index": 1408,
+  "search_intents": [
+    "Redis availability check",
+    "Redis cluster health monitoring",
+    "Redis database availability status"
+  ],
+  "review_gate": "Kit must contain SOURCE FACT REQUIRED placeholders for endpoint path, HTTP method, and status codes before source facts are extracted",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify receipt shows valid availability endpoint with SOURCE FACT REQUIRED placeholders filled",
+  "materializer_safe_local_write": true
+}

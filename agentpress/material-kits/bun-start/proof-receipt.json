@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun start requires SOURCE FACT REQUIRED for the exact method signature, SOURCE FACT REQUIRED for the required parameters, and SOURCE FACT REQUIRED for the return value.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_042204_021.json",
+  "glm_source_index": 1309,
+  "search_intents": [
+    "Bun start diagnostics channel",
+    "how to start a Bun TracingChannelCollection"
+  ],
+  "review_gate": "Pass if the material-manifest.json contains the exact start() method signature, return value, and error conditions extracted from the source doc.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the material-manifest.json contains the extracted method signature, return value, and error conditions.",
+  "materializer_safe_local_write": true
+}

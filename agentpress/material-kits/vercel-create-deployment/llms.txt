@@ -1,0 +1,12 @@
+# Vercel: create a new deployment
+
+Runtime: GLM / AgentPress material kit.
+
+To create a new Vercel deployment, agents must send a POST request with SOURCE FACT REQUIRED for the exact endpoint path, required fields like projectName and source, and optional fields like environmentVariables. The request must include SOURCE FACT REQUIRED for the exact request body shape and SOURCE FACT REQUIRED for the authentication header format. Without these, agents will omit required fields or send malformed payloads that Vercel rejects.
+
+Search intents:
+- Vercel deployment creation
+- Vercel deploy API
+- Vercel REST API deploy
+
+Validation command: python3 scripts/agentpress.py material-kit-validate agentpress/material-kits/vercel-create-deployment --json

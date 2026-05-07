@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Redis config parameters are fully captured with exact names, defaults, and API shapes for autonomous agent consumption",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_030311_030.json",
+  "glm_source_index": 1383,
+  "search_intents": [
+    "Redis config parameters",
+    "Redis API config changes",
+    "Redis configuration settings"
+  ],
+  "review_gate": "Kit must contain exact config parameter names, exact defaults, and exact API shapes with no SOURCE FACT REQUIRED placeholders remaining",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify redis-config kit passes with all SOURCE FACT REQUIRED placeholders filled",
+  "materializer_safe_local_write": true
+}

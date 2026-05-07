@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "MongoDB RAID configuration context card contains SOURCE FACT REQUIRED: specific RAID level recommendation, SOURCE FACT REQUIRED: specific disk throughput numbers, and SOURCE FACT REQUIRED: specific replica set configuration details extracted from the forum post",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_034744_027.json",
+  "glm_source_index": 1428,
+  "search_intents": [
+    "MongoDB RAID configuration",
+    "MongoDB storage performance",
+    "MongoDB deployment optimization"
+  ],
+  "review_gate": "Material-manifest.json exists at correct path with valid JSON containing SOURCE FACT REQUIRED placeholders for RAID level, disk throughput, and replica config",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify returned JSON has no errors and material-manifest.json exists at agentpress/material-kits/mongodb-raid-config-259826/material-manifest.json",
+  "materializer_safe_local_write": true
+}

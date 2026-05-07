@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Compact context card for Auth0 post-test-event exists with exact HTTP method, exact request body schema, and exact required scopes/permissions filled in from source doc extraction.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_025344_016.json",
+  "glm_source_index": 1281,
+  "search_intents": [
+    "Auth0 post test event",
+    "Auth0 event streams",
+    "Auth0 management API"
+  ],
+  "review_gate": "Pass if: compact context card exists with SOURCE FACT REQUIRED placeholders filled from source doc extraction, and context-budget validation passes.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and confirm compact context budget passes for Auth0 post-test-event card.",
+  "materializer_safe_local_write": true
+}

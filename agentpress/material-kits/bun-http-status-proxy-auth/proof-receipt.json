@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "The HTTP STATUS PROXY AUTHENTICATION REQUIRED constant returns a valid response when the status is triggered",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_024859_011.json",
+  "glm_source_index": 1203,
+  "search_intents": [
+    "Bun HTTP status constants",
+    "HTTP STATUS PROXY AUTHENTICATION REQUIRED",
+    "Bun runtime status codes"
+  ],
+  "review_gate": "Pass if the material kit includes the exact HTTP status code number, description, response shape, and authentication requirements for the PROXY_AUTHENTICATION_REQUIRED constant; fail if any are missing or use placeholder values",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json and verify the HTTP status constant returns a valid response when triggered",
+  "materializer_safe_local_write": true
+}

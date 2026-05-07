@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun EvaluateParameterType context card contains SOURCE FACT REQUIRED: specific enum values, SOURCE FACT REQUIRED: specific parameter signatures, and SOURCE FACT REQUIRED: specific return types extracted from the documentation",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_034744_027.json",
+  "glm_source_index": 1267,
+  "search_intents": [
+    "Bun EvaluateParameterType",
+    "Bun runtime inspector types",
+    "Bun node inspector reference"
+  ],
+  "review_gate": "Material-manifest.json exists at correct path with valid JSON containing SOURCE FACT REQUIRED placeholders for enum values, parameter signatures, and return types",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify returned JSON has no errors and material-manifest.json exists at agentpress/material-kits/bun-evaluate-parameter-type/material-manifest.json",
+  "materializer_safe_local_write": true
+}

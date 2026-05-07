@@ -1,0 +1,15 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Compact, citation-ready context for Vercel edge config token metadata is available and validated against the source document.",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_043237_036.json",
+  "glm_source_index": 1513,
+  "search_intents": [
+    "Vercel edge config token metadata",
+    "Vercel API token management",
+    "Vercel deploy config access"
+  ],
+  "review_gate": "Pass if the material kit contains the exact API endpoint, required headers, and response shape from the source document. Fail if any SOURCE FACT REQUIRED placeholder remains unfilled.",
+  "validation_proof": "Run python3 scripts/agentpress.py context-budget . --json --strict and verify the kit passes with zero errors and the proof receipt shows the source document was extracted correctly.",
+  "materializer_safe_local_write": true
+}

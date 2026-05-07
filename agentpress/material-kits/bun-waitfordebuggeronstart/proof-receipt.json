@@ -1,0 +1,14 @@
+{
+  "schema_version": "2026-05-06.agentpress-proof-receipt.v1",
+  "status": "local_materialized",
+  "claim": "Bun waitForDebuggerOnStart inspector parameter SOURCE FACT REQUIRED for boolean value and SOURCE FACT REQUIRED for runtime error codes",
+  "glm_source_sidecar": "/Volumes/X10/clawd/shared/status/glm_agents/agentpress_doc_bootstrap/glm_agentpress_doc_bootstrap_batch_20260507_041104_005.json",
+  "glm_source_index": 1293,
+  "search_intents": [
+    "Bun waitForDebuggerOnStart",
+    "Bun inspector debugger"
+  ],
+  "review_gate": "Kit must contain specific Bun waitForDebuggerOnStart inspector details, not generic Bun documentation",
+  "validation_proof": "Run python3 scripts/agentpress.py package-registry-doctor --error \"bun install/runtime failure\" --json and verify the kit passes with no errors",
+  "materializer_safe_local_write": true
+}
