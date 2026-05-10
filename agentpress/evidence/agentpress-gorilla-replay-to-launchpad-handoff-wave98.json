@@ -1,0 +1,177 @@
+{
+  "blockers": [],
+  "external_actions": [],
+  "generated_at": "2026-05-10T23:38:39Z",
+  "kind": "agentpress_gorilla_replay_to_launchpad_handoff",
+  "launchpad_handoff_card": {
+    "acceptance_harness_command": "npm run rc:agentpress-gorilla-replay-to-launchpad-handoff --silent",
+    "card_id": "wave98-gorilla-launchpad-handoff-3b05dda0f4f4",
+    "first_run_steps": [
+      {
+        "acceptance_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "command": "echo 'AgentPress Gorilla manifest acceptance replay (local-only)'",
+        "expected_local_check": "local artifact refresh or proof capture completes without external/public action",
+        "first_run_instruction": "Paste into a private checkout only after reading the safety gate.",
+        "launchpad_surface": "cli-first-run-card",
+        "safe_local_only": true,
+        "step": 1
+      },
+      {
+        "acceptance_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "command": "echo 'Stop before any public action; Jake approval required.'",
+        "expected_local_check": "local artifact refresh or proof capture completes without external/public action",
+        "first_run_instruction": "Paste into a private checkout only after reading the safety gate.",
+        "launchpad_surface": "cli-first-run-card",
+        "safe_local_only": true,
+        "step": 2
+      },
+      {
+        "acceptance_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "command": "echo 'inspect step 1: inspect_receipt'",
+        "expected_local_check": "local artifact refresh or proof capture completes without external/public action",
+        "first_run_instruction": "Paste into a private checkout only after reading the safety gate.",
+        "launchpad_surface": "cli-first-run-card",
+        "safe_local_only": true,
+        "step": 3
+      },
+      {
+        "acceptance_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "command": "echo 'running step 2: run_first_useful_command'",
+        "expected_local_check": "local artifact refresh or proof capture completes without external/public action",
+        "first_run_instruction": "Paste into a private checkout only after reading the safety gate.",
+        "launchpad_surface": "cli-first-run-card",
+        "safe_local_only": true,
+        "step": 4
+      },
+      {
+        "acceptance_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "command": "python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json",
+        "expected_local_check": "local artifact refresh or proof capture completes without external/public action",
+        "first_run_instruction": "Paste into a private checkout only after reading the safety gate.",
+        "launchpad_surface": "cli-first-run-card",
+        "safe_local_only": true,
+        "step": 5
+      },
+      {
+        "acceptance_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "command": "echo 'running step 3: capture_proof'",
+        "expected_local_check": "local artifact refresh or proof capture completes without external/public action",
+        "first_run_instruction": "Paste into a private checkout only after reading the safety gate.",
+        "launchpad_surface": "cli-first-run-card",
+        "safe_local_only": true,
+        "step": 6
+      },
+      {
+        "acceptance_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "command": "python3 scripts/agentpress.py proof-capture --task-id glm-gorilla-bootstrap-conveyor --evidence-dir agentpress/gorilla/glm-bootstrap-conveyor-wave87-proof --artifacts agentpress/gorilla/glm-bootstrap-conveyor-wave87.json --commands 'python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json' --json",
+        "expected_local_check": "local artifact refresh or proof capture completes without external/public action",
+        "first_run_instruction": "Paste into a private checkout only after reading the safety gate.",
+        "launchpad_surface": "cli-first-run-card",
+        "safe_local_only": true,
+        "step": 7
+      },
+      {
+        "acceptance_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "command": "echo 'Replay complete; local commands run: 2'",
+        "expected_local_check": "local artifact refresh or proof capture completes without external/public action",
+        "first_run_instruction": "Paste into a private checkout only after reading the safety gate.",
+        "launchpad_surface": "cli-first-run-card",
+        "safe_local_only": true,
+        "step": 8
+      }
+    ],
+    "local_artifact_checks": [
+      "agentpress/gorilla/utility-pack",
+      "agentpress/gorilla/glm-bootstrap-conveyor-wave87-proof"
+    ],
+    "operator_next_steps": [
+      "Open this card before running Gorilla replay commands.",
+      "Run only steps marked safe_local_only=true in a private local checkout.",
+      "Attach stdout/stderr and local artifact paths to the task proof bundle.",
+      "Stop before git push, npm publish, deploy, outreach, wallet, payment, secret, or external-send action unless Jake explicitly approves."
+    ],
+    "public_publish_push_gate": "Jake explicit approval required; no public action performed.",
+    "readiness_assertions": [
+      "wave97 receipt is ok and blocker-free",
+      "all replay commands are local-only and launchpad-safe",
+      "local artifact checks are explicit",
+      "public publish/push/deploy remains gated by Jake explicit approval"
+    ],
+    "recipient_value": "Turns the Gorilla replay receipt into a single launchpad handoff card with safe first-run commands, local artifact checks, and acceptance evidence instructions.",
+    "source_receipt": "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.json",
+    "source_receipt_id": "wave97-gorilla-replay-receipt-24f6ec686f74",
+    "source_receipt_sha256": "3b05dda0f4f4a196bbcf660f4f4c9a7317855a308dbbbb91c8b4ec781727e57a"
+  },
+  "npm_pack_dry_run": {
+    "command": "npm pack --dry-run --json",
+    "json_parseable": true,
+    "required_included": [
+      {
+        "included": true,
+        "path": "scripts/agentpress_gorilla_replay_to_launchpad_handoff.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agentpress_gorilla_replay_to_launchpad_handoff.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-to-launchpad-handoff-wave98.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-to-launchpad-handoff-wave98.md"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.md"
+      }
+    ],
+    "returncode": 0
+  },
+  "package_json_inclusion_expectations": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/agentpress_gorilla_replay_to_launchpad_handoff.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "tests/test_agentpress_gorilla_replay_to_launchpad_handoff.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-to-launchpad-handoff-wave98.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-to-launchpad-handoff-wave98.md"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.md"
+      }
+    ],
+    "script": "python3 scripts/agentpress_gorilla_replay_to_launchpad_handoff.py . --out agentpress/evidence/agentpress-gorilla-replay-to-launchpad-handoff-wave98.json --markdown-out agentpress/evidence/agentpress-gorilla-replay-to-launchpad-handoff-wave98.md --include-pack-check --json"
+  },
+  "payment_actions_taken": [],
+  "public_actions_taken": [],
+  "schema_version": 1,
+  "secret_material_included": false,
+  "source_receipt": "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.json",
+  "status": "ok"
+}
