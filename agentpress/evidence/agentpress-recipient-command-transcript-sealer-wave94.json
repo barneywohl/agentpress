@@ -1,0 +1,111 @@
+{
+  "blockers": [],
+  "external_actions": [],
+  "generated_at": "2026-05-10T21:53:46Z",
+  "kind": "agentpress_recipient_command_transcript_sealer",
+  "npm_pack_dry_run": {
+    "command": "npm pack --dry-run --json",
+    "json_parseable": true,
+    "required_included": [
+      {
+        "included": true,
+        "path": "scripts/agentpress_recipient_command_transcript_sealer.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agentpress_recipient_command_transcript_sealer.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-recipient-command-transcript-sealer-wave94.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-recipient-command-transcript-sealer-wave94.md"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-comms-handoff-recipient-receipt-verifier-wave93.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-comms-handoff-recipient-receipt-verifier-wave93.md"
+      }
+    ],
+    "returncode": 0
+  },
+  "package_json_inclusion_expectations": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/agentpress_recipient_command_transcript_sealer.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "tests/test_agentpress_recipient_command_transcript_sealer.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-recipient-command-transcript-sealer-wave94.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-recipient-command-transcript-sealer-wave94.md"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-comms-handoff-recipient-receipt-verifier-wave93.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-comms-handoff-recipient-receipt-verifier-wave93.md"
+      }
+    ],
+    "script": "python3 scripts/agentpress_recipient_command_transcript_sealer.py . --out agentpress/evidence/agentpress-recipient-command-transcript-sealer-wave94.json --markdown-out agentpress/evidence/agentpress-recipient-command-transcript-sealer-wave94.md --include-pack-check --json"
+  },
+  "public_actions_taken": [],
+  "recipient_command_transcript_seal": {
+    "operator_next_command": "npm run rc:agentpress-recipient-command-transcript-sealer --silent",
+    "operator_usefulness": "A receiving agent can inspect one JSON/Markdown pair to confirm launchpad -> comms handoff commands are local-only, safe, and replay-ready without public actions.",
+    "public_publish_push_gate": "Jake explicit approval required; no public action performed.",
+    "redaction_attestation": "No secrets, tokens, credentials, customer data, outreach payloads, or external messages included.",
+    "sealed_at": "2026-05-10T21:53:46Z",
+    "source_handoff_id": "wave92-handoff-739ca4be26f7a23b",
+    "transcript_steps": [
+      {
+        "command": "python3 scripts/agentpress.py launchpad --json",
+        "safe_local_only": true,
+        "sealed_status": "sealed-ok",
+        "source_status": "ok",
+        "step": 1,
+        "transcript_note": "Local-only simulated recipient command preserved for handoff replay; not executed here."
+      },
+      {
+        "command": "npm run rc:agent-facing-launchpad-recovery-card --silent",
+        "safe_local_only": true,
+        "sealed_status": "sealed-ok",
+        "source_status": "ok",
+        "step": 2,
+        "transcript_note": "Local-only simulated recipient command preserved for handoff replay; not executed here."
+      },
+      {
+        "command": "npm run rc:agent-facing-acceptance-harness-replay-wave90 --silent",
+        "safe_local_only": true,
+        "sealed_status": "sealed-ok",
+        "source_status": "ok",
+        "step": 3,
+        "transcript_note": "Local-only simulated recipient command preserved for handoff replay; not executed here."
+      }
+    ]
+  },
+  "schema_version": 1,
+  "source_handoff_id": "wave92-handoff-739ca4be26f7a23b",
+  "source_wave93": "agentpress/evidence/agentpress-comms-handoff-recipient-receipt-verifier-wave93.json",
+  "status": "ok"
+}

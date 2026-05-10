@@ -1,0 +1,78 @@
+{
+  "acceptance_harness_replay": {
+    "path": "agentpress/evidence/agent-facing-acceptance-harness-replay-wave90.json",
+    "public_action_gate": "closed_until_jake_explicit_approval",
+    "safe_paste_command": "npm run rc:agent-facing-acceptance-smoke-replay-receipt-verifier --silent",
+    "status": "ok"
+  },
+  "agent_facing_outcome": "A fresh agent gets three local-only recovery commands that verify health, replay acceptance evidence, and reopen launchpad diagnostics without public writes.",
+  "blockers": [],
+  "card_id": "wave91-launchpad-b65f552afe8ef88d",
+  "external_actions": [],
+  "generated_at": "2026-05-10T20:47:19Z",
+  "kind": "agentpress_agent_facing_launchpad_recovery_card",
+  "launchpad_wizard": {
+    "has_copy_paste_command": false,
+    "path": "agentpress/onboarding/first-run-wizard.json",
+    "status": "needs_choice",
+    "step_count": 0
+  },
+  "npm_pack_dry_run": {
+    "command": "npm pack --dry-run --json",
+    "json_parseable": true,
+    "required_included": [
+      {
+        "included": true,
+        "path": "scripts/agent_facing_launchpad_recovery_card.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agent_facing_launchpad_recovery_card.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-launchpad-recovery-card-wave91.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-launchpad-recovery-card-wave91.md"
+      }
+    ],
+    "returncode": 0
+  },
+  "operator_decision_needed": "none_until_public_publish_or_push",
+  "package_json_inclusion_expectations": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/agent_facing_launchpad_recovery_card.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "tests/test_agent_facing_launchpad_recovery_card.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agent-facing-launchpad-recovery-card-wave91.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agent-facing-launchpad-recovery-card-wave91.md"
+      }
+    ],
+    "script": "python3 scripts/agent_facing_launchpad_recovery_card.py . --out agentpress/evidence/agent-facing-launchpad-recovery-card-wave91.json --markdown-out agentpress/evidence/agent-facing-launchpad-recovery-card-wave91.md --include-pack-check --json"
+  },
+  "public_action_gate": "closed_until_jake_explicit_approval",
+  "public_actions_taken": [],
+  "safe_recovery_commands": [
+    "npm run doctor --silent",
+    "npm run rc:agent-facing-acceptance-harness-replay-wave90 --silent",
+    "python3 scripts/agentpress.py launchpad --json"
+  ],
+  "schema_version": 1,
+  "status": "ok"
+}

@@ -1,0 +1,120 @@
+{
+  "approval_review": {
+    "approval_granted": true,
+    "approval_scope": [
+      "public_publish_push"
+    ],
+    "blockers": [],
+    "expected_signature_sha256": "9767dd80234aa49bed7ce6b2261cc9cb5d8ad985b03d4dcafcc3d3a6d0bfad8a",
+    "expires_at": "2026-05-11T13:25:42Z",
+    "path": "agentpress/evidence/local-jake-approval-wave69.fixture.json",
+    "provided": true,
+    "sha256": "db74d2991b2b378c02f7cb7fc5358e2078122b571ca7830823dda9b2b9253c89",
+    "signature_valid": true,
+    "signed_at": "2026-05-10T13:25:42Z",
+    "status": "approved_for_rehearsal"
+  },
+  "assertions": {
+    "approval_receipt_valid_for_rehearsal": true,
+    "dry_run_executed_no_public_commands": true,
+    "no_external_actions_taken": true,
+    "no_public_actions_taken": true,
+    "public_publish_push_gate_closed": true,
+    "wave68_local_only": true,
+    "wave68_parseable": true,
+    "wave68_status_ok": true
+  },
+  "blockers": [],
+  "exact_local_verification_commands": [
+    "npm run rc:adoption-post-approval-cutover-rehearsal --silent",
+    "python3 -m json.tool agentpress/evidence/rc-adoption-post-approval-cutover-rehearsal-wave69.json >/tmp/agentpress-rc-adoption-post-approval-cutover-rehearsal-json.tool.out",
+    "python3 -m py_compile scripts/rc_adoption_post_approval_cutover_rehearsal.py",
+    "pytest -q tests/test_rc_adoption_post_approval_cutover_rehearsal.py",
+    "npm pack --dry-run --json >/tmp/agentpress-wave69-npm-pack-dry-run.json"
+  ],
+  "external_actions": [],
+  "generated_at": "2026-05-10T13:25:48Z",
+  "kind": "agentpress_rc_adoption_post_approval_cutover_rehearsal",
+  "local_only": true,
+  "post_approval_rehearsal": {
+    "approval_receipt_can_open_real_gate": false,
+    "candidate_commands_reviewed_not_executed": [
+      {
+        "command": "npm run rc:launch-signal-simulator",
+        "executed_by_rehearsal": false,
+        "public_or_external_fragments": [],
+        "reviewed_after_approval_receipt": true
+      },
+      {
+        "command": "npm run rc:adoption-claim-board",
+        "executed_by_rehearsal": false,
+        "public_or_external_fragments": [],
+        "reviewed_after_approval_receipt": true
+      },
+      {
+        "command": "python3 -m json.tool agentpress/evidence/adoption-claim-claim-feb94d476c9e.json",
+        "executed_by_rehearsal": false,
+        "public_or_external_fragments": [],
+        "reviewed_after_approval_receipt": true
+      },
+      {
+        "command": "python3 -m json.tool agentpress/evidence/adoption-claim-claim-feb94d476c9e.json >/tmp/agentpress-adoption-claim-claim-feb94d476c9e-json.tool.out",
+        "executed_by_rehearsal": false,
+        "public_or_external_fragments": [],
+        "reviewed_after_approval_receipt": true
+      },
+      {
+        "command": "python3 - <<'PY'\nimport hashlib, json\nfrom pathlib import Path\np=Path('agentpress/evidence/adoption-claim-claim-feb94d476c9e.json')\nd=json.loads(p.read_text())\nexpected=d.pop('receipt_sha256')\nactual=hashlib.sha256(json.dumps(d, sort_keys=True, separators=(',', ':')).encode()).hexdigest()\nassert actual == expected, (actual, expected)\nprint(actual)\nPY",
+        "executed_by_rehearsal": false,
+        "public_or_external_fragments": [],
+        "reviewed_after_approval_receipt": true
+      }
+    ],
+    "forbidden_candidate_fragments_seen": [],
+    "public_commands_executed": false,
+    "public_publish_push_gate_open": false,
+    "requires_separate_operator_public_action": true,
+    "route_commands_executed": false,
+    "state": "approval_validated_rehearsal_only",
+    "steps": [
+      {
+        "instruction": "Require wave68 status=ok, local_only=true, no public/external actions, and closed public gate.",
+        "name": "verify-wave68-cutover-dry-run",
+        "passed": true,
+        "step": 1
+      },
+      {
+        "instruction": "Validate approved_by, scope, route/claim scope, expiry, signed_at, and deterministic local signature fields.",
+        "name": "validate-jake-approval-receipt",
+        "passed": true,
+        "step": 2
+      },
+      {
+        "candidate_count": 5,
+        "commands_executed": false,
+        "instruction": "Preview command classes after approval receipt validation; do not execute any public command.",
+        "name": "post-approval-command-rehearsal",
+        "step": 3
+      },
+      {
+        "instruction": "Even with a valid receipt, emit a local packet only; a separate explicit operator action is required before public execution.",
+        "name": "stop-before-public-action",
+        "public_publish_push_gate_open": false,
+        "step": 4
+      }
+    ],
+    "title": "Post-approval cutover rehearsal for route-01-claim-feb94d476c9e"
+  },
+  "public_actions_taken": [],
+  "schema_version": "2026-05-10.agentpress-rc-adoption-post-approval-cutover-rehearsal.v1",
+  "source_wave68": {
+    "claim_id": "claim-feb94d476c9e",
+    "local_only": true,
+    "path": "agentpress/evidence/rc-adoption-operator-approval-cutover-dry-run-wave68.json",
+    "public_publish_push_gate_open": false,
+    "route_id": "route-01-claim-feb94d476c9e",
+    "sha256": "1182f1f8e9a4f651319a005911efa5eff76f5931b8b27defae69f03b11f48f4c",
+    "status": "ok"
+  },
+  "status": "ok"
+}

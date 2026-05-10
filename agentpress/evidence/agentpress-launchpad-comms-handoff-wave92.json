@@ -1,0 +1,162 @@
+{
+  "blockers": [],
+  "comms_hub_packet": {
+    "from_surface": "launchpad/first-run-wizard",
+    "handoff_id": "wave92-handoff-739ca4be26f7a23b",
+    "recipient_message": {
+      "capability": "verify_agentpress_first_run_and_acceptance_packet",
+      "copy_paste_commands": [
+        "python3 scripts/agentpress.py launchpad --json",
+        "npm run rc:agent-facing-launchpad-recovery-card --silent",
+        "npm run rc:agent-facing-acceptance-harness-replay-wave90 --silent"
+      ],
+      "message_type": "agentpress_launchpad_to_comms_hub_handoff",
+      "proof_refs": [
+        "agentpress/onboarding/first-run-wizard.json",
+        "agentpress/evidence/agent-facing-launchpad-recovery-card-wave91.json",
+        "agentpress/evidence/agent-facing-acceptance-harness-replay-wave90.json"
+      ],
+      "reply_required": {
+        "blockers": [],
+        "evidence_path": "local proof JSON path",
+        "status": "ok|blocked"
+      },
+      "task": "Use the local commands and proof refs to verify AgentPress launchpad readiness before any public action.",
+      "to_agent_role": "recipient_agent"
+    },
+    "recipient_ready": true,
+    "source_outputs": [
+      {
+        "keys": [
+          "blockers",
+          "canonical_url",
+          "commands",
+          "detected",
+          "exact_next_command",
+          "generated_utc",
+          "root",
+          "safety",
+          "schema_version",
+          "status",
+          "then_command"
+        ],
+        "path": "agentpress/onboarding/first-run-wizard.json",
+        "status": "needs_choice"
+      },
+      {
+        "keys": [
+          "acceptance_harness_replay",
+          "agent_facing_outcome",
+          "blockers",
+          "card_id",
+          "external_actions",
+          "generated_at",
+          "kind",
+          "launchpad_wizard",
+          "npm_pack_dry_run",
+          "operator_decision_needed",
+          "package_json_inclusion_expectations",
+          "public_action_gate"
+        ],
+        "path": "agentpress/evidence/agent-facing-launchpad-recovery-card-wave91.json",
+        "status": "ok"
+      },
+      {
+        "keys": [
+          "blockers",
+          "evidence_id",
+          "expected_output_checks",
+          "external_actions",
+          "generated_at",
+          "kind",
+          "npm_pack_dry_run",
+          "operator_text_forbidden_hits",
+          "package_json_inclusion_expectations",
+          "painpoint_solved",
+          "public_action_gate",
+          "public_actions_taken"
+        ],
+        "path": "agentpress/evidence/agent-facing-acceptance-harness-replay-wave90.json",
+        "status": "ok"
+      }
+    ],
+    "to_surface": "agent-comms/proof-hub"
+  },
+  "external_actions": [],
+  "generated_at": "2026-05-10T21:03:21Z",
+  "handoff_id": "wave92-handoff-739ca4be26f7a23b",
+  "kind": "agentpress_launchpad_comms_handoff_packet",
+  "local_only_commands": [
+    "python3 scripts/agentpress.py launchpad --json",
+    "npm run rc:agent-facing-launchpad-recovery-card --silent",
+    "npm run rc:agent-facing-acceptance-harness-replay-wave90 --silent"
+  ],
+  "npm_pack_dry_run": {
+    "command": "npm pack --dry-run --json",
+    "json_parseable": true,
+    "required_included": [
+      {
+        "included": true,
+        "path": "scripts/agentpress_launchpad_comms_handoff.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agentpress_launchpad_comms_handoff.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-launchpad-comms-handoff-wave92.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-launchpad-comms-handoff-wave92.md"
+      }
+    ],
+    "returncode": 0
+  },
+  "package_json_inclusion_expectations": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/agentpress_launchpad_comms_handoff.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "tests/test_agentpress_launchpad_comms_handoff.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-launchpad-comms-handoff-wave92.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-launchpad-comms-handoff-wave92.md"
+      }
+    ],
+    "script": "python3 scripts/agentpress_launchpad_comms_handoff.py . --out agentpress/evidence/agentpress-launchpad-comms-handoff-wave92.json --markdown-out agentpress/evidence/agentpress-launchpad-comms-handoff-wave92.md --include-pack-check --json"
+  },
+  "proof_receipt_expectations": {
+    "must_include": [
+      "handoff_id",
+      "commands_run",
+      "artifacts",
+      "result_status",
+      "redaction_attestation"
+    ],
+    "prohibited_without_approval": [
+      "push",
+      "publish",
+      "deploy",
+      "payment",
+      "external_message"
+    ],
+    "public_action_gate": "closed_until_jake_explicit_approval"
+  },
+  "public_actions_taken": [],
+  "schema_version": 1,
+  "status": "ok"
+}

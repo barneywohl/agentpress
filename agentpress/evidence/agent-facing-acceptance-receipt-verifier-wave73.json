@@ -1,0 +1,88 @@
+{
+  "blockers": [],
+  "external_actions": [],
+  "generated_at": "2026-05-10T14:39:50Z",
+  "guardrail_audit_summary": {
+    "loaded": true,
+    "path": "agentpress/evidence/rc-public-action-guardrail-audit-wave52.json",
+    "status": "ok"
+  },
+  "kind": "agentpress_agent_facing_acceptance_receipt_verifier",
+  "local_only": true,
+  "npm_pack_dry_run": {
+    "command": "npm pack --dry-run --json",
+    "json_parseable": true,
+    "required_included": [
+      {
+        "included": true,
+        "path": "scripts/agent_facing_acceptance_receipt_verifier.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agent_facing_acceptance_receipt_verifier.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-receipt-verifier-wave73.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-receipt-verifier-wave73.md"
+      }
+    ],
+    "returncode": 0
+  },
+  "operator_certificate": {
+    "all_required_lanes_verified": true,
+    "certificate_id": "wave73-certificate-5c0855d73346ea07",
+    "command_count": 15,
+    "lane_count": 6,
+    "operator_statement": "Wave72 readiness receipt, six lane claims, local commands, package inclusion, and no-public-action boundary were verified locally only.",
+    "public_action_gate": "closed_until_jake_explicit_approval",
+    "required_lane_count": 6,
+    "source_receipt_id": "wave72-readiness-78dfb73f11e85b4e"
+  },
+  "package_json_inclusion_expectations": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/agent_facing_acceptance_receipt_verifier.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "tests/test_agent_facing_acceptance_receipt_verifier.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-receipt-verifier-wave73.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-receipt-verifier-wave73.md"
+      }
+    ],
+    "script": "python3 scripts/agent_facing_acceptance_receipt_verifier.py . --out agentpress/evidence/agent-facing-acceptance-receipt-verifier-wave73.json --markdown-out agentpress/evidence/agent-facing-acceptance-receipt-verifier-wave73.md --include-pack-check --json"
+  },
+  "public_actions_taken": [],
+  "schema_version": 1,
+  "source_receipt": "agentpress/evidence/agent-facing-acceptance-handoff-drill-wave72.json",
+  "status": "ok",
+  "verified_command_fragments": [
+    "rc:agent-facing-acceptance-handoff-drill",
+    "py_compile scripts/agent_facing_acceptance_handoff_drill.py",
+    "pytest -q tests/test_agent_facing_acceptance_handoff_drill.py",
+    "npm pack --dry-run --json"
+  ],
+  "verified_lane_ids": [
+    "acceptance_harness",
+    "comms_hub",
+    "glm_gorilla_bootstrap_conveyor",
+    "launchpad",
+    "marketplace",
+    "safety_guardrails"
+  ]
+}

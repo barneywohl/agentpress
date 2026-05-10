@@ -1,0 +1,167 @@
+{
+  "blockers": [],
+  "external_actions": [],
+  "generated_at": "2026-05-10T19:01:45Z",
+  "handoff_capsule": {
+    "capsule_id": "wave84-handoff-890b4511b3858705",
+    "command_chain_verified": true,
+    "expected_output_count": 4,
+    "fresh_agent_inspection_files": [
+      {
+        "exists_local": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-verifier-wave83.json",
+        "required_for_fresh_agent": true
+      },
+      {
+        "exists_local": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-verifier-wave83.md",
+        "required_for_fresh_agent": true
+      },
+      {
+        "exists_local": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.json",
+        "required_for_fresh_agent": true
+      },
+      {
+        "exists_local": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-one-command-smoke-packet-wave81.json",
+        "required_for_fresh_agent": true
+      },
+      {
+        "exists_local": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json",
+        "required_for_fresh_agent": true
+      }
+    ],
+    "recommended_safe_paste_command_count": 1,
+    "recommended_safe_paste_commands": [
+      {
+        "command": "npm run rc:agent-facing-acceptance-smoke-replay-receipt-verifier --silent",
+        "local_only": true,
+        "public_action_free": true,
+        "purpose": "Fresh-agent deterministic verification of the wave83 certificate and upstream replay evidence.",
+        "requires_jake_approval": false
+      }
+    ],
+    "selected_command_replay_returncode": 0,
+    "source_wave83_certificate_id": "wave83-verifier-8a1e6b342218c46c",
+    "stop_go_criteria": {
+      "go_if": [
+        "wave83 status is ok and blockers is empty",
+        "command_chain_verified is true",
+        "selected_command_replay_returncode is 0",
+        "expected_output_count is at least 4",
+        "public_action_gate is closed_until_jake_explicit_approval",
+        "public_actions_taken and external_actions are empty"
+      ],
+      "stop_if": [
+        "any blocker is present",
+        "the verifier command exits non-zero",
+        "any recommended command contains publish/push/deploy/outreach/payment/secret text",
+        "any public or external action is required before Jake approval"
+      ]
+    }
+  },
+  "kind": "agentpress_agent_facing_acceptance_verifier_handoff_capsule",
+  "loaded_sources": {
+    "wave79": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json",
+      "status": "ok"
+    },
+    "wave81": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-one-command-smoke-packet-wave81.json",
+      "status": "ok"
+    },
+    "wave82": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.json",
+      "status": "ok"
+    },
+    "wave83": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-verifier-wave83.json",
+      "status": "ok"
+    }
+  },
+  "local_only": true,
+  "npm_pack_dry_run": {
+    "command": "npm pack --dry-run --json",
+    "json_parseable": true,
+    "required_included": [
+      {
+        "included": true,
+        "path": "scripts/agent_facing_acceptance_verifier_handoff_capsule.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agent_facing_acceptance_verifier_handoff_capsule.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-verifier-handoff-capsule-wave84.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-verifier-handoff-capsule-wave84.md"
+      },
+      {
+        "included": true,
+        "path": "scripts/agent_facing_acceptance_smoke_replay_receipt_verifier.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agent_facing_acceptance_smoke_replay_receipt_verifier.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-verifier-wave83.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-verifier-wave83.md"
+      }
+    ],
+    "returncode": 0
+  },
+  "package_json_inclusion_expectations": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/agent_facing_acceptance_verifier_handoff_capsule.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "tests/test_agent_facing_acceptance_verifier_handoff_capsule.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-verifier-handoff-capsule-wave84.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-verifier-handoff-capsule-wave84.md"
+      }
+    ],
+    "script": "python3 scripts/agent_facing_acceptance_verifier_handoff_capsule.py . --out agentpress/evidence/agent-facing-acceptance-verifier-handoff-capsule-wave84.json --markdown-out agentpress/evidence/agent-facing-acceptance-verifier-handoff-capsule-wave84.md --include-pack-check --json",
+    "verifier_script": "python3 scripts/agent_facing_acceptance_smoke_replay_receipt_verifier.py . --out agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-verifier-wave83.json --markdown-out agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-verifier-wave83.md --include-pack-check --json"
+  },
+  "public_action_gate": "closed_until_jake_explicit_approval",
+  "public_actions_taken": [],
+  "schema_version": 1,
+  "source_certificate": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-verifier-wave83.json",
+  "status": "ok",
+  "verifier_command_run": {
+    "command": "npm run rc:agent-facing-acceptance-smoke-replay-receipt-verifier --silent",
+    "local_only": true,
+    "public_action_free": true,
+    "returncode": 0,
+    "stderr_tail": "",
+    "stdout_tail": "ce/agent-facing-acceptance-smoke-replay-receipt-verifier-wave83.md\"\n      }\n    ],\n    \"script\": \"python3 scripts/agent_facing_acceptance_smoke_replay_receipt_verifier.py . --out agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-verifier-wave83.json --markdown-out agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-verifier-wave83.md --include-pack-check --json\"\n  },\n  \"public_action_gate\": \"closed_until_jake_explicit_approval\",\n  \"public_actions_taken\": [],\n  \"schema_version\": 1,\n  \"source_receipt\": \"agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.json\",\n  \"source_wave82_package_checks\": [\n    {\n      \"path\": \"scripts/agent_facing_acceptance_smoke_replay_receipt.py\",\n      \"source_pack_included\": true\n    },\n    {\n      \"path\": \"tests/test_agent_facing_acceptance_smoke_replay_receipt.py\",\n      \"source_pack_included\": true\n    },\n    {\n      \"path\": \"agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.json\",\n      \"source_pack_included\": true\n    },\n    {\n      \"path\": \"agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.md\",\n      \"source_pack_included\": true\n    }\n  ],\n  \"status\": \"ok\"\n}\n"
+  }
+}

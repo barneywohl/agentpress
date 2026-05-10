@@ -1,0 +1,40 @@
+{
+  "acceptance": [
+    "npm script exits 0 locally",
+    "dry run fails if wave79 is missing, blocked, package-incomplete, public/external contaminated, lacks recommended_next_command, or has fewer than 5 alternative/ordered commands",
+    "dry run verifies launchpad_card_id, quickstart_id, seal_id, certificate_id, source_receipt_id, lane_count, rehearsed_lane_count, artifact inventory count, command count, public gate, and package inclusion against wave79/wave78 evidence",
+    "dry run marks each command as local_safe, inspection_only, and public_action_free; rejects publish/push/deploy/outreach/payment/secret command text",
+    "pytest covers valid dry run, missing wave79, blocked wave79, id mismatch, command-count regression, missing prior artifact, and public/external/forbidden command contamination",
+    "npm pack dry-run includes script, test, JSON evidence, and Markdown evidence",
+    "public_actions_taken and external_actions remain empty"
+  ],
+  "assigned_at": "2026-05-10T17:00:16Z",
+  "assignee": "next_available_agent_or_barney_heartbeat",
+  "completed_wave": "wave79_agent_facing_acceptance_launchpad_card",
+  "expected_outputs": [
+    "scripts/agent_facing_acceptance_first_command_dry_run.py",
+    "tests/test_agent_facing_acceptance_first_command_dry_run.py",
+    "agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.json",
+    "agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.md"
+  ],
+  "inputs": [
+    "agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json",
+    "agentpress/evidence/agent-facing-acceptance-seal-verifier-quickstart-wave78.json",
+    "agentpress/evidence/agent-facing-acceptance-rehearsal-seal-wave77.json",
+    "agentpress/evidence/agent-facing-acceptance-recipient-rehearsal-wave76.json",
+    "agentpress/evidence/agent-facing-acceptance-transfer-checklist-wave75.json",
+    "agentpress/evidence/agent-facing-acceptance-certificate-replay-drill-wave74.json",
+    "agentpress/evidence/agent-facing-acceptance-receipt-verifier-wave73.json",
+    "agentpress/evidence/agent-facing-acceptance-handoff-drill-wave72.json",
+    "agentpress/evidence/agent-facing-acceptance-replay-operator-capsule-wave71.json",
+    "agentpress/evidence/agent-facing-acceptance-harness-replay-matrix-wave70.json"
+  ],
+  "kind": "agentpress_feature_factory_next_wave_assignment",
+  "mission_id": "mission-20260506-211343-201ff0",
+  "next_wave": "wave80_agent_facing_acceptance_first_command_dry_run",
+  "objective": "Build a local-only first-command dry-run generator that consumes the wave79 launchpad card and wave70-78 acceptance trail, executes only safe local inspection commands, and emits a fresh-agent proof that the recommended launchpad command plus alternatives can be selected, understood, and rehearsed without public publish/push/deploy/outreach/payment/secret access.",
+  "public_publish_push_gate": "Jake explicit approval required; no public action assigned",
+  "source_wave79_external_actions": [],
+  "source_wave79_public_actions_taken": [],
+  "source_wave79_status": "ok"
+}

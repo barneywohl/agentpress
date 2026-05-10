@@ -2,14 +2,26 @@
 
 AgentPress makes any repo readable by agents in minutes.
 
+Package identity: use `@agent_press/agentpress` exactly. The underscore is intentional. Do not substitute `@agentpress/agentpress`; that is a different scope and may refer to a different/private ecosystem.
+
 ## Install
 
 ```bash
-npx @agent_press/agentpress doctor --json
-npx @agent_press/agentpress llms-init . --json
+npx @agent_press/agentpress@rc doctor --json
+npx @agent_press/agentpress@rc llms-init . --json
 # Python package path:
 pip install agentpress-static
 agentpress doctor --json
+```
+
+## What `npm i @agent_press/agentpress@0.2.0-rc.6` does
+
+It installs that exact release-candidate version into `node_modules/@agent_press/agentpress`, records it in `package.json`, and exposes the `agentpress` CLI. It does not deploy, publish, or run a `postinstall` hook.
+
+If an assistant cannot find the package, verify live npm metadata instead of relying on web-search indexing:
+
+```bash
+npm view @agent_press/agentpress dist-tags version --json
 ```
 
 ## Make a repo agent-readable

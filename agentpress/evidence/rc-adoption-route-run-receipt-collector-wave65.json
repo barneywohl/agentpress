@@ -1,0 +1,151 @@
+{
+  "agent_facing_next_step": {
+    "instruction": "If status=ok, attach this route-run receipt to the RC adoption handoff. If blocked, fix only local evidence gaps and re-run the collector.",
+    "public_publish_push_remains_gated": true,
+    "requires_jake_approval_for_public_action": true,
+    "run_collector_command": "npm run rc:adoption-route-run-receipt-collector"
+  },
+  "blockers": [],
+  "exact_local_verification_commands": [
+    "npm run rc:adoption-route-run-receipt-collector",
+    "python3 -m json.tool agentpress/evidence/rc-adoption-route-run-receipt-collector-wave65.json >/tmp/agentpress-rc-adoption-route-run-receipt-collector-json.tool.out",
+    "python3 -m py_compile scripts/rc_adoption_route_run_receipt_collector.py",
+    "pytest -q tests/test_rc_adoption_route_run_receipt_collector.py"
+  ],
+  "external_actions": [],
+  "generated_at": "2026-05-10T11:44:17Z",
+  "kind": "agentpress_rc_adoption_route_run_receipt_collector",
+  "local_only": true,
+  "operator_note": "local-only wave65 adoption route run receipt collector",
+  "public_actions_taken": [],
+  "route_run_receipt": {
+    "acceptance_criteria": [
+      "Wave64 capsule status is ok and local_only=true.",
+      "Every required evidence output exists in the local checkout.",
+      "JSON evidence parses successfully.",
+      "Required evidence does not record public or external actions.",
+      "Collector does not execute route commands or cross Jake's public-action gate."
+    ],
+    "collector_executed_route_commands": false,
+    "collector_external_actions": [],
+    "collector_public_actions_taken": [],
+    "command_plan_review": [
+      {
+        "command": "npm run rc:launch-signal-simulator",
+        "executed_by_collector": false,
+        "forbidden_fragments": [],
+        "safe_for_local_receipt_collection": true
+      },
+      {
+        "command": "npm run rc:adoption-claim-board",
+        "executed_by_collector": false,
+        "forbidden_fragments": [],
+        "safe_for_local_receipt_collection": true
+      },
+      {
+        "command": "python3 -m json.tool agentpress/evidence/adoption-claim-claim-feb94d476c9e.json",
+        "executed_by_collector": false,
+        "forbidden_fragments": [],
+        "safe_for_local_receipt_collection": true
+      },
+      {
+        "command": "python3 -m json.tool agentpress/evidence/adoption-claim-claim-feb94d476c9e.json >/tmp/agentpress-adoption-claim-claim-feb94d476c9e-json.tool.out",
+        "executed_by_collector": false,
+        "forbidden_fragments": [],
+        "safe_for_local_receipt_collection": true
+      },
+      {
+        "command": "python3 - <<'PY'\nimport hashlib, json\nfrom pathlib import Path\np=Path('agentpress/evidence/adoption-claim-claim-feb94d476c9e.json')\nd=json.loads(p.read_text())\nexpected=d.pop('receipt_sha256')\nactual=hashlib.sha256(json.dumps(d, sort_keys=True, separators=(',', ':')).encode()).hexdigest()\nassert actual == expected, (actual, expected)\nprint(actual)\nPY",
+        "executed_by_collector": false,
+        "forbidden_fragments": [],
+        "safe_for_local_receipt_collection": true
+      }
+    ],
+    "decision": "local_route_evidence_collected",
+    "evidence": [
+      {
+        "bytes": 2096,
+        "exists": true,
+        "external_actions": null,
+        "is_file": true,
+        "local_only_field": true,
+        "parse_status": "json_ok",
+        "path": "agentpress/evidence/adoption-claim-claim-feb94d476c9e.json",
+        "public_actions_taken": null,
+        "sha256": "28bd253248b995b9d2a02ee8ad58433f667d93ff9d7a486c67c801ebe31360dd",
+        "status_field": "local_dry_run_ready"
+      },
+      {
+        "bytes": 8419,
+        "exists": true,
+        "external_actions": [],
+        "is_file": true,
+        "local_only_field": true,
+        "parse_status": "json_ok",
+        "path": "agentpress/evidence/rc-adoption-handoff-capsule-wave59.json",
+        "public_actions_taken": [],
+        "sha256": "4db7772577bbe9134adb8919f20079effb64b5d8a38b3fdeeec85d2a6fec3860",
+        "status_field": "ok"
+      },
+      {
+        "bytes": 5216,
+        "exists": true,
+        "external_actions": null,
+        "is_file": true,
+        "local_only_field": null,
+        "parse_status": "text_ok",
+        "path": "agentpress/evidence/rc-adoption-handoff-capsule-wave59.md",
+        "public_actions_taken": null,
+        "sha256": "0383061ebd7cc05a1cf705f7ea95c66fc31582687f463e3798d39fa6a7e24728",
+        "status_field": null
+      },
+      {
+        "bytes": 8686,
+        "exists": true,
+        "external_actions": [],
+        "is_file": true,
+        "local_only_field": true,
+        "parse_status": "json_ok",
+        "path": "agentpress/evidence/rc-adoption-execution-router-wave60.json",
+        "public_actions_taken": [],
+        "sha256": "fb65ff1db47fb2ea71147aa6849291e892d86e2a05f13eb26a82cf9f9713ebb2",
+        "status_field": "ok"
+      },
+      {
+        "bytes": 3393,
+        "exists": true,
+        "external_actions": null,
+        "is_file": true,
+        "local_only_field": null,
+        "parse_status": "text_ok",
+        "path": "agentpress/evidence/rc-adoption-execution-router-wave60.md",
+        "public_actions_taken": null,
+        "sha256": "5ae24f266b1c4a762008b1ba5fb5206c882086a0c3860946dc65d1b24fbf3e0b",
+        "status_field": null
+      }
+    ],
+    "present_evidence_count": 5,
+    "required_evidence_count": 5,
+    "stop_conditions": [
+      "Stop before git push without Jake approval receipt.",
+      "Stop before npm publish without Jake approval receipt.",
+      "Stop before npm dist-tag without Jake approval receipt.",
+      "Stop before production deploy without Jake approval receipt.",
+      "Stop before Pages publish without Jake approval receipt.",
+      "Stop before external send/outreach without Jake approval receipt.",
+      "Stop before secret/account access without Jake approval receipt.",
+      "Stop before payment/spend without Jake approval receipt.",
+      "Stop before Nexio action without Jake approval receipt."
+    ]
+  },
+  "schema_version": "2026-05-10.agentpress-rc-adoption-route-run-receipt-collector.v1",
+  "source_capsule": {
+    "capsule_decision": "ready_for_local_route_execution",
+    "capsule_status": "ok",
+    "claim_id": "claim-feb94d476c9e",
+    "path": "agentpress/evidence/rc-adoption-route-execution-capsule-wave64.json",
+    "primary_local_command": "npm run rc:launch-signal-simulator",
+    "route_id": "route-01-claim-feb94d476c9e"
+  },
+  "status": "ok"
+}

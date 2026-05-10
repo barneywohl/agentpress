@@ -1,0 +1,103 @@
+{
+  "allowed_public_action_option_ids": [
+    "npm_publish_rc",
+    "pages_deploy",
+    "source_push_only"
+  ],
+  "approval_ref": "not_provided_to_audit",
+  "assertions": {
+    "all_dry_run_ledger_entries_non_executable": true,
+    "audit_executes_no_public_action_even_with_approval_args": true,
+    "explicit_approval_supplied_for_selected_options": false,
+    "required_inputs_parseable": true,
+    "safety_invariants_do_not_execute_public_actions": true,
+    "zero_public_external_actions_recorded": true
+  },
+  "blockers": [],
+  "exact_local_verification_commands": [
+    "npm run rc:jake-approval-packet",
+    "npm run rc:post-approval-dry-run-ledger",
+    "npm run rc:public-action-guardrail-audit",
+    "python3 -m json.tool agentpress/evidence/rc-public-action-guardrail-audit-wave52.json >/tmp/agentpress-rc-public-action-guardrail-audit-json.tool.out",
+    "python3 -m py_compile scripts/rc_public_action_guardrail_audit.py",
+    "pytest -q tests/test_rc_public_action_guardrail_audit.py"
+  ],
+  "external_actions": [],
+  "generated_at": "2026-05-10T07:20:13Z",
+  "inputs_checked": {
+    "approval_packet": {
+      "exists": true,
+      "json_parseable": true,
+      "kind": "agentpress_rc_jake_approval_packet",
+      "path": "agentpress/evidence/rc-jake-approval-packet-wave50.json",
+      "required": true,
+      "status": "ok"
+    },
+    "final_acceptance_snapshot": {
+      "exists": true,
+      "json_parseable": true,
+      "kind": "agentpress_rc_final_acceptance_snapshot",
+      "path": "agentpress/evidence/rc-final-acceptance-snapshot-wave49.json",
+      "required": false,
+      "status": "ok"
+    },
+    "post_approval_dry_run_ledger": {
+      "exists": true,
+      "json_parseable": true,
+      "kind": "agentpress_rc_post_approval_dry_run_ledger",
+      "path": "agentpress/evidence/rc-post-approval-dry-run-ledger-wave51.json",
+      "required": true,
+      "status": "ok"
+    }
+  },
+  "kind": "agentpress_rc_public_action_guardrail_audit",
+  "local_only": true,
+  "operator_warnings": [
+    "This audit never runs git push, npm publish, deploy, external send, secret, payment, or Nexio commands.",
+    "Approval arguments only record that an operator supplied a reference; they do not execute or authorize this script to act.",
+    "Run the public action manually only after Jake's explicit approval and a fresh local guardrail audit remains status ok."
+  ],
+  "package_json_inclusion_expectations": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/rc_public_action_guardrail_audit.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/rc-public-action-guardrail-audit-wave52.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/rc-public-action-guardrail-audit-wave52.md"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/rc-jake-approval-packet-wave50.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/rc-post-approval-dry-run-ledger-wave51.json"
+      }
+    ],
+    "script": "python3 scripts/rc_public_action_guardrail_audit.py . --out agentpress/evidence/rc-public-action-guardrail-audit-wave52.json --markdown-out agentpress/evidence/rc-public-action-guardrail-audit-wave52.md --json"
+  },
+  "public_action_categories_still_gated_without_explicit_jake_approval": [
+    "git push / public source push",
+    "npm publish / package latest promotion",
+    "production deploy / Pages publish",
+    "external message/send/outreach",
+    "secret reads or secret writes",
+    "payment/Nexio action"
+  ],
+  "public_actions_taken": [],
+  "schema_version": "2026-05-10.agentpress-rc-public-action-guardrail-audit.v1",
+  "selected_option_ids": [],
+  "status": "ok",
+  "zero_external_public_actions_taken": true
+}

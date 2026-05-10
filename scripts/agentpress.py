@@ -3583,6 +3583,7 @@ def marketplace_index(args):
         "trust":{"tier":"policy_controlled","evidence":["agentpress/payments/payment-policy.json","agentpress/payments/x402-readiness.json"]},
         "safety":{"external_writes":False,"live_payments":False,"credentials":False}
     })
+    services.extend(gorilla_marketplace_services())
     for agent in reputation.get("agents", []):
         runtime=agent.get("runtime") or "unknown"
         services.append({
@@ -3645,6 +3646,222 @@ def marketplace_index(args):
     result=payload if not (args.capability or args.runtime or args.payment_required is not None) else {**payload, "services":filtered, "service_count":len(filtered), "unfiltered_service_count":len(services)}
     print(json.dumps(result, indent=2) if args.json else "\n".join(f"{x['service_id']}\t{x['title']}" for x in filtered))
     return 0 if filtered or not (args.capability or args.runtime or args.payment_required is not None) else 1
+
+
+def gorilla_targets():
+    base_rules=["utility-first, not marketing", "local proof before any external contact", "do not automate external posting"]
+    return [
+        {"id":"openhands-task-bootstrap", "ecosystem":"OpenHands", "target_url":"https://github.com/All-Hands-AI/OpenHands/issues", "artifact":"agentpress/examples/api-docs-handoff", "status":"ready_for_exact_human_approval"},
+        {"id":"cline-provider-repro", "ecosystem":"Cline", "target_url":"https://github.com/cline/cline/issues", "artifact":"agentpress/compatibility/provider-adapter-repro-pack.json", "status":"hold_security_sensitive"},
+        {"id":"llamaindex-rag-safety", "ecosystem":"LlamaIndex", "target_url":"https://github.com/run-llama/llama_index/issues", "artifact":"agentpress/safety/rag-tool-safety-bundle.json", "status":"ready_for_exact_human_approval"},
+        {"id":"autogen-comms-handoff", "ecosystem":"AutoGen", "target_url":"https://github.com/microsoft/autogen/issues", "artifact":"agentpress/hub/routing/capability-index.json", "status":"ready_for_exact_human_approval"},
+        {"id":"langgraph-proof-replay", "ecosystem":"LangGraph", "target_url":"https://github.com/langchain-ai/langgraph/issues", "artifact":"agentpress/evidence/agent-facing-acceptance-replay-drill-recipient-packet-wave86.json", "status":"ready_for_exact_human_approval"},
+        {"id":"crew-ai-acceptance-harness", "ecosystem":"CrewAI", "target_url":"https://github.com/crewAIInc/crewAI/issues", "artifact":"agentpress/evidence/agent-facing-acceptance-harness-replay-matrix-wave70.json", "status":"ready_for_exact_human_approval"},
+    ]
+
+
+def gorilla_marketplace_services():
+    guardrails=["No mass posting", "No external writes without explicit human approval of exact target and draft", "No secrets, scraped DMs, exploit payloads, or impersonation"]
+    services = [
+        {
+            "service_id":"gorilla-utility-execution-queue",
+            "title":"Gorilla utility pack execution queue with install/run/proof flow",
+            "capabilities":["gorilla-utility-pack","install-run-proof","first-contact-audit"],
+            "command":"python3 scripts/agentpress.py gorilla-utility-pack --json",
+            "pricing":{"model":"free_local","payment_required":False},
+            "install_run_proof_commands":{
+                "install":"python3 scripts/agentpress.py gorilla-utility-pack --json",
+                "run":"python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/execution-queue.json --json",
+                "proof_finalize":"python3 scripts/agentpress.py result finalize --artifact agentpress/gorilla/execution-queue/manifest.json --json",
+                "proof_validate":"python3 scripts/agentpress.py result validate --artifact agentpress/gorilla/execution-queue/manifest.json --json",
+            },
+            "safety":{"external_writes":False,"live_payments":False,"credentials":False,"external_execution_gate":"Human approval required before any external post/send/publish.","no_spam_guardrails":guardrails},
+            "trust":{"tier":"local_reference","evidence":["agentpress/gorilla/execution-queue/manifest.json"]},
+        },
+        {
+            "service_id":"gorilla-utility-cline-provider-repro",
+            "title":"Cline provider adapter repro pack prepared for exact human-approved handoff",
+            "capabilities":["gorilla-utility-pack","provider-adapter-repro","cline"],
+            "command":"python3 scripts/agentpress.py provider-adapter-repro-pack --host cline --provider claude_code --json",
+            "pricing":{"model":"free_local","payment_required":False},
+            "install_run_proof_commands":{
+                "install":"python3 scripts/agentpress.py gorilla-utility-pack --json",
+                "run":"python3 scripts/agentpress.py provider-adapter-repro-pack --host cline --provider claude_code --json",
+                "proof_finalize":"python3 scripts/agentpress.py result finalize --artifact agentpress/compatibility/provider-adapter-repro-pack.json --json",
+                "proof_validate":"python3 scripts/agentpress.py result validate --artifact agentpress/compatibility/provider-adapter-repro-pack.json --json",
+            },
+            "safety":{"external_writes":False,"live_payments":False,"credentials":False,"external_execution_gate":"Human approval required before any external post/send/publish.","no_spam_guardrails":guardrails},
+            "trust":{"tier":"local_reference","evidence":["agentpress/compatibility/provider-adapter-repro-pack.json"]},
+        },
+    ]
+    for target in gorilla_targets():
+        services.append({
+            "service_id":f"gorilla-utility-target-{target['id']}",
+            "title":f"Gorilla utility target pack for {target['ecosystem']}",
+            "capabilities":["gorilla-utility-pack", target["ecosystem"].lower(), "first-contact-audit"],
+            "command":f"python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/{target['id']} --json",
+            "pricing":{"model":"free_local","payment_required":False},
+            "install_run_proof_commands":{
+                "install":"python3 scripts/agentpress.py gorilla-utility-pack --json",
+                "run":f"python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/{target['id']} --json",
+                "proof_finalize":f"python3 scripts/agentpress.py result finalize --artifact {target['artifact']} --json",
+                "proof_validate":f"python3 scripts/agentpress.py result validate --artifact {target['artifact']} --json",
+            },
+            "safety":{"external_writes":False,"live_payments":False,"credentials":False,"external_execution_gate":"Human approval required before any external post/send/publish.","no_spam_guardrails":guardrails},
+            "trust":{"tier":"local_reference","evidence":[target["artifact"]]},
+        })
+    return services
+
+
+def gorilla_utility_pack(args):
+    targets=[]
+    for target in gorilla_targets():
+        pack={
+            "schema_version":"2026-05-05.agentpress-gorilla-utility-target.v2",
+            "target":target,
+            "ecosystem":target["ecosystem"],
+            "status":"ready_not_sent",
+            "rules":["utility-first, not marketing", "exact human approval before external execution", "local-only proof generation"],
+            "proof_loop":["first-contact audit", "install", "run", "result_finalize", "result_validate"],
+            "install_run_proof_flow":["install", "run", "result_finalize", "result_validate"],
+            "do_not":"do not automate external posting",
+        }
+        targets.append(pack)
+    payload={"schema_version":"2026-05-05.agentpress-gorilla-utility-pack.v2","generated_utc":_utc_now(),"status":"ready_not_sent","target_count":len(targets),"targets":[p["target"] for p in targets],"external_execution_gate":"Human approval required before any external post/send/publish.","canonical_flow":["prepare local utility pack","run/validate locally","submit/attach only after exact human approval"],"safety":{"external_writes":False,"payments_attempted":False}}
+    out=pathlib.Path(args.out)
+    if not args.no_write:
+        out.mkdir(parents=True, exist_ok=True)
+        for pack in targets:
+            (out/(pack["target"]["id"]+".json")).write_text(json.dumps(pack, indent=2)+"\n", encoding="utf-8")
+        (out/"manifest.json").write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0
+
+
+def _glm_receipt_records(receipt_path):
+    if not receipt_path:
+        return []
+    data = _load_json_file(receipt_path)
+    if isinstance(data, list):
+        return [x for x in data if isinstance(x, dict)]
+    if not isinstance(data, dict):
+        return []
+    for key in ("kit_build_records", "records", "receipts", "items"):
+        value = data.get(key)
+        if isinstance(value, list):
+            return [x for x in value if isinstance(x, dict)]
+    return [data]
+
+
+def _record_text(record):
+    return json.dumps(record, sort_keys=True).lower()
+
+
+def _first_record_path(record):
+    for key in ("kit_path", "path", "material_kit", "artifact", "bundle", "out"):
+        value = record.get(key)
+        if isinstance(value, str) and value.strip() and _safe_material_relpath(value.strip()):
+            return value.strip()
+    for key in ("files", "artifacts"):
+        value = record.get(key)
+        if isinstance(value, list):
+            for item in value:
+                candidate = item.get("path") if isinstance(item, dict) else item
+                if isinstance(candidate, str) and _safe_material_relpath(candidate):
+                    return str(pathlib.PurePosixPath(candidate).parent) if "/" in candidate else candidate
+    return "agentpress/gorilla/utility-pack"
+
+
+def glm_gorilla_bootstrap_conveyor(args):
+    """Turn GLM/materialized receipts into a first safe command plus proof packet."""
+    out = pathlib.Path(args.out)
+    base = args.base_url.rstrip() + "/"
+    records = _glm_receipt_records(getattr(args, "receipt", "") or "")
+    materialized = materialized_validated_status(records)
+    eligible = [r for r in records if "glm" in _record_text(r) and not any(x in _record_text(r) for x in ["failed", "error", "rejected"])]
+    selected = eligible[0] if eligible else (records[0] if records else {})
+    kit_path = getattr(args, "kit", "") or _first_record_path(selected)
+    first_command = f"python3 scripts/agentpress.py kit validate --path {shlex.quote(kit_path)} --json"
+    if not records and not getattr(args, "kit", ""):
+        first_command = "python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json"
+    proof_dir = str(out.with_suffix("")) + "-proof"
+    proof_command = (
+        "python3 scripts/agentpress.py proof-capture "
+        "--task-id glm-gorilla-bootstrap-conveyor "
+        f"--evidence-dir {shlex.quote(proof_dir)} "
+        f"--artifacts {shlex.quote(out.as_posix())} "
+        f"--commands {shlex.quote(first_command)} --json"
+    )
+    payload = {
+        "schema_version":"2026-05-10.agentpress-glm-gorilla-bootstrap-conveyor.v1",
+        "canonical_url":urljoin(base, out.as_posix()),
+        "generated_utc":_utc_now(),
+        "status":"ready" if first_command else "blocked",
+        "purpose":"Let a fresh agent convert GLM/materialized receipts into one first useful local command and a proof capture command.",
+        "receipt_source":getattr(args, "receipt", "") or "inline_empty_demo",
+        "record_count":len(records),
+        "materialized_validated_status":materialized,
+        "selected_kit_path":kit_path,
+        "first_useful_command":first_command,
+        "proof_command":proof_command,
+        "bootstrap_steps":[
+            {"step":1,"name":"inspect_receipt","done":bool(records),"fallback":"use local gorilla utility pack when no receipt is provided"},
+            {"step":2,"name":"run_first_useful_command","command":first_command},
+            {"step":3,"name":"capture_proof","command":proof_command},
+        ],
+        "safety":{"external_writes":False,"payments_attempted":False,"public_push_publish_deploy":False,"requires_human_approval_before_external_action":True},
+        "acceptance_gates":["JSON packet generated", "first command is local AgentPress CLI only", "proof command records the packet and command", "no external action is performed"],
+    }
+    _write_json_payload(payload, out, getattr(args, "no_write", False), getattr(args, "json", False))
+    return 0
+
+
+def gorilla_action_safety_gate(args):
+    actions=[
+        {"id":"1","action":"comment on OpenHands GitHub issue with exact draft"},
+        {"id":"2","action":"comment on Cline GitHub issue with exact draft"},
+        {"id":"3","action":"comment on LlamaIndex GitHub issue with exact draft"},
+        {"id":"4","action":"publish public README update"},
+        {"id":"5","action":"mass post security exploit with scraped DMs and token examples"},
+        {"id":"6","action":"send external DM"},
+        {"id":"7","action":"deploy public package"},
+        {"id":"8","action":"use internally for feature prioritization"},
+        {"id":"9","action":"run local proof validation"},
+    ]
+    for raw in (args.action_json or []):
+        item=json.loads(raw); item.setdefault("id", f"adhoc-{len(actions)+1}"); actions.append(item)
+    decisions=[]
+    for item in actions:
+        text=json.dumps(item).lower()
+        if any(x in text for x in ["mass", "scraped dm", "token", "exploit"]):
+            cls="prohibited_spam_security_risk"; allowed=False; controls=["do_not_post", "quarantine_for_security_review"]
+        elif any(x in text for x in ["github", "comment", "post", "dm", "publish", "deploy", "external"]):
+            cls="approval_required_public"; allowed=False; controls=["explicit_human_approval_of_exact_target_and_draft", "no_automation_before_approval"]
+        else:
+            cls="safe_internal"; allowed=True; controls=["local_only"]
+        decisions.append({"id":item.get("id"),"action":item.get("action"),"classification":cls,"allowed_to_execute":allowed,"required_controls":controls})
+    counts={}
+    for d in decisions: counts[d["classification"]]=counts.get(d["classification"],0)+1
+    payload={"schema_version":"2026-05-05.agentpress-gorilla-external-action-safety-gate.v1","generated_utc":_utc_now(),"status":"ok","counts":counts,"decisions":decisions}
+    if not args.no_write:
+        out=pathlib.Path(args.out); out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0
+
+
+def gorilla_approval_packets(args):
+    targets=gorilla_targets()[:args.limit]
+    out=pathlib.Path(args.out); packets=[]
+    if not args.no_write: out.mkdir(parents=True, exist_ok=True)
+    for target in targets:
+        status=target["status"]
+        packet={"schema_version":"2026-05-05.agentpress-gorilla-approval-packet.v1","ecosystem":target["ecosystem"],"target_url":target["target_url"],"draft":f"Prepared local AgentPress utility proof for {target['ecosystem']}; attach only after exact approval.","status":status,"required_controls":["explicit_human_approval_of_exact_target_and_draft"] if status=="ready_for_exact_human_approval" else ["do_not_post","security_review_required"],"do_not":"do not automate external posting"}
+        packets.append(packet)
+        if not args.no_write: (out/(target["id"]+".json")).write_text(json.dumps(packet, indent=2)+"\n", encoding="utf-8")
+    payload={"schema_version":"2026-05-05.agentpress-gorilla-approval-packet-index.v1","generated_utc":_utc_now(),"status":"prepared_not_posted","packet_count":len(packets),"hard_gate":"No external post/send/publish/deploy without exact human approval.","packets":[p["target_url"] for p in packets]}
+    if not args.no_write: (out/"index.json").write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0
 
 
 def audience_kit(args):
@@ -7946,6 +8163,112 @@ def marketplace_compare(args):
     return 0 if rows else 1
 
 
+MARKETPLACE_SAFETY_BLOCK_PATTERNS = {
+    "secret_or_credential_access": [r"\b(api[_-]?key|token|secret|password|credential|wallet|private[_-]?key)\b", r"\$\{?[A-Z0-9_]*(TOKEN|SECRET|KEY|PASSWORD)\}?"],
+    "public_publish": [r"\b(npm\s+publish|twine\s+upload|gh\s+release|github\s+release|publish\s+release)\b"],
+    "deploy_or_production_mutation": [r"\b(vercel\s+deploy|netlify\s+deploy|firebase\s+deploy|kubectl\s+apply|terraform\s+apply|aws\s+cloudformation|gcloud\s+deploy|railway\s+up)\b"],
+    "external_message_or_post": [r"\b(gh\s+issue\s+comment|gh\s+pr\s+comment|slack|discord|sendgrid|mailgun|smtp|post\s+to|tweet|toot|linkedin|external[_ -]?send)\b"],
+    "paid_endpoint_or_spend": [r"\b(sign[_ -]?payment|submit[_ -]?payment|call_paid_endpoint|charge|checkout|x402|wallet|stripe|invoice)\b"],
+}
+
+
+def _marketplace_safety_decision(service, quote_simulation=None, extra_text=""):
+    """Fail-closed local marketplace service safety classification."""
+    service = service or {}
+    quote_simulation = quote_simulation or {}
+    pricing = service.get("pricing", {}) or {}
+    text = " ".join([
+        str(service.get("service_id", "")),
+        str(service.get("title", "")),
+        str(service.get("command", "")),
+        " ".join(service.get("capabilities", []) or []),
+        json.dumps(pricing, sort_keys=True),
+        json.dumps(quote_simulation, sort_keys=True),
+        str(extra_text or ""),
+    ])
+    lowered = text.lower()
+    reasons = []
+    matched = []
+    for category, patterns in MARKETPLACE_SAFETY_BLOCK_PATTERNS.items():
+        hits = [pat for pat in patterns if re.search(pat, text, re.IGNORECASE)]
+        if hits:
+            matched.append({"category": category, "patterns": hits})
+            reasons.append(category)
+    payment_required = bool(pricing.get("payment_required")) or bool(quote_simulation.get("payment_required"))
+    quoted_amount = float(quote_simulation.get("quoted_amount") or 0.0)
+    budget_cap = quote_simulation.get("budget_cap")
+    over_budget = budget_cap is not None and quoted_amount > float(budget_cap)
+    if payment_required:
+        reasons.append("payment_required")
+    if over_budget:
+        reasons.append("over_budget")
+    command = str(service.get("command", ""))
+    local_agentpress_command = command.startswith("python3 scripts/agentpress.py ") or command.startswith("python scripts/agentpress.py ")
+    if command and not local_agentpress_command and any(x in lowered for x in ["http://", "https://", "curl ", "wget ", "ssh "]):
+        reasons.append("nonlocal_or_network_command")
+    if not service.get("service_id"):
+        reasons.append("missing_service_id")
+    blocked = sorted(set(reasons))
+    controls = [
+        "do_not_execute_service_command",
+        "do_not_send_external_messages",
+        "do_not_publish_or_deploy",
+        "do_not_read_or_request_secrets",
+        "do_not_sign_or_submit_payments",
+    ]
+    allowed = not blocked
+    return {
+        "service_id": service.get("service_id"),
+        "classification": "safe_local_no_spend" if allowed else "blocked_fail_closed",
+        "allowed_to_fulfill_locally": allowed,
+        "blocked_reasons": blocked,
+        "matched_patterns": matched,
+        "required_controls": controls,
+        "local_only": True,
+        "external_side_effects_allowed": False,
+        "payment_allowed": False,
+        "secret_access_allowed": False,
+    }
+
+
+def marketplace_safety_gate(args):
+    """Evaluate a marketplace comparison/fulfillment request before local-only fulfillment."""
+    root = pathlib.Path(args.root)
+    out = pathlib.Path(args.out)
+    quote_path = root / args.quote
+    if not quote_path.exists():
+        payload = {"schema_version": "2026-05-10.agentpress-marketplace-safety-gate.v1", "status": "blocked_fail_closed", "reason": "missing_quote", "quote": str(quote_path)}
+        print(json.dumps(payload, indent=2) if args.json else payload["status"])
+        return 1
+    quote = json.loads(quote_path.read_text(encoding="utf-8"))
+    services = quote.get("services", [])
+    selected = next((s for s in services if s.get("service_id") == args.service_id), None) if args.service_id else quote.get("best_service")
+    if args.action_json:
+        selected = json.loads(args.action_json)
+    decision = _marketplace_safety_decision(selected, (selected or {}).get("quote_simulation", {}), extra_text=args.extra_text or "")
+    payload = {
+        "schema_version": "2026-05-10.agentpress-marketplace-safety-gate.v1",
+        "canonical_url": urljoin(args.base_url.rstrip("/") + "/", out.as_posix()),
+        "generated_utc": _utc_now(),
+        "status": decision["classification"],
+        "quote_file": args.quote,
+        "service_count": len(services),
+        "decision": decision,
+        "fail_closed_policy": {
+            "spend": "blocked unless separate explicit human payment approval is obtained outside this CLI",
+            "secrets": "blocked; do not request, read, print, or forward tokens/credentials",
+            "public_publish": "blocked; no package/release/social publishing",
+            "deploy": "blocked; no production infrastructure or deploy mutations",
+            "external_messages": "blocked; no comments, emails, chats, tickets, or DMs",
+        },
+    }
+    if not args.no_write:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2) if args.json else payload["status"])
+    return 0 if decision["allowed_to_fulfill_locally"] else 1
+
+
 def marketplace_fulfill(args):
     """Create a local proof-gated marketplace fulfillment receipt without spending."""
     root=pathlib.Path(args.root); out=pathlib.Path(args.out); quote_path=root/args.quote; proof_path=root/args.proof
@@ -7959,6 +8282,7 @@ def marketplace_fulfill(args):
     if not selected:
         print(json.dumps({"status":"blocked","reason":"service_not_found","service_id":args.service_id}), file=sys.stderr); return 1
     qsim=selected.get("quote_simulation",{}) or {}; checklist=selected.get("approval_checklist",{}) or {}
+    safety_decision=_marketplace_safety_decision(selected, qsim, extra_text=proof_text)
     real_payment_block=bool(qsim.get("payment_required")) or not qsim.get("within_budget", True)
     checklist_result={
         "provider_comparison_present": len(services) > 0,
@@ -7968,8 +8292,8 @@ def marketplace_fulfill(args):
         "proof_receipt_present": proof_path.exists() and proof_path.stat().st_size > 0,
         "real_payment_authorized": False,
     }
-    status="blocked_real_payment_requires_human_approval" if real_payment_block else "fulfilled_local_no_spend"
-    payload={"schema_version":"2026-05-06.agentpress-marketplace-fulfillment.v1","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":status,"selected_service":selected,"quote_file":args.quote,"proof_file":args.proof,"proof_sha256":hashlib.sha256(proof_text.encode()).hexdigest(),"approval_checklist":checklist_result,"payment":{"attempted":False,"authorized":False,"live_payment_executed":False,"blocked_actions":["sign_payment","submit_payment","call_paid_endpoint"],"human_approval_required_before_real_payment":True},"fulfillment":{"mode":"local_metadata_receipt_only","command_not_executed":selected.get("command"),"result":"Proof gate satisfied; local fulfillment receipt created without external side effects." if status=="fulfilled_local_no_spend" else "Real/over-budget payment path blocked before fulfillment."}}
+    status="blocked_marketplace_safety_gate" if not safety_decision.get("allowed_to_fulfill_locally") else ("blocked_real_payment_requires_human_approval" if real_payment_block else "fulfilled_local_no_spend")
+    payload={"schema_version":"2026-05-06.agentpress-marketplace-fulfillment.v2","canonical_url":urljoin(args.base_url.rstrip("/")+"/", out.as_posix()),"generated_utc":_utc_now(),"status":status,"selected_service":selected,"quote_file":args.quote,"proof_file":args.proof,"proof_sha256":hashlib.sha256(proof_text.encode()).hexdigest(),"approval_checklist":checklist_result,"safety_gate":safety_decision,"payment":{"attempted":False,"authorized":False,"live_payment_executed":False,"blocked_actions":["sign_payment","submit_payment","call_paid_endpoint"],"human_approval_required_before_real_payment":True},"fulfillment":{"mode":"local_metadata_receipt_only","command_not_executed":selected.get("command"),"result":"Proof gate satisfied; local fulfillment receipt created without external side effects." if status=="fulfilled_local_no_spend" else "Safety/payment gate blocked fulfillment before any external action."}}
     if not args.no_write:
         out.parent.mkdir(parents=True, exist_ok=True); out.write_text(json.dumps(payload, indent=2)+"\n", encoding="utf-8")
     print(json.dumps(payload, indent=2) if args.json else status)
@@ -9448,7 +9772,7 @@ def main():
     p = sub.add_parser("package-registry-fallback-installer"); p.add_argument("--out", default="agentpress/install/install-agentpress.sh"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("first-user-bootstrap"); p.add_argument("--platform", default="cline"); p.add_argument("--out", default="agentpress/onboarding/first-user-bootstrap.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("bootstrap", help="Alias for first-user-bootstrap for launch-ready onboarding packs."); p.add_argument("--platform", default="cline"); p.add_argument("--out", default="agentpress/onboarding/first-user-bootstrap.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
-    p = sub.add_parser("launchpad", help="Alias for first-run-wizard launchpad diagnostics."); p.add_argument("root", nargs="?", default="."); p.add_argument("--host", choices=["auto","cline","roo","cursor","codex","claude","generic"], default="auto"); p.add_argument("--out", default="agentpress/onboarding/first-run-wizard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
+    p = sub.add_parser("launchpad", help="Alias for first-run-wizard launchpad diagnostics."); p.add_argument("root", nargs="?", default="."); p.add_argument("--host", choices=["auto","cline","roo","cursor","codex","claude","generic"], default="auto"); p.add_argument("--provider", default=""); p.add_argument("--out", default="agentpress/onboarding/first-run-wizard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("capability-request", help="Create a safe capability request for agent routing."); p.add_argument("--capability", default="agentpress_bootstrap"); p.add_argument("--task", default="Need AgentPress bootstrap capability and proof pack"); p.add_argument("--priority", default="P1"); p.add_argument("--requester-id", default="local-agent"); p.add_argument("--out", default="agentpress/hub/messages/capability-request.json"); p.add_argument("--request-id"); p.add_argument("--context-url", dest="context_urls", action="append"); p.add_argument("--required-source", dest="required_sources", action="append"); p.add_argument("--allowed-action", dest="allowed_actions", action="append"); p.add_argument("--requires-human-approval", action="append"); p.add_argument("--prohibited-action", dest="prohibited_actions", action="append"); p.add_argument("--output-schema", default=schema_url("agent-response-v1.schema.json")); p.add_argument("--deadline-utc"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("first-run-wizard"); p.add_argument("root", nargs="?", default="."); p.add_argument("--host", default=""); p.add_argument("--provider", default=""); p.add_argument("--out", default="agentpress/onboarding/first-run-wizard.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true"); p.add_argument("--strict", action="store_true")
     p = sub.add_parser("provider-error-explainer"); p.add_argument("--error", default=""); p.add_argument("--error-file", default=""); p.add_argument("--provider", default="auto"); p.add_argument("--out", default="agentpress/diagnostics/provider-error-explainer.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -9573,6 +9897,7 @@ def main():
     p = sub.add_parser("queue-adapter-kit"); p.add_argument("--out", default="agentpress/queue"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("mission-broker-scope-preflight"); p.add_argument("--candidate", required=True); p.add_argument("--tasks", required=True); p.add_argument("--fixture-name", default=""); p.add_argument("--out", default="agentpress/mission-engine/broker-scope-preflight.json"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace-compare"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability", default=""); p.add_argument("--max-amount", type=float, default=0.0); p.add_argument("--budget-cap", type=float); p.add_argument("--allow-paid-quotes", action="store_true"); p.add_argument("--out", default="agentpress/marketplace/marketplace-compare.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("marketplace-safety-gate"); p.add_argument("root", nargs="?", default="."); p.add_argument("--quote", default="agentpress/marketplace/marketplace-compare.example.json"); p.add_argument("--service-id"); p.add_argument("--action-json"); p.add_argument("--extra-text", default=""); p.add_argument("--out", default="agentpress/marketplace/marketplace-safety-gate.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace-fulfill"); p.add_argument("root", nargs="?", default="."); p.add_argument("--quote", default="agentpress/marketplace/marketplace-compare.example.json"); p.add_argument("--proof", required=True); p.add_argument("--service-id"); p.add_argument("--out", default="agentpress/marketplace/marketplace-fulfillment-receipt.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("deal-room"); p.add_argument("root", nargs="?", default="."); p.add_argument("--capability", default="agent_onboard"); p.add_argument("--task", default="Fake requester asks provider to run AgentPress onboarding proof"); p.add_argument("--requester-id", default="requester-agent"); p.add_argument("--provider-id", default="provider-agent"); p.add_argument("--provider-service-id"); p.add_argument("--max-amount", default="0"); p.add_argument("--budget-cap"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--proof-text", default="local fake provider completion proof: requested artifact generated and attached"); p.add_argument("--deal-id"); p.add_argument("--out", default="agentpress/deal-room/deal-room.example.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace-trust"); p.add_argument("root", nargs="?", default="."); p.add_argument("--marketplace", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--out", default="agentpress/marketplace/marketplace-trust-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
@@ -9629,6 +9954,10 @@ def main():
     p = sub.add_parser("agent-painpoints"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/painpoints/agent-painpoints.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("audience-kit"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/audience/audience-kit.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--agent-id"); p.add_argument("--topic", default="agentpress-updates"); p.add_argument("--contact"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("marketplace"); p.add_argument("root", nargs="?", default="."); p.add_argument("--out", default="agentpress/marketplace/marketplace-index.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--capability"); p.add_argument("--runtime"); p.add_argument("--payment-required"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("gorilla-utility-pack"); p.add_argument("--out", default="agentpress/gorilla/utility-pack"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("glm-gorilla-bootstrap-conveyor"); p.add_argument("--receipt", default=""); p.add_argument("--kit", default=""); p.add_argument("--out", default="agentpress/gorilla/glm-bootstrap-conveyor.json"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("gorilla-action-safety-gate"); p.add_argument("--out", default="agentpress/gorilla/action-safety-gate.json"); p.add_argument("--action-json", action="append"); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
+    p = sub.add_parser("gorilla-approval-packets"); p.add_argument("--out", default="agentpress/gorilla/approval-packets"); p.add_argument("--limit", type=int, default=6); p.add_argument("--no-write", action="store_true"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("agent-onboard", aliases=["adopt"]); p.add_argument("root", nargs="?", default="."); p.add_argument("--agent-id", default="local-agent"); p.add_argument("--runtime", default="unknown"); p.add_argument("--out", default="/tmp/agentpress-onboard"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--discovery-channel", default="agent-onboard-cli"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--contact"); p.add_argument("--payment-capability-id", default="free_agentpress_bootstrap"); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("quickstart", help="Run the full local onboarding proof flow (doctor, self-test, landing receipt, payment metadata, submission pack)."); p.add_argument("root", nargs="?", default="."); p.add_argument("--agent-id", default="local-agent"); p.add_argument("--runtime", default="unknown"); p.add_argument("--out", default="/tmp/agentpress-quickstart"); p.add_argument("--bundle", default="agentpress/examples/api-docs-handoff"); p.add_argument("--suite", default="agentpress/self-tests/standard-suite.json"); p.add_argument("--index", default="agentpress/search/search-index.json"); p.add_argument("--discovery-channel", default="agentpress-quickstart-cli"); p.add_argument("--base-url", default=CANONICAL_BASE_URL); p.add_argument("--contact"); p.add_argument("--payment-capability-id", default="free_agentpress_bootstrap"); p.add_argument("--max-amount", default="0"); p.add_argument("--max-per-request"); p.add_argument("--currency", default="USD"); p.add_argument("--expires-utc"); p.add_argument("--json", action="store_true")
     p = sub.add_parser("score"); p.add_argument("out")
@@ -9743,6 +10072,10 @@ def main():
     if args.cmd == "payment-status": return payment_status(args)
     if args.cmd == "payment-intent": return payment_intent(args)
     if args.cmd == "marketplace": return marketplace_index(args)
+    if args.cmd == "gorilla-utility-pack": return gorilla_utility_pack(args)
+    if args.cmd == "glm-gorilla-bootstrap-conveyor": return glm_gorilla_bootstrap_conveyor(args)
+    if args.cmd == "gorilla-action-safety-gate": return gorilla_action_safety_gate(args)
+    if args.cmd == "gorilla-approval-packets": return gorilla_approval_packets(args)
     if args.cmd == "audience-kit": return audience_kit(args)
     if args.cmd == "agent-painpoints": return agent_painpoints(args)
     if args.cmd == "attest": return attest(args)
@@ -9791,6 +10124,7 @@ def main():
     if args.cmd == "attestation-coverage": return attestation_coverage(args)
     if args.cmd == "marketplace-trust": return marketplace_trust(args)
     if args.cmd == "marketplace-compare": return marketplace_compare(args)
+    if args.cmd == "marketplace-safety-gate": return marketplace_safety_gate(args)
     if args.cmd == "marketplace-fulfill": return marketplace_fulfill(args)
     if args.cmd == "deal-room": return agent_deal_room(args)
     if args.cmd == "queue-adapter-kit": return queue_adapter_kit(args)

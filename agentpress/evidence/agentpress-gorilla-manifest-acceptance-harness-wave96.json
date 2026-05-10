@@ -1,0 +1,121 @@
+{
+  "acceptance_harness": {
+    "acceptance_steps": [
+      {
+        "acceptance_observation": "inspection-ready",
+        "command": null,
+        "execution_mode": "inspection-only",
+        "name": "inspect_receipt",
+        "safe_local_only": true,
+        "step": 1
+      },
+      {
+        "acceptance_observation": "command-ready",
+        "command": "python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json",
+        "execution_mode": "manual-local-only",
+        "name": "run_first_useful_command",
+        "safe_local_only": true,
+        "step": 2
+      },
+      {
+        "acceptance_observation": "command-ready",
+        "command": "python3 scripts/agentpress.py proof-capture --task-id glm-gorilla-bootstrap-conveyor --evidence-dir agentpress/gorilla/glm-bootstrap-conveyor-wave87-proof --artifacts agentpress/gorilla/glm-bootstrap-conveyor-wave87.json --commands 'python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json' --json",
+        "execution_mode": "manual-local-only",
+        "name": "capture_proof",
+        "safe_local_only": true,
+        "step": 3
+      }
+    ],
+    "expected_artifacts": [
+      "agentpress/gorilla/glm-bootstrap-conveyor-wave87.json",
+      "agentpress/gorilla/utility-pack",
+      "agentpress/gorilla/glm-bootstrap-conveyor-wave87-proof",
+      "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json",
+      "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md"
+    ],
+    "harness_id": "wave96-gorilla-manifest-acceptance-7245fbf9e8bd",
+    "local_only_assertions": [
+      "first useful command is local AgentPress CLI only",
+      "proof command is local AgentPress CLI only",
+      "manifest safety flags deny external writes, payments, and public push/publish/deploy",
+      "Jake explicit approval remains required before any public or external action"
+    ],
+    "operator_runbook": [
+      "Inspect this harness before running commands.",
+      "Run only commands marked safe_local_only=true in a private local checkout.",
+      "Capture resulting JSON/markdown evidence locally.",
+      "Stop and ask Jake before any public push, publish, deploy, outreach, wallet, payment, or external-send action."
+    ],
+    "painpoint_solved": "Turns the Gorilla bootstrap conveyor manifest into a single recipient-facing local acceptance harness with exact commands, safety checks, and expected proof artifacts.",
+    "public_publish_push_gate": "Jake explicit approval required; no public action performed.",
+    "source_manifest": "agentpress/gorilla/glm-bootstrap-conveyor-wave87.json",
+    "source_manifest_sha256": "7245fbf9e8bd906d22083695ff20dc60dfd07e00048d67e83ed75190b4bbc4cb"
+  },
+  "blockers": [],
+  "external_actions": [],
+  "generated_at": "2026-05-10T23:05:23Z",
+  "kind": "agentpress_gorilla_manifest_acceptance_harness",
+  "npm_pack_dry_run": {
+    "command": "npm pack --dry-run --json",
+    "json_parseable": true,
+    "required_included": [
+      {
+        "included": true,
+        "path": "scripts/agentpress_gorilla_manifest_acceptance_harness.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agentpress_gorilla_manifest_acceptance_harness.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md"
+      },
+      {
+        "included": true,
+        "path": "agentpress/gorilla/glm-bootstrap-conveyor-wave87.json"
+      }
+    ],
+    "returncode": 0
+  },
+  "package_json_inclusion_expectations": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/agentpress_gorilla_manifest_acceptance_harness.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "tests/test_agentpress_gorilla_manifest_acceptance_harness.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/gorilla/glm-bootstrap-conveyor-wave87.json"
+      }
+    ],
+    "script": "python3 scripts/agentpress_gorilla_manifest_acceptance_harness.py . --out agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json --markdown-out agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md --include-pack-check --json"
+  },
+  "payment_actions_taken": [],
+  "public_actions_taken": [],
+  "schema_version": 1,
+  "secret_material_included": false,
+  "source_manifest": "agentpress/gorilla/glm-bootstrap-conveyor-wave87.json",
+  "status": "ok"
+}

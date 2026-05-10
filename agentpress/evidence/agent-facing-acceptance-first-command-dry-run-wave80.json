@@ -1,0 +1,293 @@
+{
+  "agent_painpoint_solved": "A fresh agent no longer has to guess the first safe command after the launchpad card; wave80 selects it, checks the full proof trail, and rejects public/external command drift before any publish/push/deploy/outreach/payment action.",
+  "artifact_inventory_count": 8,
+  "blockers": [],
+  "certificate_id": "wave73-certificate-5c0855d73346ea07",
+  "cross_checks": {
+    "wave79_matches_wave78_certificate_id": {
+      "ok": true
+    },
+    "wave79_matches_wave78_lane_count": {
+      "ok": true
+    },
+    "wave79_matches_wave78_quickstart_id": {
+      "ok": true
+    },
+    "wave79_matches_wave78_rehearsed_lane_count": {
+      "ok": true
+    },
+    "wave79_matches_wave78_seal_id": {
+      "ok": true
+    },
+    "wave79_matches_wave78_source_receipt_id": {
+      "ok": true
+    }
+  },
+  "dry_run_id": "wave80-first-command-eddd6a740116",
+  "executed_local_inspection_commands": [
+    {
+      "command": "python3 -m json.tool agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "it_approval\",\n    \"public_actions_taken\": [],\n    \"public_publish_push_gate\": \"Jake explicit approval required; no public action assigned\",\n    \"quickstart_id\": \"wave78-quickstart-8b64c590e1b938a5\",\n    \"recommended_next_command\": \"npm run rc:agent-facing-acceptance-launchpad-card\",\n    \"rehearsed_lane_count\": 6,\n    \"required_lane_count\": 6,\n    \"schema_version\": 1,\n    \"seal_id\": \"wave77-seal-0449f9cc9e223888\",\n    \"source_receipt_id\": \"wave72-readiness-78dfb73f11e85b4e\",\n    \"status\": \"ok\"\n}\n"
+    },
+    {
+      "command": "python3 -m py_compile scripts/agent_facing_acceptance_first_command_dry_run.py",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": ""
+    }
+  ],
+  "external_actions": [],
+  "first_command_selection": {
+    "selected": "npm run rc:agent-facing-acceptance-launchpad-card",
+    "selection_reason": "launchpad recommended command is the first paste-ready local proof command"
+  },
+  "generated_at": "2026-05-10T17:32:58Z",
+  "kind": "agent_facing_acceptance_first_command_dry_run",
+  "lane_count": 6,
+  "launchpad_card_id": "wave79-card-e7ec96f0690a1ac6",
+  "npm_pack_dry_run": {
+    "command": "npm pack --dry-run --json",
+    "json_parseable": true,
+    "required_included": [
+      {
+        "included": true,
+        "path": "scripts/agent_facing_acceptance_first_command_dry_run.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agent_facing_acceptance_first_command_dry_run.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.md"
+      }
+    ],
+    "returncode": 0
+  },
+  "ordered_verification_command_count": 5,
+  "package_json_inclusion_expectations": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/agent_facing_acceptance_first_command_dry_run.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "tests/test_agent_facing_acceptance_first_command_dry_run.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.md"
+      }
+    ],
+    "script": "python3 scripts/agent_facing_acceptance_first_command_dry_run.py . --out agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.json --markdown-out agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.md --include-pack-check --json"
+  },
+  "prior_artifacts": {
+    "agent-facing-acceptance-certificate-replay-drill-wave74": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-certificate-replay-drill-wave74.json",
+      "status": "ok"
+    },
+    "agent-facing-acceptance-handoff-drill-wave72": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-handoff-drill-wave72.json",
+      "status": "ok"
+    },
+    "agent-facing-acceptance-harness-replay-matrix-wave70": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-harness-replay-matrix-wave70.json",
+      "status": "ok"
+    },
+    "agent-facing-acceptance-launchpad-card-wave79": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json",
+      "status": "ok"
+    },
+    "agent-facing-acceptance-receipt-verifier-wave73": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-receipt-verifier-wave73.json",
+      "status": "ok"
+    },
+    "agent-facing-acceptance-recipient-rehearsal-wave76": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-recipient-rehearsal-wave76.json",
+      "status": "ok"
+    },
+    "agent-facing-acceptance-rehearsal-seal-wave77": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-rehearsal-seal-wave77.json",
+      "status": "ok"
+    },
+    "agent-facing-acceptance-replay-operator-capsule-wave71": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-replay-operator-capsule-wave71.json",
+      "status": "ok"
+    },
+    "agent-facing-acceptance-seal-verifier-quickstart-wave78": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-seal-verifier-quickstart-wave78.json",
+      "status": "ok"
+    },
+    "agent-facing-acceptance-transfer-checklist-wave75": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-transfer-checklist-wave75.json",
+      "status": "ok"
+    }
+  },
+  "public_action_gate": "closed_until_jake_explicit_approval",
+  "public_actions_taken": [],
+  "quickstart_id": "wave78-quickstart-8b64c590e1b938a5",
+  "recommended_next_command": "npm run rc:agent-facing-acceptance-launchpad-card",
+  "rehearsed_command_count": 13,
+  "rehearsed_commands": [
+    {
+      "command": "npm run rc:agent-facing-acceptance-launchpad-card",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "recommended_next_command"
+    },
+    {
+      "command": "npm run rc:agent-facing-acceptance-rehearsal-seal",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "alternative_command_1"
+    },
+    {
+      "command": "npm run rc:agent-facing-acceptance-seal-verifier-quickstart",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "alternative_command_2"
+    },
+    {
+      "command": "python3 -m json.tool agentpress/evidence/agent-facing-acceptance-seal-verifier-quickstart-wave78.json >/tmp/agentpress-wave78-json.tool.out",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "alternative_command_3"
+    },
+    {
+      "command": "npm pack --dry-run --json",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "alternative_command_4"
+    },
+    {
+      "command": "python3 -m pytest tests/test_agent_facing_acceptance_seal_verifier_quickstart.py -q",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "alternative_command_5"
+    },
+    {
+      "command": "python3 -m json.tool agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json >/tmp/agentpress-wave79-json.tool.out",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "alternative_command_6"
+    },
+    {
+      "command": "python3 -m pytest tests/test_agent_facing_acceptance_launchpad_card.py -q",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "alternative_command_7"
+    },
+    {
+      "command": "npm run rc:agent-facing-acceptance-rehearsal-seal",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "ordered_verification_command_1"
+    },
+    {
+      "command": "npm run rc:agent-facing-acceptance-seal-verifier-quickstart",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "ordered_verification_command_2"
+    },
+    {
+      "command": "python3 -m json.tool agentpress/evidence/agent-facing-acceptance-seal-verifier-quickstart-wave78.json >/tmp/agentpress-wave78-json.tool.out",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "ordered_verification_command_3"
+    },
+    {
+      "command": "npm pack --dry-run --json",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "ordered_verification_command_4"
+    },
+    {
+      "command": "python3 -m pytest tests/test_agent_facing_acceptance_seal_verifier_quickstart.py -q",
+      "executed": false,
+      "execution_note": "selected and rehearsed only; wave80 executes separate JSON/compile local inspections, not arbitrary publish/deploy/outreach commands",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "public_action_free": true,
+      "role": "ordered_verification_command_5"
+    }
+  ],
+  "rehearsed_lane_count": 6,
+  "seal_id": "wave77-seal-0449f9cc9e223888",
+  "source_launchpad_card": "agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json",
+  "source_receipt_id": "wave72-readiness-78dfb73f11e85b4e",
+  "status": "ok"
+}

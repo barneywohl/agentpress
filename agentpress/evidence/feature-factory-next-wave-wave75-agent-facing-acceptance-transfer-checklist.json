@@ -1,0 +1,36 @@
+{
+  "kind": "agentpress_feature_factory_next_wave_assignment",
+  "assigned_at": "2026-05-10T15:24:00Z",
+  "assignee": "next_available_agent_or_barney_heartbeat",
+  "mission_id": "mission-20260506-211343-201ff0",
+  "completed_wave": "wave74_agent_facing_acceptance_certificate_replay_drill",
+  "next_wave": "wave75_agent_facing_acceptance_transfer_checklist",
+  "objective": "Build a local-only transfer checklist generator that consumes wave74 replay receipt plus wave73 certificate, wave72 source receipt, and wave70-71 agent-facing artifacts, then emits a fresh-agent handoff checklist proving the six acceptance lanes can be followed from packaged evidence without public publish/push/deploy/outreach/payment/secret access.",
+  "inputs": [
+    "/Volumes/X10/clawd/repos/agentpress-build/agentpress/evidence/agent-facing-acceptance-certificate-replay-drill-wave74.json",
+    "/Volumes/X10/clawd/repos/agentpress-build/agentpress/evidence/agent-facing-acceptance-certificate-replay-drill-wave74.md",
+    "/Volumes/X10/clawd/repos/agentpress-build/agentpress/evidence/agent-facing-acceptance-receipt-verifier-wave73.json",
+    "/Volumes/X10/clawd/repos/agentpress-build/agentpress/evidence/agent-facing-acceptance-handoff-drill-wave72.json",
+    "/Volumes/X10/clawd/repos/agentpress-build/agentpress/evidence/agent-facing-acceptance-replay-operator-capsule-wave71.json",
+    "/Volumes/X10/clawd/repos/agentpress-build/agentpress/evidence/agent-facing-acceptance-harness-replay-matrix-wave70.json"
+  ],
+  "expected_outputs": [
+    "scripts/agent_facing_acceptance_transfer_checklist.py",
+    "tests/test_agent_facing_acceptance_transfer_checklist.py",
+    "agentpress/evidence/agent-facing-acceptance-transfer-checklist-wave75.json",
+    "agentpress/evidence/agent-facing-acceptance-transfer-checklist-wave75.md"
+  ],
+  "acceptance": [
+    "npm script exits 0 locally",
+    "transfer checklist consumes wave74, wave73, wave72, wave71, and wave70 evidence and fails if any required input is missing, blocked, contaminated by public/external actions, or lane count differs from 6",
+    "receipt includes certificate_id, source_receipt_id, lane_count 6, command_count, replayed_assertion_count, transfer_step_count, package inclusion checks, and public_action_gate closed",
+    "pytest covers valid checklist, missing wave74, blocked wave74, lane mismatch, missing prior artifact, and public/external contamination",
+    "npm pack dry-run includes script, test, JSON evidence, and Markdown evidence",
+    "public_actions_taken and external_actions remain empty"
+  ],
+  "source_wave74_status": "ok",
+  "source_wave74_lane_count": 6,
+  "source_wave74_public_actions_taken": [],
+  "source_wave74_external_actions": [],
+  "public_publish_push_gate": "Jake explicit approval required; no public action assigned"
+}

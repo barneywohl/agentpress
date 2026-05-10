@@ -1,0 +1,206 @@
+{
+  "agent_painpoint_solved": "A fresh agent can now prove the wave81 one-command packet works by replaying the first safe command locally and receiving a deterministic receipt without touching publish, push, deploy, outreach, payments, accounts, or secrets.",
+  "blockers": [],
+  "cross_checks": {
+    "wave81_expected_outputs_present": {
+      "ok": true
+    },
+    "wave81_packet_commands_present": {
+      "ok": true
+    },
+    "wave81_public_action_gate_closed": {
+      "ok": true
+    },
+    "wave81_selected_matches_paste_ready_first_command": {
+      "ok": true
+    },
+    "wave81_selected_matches_wave79_recommended_next_command": {
+      "ok": true
+    },
+    "wave81_selected_matches_wave80_selection": {
+      "ok": true
+    }
+  },
+  "deterministic_failure_criteria": [
+    "missing, blocked, non-ok, or public/external contaminated prior evidence",
+    "selected command mismatch across wave81, wave80, or wave79",
+    "selected command or packet command contains publish/push/deploy/outreach/payment/secret text",
+    "selected command replay, local inspections, pytest, or npm pack dry-run fails",
+    "any public_actions_taken or external_actions are recorded"
+  ],
+  "deterministic_success_criteria": [
+    "wave81, wave80, and wave79 load as ok with empty blockers",
+    "selected command equals wave81 paste_ready_packet.first_command, wave80 first_command_selection.selected, and wave79 recommended_next_command",
+    "selected command replay exits 0 in local inspection-only mode",
+    "all wave81 packet commands remain local_safe, inspection_only, public_action_free, and forbidden-command free",
+    "package dry-run includes the wave82 script, test, JSON receipt, and Markdown receipt",
+    "public_actions_taken and external_actions remain empty"
+  ],
+  "executed_local_inspection_commands": [
+    {
+      "command": "python3 -m json.tool agentpress/evidence/agent-facing-acceptance-one-command-smoke-packet-wave81.json",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "/agent-facing-acceptance-seal-verifier-quickstart-wave78.json\",\n            \"status\": \"ok\"\n        }\n    },\n    \"public_action_gate\": \"closed_until_jake_explicit_approval\",\n    \"public_actions_taken\": [],\n    \"selected_command\": \"npm run rc:agent-facing-acceptance-launchpad-card\",\n    \"source_wave79\": \"agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json\",\n    \"source_wave80\": \"agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.json\",\n    \"status\": \"ok\"\n}\n"
+    },
+    {
+      "command": "python3 -m json.tool agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.json",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "outreach commands\",\n            \"forbidden_match\": null,\n            \"inspection_only\": true,\n            \"local_safe\": true,\n            \"public_action_free\": true,\n            \"role\": \"ordered_verification_command_5\"\n        }\n    ],\n    \"rehearsed_lane_count\": 6,\n    \"seal_id\": \"wave77-seal-0449f9cc9e223888\",\n    \"source_launchpad_card\": \"agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json\",\n    \"source_receipt_id\": \"wave72-readiness-78dfb73f11e85b4e\",\n    \"status\": \"ok\"\n}\n"
+    },
+    {
+      "command": "python3 -m json.tool agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "it_approval\",\n    \"public_actions_taken\": [],\n    \"public_publish_push_gate\": \"Jake explicit approval required; no public action assigned\",\n    \"quickstart_id\": \"wave78-quickstart-8b64c590e1b938a5\",\n    \"recommended_next_command\": \"npm run rc:agent-facing-acceptance-launchpad-card\",\n    \"rehearsed_lane_count\": 6,\n    \"required_lane_count\": 6,\n    \"schema_version\": 1,\n    \"seal_id\": \"wave77-seal-0449f9cc9e223888\",\n    \"source_receipt_id\": \"wave72-readiness-78dfb73f11e85b4e\",\n    \"status\": \"ok\"\n}\n"
+    },
+    {
+      "command": "python3 -m py_compile scripts/agent_facing_acceptance_smoke_replay_receipt.py",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": ""
+    }
+  ],
+  "expected_replay_outputs": [
+    "agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json",
+    "agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.md",
+    "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.json",
+    "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.md"
+  ],
+  "external_actions": [],
+  "generated_at": "2026-05-10T18:16:15Z",
+  "kind": "agent_facing_acceptance_smoke_replay_receipt",
+  "npm_pack_dry_run": {
+    "command": "npm pack --dry-run --json",
+    "json_parseable": true,
+    "required_included": [
+      {
+        "included": true,
+        "path": "scripts/agent_facing_acceptance_smoke_replay_receipt.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agent_facing_acceptance_smoke_replay_receipt.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.md"
+      }
+    ],
+    "returncode": 0
+  },
+  "package_json_inclusion_expectations": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/agent_facing_acceptance_smoke_replay_receipt.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "tests/test_agent_facing_acceptance_smoke_replay_receipt.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.md"
+      }
+    ],
+    "script": "python3 scripts/agent_facing_acceptance_smoke_replay_receipt.py . --out agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.json --markdown-out agentpress/evidence/agent-facing-acceptance-smoke-replay-receipt-wave82.md --include-pack-check --json"
+  },
+  "packet_command_safety": [
+    {
+      "command": "npm run rc:agent-facing-acceptance-launchpad-card",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "packet_index": 0,
+      "prior_flags_ok": true,
+      "public_action_free": true
+    },
+    {
+      "command": "python3 -m json.tool agentpress/evidence/agent-facing-acceptance-one-command-smoke-packet-wave81.json",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "packet_index": 1,
+      "prior_flags_ok": true,
+      "public_action_free": true
+    },
+    {
+      "command": "python3 -m py_compile scripts/agent_facing_acceptance_one_command_smoke_packet.py",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "packet_index": 2,
+      "prior_flags_ok": true,
+      "public_action_free": true
+    },
+    {
+      "command": "python3 -m pytest tests/test_agent_facing_acceptance_one_command_smoke_packet.py -q",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "packet_index": 3,
+      "prior_flags_ok": true,
+      "public_action_free": true
+    },
+    {
+      "command": "npm pack --dry-run --json",
+      "forbidden_match": null,
+      "inspection_only": true,
+      "local_safe": true,
+      "packet_index": 4,
+      "prior_flags_ok": true,
+      "public_action_free": true
+    }
+  ],
+  "prior_artifacts": {
+    "agent-facing-acceptance-first-command-dry-run-wave80": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.json",
+      "status": "ok"
+    },
+    "agent-facing-acceptance-launchpad-card-wave79": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json",
+      "status": "ok"
+    },
+    "agent-facing-acceptance-one-command-smoke-packet-wave81": {
+      "loaded": true,
+      "path": "agentpress/evidence/agent-facing-acceptance-one-command-smoke-packet-wave81.json",
+      "status": "ok"
+    }
+  },
+  "public_action_gate": "closed_until_jake_explicit_approval",
+  "public_actions_taken": [],
+  "receipt_id": "wave82-smoke-replay-0895c3137302",
+  "replay_mode": "local_inspection_only_no_public_actions",
+  "selected_command": "npm run rc:agent-facing-acceptance-launchpad-card",
+  "selected_command_replay": {
+    "command": "npm run rc:agent-facing-acceptance-launchpad-card",
+    "forbidden_match": null,
+    "inspection_only": true,
+    "local_safe": true,
+    "public_action_free": true,
+    "returncode": 0,
+    "skipped": false,
+    "stderr_tail": "",
+    "stdout_tail": "wave77.json\",\n      \"status\": \"ok\"\n    },\n    \"agent-facing-acceptance-replay-operator-capsule-wave71\": {\n      \"loaded\": true,\n      \"path\": \"agentpress/evidence/agent-facing-acceptance-replay-operator-capsule-wave71.json\",\n      \"status\": \"ok\"\n    },\n    \"agent-facing-acceptance-seal-verifier-quickstart-wave78\": {\n      \"loaded\": true,\n      \"path\": \"agentpress/evidence/agent-facing-acceptance-seal-verifier-quickstart-wave78.json\",\n      \"status\": \"ok\"\n    },\n    \"agent-facing-acceptance-transfer-checklist-wave75\": {\n      \"loaded\": true,\n      \"path\": \"agentpress/evidence/agent-facing-acceptance-transfer-checklist-wave75.json\",\n      \"status\": \"ok\"\n    }\n  },\n  \"public_action_gate\": \"closed_until_jake_explicit_approval\",\n  \"public_actions_taken\": [],\n  \"public_publish_push_gate\": \"Jake explicit approval required; no public action assigned\",\n  \"quickstart_id\": \"wave78-quickstart-8b64c590e1b938a5\",\n  \"recommended_next_command\": \"npm run rc:agent-facing-acceptance-launchpad-card\",\n  \"rehearsed_lane_count\": 6,\n  \"required_lane_count\": 6,\n  \"schema_version\": 1,\n  \"seal_id\": \"wave77-seal-0449f9cc9e223888\",\n  \"source_receipt_id\": \"wave72-readiness-78dfb73f11e85b4e\",\n  \"status\": \"ok\"\n}\n"
+  },
+  "source_wave79": "agentpress/evidence/agent-facing-acceptance-launchpad-card-wave79.json",
+  "source_wave80": "agentpress/evidence/agent-facing-acceptance-first-command-dry-run-wave80.json",
+  "source_wave81": "agentpress/evidence/agent-facing-acceptance-one-command-smoke-packet-wave81.json",
+  "status": "ok"
+}

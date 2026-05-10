@@ -1,0 +1,49 @@
+{
+  "schema_version": "2026-05-10.agentpress-glm-gorilla-bootstrap-conveyor.v1",
+  "canonical_url": "https://barneywohl.github.io/agentpress/agentpress/gorilla/glm-bootstrap-conveyor-wave87.json",
+  "generated_utc": "2026-05-10T20:18:35Z",
+  "status": "ready",
+  "purpose": "Let a fresh agent convert GLM/materialized receipts into one first useful local command and a proof capture command.",
+  "receipt_source": "inline_empty_demo",
+  "record_count": 0,
+  "materialized_validated_status": {
+    "total_kits": 0,
+    "materialized_count": 0,
+    "validated_count": 0,
+    "pending_count": 0,
+    "failed_count": 0
+  },
+  "selected_kit_path": "agentpress/gorilla/utility-pack",
+  "first_useful_command": "python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json",
+  "proof_command": "python3 scripts/agentpress.py proof-capture --task-id glm-gorilla-bootstrap-conveyor --evidence-dir agentpress/gorilla/glm-bootstrap-conveyor-wave87-proof --artifacts agentpress/gorilla/glm-bootstrap-conveyor-wave87.json --commands 'python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json' --json",
+  "bootstrap_steps": [
+    {
+      "step": 1,
+      "name": "inspect_receipt",
+      "done": false,
+      "fallback": "use local gorilla utility pack when no receipt is provided"
+    },
+    {
+      "step": 2,
+      "name": "run_first_useful_command",
+      "command": "python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json"
+    },
+    {
+      "step": 3,
+      "name": "capture_proof",
+      "command": "python3 scripts/agentpress.py proof-capture --task-id glm-gorilla-bootstrap-conveyor --evidence-dir agentpress/gorilla/glm-bootstrap-conveyor-wave87-proof --artifacts agentpress/gorilla/glm-bootstrap-conveyor-wave87.json --commands 'python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json' --json"
+    }
+  ],
+  "safety": {
+    "external_writes": false,
+    "payments_attempted": false,
+    "public_push_publish_deploy": false,
+    "requires_human_approval_before_external_action": true
+  },
+  "acceptance_gates": [
+    "JSON packet generated",
+    "first command is local AgentPress CLI only",
+    "proof command records the packet and command",
+    "no external action is performed"
+  ]
+}

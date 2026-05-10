@@ -1,0 +1,34 @@
+{
+  "acceptance": [
+    "npm script exits 0 locally",
+    "replay drill consumes wave73 and wave72 and fails on missing certificate, lane_count mismatch, command_count 0, blocked status, missing source receipt, or public/external action contamination",
+    "replay receipt includes certificate_id, source_receipt_id, lane_count 6, command_count, replayed_assertion_count, package inclusion checks, and public_action_gate closed",
+    "pytest covers valid replay, missing certificate, lane mismatch, blocked source, missing source receipt, and public/external contamination",
+    "npm pack dry-run includes script, test, JSON evidence, and Markdown evidence",
+    "public_actions_taken and external_actions remain empty"
+  ],
+  "assigned_at": "2026-05-10T14:40:45Z",
+  "assignee": "next_available_agent_or_barney_heartbeat",
+  "completed_wave": "wave73_agent_facing_acceptance_receipt_verifier",
+  "expected_outputs": [
+    "scripts/agent_facing_acceptance_certificate_replay_drill.py",
+    "tests/test_agent_facing_acceptance_certificate_replay_drill.py",
+    "agentpress/evidence/agent-facing-acceptance-certificate-replay-drill-wave74.json",
+    "agentpress/evidence/agent-facing-acceptance-certificate-replay-drill-wave74.md"
+  ],
+  "inputs": [
+    "/Volumes/X10/clawd/repos/agentpress-build/agentpress/evidence/agent-facing-acceptance-receipt-verifier-wave73.json",
+    "/Volumes/X10/clawd/repos/agentpress-build/agentpress/evidence/agent-facing-acceptance-receipt-verifier-wave73.md",
+    "/Volumes/X10/clawd/repos/agentpress-build/agentpress/evidence/agent-facing-acceptance-handoff-drill-wave72.json",
+    "/Volumes/X10/clawd/repos/agentpress-build/agentpress/evidence/feature-factory-next-wave-wave73-agent-facing-acceptance-receipt-verifier.json"
+  ],
+  "kind": "agentpress_feature_factory_next_wave_assignment",
+  "mission_id": "mission-20260506-211343-201ff0",
+  "next_wave": "wave74_agent_facing_acceptance_certificate_replay_drill",
+  "objective": "Build a local-only replay drill that consumes the wave73 operator certificate plus wave72 source receipt, independently replays the certificate assertions from packaged evidence, and emits a handoff-ready replay receipt for a fresh agent/operator without public publish/push/deploy/outreach/payment/secret access.",
+  "public_publish_push_gate": "Jake explicit approval required; no public action assigned",
+  "source_wave73_external_actions": [],
+  "source_wave73_lane_count": 6,
+  "source_wave73_public_actions_taken": [],
+  "source_wave73_status": "ok"
+}
