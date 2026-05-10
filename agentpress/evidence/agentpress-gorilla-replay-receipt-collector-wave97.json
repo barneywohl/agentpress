@@ -1,0 +1,143 @@
+{
+  "blockers": [],
+  "expected_local_artifacts_after_replay": [
+    "agentpress/gorilla/utility-pack",
+    "agentpress/gorilla/glm-bootstrap-conveyor-wave87-proof"
+  ],
+  "external_actions": [],
+  "generated_at": "2026-05-10T23:23:47Z",
+  "kind": "agentpress_gorilla_replay_receipt_collector",
+  "npm_pack_dry_run": {
+    "command": "npm pack --dry-run --json",
+    "json_parseable": true,
+    "required_included": [
+      {
+        "included": true,
+        "path": "scripts/agentpress_gorilla_replay_receipt_collector.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agentpress_gorilla_replay_receipt_collector.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.md"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96-replay.sh"
+      }
+    ],
+    "returncode": 0
+  },
+  "operator_next_steps": [
+    "Inspect this receipt and the replay script.",
+    "Run only safe_local_only commands in a private checkout if local artifacts need refreshing.",
+    "Attach resulting local artifacts to the sealed handoff packet.",
+    "Stop before public push, publish, deploy, outreach, wallet, payment, or external-send action unless Jake explicitly approves."
+  ],
+  "package_json_inclusion_expectations": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/agentpress_gorilla_replay_receipt_collector.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "tests/test_agentpress_gorilla_replay_receipt_collector.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.md"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96-replay.sh"
+      }
+    ],
+    "script": "python3 scripts/agentpress_gorilla_replay_receipt_collector.py . --out agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.json --markdown-out agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.md --include-pack-check --json"
+  },
+  "painpoint_solved": "Lets a recipient agent verify the wave96 Gorilla replay helper is packaged, local-only, and ready for evidence capture before running it.",
+  "payment_actions_taken": [],
+  "public_actions_taken": [],
+  "public_publish_push_gate": "Jake explicit approval required; no public action performed.",
+  "receipt_id": "wave97-gorilla-replay-receipt-24f6ec686f74",
+  "replay_commands": [
+    {
+      "command": "echo 'AgentPress Gorilla manifest acceptance replay (local-only)'",
+      "index": 1,
+      "safe_local_only": true,
+      "status": "ready_to_run_locally"
+    },
+    {
+      "command": "echo 'Stop before any public action; Jake approval required.'",
+      "index": 2,
+      "safe_local_only": true,
+      "status": "ready_to_run_locally"
+    },
+    {
+      "command": "echo 'inspect step 1: inspect_receipt'",
+      "index": 3,
+      "safe_local_only": true,
+      "status": "ready_to_run_locally"
+    },
+    {
+      "command": "echo 'running step 2: run_first_useful_command'",
+      "index": 4,
+      "safe_local_only": true,
+      "status": "ready_to_run_locally"
+    },
+    {
+      "command": "python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json",
+      "index": 5,
+      "safe_local_only": true,
+      "status": "ready_to_run_locally"
+    },
+    {
+      "command": "echo 'running step 3: capture_proof'",
+      "index": 6,
+      "safe_local_only": true,
+      "status": "ready_to_run_locally"
+    },
+    {
+      "command": "python3 scripts/agentpress.py proof-capture --task-id glm-gorilla-bootstrap-conveyor --evidence-dir agentpress/gorilla/glm-bootstrap-conveyor-wave87-proof --artifacts agentpress/gorilla/glm-bootstrap-conveyor-wave87.json --commands 'python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json' --json",
+      "index": 7,
+      "safe_local_only": true,
+      "status": "ready_to_run_locally"
+    },
+    {
+      "command": "echo 'Replay complete; local commands run: 2'",
+      "index": 8,
+      "safe_local_only": true,
+      "status": "ready_to_run_locally"
+    }
+  ],
+  "schema_version": 1,
+  "secret_material_included": false,
+  "source_harness": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json",
+  "source_replay_script": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96-replay.sh",
+  "source_replay_sha256": "24f6ec686f7492f36489de07a774c173a78634b9cccf1ebbd4486072920a01de",
+  "status": "ok"
+}

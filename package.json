@@ -33,7 +33,8 @@
     "rc:agentpress-comms-handoff-recipient-receipt-verifier": "python3 scripts/agentpress_comms_handoff_recipient_receipt_verifier.py . --out agentpress/evidence/agentpress-comms-handoff-recipient-receipt-verifier-wave93.json --markdown-out agentpress/evidence/agentpress-comms-handoff-recipient-receipt-verifier-wave93.md --include-pack-check --json",
     "rc:agentpress-recipient-command-transcript-sealer": "python3 scripts/agentpress_recipient_command_transcript_sealer.py . --out agentpress/evidence/agentpress-recipient-command-transcript-sealer-wave94.json --markdown-out agentpress/evidence/agentpress-recipient-command-transcript-sealer-wave94.md --include-pack-check --json",
     "rc:agentpress-recipient-sealed-transcript-launchpad-replay-card": "python3 scripts/agentpress_recipient_sealed_transcript_launchpad_replay_card.py . --out agentpress/evidence/agentpress-recipient-sealed-transcript-launchpad-replay-card-wave95.json --markdown-out agentpress/evidence/agentpress-recipient-sealed-transcript-launchpad-replay-card-wave95.md --include-pack-check --json",
-    "rc:agentpress-gorilla-manifest-acceptance-harness": "python3 scripts/agentpress_gorilla_manifest_acceptance_harness.py . --out agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json --markdown-out agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md --include-pack-check --json"
+    "rc:agentpress-gorilla-manifest-acceptance-harness": "python3 scripts/agentpress_gorilla_manifest_acceptance_harness.py . --out agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json --markdown-out agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md --replay-script agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96-replay.sh --include-pack-check --json",
+    "rc:agentpress-gorilla-replay-receipt-collector": "python3 scripts/agentpress_gorilla_replay_receipt_collector.py . --out agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.json --markdown-out agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.md --include-pack-check --json"
   },
   "keywords": [
     "agent-press",
@@ -188,7 +189,12 @@
     "tests/test_agentpress_gorilla_manifest_acceptance_harness.py",
     "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json",
     "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md",
-    "agentpress/gorilla/glm-bootstrap-conveyor-wave87.json"
+    "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96-replay.sh",
+    "agentpress/gorilla/glm-bootstrap-conveyor-wave87.json",
+    "scripts/agentpress_gorilla_replay_receipt_collector.py",
+    "tests/test_agentpress_gorilla_replay_receipt_collector.py",
+    "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.json",
+    "agentpress/evidence/agentpress-gorilla-replay-receipt-collector-wave97.md"
   ],
   "homepage": "https://www.npmjs.com/package/@agent_press/agentpress",
   "repository": {

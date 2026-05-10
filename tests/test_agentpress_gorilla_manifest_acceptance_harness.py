@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "agentpress_gorilla_manifest_acceptance_harness.py"
 OUT = "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json"
 MD = "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md"
+REPLAY = "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96-replay.sh"
 MANIFEST = "agentpress/gorilla/glm-bootstrap-conveyor-wave87.json"
 
 
@@ -57,6 +58,7 @@ def seed_root(tmp_path: Path) -> Path:
             "tests/test_agentpress_gorilla_manifest_acceptance_harness.py",
             OUT,
             MD,
+            REPLAY,
             MANIFEST,
         ],
     }
@@ -144,3 +146,21 @@ def test_cli_writes_json_and_markdown(tmp_path: Path):
     data = json.loads((root / OUT).read_text(encoding="utf-8"))
     assert data["kind"] == "agentpress_gorilla_manifest_acceptance_harness"
     assert (root / MD).exists()
+    replay = (root / REPLAY)
+    assert replay.exists()
+    text = replay.read_text(encoding="utf-8")
+    assert "Local-only replay helper" in text
+    assert "npm publish" not in text
+    assert "Jake approval required" in text
+
+
+def test_replay_script_contains_only_safe_allowlisted_commands(tmp_path: Path):
+    mod = load_module()
+    root = seed_root(tmp_path)
+    doc = mod.build_harness(root)
+    text = mod.replay_script(doc)
+    assert "python3 scripts/agentpress.py gorilla-utility-pack" in text
+    assert "python3 scripts/agentpress.py proof-capture" in text
+    assert "curl http" not in text
+    assert "npm publish" not in text
+    assert "Jake approval required" in text

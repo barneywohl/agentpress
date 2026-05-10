@@ -31,7 +31,8 @@
       "agentpress/gorilla/utility-pack",
       "agentpress/gorilla/glm-bootstrap-conveyor-wave87-proof",
       "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json",
-      "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md"
+      "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md",
+      "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96-replay.sh"
     ],
     "harness_id": "wave96-gorilla-manifest-acceptance-7245fbf9e8bd",
     "local_only_assertions": [
@@ -40,6 +41,7 @@
       "manifest safety flags deny external writes, payments, and public push/publish/deploy",
       "Jake explicit approval remains required before any public or external action"
     ],
+    "local_replay_script": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96-replay.sh",
     "operator_runbook": [
       "Inspect this harness before running commands.",
       "Run only commands marked safe_local_only=true in a private local checkout.",
@@ -53,7 +55,7 @@
   },
   "blockers": [],
   "external_actions": [],
-  "generated_at": "2026-05-10T23:05:23Z",
+  "generated_at": "2026-05-10T23:23:33Z",
   "kind": "agentpress_gorilla_manifest_acceptance_harness",
   "npm_pack_dry_run": {
     "command": "npm pack --dry-run --json",
@@ -74,6 +76,10 @@
       {
         "included": true,
         "path": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96-replay.sh"
       },
       {
         "included": true,
@@ -107,10 +113,15 @@
       {
         "exists_local": true,
         "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96-replay.sh"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
         "path": "agentpress/gorilla/glm-bootstrap-conveyor-wave87.json"
       }
     ],
-    "script": "python3 scripts/agentpress_gorilla_manifest_acceptance_harness.py . --out agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json --markdown-out agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md --include-pack-check --json"
+    "script": "python3 scripts/agentpress_gorilla_manifest_acceptance_harness.py . --out agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.json --markdown-out agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96.md --replay-script agentpress/evidence/agentpress-gorilla-manifest-acceptance-harness-wave96-replay.sh --include-pack-check --json"
   },
   "payment_actions_taken": [],
   "public_actions_taken": [],
