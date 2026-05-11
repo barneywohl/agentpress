@@ -1,6 +1,6 @@
 {
   "name": "@agent_press/agentpress",
-  "version": "0.2.0-rc.8",
+  "version": "0.2.0",
   "private": false,
   "description": "Public @agent_press AgentPress CLI: static agent-readable repo surfaces, validators, proof receipts, and release-candidate gates.",
   "bin": {
@@ -40,7 +40,9 @@
     "rc:agentpress-gorilla-drill-evidence-capsule": "python3 scripts/agentpress_gorilla_drill_evidence_capsule.py . --out agentpress/evidence/agentpress-gorilla-drill-evidence-capsule-wave100.json --markdown-out agentpress/evidence/agentpress-gorilla-drill-evidence-capsule-wave100.md --include-pack-check --json",
     "rc:agentpress-gorilla-evidence-receipt-verifier": "python3 scripts/agentpress_gorilla_evidence_receipt_verifier.py . --out agentpress/evidence/agentpress-gorilla-evidence-receipt-verifier-wave101.json --markdown-out agentpress/evidence/agentpress-gorilla-evidence-receipt-verifier-wave101.md --include-pack-check --json",
     "rc:agentpress-gorilla-receipt-acceptance-launchpad-packet": "python3 scripts/agentpress_gorilla_receipt_acceptance_launchpad_packet.py . --out agentpress/evidence/agentpress-gorilla-receipt-acceptance-launchpad-packet-wave102.json --markdown-out agentpress/evidence/agentpress-gorilla-receipt-acceptance-launchpad-packet-wave102.md --include-pack-check --json",
-    "rc:agentpress-gorilla-launchpad-acceptance-runbook": "python3 scripts/agentpress_gorilla_launchpad_acceptance_runbook.py . --out agentpress/evidence/agentpress-gorilla-launchpad-acceptance-runbook-wave103.json --markdown-out agentpress/evidence/agentpress-gorilla-launchpad-acceptance-runbook-wave103.md --include-pack-check --json"
+    "rc:agentpress-gorilla-launchpad-acceptance-runbook": "python3 scripts/agentpress_gorilla_launchpad_acceptance_runbook.py . --out agentpress/evidence/agentpress-gorilla-launchpad-acceptance-runbook-wave103.json --markdown-out agentpress/evidence/agentpress-gorilla-launchpad-acceptance-runbook-wave103.md --include-pack-check --json",
+    "rc:agentpress-gorilla-operator-acknowledgement-verifier": "python3 scripts/agentpress_gorilla_operator_acknowledgement_verifier.py . --out agentpress/evidence/agentpress-gorilla-operator-acknowledgement-verifier-wave104.json --markdown-out agentpress/evidence/agentpress-gorilla-operator-acknowledgement-verifier-wave104.md --include-pack-check --json",
+    "rc:agentpress-marketplace-acknowledged-fulfillment-packet": "python3 scripts/agentpress_marketplace_acknowledged_fulfillment_packet.py . --out agentpress/evidence/agentpress-marketplace-acknowledged-fulfillment-packet-wave105.json --markdown-out agentpress/evidence/agentpress-marketplace-acknowledged-fulfillment-packet-wave105.md --include-pack-check --json"
   },
   "keywords": [
     "agent-press",
@@ -224,7 +226,15 @@
     "scripts/agentpress_gorilla_launchpad_acceptance_runbook.py",
     "tests/test_agentpress_gorilla_launchpad_acceptance_runbook.py",
     "agentpress/evidence/agentpress-gorilla-launchpad-acceptance-runbook-wave103.json",
-    "agentpress/evidence/agentpress-gorilla-launchpad-acceptance-runbook-wave103.md"
+    "agentpress/evidence/agentpress-gorilla-launchpad-acceptance-runbook-wave103.md",
+    "scripts/agentpress_gorilla_operator_acknowledgement_verifier.py",
+    "tests/test_agentpress_gorilla_operator_acknowledgement_verifier.py",
+    "agentpress/evidence/agentpress-gorilla-operator-acknowledgement-verifier-wave104.json",
+    "agentpress/evidence/agentpress-gorilla-operator-acknowledgement-verifier-wave104.md",
+    "scripts/agentpress_marketplace_acknowledged_fulfillment_packet.py",
+    "tests/test_agentpress_marketplace_acknowledged_fulfillment_packet.py",
+    "agentpress/evidence/agentpress-marketplace-acknowledged-fulfillment-packet-wave105.json",
+    "agentpress/evidence/agentpress-marketplace-acknowledged-fulfillment-packet-wave105.md"
   ],
   "homepage": "https://www.npmjs.com/package/@agent_press/agentpress",
   "repository": {
