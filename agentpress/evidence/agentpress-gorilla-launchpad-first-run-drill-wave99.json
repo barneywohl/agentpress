@@ -1,0 +1,187 @@
+{
+  "blockers": [],
+  "drill_id": "wave99-gorilla-launchpad-first-run-drill",
+  "external_actions": [],
+  "first_run_drill": {
+    "completion_rule": "all safe_local_only steps run locally with exit_code=0 and expected artifacts captured; stop before public/publish/deploy/payment/external-send unless Jake explicitly approves",
+    "evidence_bundle_required": [
+      "command",
+      "exit_code",
+      "stdout_tail",
+      "stderr_tail",
+      "generated_local_artifact_paths"
+    ],
+    "purpose": "Give a fresh agent a runnable, local-only rehearsal for each Gorilla launchpad handoff step before any public action.",
+    "steps": [
+      {
+        "command": "echo 'AgentPress Gorilla manifest acceptance replay (local-only)'",
+        "expected_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "runnable_check": "copy command into a private local checkout and capture stdout/stderr",
+        "safe_local_only": true,
+        "step": 1,
+        "stop_conditions": [
+          "nonzero exit",
+          "missing artifact",
+          "public/publish/deploy/payment/external-send prompt",
+          "secret/token request"
+        ]
+      },
+      {
+        "command": "echo 'Stop before any public action; Jake approval required.'",
+        "expected_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "runnable_check": "copy command into a private local checkout and capture stdout/stderr",
+        "safe_local_only": true,
+        "step": 2,
+        "stop_conditions": [
+          "nonzero exit",
+          "missing artifact",
+          "public/publish/deploy/payment/external-send prompt",
+          "secret/token request"
+        ]
+      },
+      {
+        "command": "echo 'inspect step 1: inspect_receipt'",
+        "expected_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "runnable_check": "copy command into a private local checkout and capture stdout/stderr",
+        "safe_local_only": true,
+        "step": 3,
+        "stop_conditions": [
+          "nonzero exit",
+          "missing artifact",
+          "public/publish/deploy/payment/external-send prompt",
+          "secret/token request"
+        ]
+      },
+      {
+        "command": "echo 'running step 2: run_first_useful_command'",
+        "expected_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "runnable_check": "copy command into a private local checkout and capture stdout/stderr",
+        "safe_local_only": true,
+        "step": 4,
+        "stop_conditions": [
+          "nonzero exit",
+          "missing artifact",
+          "public/publish/deploy/payment/external-send prompt",
+          "secret/token request"
+        ]
+      },
+      {
+        "command": "python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json",
+        "expected_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "runnable_check": "copy command into a private local checkout and capture stdout/stderr",
+        "safe_local_only": true,
+        "step": 5,
+        "stop_conditions": [
+          "nonzero exit",
+          "missing artifact",
+          "public/publish/deploy/payment/external-send prompt",
+          "secret/token request"
+        ]
+      },
+      {
+        "command": "echo 'running step 3: capture_proof'",
+        "expected_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "runnable_check": "copy command into a private local checkout and capture stdout/stderr",
+        "safe_local_only": true,
+        "step": 6,
+        "stop_conditions": [
+          "nonzero exit",
+          "missing artifact",
+          "public/publish/deploy/payment/external-send prompt",
+          "secret/token request"
+        ]
+      },
+      {
+        "command": "python3 scripts/agentpress.py proof-capture --task-id glm-gorilla-bootstrap-conveyor --evidence-dir agentpress/gorilla/glm-bootstrap-conveyor-wave87-proof --artifacts agentpress/gorilla/glm-bootstrap-conveyor-wave87.json --commands 'python3 scripts/agentpress.py gorilla-utility-pack --out agentpress/gorilla/utility-pack --json' --json",
+        "expected_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "runnable_check": "copy command into a private local checkout and capture stdout/stderr",
+        "safe_local_only": true,
+        "step": 7,
+        "stop_conditions": [
+          "nonzero exit",
+          "missing artifact",
+          "public/publish/deploy/payment/external-send prompt",
+          "secret/token request"
+        ]
+      },
+      {
+        "command": "echo 'Replay complete; local commands run: 2'",
+        "expected_evidence": "record stdout/stderr plus resulting local artifact path in the task proof bundle",
+        "runnable_check": "copy command into a private local checkout and capture stdout/stderr",
+        "safe_local_only": true,
+        "step": 8,
+        "stop_conditions": [
+          "nonzero exit",
+          "missing artifact",
+          "public/publish/deploy/payment/external-send prompt",
+          "secret/token request"
+        ]
+      }
+    ]
+  },
+  "generated_utc": "2026-05-11T01:12:11Z",
+  "jake_explicit_approval_required_for_public_actions": true,
+  "pack_check": {
+    "command": "npm pack --dry-run --json",
+    "json_parseable": true,
+    "required_included": [
+      {
+        "included": true,
+        "path": "scripts/agentpress_gorilla_launchpad_first_run_drill.py"
+      },
+      {
+        "included": true,
+        "path": "tests/test_agentpress_gorilla_launchpad_first_run_drill.py"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-launchpad-first-run-drill-wave99.json"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-launchpad-first-run-drill-wave99.md"
+      },
+      {
+        "included": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-to-launchpad-handoff-wave98.json"
+      }
+    ],
+    "returncode": 0
+  },
+  "package": {
+    "required": [
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "scripts/agentpress_gorilla_launchpad_first_run_drill.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "tests/test_agentpress_gorilla_launchpad_first_run_drill.py"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-launchpad-first-run-drill-wave99.json"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-launchpad-first-run-drill-wave99.md"
+      },
+      {
+        "exists_local": true,
+        "listed_in_package_files": true,
+        "path": "agentpress/evidence/agentpress-gorilla-replay-to-launchpad-handoff-wave98.json"
+      }
+    ],
+    "script": "python3 scripts/agentpress_gorilla_launchpad_first_run_drill.py . --out agentpress/evidence/agentpress-gorilla-launchpad-first-run-drill-wave99.json --markdown-out agentpress/evidence/agentpress-gorilla-launchpad-first-run-drill-wave99.md --include-pack-check --json"
+  },
+  "payment_actions_taken": [],
+  "public_push_publish_deploy": false,
+  "schema_version": "2026-05-10.agentpress-gorilla-launchpad-first-run-drill.v1",
+  "secret_material_included": false,
+  "source_handoff": "agentpress/evidence/agentpress-gorilla-replay-to-launchpad-handoff-wave98.json",
+  "status": "ok"
+}
