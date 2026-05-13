@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "AgentPress Inspector",
+  "version": "1.0.0",
+  "description": "See agents.txt for any GitHub repo or website. Badge in your URL bar when a site declares an agents.txt v1.0 contract.",
+  "author": "AgentPress (barneywohl)",
+  "homepage_url": "https://github.com/barneywohl/agentpress",
+
+  "action": {
+    "default_title": "AgentPress: checking…",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "permissions": ["storage", "tabs"],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "agents-txt-inspector@agentpress.dev",
+      "strict_min_version": "115.0"
+    }
+  }
+}

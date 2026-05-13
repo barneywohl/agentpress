@@ -1,0 +1,46 @@
+:root {
+  --bg: #fff;
+  --fg: #0b0d10;
+  --fg-dim: #6b7280;
+  --accent: #2563eb;
+  --border: #e5e7eb;
+  --green: #16a34a;
+  --orange: #ea580c;
+  --red: #dc2626;
+  --mono: ui-monospace, "Menlo", "Consolas", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0b0d10; --fg: #e5e7eb; --fg-dim: #9ca3af; --border: #1f2630; }
+}
+* { box-sizing: border-box; }
+body { font-family: var(--sans); margin: 0; min-width: 360px; max-width: 420px; background: var(--bg); color: var(--fg); font-size: 13px; }
+header { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+header h1 { font-size: 14px; margin: 0; font-weight: 600; }
+header a { font-size: 11px; color: var(--accent); text-decoration: none; }
+
+section { padding: 12px 14px; border-bottom: 1px solid var(--border); }
+
+.status-line { margin: 0; font-size: 12px; color: var(--fg-dim); }
+
+.row { display: flex; justify-content: space-between; padding: 4px 0; gap: 12px; font-size: 12px; }
+.row .label { font-family: var(--mono); color: var(--fg-dim); }
+.row .val { font-family: var(--mono); text-align: right; word-break: break-all; }
+.link { display: inline-block; margin-top: 8px; font-size: 11px; color: var(--accent); text-decoration: none; }
+
+.block { margin-bottom: 10px; }
+.block:last-child { margin-bottom: 0; }
+.block h2 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 6px; font-weight: 600; }
+.block ul { list-style: none; margin: 0; padding: 0; }
+.block li { font-family: var(--mono); font-size: 11px; padding: 2px 0; color: var(--fg); }
+.block.allowed h2 { color: var(--green); }
+.block.approval h2 { color: var(--orange); }
+.block.prohibited h2 { color: var(--red); }
+
+#empty p { margin: 0 0 6px; }
+#empty .hint { font-size: 11px; color: var(--fg-dim); }
+#empty code { font-family: var(--mono); background: var(--border); padding: 1px 4px; border-radius: 3px; font-size: 11px; }
+
+footer { padding: 10px 14px; font-size: 10px; color: var(--fg-dim); border-bottom: none; }
+footer a { color: var(--fg-dim); text-decoration: none; }
+footer a:hover { text-decoration: underline; }

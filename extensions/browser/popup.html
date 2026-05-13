@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>AgentPress Inspector</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header>
+    <h1>AgentPress</h1>
+    <a id="open-spec" href="https://github.com/barneywohl/agentpress" target="_blank" rel="noopener">spec ↗</a>
+  </header>
+
+  <section id="status">
+    <p class="status-line">Inspecting…</p>
+  </section>
+
+  <section id="meta" hidden>
+    <div class="row"><span class="label">project</span><span class="val" id="meta-project"></span></div>
+    <div class="row"><span class="label">spec</span><span class="val" id="meta-spec"></span></div>
+    <div class="row"><span class="label">maintainer</span><span class="val" id="meta-maintainer"></span></div>
+    <a id="raw-link" target="_blank" rel="noopener" class="link">view agents.txt ↗</a>
+  </section>
+
+  <section id="actions" hidden>
+    <div class="block allowed">
+      <h2>✓ Allowed</h2>
+      <ul id="list-allowed"></ul>
+    </div>
+    <div class="block approval">
+      <h2>⏸ Requires approval</h2>
+      <ul id="list-approval"></ul>
+    </div>
+    <div class="block prohibited">
+      <h2>✗ Prohibited</h2>
+      <ul id="list-prohibited"></ul>
+    </div>
+  </section>
+
+  <section id="empty" hidden>
+    <p>No <code>agents.txt</code> declared at this URL.</p>
+    <p class="hint">If you maintain this project, run <code>npx @agent_press/agentpress init</code> to add one.</p>
+  </section>
+
+  <footer>
+    <a href="https://github.com/barneywohl/agentpress" target="_blank" rel="noopener">github.com/barneywohl/agentpress</a>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
