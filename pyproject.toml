@@ -4,18 +4,31 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agentpress-static"
-version = "1.0.0rc1"
-description = "Agent-native static instruction surfaces, validators, and CLI tools."
+version = "1.0.0rc2"
+description = "agents.txt for any repo. Tell autonomous AI agents what they're allowed to do, in 60 seconds."
 readme = "agentpress/README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [{name = "Barney Wohl"}]
-keywords = ["agents", "llms", "publishing", "rag", "evals", "static-site"]
+keywords = ["agents.txt", "agent-press", "agentpress", "ai-agents", "autonomous-agents", "claude-code", "cursor", "devin", "llms", "llms-txt", "mcp"]
 classifiers = [
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries",
   "Topic :: Text Processing :: Markup",
-  "Topic :: Internet :: WWW/HTTP :: Site Management"
+  "License :: OSI Approved :: MIT License"
 ]
+dependencies = [
+  "agentpress-core>=1.0.0rc1"
+]
+
+[project.urls]
+Homepage = "https://github.com/barneywohl/agentpress"
+Repository = "https://github.com/barneywohl/agentpress"
+Issues = "https://github.com/barneywohl/agentpress/issues"
 
 [project.scripts]
 agentpress = "agentpress_cli.cli:main"
