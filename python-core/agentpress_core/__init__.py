@@ -9,7 +9,7 @@ import urllib.request
 from dataclasses import dataclass, field
 from typing import Literal, Optional, Union
 
-__version__ = "1.0.0rc1"
+__version__ = "1.0.0rc2"
 
 SPEC_VERSION = "1.0"
 SUPPORTED_VERSIONS = {"1.0"}
@@ -179,6 +179,9 @@ def parse(text: str) -> AgentsTxt:
 
     Tolerant — never raises. Use ``validate()`` to surface issues.
     """
+    # Strip UTF-8 BOM if present (Python's str.strip() does not remove it)
+    if text and text[0] == "﻿":
+        text = text[1:]
     tokens = _tokenize(text)
     by_name: dict[str, tuple[str, list[tuple[str, str]], list[str]]] = {}
     for name, kv, bare in tokens:
