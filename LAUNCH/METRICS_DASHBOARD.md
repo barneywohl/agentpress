@@ -16,7 +16,7 @@ curl -s https://api.npmjs.org/downloads/range/last-month/@agent_press/agentpress
 curl -s https://api.npmjs.org/downloads/point/last-week/@agent_press/agentpress | jq '.downloads'
 
 # Sub-packages
-for pkg in "@agentpress/core" "@agentpress/mcp-server"; do
+for pkg in "@agent_press/core" "@agent_press/mcp-server"; do
   curl -s "https://api.npmjs.org/downloads/point/last-week/$pkg" | jq
 done
 ```

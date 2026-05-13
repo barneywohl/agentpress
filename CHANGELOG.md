@@ -37,7 +37,7 @@ The "real launch" release candidate. Strip + sharpen + ship.
 
 ### Release gate
 - v1.0.0-rc.1 does NOT publish. Surfaced to maintainer for human approval (npm 2FA + PyPI token).
-- Next: ship `@agentpress/core` parser library, `agentpress/setup-action@v1` GitHub Action, README badge, curated registry, VS Code extension, browser extension, and `@agentpress/mcp-server` — then v1.0.0 final + public launch (HN, PH, X, Bluesky, Reddit).
+- Next: ship `@agent_press/core` parser library, `agentpress/setup-action@v1` GitHub Action, README badge, curated registry, VS Code extension, browser extension, and `@agent_press/mcp-server` — then v1.0.0 final + public launch (HN, PH, X, Bluesky, Reddit).
 
 ## 0.2.0-rc.3 — 2026-05-05
 

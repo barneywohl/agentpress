@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * @agentpress/mcp-server — MCP server that exposes agents.txt as callable tools.
+ * @agent_press/mcp-server — MCP server that exposes agents.txt as callable tools.
  *
  * Spec: https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md
  *
@@ -19,7 +19,7 @@
  *     "mcpServers": {
  *       "agentpress": {
  *         "command": "npx",
- *         "args": ["@agentpress/mcp-server"]
+ *         "args": ["@agent_press/mcp-server"]
  *       }
  *     }
  *   }
@@ -39,7 +39,7 @@ import {
   isActionAllowed,
   fetchAndParse,
   type AgentsTxt,
-} from "@agentpress/core";
+} from "@agent_press/core";
 
 const SPEC_DOC_URL =
   "https://raw.githubusercontent.com/barneywohl/agentpress/main/docs/AGENTSTXT_SPEC.md";

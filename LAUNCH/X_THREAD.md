@@ -62,12 +62,12 @@ Done.
 ```
 v1.0 ships:
 - The CLI (npm + PyPI)
-- @agentpress/core — zero-dep TS parser
+- @agent_press/core — zero-dep TS parser
 - agentpress-core — stdlib-only Python parser
 - A GitHub Action — fails CI on misconfig
 - A VS Code extension — syntax + lint
 - A browser extension — URL bar badge for any repo
-- @agentpress/mcp-server — Claude Code/Cursor/Devin native support
+- @agent_press/mcp-server — Claude Code/Cursor/Devin native support
 ```
 
 ## 6/8 (the pitch in three words)

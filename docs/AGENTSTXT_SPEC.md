@@ -248,13 +248,13 @@ An agent is **`agents.txt`-respecting** if:
 
 | Implementation | Repo | Status |
 |---|---|---|
-| `@agentpress/core` (TypeScript) | `barneywohl/agentpress` | Reference parser |
+| `@agent_press/core` (TypeScript) | `barneywohl/agentpress` | Reference parser |
 | `agentpress-core` (Python) | `barneywohl/agentpress` | Reference parser |
 | `agentpress` CLI | `barneywohl/agentpress` | Init, lint, doctor, receipt |
 | `agentpress/setup-action` | `barneywohl/agentpress` | GitHub Action for CI |
 | VS Code extension `agents-txt` | `barneywohl/agentpress` | Editor support |
 | Browser extension AgentPress Inspector | `barneywohl/agentpress` | URL bar badge |
-| `@agentpress/mcp-server` | `barneywohl/agentpress` | MCP integration |
+| `@agent_press/mcp-server` | `barneywohl/agentpress` | MCP integration |
 
 ---
 

@@ -14,7 +14,7 @@ Hi,
 
 Long-time Anthropic API + Claude Code user. Shipped a small open standard today that I think slots cleanly into Claude Code: agents.txt — a one-file contract at the repo root that declares what autonomous agents are allowed and prohibited from doing on the project. Same lineage as robots.txt and llms.txt.
 
-The reason this might matter to you: I've shipped an MCP server (@agentpress/mcp-server) so Claude Code can natively query any repo's agents.txt before acting. Three tools: agents_txt_fetch(url), agents_txt_check_action(url, action), agents_txt_validate(text). One config block in mcp_settings.json and Claude Code is contract-aware.
+The reason this might matter to you: I've shipped an MCP server (@agent_press/mcp-server) so Claude Code can natively query any repo's agents.txt before acting. Three tools: agents_txt_fetch(url), agents_txt_check_action(url, action), agents_txt_validate(text). One config block in mcp_settings.json and Claude Code is contract-aware.
 
 Spec: https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md
 Repo (all MIT): https://github.com/barneywohl/agentpress
@@ -39,7 +39,7 @@ Cursor user. Shipped an open standard today, agents.txt, that I think slots clea
 
 One-file contract at the repo root: allowed_actions, prohibited_actions, requires_human_approval, plus entry points, rate limits, MCP server URL. Same role as robots.txt for crawlers.
 
-Built an MCP server (@agentpress/mcp-server) so Cursor can natively respect contracts via the standard MCP integration in Settings → MCP. Tools surfaced: agents_txt_fetch(url), agents_txt_check_action(url, action). The agent can ask "is merge_to_main allowed here?" and get a deterministic answer before acting.
+Built an MCP server (@agent_press/mcp-server) so Cursor can natively respect contracts via the standard MCP integration in Settings → MCP. Tools surfaced: agents_txt_fetch(url), agents_txt_check_action(url, action). The agent can ask "is merge_to_main allowed here?" and get a deterministic answer before acting.
 
 Spec: https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md
 All MIT: https://github.com/barneywohl/agentpress

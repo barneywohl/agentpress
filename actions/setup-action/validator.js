@@ -5,7 +5,7 @@
  * Self-contained Node script that validates an agents.txt file against
  * the v1.0 spec. Bundled inline so the action has zero external deps.
  *
- * Mirrors @agentpress/core; intentionally compact for audit.
+ * Mirrors @agent_press/core; intentionally compact for audit.
  */
 'use strict';
 

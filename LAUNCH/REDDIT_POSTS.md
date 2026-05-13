@@ -18,7 +18,7 @@ Spec: https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md
 
 Ships today, all MIT:
 - CLI (npm + PyPI) — `npx @agent_press/agentpress init` → 5 questions, drops the file + GH Action template + README badge in 60 seconds
-- @agentpress/core — zero-dep TypeScript parser (and Python mirror)
+- @agent_press/core — zero-dep TypeScript parser (and Python mirror)
 - GitHub Action — fails CI on misconfig
 - VS Code + browser extensions
 - MCP server — Claude Code, Cursor, Devin can query the contract natively
@@ -70,7 +70,7 @@ The bet is on the standard, not any individual tool. Curious what folks here wou
 ```
 Built an open standard so coding agents know what's allowed and prohibited on any repo they encounter. agents.txt at the repo root, INI format, three required lists.
 
-The MCP server (`@agentpress/mcp-server`) plugs into Claude Code or any MCP-speaking agent. Three function calls become available:
+The MCP server (`@agent_press/mcp-server`) plugs into Claude Code or any MCP-speaking agent. Three function calls become available:
 - agents_txt_fetch(url) → fetch + parse
 - agents_txt_check_action(url, action) → returns allow / deny / requires_approval / unknown
 - agents_txt_validate(text) → check a draft

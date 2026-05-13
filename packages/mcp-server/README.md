@@ -1,4 +1,4 @@
-# @agentpress/mcp-server
+# @agent_press/mcp-server
 
 > Model Context Protocol (MCP) server that exposes `agents.txt` as queryable tools and resources for any MCP-speaking agent: Claude Code, Cursor, Devin, Aider, Continue, Replit Agent, etc.
 
@@ -13,7 +13,7 @@
 ## Install
 
 ```bash
-npm install -g @agentpress/mcp-server
+npm install -g @agent_press/mcp-server
 ```
 
 ## Wire into Claude Code
@@ -25,7 +25,7 @@ Edit `~/.claude/mcp_settings.json`:
   "mcpServers": {
     "agentpress": {
       "command": "npx",
-      "args": ["-y", "@agentpress/mcp-server"]
+      "args": ["-y", "@agent_press/mcp-server"]
     }
   }
 }
@@ -42,7 +42,7 @@ Edit `~/.cursor/mcp.json` (or via Settings → MCP):
   "mcpServers": {
     "agentpress": {
       "command": "npx",
-      "args": ["-y", "@agentpress/mcp-server"]
+      "args": ["-y", "@agent_press/mcp-server"]
     }
   }
 }

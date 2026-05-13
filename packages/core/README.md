@@ -1,19 +1,19 @@
-# @agentpress/core
+# @agent_press/core
 
 > Zero-dependency reference parser for [`agents.txt v1.0`](https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md).
 
-The TypeScript parser used by every `@agentpress/*` package and recommended for any agent runtime that needs to read `agents.txt` files.
+The TypeScript parser used by every `@agent_press/*` package and recommended for any agent runtime that needs to read `agents.txt` files.
 
 ## Install
 
 ```bash
-npm install @agentpress/core
+npm install @agent_press/core
 ```
 
 ## Quick start
 
 ```ts
-import { parse, validate, isActionAllowed, checkRateLimit, fetchAndParse } from "@agentpress/core";
+import { parse, validate, isActionAllowed, checkRateLimit, fetchAndParse } from "@agent_press/core";
 
 // Parse a local file
 const text = await Deno.readTextFile("./agents.txt");  // or fs.readFileSync etc.

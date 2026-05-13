@@ -30,7 +30,7 @@ The whole spec fits on one page: https://github.com/barneywohl/agentpress/blob/m
 What I shipped today:
 - The spec (MIT, free to fork)
 - A CLI: `npx @agent_press/agentpress init` — 5 questions, drops everything in your repo in 60 seconds
-- @agentpress/core — zero-dep TypeScript parser (and a Python mirror for the data side)
+- @agent_press/core — zero-dep TypeScript parser (and a Python mirror for the data side)
 - A GitHub Action — fails CI when the contract is malformed
 - README badge generator — every adopter advertises the spec for free
 - VS Code extension — syntax highlighting + on-save validation

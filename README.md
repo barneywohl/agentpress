@@ -73,7 +73,7 @@ Once you've run `agentpress init`, drop the badge into your README:
 - Spec: [`docs/AGENTSTXT_SPEC.md`](docs/AGENTSTXT_SPEC.md)
 - Registry: [`registry/`](registry/) (live: <https://agentpress.pages.dev/registry/>)
 - GitHub Action: [`actions/setup-action`](actions/setup-action/)
-- Reference parsers: [`@agentpress/core` (TS)](packages/core/) · [`agentpress-core` (Python)](python-core/)
+- Reference parsers: [`@agent_press/core` (TS)](packages/core/) · [`agentpress-core` (Python)](python-core/)
 
 ## License
 

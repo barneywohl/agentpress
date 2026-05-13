@@ -90,8 +90,8 @@ Each publish prompts for 2FA. Have your authenticator app ready.
 **Verify:**
 ```bash
 npm view @agent_press/agentpress version
-npm view @agentpress/core version
-npm view @agentpress/mcp-server version
+npm view @agent_press/core version
+npm view @agent_press/mcp-server version
 ```
 
 ---

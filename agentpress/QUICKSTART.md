@@ -2,7 +2,7 @@
 
 AgentPress makes any repo readable by agents in minutes.
 
-Package identity: use `@agent_press/agentpress` exactly. The underscore is intentional. Do not substitute `@agentpress/agentpress`; that is a different scope and may refer to a different/private ecosystem.
+Package identity: use `@agent_press/agentpress` exactly. The underscore is intentional. Do not substitute `@agent_press/agentpress`; that is a different scope and may refer to a different/private ecosystem.
 
 ## Install
 

@@ -1,5 +1,5 @@
 /**
- * @agentpress/core — zero-dependency reference parser for agents.txt v1.0.
+ * @agent_press/core — zero-dependency reference parser for agents.txt v1.0.
  *
  * Spec: https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md
  */

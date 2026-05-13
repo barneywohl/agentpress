@@ -2,7 +2,7 @@
 
 > Zero-dependency reference parser for [`agents.txt v1.0`](https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md). Python.
 
-Mirror of [`@agentpress/core`](https://www.npmjs.com/package/@agentpress/core) (TypeScript). Use this from Python agent runtimes, CI scripts, and analysis tools.
+Mirror of [`@agent_press/core`](https://www.npmjs.com/package/@agent_press/core) (TypeScript). Use this from Python agent runtimes, CI scripts, and analysis tools.
 
 ## Install
 
