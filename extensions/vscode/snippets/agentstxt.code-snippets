@@ -1,0 +1,165 @@
+{
+  "Full agents.txt v1.0 template": {
+    "prefix": "agents-txt",
+    "description": "Insert a complete agents.txt v1.0 starter template",
+    "body": [
+      "# agents.txt v1.0",
+      "# https://github.com/barneywohl/agentpress",
+      "",
+      "[meta]",
+      "spec_version = 1.0",
+      "project = ${1:my-project}",
+      "maintainer = ${2:you@example.com}",
+      "contact_for_agents = ${3:agent-relations@example.com}",
+      "last_updated = ${4:$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE}",
+      "license = ${5:MIT}",
+      "ai_disclosure_required = ${6:true}",
+      "",
+      "[allowed_actions]",
+      "read_documentation",
+      "read_source_code",
+      "run_tests_in_ci",
+      "file_pull_request",
+      "comment_on_issue",
+      "",
+      "[prohibited_actions]",
+      "merge_to_main",
+      "deploy_to_production",
+      "modify_secrets",
+      "exfiltrate_secrets",
+      "bypass_2fa",
+      "",
+      "[requires_human_approval]",
+      "schema_migrations",
+      "production_deploys",
+      "changes_touching = ${7:payments/**, billing/**}",
+      "",
+      "[entry_points]",
+      "agent_guide = /AGENTS.md",
+      "test_command = ${8:npm test}",
+      "lint_command = ${9:npm run lint}",
+      "",
+      "[rate_limits]",
+      "max_pull_requests_per_day = 5",
+      "max_issues_per_day = 10",
+      "",
+      "[scope]",
+      "max_files_changed = 25",
+      "max_lines_changed = 800",
+      "single_purpose_pr = true",
+      "",
+      "[disclosure]",
+      "pr_label = agent-authored",
+      "commit_trailer = Authored-by-Agent: <agent-name> <agent-version>",
+      "require_attribution_in_pr_body = true",
+      "",
+      "[contact]",
+      "escalation = https://github.com/${10:org}/${11:repo}/issues/new",
+      ""
+    ]
+  },
+
+  "Section: meta": {
+    "prefix": "[meta]",
+    "description": "Insert the [meta] section",
+    "body": [
+      "[meta]",
+      "spec_version = 1.0",
+      "project = ${1:my-project}",
+      "maintainer = ${2:you@example.com}",
+      "ai_disclosure_required = ${3:true}"
+    ]
+  },
+
+  "Section: allowed_actions": {
+    "prefix": "[allowed_actions]",
+    "description": "Insert the [allowed_actions] section",
+    "body": [
+      "[allowed_actions]",
+      "read_documentation",
+      "read_source_code",
+      "run_tests_in_ci",
+      "file_pull_request",
+      "comment_on_issue"
+    ]
+  },
+
+  "Section: prohibited_actions": {
+    "prefix": "[prohibited_actions]",
+    "description": "Insert the [prohibited_actions] section",
+    "body": [
+      "[prohibited_actions]",
+      "merge_to_main",
+      "deploy_to_production",
+      "modify_secrets",
+      "exfiltrate_secrets",
+      "bypass_2fa"
+    ]
+  },
+
+  "Section: requires_human_approval": {
+    "prefix": "[requires_human_approval]",
+    "description": "Insert the [requires_human_approval] section",
+    "body": [
+      "[requires_human_approval]",
+      "schema_migrations",
+      "production_deploys",
+      "changes_touching = ${1:payments/**, billing/**}"
+    ]
+  },
+
+  "Section: entry_points": {
+    "prefix": "[entry_points]",
+    "description": "Insert the [entry_points] section",
+    "body": [
+      "[entry_points]",
+      "agent_guide = /AGENTS.md",
+      "test_command = ${1:npm test}",
+      "lint_command = ${2:npm run lint}"
+    ]
+  },
+
+  "Section: mcp": {
+    "prefix": "[mcp]",
+    "description": "Insert the [mcp] section",
+    "body": [
+      "[mcp]",
+      "server = ${1:https://example.com/mcp}",
+      "auth = ${2|oauth2,api_key,none|}",
+      "capabilities = ${3:search_docs, run_tests, draft_pr}"
+    ]
+  },
+
+  "Section: rate_limits": {
+    "prefix": "[rate_limits]",
+    "description": "Insert the [rate_limits] section",
+    "body": [
+      "[rate_limits]",
+      "max_pull_requests_per_day = ${1:5}",
+      "max_issues_per_day = ${2:10}",
+      "max_comments_per_day = ${3:25}"
+    ]
+  },
+
+  "Section: scope": {
+    "prefix": "[scope]",
+    "description": "Insert the [scope] section",
+    "body": [
+      "[scope]",
+      "max_files_changed = ${1:25}",
+      "max_lines_changed = ${2:800}",
+      "single_purpose_pr = ${3:true}"
+    ]
+  },
+
+  "Section: disclosure": {
+    "prefix": "[disclosure]",
+    "description": "Insert the [disclosure] section",
+    "body": [
+      "[disclosure]",
+      "pr_label = ${1:agent-authored}",
+      "commit_trailer = ${2:Authored-by-Agent: <agent-name>}",
+      "require_attribution_in_pr_body = ${3:true}"
+    ]
+  }
+}

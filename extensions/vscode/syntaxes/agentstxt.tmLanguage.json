@@ -1,0 +1,108 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "agents.txt",
+  "scopeName": "source.agentstxt",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#sections" },
+    { "include": "#assignments" },
+    { "include": "#bare-action" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.agentstxt",
+          "match": "#.*$"
+        }
+      ]
+    },
+    "sections": {
+      "patterns": [
+        {
+          "name": "entity.name.section.required.agentstxt",
+          "match": "^\\s*\\[\\s*(meta|allowed_actions|prohibited_actions|requires_human_approval|entry_points|disclosure)\\s*\\]\\s*$",
+          "captures": {
+            "1": { "name": "entity.name.section.required.agentstxt" }
+          }
+        },
+        {
+          "name": "entity.name.section.recommended.agentstxt",
+          "match": "^\\s*\\[\\s*(rate_limits|scope|contact|verification|mcp)\\s*\\]\\s*$",
+          "captures": {
+            "1": { "name": "entity.name.section.recommended.agentstxt" }
+          }
+        },
+        {
+          "name": "entity.name.section.optional.agentstxt",
+          "match": "^\\s*\\[\\s*(fyi)\\s*\\]\\s*$",
+          "captures": {
+            "1": { "name": "entity.name.section.optional.agentstxt" }
+          }
+        },
+        {
+          "name": "entity.name.section.unknown.agentstxt",
+          "match": "^\\s*\\[\\s*([A-Za-z_][A-Za-z0-9_]*)\\s*\\]\\s*$"
+        }
+      ]
+    },
+    "assignments": {
+      "begin": "^\\s*([A-Za-z_][A-Za-z0-9_]*)\\s*(=)",
+      "beginCaptures": {
+        "1": { "name": "variable.parameter.agentstxt" },
+        "2": { "name": "keyword.operator.assignment.agentstxt" }
+      },
+      "end": "$",
+      "patterns": [
+        {
+          "name": "constant.language.boolean.agentstxt",
+          "match": "\\b(true|false|yes|no|on|off)\\b"
+        },
+        {
+          "name": "constant.numeric.agentstxt",
+          "match": "\\b\\d+\\b"
+        },
+        {
+          "name": "string.unquoted.url.agentstxt",
+          "match": "https?://[^\\s,]+"
+        },
+        {
+          "name": "string.unquoted.email.agentstxt",
+          "match": "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b"
+        },
+        {
+          "name": "string.unquoted.path.agentstxt",
+          "match": "/[A-Za-z0-9_./*-]*"
+        },
+        {
+          "name": "string.unquoted.value.agentstxt",
+          "match": "[^,\\s][^,]*"
+        },
+        {
+          "name": "punctuation.separator.list.agentstxt",
+          "match": ","
+        }
+      ]
+    },
+    "bare-action": {
+      "patterns": [
+        {
+          "name": "support.constant.action.prohibited.agentstxt",
+          "match": "^\\s*(merge_to_main|deploy_to_production|modify_secrets|exfiltrate_secrets|bypass_2fa|bypass_captcha|deceptive_tracking|spam|impersonation|contact_users_directly|publish_to_npm|publish_to_pypi|modify_billing_files)\\s*$"
+        },
+        {
+          "name": "support.constant.action.allowed.agentstxt",
+          "match": "^\\s*(read_documentation|read_source_code|run_tests_in_ci|file_pull_request|comment_on_issue|propose_design|fetch_via_api|validate_schemas|generate_receipts|read_public_artifacts)\\s*$"
+        },
+        {
+          "name": "support.constant.action.approval.agentstxt",
+          "match": "^\\s*(schema_migrations|external_posts|registry_publishes|production_deploys|private_data_access|dependency_upgrades_major|new_external_service_integrations)\\s*$"
+        },
+        {
+          "name": "support.constant.action.custom.agentstxt",
+          "match": "^\\s*[a-z_][a-z0-9_]*\\s*$"
+        }
+      ]
+    }
+  }
+}

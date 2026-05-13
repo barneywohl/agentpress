@@ -1,0 +1,89 @@
+{
+  "name": "agents-txt",
+  "displayName": "agents.txt",
+  "description": "Syntax highlighting, snippets, and on-save validation for agents.txt — the open standard for telling AI agents what they're allowed to do on your repo.",
+  "version": "1.0.0",
+  "publisher": "barneywohl",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Snippets"
+  ],
+  "keywords": [
+    "agents.txt",
+    "agentpress",
+    "ai-agents",
+    "claude-code",
+    "cursor",
+    "devin",
+    "linter",
+    "snippets"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/barneywohl/agentpress.git",
+    "directory": "extensions/vscode"
+  },
+  "homepage": "https://github.com/barneywohl/agentpress/tree/main/extensions/vscode",
+  "bugs": {
+    "url": "https://github.com/barneywohl/agentpress/issues"
+  },
+  "license": "MIT",
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:agentstxt"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "agentstxt",
+        "aliases": ["agents.txt", "Agents.txt"],
+        "filenames": ["agents.txt", "Agents.txt", "AGENTS.txt"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "agentstxt",
+        "scopeName": "source.agentstxt",
+        "path": "./syntaxes/agentstxt.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "agentstxt",
+        "path": "./snippets/agentstxt.code-snippets"
+      }
+    ],
+    "commands": [
+      {
+        "command": "agentstxt.validate",
+        "title": "agents.txt: Validate active file",
+        "category": "agents.txt"
+      },
+      {
+        "command": "agentstxt.openSpec",
+        "title": "agents.txt: Open v1.0 spec",
+        "category": "agents.txt"
+      }
+    ],
+    "configuration": {
+      "title": "agents.txt",
+      "properties": {
+        "agentstxt.validateOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Validate the file against the v1.0 spec on save and surface diagnostics in the Problems panel."
+        },
+        "agentstxt.failOnWarnings": {
+          "type": "boolean",
+          "default": false,
+          "description": "Treat warnings as errors in the Problems panel."
+        }
+      }
+    }
+  }
+}
