@@ -1,17 +1,197 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>AgentPress machine entrypoint</title>
-<link rel="canonical" href="https://barneywohl.github.io/agentpress/llms.txt">
-<link rel="alternate" type="text/plain" href="./llms.txt">
-<link rel="alternate" type="application/json" href="./.well-known/agentpress-machine-entrypoints.json">
-<meta http-equiv="refresh" content="0; url=./llms.txt">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AgentPress — agents.txt for any repo</title>
+  <meta name="description" content="Tell autonomous AI agents what they're allowed to do on your repo, in 60 seconds. Open standard, MIT licensed, no signup." />
+  <meta property="og:title" content="AgentPress — agents.txt for any repo" />
+  <meta property="og:description" content="robots.txt for crawlers. llms.txt for LLMs. agents.txt for autonomous agents." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://agentpress.dev/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://agentpress.dev/" />
+  <link rel="alternate" type="text/plain" href="./agents.txt" title="agents.txt" />
+  <link rel="alternate" type="text/plain" href="./llms.txt" title="llms.txt" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='0' y='14' font-size='14'%3E📜%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --bg-card: #14171c;
+      --fg: #e5e7eb;
+      --fg-dim: #9ca3af;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.12);
+      --green: #16a34a;
+      --orange: #ea580c;
+      --red: #dc2626;
+      --border: #1f2630;
+      --mono: ui-monospace, "Berkeley Mono", "JetBrains Mono", "Menlo", monospace;
+      --serif: "Spectral", "Fraunces", Georgia, serif;
+      --sans: "Inter", "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    }
+    @media (prefers-color-scheme: light) {
+      :root { --bg: #fafafa; --bg-card: #ffffff; --fg: #0b0d10; --fg-dim: #525864; --border: #e5e7eb; --accent-soft: rgba(37, 99, 235, 0.08); }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); -webkit-font-smoothing: antialiased; line-height: 1.5; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code, pre { font-family: var(--mono); }
+    .container { max-width: 880px; margin: 0 auto; padding: 5rem 1.25rem 6rem; }
+    nav.top { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0 3rem; }
+    nav.top .brand { font-family: var(--serif); font-weight: 600; font-size: 1.1rem; color: var(--fg); }
+    nav.top .brand .dot { color: var(--accent); }
+    nav.top .links { display: flex; gap: 1.5rem; font-size: 0.875rem; }
+    nav.top .links a { color: var(--fg-dim); }
+    nav.top .links a:hover { color: var(--fg); }
+
+    .hero h1 { font-family: var(--serif); font-size: 3rem; line-height: 1.05; margin: 0 0 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero p.lede { font-size: 1.25rem; color: var(--fg-dim); margin: 0 0 2.5rem; max-width: 38em; }
+    .hero p.lede strong { color: var(--fg); font-weight: 500; }
+    .hero .lineage { font-family: var(--mono); font-size: 0.9rem; line-height: 1.8; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; margin: 0 0 2rem; color: var(--fg-dim); }
+    .hero .lineage .arrow { color: var(--accent); font-weight: 600; }
+    .hero .lineage .new { color: var(--fg); font-weight: 600; }
+    .ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 2rem 0 0; }
+    .cta { padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 500; font-size: 0.95rem; text-decoration: none; transition: all 120ms; border: 1px solid transparent; }
+    .cta.primary { background: var(--accent); color: white; }
+    .cta.primary:hover { background: #1d4ed8; text-decoration: none; }
+    .cta.ghost { border-color: var(--border); color: var(--fg); }
+    .cta.ghost:hover { border-color: var(--accent); text-decoration: none; }
+
+    section { margin-top: 5rem; }
+    h2 { font-family: var(--serif); font-size: 1.75rem; margin: 0 0 1rem; font-weight: 600; }
+    h3 { font-family: var(--sans); font-size: 1.05rem; margin: 0 0 0.5rem; font-weight: 600; }
+
+    .install pre { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; overflow-x: auto; font-size: 0.95rem; line-height: 1.6; margin: 0 0 1rem; }
+    .install .comment { color: var(--fg-dim); }
+    .install .prompt { color: var(--accent); user-select: none; }
+
+    .what-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
+    @media (min-width: 720px) { .what-grid { grid-template-columns: 1fr 1fr; } }
+    .what-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; }
+    .what-item .num { font-family: var(--mono); color: var(--accent); font-size: 0.85rem; font-weight: 600; }
+    .what-item h3 { margin: 0.5rem 0 0.5rem; font-size: 1rem; }
+    .what-item p { margin: 0; color: var(--fg-dim); font-size: 0.95rem; }
+
+    .pitch-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
+    @media (min-width: 720px) { .pitch-grid { grid-template-columns: 1fr 1fr 1fr; } }
+    .pitch-item { padding: 1rem; border-left: 3px solid var(--border); }
+    .pitch-item.allowed { border-color: var(--green); }
+    .pitch-item.approval { border-color: var(--orange); }
+    .pitch-item.prohibited { border-color: var(--red); }
+    .pitch-item .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-dim); margin: 0 0 0.5rem; font-family: var(--mono); }
+    .pitch-item h3 { font-size: 0.95rem; margin: 0; }
+    .pitch-item p { margin: 0.25rem 0 0; color: var(--fg-dim); font-size: 0.875rem; }
+
+    .surfaces { display: grid; grid-template-columns: 1fr; gap: 0.5rem; margin-top: 1.5rem; }
+    @media (min-width: 600px) { .surfaces { grid-template-columns: repeat(2, 1fr); } }
+    .surface { padding: 1rem 1.25rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; transition: border-color 120ms; }
+    .surface:hover { border-color: var(--accent); }
+    .surface a { color: var(--fg); display: block; text-decoration: none; }
+    .surface .name { font-weight: 500; font-size: 0.95rem; }
+    .surface .desc { color: var(--fg-dim); font-size: 0.825rem; margin-top: 0.25rem; }
+    .surface .badge { font-family: var(--mono); font-size: 0.7rem; padding: 0.15rem 0.5rem; background: var(--accent-soft); color: var(--accent); border-radius: 999px; margin-left: 0.5rem; vertical-align: middle; }
+
+    footer { margin-top: 6rem; padding-top: 2.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.825rem; color: var(--fg-dim); }
+    footer a { color: var(--fg); border-bottom: 1px dotted var(--fg-dim); }
+    footer a:hover { text-decoration: none; }
+  </style>
 </head>
 <body>
-<main data-agent-entrypoint="true">
-<pre>{"primary":"./llms.txt","manifest":"./.well-known/agentpress.json","machine_entrypoints":"./.well-known/agentpress-machine-entrypoints.json","schemas":"./agentpress/schemas/index.json","feedback_protocol":"./agentpress/feedback/agent-feedback-protocol.json"}</pre>
-<p><a href="./llms.txt">llms.txt</a></p>
-</main>
+  <div class="container">
+    <nav class="top">
+      <span class="brand">AgentPress<span class="dot">.</span></span>
+      <div class="links">
+        <a href="https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md">Spec</a>
+        <a href="./registry/">Registry</a>
+        <a href="https://github.com/barneywohl/agentpress">GitHub</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <h1><em>agents.txt</em><br />for any repo.</h1>
+      <p class="lede">
+        Tell autonomous AI agents what they're allowed to do on your repo, in <strong>60 seconds</strong>. Open standard. MIT licensed. No signup.
+      </p>
+
+      <div class="lineage">
+        <code>robots.txt</code> &nbsp;told crawlers what to crawl.<br />
+        <code>sitemap.xml</code> &nbsp;told search engines what to index.<br />
+        <code>llms.txt</code> &nbsp;told LLMs what to read.<br />
+        <span class="arrow">→</span> <code class="new">agents.txt</code> &nbsp;<span class="new">tells autonomous agents what they're allowed to do.</span>
+      </div>
+
+      <div class="ctas">
+        <a class="cta primary" href="https://github.com/barneywohl/agentpress#install">Get started →</a>
+        <a class="cta ghost" href="https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md">Read the spec</a>
+      </div>
+    </header>
+
+    <section class="install">
+      <h2>Install in one line</h2>
+      <pre><span class="prompt">$</span> npm install -g @agent_press/agentpress
+<span class="prompt">$</span> agentpress init
+<span class="comment"># answer 5 questions, get an agents.txt at your repo root + GitHub Action + README badge</span></pre>
+      <p style="color: var(--fg-dim); font-size: 0.875rem; margin: 0;">Python? <code>pip install agentpress-static</code></p>
+    </section>
+
+    <section>
+      <h2>What an <code>agents.txt</code> declares</h2>
+      <div class="pitch-grid">
+        <div class="pitch-item allowed">
+          <p class="label">Allowed</p>
+          <h3>Agents may do these</h3>
+          <p>Read code, run tests, file PRs, comment on issues.</p>
+        </div>
+        <div class="pitch-item approval">
+          <p class="label">Requires approval</p>
+          <h3>Agents must pause and ask</h3>
+          <p>Schema migrations, billing changes, production deploys.</p>
+        </div>
+        <div class="pitch-item prohibited">
+          <p class="label">Prohibited</p>
+          <h3>Agents must refuse</h3>
+          <p>Secret exfiltration, 2FA bypass, deceptive tracking, spam.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>What you get on day one</h2>
+      <div class="what-grid">
+        <div class="what-item"><span class="num">01</span><h3>The CLI</h3><p><code>agentpress init</code> drops a sensible <code>agents.txt</code> and supporting machine-readable surfaces in your repo.</p></div>
+        <div class="what-item"><span class="num">02</span><h3>The GitHub Action</h3><p><code>agentpress/setup-action@v1</code> validates your contract on every PR, fails CI on misconfig, posts a step summary.</p></div>
+        <div class="what-item"><span class="num">03</span><h3>The README badge</h3><p>One markdown line. Every adopter advertises the standard for free.</p></div>
+        <div class="what-item"><span class="num">04</span><h3>The MCP server</h3><p><code>@agentpress/mcp-server</code> plugs into Claude Code, Cursor, Devin — agents respect contracts natively.</p></div>
+        <div class="what-item"><span class="num">05</span><h3>The VS Code extension</h3><p>Syntax highlighting, snippets, on-save validation. The editor catches mistakes before you commit.</p></div>
+        <div class="what-item"><span class="num">06</span><h3>The browser extension</h3><p>URL-bar badge when a repo or site has an <code>agents.txt</code>. Daily reminder of who's adopted.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>The agents.txt v1.0 surfaces</h2>
+      <div class="surfaces">
+        <div class="surface"><a href="./agents.txt"><span class="name">agents.txt</span><span class="badge">live</span><div class="desc">Our own contract — eat-our-own-food</div></a></div>
+        <div class="surface"><a href="https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md"><span class="name">v1.0 specification</span><span class="badge">draft</span><div class="desc">Section reference, conformance, security</div></a></div>
+        <div class="surface"><a href="https://www.npmjs.com/package/@agent_press/agentpress"><span class="name">@agent_press/agentpress</span><span class="badge">npm</span><div class="desc">The CLI: init, lint, doctor, receipt</div></a></div>
+        <div class="surface"><a href="https://pypi.org/project/agentpress-static/"><span class="name">agentpress-static</span><span class="badge">pip</span><div class="desc">Python CLI mirror</div></a></div>
+        <div class="surface"><a href="https://github.com/barneywohl/agentpress/tree/main/packages/core"><span class="name">@agentpress/core</span><span class="badge">npm</span><div class="desc">Zero-dep TypeScript parser library</div></a></div>
+        <div class="surface"><a href="https://github.com/barneywohl/agentpress/tree/main/python-core"><span class="name">agentpress-core</span><span class="badge">pip</span><div class="desc">Mirror Python parser, stdlib only</div></a></div>
+        <div class="surface"><a href="https://github.com/barneywohl/agentpress/tree/main/actions/setup-action"><span class="name">agentpress/setup-action</span><span class="badge">GH Action</span><div class="desc">CI lint with step-summary report</div></a></div>
+        <div class="surface"><a href="https://github.com/barneywohl/agentpress/tree/main/extensions/vscode"><span class="name">VS Code extension</span><span class="badge">marketplace</span><div class="desc">Syntax + snippets + on-save lint</div></a></div>
+        <div class="surface"><a href="https://github.com/barneywohl/agentpress/tree/main/extensions/browser"><span class="name">Browser extension</span><span class="badge">chrome + ff</span><div class="desc">URL-bar inspector for any site</div></a></div>
+        <div class="surface"><a href="https://github.com/barneywohl/agentpress/tree/main/packages/mcp-server"><span class="name">@agentpress/mcp-server</span><span class="badge">npm</span><div class="desc">MCP server for Claude Code, Cursor, Devin</div></a></div>
+        <div class="surface"><a href="./registry/"><span class="name">Registry</span><span class="badge">curated</span><div class="desc">Repos that publish an agents.txt</div></a></div>
+        <div class="surface"><a href="https://github.com/barneywohl/agentpress/blob/main/docs/BADGE.md"><span class="name">README badge</span><span class="badge">free</span><div class="desc">Show your adoption</div></a></div>
+      </div>
+    </section>
+
+    <footer>
+      <span>MIT licensed. Spec is free to fork, embed, extend.</span>
+      <span>Made by <a href="https://github.com/barneywohl">@barneywohl</a> · <a href="https://github.com/barneywohl/agentpress">contribute</a></span>
+    </footer>
+  </div>
 </body>
 </html>
