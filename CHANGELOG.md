@@ -1,5 +1,70 @@
 # Changelog
 
+## 1.0.0-rc.2 — 2026-05-13
+
+The "make the README real" release candidate. v1.0.0-rc.1 published the
+spec, parsers, GitHub Action, extensions, MCP server, registry, and a
+clean npm package — but shipped the legacy 10,709-line Python CLI
+unchanged, so the four README-promised verbs (init/lint/doctor/receipt)
+either didn't exist or did the wrong thing. rc.2 fixes that.
+
+### Added — Node CLI
+- `bin/agentpress.js` real entry point with clean top help (no v0.x bloat)
+- `bin/lib/init.js` interactive wizard (5 prompts + auto-detect; --non-interactive flag)
+- `bin/lib/lint.js` validates agents.txt via `@agent_press/core`; --json, --strict
+- `bin/lib/doctor.js` 9-point repo health check; --json
+- `bin/lib/receipt.js` content-addressed receipt (sha256 of agents.txt bytes)
+- `bin/lib/legacy.js` forwards to scripts/agentpress.py with one-time banner
+- `bin/lib/{exit_codes,paths,detect,prompts,template}.js` shared modules
+- `tests/cli.test.mjs` 16 e2e tests using node:test
+
+### Added — Python CLI
+- `agentpress_cli/cli.py` real entry point (replacing the 8-line shim)
+- `agentpress_cli/_{exit_codes,paths,detect,prompts,template,init,lint,doctor,receipt,legacy,version}.py`
+  mirror the Node modules exactly
+- Uses `agentpress-core` (Python parser) — declared as runtime dep in pyproject.toml
+- `tests/test_cli_python.py` 15 e2e tests using pytest
+- Cross-language verified: Node + Python produce identical sha256 for same input
+
+### Added — parser edge cases
+- `packages/core/test/edge-cases.test.mjs` (15 tests)
+- `python-core/tests/test_edge_cases.py` (15 tests)
+- Covers: UTF-8 BOM, CRLF, trailing whitespace, mixed tabs/spaces around =,
+  empty file, only [meta], unknown sections, unknown spec_version,
+  section header case, comment-only lines, inline #, large lists,
+  comma-list whitespace, SPEC_VERSION constant
+
+### Fixed — parser
+- `agentpress-core` Python: strip UTF-8 BOM (U+FEFF) at file start
+  (Python `str.strip()` doesn't remove it; JS `.trim()` does). One-line fix.
+
+### Added — CI
+- Full matrix: Mac/Linux/Windows × Node 18/20/22 × Python 3.10–3.13
+- Cross-language receipt-parity job (Node and Python sha256 must match)
+- npm tarball size budget hard fail at > 500 KB
+- MCP server boot smoke test
+- Install hygiene tests (no postinstall side effects)
+
+### Changed — docs
+- README.md verified: every command works on a fresh install
+- agentpress/QUICKSTART.md rewritten for v1.0 (was full of v0.x `llms-init` references)
+- agentpress/FULL_REFERENCE.md rewritten as a v1.0 reference (was 650 lines of v0.x)
+
+### Versions bumped
+- @agent_press/agentpress  1.0.0-rc.1 → 1.0.0-rc.2
+- @agent_press/core        1.0.0-rc.1 → 1.0.0-rc.2 (parser BOM fix)
+- @agent_press/mcp-server  1.0.0-rc.1 → 1.0.0-rc.2 (dep on core)
+- agentpress-static        1.0.0rc1   → 1.0.0rc2
+- agentpress-core          1.0.0rc1   → 1.0.0rc2
+
+### Test counts
+- 16 Node CLI + 15 Python CLI + 37 TS parser + 37 Python parser + 5 install hygiene = **110 tests**, all green.
+
+### Release gate
+- rc.2 publishes to `next` dist-tag; existing 0.2.0 users on `latest` unaffected.
+- Promotion to `latest` (and bump to 1.0.0 final) follows after Phase H/I in V1_RC2_GOAL.md:
+  full smoke suite vs published artifacts + burn-in.
+
 ## 1.0.0-rc.1 — 2026-05-13
 
 The "real launch" release candidate. Strip + sharpen + ship.
