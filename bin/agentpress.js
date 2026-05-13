@@ -1,69 +1,76 @@
 #!/usr/bin/env node
-const { spawnSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
-const script = path.resolve(__dirname, '..', 'scripts', 'agentpress.py');
-const py = process.env.PYTHON || 'python3';
-const argv = process.argv.slice(2);
+'use strict';
 
-function printStart() {
-  const copyPasteBlock = [
-    'agentpress start --json',
-    'agentpress doctor --json',
-    'agentpress package-verify --json',
-  ].join('\n');
-  const successCriteria = [
-    { step: 1, name: 'start', proves: 'CLI entrypoint runs', check: 'exit code 0' },
-    { step: 2, name: 'doctor', proves: 'Health check passes', check: 'exit code 0' },
-    { step: 3, name: 'package-verify', proves: 'Package integrity verified', check: 'exit code 0' },
-  ];
-  const pkgPath = path.resolve(__dirname, '..', 'package.json');
-  let pkg = {};
-  try {
-    pkg = require(pkgPath);
-  } catch (_) {}
-  console.log(JSON.stringify({
-    schema_version: '2026-05-06.agentpress-start.v1',
-    status: 'ok',
-    copy_paste_block: copyPasteBlock,
-    success_criteria: successCriteria,
-    npm_package: pkg.name || '@agent_press/agentpress',
-    npm_version: pkg.version || 'unknown',
-  }, null, 2));
+const EXIT = require('./lib/exit_codes');
+const pkg = require('../package.json');
+
+const VERBS = {
+  init:    require('./lib/init'),
+  lint:    require('./lib/lint'),
+  doctor:  require('./lib/doctor'),
+  receipt: require('./lib/receipt'),
+  legacy:  require('./lib/legacy'),
+};
+
+function topHelp() {
+  process.stdout.write(`AgentPress v${pkg.version} — agents.txt for any repo
+
+Usage: agentpress <command> [options]
+
+Commands:
+  init        Drop an agents.txt at your repo root in under a minute.
+  lint        Validate an agents.txt against the v1.0 spec.
+  doctor      Run a health check on your repo's v1.0 surface.
+  receipt     Generate a content-addressed proof receipt.
+  legacy      Forward to the v0.x command surface (deprecation banner).
+
+Options:
+  -h, --help          Show this help.
+  -v, --version       Print version (${pkg.version}).
+
+Docs: https://github.com/barneywohl/agentpress
+Spec: https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md
+`);
 }
 
-if (argv.includes('--version') || argv.includes('-v')) {
-  const pkg = require(path.resolve(__dirname, '..', 'package.json'));
-  console.log(pkg.version || '0.0.0');
-  process.exit(0);
-}
+async function main() {
+  const argv = process.argv.slice(2);
 
-if (argv.length === 0 || argv.includes('--help') || argv.includes('-h')) {
-  if (!fs.existsSync(script)) {
-    console.error(`Error: Python script not found at ${script}`);
-    process.exit(1);
+  if (argv.length === 0 || argv[0] === '-h' || argv[0] === '--help') {
+    topHelp();
+    return EXIT.OK;
   }
-  const result = spawnSync(py, [script, '--help'], { stdio: 'inherit' });
-  if (result.error) {
-    console.error(result.error.message);
-    process.exit(1);
+  if (argv[0] === '-v' || argv[0] === '--version') {
+    process.stdout.write(`${pkg.version}\n`);
+    return EXIT.OK;
   }
-  process.exit(result.status === null ? 1 : result.status);
+
+  const cmd = argv[0];
+  const rest = argv.slice(1);
+
+  if (!VERBS[cmd]) {
+    process.stderr.write(`Unknown command '${cmd}'. See \`agentpress --help\`.\n`);
+    return EXIT.ERRORS_FOUND;
+  }
+
+  const fn = cmd === 'init' ? VERBS[cmd].runInit
+           : cmd === 'lint' ? VERBS[cmd].runLint
+           : cmd === 'doctor' ? VERBS[cmd].runDoctor
+           : cmd === 'receipt' ? VERBS[cmd].runReceipt
+           : cmd === 'legacy' ? VERBS[cmd].runLegacy
+           : null;
+
+  return await fn(rest);
 }
 
-if (argv[0] === 'start' && argv.includes('--json') && !fs.existsSync(script)) {
-  printStart();
-  process.exit(0);
-}
-
-if (!fs.existsSync(script)) {
-  console.error(`Error: Python script not found at ${script}`);
-  process.exit(1);
-}
-
-const result = spawnSync(py, [script, ...argv], { stdio: 'inherit' });
-if (result.error) {
-  console.error(result.error.message);
-  process.exit(1);
-}
-process.exit(result.status === null ? 1 : result.status);
+main()
+  .then((code) => process.exit(code ?? EXIT.OK))
+  .catch((err) => {
+    process.stderr.write(`Internal error: ${err && err.message ? err.message : err}\n`);
+    if (process.env.AGENTPRESS_DEBUG === '1') {
+      process.stderr.write((err && err.stack ? err.stack : String(err)) + '\n');
+    } else {
+      process.stderr.write(`(set AGENTPRESS_DEBUG=1 for stack trace)\n`);
+    }
+    process.exit(EXIT.STRICT_OR_INTERNAL);
+  });
