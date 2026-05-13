@@ -9,7 +9,7 @@ import urllib.request
 from dataclasses import dataclass, field
 from typing import Literal, Optional, Union
 
-__version__ = "1.0.0rc2"
+__version__ = "1.0.0"
 
 SPEC_VERSION = "1.0"
 SUPPORTED_VERSIONS = {"1.0"}
