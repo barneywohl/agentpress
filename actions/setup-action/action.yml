@@ -1,0 +1,48 @@
+name: 'AgentPress'
+description: 'Validate agents.txt v1.0 in your repo. Fails CI if the contract is malformed or missing required sections.'
+author: 'AgentPress (barneywohl)'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  file:
+    description: 'Path to the agents.txt file (default: ./agents.txt at repo root)'
+    required: false
+    default: 'agents.txt'
+  fail-on-warnings:
+    description: 'Fail the job if validator emits warnings (in addition to errors)'
+    required: false
+    default: 'false'
+  json-output:
+    description: 'Print validation report as JSON (in addition to human-readable summary)'
+    required: false
+    default: 'false'
+
+outputs:
+  ok:
+    description: '"true" if agents.txt is valid; "false" otherwise'
+    value: ${{ steps.validate.outputs.ok }}
+  errors:
+    description: 'Number of errors found'
+    value: ${{ steps.validate.outputs.errors }}
+  warnings:
+    description: 'Number of warnings found'
+    value: ${{ steps.validate.outputs.warnings }}
+  spec-version:
+    description: 'agents.txt spec version declared in [meta]'
+    value: ${{ steps.validate.outputs.spec_version }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Validate agents.txt
+      id: validate
+      shell: bash
+      env:
+        AGENTSTXT_FILE: ${{ inputs.file }}
+        AGENTSTXT_FAIL_ON_WARNINGS: ${{ inputs.fail-on-warnings }}
+        AGENTSTXT_JSON: ${{ inputs.json-output }}
+      run: |
+        set -e
+        node "${GITHUB_ACTION_PATH}/validator.js" "${AGENTSTXT_FILE}"
