@@ -1,0 +1,50 @@
+{
+  "name": "@agentpress/core",
+  "version": "1.0.0-rc.1",
+  "description": "Zero-dependency parser and validator for agents.txt v1.0. The reference TypeScript implementation.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json",
+    "test": "node --test test/*.test.mjs",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "agents.txt",
+    "agentpress",
+    "ai-agents",
+    "parser",
+    "validator"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/barneywohl/agentpress/tree/main/packages/core",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barneywohl/agentpress.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/barneywohl/agentpress/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
