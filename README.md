@@ -1,66 +1,66 @@
 # AgentPress
 
-Make any repo readable by autonomous agents in under 60 seconds.
+> `robots.txt` told crawlers what to crawl.
+> `llms.txt` told LLMs what to read.
+> **`agents.txt` tells autonomous AI agents what they're allowed to do.**
 
-> **Package identity:** the public npm package is `@agent_press/agentpress` (with the underscore). It is not `@agentpress/agentpress`, and it is not the unrelated/private `docs.agent.press` beta package family. If a browser or LLM says this package is private or missing, verify with `npm view @agent_press/agentpress dist-tags --json`.
+AgentPress drops an `agents.txt` and the supporting machine-readable surfaces into any repo in **under 60 seconds**, so coding agents (Claude Code, Cursor, Devin, Aider, Continue, Replit Agent) know what's allowed, what's prohibited, and what requires human approval.
 
 ## Install
 
 ```bash
-npm install -g @agent_press/agentpress@rc
-agentpress doctor --json
-agentpress lint . --json
+npm install -g @agent_press/agentpress
+agentpress init
 ```
-
-Pinned release candidate example:
-
-```bash
-npm i @agent_press/agentpress@0.2.0-rc.6
-```
-
-That command installs exactly `@agent_press/agentpress` version `0.2.0-rc.6`, adds it to your project dependencies, and exposes the `agentpress` CLI from `bin/agentpress.js`. This package has no `postinstall` script; installing it should not publish, deploy, contact private services, or mutate anything outside normal npm dependency installation.
 
 Python fallback:
-
 ```bash
 pip install agentpress-static
-agentpress doctor --json
-agentpress lint . --json
+agentpress init
 ```
 
-## What it is
+## What `agentpress init` does
 
-`@agent_press/agentpress` is a public, static-first toolkit for making repositories easier for autonomous coding/research agents to understand and validate. It publishes a small, machine-readable surface for agents:
+In one interactive minute it adds:
 
-- `llms.txt` — first-read instructions
-- `.well-known/agentpress.json` — agent entrypoint map
-- `.well-known/ai-ingestion.json` — crawler/agent ingestion policy
-- `agentpress/agent-instructions.json` — agent operating contract
-- `agentpress/schemas/index.json` — schema index
-- schema validation, receipts, proof packs, and CLI gates
+- **`agents.txt`** at the repo root — the human + machine-readable contract
+- **`.well-known/agentpress.json`** — structured entrypoint map for tools
+- **`.well-known/ai-ingestion.json`** — crawler/agent ingestion policy
+- **`agentpress/agent-instructions.json`** — operating contract with allowed/prohibited/requires-human-approval boundaries
+- **GitHub Action template** — CI lint that fails PRs which violate the contract
+- **README badge** — proof of adoption that links back to AgentPress
 
-## Try the consumer demo
+## CLI
 
-```bash
-python3 scripts/agentpress.py doctor --json
-python3 agentpress/demos/consumer/consumer_demo.py
-```
+| Command | What it does |
+|---|---|
+| `agentpress init` | Interactive wizard to drop `agents.txt` + supporting files |
+| `agentpress lint .` | Validate the agent-readable surfaces; CI-friendly (exit 0/1, `--json`) |
+| `agentpress doctor` | Health check — verify install, files, schema validity |
+| `agentpress receipt` | Generate a cryptographic proof receipt that an agent ran a check |
 
-AgentPress also supports `landing-receipt` proof receipts for adoption evidence.
+## The safety contract
 
-## Current live endpoints
+Every `agents.txt` declares three sets of actions:
 
-- Site: https://agentpress.pages.dev/
-- npm: https://www.npmjs.com/package/@agent_press/agentpress
-- npm metadata check: `npm view @agent_press/agentpress dist-tags version --json`
-- PyPI: https://pypi.org/project/agentpress-static/
-- Full reference: `agentpress/FULL_REFERENCE.md`
-- Quickstart: `agentpress/QUICKSTART.md`
+- **Allowed** — agents may do these without asking. (read code, run tests, file PRs)
+- **Requires human approval** — agents must pause for sign-off. (schema migrations, billing changes, deploys)
+- **Prohibited** — agents must refuse. (secret exfiltration, deceptive tracking, bypassing 2FA)
 
-## Safety boundary
+This is the contract. AgentPress generates it, validates it, and gives you receipts.
 
-Allowed: read public files, validate schemas, summarize, cite, transform, prepare local patches, and create pull requests.
+## Why now
 
-Requires human approval: external posts, registry publishes, production deploys, private data access, billing, phone, captcha, and 2FA flows.
+Coding agents are landing PRs in 2026. Most repos have no machine-readable answer to "what's safe?" `agents.txt` is the answer — same lineage as `robots.txt`, `sitemap.xml`, `llms.txt`. Adopt early, sleep better.
 
-Prohibited: secret exfiltration, deceptive tracking, spam, bypassing paywalls/captchas/2FA, impersonation, or unauthorized external writes.
+## Live endpoints
+
+- Site: <https://agentpress.pages.dev/>
+- npm: <https://www.npmjs.com/package/@agent_press/agentpress>
+- PyPI: <https://pypi.org/project/agentpress-static/>
+- Spec: [`agentpress/QUICKSTART.md`](agentpress/QUICKSTART.md)
+- Full reference: [`agentpress/FULL_REFERENCE.md`](agentpress/FULL_REFERENCE.md)
+
+## License
+
+MIT. See [LICENSE](LICENSE).

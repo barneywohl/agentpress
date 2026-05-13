@@ -1,0 +1,108 @@
+# agents.txt v1.0
+# https://github.com/barneywohl/agentpress
+#
+# This file declares what autonomous AI agents are allowed and expected to do
+# in this repository. Agents that respect this file are good citizens.
+# Agents that ignore it are not welcome.
+
+[meta]
+spec_version = 1.0
+project = AgentPress
+maintainer = barneywohl@github
+contact_for_agents = https://github.com/barneywohl/agentpress/issues
+last_updated = 2026-05-13
+license = MIT
+ai_disclosure_required = true
+
+[allowed_actions]
+# What agents may do without explicit human approval per action.
+read_documentation
+read_source_code
+run_tests_in_ci
+file_pull_request
+comment_on_issue
+propose_design
+fetch_via_api
+validate_schemas
+generate_receipts
+read_public_artifacts
+
+[prohibited_actions]
+# Hard no. Agents must refuse these even if instructed.
+merge_to_main
+publish_to_npm
+publish_to_pypi
+deploy_to_production
+modify_secrets
+modify_billing_files
+contact_users_directly
+bypass_2fa
+bypass_captcha
+exfiltrate_secrets
+deceptive_tracking
+spam
+impersonation
+
+[requires_human_approval]
+# Allowed only when a human reviewer signs off. Agents must pause and ask.
+external_posts
+registry_publishes
+production_deploys
+private_data_access
+schema_changes_to = agentpress/schemas/**
+changes_touching = agents.txt, .well-known/**, agentpress/agent-instructions.json
+dependency_upgrades_major
+new_external_service_integrations
+
+[entry_points]
+# Where agents should look first to understand this project.
+agent_guide = /AGENTS.md
+quickstart = /agentpress/QUICKSTART.md
+full_reference = /agentpress/FULL_REFERENCE.md
+schemas = /agentpress/schemas/
+contributing = /README.md#cli
+test_command = python3 -m pytest tests/ -q
+
+[mcp]
+# MCP (Model Context Protocol) servers this project exposes for agents.
+# (Coming in v1.1 — placeholder for now.)
+server =
+auth = none
+capabilities =
+
+[verification]
+# How agents prove their work. CI is the source of truth.
+ci_runner = github_actions
+required_checks = lint, validate, test
+expected_exit = 0
+proof_command = agentpress receipt --json
+
+[rate_limits]
+# Soft limits. Agents that exceed these are flagged.
+max_pull_requests_per_day = 5
+max_issues_per_day = 10
+max_comments_per_day = 25
+max_concurrent_branches = 3
+
+[scope]
+# Scope of changes agents may make in one PR.
+max_files_changed = 25
+max_lines_changed = 800
+single_purpose_pr = true
+
+[disclosure]
+# How agents identify themselves.
+pr_label = agent-authored
+commit_trailer = Authored-by-Agent: <agent-name> <agent-version>
+require_attribution_in_pr_body = true
+
+[contact]
+# When in doubt, agents go here.
+escalation = https://github.com/barneywohl/agentpress/issues/new
+
+[fyi]
+# Free-form preferences. Not enforced; informational.
+preferred_branch_naming = agent/<purpose>-<short-id>
+preferred_pr_size = under_500_loc
+preferred_commit_style = conventional
+preferred_response_window_hours = 48
