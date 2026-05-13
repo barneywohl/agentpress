@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>agents.txt registry — AgentPress</title>
+  <meta name="description" content="Curated index of public repositories that publish an agents.txt v1.0 contract." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='0' y='14' font-size='14'%3E📜%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --bg-card: #14171c;
+      --fg: #e5e7eb;
+      --fg-dim: #9ca3af;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.12);
+      --border: #1f2630;
+      --mono: ui-monospace, "Berkeley Mono", "JetBrains Mono", "Menlo", monospace;
+      --serif: "Spectral", "Fraunces", Georgia, serif;
+      --sans: "Inter", "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    }
+    @media (prefers-color-scheme: light) {
+      :root { --bg: #fafafa; --bg-card: #ffffff; --fg: #0b0d10; --fg-dim: #525864; --border: #e5e7eb; --accent-soft: rgba(37, 99, 235, 0.08); }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 940px; margin: 0 auto; padding: 4rem 1.25rem 6rem; }
+    header h1 { font-family: var(--serif); font-size: 2.5rem; line-height: 1.1; margin: 0 0 0.5rem; font-weight: 600; }
+    header p.lede { font-size: 1.125rem; color: var(--fg-dim); margin: 0 0 0.25rem; }
+    header p.crumbs { font-size: 0.875rem; color: var(--fg-dim); font-family: var(--mono); margin: 1.5rem 0 0; }
+    header p.crumbs a { color: var(--fg); border-bottom: 1px dotted var(--fg-dim); }
+    .stat-row { display: flex; gap: 2rem; margin: 2rem 0 3rem; padding: 1rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stat { display: flex; flex-direction: column; }
+    .stat .num { font-family: var(--serif); font-size: 1.75rem; font-weight: 600; }
+    .stat .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-dim); margin-top: 0.25rem; }
+    .filters { display: flex; gap: 0.5rem; margin: 0 0 1.5rem; flex-wrap: wrap; }
+    .filter { padding: 0.4rem 0.85rem; border: 1px solid var(--border); border-radius: 999px; background: transparent; color: var(--fg-dim); font-size: 0.875rem; cursor: pointer; font-family: var(--sans); }
+    .filter.active { background: var(--accent-soft); border-color: var(--accent); color: var(--fg); }
+    ul.entries { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 720px) { ul.entries { grid-template-columns: 1fr 1fr; } }
+    li.entry { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 120ms; }
+    li.entry:hover { border-color: var(--accent); }
+    .entry h3 { font-family: var(--serif); font-size: 1.25rem; margin: 0 0 0.25rem; }
+    .entry h3 a { color: var(--fg); }
+    .entry .repo { font-family: var(--mono); font-size: 0.875rem; color: var(--fg-dim); margin: 0 0 0.75rem; }
+    .entry .desc { font-size: 0.95rem; line-height: 1.5; margin: 0 0 1rem; }
+    .entry .meta { display: flex; gap: 0.75rem; flex-wrap: wrap; font-size: 0.75rem; color: var(--fg-dim); }
+    .entry .meta .pill { padding: 0.2rem 0.55rem; background: var(--accent-soft); border-radius: 999px; color: var(--accent); }
+    .entry .actions { display: flex; gap: 0.75rem; margin-top: 1rem; font-size: 0.875rem; }
+    footer { margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--border); font-size: 0.875rem; color: var(--fg-dim); }
+    footer a { color: var(--fg); border-bottom: 1px dotted var(--fg-dim); }
+    .empty { padding: 3rem; text-align: center; color: var(--fg-dim); border: 1px dashed var(--border); border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <p class="crumbs"><a href="/">AgentPress</a> / registry</p>
+      <h1>The agents.txt registry</h1>
+      <p class="lede">Curated index of repos that publish an <code>agents.txt</code> v1.0 contract.</p>
+      <p style="color:var(--fg-dim); margin: 0.5rem 0 0;">→ <a href="https://github.com/barneywohl/agentpress/blob/main/registry/README.md">How to add yours</a></p>
+    </header>
+
+    <div class="stat-row" id="stats">
+      <div class="stat"><span class="num" id="stat-total">—</span><span class="label">Repos</span></div>
+      <div class="stat"><span class="num" id="stat-categories">—</span><span class="label">Categories</span></div>
+      <div class="stat"><span class="num" id="stat-stars">—</span><span class="label">Combined stars</span></div>
+    </div>
+
+    <div class="filters" id="filters"></div>
+    <ul class="entries" id="entries"></ul>
+
+    <footer>
+      <p>The registry is curated. Inclusion is a courtesy, not an endorsement. Data lives in <a href="https://github.com/barneywohl/agentpress/blob/main/registry/registry.json">registry.json</a> on GitHub. CC0.</p>
+      <p>Spec: <a href="https://github.com/barneywohl/agentpress/blob/main/docs/AGENTSTXT_SPEC.md">agents.txt v1.0</a> · Source: <a href="https://github.com/barneywohl/agentpress">barneywohl/agentpress</a></p>
+    </footer>
+  </div>
+
+  <script>
+    (async function () {
+      const entriesEl = document.getElementById('entries');
+      const filtersEl = document.getElementById('filters');
+      let activeCategory = 'all';
+      let allEntries = [];
+
+      try {
+        const res = await fetch('./registry.json', { cache: 'no-cache' });
+        const data = await res.json();
+        allEntries = data.entries || [];
+      } catch (e) {
+        entriesEl.innerHTML = '<li class="empty">Could not load registry.json. Check back shortly.</li>';
+        return;
+      }
+
+      // Stats
+      const total = allEntries.length;
+      const categories = new Set(allEntries.map((e) => e.category).filter(Boolean));
+      const stars = allEntries.reduce((acc, e) => acc + (e.stars_at_listing || 0), 0);
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-categories').textContent = categories.size;
+      document.getElementById('stat-stars').textContent = stars.toLocaleString();
+
+      // Filters
+      const cats = ['all', ...Array.from(categories).sort()];
+      filtersEl.innerHTML = cats.map((c) => `<button class="filter ${c === activeCategory ? 'active' : ''}" data-cat="${c}">${c}</button>`).join('');
+      filtersEl.addEventListener('click', (e) => {
+        const t = e.target.closest('button.filter');
+        if (!t) return;
+        activeCategory = t.dataset.cat;
+        for (const b of filtersEl.querySelectorAll('.filter')) b.classList.toggle('active', b.dataset.cat === activeCategory);
+        render();
+      });
+
+      function render() {
+        const list = activeCategory === 'all' ? allEntries : allEntries.filter((e) => e.category === activeCategory);
+        if (list.length === 0) {
+          entriesEl.innerHTML = '<li class="empty">No entries in this category yet.</li>';
+          return;
+        }
+        entriesEl.innerHTML = list.map((entry) => `
+          <li class="entry">
+            <h3><a href="${entry.url}">${entry.name}</a></h3>
+            <p class="repo">${entry.repo}</p>
+            <p class="desc">${entry.description || ''}</p>
+            <div class="meta">
+              ${entry.category ? `<span class="pill">${entry.category}</span>` : ''}
+              ${entry.language ? `<span>${entry.language}</span>` : ''}
+              ${typeof entry.stars_at_listing === 'number' ? `<span>★ ${entry.stars_at_listing.toLocaleString()}</span>` : ''}
+            </div>
+            <div class="actions">
+              <a href="${entry.url}">Repo →</a>
+              <a href="${entry.agents_txt}">View agents.txt →</a>
+            </div>
+          </li>
+        `).join('');
+      }
+
+      render();
+    })();
+  </script>
+</body>
+</html>

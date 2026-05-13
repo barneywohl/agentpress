@@ -1,5 +1,7 @@
 # AgentPress
 
+[![agents.txt](https://img.shields.io/badge/agents.txt-v1.0-2563eb?style=flat-square&logo=githubactions&logoColor=white)](https://github.com/barneywohl/agentpress) [![npm](https://img.shields.io/npm/v/@agent_press/agentpress?style=flat-square)](https://www.npmjs.com/package/@agent_press/agentpress) [![PyPI](https://img.shields.io/pypi/v/agentpress-static?style=flat-square)](https://pypi.org/project/agentpress-static/) [![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
+
 > `robots.txt` told crawlers what to crawl.
 > `llms.txt` told LLMs what to read.
 > **`agents.txt` tells autonomous AI agents what they're allowed to do.**
@@ -53,13 +55,25 @@ This is the contract. AgentPress generates it, validates it, and gives you recei
 
 Coding agents are landing PRs in 2026. Most repos have no machine-readable answer to "what's safe?" `agents.txt` is the answer — same lineage as `robots.txt`, `sitemap.xml`, `llms.txt`. Adopt early, sleep better.
 
+## Add the badge
+
+Once you've run `agentpress init`, drop the badge into your README:
+
+```markdown
+[![agents.txt](https://img.shields.io/badge/agents.txt-v1.0-2563eb?style=flat-square&logo=githubactions&logoColor=white)](https://github.com/barneywohl/agentpress)
+```
+
+→ See [docs/BADGE.md](docs/BADGE.md) for variants. Then [submit yours to the registry](registry/README.md).
+
 ## Live endpoints
 
 - Site: <https://agentpress.pages.dev/>
 - npm: <https://www.npmjs.com/package/@agent_press/agentpress>
 - PyPI: <https://pypi.org/project/agentpress-static/>
-- Spec: [`agentpress/QUICKSTART.md`](agentpress/QUICKSTART.md)
-- Full reference: [`agentpress/FULL_REFERENCE.md`](agentpress/FULL_REFERENCE.md)
+- Spec: [`docs/AGENTSTXT_SPEC.md`](docs/AGENTSTXT_SPEC.md)
+- Registry: [`registry/`](registry/) (live: <https://agentpress.pages.dev/registry/>)
+- GitHub Action: [`actions/setup-action`](actions/setup-action/)
+- Reference parsers: [`@agentpress/core` (TS)](packages/core/) · [`agentpress-core` (Python)](python-core/)
 
 ## License
 
