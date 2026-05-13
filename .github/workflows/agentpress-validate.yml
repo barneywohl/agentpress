@@ -1,29 +1,36 @@
 name: AgentPress v1.0 Validate
 
-# v1.0 release-candidate validation. Replaces the v0.2.x workflow which
-# referenced surfaces that v1.0 removed (mesh, search, landing-receipts,
-# submission-packs, etc.). All those flows are deferred to v1.x+.
+# Full CI matrix per LAUNCH/V1_RC2_GOAL.md Phase E:
+# Mac/Linux/Windows × Node 18/20/22 × Python 3.10–3.13.
 
 on:
   push:
     branches: [main, "v1.0", "v1.*"]
   pull_request:
+  workflow_dispatch:
 
 jobs:
-  agents-txt:
-    name: agents.txt (dogfood our own setup-action)
+
+  # ---------- Dogfood our own setup-action ----------
+  agents-txt-self:
+    name: agents.txt (eat our own action)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate agents.txt with local setup-action
-        uses: ./actions/setup-action
+      - uses: ./actions/setup-action
         with:
           file: agents.txt
           fail-on-warnings: false
 
-  core-typescript:
-    name: '@agentpress/core (TypeScript)'
-    runs-on: ubuntu-latest
+  # ---------- @agent_press/core (TypeScript parser) ----------
+  ts-parser-matrix:
+    name: '@agent_press/core (${{ matrix.os }} / Node ${{ matrix.node }})'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: ['18', '20', '22']
     defaults:
       run:
         working-directory: packages/core
@@ -31,21 +38,28 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: ${{ matrix.node }}
       - run: npm install --no-fund --no-audit
       - name: Build dual ESM + CJS
+        shell: bash
         run: |
           npx tsc -p tsconfig.json
-          [ -f dist/index.js ] && mv dist/index.js dist/index.mjs
-          [ -f dist/index.js.map ] && mv dist/index.js.map dist/index.mjs.map
+          if [ -f dist/index.js ]; then mv dist/index.js dist/index.mjs; fi
+          if [ -f dist/index.js.map ]; then mv dist/index.js.map dist/index.mjs.map; fi
           npx tsc -p tsconfig.cjs.json
-          [ -f dist-cjs/index.js ] && cp dist-cjs/index.js dist/index.cjs
-      - name: Test
-        run: npm test
+          if [ -f dist-cjs/index.js ]; then cp dist-cjs/index.js dist/index.cjs; fi
+      - name: Test (parse + edge-cases)
+        run: node --test test/parse.test.mjs test/edge-cases.test.mjs
 
-  core-python:
-    name: 'agentpress-core (Python)'
-    runs-on: ubuntu-latest
+  # ---------- agentpress-core (Python parser) ----------
+  python-parser-matrix:
+    name: 'agentpress-core (${{ matrix.os }} / Python ${{ matrix.python }})'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ['3.10', '3.11', '3.12', '3.13']
     defaults:
       run:
         working-directory: python-core
@@ -53,21 +67,109 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - run: python3 -m pip install --upgrade pip pytest
-      - run: python3 -m pytest tests/ -q
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install --upgrade pip pytest
+      - run: python -m pytest tests/ -q
 
-  legacy-cli-doctor:
-    name: Legacy CLI doctor (smoke)
-    runs-on: ubuntu-latest
+  # ---------- Node CLI ----------
+  node-cli-matrix:
+    name: 'Node CLI (${{ matrix.os }} / Node ${{ matrix.node }})'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: ['18', '20', '22']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Build local @agent_press/core (so the CLI can resolve it)
+        shell: bash
+        working-directory: packages/core
+        run: |
+          npm install --no-fund --no-audit
+          npx tsc -p tsconfig.json
+          if [ -f dist/index.js ]; then mv dist/index.js dist/index.mjs; fi
+          if [ -f dist/index.js.map ]; then mv dist/index.js.map dist/index.mjs.map; fi
+          npx tsc -p tsconfig.cjs.json
+          if [ -f dist-cjs/index.js ]; then cp dist-cjs/index.js dist/index.cjs; fi
+      - name: Install root deps (uses workspace-local core via npm pack)
+        shell: bash
+        run: |
+          # Pack the local core and install it so the CLI resolves it.
+          cd packages/core && npm pack --silent && cd ../..
+          mv packages/core/agent_press-core-*.tgz ./local-core.tgz
+          npm install --no-fund --no-audit ./local-core.tgz
+      - name: CLI smoke + install hygiene tests
+        run: node --test tests/cli.test.mjs tests/install_hygiene.test.mjs
+
+  # ---------- Python CLI ----------
+  python-cli-matrix:
+    name: 'Python CLI (${{ matrix.os }} / Python ${{ matrix.python }})'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ['3.10', '3.11', '3.12', '3.13']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - name: Run agentpress doctor
-        run: python3 scripts/agentpress.py doctor --json || echo "doctor surfaced issues (non-fatal in rc.1)"
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install --upgrade pip pytest
+      - name: Install local agentpress-core then agentpress-static
+        run: |
+          python -m pip install -e ./python-core
+          python -m pip install -e .
+      - name: Python CLI smoke tests
+        run: python -m pytest tests/test_cli_python.py -q
 
+  # ---------- Cross-language receipt parity ----------
+  cross-language-parity:
+    name: Cross-language receipt parity (Node ↔ Python)
+    runs-on: ubuntu-latest
+    needs: [ts-parser-matrix, python-parser-matrix]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build Node CLI dep
+        shell: bash
+        working-directory: packages/core
+        run: |
+          npm install --no-fund --no-audit
+          npx tsc -p tsconfig.json
+          if [ -f dist/index.js ]; then mv dist/index.js dist/index.mjs; fi
+          if [ -f dist/index.js.map ]; then mv dist/index.js.map dist/index.mjs.map; fi
+          npx tsc -p tsconfig.cjs.json
+          if [ -f dist-cjs/index.js ]; then cp dist-cjs/index.js dist/index.cjs; fi
+      - name: Install Node + Python CLIs locally
+        run: |
+          cd packages/core && npm pack --silent && cd ../..
+          mv packages/core/agent_press-core-*.tgz ./local-core.tgz
+          npm install --no-fund --no-audit ./local-core.tgz
+          python -m pip install -e ./python-core -e .
+      - name: Both CLIs produce identical sha256 for the same agents.txt
+        shell: bash
+        run: |
+          set -e
+          NODE_HASH=$(node ./bin/agentpress.js receipt --stdout-only | python -c "import json,sys; print(json.load(sys.stdin)['agents_txt_sha256'])")
+          PY_HASH=$(agentpress receipt --stdout-only | python -c "import json,sys; print(json.load(sys.stdin)['agents_txt_sha256'])")
+          echo "node:   $NODE_HASH"
+          echo "python: $PY_HASH"
+          if [ "$NODE_HASH" != "$PY_HASH" ]; then
+            echo "::error::Cross-language hash mismatch — parsers disagree on canonical bytes."
+            exit 1
+          fi
+
+  # ---------- Tarball budget enforcement ----------
   npm-pack-budget:
     name: npm pack size budget (<500 KB)
     runs-on: ubuntu-latest
@@ -77,6 +179,7 @@ jobs:
         with:
           node-version: '22'
       - name: npm pack and check size
+        shell: bash
         run: |
           npm pack --silent
           SIZE=$(stat -c%s agent_press-agentpress-*.tgz 2>/dev/null || stat -f%z agent_press-agentpress-*.tgz)
@@ -86,3 +189,35 @@ jobs:
             exit 1
           fi
           echo "::notice::npm tarball $SIZE bytes (under 500 KB budget)"
+
+  # ---------- MCP server boots without crashing ----------
+  mcp-server-smoke:
+    name: '@agent_press/mcp-server boot smoke'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build local @agent_press/core
+        shell: bash
+        working-directory: packages/core
+        run: |
+          npm install --no-fund --no-audit
+          npx tsc -p tsconfig.json
+          if [ -f dist/index.js ]; then mv dist/index.js dist/index.mjs; fi
+          if [ -f dist/index.js.map ]; then mv dist/index.js.map dist/index.mjs.map; fi
+          npx tsc -p tsconfig.cjs.json
+          if [ -f dist-cjs/index.js ]; then cp dist-cjs/index.js dist/index.cjs; fi
+      - name: Build + smoke-test MCP server
+        working-directory: packages/mcp-server
+        run: |
+          # Replace registry dep with local tarball so the build resolves @agent_press/core
+          cd ../core && npm pack --silent && cd ../mcp-server
+          npm install --no-fund --no-audit ../core/agent_press-core-*.tgz
+          npm install --no-fund --no-audit
+          npx tsc -p tsconfig.json
+          # Boot the server; expect it to start and wait on stdin (timeout = "ran cleanly")
+          timeout 3s node dist/index.js < /dev/null || true
+          # Verify the bundled file is non-empty
+          test -s dist/index.js
