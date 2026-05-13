@@ -8,7 +8,7 @@ One row per filed PR. Update daily.
 | 2 | YYYY-MM-DD | anthropics/anthropic-sdk-python | TBD | pending | — | — | Friendly seed |
 | 3 | YYYY-MM-DD | anthropics/anthropic-sdk-typescript | TBD | pending | — | — | Friendly seed |
 | 4 | YYYY-MM-DD | modelcontextprotocol/servers | TBD | pending | — | — | Standards body |
-| 5 | YYYY-MM-DD | AnswerDotAI/llms-txt | TBD | pending | — | — | Lineage courtesy |
+| 5 | 2026-05-13 | AnswerDotAI/llms-txt | https://github.com/AnswerDotAI/llms-txt/pull/121 | filed | — | — | Lineage courtesy |
 | 6 | YYYY-MM-DD | paul-gauthier/aider | TBD | pending | — | — | Single maintainer |
 | 7 | YYYY-MM-DD | continuedev/continue | TBD | pending | — | — | |
 | 8 | YYYY-MM-DD | crewAIInc/crewAI | TBD | pending | — | — | |
